@@ -32,7 +32,9 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.client.message.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.client.model.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
@@ -56,6 +58,7 @@ import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -109,6 +112,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 
 /**
@@ -438,6 +443,23 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		// stronger jumps for easier lift-offs
 		return canFly() ? 1 : super.getJumpUpwardsMotion();
 	}
+	
+	@SideOnly(Side.CLIENT)
+	public void updateBreathingClient() {
+		Minecraft mc = Minecraft.getMinecraft();
+		if(getControllingPlayer() != null) {
+			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+		}
+	}
+	
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (world.isRemote) {
+            this.updateBreathingClient();
+        }
+    }
 
 	@Override
 	public void onLivingUpdate() {

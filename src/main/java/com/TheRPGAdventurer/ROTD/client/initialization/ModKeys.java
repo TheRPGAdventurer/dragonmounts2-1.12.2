@@ -7,7 +7,6 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
 public class ModKeys {
 	
     public static final String KEY_CATEGORY = "key.categories.gameplay";

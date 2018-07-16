@@ -39,7 +39,7 @@ public class DragonBreedWither extends DragonBreed {
     
     @Override
     public SoundEvent getLivingSound() {
-        if (rand.nextInt(2) == 0) {
+        if (rand.nextInt(3) == 0) {
             return SoundEvents.ENTITY_SKELETON_AMBIENT;
         } else {
         	return ModSounds.ENTITY_SKELETON_DRAGON_GROWL;

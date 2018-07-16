@@ -52,7 +52,9 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
         } else if (!entitylivingbase.isEntityAlive()) {
             return false;
         } else if(dragon.isSitting()) {
-        	return false;        
+        	return false;
+        } else if(dragon.getPassengers() != null) {
+        	return false;                
         } else {
             if (canPenalize) {
                 if (--this.delayCounter <= 0) {
@@ -120,11 +122,14 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
      */
     public void updateTask() {
         EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
+        boolean useBreath;
+        boolean useBite;
         this.dragon.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
         double d0 = this.dragon.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
         --this.delayCounter;
 
-        if ((this.longMemory || this.dragon.getEntitySenses().canSee(entitylivingbase)) && this.delayCounter <= 0 && (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D || entitylivingbase.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D || this.dragon.getRNG().nextFloat() < 0.05F)) {
+        if ((this.longMemory || this.dragon.getEntitySenses().canSee(entitylivingbase))) {
+        		if(this.delayCounter <= 0 && (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D || entitylivingbase.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D || this.dragon.getRNG().nextFloat() < 0.05F)) {
             this.targetX = entitylivingbase.posX;
             this.targetY = entitylivingbase.getEntityBoundingBox().minY;
             this.targetZ = entitylivingbase.posZ;
@@ -164,6 +169,8 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
 
         this.attackTick = Math.max(this.attackTick - 1, 0);
         this.checkAndPerformAttack(entitylivingbase, d0);
+        } 
+        
     }
 
 

@@ -73,9 +73,9 @@ public class BreathWeapon {
       if (block.isFlammable(world, sideToIgnite, facing)) {
         int flammability = block.getFlammability(world, sideToIgnite, facing);
         float thresholdForIgnition = convertFlammabilityToHitDensityThreshold(flammability);
-        float thresholdForDestruction = thresholdForIgnition * 10;
+//        float thresholdForDestruction = thresholdForIgnition * 10;
         float densityOfThisFace = currentHitDensity.getHitDensity(facing);
-        if (densityOfThisFace >= thresholdForIgnition && world.isAirBlock(sideToIgnite)) {
+        if (densityOfThisFace >= thresholdForIgnition && world.isAirBlock(sideToIgnite) && thresholdForIgnition != 0) {
           final float MIN_PITCH = 0.8F;
           final float MAX_PITCH = 1.2F;
           final float VOLUME = 1.0F;
@@ -83,9 +83,9 @@ public class BreathWeapon {
                   SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.HOSTILE, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH), false);
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
-        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) > -1.0F) {
-          world.setBlockToAir(pos);
-        }
+     //   if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) < 2 && block.getBlockHardness(iBlockState, world, pos) > 0) {
+     //       world.setBlockToAir(pos);
+     //   }
       }
     }
     
@@ -106,6 +106,10 @@ public class BreathWeapon {
         IBlockState iBlockStateSmelted = world.getBlockState(pos);
          iBlockStateSmelted = smeltedResultBlock.getStateFromMeta(smeltingResult.getMetadata());
       }
+    }
+    
+    if(block.getBlockHardness(iBlockState, world, pos) < 2 && block.getBlockHardness(iBlockState, world, pos) > 0) {    
+    	world.setBlockState(pos, Blocks.AIR.getDefaultState());
     }
 
     if (block1 == Blocks.IRON_ORE) world.setBlockState(pos,  Blocks.IRON_BLOCK.getDefaultState());

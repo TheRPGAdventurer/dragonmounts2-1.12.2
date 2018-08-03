@@ -44,7 +44,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * 2nd @author TheRPGAdventurer
  */
 public class ClientProxy extends ServerProxy {
-    
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {

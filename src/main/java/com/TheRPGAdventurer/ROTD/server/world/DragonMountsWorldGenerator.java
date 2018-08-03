@@ -53,7 +53,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
 			boolean isHills = world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class) || world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class);
 			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
-			if (!BiomeDictionary.hasType(world.getBiome(height), Type.WET) && !BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN) && !BiomeDictionary.hasType(world.getBiome(height), Type.RIVER) || isHills || isSnowy) {
+			if (!BiomeDictionary.hasType(world.getBiome(height), Type.WET) && !BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN) && !BiomeDictionary.hasType(world.getBiome(height), Type.RIVER)) {
 				if (random.nextInt((isHills ? DragonMountsConfig.MainNestRarity : DragonMountsConfig.MainNestRarity * 2) + 1) == 0) {
 					    dragonNest.generate(world, height, random);
 					    Utils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	

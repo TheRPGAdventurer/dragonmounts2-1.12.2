@@ -6,6 +6,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 
 
 public class DragonBreedSkeleton extends DragonBreed {
@@ -15,6 +17,37 @@ public class DragonBreedSkeleton extends DragonBreed {
         
         addImmunity(DamageSource.LIGHTNING_BOLT);
         addImmunity(DamageSource.WITHER);
+    }
+    
+    @Override
+    public boolean isHabitatEnvironment(EntityTameableDragon dragon) {
+        if (dragon.posY > dragon.world.getHeight() * 0.25) {
+            // woah dude, too high!
+            return false;
+        }
+
+        int bx = MathHelper.floor(dragon.posX);
+        int by = MathHelper.floor(dragon.posY);
+        int bz = MathHelper.floor(dragon.posZ);
+
+        BlockPos blockPos = new BlockPos(bx, by, bz);
+        if (dragon.world.canBlockSeeSky(blockPos)) { // sun is shining!
+            return false;
+        }
+        if (dragon.world.getLight(blockPos) > 4) { // too bright!
+            return false;
+        }
+//        if (dragon.worldObj.canBlockSeeTheSky(bx, by, bz)) {
+//            // sun is shining!
+//            return false;
+//        }
+//        
+//        if (dragon.worldObj.getBlockLightValue(bx, by, bz) > 4) {
+//            // too bright!
+//            return false;
+//        }
+
+        return true;
     }
 
     @Override
@@ -41,6 +74,10 @@ public class DragonBreedSkeleton extends DragonBreed {
 	@Override
 	public boolean canBreathFire() {
 		return false;
+	}
+	
+	public String name() {
+		return "ghost" + "skeleton";
 	}
 	
 //	@Override

@@ -602,9 +602,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				setDead();
 			}
 		}
-
 		deathTime++;
-
 	}
 
 	@Override

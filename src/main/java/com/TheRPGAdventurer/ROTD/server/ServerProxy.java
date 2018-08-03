@@ -69,7 +69,7 @@ public class ServerProxy {
     }
 
     public void PostInitialization(FMLPostInitializationEvent event) {
-    	registerEntities();
+		registerEntities();
     	
     }
     

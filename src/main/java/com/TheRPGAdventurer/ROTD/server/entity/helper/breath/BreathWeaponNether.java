@@ -87,9 +87,9 @@ public class BreathWeaponNether extends BreathWeapon {
                   SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.NEUTRAL, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH));
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
-    //    if (densityOfThisFace >= thresholdForDestruction && block != Blocks.OBSIDIAN && block != Blocks.BEDROCK) {
-    //      world.setBlockToAir(blockPos);
-    //    }
+        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) < 2 && block.getBlockHardness(iBlockState, world, blockPos) > 0) {
+          world.setBlockToAir(blockPos);
+        }
       }
     }
 

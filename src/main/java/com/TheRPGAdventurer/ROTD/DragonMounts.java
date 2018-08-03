@@ -78,7 +78,7 @@ public class DragonMounts {
     }
     
     @EventHandler
-    public void PreInitialization(FMLPreInitializationEvent event) {
+    public void PreInitialization(FMLPreInitializationEvent event) {    	
     	DragonMountsLootTables.registerLootTables();
     	TAB = new CreativeTab(MODID);
         metadata = event.getModMetadata();

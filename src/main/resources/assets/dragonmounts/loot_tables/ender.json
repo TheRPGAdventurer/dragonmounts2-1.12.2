@@ -9,7 +9,7 @@
             "entries": [
                 {
                     "type": "item",
-                    "name": "rotd:ender_dragonscales",
+                    "name": "dragonmounts:ender_dragonscales",
                     "weight": 1,
                     "functions": [
                         {
@@ -29,7 +29,7 @@
             "entries": [
                 {
                     "type": "loot_table",
-                    "name": "rotd:entities/dragon",
+                    "name": "dragonmounts:entities/dragon",
                     "weight": 1
                 }
             ]

@@ -107,10 +107,6 @@ public class BreathWeapon {
          iBlockStateSmelted = smeltedResultBlock.getStateFromMeta(smeltingResult.getMetadata());
       }
     }
-    
-    if(block.getBlockHardness(iBlockState, world, pos) < 2 && block.getBlockHardness(iBlockState, world, pos) > 0) {    
-    	world.setBlockState(pos, Blocks.AIR.getDefaultState());
-    }
 
     if (block1 == Blocks.IRON_ORE) world.setBlockState(pos,  Blocks.IRON_BLOCK.getDefaultState());
     if (block1 == Blocks.GOLD_ORE) world.setBlockState(pos,  Blocks.GOLD_BLOCK.getDefaultState());

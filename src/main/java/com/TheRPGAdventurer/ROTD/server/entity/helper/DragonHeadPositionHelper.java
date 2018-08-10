@@ -21,9 +21,9 @@ import net.minecraft.util.math.Vec3d;
 */
 public class DragonHeadPositionHelper {
 	
-  private SegmentSizePositionRotation[] neckSegments;
-  private SegmentSizePositionRotation head;
-  private SegmentSizePositionRotation neck;  //not required?  not sure.
+  public SegmentSizePositionRotation[] neckSegments;
+  public SegmentSizePositionRotation head;
+  public SegmentSizePositionRotation neck;  //not required?  not sure.
 
   private EntityTameableDragon dragon;
   private final int NUMBER_OF_NECK_SEGMENTS;

@@ -642,8 +642,7 @@ public class DragonModel extends ModelBase {
         }
     }
 
-    protected void copyPositionRotationLocation(ModelPart modelPart,
-            SegmentSizePositionRotation segmentData) {
+    protected void copyPositionRotationLocation(ModelPart modelPart, SegmentSizePositionRotation segmentData) {
         modelPart.rotateAngleX = segmentData.copyIfValid(segmentData.rotateAngleX, modelPart.rotateAngleX);
         modelPart.rotateAngleY = segmentData.copyIfValid(segmentData.rotateAngleY, modelPart.rotateAngleY);
         modelPart.rotateAngleZ = segmentData.copyIfValid(segmentData.rotateAngleZ, modelPart.rotateAngleZ);

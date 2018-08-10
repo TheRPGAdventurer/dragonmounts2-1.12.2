@@ -51,9 +51,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
-			boolean isHills = world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class) || world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class);
-			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
-			if (!BiomeDictionary.hasType(world.getBiome(height), Type.WET) && !BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN) && !BiomeDictionary.hasType(world.getBiome(height), Type.RIVER)) {
+			boolean isHills = (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class)) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class)) && BiomeDictionary.hasType(world.getBiome(height), Type.RIVER);
+			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY) && BiomeDictionary.hasType(world.getBiome(height), Type.RIVER);
+//			if (!BiomeDictionary.hasType(world.getBiome(height), Type.RIVER)) {
 				if (random.nextInt((isHills ? DragonMountsConfig.MainNestRarity : DragonMountsConfig.MainNestRarity * 2) + 1) == 0) {
 					    dragonNest.generate(world, height, random);
 					    Utils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
@@ -61,7 +61,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 						dragonNestSnow.generate(world, height, random);
 						Utils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
 				    }
-			    }
+//			    }
 			}
 		}
     

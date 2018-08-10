@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ItemWaterDragonArmor extends ItemDragonArmour {
+public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
 	private final PotionEffect potionEffect;
 
-	public ItemWaterDragonArmor(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn,
+	public ItemWaterDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn,
 			String unlocalizedName, EnumItemBreedTypes type, @Nullable PotionEffect potionEffect) {
 		super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
 		this.potionEffect = potionEffect;

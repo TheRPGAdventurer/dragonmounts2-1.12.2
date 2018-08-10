@@ -29,7 +29,7 @@ public class DragonInteractSit extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        if (dragon.isServer() && dragon.isTamed() && ItemUtils.hasEquipped(player, Items.STICK)) {
+        if (dragon.isServer() && dragon.isTamed() && ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE)) {
             dragon.getAISit().setSitting(!dragon.isSitting());
             dragon.getNavigator().clearPathEntity();
             return true;

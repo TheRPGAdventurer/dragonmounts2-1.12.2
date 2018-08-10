@@ -681,4 +681,8 @@ public class DragonAnimator {
     	return lookYaw;
     }
     
+    public float getLookPitch() {
+    	return lookPitch;
+    }
+    
 }

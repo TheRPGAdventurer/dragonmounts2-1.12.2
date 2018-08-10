@@ -16,6 +16,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -55,11 +56,12 @@ public class BreathWeaponHydro extends BreathWeapon {
     BlockPos sideToIgnite = blockPos.offset(EnumFacing.UP);
   //  if (DragonMountsConfig.canBreathSetIce ) {
    //     world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else 
+        	if (DragonMountsConfig.canBreathSetIce && world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER) {
+    	world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, (Entity)null);
+    }
     
-    if(block == Blocks.FIRE) {
-        world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
-   	}
-    
+    world.spawnParticle(EnumParticleTypes.WATER_SPLASH, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0.0D, 0.0D, 0.0D);	
+ 
     if(block == Blocks.LAVA) {
     	world.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState());
     }
@@ -67,6 +69,9 @@ public class BreathWeaponHydro extends BreathWeapon {
     if(block == Blocks.FLOWING_LAVA) {
     	world.setBlockState(blockPos, Blocks.COBBLESTONE.getDefaultState());
     }
+    if(block == Blocks.FIRE) {
+        world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
+   	}
     
     return new BreathAffectedBlock();  // reset to zero
   }
@@ -92,24 +97,17 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 5.7F;
+    final float DAMAGE_PER_HIT_DENSITY = 2.7F;
 
     float hitDensity = currentHitDensity.getHitDensity();
     
 //    if (currentHitDensity.applyDamageThisTick()) {
           entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+          ((EntityLivingBase)entity).knockBack(entity, hitDensity * DAMAGE_PER_HIT_DENSITY, 0, hitDensity / DAMAGE_PER_HIT_DENSITY);
           PotionEffect iceeffect = new PotionEffect(MobEffects.SLOWNESS, 50*10);      
-    	  ((EntityLivingBase) entity).addPotionEffect(iceeffect);
-          
-          double d1 = entity.posX - entity.posX;
-          double d0;
-
-          for (d0 = entity.posZ - entity.posZ; d1 * d1 + d0 * d0 < 1.0E-4D; d0 = (Math.random() - Math.random()) * 0.01D)
-          {
-              d1 = (Math.random() - Math.random()) * 0.01D;
-          }
-          ((EntityLivingBase) entity).knockBack(((EntityLivingBase) entity), 2.5f, d0, d1);
-          ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 40*10, 2));
+        	  ((EntityLivingBase) entity).addPotionEffect(iceeffect); // Apply a copy of the PotionEffect to the entity
+  		
+       //   ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 40*10, 2));
   //  }
 
     return currentHitDensity;

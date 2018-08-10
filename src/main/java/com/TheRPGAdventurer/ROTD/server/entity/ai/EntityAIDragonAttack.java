@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.EnumHand;
@@ -31,7 +32,6 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     private int failedPathFindingPenalty = 0;
     private boolean canPenalize = false;
     EntityPlayer rider = dragon.getControllingPlayer();
-    public boolean useBreathAttack;
 
     public EntityAIDragonAttack(EntityTameableDragon dragon, double speedIn, boolean useLongMemory) {
     	super(dragon);
@@ -44,16 +44,19 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
-    public boolean shouldExecute() {
+    @SuppressWarnings("null")
+	public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
 
-        if (entitylivingbase == null) {
+        if (entitylivingbase == null && dragon.getLifeStageHelper().getTicksSinceCreation() <= dragon.getAppropriateAgeForInteraction() && ((EntityTameable) entitylivingbase).isTamed()) {
             return false;
         } else if (!entitylivingbase.isEntityAlive()) {
             return false;
-        } else if(dragon.isSitting()) {
-        	return false;
-        } else if(dragon.getPassengers() != null) {
+        } else if(rider != null)  {
+           return false;
+        }  else if(dragon.isSitting()) {       
+        	return false;        
+        } else if(dragon.getControllingPlayer() != null) {
         	return false;                
         } else {
             if (canPenalize) {
@@ -135,34 +138,26 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
             this.targetZ = entitylivingbase.posZ;
             this.delayCounter = 4 + this.dragon.getRNG().nextInt(7);
 
-            if (this.canPenalize)
-            {
+            if (this.canPenalize) {
                 this.delayCounter += failedPathFindingPenalty;
-                if (this.dragon.getNavigator().getPath() != null)
-                {
+                if (this.dragon.getNavigator().getPath() != null) {
                     net.minecraft.pathfinding.PathPoint finalPathPoint = this.dragon.getNavigator().getPath().getFinalPathPoint();
                     if (finalPathPoint != null && entitylivingbase.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
                         failedPathFindingPenalty = 0;
                     else
                         failedPathFindingPenalty += 10;
-                }
-                else
-                {
+                } else {
                     failedPathFindingPenalty += 10;
                 }
             }
 
-            if (d0 > 1024.0D)
-            {
+            if (d0 > 1024.0D) {
                 this.delayCounter += 10;
-            }
-            else if (d0 > 256.0D)
-            {
+            } else if (d0 > 256.0D) {
                 this.delayCounter += 5;
             }
 
-            if (!this.dragon.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.speedTowardsTarget))
-            {
+            if (!this.dragon.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.speedTowardsTarget)) {
                 this.delayCounter += 15;
             }
         }

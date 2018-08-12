@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.util.breath.Pair;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -84,10 +85,8 @@ public class BreathAffectedArea {
     }
 
     updateBlockAndEntityHitDensities(world, segments, entityBreathNodes, blocksAffectedByBeam, entitiesAffectedByBeam);
-
     implementEffectsOnBlocksTick(world, blocksAffectedByBeam);
     implementEffectsOnEntitiesTick(world, entitiesAffectedByBeam);
-
     decayBlockAndEntityHitDensities(blocksAffectedByBeam, entitiesAffectedByBeam);
   }
 

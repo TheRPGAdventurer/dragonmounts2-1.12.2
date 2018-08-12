@@ -19,8 +19,7 @@ public class BreathAffectedBlock {
    * @param face the face being hit; null = no particular face
    * @param increase the amount to increase the hit density by
    */
-  public void addHitDensity(EnumFacing face, float increase)
-  {
+  public void addHitDensity(EnumFacing face, float increase) {
     if (face == null) {
       increase /= EnumFacing.values().length;
       for (EnumFacing facing : EnumFacing.values()) {

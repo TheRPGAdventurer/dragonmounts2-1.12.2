@@ -163,6 +163,7 @@ public class DragonBrain extends DragonHelper {
             
             targetTasks.addTask(5, new EntityAINearestAttackableTarget(dragon, EntityLiving.class, 13, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
             targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
+            
         }
                 targetTasks.addTask(2, new EntityAIOwnerHurtByTarget(dragon)); // mutex 1
                 targetTasks.addTask(3, new EntityAIOwnerHurtTarget(dragon)); // mutex 1

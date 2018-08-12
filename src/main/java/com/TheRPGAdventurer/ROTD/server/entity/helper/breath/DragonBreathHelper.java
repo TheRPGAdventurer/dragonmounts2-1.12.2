@@ -8,6 +8,11 @@ import com.TheRPGAdventurer.ROTD.client.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponEnder;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponIce;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponNether;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponWither;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.datasync.DataParameter;

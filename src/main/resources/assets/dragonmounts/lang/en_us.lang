@@ -112,6 +112,7 @@ item.dragonarmor_iron.name=Iron Dragon Armor
 item.dragonarmor_gold.name=Gold Dragon Armor
 
 entity.dragon.tooYounng=The dragon is too young let it grow.
+death.attack.DRAGON_BREATH=was killed by dragon's breath.
 
 dragon.forest=Forest
 dragon.aether=Aether

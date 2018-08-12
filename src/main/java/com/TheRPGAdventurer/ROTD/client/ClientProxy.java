@@ -51,6 +51,7 @@ public class ClientProxy extends ServerProxy {
         // register dragon entity renderer
         DragonMountsConfig.clientPreInit();
         MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());
+//        MinecraftForge.EVENT_BUS.register(new DragonBottleHandler());
         RenderingRegistry.registerEntityRenderingHandler(EntityTameableDragon.class, DragonRenderer::new);
 		RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(EnderBreathFX.class, RenderEnderBreathFX::new);

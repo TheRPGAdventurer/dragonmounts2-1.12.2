@@ -9,6 +9,8 @@
  */
 package com.TheRPGAdventurer.ROTD;
 
+import java.util.Random;
+
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.MessageDragonBreath;
@@ -18,6 +20,11 @@ import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -67,7 +74,20 @@ public class DragonMounts {
     
     private ModMetadata metadata;
     private DragonMountsConfig config;
-    public static CreativeTabs TAB;
+    public static CreativeTabs TAB;    
+	
+    public static DamageSource DRAGON_BREATH;
+
+	public void damageSources() {
+		DRAGON_BREATH = new DamageSource("DRAGON_BREATH") {
+			@Override
+			public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
+				String s = "death.attack.DRAGON_BREATH";
+                String s1 = s + ".player_";
+                return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ").appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
+			}
+		};
+	}
     
     public DragonMountsConfig getConfig() {
         return config;
@@ -88,7 +108,8 @@ public class DragonMounts {
     @EventHandler
     public void Initialization(FMLInitializationEvent event) {
         proxy.Initialization(event); 
-        proxy.render();
+        proxy.render(); 
+        damageSources();
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
        

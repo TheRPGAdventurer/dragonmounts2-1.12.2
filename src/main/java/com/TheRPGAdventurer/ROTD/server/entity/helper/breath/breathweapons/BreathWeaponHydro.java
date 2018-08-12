@@ -1,34 +1,24 @@
-package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -43,9 +33,9 @@ import net.minecraft.world.World;
  * 3) affectEntity() to apply an area of effect to the given entity (eg damage it)
  *
  */
-public class BreathWeaponEnder extends BreathWeapon {
+public class BreathWeaponHydro extends BreathWeapon {
 	
-  public BreathWeaponEnder(EntityTameableDragon i_dragon) {
+  public BreathWeaponHydro(EntityTameableDragon i_dragon) {
     super(i_dragon);
   }
 
@@ -65,22 +55,27 @@ public class BreathWeaponEnder extends BreathWeapon {
     Block block = iBlockState.getBlock();
 
     Random rand = new Random();
+    BlockPos sideToIgnite = blockPos.offset(EnumFacing.UP);
+  //  if (DragonMountsConfig.canBreathSetIce ) {
+   //     world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else 
+        	if (DragonMountsConfig.canBreathSetIce && world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER) {
+    	world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, (Entity)null);
+    }
     
-    if (!world.isRemote) { 
-        EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
-        entityareaeffectcloud.setOwner(this.dragon);
-        entityareaeffectcloud.setParticle(EnumParticleTypes.DRAGON_BREATH);
-        entityareaeffectcloud.setRadius(1.6F);
-        entityareaeffectcloud.setDuration(750);
-        entityareaeffectcloud.setRadiusPerTick((1.0F - entityareaeffectcloud.getRadius()) / (float)entityareaeffectcloud.getDuration());
-        entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.WITHER, 150, 1));
-
-        entityareaeffectcloud.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());                 
-        int i = rand.nextInt(10000);
-        if(i < 10) {
-        world.spawnEntity(entityareaeffectcloud);
-      }
-    }  return new BreathAffectedBlock();  // reset to zero
+    world.spawnParticle(EnumParticleTypes.WATER_SPLASH, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0.0D, 0.0D, 0.0D);	
+ 
+    if(block == Blocks.LAVA) {
+    	world.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState());
+    }
+    
+    if(block == Blocks.FLOWING_LAVA) {
+    	world.setBlockState(blockPos, Blocks.COBBLESTONE.getDefaultState());
+    }
+    if(block == Blocks.FIRE) {
+        world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
+   	}
+    
+    return new BreathAffectedBlock();  // reset to zero
   }
   
   /** if the hitDensity is high enough, manipulate the entity (eg set fire to it, damage it)
@@ -90,7 +85,7 @@ public class BreathWeaponEnder extends BreathWeapon {
    * @param currentHitDensity the hit density
    * @return the updated hit density; null if the entity is dead, doesn't exist, or otherwise not affected
    */
-  public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAffectedEntity currentHitDensity) {
+public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAffectedEntity currentHitDensity) {
     checkNotNull(world);
     checkNotNull(entityID);
     checkNotNull(currentHitDensity);
@@ -104,11 +99,16 @@ public class BreathWeaponEnder extends BreathWeapon {
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 5.7F;
+    final float DAMAGE_PER_HIT_DENSITY = 2.7F;
 
     float hitDensity = currentHitDensity.getHitDensity();
+    
 //    if (currentHitDensity.applyDamageThisTick()) {
-          entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+      entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.DROWN, DAMAGE_PER_HIT_DENSITY);
+      entity.isWet();
+      ((EntityLivingBase)entity).knockBack(entity, hitDensity * DAMAGE_PER_HIT_DENSITY, 0, hitDensity / DAMAGE_PER_HIT_DENSITY);
+      PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50*10);      
+      ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the entity 		
        //   ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 40*10, 2));
   //  }
 

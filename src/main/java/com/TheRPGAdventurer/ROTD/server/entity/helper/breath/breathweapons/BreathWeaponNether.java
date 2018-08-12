@@ -1,31 +1,30 @@
-package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Random;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -84,7 +83,7 @@ public class BreathWeaponNether extends BreathWeapon {
           final float MAX_PITCH = 1.2F;
           final float VOLUME = 1.0F;
           world.playSound(null, new BlockPos(sideToIgnite.getX() + 0.5, sideToIgnite.getY() + 0.5, sideToIgnite.getZ() + 0.5),
-                  SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.NEUTRAL, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH));
+                  SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH));
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
         if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) < 2 && block.getBlockHardness(iBlockState, world, blockPos) > 0) {
@@ -251,8 +250,19 @@ public class BreathWeaponNether extends BreathWeapon {
     float hitDensity = currentHitDensity.getHitDensity();
     if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
     	entity.setFire((int)(40 * 10));}
-      entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-      
+    if(entity instanceof EntityLivingBase) {
+    	EntityLivingBase entity1 = (EntityLivingBase) entity;
+    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+    		entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
+    	}
+    } else if(entity instanceof EntityTameable) {
+    	EntityTameable entityTameable = (EntityTameable) entity;
+    	if(entityTameable.isTamed()) {
+    		entityTameable.attackEntityFrom(DragonMounts.DRAGON_BREATH.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
+    	}
+    } else {
+       entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
+    }
 
     return currentHitDensity;
   }

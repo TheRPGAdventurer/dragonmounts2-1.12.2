@@ -9,6 +9,7 @@ import com.TheRPGAdventurer.ROTD.util.breath.Pair;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
@@ -73,6 +74,7 @@ class EntityBreathNode extends Entity {
     if (isCollided && onGround) {
       motionY -= 0.01F;         // ensure that we hit the ground next time too
     }
+    
     breathNode.updateAge(this);
     if (breathNode.isDead()) {
       setDead();

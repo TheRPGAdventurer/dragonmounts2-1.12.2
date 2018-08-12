@@ -61,10 +61,8 @@ public class ServerProxy {
     public void Initialization(FMLInitializationEvent evt) { 
         MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
-        network.registerMessage(DragonControlMessageHandler.class, DragonControlMessage.class,
-        		DCM_DISCRIMINATOR_ID, Side.SERVER);
-        network.registerMessage(DragonBreathMessageHandlerServer.class, DragonBreathMessage.class,
-                DOT_DISCRIMINATOR_ID, Side.SERVER);
+        network.registerMessage(DragonControlMessageHandler.class, DragonControlMessage.class, DCM_DISCRIMINATOR_ID, Side.SERVER);
+        network.registerMessage(DragonBreathMessageHandlerServer.class, DragonBreathMessage.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
 
     }
 

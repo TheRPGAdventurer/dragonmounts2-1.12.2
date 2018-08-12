@@ -44,12 +44,10 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
-    @SuppressWarnings("null")
 	public boolean shouldExecute() {
-        EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
-
-        if (entitylivingbase == null && dragon.getLifeStageHelper().getTicksSinceCreation() <= dragon.getAppropriateAgeForInteraction() && ((EntityTameable) entitylivingbase).isTamed()) {
-            return false;
+        EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();   
+        if(entitylivingbase == null) {
+        	return false;
         } else if (!entitylivingbase.isEntityAlive()) {
             return false;
         } else if(rider != null)  {
@@ -196,5 +194,9 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     protected double getAttackReachSqrBreath(EntityLivingBase attackTarget) {
         return (double)(this.dragon.width * 10.0F * this.dragon.width * 10.0F + attackTarget.width);
     }
+    
+    // else if (entitylivingbase instanceof EntityTameable && ((EntityTameable) entitylivingbase).isTamed()) {
+	// return false;        	         
+    //
 
 }

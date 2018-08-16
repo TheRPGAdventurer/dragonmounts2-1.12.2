@@ -81,13 +81,10 @@ public class HydroBreathFX extends Entity {
 
     // spawn a smoke trail after some time
     if (PARTICLE_CHANCE != 0 && rand.nextFloat() < lifetimeFraction && rand.nextFloat() <= PARTICLE_CHANCE) {
-      world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, motionX * 0.5, motionY * 0.5, motionZ * 0.5);
+    	float f1 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
+        float f2 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
+        this.world.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX + (double)f1, (double)(0.8F), this.posZ + (double)f2, this.motionX, this.motionY, this.motionZ);
     }
-
-    // smoke / steam when hitting water.  node is responsible for aging to death
-  //  if (handleWaterMovement()) {
-  //    world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, 0, 0, 0);
-   // }
 
     float newAABBDiameter = breathNode.getCurrentAABBcollisionSize();
 
@@ -137,9 +134,9 @@ public class HydroBreathFX extends Entity {
     return newIceBreathFX;
   }
 
-  protected EnumParticleTypes getSmokeParticleID() {
+  protected EnumParticleTypes getWaterParticleID() {
     if (LARGE_PARTICLE_CHANCE != 0 && rand.nextFloat() <= LARGE_PARTICLE_CHANCE) {
-      return EnumParticleTypes.WATER_DROP;
+      return EnumParticleTypes.WATER_DROP; 
     } else {
       return EnumParticleTypes.WATER_DROP;
     }

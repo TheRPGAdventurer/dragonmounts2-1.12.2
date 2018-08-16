@@ -10,6 +10,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponEnder;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponHydro;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponIce;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponNether;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponWither;
@@ -57,6 +58,7 @@ public class DragonBreathHelper extends DragonHelper {
   public BreathAffectedArea breathAffectedAreaEnder = null;
   public BreathAffectedArea breathAffectedAreaNether = null;
   public BreathAffectedArea breathAffectedAreaIce = null;
+  public BreathAffectedArea breathAffectedAreaHydro = null;
   public BreathAffectedArea breathAffectedAreaWither = null;
   private static final Logger L = LogManager.getLogger();
 	
@@ -68,6 +70,7 @@ public class DragonBreathHelper extends DragonHelper {
     breathAffectedArea = new BreathAffectedArea(new BreathWeapon(dragon));
     breathAffectedAreaNether = new BreathAffectedArea(new BreathWeaponNether(dragon));
     breathAffectedAreaIce = new BreathAffectedArea(new BreathWeaponIce(dragon));
+    breathAffectedAreaHydro = new BreathAffectedArea(new BreathWeaponHydro(dragon));
     breathAffectedAreaEnder = new BreathAffectedArea(new BreathWeaponEnder(dragon));
     breathAffectedAreaWither = new BreathAffectedArea(new BreathWeaponWither(dragon));
   }
@@ -238,6 +241,10 @@ public class DragonBreathHelper extends DragonHelper {
   
   public BreathAffectedArea getbreathAffectedAreaWither() {
 	  return breathAffectedAreaWither;
+  }
+  
+  public BreathAffectedArea getBreathAffectedAreaHydro() {
+	  return breathAffectedAreaHydro;
   }
   
 }

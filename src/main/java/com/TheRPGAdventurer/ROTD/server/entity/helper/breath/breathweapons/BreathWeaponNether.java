@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
@@ -24,6 +23,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -245,7 +245,7 @@ public class BreathWeaponNether extends BreathWeapon {
 
     final float CATCH_FIRE_THRESHOLD = 1.4F;
     final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
-    final float DAMAGE_PER_HIT_DENSITY = 5.8F;
+    final float DAMAGE_PER_HIT_DENSITY = 4.2F;
 
     float hitDensity = currentHitDensity.getHitDensity();
     if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
@@ -253,15 +253,15 @@ public class BreathWeaponNether extends BreathWeapon {
     if(entity instanceof EntityLivingBase) {
     	EntityLivingBase entity1 = (EntityLivingBase) entity;
     	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-    		entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
+    		entity.attackEntityFrom(DamageSource.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
     	}
     } else if(entity instanceof EntityTameable) {
     	EntityTameable entityTameable = (EntityTameable) entity;
     	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DragonMounts.DRAGON_BREATH.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
+    		entityTameable.attackEntityFrom(DamageSource.DROWN, 0);
     	}
     } else {
-       entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
+       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
     }
 
     return currentHitDensity;

@@ -733,23 +733,28 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * 
 	 * @author TheRPGAdventurer
 	 */
-	@Override
-	public EntityLivingBase getOwner() {
+	public EntityLivingBase getOtherPlayers() {
 		if(DragonMountsConfig.allowOtherPlayerControl) {
 		    for (int i = 0; i < world.playerEntities.size();) {
 			    EntityPlayer entityplayer = world.playerEntities.get(i);
 			    return entityplayer;
 		    }
-		} else {
-			try {
-	            UUID uuid = this.getOwnerId();
-	            return uuid == null ? null : this.world.getPlayerEntityByUUID(uuid);
-	        } catch (IllegalArgumentException var2) {
-	            return null;
-	        }		
-		}
-		
-		return null;
+		}		return null;
+	}
+	
+	/**
+	 * I made this method so any player can make the dragon sit, possibly be used
+	 * for other interactions,
+	 * 
+	 * @author TheRPGAdventurer
+	 */
+	public EntityLivingBase getLastRidingPlayer() {
+		if(DragonMountsConfig.allowOtherPlayerControl) {
+		    for (int i = 0; i < world.playerEntities.size();) {
+			    EntityPlayer entityplayer = world.playerEntities.get(i);
+			    return entityplayer;
+		    }
+		}		return null;
 	}
 
 	/**
@@ -1461,10 +1466,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
-        return !((EntityTameable)target).isTamed()  
-        		&& ((EntityTameableDragon)target).getLifeStageHelper().getTicksSinceCreation() 
-        		>= ((EntityTameableDragon)target).getAppropriateAgeForInteraction()
-        		&& !target.isChild();
+		if(getControllingPassenger() != null) {
+			return false;
+		} else if(target instanceof EntityTameable) {
+			EntityTameable tamedEntity = (EntityTameable) target;
+			return !((EntityTameable)target).isTamed() && !target.isChild();
+		} else if(target instanceof EntityTameableDragon) {
+			EntityTameable targetDragon = (EntityTameable) target;
+			return ((EntityTameableDragon)target).getLifeStageHelper().getTicksSinceCreation() 
+			     >= ((EntityTameableDragon)target).getAppropriateAgeForInteraction();
+		} else {
+			return false; 
+		}	
+        
     }
 	
     protected boolean canFitPassenger(Entity passenger) {
@@ -1489,8 +1503,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.doBlockCollisions();
         List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
 
-        if (!list.isEmpty())
-        {
+        if (!list.isEmpty()) {
             boolean flag = !this.world.isRemote; //&& !(this.getControllingPassenger() instanceof EntityPlayer)
 
             for (int j = 0; j < list.size(); ++j)

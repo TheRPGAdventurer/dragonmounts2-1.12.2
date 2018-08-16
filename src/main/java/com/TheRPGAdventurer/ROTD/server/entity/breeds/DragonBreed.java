@@ -5,8 +5,10 @@ import java.util.Random;
 import java.util.Set;
 
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.block.Block;
@@ -34,6 +36,7 @@ public abstract class DragonBreed {
     private final Set<Block> breedBlocks = new HashSet<>();
     private final Set<Biome> biomes = new HashSet<>();
     protected final Random rand = new Random();
+    public static SoundEffectNames [] soundEffectNames;
     
     DragonBreed(String skin, int color) {
         this.skin = skin;
@@ -248,6 +251,39 @@ public abstract class DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticles(world, power, tickCounter); 
     }
+    
+    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+    	final SoundEffectNames hatchling[] = {SoundEffectNames.HATCHLING_BREATHE_FIRE_START,
+                SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP,
+                SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
+
+        final SoundEffectNames juvenile[] = {SoundEffectNames.JUVENILE_BREATHE_FIRE_START,
+                SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP,
+                SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
+
+        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_FIRE_START,
+            SoundEffectNames.ADULT_BREATHE_FIRE_LOOP,
+            SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
+    	
+    	switch(stage) {
+		case ADULT:
+			soundEffectNames = adult;
+			break;
+		case EGG:
+			break;
+		case HATCHLING:
+			soundEffectNames = hatchling;
+			break;
+		case JUVENILE:
+			soundEffectNames = juvenile;       
+			break;
+		default:
+			break;    	
+    	}
+    	
+		return soundEffectNames;
+    
+    }   
 
 }
 

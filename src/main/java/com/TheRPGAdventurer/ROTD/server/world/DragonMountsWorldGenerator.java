@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeHills;
+import net.minecraft.world.biome.BiomeRiver;
 import net.minecraft.world.biome.BiomeStoneBeach;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
@@ -51,9 +52,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
-			boolean isHills = (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class)) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class)) && BiomeDictionary.hasType(world.getBiome(height), Type.RIVER);
-			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY) && BiomeDictionary.hasType(world.getBiome(height), Type.RIVER);
-//			if (!BiomeDictionary.hasType(world.getBiome(height), Type.RIVER)) {
+			boolean isHills = (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class)) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class));
+			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
+			if (!world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeRiver.class)) {
 				if (random.nextInt((isHills ? DragonMountsConfig.MainNestRarity : DragonMountsConfig.MainNestRarity * 2) + 1) == 0) {
 					    dragonNest.generate(world, height, random);
 					    Utils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
@@ -61,7 +62,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 						dragonNestSnow.generate(world, height, random);
 						Utils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
 				    }
-//			    }
+			    }
 			}
 		}
     

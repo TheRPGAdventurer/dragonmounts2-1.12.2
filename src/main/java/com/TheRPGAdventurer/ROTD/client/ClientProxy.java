@@ -17,6 +17,7 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderEnderBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderFlameBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderHydroBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderIceBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderNetherBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderWitherBreathFX;
@@ -24,6 +25,7 @@ import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.EnderBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
+import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
@@ -50,9 +52,10 @@ public class ClientProxy extends ServerProxy {
         super.PreInitialization(event);        
         // register dragon entity renderer
         DragonMountsConfig.clientPreInit();
-        MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());
-//        MinecraftForge.EVENT_BUS.register(new DragonBottleHandler());
+        MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());      
         RenderingRegistry.registerEntityRenderingHandler(EntityTameableDragon.class, DragonRenderer::new);
+        
+        RenderingRegistry.registerEntityRenderingHandler(HydroBreathFX.class, RenderHydroBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(EnderBreathFX.class, RenderEnderBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);

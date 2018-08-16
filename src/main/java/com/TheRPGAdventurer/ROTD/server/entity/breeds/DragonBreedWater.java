@@ -9,11 +9,16 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 /**
  *
@@ -61,8 +66,48 @@ public class DragonBreedWater extends DragonBreed {
     }
 	
 	@Override
-	public boolean canBreathFire() {
-		return false;
-	}
+    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
+		dragon.getBreathHelper().getBreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power);
+		dragon.getBreathHelper().getBreathAffectedAreaHydro().updateTick(world);
+    }
+    
+	@Override
+    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
+        dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
+        dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWaterDragon(world, power, tickCounter);
+    }
+	
+	@Override
+	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+    	final SoundEffectNames hatchling[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+
+        final SoundEffectNames juvenile[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+
+        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+            SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+            SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+    	
+    	switch(stage) {
+		case ADULT:
+			soundEffectNames = adult;
+			break;
+		case EGG:
+			break;
+		case HATCHLING:
+			soundEffectNames = hatchling;
+			break;
+		case JUVENILE:
+			soundEffectNames = juvenile;       
+			break;
+		default:
+			break;    	
+    	}
+    	
+		return soundEffectNames;
+    }   
 
 }

@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Random;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
@@ -14,8 +13,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -96,10 +97,17 @@ public class BreathWeaponEnder extends BreathWeapon {
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 4.9F;
+    final float DAMAGE_PER_HIT_DENSITY = 4.3F;
 
     float hitDensity = currentHitDensity.getHitDensity();
-    entity.attackEntityFrom(DragonMounts.DRAGON_BREATH, DAMAGE_PER_HIT_DENSITY);
+    if(entity instanceof EntityTameable) {
+    	EntityTameable entityTameable = (EntityTameable) entity;
+    	if(entityTameable.isTamed()) {
+    		entityTameable.attackEntityFrom(DamageSource.IN_FIRE, 0);
+    	}
+    } else {
+       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
+    }
 
     return currentHitDensity;
   }

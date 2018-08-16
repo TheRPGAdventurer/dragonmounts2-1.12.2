@@ -59,7 +59,7 @@ public class DragonMounts {
 	
     public static final String NAME = "Dragon Mounts";
     public static final String MODID = "dragonmounts";
-    public static final String VERSION = "1.12-1.4.5";
+    public static final String VERSION = "1.12-1.4.5-SNAPSHOT-1";
     public static final String LLIBRARY_VERSION = "1.7.9";
     public static final String GUI_FACTORY = "com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
     
@@ -75,19 +75,6 @@ public class DragonMounts {
     private ModMetadata metadata;
     private DragonMountsConfig config;
     public static CreativeTabs TAB;    
-	
-    public static DamageSource DRAGON_BREATH;
-
-	public void damageSources() {
-		DRAGON_BREATH = new DamageSource("DRAGON_BREATH") {
-			@Override
-			public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-				String s = "death.attack.DRAGON_BREATH";
-                String s1 = s + ".player_";
-                return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ").appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
-			}
-		};
-	}
     
     public DragonMountsConfig getConfig() {
         return config;
@@ -109,7 +96,6 @@ public class DragonMounts {
     public void Initialization(FMLInitializationEvent event) {
         proxy.Initialization(event); 
         proxy.render(); 
-        damageSources();
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
        

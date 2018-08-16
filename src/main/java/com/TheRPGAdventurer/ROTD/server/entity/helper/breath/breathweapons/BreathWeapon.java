@@ -271,7 +271,7 @@ public class BreathWeapon {
 
 	    final float CATCH_FIRE_THRESHOLD = 1.4F;
 	    final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
-	    final float DAMAGE_PER_HIT_DENSITY = 4.5F;
+	    final float DAMAGE_PER_HIT_DENSITY = 4.0F;
 
 	    float hitDensity = currentHitDensity.getHitDensity();
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
@@ -281,15 +281,15 @@ public class BreathWeapon {
 	    if(entity instanceof EntityLivingBase) {
 	    	EntityLivingBase entity1 = (EntityLivingBase) entity;
 	    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-	    		entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
+	    		entity.attackEntityFrom(DamageSource.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
 	    	}
 	    } else if(entity instanceof EntityTameable) {
-	    	EntityTameable entityTameable = (EntityTameable) entity;
+	    	EntityTameable entityTameable = (EntityTameable) entity;	    	
 	    	if(entityTameable.isTamed()) {
-	    		entityTameable.attackEntityFrom(DragonMounts.DRAGON_BREATH.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
+	    		entityTameable.attackEntityFrom(DamageSource.IN_FIRE, 0);
 	    	}
 	    } else {
-	       entity.attackEntityFrom(DragonMounts.DRAGON_BREATH.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
+	       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
 	    }
 	      
 	    return currentHitDensity;

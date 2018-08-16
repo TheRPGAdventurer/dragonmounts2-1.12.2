@@ -153,32 +153,5 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.getDistanceSqToEntity(owner) < maxDist * maxDist) {
             return;
         }
-
-        // teleport dragon near owner
- //       int minX = MathHelper.floor_double(owner.posX) - 2;
- //       int minZ = MathHelper.floor_double(owner.posZ) - 2;
- //       int minY = MathHelper.floor_double(owner.getEntityBoundingBox().minY);
-
-          // copied from vanilla EntityAIFollowOwner
-        // search for a position 2 blocks away from owner which is on a solid surface and has space above.
-        //  doesn't account for the dragon's size, but never mind
-  //      for (int bx = 0; bx <= 4; ++bx) {
-   //         for (int bz = 0; bz <= 4; ++bz) {
-   //             if (bx < 1 || bz < 1 || bx > 3 || bz > 3) {
-   //                 if (World.doesBlockHaveSolidTopSurface(world, new BlockPos(minX + bx, minY - 1, minZ + bz))) {
-   //                     BlockPos testPos = new BlockPos(minX + bx, minY, minZ + bz);
-   //                     if (world.getBlockState(testPos).getBlock().isPassable(world, testPos)) {
-   //                        testPos = new BlockPos(minX + bx, minY + 1, minZ + bz);
-    //                        if (world.getBlockState(testPos).getBlock().isPassable(world, testPos)) {
-    //                            dragon.setLocationAndAngles(minX + bx + 0.5, minY, minZ + bz + 0.5,
-     //                                   dragon.rotationYaw, dragon.rotationPitch);
-     //                           nav.clearPathEntity();
-     //                           return;
-       //                     }
-         //               }
-           //         }
-             //   }
-          //  }
-      //  }
     }
 }

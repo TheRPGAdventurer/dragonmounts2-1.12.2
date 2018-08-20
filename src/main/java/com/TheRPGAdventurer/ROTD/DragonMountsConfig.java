@@ -46,25 +46,25 @@ public class DragonMountsConfig {
 	public static boolean canBreathSetIce = true;
     
 	// chances
-	public static int MainNestRarity  = 300;
-	public static int MainNestRarerityInX = 18;
-	public static int MainNestRarerityInZ = 18;
+	public static int MainNestRarity  = 1000;
+	public static int MainNestRarerityInX = 36;
+	public static int MainNestRarerityInZ = 36;
 	
-	public static int MainSnowNestRarity  = 350;
+	public static int MainSnowNestRarity  = 1000;
 	public static int MainSnowNestRarerityInX = 18;
 	public static int MainSnowNestRarerityInZ = 18;
 	
-	public static int netherNestRarity = 480;
-	public static int netherNestRarerityInX = 16;
-	public static int netherNestRarerityInZ = 16;
+	public static int netherNestRarity = 780;
+	public static int netherNestRarerityInX = 32;
+	public static int netherNestRarerityInZ = 32;
 	
 	public static int undergroundrarityMain = 50;
 	public static int undergroundnestX = 64;
 	public static int undergroundnestZ = 64;
 	
-	public static int boneNestMainRarity = 420;
-	public static int boneNestRarerityInX = 16;
-	public static int boneNestRarerityInZ = 16;
+	public static int boneNestMainRarity = 780;
+	public static int boneNestRarerityInX = 32;
+	public static int boneNestRarerityInZ = 32;
 	
 	// dragon
 	public static int GET_TICKS_PER_STAGE = 24000;

@@ -71,24 +71,24 @@ public class BreathWeaponHydro extends BreathWeapon {
 			world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, (Entity) null);
 		}
 
-		world.spawnParticle(EnumParticleTypes.WATER_SPLASH, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0.0D,
-				0.0D, 0.0D);
+		world.spawnParticle(EnumParticleTypes.WATER_SPLASH, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0D,
+				4.0D, 1.0D);
 
 		if (block == Blocks.LAVA) {
 			world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH,
-					SoundCategory.BLOCKS, 0.0f, 0.0f, false);
+					SoundCategory.BLOCKS, 0.7f, 1.0f, false);
 			world.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState());
 		}
 
 		if (block == Blocks.FLOWING_LAVA) {
 			world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH,
-					SoundCategory.BLOCKS, 0.0f, 0.0f, false);
+					SoundCategory.BLOCKS, 0.7f, 1.0f, false);
 			world.setBlockState(blockPos, Blocks.COBBLESTONE.getDefaultState());
 		}
 
 		if (block == Blocks.FIRE) {
 			world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH,
-					SoundCategory.BLOCKS, 0.0f, 0.0f, false);
+					SoundCategory.BLOCKS, 0.7f, 1.0f, false);
 			world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
 		}
 
@@ -150,7 +150,7 @@ public class BreathWeaponHydro extends BreathWeapon {
 		((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
 		PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50 * 10);
 		((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the entity
-		entity.playSound(SoundEvents.ENTITY_GENERIC_SPLASH, 1.0f, 1.0f);
+		entity.playSound(SoundEvents.ENTITY_GENERIC_SPLASH, 0.4f, 1.0f);
 
 		return currentHitDensity;
 	}

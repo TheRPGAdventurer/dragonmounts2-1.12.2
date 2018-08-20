@@ -46,6 +46,20 @@ public class BreathWeaponNether extends BreathWeapon {
   public BreathWeaponNether(EntityTameableDragon dragon) {
     super(dragon);
   }
+  
+  /**
+   * Used this to be compatible for Biomes O Plenty, BOP Author made a switch statement on his/her blocks
+   * Instead of programming the blocks one by one. I dunno if that was allowed
+   * 
+   */
+  public int processFlammability(Block block, World world, BlockPos sideToIgnite, EnumFacing facing) {
+	  int flammability = 0;
+	  try {
+	      return flammability = block.getFlammability(world, sideToIgnite, facing);
+	  } catch (IllegalArgumentException e) {
+		  return flammability = 3;		  
+	  }	 	
+  }
 
   /** if the hitDensity is high enough, manipulate the block (eg set fire to it)
    * @param world
@@ -73,8 +87,8 @@ public class BreathWeaponNether extends BreathWeapon {
 
     for (EnumFacing facing : EnumFacing.values()) {
       BlockPos sideToIgnite = blockPos.offset(facing);
-      if (block.isFlammable(world, sideToIgnite, facing)) {
-        int flammability = block.getFlammability(world, sideToIgnite, facing);
+      if (processFlammability(block, world, sideToIgnite, facing) > 0) {
+        int flammability = processFlammability(block, world, sideToIgnite, facing);     	
         float thresholdForIgnition = convertFlammabilityToHitDensityThreshold(flammability);
         float thresholdForDestruction = thresholdForIgnition * 70;
         float densityOfThisFace = currentHitDensity.getHitDensity(facing);
@@ -86,7 +100,8 @@ public class BreathWeaponNether extends BreathWeapon {
                   SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH));
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
-        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) < 2 && block.getBlockHardness(iBlockState, world, blockPos) > 0) {
+        
+        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) > -1) {
           world.setBlockToAir(blockPos);
         }
       }

@@ -54,14 +54,13 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
 			boolean isHills = (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class)) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class));
 			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
-			if (!world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeRiver.class)) {
-				if (random.nextInt((isHills ? DragonMountsConfig.MainNestRarity : DragonMountsConfig.MainNestRarity * 2) + 1) == 0) {
-					    dragonNest.generate(world, height, random);
-					    Utils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
-				} else if(random.nextInt((isSnowy ? DragonMountsConfig.MainNestRarity : DragonMountsConfig.MainNestRarity * 2) + 1) == 0) {
-						dragonNestSnow.generate(world, height, random);
-						Utils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
-				    }
+			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
+			     dragonNest.generate(world, height, random);
+			     Utils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
+			} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
+			     dragonNestSnow.generate(world, height, random);
+			     Utils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
+			     
 			    }
 			}
 		}
@@ -102,7 +101,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
 		for (int y = 85; y >= 5; y--) {
 	    	boolean solidGround = world.getBlockState(new BlockPos(x,y,z)).isBlockNormalCube();
-	    	if (random.nextInt((solidGround ? DragonMountsConfig.netherNestRarity : DragonMountsConfig.netherNestRarity * 2) + 1) == 0) {
+	    	if (solidGround && random.nextInt(DragonMountsConfig.netherNestRarity) == 1) {
 					boolean place = true;
 				
 		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
@@ -123,7 +122,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * DragonMountsConfig.boneNestRarerityInZ) + random.nextInt(DragonMountsConfig.boneNestRarerityInZ);
 		for (int y = 85; y >= 5; y--) {
 	    	boolean solidGround = world.getBlockState(new BlockPos(x,y,z)).isBlockNormalCube();
-	    	if (random.nextInt((solidGround ? DragonMountsConfig.MainNestRarity : DragonMountsConfig.MainNestRarity * 2) + 1) == 0) {
+	    	if (solidGround && random.nextInt(DragonMountsConfig.boneNestMainRarity) == 1) {
 					boolean place = true;
 				
 		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}

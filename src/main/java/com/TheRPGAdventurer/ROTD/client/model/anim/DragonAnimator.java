@@ -46,8 +46,6 @@ public class DragonAnimator {
     private double yawAbs;
     private BlockPos pos;
     
-    public boolean isHovering;
-    
     // timing vars
     private float animBase;
     private float cycleOfs;
@@ -55,6 +53,7 @@ public class DragonAnimator {
     private float ground;
     private float flutter;
     private float walk;
+    private float sprint;
     private float sit;
     private float bite;
     private float breath;
@@ -65,6 +64,7 @@ public class DragonAnimator {
     private TickFloat groundTimer = new TickFloat(1).setLimit(0, 1);
     private TickFloat FlutterTimer = new TickFloat().setLimit(0, 1);
     private TickFloat walkTimer = new TickFloat().setLimit(0, 1);
+    private TickFloat sprintTimer = new TickFloat().setLimit(0, 1);
     private TickFloat sitTimer = new TickFloat().setLimit(0, 1);
     private TickFloat biteTimer = new TickFloat().setLimit(0, 1);
     private TickFloat breathTimer = new TickFloat().setLimit(0, 1);
@@ -197,6 +197,7 @@ public class DragonAnimator {
         ground = groundTimer.get(partialTicks);
         flutter = FlutterTimer.get(partialTicks);
         walk = walkTimer.get(partialTicks);
+        sprint = sprintTimer.get(partialTicks);
         sit = sitTimer.get(partialTicks);
         bite = biteTimer.get(partialTicks);
         breath = breathTimer.get(partialTicks);
@@ -273,12 +274,11 @@ public class DragonAnimator {
         } else {
             groundVal -= 0.1f;
         }
-        groundTimer.set(groundVal);
+        groundTimer.set(groundVal);     
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided 
         		|| dragon.motionY > -0.1 || speedEnt < speedMax); // && dragon.getPassengers().size() < 2)
-        isHovering = HoverFlag;
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
         // update walking transition
@@ -325,8 +325,7 @@ public class DragonAnimator {
 
         // update speed transition
         boolean nearGround = dragon.getAltitude() < dragon.height * 2;
-        boolean morethanonepassengers = dragon.getPassengers().size() >= 2;
-        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || morethanonepassengers;
+        boolean speedFlag = speedEnt > speedMax || onGround || nearGround;
         float speedValue = 0.05f;
         speedTimer.add(speedFlag ? speedValue : -speedValue);
            

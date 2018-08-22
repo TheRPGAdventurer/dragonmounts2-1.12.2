@@ -102,7 +102,7 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 3.5F;
+    final float DAMAGE_PER_HIT_DENSITY = 5.0F;
 
     float hitDensity = currentHitDensity.getHitDensity();
     
@@ -113,7 +113,7 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
     		entityTameable.attackEntityFrom(DamageSource.DROWN, 0);
     	}
     } else {
-       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
+       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     }
     entity.isWet();
     PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50*10);      

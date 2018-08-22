@@ -19,14 +19,15 @@ import net.minecraft.world.World;
 
 public class ItemStructureSpawner extends Item {
 	
-	public ItemStructureSpawner(String unlocalizedName, String registryName) {
+	public ItemStructureSpawner(String unlocalizedName) {
 	    this.setUnlocalizedName(unlocalizedName);
-	    this.setRegistryName(registryName);
+	    this.setRegistryName(unlocalizedName);
 	    this.setCreativeTab(DragonMounts.TAB);
 	    this.setMaxStackSize(1);
 	}
 	
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 			int x = pos.getX();
 		    int y = pos.getY();
 		    int z = pos.getZ();

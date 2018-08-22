@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,6 +25,7 @@ public class GuiDragon extends GuiContainer {
 	private EntityTameableDragon dragon;
 	private float mousePosx;
 	private float mousePosY;
+	private GuiButton SIT;
 
 	public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
 		super(new ContainerDragon(dragon, Minecraft.getMinecraft().player));
@@ -47,11 +49,19 @@ public class GuiDragon extends GuiContainer {
 		this.mc.getTextureManager().bindTexture(texture);
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;  
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);		
 		if (dragon.isChested()) {this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);} 
 		GuiInventory.drawEntityOnScreen(x + 88, y + 65, 19, x + 51 - this.mousePosx, y + 75 - 50 - this.mousePosY, this.dragon);
 
 	}
+	
+//	@Override
+//	public void initGui() {
+//		int x = (this.width - this.xSize) / 2;
+//		int y = (this.height - this.ySize) / 2;  
+//		this.buttonList.clear();
+//		this.SIT = this.addButton(new GuiButton(0, 100, 100 , 5, 5, "SIT!"));
+//	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {

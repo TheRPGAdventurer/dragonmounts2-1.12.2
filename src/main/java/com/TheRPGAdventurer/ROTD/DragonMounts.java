@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -59,7 +60,7 @@ public class DragonMounts {
 	
     public static final String NAME = "Dragon Mounts";
     public static final String MODID = "dragonmounts";
-    public static final String VERSION = "1.12.2-1.4.5-SNAPSHOT-2";
+    public static final String VERSION = "1.12-1.4.5";
     public static final String LLIBRARY_VERSION = "1.7.9";
     public static final String GUI_FACTORY = "com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
     
@@ -98,7 +99,7 @@ public class DragonMounts {
         proxy.render(); 
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-       
+     
     }
 
     @EventHandler

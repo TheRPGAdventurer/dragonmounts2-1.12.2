@@ -9,6 +9,8 @@ public enum EnumItemBreedTypes {
 	ICE(TextFormatting.DARK_BLUE), 
 	FIRE(TextFormatting.DARK_RED), 
 	FOREST(TextFormatting.DARK_GREEN),
+	SKELETON(TextFormatting.WHITE),
+	WITHER(TextFormatting.WHITE),
 	NETHER(TextFormatting.GOLD),
 	END(TextFormatting.LIGHT_PURPLE);
 	

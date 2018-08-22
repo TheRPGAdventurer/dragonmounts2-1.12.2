@@ -122,7 +122,7 @@ public class DragonBreathHelper extends DragonHelper {
               lookDirection.y, 
               lookDirection.z);   
       BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();
-      if (endOfLook != null && currentBreathState == BreathState.SUSTAIN) {
+      if (endOfLook != null && currentBreathState == BreathState.SUSTAIN && dragon.getBreed().canBreathFire()) {
     	 dragon.getBreed().continueAndUpdateBreathing(dragon.getEntityWorld(), origin, endOfLook, power, dragon);
       }
     }

@@ -114,11 +114,23 @@ item.dragonarmor_gold.name=Gold Dragon Armor
 entity.dragon.tooYounng=The dragon is too young let it grow.
 death.attack.DRAGON_BREATH=was killed by dragon's breath.
 
+item.summon_forest.name=Summon Dragon
+item.summon_aether.name=Summon Dragon
+item.summon_ice.name=Summon Dragon
+item.summon_water.name=Summon Dragon
+item.summon_fire.name=Summon Dragon
+item.summon_nether.name=Summon Dragon
+item.summon_end.name=Summon Dragon
+item.summon_skeleton.name=Summon Dragon
+item.summon_wither.name=Summon Dragon
+
 dragon.forest=Forest
 dragon.aether=Aether
 dragon.ice=Ice
 dragon.water=Water
 dragon.fire=Fire
+dragon.skeleton=Skeleton
+dragon.wither=Wither
 dragon.nether=Nether
 dragon.end=Ender
 

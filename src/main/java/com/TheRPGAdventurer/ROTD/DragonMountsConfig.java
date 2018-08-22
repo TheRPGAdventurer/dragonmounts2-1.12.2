@@ -70,7 +70,7 @@ public class DragonMountsConfig {
 	public static int GET_TICKS_PER_STAGE = 24000;
     
     public static void PreInit() {
-    	File configFile = new File(Loader.instance().getConfigDir(), "rotd.cfg");
+    	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
     	config = new Configuration(configFile);
     	syncFromFiles();
     }

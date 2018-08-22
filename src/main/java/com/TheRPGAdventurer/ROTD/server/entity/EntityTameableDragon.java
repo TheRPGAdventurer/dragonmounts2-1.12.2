@@ -15,7 +15,6 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 import static net.minecraft.entity.SharedMonsterAttributes.KNOCKBACK_RESISTANCE;
 import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 
-import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +37,7 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.message.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.client.model.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
@@ -56,7 +56,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonArmor;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
-import com.TheRPGAdventurer.ROTD.util.Utils;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
@@ -71,21 +70,17 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
-import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityWaterMob;
-import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -104,7 +99,6 @@ import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -119,6 +113,12 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.BiomeProperties;
+import net.minecraft.world.biome.BiomeHills;
+import net.minecraft.world.biome.BiomeProvider;
+import net.minecraft.world.biome.BiomeStoneBeach;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -166,6 +166,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IS_MALE = EntityDataManager
+			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> ARMOR = EntityDataManager
 			.<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
 	private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
@@ -187,6 +189,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private static final String NBT_SHEARED   = "Sheared";
 	private static final String NBT_CHESTED   = "Chested";
 	private static final String NBT_BREATHING = "Breathing";
+	private static final String NBT_ISMALE    = "IsMale";
 
 	// server/client delegates
 	private final Map<Class, DragonHelper> helpers = new HashMap<>();
@@ -234,7 +237,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		stepHeight = 1;
 
 		// create entity delegates
-		addHelper(new DragonBreedHelper(this, DATA_BREED));
+		addHelper(new DragonBreedHelper(this, DATA_BREED)); 
 		addHelper(new DragonLifeStageHelper(this, DATA_TICKS_SINCE_CREATION));
 		addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
 		addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON));
@@ -250,7 +253,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 
 		moveHelper = new DragonMoveHelper(this);
-		aiSit = new EntityAISit(this);
+		aiSit = new EntityAIDragonSit(this);
 
 		// init helpers
 		helpers.values().forEach(DragonHelper::applyEntityAttributes);
@@ -274,6 +277,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.register(DATA_BREATHING, false);
 		dataManager.register(DATA_SADDLED, false);
 		dataManager.register(CHESTED, false);
+		dataManager.register(IS_MALE, false);
         dataManager.register(DRAGON_SCALES, Byte.valueOf((byte)0));		
 		dataManager.register(ARMOR, 0);
 	}
@@ -295,6 +299,41 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		getEntityAttribute(FOLLOW_RANGE).setBaseValue(BASE_FOLLOW_RANGE);
 		getEntityAttribute(KNOCKBACK_RESISTANCE).setBaseValue(RESISTANCE);
 		getEntityAttribute(ARMOR_TOUGHNESS).setBaseValue(BASE_TOUGHNESS);
+	}
+	
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	@Override
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+		nbt.setBoolean(NBT_SADDLED, isSaddled());
+		nbt.setInteger(NBT_ARMOR, this.getArmor());
+		nbt.setBoolean(NBT_CHESTED, this.isChested());
+        nbt.setBoolean(NBT_SHEARED, this.getSheared());
+     //   nbt.setBoolean(NBT_ISMALE, this.isMale());
+        nbt.setBoolean(NBT_BREATHING, this.isBreathing());
+//        nbt.setBoolean("OnGround2", this.onGround2);
+        writeDragonInventory(nbt);
+		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
+	}
+
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	@Override
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+		super.readEntityFromNBT(nbt);
+		this.setSaddled(nbt.getBoolean(NBT_SADDLED));
+		this.setChested(nbt.getBoolean(NBT_CHESTED));
+        this.setSheared(nbt.getBoolean(NBT_SHEARED));
+   //     this.setTrueIfMale(nbt.getBoolean(NBT_ISMALE));
+        this.setBreathing(nbt.getBoolean(NBT_BREATHING));
+//        this.onGround2 = nbt.getBoolean("OnGround2");
+		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
+		this.setArmor(nbt.getInteger(NBT_ARMOR));
+		readDragonInventory(nbt);
+
 	}
 
 	/**
@@ -395,40 +434,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	/**
-	 * (abstract) Protected helper method to write subclass entity data to NBT.
-	 */
-	@Override
-	public void writeEntityToNBT(NBTTagCompound nbt) {
-		super.writeEntityToNBT(nbt);
-		nbt.setBoolean(NBT_SADDLED, isSaddled());
-		nbt.setInteger(NBT_ARMOR, this.getArmor());
-		nbt.setBoolean(NBT_CHESTED, this.isChested());
-        nbt.setBoolean(NBT_SHEARED, this.getSheared());
-        nbt.setBoolean(NBT_BREATHING, this.isBreathing());
-        nbt.setBoolean("OnGround2", this.onGround2);
-//		nbt.setBoolean(NBT_CHESTED_RIGHT, this.isChestedInRight());
-        writeDragonInventory(nbt);
-		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
-	}
-
-	/**
-	 * (abstract) Protected helper method to read subclass entity data from NBT.
-	 */
-	@Override
-	public void readEntityFromNBT(NBTTagCompound nbt) {
-		super.readEntityFromNBT(nbt);
-		this.setSaddled(nbt.getBoolean(NBT_SADDLED));
-		this.setChested(nbt.getBoolean(NBT_CHESTED));
-        this.setSheared(nbt.getBoolean(NBT_SHEARED));
-        this.setBreathing(nbt.getBoolean(NBT_BREATHING));
-        this.onGround2 = nbt.getBoolean("OnGround2");
-		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
-		this.setArmor(nbt.getInteger(NBT_ARMOR));
-		readDragonInventory(nbt);
-
-	}
-
-	/**
 	 * returns the pitch of the dragon's body
 	 *
 	 * @return
@@ -466,7 +471,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public void updateBreathingClient() {
+	public void updateBreathing() {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(getControllingPlayer() != null) {
 			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
@@ -474,11 +479,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 	}
 	
+	public boolean isHoveringCancelled() {
+		boolean isHoveringCancelled = false;
+		Minecraft mc = Minecraft.getMinecraft();
+		if(getControllingPlayer() != null && ModKeys.KEY_HOVERCANCEL.isKeyDown()) {
+			isHoveringCancelled = true;			
+		}
+		return isHoveringCancelled;
+	}
+	
     @Override
     public void onUpdate() {
         super.onUpdate();
         if (world.isRemote) {
-            this.updateBreathingClient();
+            this.updateBreathing();
         }
     }
 
@@ -554,6 +568,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 			hasChestVarChanged = false;
 		}
+		
+        if(getBreedType() == EnumDragonBreed.SYLPHID) {
+        	PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
+        	if (!isPotionActive(watereffect.getPotion()) && isInWater()) { // If the Potion isn't currently active,
+        		addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
+    		}
+        }
 		
 		updateMultipleBoundingBox();
 		updateShearing();
@@ -729,13 +750,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return getBreed().getCreatureAttribute();
 	}
 	
-	@Override
-	public EntityLivingBase getOwner() {
-		for (int i = 0; i < world.playerEntities.size();) {
+    @Nullable
+    public EntityLivingBase getOwner2() {
+    	for (int i = 0; i < world.playerEntities.size();) {
 			EntityPlayer entityplayer = world.playerEntities.get(i);
 			return entityplayer;
-		}   return null;
-	}
+		}
+		return null;
+    }
 
 	/**
 	 * Called when a player interacts with a mob. e.g. gets milk from a cow, gets
@@ -805,6 +827,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (isSitting()) {
             eyeHeight *= 0.8f;
+        }
+        
+        if(isEgg()) {
+        	eyeHeight = 2.4f;
         }
 
         return eyeHeight;
@@ -878,10 +904,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	/**
      * Called when the entity is attacked.
      */
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        return attackEntityFromPart(this.dragonPartBody, source, amount);
-    }
+//    public boolean attackEntityFrom(DamageSource source, float amount) {
+//        return attackEntityFromPart(this.dragonPartBody, source, amount);
+ //   }
 
+	/**
+     * Called when an entity attacks
+     */
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean attacked = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
 				(float) getEntityAttribute(ATTACK_DAMAGE).getAttributeValue());
@@ -1413,10 +1442,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		Biome biome = this.world.getBiome(new BlockPos(this));
-
-		 if (world.provider.getDimension() == 0) {
-			 this.setBreedType(EnumDragonBreed.AETHER);
-		 }
+		if(biome == Biomes.EXTREME_HILLS || biome == Biomes.EXTREME_HILLS_EDGE || biome == Biomes.MUTATED_EXTREME_HILLS) {
+			int i = 10;
+			if(i > 5) {
+			   setBreedType(EnumDragonBreed.FIRE);
+			} else if(i > 10) {
+				setBreedType(EnumDragonBreed.AETHER);
+			}
+		} else if(biome == Biomes.MUTATED_EXTREME_HILLS_WITH_TREES) {
+			setBreedType(EnumDragonBreed.FOREST);
+		} else if(biome == Biomes.STONE_BEACH || biome == Biomes.BEACH) {
+			setBreedType(EnumDragonBreed.SYLPHID);
+		} else if(BiomeDictionary.hasType(biome, Type.COLD)) {
+			setBreedType(EnumDragonBreed.ICE);
+		}
 		
 		return null;
 	}
@@ -1446,21 +1485,26 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
-		if(getControllingPassenger() != null) {
-			return false;
-		} else if(target instanceof EntityTameable) {
+	   if(!target.isChild()) {
+	      if(target instanceof EntityTameable) {
 			EntityTameable tamedEntity = (EntityTameable) target;
-			return !((EntityTameable)target).isTamed() && !target.isChild();
-		} else if(target instanceof EntityTameableDragon) {
-			EntityTameable targetDragon = (EntityTameable) target;
-			return ((EntityTameableDragon)target).getLifeStageHelper().getTicksSinceCreation() 
-			     >= ((EntityTameableDragon)target).getAppropriateAgeForInteraction();
-		} else if (target.hasCustomName()){
+			if(((EntityTameable) target).isTamed()) {
+				return false;
+		   }			
+		}  
+	    
+	    if(target instanceof EntityTameableDragon) {
+	    	EntityTameableDragon targetDragon = (EntityTameableDragon) target;
+			return targetDragon.getLifeStageHelper().getTicksSinceCreation() 
+			     >= targetDragon.getAppropriateAgeForInteraction();
+		} 
+      
+	    if (target.hasCustomName()) {
 			return false;  
-		} else {
-		     return false;
-		}
-        
+		   } 
+		
+		} 
+	      return false;         
     }
 	
     protected boolean canFitPassenger(Entity passenger) {
@@ -1497,15 +1541,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                     if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer))
                     {
                         entity.startRiding(this);
-                    }
-                    else
-                    {
+                    } else { 
                         this.applyEntityCollision(entity);
                     }
                 }
             }
         }
     }
+	
 	
     /**
      * Updates the state of the enderdragon's current endercrystal.
@@ -1723,13 +1766,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public World getWorld() {		
 		return world; 
 	}
-	
-    /**
-     * Provides a way to cause damage to an ender dragon.
-     */
-    protected boolean attackDragonFrom(DamageSource source, float amount) {
-        return super.attackEntityFrom(source, amount);
-    }
 
 	@Override
 	public boolean attackEntityFromPart(MultiPartEntityPart dragonPart, DamageSource source, float damage) {		
@@ -1758,7 +1794,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             damage = damage + 4.0F + Math.min(damage, 1.0F);
         }
             
-        this.attackDragonFrom(source, damage);
+        this.attackEntityFrom(source, damage);
         
 		return true;
 	}
@@ -1803,4 +1839,26 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public Entity[] getParts() {
 		return dragonPartArray;
 	}
+
 }
+	
+//	/**
+//	 * Gets the gender since booleans return only 2 values (true or false) true == MALE, false == FEMALE
+//	 * 2 genders only dont call me sexist and dont talk to me about political correctness
+//	 */
+//	public boolean isMale() {
+//		return dataManager.get(IS_MALE);
+//	}
+	
+//	public boolean isFemale() {
+//		return !isMale();
+//	}
+	
+//	/**
+//	 * false if female
+//	 * @param male
+//	 */
+//	public void setTrueIfMale(boolean male) {
+//		dataManager.set(IS_MALE, male);		
+//	}
+//}

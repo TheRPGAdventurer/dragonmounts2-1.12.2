@@ -36,7 +36,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
         
-        owner = (EntityPlayer) dragon.getOwner();
+        owner = (EntityPlayer) dragon.getOwner2();
         
         // don't catch if ownerless 
         if (owner == null) {

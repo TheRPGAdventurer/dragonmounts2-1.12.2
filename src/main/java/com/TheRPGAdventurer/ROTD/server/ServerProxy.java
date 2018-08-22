@@ -20,8 +20,11 @@ import com.TheRPGAdventurer.ROTD.server.network.DragonControlMessage;
 import com.TheRPGAdventurer.ROTD.server.network.DragonControlMessageHandler;
 
 import net.minecraft.command.ServerCommandManager;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -59,7 +62,9 @@ public class ServerProxy {
     
     
     public void Initialization(FMLInitializationEvent evt) { 
+    	Biome biomes[] = {Biomes.BEACH, Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_EDGE, Biomes.EXTREME_HILLS_WITH_TREES, Biomes.MUTATED_EXTREME_HILLS, Biomes.MUTATED_EXTREME_HILLS_WITH_TREES, Biomes.STONE_BEACH, Biomes.BEACH, Biomes.ICE_PLAINS, Biomes.MUTATED_ICE_FLATS, Biomes.ICE_MOUNTAINS}; 
         MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
+        EntityRegistry.addSpawn(EntityTameableDragon.class, 1, 1, 1, EnumCreatureType.AMBIENT, biomes);
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
         network.registerMessage(DragonControlMessageHandler.class, DragonControlMessage.class, DCM_DISCRIMINATOR_ID, Side.SERVER);
         network.registerMessage(DragonBreathMessageHandlerServer.class, DragonBreathMessage.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
@@ -82,7 +87,7 @@ public class ServerProxy {
     private void registerEntities() {
         EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "dragon"), EntityTameableDragon.class, "DragonMount",
                 ENTITY_ID, DragonMounts.instance, ENTITY_TRACKING_RANGE, ENTITY_UPDATE_FREQ,
-                ENTITY_SEND_VELO_UPDATES);
+                ENTITY_SEND_VELO_UPDATES, 0Xc30c0c, 0X220e21);        
     } 
     
 	public void render() {}

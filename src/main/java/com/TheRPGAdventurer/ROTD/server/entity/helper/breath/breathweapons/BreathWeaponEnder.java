@@ -97,7 +97,7 @@ public class BreathWeaponEnder extends BreathWeapon {
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 4.3F;
+    final float DAMAGE_PER_HIT_DENSITY = 10.0F;
 
     float hitDensity = currentHitDensity.getHitDensity();
     if(entity instanceof EntityTameable) {
@@ -106,7 +106,7 @@ public class BreathWeaponEnder extends BreathWeapon {
     		entityTameable.attackEntityFrom(DamageSource.IN_FIRE, 0);
     	}
     } else {
-       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY + hitDensity);
+       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     }
 
     return currentHitDensity;

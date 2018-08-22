@@ -128,7 +128,7 @@ public class BreathWeaponHydro extends BreathWeapon {
 			return null;
 		}
 
-		final float DAMAGE_PER_HIT_DENSITY = 1.7F;
+		final float DAMAGE_PER_HIT_DENSITY = 3.0F;
 
 		float hitDensity = currentHitDensity.getHitDensity();
 

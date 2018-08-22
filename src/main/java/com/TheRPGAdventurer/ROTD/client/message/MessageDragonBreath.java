@@ -15,6 +15,7 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 
 	public int dragonId;
 	public boolean isBreathing;
+	
 
 	public MessageDragonBreath(int dragonId, boolean isBreathing) {
 		this.dragonId = dragonId;
@@ -41,6 +42,7 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onClientReceived(Minecraft client, MessageDragonBreath message, EntityPlayer player, MessageContext messageContext) {
+	
 	}
 
 	@Override

@@ -830,7 +830,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
         
         if(isEgg()) {
-        	eyeHeight = 2.4f;
+        	eyeHeight = 1.3f;
         }
 
         return eyeHeight;

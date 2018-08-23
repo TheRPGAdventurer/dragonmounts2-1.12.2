@@ -37,15 +37,15 @@ public class DragonBreedSkeleton extends DragonBreed {
         if (dragon.world.getLight(blockPos) > 4) { // too bright!
             return false;
         }
-//        if (dragon.worldObj.canBlockSeeTheSky(bx, by, bz)) {
-//            // sun is shining!
-//            return false;
-//        }
-//        
-//        if (dragon.worldObj.getBlockLightValue(bx, by, bz) > 4) {
-//            // too bright!
-//            return false;
-//        }
+        if (dragon.world.canBlockSeeSky(blockPos)) {
+            // sun is shining!
+            return false;
+        }
+        
+        if (dragon.world.getLightBrightness(blockPos) > 4) {
+            // too bright!
+            return false;
+        }
 
         return true;
     }

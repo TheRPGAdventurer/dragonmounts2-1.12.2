@@ -22,7 +22,7 @@ public class ItemDragonHoe extends ItemHoe {
 	
 	public ItemDragonHoe(ToolMaterial material, String name, EnumItemBreedTypes type) {
 		super(material);
-		this.setRegistryName(new ResourceLocation(name));
+		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(DragonMounts.TAB);
 		this.type = type;

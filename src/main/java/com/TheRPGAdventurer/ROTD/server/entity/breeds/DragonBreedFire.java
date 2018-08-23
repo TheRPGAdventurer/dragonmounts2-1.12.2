@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 
 /**
@@ -29,6 +30,11 @@ public class DragonBreedFire extends DragonBreed {
         addImmunity(DamageSource.HOT_FLOOR);
         addImmunity(DamageSource.LIGHTNING_BOLT);
         addImmunity(DamageSource.WITHER);
+        
+        addHabitatBlock(Blocks.FIRE);
+        addHabitatBlock(Blocks.LIT_FURNACE);
+        addHabitatBlock(Blocks.LAVA);
+        addHabitatBlock(Blocks.FLOWING_LAVA);
         
         addHabitatBiome(Biomes.DESERT);
         addHabitatBiome(Biomes.DESERT_HILLS);

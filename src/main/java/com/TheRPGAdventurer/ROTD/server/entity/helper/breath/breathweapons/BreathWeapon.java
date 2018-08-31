@@ -105,9 +105,9 @@ public class BreathWeapon {
         
         }
         
-        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) > -1) {
-            world.setBlockToAir(pos);
-        }
+    //    if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) != -1) {
+    //        world.setBlockToAir(pos);
+    //    }
       }
     }
     
@@ -287,26 +287,38 @@ public class BreathWeapon {
 
 	    final float CATCH_FIRE_THRESHOLD = 1.4F;
 	    final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
-	    final float DAMAGE_PER_HIT_DENSITY = 5.0F;
 
 	    float hitDensity = currentHitDensity.getHitDensity();
+	    final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
+	    
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
 	    	entity.setFire((int)(40 * 10));
-	    } else if (entity instanceof EntityTameable) {
+	    } else if(entity instanceof EntityTameable) {
 	    	EntityTameable entityTameable = (EntityTameable) entity;
 	    	if(entityTameable.isTamed()) {
-	    		entityTameable.setFire(0);
+	    		return null;
 	    	}
-	    }
+	    }  else
+	    
+	    if(entity instanceof EntityLivingBase) {
+	    	EntityLivingBase entity1 = (EntityLivingBase) entity;
+	    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+	    		return null;
+	    	} else {
+	    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+	    	}
+	    }  else
 	    
 	    if(entity instanceof EntityTameable) {
 	    	EntityTameable entityTameable = (EntityTameable) entity;
 	    	if(entityTameable.isTamed()) {
-	    		entityTameable.attackEntityFrom(DamageSource.IN_FIRE, 0);
+	    		return null;
+	    	} else {
+	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	    	}
-	    } else {
-	       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-	    }
+	    } 
+	    
+	    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	      
 	    return currentHitDensity;
   }

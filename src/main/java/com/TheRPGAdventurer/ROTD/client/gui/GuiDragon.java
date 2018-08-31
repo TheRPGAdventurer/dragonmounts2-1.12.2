@@ -9,9 +9,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,13 +16,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {
+	
 	private static final ResourceLocation texture = new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
 	private IInventory playerInventory;
 	private IInventory dragonInv;
 	private EntityTameableDragon dragon;
-	private float mousePosx;
+	private float mousePosX;
 	private float mousePosY;
-	private GuiButton SIT;
+	private GuiButton SIT; 
 
 	public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
 		super(new ContainerDragon(dragon, Minecraft.getMinecraft().player));
@@ -51,22 +49,25 @@ public class GuiDragon extends GuiContainer {
 		int y = (this.height - this.ySize) / 2;  
 		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);		
 		if (dragon.isChested()) {this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);} 
-		GuiInventory.drawEntityOnScreen(x + 88, y + 65, 19, x + 51 - this.mousePosx, y + 75 - 50 - this.mousePosY, this.dragon);
+		GuiInventory.drawEntityOnScreen(x + 88, y + 65, 19, x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY, this.dragon);
 
 	}
 	
 //	@Override
 //	public void initGui() {
-//		int x = (this.width - this.xSize) / 2;
-//		int y = (this.height - this.ySize) / 2;  
 //		this.buttonList.clear();
-//		this.SIT = this.addButton(new GuiButton(0, 100, 100 , 5, 5, "SIT!"));
+//	    this.SIT = this.addButton(new GuiButton(0, 100, 100 , 5, 5, "SIT!"));
+//	    if(this.SIT.enabled && !dragon.isSitting()) {
+//	    	dragon.getAISit().setSitting(true); 
+//	    } else if(!this.SIT.enabled && dragon.isSitting()) {
+//	    	dragon.getAISit().setSitting(false);
+//	    }
 //	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground(); 
-		this.mousePosx = mouseX;
+		this.mousePosX = mouseX;
 		this.mousePosY = mouseY;
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);

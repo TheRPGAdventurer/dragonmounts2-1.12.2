@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.init.MobEffects;
@@ -46,6 +47,7 @@ public class BreathWeaponEnder extends BreathWeapon {
    * @param currentHitDensity
    * @return the updated block hit density
    */
+  @Override
   public BreathAffectedBlock affectBlock(World world, Vec3i blockPosition, BreathAffectedBlock currentHitDensity) {
     checkNotNull(world);
     checkNotNull(blockPosition);
@@ -83,6 +85,7 @@ public class BreathWeaponEnder extends BreathWeapon {
    * @param currentHitDensity the hit density
    * @return the updated hit density; null if the entity is dead, doesn't exist, or otherwise not affected
    */
+  @Override
   public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAffectedEntity currentHitDensity) {
     checkNotNull(world);
     checkNotNull(entityID);
@@ -90,24 +93,41 @@ public class BreathWeaponEnder extends BreathWeapon {
 
     if (entityID == dragon.getEntityId()) return null;
     if(dragon.getControllingPassenger() != null) {
-    if (entityID == dragon.getControllingPlayer().getEntityId()) return null;}
+       if (entityID == dragon.getControllingPlayer().getEntityId()) return null;
+    }
 
     Entity entity = world.getEntityByID(entityID);
     if (entity == null || !(entity instanceof Entity) || entity.isDead) {
       return null;
     }
-    
-    final float DAMAGE_PER_HIT_DENSITY = 10.0F;
+  
 
     float hitDensity = currentHitDensity.getHitDensity();
-    if(entity instanceof EntityTameable) {
+    final float DAMAGE_PER_HIT_DENSITY = 5.0F * hitDensity;
+    
+    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
+    	entity.setFire((int)(40 * 10));
+    } else if(entity instanceof EntityTameable) {
+    	return null;
+    }
+    
+    if(entity instanceof EntityLivingBase) {
+    	EntityLivingBase entity1 = (EntityLivingBase) entity;
+    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+    		return null;
+    	} else {
+    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+    	}
+    } else if(entity instanceof EntityTameable) {
     	EntityTameable entityTameable = (EntityTameable) entity;
     	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DamageSource.IN_FIRE, 0);
+    		return null;
+    	} else {
+    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     	}
-    } else {
-       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    }
+    } 
+    
+    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 
     return currentHitDensity;
   }

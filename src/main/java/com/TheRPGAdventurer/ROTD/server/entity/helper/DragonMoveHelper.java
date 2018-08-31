@@ -43,7 +43,6 @@ public class DragonMoveHelper extends EntityMoveHelper {
 
     @Override
     public void onUpdateMoveHelper() { 
- //   	if(canPassengerSteer()) {
         // original movement behavior if the entity isn't flying
         if (!dragon.isFlying()) {
             super.onUpdateMoveHelper();
@@ -60,7 +59,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
         // get euclidean distance to target
         double dist = dragonPos.distanceTo(movePos);
         
-        // move towards target if it's far enough away
+        // move towards target if it's far away enough
         if (dist > dragon.width) {
             double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue();
 
@@ -82,21 +81,8 @@ public class DragonMoveHelper extends EntityMoveHelper {
             float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
             dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
             entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
-        }// apply movement
-        
-        dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
+             }// apply movement 
+               dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
     //	}
-    }
-    
-    public boolean canPassengerSteer() {
-        Entity controller = dragon.getControllingPlayer();
-
-        if (controller instanceof EntityPlayer) {
-            return ((EntityPlayer)controller).isUser();
-        }
-        else
-        {
-            return !dragon.world.isRemote;
-        }
-    }
+    } 
 }

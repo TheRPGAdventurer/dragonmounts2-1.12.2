@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 
 public class DragonBreedAir extends DragonBreed {
 
@@ -17,8 +18,6 @@ public class DragonBreedAir extends DragonBreed {
 	    public DragonBreedAir() {
 	        super("aether", 0x1dc4f3);
 	        
-	     addImmunity(DamageSource.IN_FIRE);
-	     addImmunity(DamageSource.ON_FIRE);
 	     addImmunity(DamageSource.MAGIC);
 	     addImmunity(DamageSource.HOT_FLOOR);
 	     addImmunity(DamageSource.LIGHTNING_BOLT);
@@ -47,6 +46,11 @@ public class DragonBreedAir extends DragonBreed {
 
     @Override
     public void onDeath(EntityTameableDragon dragon) {}
+    
+    @Override
+    public ResourceLocation getLootTable() {
+    	return super.getLootTable();
+    }
     
 }
 	

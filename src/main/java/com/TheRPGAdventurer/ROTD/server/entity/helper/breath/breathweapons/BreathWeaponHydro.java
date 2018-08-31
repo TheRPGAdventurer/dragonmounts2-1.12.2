@@ -53,6 +53,7 @@ public class BreathWeaponHydro extends BreathWeapon {
 	 * @param currentHitDensity
 	 * @return the updated block hit density
 	 */
+	@Override
 	public BreathAffectedBlock affectBlock(World world, Vec3i blockPosition, BreathAffectedBlock currentHitDensity) {
 		checkNotNull(world);
 		checkNotNull(blockPosition);
@@ -66,10 +67,6 @@ public class BreathWeaponHydro extends BreathWeapon {
 		BlockPos sideToIgnite = blockPos.offset(EnumFacing.UP);
 		// if (DragonMountsConfig.canBreathSetIce ) {
 		// world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else
-		if (DragonMountsConfig.canBreathSetIce && world.getBlockState(blockPos).getBlock() == Blocks.WATER
-				|| world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER) {
-			world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, (Entity) null);
-		}
 
 		world.spawnParticle(EnumParticleTypes.WATER_SPLASH, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0D,
 				4.0D, 1.0D);
@@ -111,6 +108,7 @@ public class BreathWeaponHydro extends BreathWeapon {
 	 * @return the updated hit density; null if the entity is dead, doesn't exist,
 	 *         or otherwise not affected
 	 */
+	@Override
 	public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAffectedEntity currentHitDensity) {
 		checkNotNull(world);
 		checkNotNull(entityID);
@@ -135,7 +133,9 @@ public class BreathWeaponHydro extends BreathWeapon {
 		if (entity instanceof EntityTameable) {
 			EntityTameable entityTameable = (EntityTameable) entity;
 			if (entityTameable.isTamed()) {
-				entityTameable.attackEntityFrom(DamageSource.DROWN, 0);
+				return null;
+			} else {
+				entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 			}
 		} else {
 			entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);

@@ -11,6 +11,7 @@ package com.TheRPGAdventurer.ROTD.client;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.event.DragonViewEvent;
+import com.TheRPGAdventurer.ROTD.client.extras.RenderWolfMODIFIED;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
@@ -32,6 +33,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -54,6 +56,7 @@ public class ClientProxy extends ServerProxy {
         DragonMountsConfig.clientPreInit();
         MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());      
         RenderingRegistry.registerEntityRenderingHandler(EntityTameableDragon.class, DragonRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityWolf.class, RenderWolfMODIFIED::new);
         
         RenderingRegistry.registerEntityRenderingHandler(HydroBreathFX.class, RenderHydroBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);

@@ -53,7 +53,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldExecute() {
-        Entity ownerCurrent = dragon.getOwner2();
+        Entity ownerCurrent = dragon.getOwner();
 
         if (ownerCurrent == null) {
             return false;

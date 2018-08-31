@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -46,6 +47,7 @@ public class BreathWeaponIce extends BreathWeapon {
    * @param currentHitDensity
    * @return the updated block hit density
    */
+  @Override
   public BreathAffectedBlock affectBlock(World world, Vec3i blockPosition, BreathAffectedBlock currentHitDensity) {
     checkNotNull(world);
     checkNotNull(blockPosition);
@@ -59,7 +61,7 @@ public class BreathWeaponIce extends BreathWeapon {
     BlockPos sideToIgnite = blockPos.offset(EnumFacing.UP);
   //  if (DragonMountsConfig.canBreathSetIce ) {
    //     world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else 
-        	if (DragonMountsConfig.canBreathSetIce && world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER) {
+        	if (DragonMountsConfig.canIceBreathBePermanent && world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER) {
     	world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, (Entity)null);
     }
     
@@ -88,6 +90,7 @@ public class BreathWeaponIce extends BreathWeapon {
    * @param currentHitDensity the hit density
    * @return the updated hit density; null if the entity is dead, doesn't exist, or otherwise not affected
    */
+  @Override
 public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAffectedEntity currentHitDensity) {
     checkNotNull(world);
     checkNotNull(entityID);
@@ -102,19 +105,25 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 5.0F;
-
     float hitDensity = currentHitDensity.getHitDensity();
+    final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
     
-//    if (currentHitDensity.applyDamageThisTick()) {
     if(entity instanceof EntityTameable) {
     	EntityTameable entityTameable = (EntityTameable) entity;
     	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DamageSource.DROWN, 0);
+    		return null;
+    	} else {
+    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     	}
     } else {
        entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     }
+    
+    if (entity.isBurning()) {
+		entity.extinguish();
+		entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 1.0f, 0.0f);
+	}
+	
     entity.isWet();
     PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50*10);      
     ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the player

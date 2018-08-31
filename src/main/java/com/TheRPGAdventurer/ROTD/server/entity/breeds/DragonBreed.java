@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -18,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -43,18 +47,17 @@ public abstract class DragonBreed {
         this.color = color;
         
         // ignore suffocation damage
-//        addImmunity(DamageSource.DROWN);
+        addImmunity(DamageSource.DROWN);
         addImmunity(DamageSource.IN_WALL);
+        
+        addImmunity(DamageSource.ON_FIRE);
+        addImmunity(DamageSource.IN_FIRE);
         
         // assume that cactus needles don't do much damage to animals with horned scales
         addImmunity(DamageSource.CACTUS);        
         
         // ignore damage from vanilla ender dragon
         addImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
-    }
-    
-    public static double getBreedHealth() {
-    	return 85;
     }
   
     public String getSkin() {
@@ -284,6 +287,11 @@ public abstract class DragonBreed {
 		return soundEffectNames;
     
     }   
+    
+    @Nullable
+    public ResourceLocation getLootTable() {
+    	return DragonMountsLootTables.ENTITIES_DRAGON_AETHER;
+    }
 
 }
 

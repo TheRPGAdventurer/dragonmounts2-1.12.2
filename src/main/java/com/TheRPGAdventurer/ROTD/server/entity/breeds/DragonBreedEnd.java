@@ -1,11 +1,13 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -16,8 +18,6 @@ public class DragonBreedEnd extends DragonBreed {
     DragonBreedEnd() {
         super("ender", 0xab39be);
         
-        addImmunity(DamageSource.IN_FIRE);
-        addImmunity(DamageSource.ON_FIRE);
         addImmunity(DamageSource.MAGIC);
         addImmunity(DamageSource.HOT_FLOOR);
         addImmunity(DamageSource.LIGHTNING_BOLT);
@@ -59,6 +59,11 @@ public class DragonBreedEnd extends DragonBreed {
 		dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
 		dragon.getBreathHelper().getEmitter().spawnBreathParticlesforEnderDragon(world, power, tickCounter);
     }
+	
+	@Override
+	public ResourceLocation getLootTable() {
+		return DragonMountsLootTables.ENTITIES_DRAGON_END;
+	}
     
 }
 	

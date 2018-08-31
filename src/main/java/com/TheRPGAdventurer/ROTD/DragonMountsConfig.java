@@ -34,6 +34,10 @@ public class DragonMountsConfig {
     private static boolean debug = false;
 	public static boolean shouldChangeBreedViaHabitatOrBlock = true;
     public static boolean canDragonDespawn = true;
+    
+    public static boolean canIceBreathBePermanent = true;
+    public static boolean canFireBreathAffectBlocks = true;
+    
     public static boolean useCommandingPlayer = false;
     public static boolean allowOtherPlayerControl = true;
 	
@@ -42,8 +46,6 @@ public class DragonMountsConfig {
 	public static boolean canSpawnNetherNest = true;
 	public static boolean canSpawnNetherBoneNest = true;
 	
-	public static boolean canFireSetFire = true;
-	public static boolean canBreathSetIce = true;
     
 	// chances
 	public static int MainNestRarity  = 1000;
@@ -129,6 +131,16 @@ public class DragonMountsConfig {
 		canDragonDespawn = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
+		prop = config.get(CATEGORY_MAIN, "ice breath", canIceBreathBePermanent);
+		prop.setComment("refers to the ice breath for the dragon in water, set true if you want the ice block to be permamnenet. false otherwise.");
+		canIceBreathBePermanent = prop.getBoolean();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "fire breath affect blocks", canFireBreathAffectBlocks);
+		prop.setComment("refers to the fire breath to affect blocks");
+		canFireBreathAffectBlocks = prop.getBoolean();
+		propOrder.add(prop.getName());
+		
 		prop = config.get(CATEGORY_MAIN, "use CommandingPlayer", useCommandingPlayer);
 		prop.setComment("Use a commanding player method(Experimental) to make dragons land on multiple players");
 		useCommandingPlayer = prop.getBoolean();
@@ -136,17 +148,7 @@ public class DragonMountsConfig {
 		
 		prop = config.get(CATEGORY_MAIN, "Allow Other Player's Control", allowOtherPlayerControl);
 		prop.setComment("Disable or enable the dragon's ability to obey ther players");
-		useCommandingPlayer = prop.getBoolean();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_MAIN, "Can Set Fire", canFireSetFire);
-		prop.setComment("Can dragon's breath set fire on Blocks");
-		canFireSetFire = prop.getBoolean();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_MAIN, "Can Set Ice", canBreathSetIce);
-		prop.setComment("Can dragon's breath set ice on Blocks");
-		canBreathSetIce = prop.getBoolean();
+		allowOtherPlayerControl = prop.getBoolean();
 		propOrder.add(prop.getName());
         
 		/**

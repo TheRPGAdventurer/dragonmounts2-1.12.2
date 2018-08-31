@@ -14,6 +14,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.BlockPos;
@@ -40,7 +41,7 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     }
     
     protected boolean tryToCircleBlockPos(BlockPos pos, double speed) {
-		return false;
+		return dragon.getNavigator().tryMoveToXYZ(pos.getX() + 0.5 * Math.PI, pos.getY() + 10, pos.getZ() + 0.5 * Math.PI, speed);
     	
     }
     

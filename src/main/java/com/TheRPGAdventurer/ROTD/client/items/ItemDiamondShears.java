@@ -35,21 +35,23 @@ public class ItemDiamondShears extends ItemShears {
 
 	        if (entity instanceof EntityTameableDragon) {
 	            EntityTameableDragon target = (EntityTameableDragon)entity;
-	            BlockPos pos = new BlockPos(entity.posX, entity.posY, entity.posZ);
-	            if (target.isShearable(itemstack, entity.world, pos)) {
-	                java.util.List<ItemStack> drops = target.onSheared(itemstack, entity.world, pos,
+	            BlockPos pos = new BlockPos(target.posX, target.posY, target.posZ);
+	            if (target.isShearable(itemstack, target.world, pos)) {
+	                java.util.List<ItemStack> drops = target.onSheared(itemstack, target.world, pos,
 	                        net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel(net.minecraft.init.Enchantments.FORTUNE, itemstack));
 
 	                java.util.Random rand = new java.util.Random();
 	                for(ItemStack stack : drops) {
-	                    net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(stack, 1.0F);
+	                    net.minecraft.entity.item.EntityItem ent = target.entityDropItem(stack, 1.0F);
 	                    ent.motionY += rand.nextFloat() * 0.05F;
 	                    ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 	                    ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 	                }
+	                
 	                Random random = new Random();
-	                entity.attackEntityFrom(DamageSource.causePlayerDamage(player), 7|8);
-	                itemstack.damageItem(35, entity);
+	                target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
+	                
+	                itemstack.damageItem(35, target);
 	            }
 	     
 	      return true;

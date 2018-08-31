@@ -9,11 +9,13 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 
 /**
  *
@@ -24,8 +26,6 @@ public class DragonBreedFire extends DragonBreed {
     public DragonBreedFire() {
         super("fire",0x960b0f);
         
-        addImmunity(DamageSource.IN_FIRE);
-        addImmunity(DamageSource.ON_FIRE);
         addImmunity(DamageSource.MAGIC);
         addImmunity(DamageSource.HOT_FLOOR);
         addImmunity(DamageSource.LIGHTNING_BOLT);
@@ -53,6 +53,11 @@ public class DragonBreedFire extends DragonBreed {
 	@Override
 	public void onDeath(EntityTameableDragon dragon) {		
 		
+	}
+	
+	@Override
+	public ResourceLocation getLootTable() {		
+		return DragonMountsLootTables.ENTITIES_DRAGON_FIRE;
 	}
 	
 }

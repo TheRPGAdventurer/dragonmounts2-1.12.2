@@ -9,6 +9,10 @@ public class EntityAIDragonSit extends EntityAISit {
     /** If the Entitydragon is sitting. */
     private boolean isSitting;
     public EntityTameableDragon dragon;
+    
+///    if (this.dragon.isInWater()) {
+//        return false;
+ //   } else
 
     public EntityAIDragonSit(EntityTameableDragon entityIn) {
         super(entityIn);
@@ -22,13 +26,10 @@ public class EntityAIDragonSit extends EntityAISit {
     public boolean shouldExecute() {
         if (!this.dragon.isTamed()) {
             return false;
-        } else if (this.dragon.isInWater()) {
-            return false;
         } else if (!this.dragon.onGround) {
             return false;
         } else {
             EntityLivingBase entitylivingbase = this.dragon.getOwner2();
-
             if (entitylivingbase == null) {
                 return true;
             } else {

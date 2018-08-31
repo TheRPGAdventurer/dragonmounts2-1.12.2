@@ -31,7 +31,7 @@ public class DragonMountsConfigGui extends GuiConfig {
             Arrays.asList(
                 new ConfigElement(CONFIG.getCategory(DragonMountsConfig.CATEGORY_MAIN)),
                 new ConfigElement(CONFIG.getCategory(DragonMountsConfig.CATEGORY_WORLDGEN))
-            ), DragonMounts.MODID, false, false,
+            ), DragonMounts.MODID, true, false,
                DragonMounts.NAME
         );
     }

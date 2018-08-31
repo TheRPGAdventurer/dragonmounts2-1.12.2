@@ -61,7 +61,7 @@ public class ItemDragonSpawner extends Item {
                 } else {
                 	dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.ADULT);
                 }
-
+                
                 dragon.setPosition(x, y, z);
                 dragon.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
                 dragon.rotationYawHead = dragon.rotationYaw;
@@ -99,9 +99,9 @@ public class ItemDragonSpawner extends Item {
                     EntityTameableDragon.setCustomNameTag(stack.getDisplayName());
                 }
                  //    no just no!
-           //     if (!player.capabilities.isCreativeMode) {
+                if (!player.capabilities.isCreativeMode) {
                     stack.shrink(1);
-            //    }
+                }
 
                 world.spawnEntity(EntityTameableDragon);
                 EntityTameableDragon.playLivingSound();

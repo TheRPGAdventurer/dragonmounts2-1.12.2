@@ -94,18 +94,15 @@ public class BreathWeaponWither extends BreathWeapon {
       return null;
     }
     
-    final float DAMAGE_PER_HIT_DENSITY = 4.7F;
-
     float hitDensity = currentHitDensity.getHitDensity();
-    if(entity instanceof EntityLivingBase) {
-    	EntityLivingBase entity1 = (EntityLivingBase) entity;
-    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-    		entity.attackEntityFrom(DamageSource.IN_FIRE, DAMAGE_PER_HIT_DENSITY + hitDensity);
-    	}
-    } else if(entity instanceof EntityTameable) {
+    final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
+    
+    if(entity instanceof EntityTameable) {
     	EntityTameable entityTameable = (EntityTameable) entity;
     	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DamageSource.WITHER, 0);
+    		return null;
+    	} else {
+    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     	}
     } else {
        entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);

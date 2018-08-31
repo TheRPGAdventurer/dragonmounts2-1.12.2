@@ -28,6 +28,7 @@ public class DragonInteractTame extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) { 
+		// baby dragons are tameable now! :D
         if (dragon.isServer() && !dragon.isTamed() && ItemUtils.consumeEquipped(player, dragon.getBreed().getBreedingItem())) {
             dragon.tamedFor(player, dragon.getRNG().nextInt(5) == 0);
             return true;

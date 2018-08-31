@@ -87,7 +87,7 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
             super.doRender(dragon, x, y, z, yaw, partialTicks);
         }
         
-        if (dragon.healingEnderCrystal != null && dragon.getBreedType() == EnumDragonBreed.END && dragon.getHealth() < dragon.getMaxHealth()) {
+        if (dragon.healingEnderCrystal != null) {
             this.bindTexture(ENDERCRYSTAL_BEAM_TEXTURES);
             float f = MathHelper.sin(((float)dragon.healingEnderCrystal.ticksExisted + partialTicks) * 0.2F) / 2.0F + 0.5F;
             f = (f * f + f) * 0.2F;

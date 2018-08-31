@@ -15,8 +15,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonAttack;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonCatchOwner;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonHurtByTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonRide;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonLandAndCommenceFlyByAttack;
@@ -30,7 +30,6 @@ import com.google.common.base.Predicate;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -166,7 +165,7 @@ public class DragonBrain extends DragonHelper {
         }
                 targetTasks.addTask(2, new EntityAIOwnerHurtByTarget(dragon)); // mutex 1
                 targetTasks.addTask(3, new EntityAIOwnerHurtTarget(dragon)); // mutex 1
-                targetTasks.addTask(4, new EntityAIHurtByTarget(dragon, true, new Class[] {})); // mutex 1
+                targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, true, new Class[] {})); // mutex 1
             
             if (dragon.isHatchling()) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.4F)); // mutex 1

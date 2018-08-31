@@ -151,7 +151,7 @@ public class DragonBreedHelper extends DragonHelper {
     /**
      * Get's the health of the dragon per breed, doubles
      * when it turns into an adult
-     * your friend @TheRPGAdventurer
+     * @TheRPGAdventurer
      */
     public void getBreedHealth() {
         EnumDragonBreed currentType = getBreedType();

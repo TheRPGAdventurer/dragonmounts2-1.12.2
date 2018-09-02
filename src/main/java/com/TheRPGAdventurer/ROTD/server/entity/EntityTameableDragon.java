@@ -1452,12 +1452,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		   }			
 		}  
 	      
-	    if(target instanceof EntityPlayer) {
-	    	EntityPlayer playertarget = (EntityPlayer) target;
-	    	if(playertarget.world.getDifficulty() == EnumDifficulty.PEACEFUL && isTamed()) {
-	    		return false;
-	    	}
-	    }
+	//    if(target instanceof EntityPlayer) {
+	//    	EntityPlayer playertarget = (EntityPlayer) target;
+	//    	if(playertarget.world.getDifficulty() == EnumDifficulty.PEACEFUL || isTamed()) {
+	//    		return false;
+	//    	}
+	//    }
 	    
 	    if(target instanceof EntityTameableDragon) {
 	    	EntityTameableDragon targetDragon = (EntityTameableDragon) target;

@@ -52,7 +52,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
     useMetadata = true,
     guiFactory = DragonMounts.GUI_FACTORY
 )
-
 public class DragonMounts {
     
 	@NetworkWrapper({MessageDragonArmor.class, MessageDragonBreath.class})

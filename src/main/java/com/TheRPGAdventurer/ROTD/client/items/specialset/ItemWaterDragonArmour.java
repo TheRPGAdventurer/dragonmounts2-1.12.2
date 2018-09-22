@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.client.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.client.items.gemset.ItemDragonArmour;
-
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -20,6 +20,7 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 			String unlocalizedName, EnumItemBreedTypes type, @Nullable PotionEffect potionEffect) {
 		super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
 		this.potionEffect = potionEffect;
+		this.setCreativeTab(DragonMounts.TAB);
 		
 	}
 	

@@ -324,8 +324,8 @@ public class DragonAnimator {
         }
 
         // update speed transition
-        boolean nearGround = dragon.getAltitude() < dragon.height * 2 || dragon.getPassengers().size() > 2;
-        boolean speedFlag = speedEnt > speedMax || onGround || nearGround;
+        boolean nearGround = dragon.getAltitude() < dragon.height * 2;
+        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2;
         float speedValue = 0.05f;
         speedTimer.add(speedFlag ? speedValue : -speedValue);
            

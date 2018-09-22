@@ -250,13 +250,14 @@ public class BreathWeaponNether extends BreathWeapon {
     checkNotNull(entityID);
     checkNotNull(currentHitDensity);
 
-    if (entityID == dragon.getEntityId()) return null;
-    if(dragon.getControllingPassenger() != null) {
-    if (entityID == dragon.getControllingPlayer().getEntityId()) return null;}
-
     Entity entity = world.getEntityByID(entityID);
     if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
       return null;
+    }
+    
+    if (entityID == dragon.getEntityId()) return null;
+    if(dragon.isBeingRidden()) {
+       if (dragon.isPassenger(entity)) return null;
     }
 
     final float CATCH_FIRE_THRESHOLD = 1.4F;
@@ -271,14 +272,14 @@ public class BreathWeaponNether extends BreathWeapon {
     } else if(entity instanceof EntityTameable) {
     	EntityTameable entityTameable = (EntityTameable) entity;
     	if(entityTameable.isTamed()) {
-    		return null;
+    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), 0);
     	}
     }  else
     
     if(entity instanceof EntityLivingBase) {
     	EntityLivingBase entity1 = (EntityLivingBase) entity;
     	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-    		return null;
+    		entity1.attackEntityFrom(DamageSource.GENERIC, 0);
     	} else {
     		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     	}

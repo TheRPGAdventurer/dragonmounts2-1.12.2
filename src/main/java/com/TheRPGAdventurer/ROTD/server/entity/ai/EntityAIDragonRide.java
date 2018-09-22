@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -36,8 +37,9 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
     
     @Override
     public boolean shouldExecute() {   
-        rider = dragon.getControllingPlayer();
+        rider = dragon.getControllingPlayer(); 
         return rider != null;
+        
     }
 
     @Override
@@ -58,10 +60,6 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
         		rider.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
     		}
         } 
-        
-      //  if(dragon.isClient()) {
-	  //     DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(dragon.getEntityId(), ModKeys.KEY_BREATH.isKeyDown()));
-      //  }
 
         // if we're breathing at a target, look at it
         if (dragon.isBreathing() && dragon.getBreed().canBreathFire()) {
@@ -96,7 +94,7 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
             }
         } 
         
-        dragon.getMoveHelper().setMoveTo(x,y,z,1.2);
+        dragon.getMoveHelper().setMoveTo(x,y,z,1);
     }
     
 }

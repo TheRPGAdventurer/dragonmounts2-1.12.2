@@ -23,7 +23,7 @@ import net.minecraft.item.ItemStack;
  */
 public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
     
-    protected EntityPlayer owner;
+    protected EntityPlayer owner2;
     
     public EntityAIDragonCatchOwner(EntityTameableDragon dragon) {
         super(dragon);
@@ -32,41 +32,45 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
     @Override
     public boolean shouldExecute() {        
         // don't catch if leashed
-        if (dragon.getLeashed()) {
-            return false;
+      //  if (dragon.getLeashed()) {
+     //       return false;
+    //    }
+        
+        if(!dragon.isTamed()) {
+        	return false;
         }
         
-        owner = (EntityPlayer) dragon.getOwner2();
+        owner2 = (EntityPlayer) dragon.getOwner2();
         
         // don't catch if ownerless 
-        if (owner == null) {
+        if (owner2 == null) {
             return false;
         }
         
         // no point in catching players in creative mode
-        if (owner.capabilities.isCreativeMode) {
+        if (owner2.capabilities.isCreativeMode) {
             return false;
         }
         
         // don't catch if already being ridden
-        if (dragon.isPassenger(owner)) {
+        if (dragon.isPassenger(owner2)) {
             return false;
         }
         
         // don't catch if owner has a working Elytra equipped
         // note: isBroken() is misleading, it actually checks if the items is usable
-        ItemStack itemStack = owner.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        if (itemStack != null && itemStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemStack)) {
-            return false;
-        }
+//        ItemStack itemStack = owner2.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+//        if (itemStack != null && itemStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemStack)) {
+//            return false;
+ //       }
         
         // don't catch if owner is too far away
         double followRange = getFollowRange();
-        if (dragon.getDistanceToEntity(owner) > followRange) {
+        if (dragon.getDistanceToEntity(owner2) > followRange) {
             return false;
         }
                 
-        return owner.fallDistance > 4;
+        return owner2.fallDistance > 4;
     }
 
     @Override
@@ -82,10 +86,10 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         }
         
         // mount owner if close enough, otherwise move to owner
-        if (dragon.getDistanceToEntity(owner) < dragon.width) {
-            owner.startRiding(dragon);
+        if (dragon.getDistanceToEntity(owner2) < dragon.width) {
+            owner2.startRiding(dragon);
         } else {
-            dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
+            dragon.getNavigator().tryMoveToEntityLiving(owner2, 5);
         }
     }
 }

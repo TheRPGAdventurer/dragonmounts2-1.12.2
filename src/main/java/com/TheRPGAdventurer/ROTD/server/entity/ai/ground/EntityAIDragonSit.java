@@ -26,7 +26,7 @@ public class EntityAIDragonSit extends EntityAISit {
     public boolean shouldExecute() {
         if (!this.dragon.isTamed()) {
             return false;
-        } else if (!this.dragon.onGround) {
+        } else if (!dragon.onGround) {
             return false;
         } else {
             EntityLivingBase entitylivingbase = this.dragon.getOwner2();

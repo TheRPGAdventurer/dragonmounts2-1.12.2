@@ -13,17 +13,10 @@ import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -46,7 +39,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
         // original movement behavior if the entity isn't flying
         if (!dragon.isFlying()) {
             super.onUpdateMoveHelper();
-            return;
+            return; 
         }
         
         Vec3d dragonPos = dragon.getPositionVector();
@@ -82,7 +75,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
             dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
             entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
              }// apply movement 
-               dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
-    //	}
+               
+        dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
     } 
 }

@@ -17,6 +17,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
@@ -116,5 +118,12 @@ public class DragonBreedWater extends DragonBreed {
 	public ResourceLocation getLootTable() {
 		return DragonMountsLootTables.ENTITIES_DRAGON_WATER;
 	}
-
+	
+	@Override
+	public void onLivingUpdate(EntityTameableDragon dragon) {
+		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
+    	if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,
+    		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
+		}
+	}
 }

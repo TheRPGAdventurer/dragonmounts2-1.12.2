@@ -16,11 +16,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessageHandlerServer;
-import com.TheRPGAdventurer.ROTD.server.network.DragonControlMessage;
-import com.TheRPGAdventurer.ROTD.server.network.DragonControlMessageHandler;
 
 import net.minecraft.command.ServerCommandManager;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -66,7 +63,6 @@ public class ServerProxy {
         MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
 //        EntityRegistry.addSpawn(EntityTameableDragon.class, 1, 1, 1, EnumCreatureType.AMBIENT, biomes);
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
-        network.registerMessage(DragonControlMessageHandler.class, DragonControlMessage.class, DCM_DISCRIMINATOR_ID, Side.SERVER);
         network.registerMessage(DragonBreathMessageHandlerServer.class, DragonBreathMessage.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
 
     }

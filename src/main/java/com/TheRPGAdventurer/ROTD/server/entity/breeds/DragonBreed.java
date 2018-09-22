@@ -290,8 +290,12 @@ public abstract class DragonBreed {
     
     @Nullable
     public ResourceLocation getLootTable() {
-    	return DragonMountsLootTables.ENTITIES_DRAGON_AETHER;
+    	return null;
     }
+
+	public void onLivingUpdate(EntityTameableDragon dragon) {	
+		
+	}
 
 }
 

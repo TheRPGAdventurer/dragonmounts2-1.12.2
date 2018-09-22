@@ -275,21 +275,21 @@ public class BreathWeapon {
 	    checkNotNull(entityID);
 	    checkNotNull(currentHitDensity);
 
-	    if (entityID == dragon.getEntityId()) return null;
-	    if(dragon.getControllingPassenger() != null) {
-	       if (entityID == dragon.getControllingPlayer().getEntityId()) return null;
-	    }
-
 	    Entity entity = world.getEntityByID(entityID);
 	    if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
 	      return null;
+	    }
+	    
+	    if (entityID == dragon.getEntityId()) return null;
+	    if(dragon.isBeingRidden()) {
+	       if (dragon.isPassenger(entity)) return null;
 	    }
 
 	    final float CATCH_FIRE_THRESHOLD = 1.4F;
 	    final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
 
 	    float hitDensity = currentHitDensity.getHitDensity();
-	    final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
+	    final float DAMAGE_PER_HIT_DENSITY = 2.0F * hitDensity;
 	    
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
 	    	entity.setFire((int)(40 * 10));
@@ -312,7 +312,7 @@ public class BreathWeapon {
 	    if(entity instanceof EntityTameable) {
 	    	EntityTameable entityTameable = (EntityTameable) entity;
 	    	if(entityTameable.isTamed()) {
-	    		return null;
+	    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
 	    	} else {
 	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	    	}

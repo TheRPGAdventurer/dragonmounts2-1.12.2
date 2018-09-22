@@ -2,10 +2,10 @@ package com.TheRPGAdventurer.ROTD.server.entity.ai;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
+import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,6 +28,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
     protected final int attackInterval = 20;
     private int failedPathFindingPenalty = 0;
     private boolean canPenalize = false;
+    public float breathTick;
 
     public EntityAIDragonAttack(EntityTameableDragon dragon, double speedIn, boolean useLongMemory) {
     	super(dragon);
@@ -107,41 +108,38 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask()
-    {
+    public void resetTask() {
         EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
-
-        if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative()))
-        {
+        if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
             this.dragon.setAttackTarget((EntityLivingBase)null);
         }
-
         this.dragon.getNavigator().clearPathEntity();
+        dragon.setBreathing(false);
     }
 
     /**
      * Keep ticking a continuous task that has already been started
      */
     public void updateTask() {
-        EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
-        this.dragon.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
-        double d0 = this.dragon.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+        EntityLivingBase target = this.dragon.getAttackTarget();
+        this.dragon.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
+        double targetDistSq = this.dragon.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
         --this.delayCounter;
 
-        if ((this.longMemory || this.dragon.getEntitySenses().canSee(entitylivingbase)) && 
+        if ((this.longMemory || this.dragon.getEntitySenses().canSee(target)) && 
         		this.delayCounter <= 0 && (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D || 
-        		entitylivingbase.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D || 
+        		target.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D || 
         		this.dragon.getRNG().nextFloat() < 0.05F)) {
-            this.targetX = entitylivingbase.posX;
-            this.targetY = entitylivingbase.getEntityBoundingBox().minY;
-            this.targetZ = entitylivingbase.posZ;
+            this.targetX = target.posX;
+            this.targetY = target.getEntityBoundingBox().minY;
+            this.targetZ = target.posZ;
             this.delayCounter = 4 + this.dragon.getRNG().nextInt(7);
 
             if (this.canPenalize) {
                 this.delayCounter += failedPathFindingPenalty;
-                if (this.dragon.getNavigator().getPath() != null) {
-                    net.minecraft.pathfinding.PathPoint finalPathPoint = this.dragon.getNavigator().getPath().getFinalPathPoint();
-                    if (finalPathPoint != null && entitylivingbase.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
+                if (dragon.getNavigator().getPath() != null) {
+                    PathPoint finalPathPoint = this.dragon.getNavigator().getPath().getFinalPathPoint();
+                    if (finalPathPoint != null && target.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
                         failedPathFindingPenalty = 0;
                     else
                         failedPathFindingPenalty += 10;
@@ -150,35 +148,41 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
                 }
             }
 
-            if (d0 > 1024.0D) {
+            if (targetDistSq > 1024.0D) {
                 this.delayCounter += 10;
-            } else if (d0 > 256.0D) {
+            } else if (targetDistSq > 256.0D) {
                 this.delayCounter += 5;
             }
 
-            if (!this.dragon.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.speedTowardsTarget)) {
+            if (!this.dragon.getNavigator().tryMoveToEntityLiving(target, this.speedTowardsTarget)) {
                 this.delayCounter += 15;
             }
             
-            if(dragon.getDistanceToEntity(entitylivingbase) < 5) {
-            	dragon.setFlying(true);
-//            	tryMoveToBlockPos(entitylivingbase.getPosition(), 1.0);
-            }
         }
 
         this.attackTick = Math.max(this.attackTick - 1, 0);
-        this.checkAndPerformAttack(entitylivingbase, d0);
+        this.checkAndPerformAttack(target, targetDistSq);
     }
 
-    protected void checkAndPerformAttack(EntityLivingBase p_190102_1_, double p_190102_2_) {
-        double d0 = this.getAttackReachSqr(p_190102_1_);
+    protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
+        double attackReach = this.getAttackReachSqr(target);
+        boolean shouldUseRange = this.attackTick <= 0 
+                ; // && dragon.getMaxHealth() <= 140 
+        boolean shouldUseMelee = this.attackTick <= 0  || targetDistSq <= attackReach;
 
-        if (p_190102_2_ <= d0 && this.attackTick <= 0)
-        {
+        if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
             this.attackTick = 20;
             this.dragon.swingArm(EnumHand.MAIN_HAND);
-            this.dragon.attackEntityAsMob(p_190102_1_);
-        }
+            this.dragon.attackEntityAsMob(target); 
+        } 
+     //       else if(shouldUseRange) { 
+   //    this.attackTick <= 0  ||  	this.attackTick = 20;
+ //       	breathTick++;
+  //      	this.breathTick = 20;
+       // 	this.attackTick = 20;
+       // 	dragon.setBreathing(true);
+       //	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+     //   }
     }
 
     protected double getAttackReachSqr(EntityLivingBase attackTarget) {

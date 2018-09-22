@@ -47,7 +47,13 @@ public class GuiDragon extends GuiContainer {
 		this.mc.getTextureManager().bindTexture(texture);
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;  
-		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);		
+		this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);	
+//		String s5 = StatCollector.translateToLocal("dragon.passenger") + StatCollector.translateToLocal((dragon.getControllingPassenger().toString()));
+//		this.fontRenderer.drawString(s5, this.xSize / 2 - this.fontRenderer.getStringWidth(s5) / 2, 93, 0XFFFFFF);
+//		String s6 = StatCollector.translateToLocal("dragon.passenger1") + StatCollector.translateToLocal((dragon.getControllingPlayer().toString()));
+//		this.fontRenderer.drawString(s6, this.xSize / 2 - this.fontRenderer.getStringWidth(s6) / 2, 93, 0XFFFFFF);
+//		String s7 = StatCollector.translateToLocal("dragon.passenger2") + StatCollector.translateToLocal((dragon.getPassengers().toString()));
+//		this.fontRenderer.drawString(s7, this.xSize / 2 - this.fontRenderer.getStringWidth(s7) / 2, 93, 0XFFFFFF);
 		if (dragon.isChested()) {this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);} 
 		GuiInventory.drawEntityOnScreen(x + 88, y + 65, 19, x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY, this.dragon);
 

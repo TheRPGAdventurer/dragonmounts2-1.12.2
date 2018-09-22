@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import java.util.UUID;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -49,7 +50,7 @@ public class DragonBreedAir extends DragonBreed {
     
     @Override
     public ResourceLocation getLootTable() {
-    	return super.getLootTable();
+    	return DragonMountsLootTables.ENTITIES_DRAGON_AETHER;
     }
     
 }

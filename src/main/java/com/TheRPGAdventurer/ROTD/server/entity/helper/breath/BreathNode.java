@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
 import java.util.Random;
 
+import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.entity.Entity;

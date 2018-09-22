@@ -487,25 +487,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			this.updateBreathing();
 			// this.updateSlowed();
 		}
-		
-		if (this.canPassengerSteer2())
-        {
-            if (!(this.getPassengers().get(0) instanceof EntityPlayer))
-            {
- //               this.setPaddleState(false, false);
-            	setPositionAndRotation(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), rotationYaw, rotationPitch);
-            }
-
-       //     this.updateMotion();
-
-         //   if (this.world.isRemote)
-        //    {
-          //      this.controlBoat();
-            //    this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
-        //    }
-
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-        }
 	}
 
 	@Override
@@ -581,6 +562,23 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 			hasChestVarChanged = false;
 		}
+		
+		if (this.canPassengerSteer2()) {
+            if (!(this.getPassengers().get(0) instanceof EntityPlayer)) {
+ //               this.setPaddleState(false, false);
+            	setPositionAndRotation(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), rotationYaw, rotationPitch);
+            }
+
+       //     this.updateMotion();
+
+         //   if (this.world.isRemote)
+        //    {
+          //      this.controlBoat();
+            //    this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
+        //    }
+
+            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+        }
 
 		updateMultipleBoundingBox();
 		updateShearing();
@@ -1059,8 +1057,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 	
 	public boolean canPassengerSteer2() {
-		// TODO Auto-generated method stub
-		return super.canPassengerSteer();
+		Entity entity = this.getControllingPassenger();
+
+        if (entity instanceof EntityPlayer)
+        {
+            return ((EntityPlayer)entity).isUser();
+        }
+        else
+        {
+            return !this.world.isRemote;
+        }
 	}
 
 	@Override

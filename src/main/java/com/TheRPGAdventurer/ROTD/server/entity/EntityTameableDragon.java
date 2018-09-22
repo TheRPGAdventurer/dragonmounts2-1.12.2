@@ -93,6 +93,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.client.CPacketSteerBoat;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
@@ -486,6 +487,25 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			this.updateBreathing();
 			// this.updateSlowed();
 		}
+		
+		if (this.canPassengerSteer2())
+        {
+            if (!(this.getPassengers().get(0) instanceof EntityPlayer))
+            {
+ //               this.setPaddleState(false, false);
+            	setPositionAndRotation(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), rotationYaw, rotationPitch);
+            }
+
+       //     this.updateMotion();
+
+         //   if (this.world.isRemote)
+        //    {
+          //      this.controlBoat();
+            //    this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
+        //    }
+
+            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+        }
 	}
 
 	@Override
@@ -567,7 +587,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		updateRandomParticles();
 		updateDragonEnderCrystal();
 		regenerateHealth();
-		updateForRiding();
+//		updateForRiding();
 
 		super.onLivingUpdate();
 	}
@@ -1025,12 +1045,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public double getDragonSpeed() {
 		return isFlying() ? BASE_FOLLOW_RANGE_FLYING : BASE_FOLLOW_RANGE;
 	}
+	
+	@Override
+	protected float getWaterSlowDown() {
+		return 0.0F; 
+	}
 
 	@Override
 	public boolean canBeSteered() {
 		// must always return false or the vanilla movement code interferes
 		// with DragonMoveHelper a custom move coe that supports tameable flying entities like a dragon
 		return false; 
+	}
+	
+	public boolean canPassengerSteer2() {
+		// TODO Auto-generated method stub
+		return super.canPassengerSteer();
 	}
 
 	@Override
@@ -1489,7 +1519,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {
-		return this.getPassengers().size() < 6;
+		return this.getPassengers().size() < 2;
 	}
 
 	/**

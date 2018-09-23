@@ -563,11 +563,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			hasChestVarChanged = false;
 		}
 		
-		if (this.canPassengerSteer2()) {
-            if (!(this.getPassengers().get(0) instanceof EntityPlayer)) {
+//		if (this.canPassengerSteer2()) {
+//            if (!(this.getPassengers().get(0) instanceof EntityPlayer)) {
  //               this.setPaddleState(false, false);
-            	setPositionAndRotation(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), rotationYaw, rotationPitch);
-            }
+    //        	setPositionAndRotation(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), rotationYaw, rotationPitch);
+            
+        //    } 
 
        //     this.updateMotion();
 
@@ -577,15 +578,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             //    this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
         //    }
 
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-        }
+      //      this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+       // }
 
 		updateMultipleBoundingBox();
 		updateShearing();
 		updateRandomParticles();
 		updateDragonEnderCrystal();
 		regenerateHealth();
-//		updateForRiding();
+		updateForRiding();
 
 		super.onLivingUpdate();
 	}
@@ -1046,27 +1047,25 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	protected float getWaterSlowDown() {
-		return 0.0F; 
+		return 1.0F; 
 	}
 
 	@Override
 	public boolean canBeSteered() {
 		// must always return false or the vanilla movement code interferes
-		// with DragonMoveHelper a custom move coe that supports tameable flying entities like a dragon
-		return false; 
+		// with DragonMoveHelper a custom move coe that supports tameable flying entities like a dragonarmor_diamond
+		return false;
 	}
 	
-	public boolean canPassengerSteer2() {
-		Entity entity = this.getControllingPassenger();
+	@Override
+	public Entity getLowestRidingEntity() {
+		Entity entity;
 
-        if (entity instanceof EntityPlayer)
-        {
-            return ((EntityPlayer)entity).isUser();
+        for (entity = this; entity.isRiding(); entity = entity.getRidingEntity()) {
+            ;
         }
-        else
-        {
-            return !this.world.isRemote;
-        }
+
+        return entity;
 	}
 
 	@Override
@@ -1081,9 +1080,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public void move(MoverType type, double x, double y, double z) {
-		if(!(getRidingEntity() instanceof EntityPlayer)) {
-			super.move(MoverType.SELF, x, y, z);
-		} 
+	//	if(!(getControllingPassenger() instanceof EntityPlayer)) {
+	//		super.move(MoverType.SELF, x, y, z);
+	//	} 
 		super.move(type, x, y, z); 
 	}
 	
@@ -1092,22 +1091,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return super.startRiding(entityIn);
 	}
 	
-	@Override
-	protected boolean canBeRidden(Entity entityIn) {
-		if (getControllingPlayer() == null && !isFlying() && isSitting()) {
-			return false;
-		} else if (!isSaddled()) {
-			return false;
-		}
-		return super.canBeRidden(entityIn); 
-	}
-	
     @Nullable
     public Entity getControllingPassenger() {
     	return this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);		
     }
 	
-    @Nullable
+ //   @Nullable
 	public EntityPlayer getControllingPlayer() { 
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
 		if (entity instanceof EntityPlayer) { 
@@ -1116,6 +1105,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return null;
 		}
 	}
+    
+    @Override
+    public boolean isRidingOrBeingRiddenBy(Entity entityIn) {
+    	// TODO Auto-generated method stub
+    	return super.isRidingOrBeingRiddenBy(entityIn);
+    }
 
 	public void setRidingPlayer(EntityPlayer player) {
 		L.trace("setRidingPlayer({})", player.getName());
@@ -1142,11 +1137,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				pos = new Vec3d(0.3, 0, 0.12 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
 				pos = new Vec3d(-0.3, 0, 0.12 * getScale());
-			}
+			} 
 			
-	//		if(passenger != getControllingPlayer() && passenger instanceof EntityLiving) {
-	//			((EntityLiving) passenger).getNavigator().noPath();
-	//		}
+//			if(passenger != getControllingPlayer() && passenger instanceof EntityLiving) {
+//	  		   ((EntityLiving) passenger).move(MoverType.SELF, posX, posY, posZ);
+//			}
 
 			pos = pos.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
 			px += pos.x;
@@ -1268,7 +1263,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * which says if it's a child.
 	 */
 	@Override
-	public void setScaleForAge(boolean p_98054_1_) {
+	public void setScaleForAge(boolean child) {
 		// managed by DragonLifeStageHelper, so this is a no-op
 	}
 
@@ -1525,7 +1520,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {
-		return this.getPassengers().size() < 2;
+		return this.getPassengers().size() < 3;
 	}
 
 	/**
@@ -1542,32 +1537,32 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void updateForRiding() { 
-		this.doBlockCollisions();
+//      doBlockCollisions();
 		List<Entity> list = this.world.getEntitiesInAABBexcluding(this,
 				this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D),
 				EntitySelectors.getTeamCollisionPredicate(this));
 
-		if (!list.isEmpty() && isTamed()) {
-			boolean flag = !this.world.isRemote && !(this.getControllingPassenger() instanceof EntityPlayer);
+		if (!list.isEmpty() && isSaddled()) {
+			boolean flag = !this.world.isRemote;// && !(this.getControllingPassenger() instanceof EntityPlayer);
 
 			for (int j = 0; j < list.size(); ++j) {
 				Entity entity = list.get(j);
 				if (!entity.isPassenger(this)) {
-					if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width - 1
+					if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && entity.width < this.width - 1
 							&& entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob)
 							&& !(entity instanceof EntityPlayer) && !(entity instanceof EntityMob)) {
 						entity.startRiding(this);
-						if (this.isPassenger(entity)) {
-							if (entity instanceof EntityTameable) {
-								EntityTameable tameable = (EntityTameable) entity;
-								tameable.getAISit().setSitting(true);
-							}
-						}
 					} else {
-						this.applyEntityCollision(entity);
+						this.applyEntityCollision(entity); 
 					}
 				}
 			}
+		}
+		
+		if (getControllingPlayer() == null && !isFlying() && isSitting()) {
+			removePassengers();
+		} else if (!isSaddled()) {
+			removePassengers();
 		}
 	}
 

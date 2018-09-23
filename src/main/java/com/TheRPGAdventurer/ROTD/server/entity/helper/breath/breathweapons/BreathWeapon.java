@@ -167,7 +167,7 @@ public class BreathWeapon {
     return blockBurnProperties;
   }
 
-  private static class BlockBurnProperties {
+  protected static class BlockBurnProperties {
     public IBlockState burnResult = null;  // null if no effect
     public float threshold;
   }
@@ -335,7 +335,7 @@ public class BreathWeapon {
     // want: leaves & flowers to burn instantly; gates to take ~1 second at full power, coal / logs to take ~3 seconds
     // hitDensity of 1 is approximately 1-2 ticks of full exposure from a single beam, so 3 seconds is ~30
 
-    float threshold = 50.0F / flammability;
+    float threshold = 30.0F / flammability;
     return threshold;
   }
 

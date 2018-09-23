@@ -37,7 +37,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
     @Override
     public void onUpdateMoveHelper() { 
         // original movement behavior if the entity isn't flying
-        if (!dragon.isFlying()) {
+        if (!dragon.isFlying() || !(dragon.getControllingPassenger() instanceof EntityPlayer)) {
             super.onUpdateMoveHelper();
             return; 
         }

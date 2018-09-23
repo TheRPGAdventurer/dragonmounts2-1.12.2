@@ -9,10 +9,6 @@ public class EntityAIDragonSit extends EntityAISit {
     /** If the Entitydragon is sitting. */
     private boolean isSitting;
     public EntityTameableDragon dragon;
-    
-///    if (this.dragon.isInWater()) {
-//        return false;
- //   } else
 
     public EntityAIDragonSit(EntityTameableDragon entityIn) {
         super(entityIn);

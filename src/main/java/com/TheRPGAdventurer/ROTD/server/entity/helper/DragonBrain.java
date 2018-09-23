@@ -113,32 +113,6 @@ public class DragonBrain extends DragonHelper {
             return;
         }
         
-        float minAttackRange = 0;
-        float maxAttackRange = 0;
-        switch (dragon.getLifeStageHelper().getLifeStage()) {
-            case EGG:
-                break;
-            case HATCHLING: {
-                minAttackRange = 2.0F;
-                maxAttackRange = 4.0F;
-                break;
-            }
-            case JUVENILE: {
-                minAttackRange = 3.0F;
-                maxAttackRange = 8.0F;
-                break;
-            }
-            case ADULT: {
-                minAttackRange = 5.0F;
-                maxAttackRange = 25.0F;
-                break;
-            }
-            default: {
-                System.err.println("Unknown lifestage:" + dragon.getLifeStageHelper().getLifeStage());
-                break;
-            }
-        }
-        
         tasks.addTask(0, new EntityAIDragonCatchOwner(dragon)); // mutex all
         tasks.addTask(1, new EntityAIDragonRide(dragon)); // mutex all
         tasks.addTask(2, dragon.getAISit()); // mutex 4+1

@@ -37,6 +37,7 @@ public class ItemCarriage extends Item {
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
 		this.setUnlocalizedName(name);
 		this.setMaxDamage(1);
+		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.TAB);
 	}
 	

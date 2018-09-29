@@ -6,6 +6,8 @@ import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -25,10 +27,15 @@ import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityDragonCarriage extends Entity {
 	
@@ -91,6 +98,38 @@ public class EntityDragonCarriage extends Entity {
     public AxisAlignedBB getCollisionBox(Entity entityIn)
     {
         return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+    }
+    
+    /**
+     * Returns true if other Entities should be prevented from moving through this Entity.
+     */
+    @Override
+    public boolean canBeCollidedWith()
+    {
+        return !this.isDead;
+    }
+    
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
+    {
+        if (!this.isInWater())
+        {
+            this.handleWaterMovement();
+        }
+
+        if (!this.world.isRemote && this.fallDistance > 3.0F && onGroundIn)
+        {
+            float f = (float)MathHelper.ceil(this.fallDistance - 3.0F);
+
+            if (!state.getBlock().isAir(state, world, pos))
+            {
+                double d0 = Math.min((double)(0.2F + f / 15.0F), 2.5D);
+                int i = (int)(150.0D * d0);
+           //     if (!state.getBlock().addLandingEffects(state, (WorldServer)this.world, pos, state, this, i))
+                ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(state));
+            }
+        }
+
+        super.updateFallState(y, onGroundIn, state, pos);
     }
 
     /**
@@ -171,16 +210,44 @@ public class EntityDragonCarriage extends Entity {
      */
     public void applyEntityCollision(Entity entityIn)
     {
-        if (entityIn instanceof EntityDragonCarriage)
+        if (!this.isRidingSameEntity(entityIn))
         {
-            if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
+            if (!entityIn.noClip && !this.noClip)
             {
-                super.applyEntityCollision(entityIn);
+                double d0 = entityIn.posX - this.posX;
+                double d1 = entityIn.posZ - this.posZ;
+                double d2 = MathHelper.absMax(d0, d1);
+
+                if (d2 >= 0.009999999776482582D)
+                {
+                    d2 = (double)MathHelper.sqrt(d2);
+                    d0 = d0 / d2;
+                    d1 = d1 / d2;
+                    double d3 = 1.0D / d2;
+
+                    if (d3 > 1.0D)
+                    {
+                        d3 = 1.0D;
+                    }
+
+                    d0 = d0 * d3;
+                    d1 = d1 * d3;
+                    d0 = d0 * 0.05000000074505806D;
+                    d1 = d1 * 0.05000000074505806D;
+                    d0 = d0 * (double)(1.0F - this.entityCollisionReduction);
+                    d1 = d1 * (double)(1.0F - this.entityCollisionReduction);
+
+                    if (!this.isBeingRidden())
+                    {
+                        this.addVelocity(-d0, 0.0D, -d1);
+                    }
+
+                    if (!entityIn.isBeingRidden())
+                    {
+                        entityIn.addVelocity(d0, 0.0D, d1);
+                    }
+                }
             }
-        }
-        else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY)
-        {
-            super.applyEntityCollision(entityIn);
         }
     }
     
@@ -188,12 +255,27 @@ public class EntityDragonCarriage extends Entity {
     @Override
     public void updatePassenger(Entity passenger) {	
         float f = 0.0F;
-    	float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-    	Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
+        float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+        Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
         passenger.setPosition(this.posX + vec3d.x, this.posY + (double)f1, this.posZ + vec3d.z);
-        passenger.rotationYaw = this.rotationYaw;
-        passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
-        this.applyYawToEntity(passenger); 
+        
+    	if(!(passenger instanceof EntityPlayer)) {
+           passenger.rotationYaw = this.rotationYaw;
+           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
+           this.applyYawToEntity(passenger); 
+    	}
+    }
+    
+    /**
+     * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
+     */
+    protected void applyYawToEntity(Entity entityToUpdate) {
+        entityToUpdate.setRenderYawOffset(this.rotationYaw);
+        float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
+        float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+        entityToUpdate.prevRotationYaw += f1 - f;
+        entityToUpdate.rotationYaw += f1 - f;
+        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
     }
     
     /**
@@ -213,17 +295,6 @@ public class EntityDragonCarriage extends Entity {
         return (double)this.height * -0.3D;
     }
     
-    /**
-     * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
-     */
-    protected void applyYawToEntity(Entity entityToUpdate) {
-        entityToUpdate.setRenderYawOffset(this.rotationYaw);
-        float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
-        float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
-        entityToUpdate.prevRotationYaw += f1 - f;
-        entityToUpdate.rotationYaw += f1 - f;
-        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
-    }
     
     
     /**
@@ -236,23 +307,27 @@ public class EntityDragonCarriage extends Entity {
     }
     
     /**
+     * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
+     */
+    @SideOnly(Side.CLIENT)
+    public void performHurtAnimation()
+    {
+        this.setForwardDirection(-this.getForwardDirection());
+        this.setTimeSinceHit(10);
+        this.setDamage(this.getDamage() * 11.0F);
+    }
+    
+    /**
      * Called when the entity is attacked.
      */
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        if (this.isEntityInvulnerable(source))
-        {
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (this.isEntityInvulnerable(source)) {
             return false;
-        }
-        else if (!this.world.isRemote && !this.isDead)
-        {
-            if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null && this.isPassenger(source.getTrueSource()))
-            {
+        } else if (!this.world.isRemote && !this.isDead) {
+            if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null && this.isPassenger(source.getTrueSource())) {
                 return false;
-            }
-            else
-            {
+            } else {
                 this.setForwardDirection(-this.getForwardDirection());
                 this.setTimeSinceHit(10);
                 this.setDamage(this.getDamage() + amount * 10.0F);
@@ -269,19 +344,22 @@ public class EntityDragonCarriage extends Entity {
 
                 return true;
             }
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
     
     @Override
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
-        if (player.isSneaking()) {
+    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
+    {
+        if (player.isSneaking())
+        {
             return false;
-        } else {
-            if (!this.world.isRemote) {
+        }
+        else
+        {
+            if (!this.world.isRemote)
+            {
                 player.startRiding(this);
             }
 

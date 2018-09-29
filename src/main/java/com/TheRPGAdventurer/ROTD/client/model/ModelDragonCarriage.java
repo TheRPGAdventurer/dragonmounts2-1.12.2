@@ -36,7 +36,7 @@ public class ModelDragonCarriage extends ModelBase {
         this.setRotateAngle(field_78154_a3, 0.0F, 1.5707963267948966F, 0.0F);
         this.field_78154_a6 = new ModelRenderer(this, 44, 12);
         this.field_78154_a6.setRotationPoint(0.0F, 4.0F, 0.0F);
-        this.field_78154_a6.addBox(-9.0F, -7.0F, -1.0F, 18, 14, 1, 0.0F);
+        this.field_78154_a6.addBox(-9.0F, -8.0F, -1.0F, 18, 14, 1, 0.0F);
         this.setRotateAngle(field_78154_a6, -1.5707963267948966F, 0.0F, 0.0F);
         this.field_78154_a4 = new ModelRenderer(this, 40, 0);
         this.field_78154_a4.setRotationPoint(0.0F, 4.0F, -7.0F);

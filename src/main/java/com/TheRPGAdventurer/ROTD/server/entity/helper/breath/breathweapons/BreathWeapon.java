@@ -22,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.PotionEffect;
@@ -340,7 +341,7 @@ public class BreathWeapon {
     // want: leaves & flowers to burn instantly; gates to take ~1 second at full power, coal / logs to take ~3 seconds
     // hitDensity of 1 is approximately 1-2 ticks of full exposure from a single beam, so 3 seconds is ~30
 
-    float threshold = 20.0F / flammability;
+    float threshold = 15.0F / flammability;
     return threshold;
   }
 

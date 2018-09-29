@@ -25,6 +25,7 @@ import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -82,6 +83,25 @@ public class EntityDragonCarriage extends Entity {
         return list.isEmpty() ? null : (Entity)list.get(0);
     }
     
+    /**
+     * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
+     * pushable on contact, like boats or minecarts.
+     */
+    @Nullable
+    public AxisAlignedBB getCollisionBox(Entity entityIn)
+    {
+        return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+    }
+
+    /**
+     * Returns the collision bounding box for this entity
+     */
+    @Nullable
+    public AxisAlignedBB getCollisionBoundingBox()
+    {
+        return this.getEntityBoundingBox(); 
+    } 
+    
     @Override
     public void onUpdate() {
     	this.motionX = 0.0D;
@@ -95,6 +115,12 @@ public class EntityDragonCarriage extends Entity {
         if (this.getTimeSinceHit() > 0)
         {
             this.setTimeSinceHit(this.getTimeSinceHit() - 1);
+        }
+        
+
+        if (!this.hasNoGravity())
+        {
+            this.motionY -= 0.03999999910593033D;
         }
 
         if (this.getDamage() > 0.0F)
@@ -140,6 +166,25 @@ public class EntityDragonCarriage extends Entity {
         super.onUpdate();
     }
     
+    /**
+     * Applies a velocity to the entities, to push them away from eachother.
+     */
+    public void applyEntityCollision(Entity entityIn)
+    {
+        if (entityIn instanceof EntityDragonCarriage)
+        {
+            if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
+            {
+                super.applyEntityCollision(entityIn);
+            }
+        }
+        else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY)
+        {
+            super.applyEntityCollision(entityIn);
+        }
+    }
+    
+    
     @Override
     public void updatePassenger(Entity passenger) {	
         float f = 0.0F;
@@ -155,6 +200,7 @@ public class EntityDragonCarriage extends Entity {
      * Gets the horizontal facing direction of this Entity, adjusted to take specially-treated entity types into
      * account.
      */
+    @Override
     public EnumFacing getAdjustedHorizontalFacing() {
         return this.isInReverse ? this.getHorizontalFacing().getOpposite().rotateY() : this.getHorizontalFacing().rotateY();
     }
@@ -162,6 +208,7 @@ public class EntityDragonCarriage extends Entity {
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
+    @Override
     public double getMountedYOffset() {
         return (double)this.height * -0.3D;
     }
@@ -182,6 +229,7 @@ public class EntityDragonCarriage extends Entity {
     /**
      * Returns true if this entity should push and be pushed by other entities when colliding.
      */
+    @Override
     public boolean canBePushed()
     {
         return true;
@@ -190,6 +238,7 @@ public class EntityDragonCarriage extends Entity {
     /**
      * Called when the entity is attacked.
      */
+    @Override
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
         if (this.isEntityInvulnerable(source))
@@ -227,6 +276,7 @@ public class EntityDragonCarriage extends Entity {
         }
     }
     
+    @Override
     public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
         if (player.isSneaking()) {
             return false;

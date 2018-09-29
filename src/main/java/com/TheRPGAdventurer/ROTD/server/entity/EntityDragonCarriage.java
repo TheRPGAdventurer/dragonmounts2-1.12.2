@@ -92,7 +92,13 @@ public class EntityDragonCarriage extends Entity {
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         
-        if (this.getDamage() > 0.0F) {
+        if (this.getTimeSinceHit() > 0)
+        {
+            this.setTimeSinceHit(this.getTimeSinceHit() - 1);
+        }
+
+        if (this.getDamage() > 0.0F)
+        {
             this.setDamage(this.getDamage() - 1.0F);
         }
         

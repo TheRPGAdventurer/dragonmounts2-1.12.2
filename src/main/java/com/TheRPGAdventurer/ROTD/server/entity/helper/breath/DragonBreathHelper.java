@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.TheRPGAdventurer.ROTD.client.render.BreathWeaponEmitter;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponEmitter;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;

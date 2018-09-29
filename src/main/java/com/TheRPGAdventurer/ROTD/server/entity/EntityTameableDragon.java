@@ -33,7 +33,7 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.message.MessageDragonBreath;
-import com.TheRPGAdventurer.ROTD.client.model.anim.DragonAnimator;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
@@ -56,8 +56,6 @@ import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
@@ -72,11 +70,10 @@ import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -93,7 +90,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.client.CPacketSteerBoat;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
@@ -313,10 +309,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setInteger(NBT_ARMOR, this.getArmor());
 		nbt.setBoolean(NBT_CHESTED, this.isChested());
 		nbt.setBoolean(NBT_SHEARED, this.getSheared());
-		// nbt.setBoolean(NBT_ISMALE, this.isMale());
 		nbt.setBoolean(NBT_BREATHING, this.isBreathing());
-		// nbt.setBoolean(NBT_SLOWED, this.isSlowed());
-		// nbt.setBoolean("OnGround2", this.onGround2);
 		writeDragonInventory(nbt);
 		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
 	}
@@ -330,13 +323,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setSaddled(nbt.getBoolean(NBT_SADDLED));
 		this.setChested(nbt.getBoolean(NBT_CHESTED));
 		this.setSheared(nbt.getBoolean(NBT_SHEARED));
-		// this.setTrueIfMale(nbt.getBoolean(NBT_ISMALE));
 		this.setBreathing(nbt.getBoolean(NBT_BREATHING));
-		// this.setSlowed(nbt.getBoolean(NBT_SLOWED));
-		// this.onGround2 = nbt.getBoolean("OnGround2");
-		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
 		readDragonInventory(nbt);
+		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 
 	}
 
@@ -1086,17 +1076,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		super.move(type, x, y, z); 
 	}
 	
-	@Override
-	public boolean startRiding(Entity entityIn) {
-		return super.startRiding(entityIn);
-	}
-	
     @Nullable
     public Entity getControllingPassenger() {
     	return this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);		
     }
 	
- //   @Nullable
+    @Nullable
 	public EntityPlayer getControllingPlayer() { 
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
 		if (entity instanceof EntityPlayer) { 
@@ -1105,12 +1090,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return null;
 		}
 	}
-    
-    @Override
-    public boolean isRidingOrBeingRiddenBy(Entity entityIn) {
-    	// TODO Auto-generated method stub
-    	return super.isRidingOrBeingRiddenBy(entityIn);
-    }
 
 	public void setRidingPlayer(EntityPlayer player) {
 		L.trace("setRidingPlayer({})", player.getName());
@@ -1134,14 +1113,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			if (passenger == getPassengers().get(0)) {
 				pos = new Vec3d(0, 0, 0.8 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3, 0, 0.12 * getScale());
+				pos = new Vec3d(0.4, 0.0, 0.12 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3, 0, 0.12 * getScale());
+				pos = new Vec3d(-0.4, 0.0, 0.12 * getScale());
 			} 
 			
-//			if(passenger != getControllingPlayer() && passenger instanceof EntityLiving) {
-//	  		   ((EntityLiving) passenger).move(MoverType.SELF, posX, posY, posZ);
-//			}
+			if (passenger instanceof EntityDragonCarriage) { 
+				float f = 0.0F;
+		    	Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
+	            this.applyYawToEntity(passenger);
+	        }
 
 			pos = pos.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
 			px += pos.x;
@@ -1159,6 +1140,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 		}
 	}
+	
+    /**
+     * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
+     */
+    protected void applyYawToEntity(Entity entityToUpdate) {
+        entityToUpdate.setRenderYawOffset(this.rotationYaw);
+        float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
+        float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+        entityToUpdate.prevRotationYaw += f1 - f;
+        entityToUpdate.rotationYaw += f1 - f;
+        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+    }
 
 	@Override
 	public boolean isEntityInvulnerable(DamageSource src) {
@@ -1473,7 +1466,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 10 == 0 && !isDead) {
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 16 == 0 && !isDead) {
 			Random rand = new Random();
 			this.heal(rand.nextInt(7));
 		}
@@ -1495,6 +1488,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				EntityTameable tamedEntity = (EntityTameable) target;
 				if (((EntityTameable) target).isTamed()) {
 					return false;
+				} else if (!((EntityTameable) target).isTamed()) {
+					return true;
 				}
 			}
 
@@ -1543,14 +1538,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				EntitySelectors.getTeamCollisionPredicate(this));
 
 		if (!list.isEmpty() && isSaddled()) {
-			boolean flag = !this.world.isRemote;// && !(this.getControllingPassenger() instanceof EntityPlayer);
+			boolean flag = !this.world.isRemote;
 
 			for (int j = 0; j < list.size(); ++j) {
 				Entity entity = list.get(j);
-				if (!entity.isPassenger(this)) {
-					if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && entity.width < this.width - 1
-							&& entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob)
-							&& !(entity instanceof EntityPlayer) && !(entity instanceof EntityMob)) {
+				if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityDragonCarriage && entity.isBeingRidden()) {
+					if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width - 1) {
 						entity.startRiding(this);
 					} else {
 						this.applyEntityCollision(entity); 
@@ -1662,7 +1655,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		if (!this.world.isRemote && (!this.isBeingRidden() || !this.isPassenger(playerEntity))
 				&& getLifeStageHelper().getTicksSinceCreation() >= getAppropriateAgeForInteraction()) {
 			playerEntity.openGui(DragonMounts.instance, 0, this.world, this.getEntityId(), 0, 0);
-		} else if (!this.world.isRemote && getLifeStageHelper().getTicksSinceCreation() >= 45000) {
+		} else if (!this.world.isRemote && getLifeStageHelper().getTicksSinceCreation() >= 38000) {
 			playerEntity.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung", new Object[0]), true);
 		}
 	}
@@ -1805,7 +1798,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
+		Entity sourceEntity = source.getTrueSource();
 		if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource())) {
+			return false;
+		}
+		
+		if(this.isPassenger(sourceEntity)) {
 			return false;
 		}
 

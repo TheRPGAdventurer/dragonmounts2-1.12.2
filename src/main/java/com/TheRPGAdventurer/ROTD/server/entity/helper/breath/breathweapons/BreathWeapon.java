@@ -45,6 +45,8 @@ import net.minecraft.world.World;
  */
 public class BreathWeapon {
 	
+  protected EntityTameableDragon dragon;
+	
   public BreathWeapon(EntityTameableDragon i_dragon) {
     dragon = i_dragon;
   }
@@ -105,9 +107,9 @@ public class BreathWeapon {
         
         }
         
-    //    if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) != -1) {
-    //        world.setBlockToAir(pos);
-    //    }
+        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) != -1) {
+            world.setBlockToAir(pos); 
+        }
       }
     }
     
@@ -258,6 +260,36 @@ public class BreathWeapon {
     }
     return false;
   }
+  
+  
+  protected void triggerDamageExceptionsForFire(Entity entity, float DAMAGE_PER_HIT_DENSITY) {
+	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
+	    	entity.setFire((int)(40 * 10));
+	    } else if(entity instanceof EntityTameable) {
+	    	EntityTameable entityTameable = (EntityTameable) entity;
+	    	if(entityTameable.isTamed()) {
+	    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
+	    	}
+	    }  else
+	    
+	    if(entity instanceof EntityLivingBase) {
+	    	EntityLivingBase entity1 = (EntityLivingBase) entity;
+	    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
+	    		entity1.attackEntityFrom(DamageSource.GENERIC, 0);
+	    	} else {
+	    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+	    	}
+	    }  else
+	    
+	    if(entity instanceof EntityTameable) {
+	    	EntityTameable entityTameable = (EntityTameable) entity;
+	    	if(entityTameable.isTamed()) {
+	    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
+	    	} else {
+	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+	    	}
+	    } 
+  }
 
 
   private HashMap<Block, BlockBurnProperties> blockBurnPropertiesCache = new HashMap<Block, BlockBurnProperties>();
@@ -274,6 +306,11 @@ public class BreathWeapon {
 	    checkNotNull(world);
 	    checkNotNull(entityID);
 	    checkNotNull(currentHitDensity);
+	    
+	    final float CATCH_FIRE_THRESHOLD = 1.4F;
+	    final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
+	    float hitDensity = currentHitDensity.getHitDensity();
+	    final float DAMAGE_PER_HIT_DENSITY = 2.0F * hitDensity;
 
 	    Entity entity = world.getEntityByID(entityID);
 	    if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
@@ -284,40 +321,8 @@ public class BreathWeapon {
 	    if(dragon.isBeingRidden()) {
 	       if (dragon.isPassenger(entity)) return null;
 	    }
-
-	    final float CATCH_FIRE_THRESHOLD = 1.4F;
-	    final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
-
-	    float hitDensity = currentHitDensity.getHitDensity();
-	    final float DAMAGE_PER_HIT_DENSITY = 2.0F * hitDensity;
 	    
-	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
-	    	entity.setFire((int)(40 * 10));
-	    } else if(entity instanceof EntityTameable) {
-	    	EntityTameable entityTameable = (EntityTameable) entity;
-	    	if(entityTameable.isTamed()) {
-	    		return null;
-	    	}
-	    }  else
-	    
-	    if(entity instanceof EntityLivingBase) {
-	    	EntityLivingBase entity1 = (EntityLivingBase) entity;
-	    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-	    		return null;
-	    	} else {
-	    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-	    	}
-	    }  else
-	    
-	    if(entity instanceof EntityTameable) {
-	    	EntityTameable entityTameable = (EntityTameable) entity;
-	    	if(entityTameable.isTamed()) {
-	    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
-	    	} else {
-	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-	    	}
-	    } 
-	    
+	    triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
 	    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	      
 	    return currentHitDensity;
@@ -335,9 +340,8 @@ public class BreathWeapon {
     // want: leaves & flowers to burn instantly; gates to take ~1 second at full power, coal / logs to take ~3 seconds
     // hitDensity of 1 is approximately 1-2 ticks of full exposure from a single beam, so 3 seconds is ~30
 
-    float threshold = 30.0F / flammability;
+    float threshold = 20.0F / flammability;
     return threshold;
   }
 
-  protected EntityTameableDragon dragon;
 }

@@ -101,9 +101,9 @@ public class BreathWeaponNether extends BreathWeapon {
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
         
-      //  if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) > -1) {
-       //   world.setBlockToAir(blockPos);
-      //  }
+        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) != -1) {
+          world.setBlockToAir(blockPos);
+        }
       }
     }
 
@@ -265,35 +265,8 @@ public class BreathWeaponNether extends BreathWeapon {
     float hitDensity = currentHitDensity.getHitDensity();
     
     final float DAMAGE_PER_HIT_DENSITY = 4.0F * hitDensity;
-
     
-    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
-    	entity.setFire((int)(40 * 10));
-    } else if(entity instanceof EntityTameable) {
-    	EntityTameable entityTameable = (EntityTameable) entity;
-    	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), 0);
-    	}
-    }  else
-    
-    if(entity instanceof EntityLivingBase) {
-    	EntityLivingBase entity1 = (EntityLivingBase) entity;
-    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-    		entity1.attackEntityFrom(DamageSource.GENERIC, 0);
-    	} else {
-    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    	}
-    }  else
-    
-    if(entity instanceof EntityTameable) {
-    	EntityTameable entityTameable = (EntityTameable) entity;
-    	if(entityTameable.isTamed()) {
-    		return null;
-    	} else {
-    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    	}
-    } 
-    
+    triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
     entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
     
 

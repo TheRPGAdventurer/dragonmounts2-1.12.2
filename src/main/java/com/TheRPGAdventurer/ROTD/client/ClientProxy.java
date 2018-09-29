@@ -14,15 +14,16 @@ import com.TheRPGAdventurer.ROTD.client.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderEnderBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderFlameBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderHydroBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderIceBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderNetherBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderWitherBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.RenderDragonCarriage;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderEnderBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderFlameBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderHydroBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderIceBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderNetherBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderWitherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityHorseC;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityDragonCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.EnderBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
@@ -31,8 +32,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 
-import net.ilexiconn.llibrary.client.event.PlayerModelEvent.Render;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBoat;
 import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -64,7 +65,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHorseC.class, RenderHorse::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonCarriage.class, RenderDragonCarriage::new);
       
     }
 
@@ -79,7 +80,7 @@ public class ClientProxy extends ServerProxy {
         
         if (DragonMountsConfig.isDebug()) { MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());}            
         RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
-        MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
+        MinecraftForge.EVENT_BUS.register(new DragonViewEvent()); 
 
     }
     

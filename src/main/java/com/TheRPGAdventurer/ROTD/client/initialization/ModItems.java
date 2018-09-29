@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.initialization;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.items.ItemCarriage;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;
 import com.TheRPGAdventurer.ROTD.client.items.ItemStructureSpawner;
@@ -26,7 +27,9 @@ public class ModItems {
 	public static final Item SpawnWither;
 	public static final Item SpawnEnd;
 	public static final Item SpawnNether;
+	
 	public static final Item structure_spawner;
+	public static final Item dragon_carriage;
 	
 	
 	public static final Item[] ITEMS = {
@@ -48,5 +51,6 @@ public class ModItems {
 		SpawnNether = new ItemDragonSpawner(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER, DragonMounts.TAB),
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
+		dragon_carriage   = new ItemCarriage("dragon_carriage")
 	};
 }

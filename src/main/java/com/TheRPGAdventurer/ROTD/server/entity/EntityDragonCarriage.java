@@ -237,6 +237,7 @@ public class EntityDragonCarriage extends Entity {
 	protected void entityInit() {
 		this.dataManager.register(DAMAGE, Float.valueOf(0.0F));
         this.dataManager.register(FORWARD_DIRECTION, Integer.valueOf(1));
+        this.dataManager.register(TIME_SINCE_HIT, Integer.valueOf(2));
 	}
 	
     /**
@@ -287,12 +288,14 @@ public class EntityDragonCarriage extends Entity {
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		compound.setFloat("damage", this.getDamage());
 		compound.setInteger("forward", this.getForwardDirection());
+		compound.setInteger("timesincehit", this.getTimeSinceHit());
 	}	
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		this.setDamage(compound.getFloat("damage"));
 		this.setForwardDirection(compound.getInteger("forward"));
+		this.setTimeSinceHit(compound.getInteger("forward"));
 	}
 
 

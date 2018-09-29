@@ -35,7 +35,8 @@ public class RenderDragonCarriage extends Render<EntityDragonCarriage> {
     	GlStateManager.enableBlend();
     	GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
     	this.bindEntityTexture(entity);
-//    	this.setupRotation(entity, yaw, partialTicks);
+        this.setupTranslation(x, y, z);
+    	this.setupRotation(entity, yaw, partialTicks);
     	this.renderModel(entity, x, y, z, yaw, partialTicks); 
     	GlStateManager.disableBlend();  
 
@@ -46,22 +47,40 @@ public class RenderDragonCarriage extends Render<EntityDragonCarriage> {
         GlStateManager.pushMatrix();
         Vec3d look = entity.getLook(partialTicks);
         GlStateManager.translate((float) x, (float) y + 0.4F, (float) z);
-        GlStateManager.rotate(180 - yaw, 180, 1, 0); 
+//        GlStateManager.rotate(180, 180, 1, 0);  
         GlStateManager.scale(0.8, 0.8, 0.8);
         modelCarriage.render(entity, 0, 0, 0, 0, 0, 0.0625F); 
         GlStateManager.popMatrix(); 
     } 
+    
+    public void setupRotation(EntityDragonCarriage p_188311_1_, float p_188311_2_, float p_188311_3_) {
+        GlStateManager.rotate(180.0F - p_188311_2_, 0.0F, 1.0F, 0.0F);
+        float f = (float)p_188311_1_.getTimeSinceHit() - p_188311_3_;
+        float f1 = p_188311_1_.getDamage() - p_188311_3_;
+
+        if (f1 < 0.0F) {
+            f1 = 0.0F;
+        }
+
+        if (f > 0.0F) {
+            GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * (float)p_188311_1_.getForwardDirection(), 1.0F, 0.0F, 0.0F);
+        }
+
+        GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+    }
+
+    public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_) {
+        GlStateManager.translate((float)p_188309_1_, (float)p_188309_3_ + 0.375F, (float)p_188309_5_);
+    }
 
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityDragonCarriage entity)
-    {
+    protected ResourceLocation getEntityTexture(EntityDragonCarriage entity) {
         return CARRIAGE_TEXTURES;
     }
 
-    protected void renderCartContents(EntityDragonCarriage p_188319_1_, float partialTicks, IBlockState p_188319_3_)
-    {
+    protected void renderCartContents(EntityDragonCarriage p_188319_1_, float partialTicks, IBlockState p_188319_3_) {
         GlStateManager.pushMatrix();
         Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(p_188319_3_, p_188319_1_.getBrightness());
         GlStateManager.popMatrix();

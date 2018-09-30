@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,7 +16,10 @@ import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -95,8 +99,7 @@ public class EntityDragonCarriage extends Entity {
      * pushable on contact, like boats or minecarts.
      */
     @Nullable
-    public AxisAlignedBB getCollisionBox(Entity entityIn)
-    {
+    public AxisAlignedBB getCollisionBox(Entity entityIn) {
         return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
     }
     
@@ -104,32 +107,36 @@ public class EntityDragonCarriage extends Entity {
      * Returns true if other Entities should be prevented from moving through this Entity.
      */
     @Override
-    public boolean canBeCollidedWith()
-    {
+    public boolean canBeCollidedWith() {
         return !this.isDead;
     }
     
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
-    {
-        if (!this.isInWater())
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+    	if (!this.isRiding())
         {
-            this.handleWaterMovement();
-        }
-
-        if (!this.world.isRemote && this.fallDistance > 3.0F && onGroundIn)
-        {
-            float f = (float)MathHelper.ceil(this.fallDistance - 3.0F);
-
-            if (!state.getBlock().isAir(state, world, pos))
+            if (onGroundIn)
             {
-                double d0 = Math.min((double)(0.2F + f / 15.0F), 2.5D);
-                int i = (int)(150.0D * d0);
-           //     if (!state.getBlock().addLandingEffects(state, (WorldServer)this.world, pos, state, this, i))
-                ((WorldServer)this.world).spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(state));
-            }
-        }
+                if (this.fallDistance > 3.0F)
+                {
+                    
 
-        super.updateFallState(y, onGroundIn, state, pos);
+                    this.fall(this.fallDistance, 1.0F);
+
+                    if (!this.world.isRemote && !this.isDead)
+                    {
+                        this.setDead();
+
+                       
+                    }
+                }
+
+                this.fallDistance = 0.0F;
+            }
+            else if (this.world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0.0D)
+            {
+                this.fallDistance = (float)((double)this.fallDistance - y);
+            }
+        }   
     }
 
     /**
@@ -208,25 +215,20 @@ public class EntityDragonCarriage extends Entity {
     /**
      * Applies a velocity to the entities, to push them away from eachother.
      */
-    public void applyEntityCollision(Entity entityIn)
-    {
-        if (!this.isRidingSameEntity(entityIn))
-        {
-            if (!entityIn.noClip && !this.noClip)
-            {
+    public void applyEntityCollision(Entity entityIn) {
+        if (!this.isRidingSameEntity(entityIn)) {
+            if (!entityIn.noClip && !this.noClip) {
                 double d0 = entityIn.posX - this.posX;
                 double d1 = entityIn.posZ - this.posZ;
                 double d2 = MathHelper.absMax(d0, d1);
 
-                if (d2 >= 0.009999999776482582D)
-                {
+                if (d2 >= 0.009999999776482582D) {
                     d2 = (double)MathHelper.sqrt(d2);
                     d0 = d0 / d2;
                     d1 = d1 / d2;
                     double d3 = 1.0D / d2;
 
-                    if (d3 > 1.0D)
-                    {
+                    if (d3 > 1.0D) {
                         d3 = 1.0D;
                     }
 
@@ -237,13 +239,11 @@ public class EntityDragonCarriage extends Entity {
                     d0 = d0 * (double)(1.0F - this.entityCollisionReduction);
                     d1 = d1 * (double)(1.0F - this.entityCollisionReduction);
 
-                    if (!this.isBeingRidden())
-                    {
+                    if (!this.isBeingRidden()) {
                         this.addVelocity(-d0, 0.0D, -d1);
                     }
 
-                    if (!entityIn.isBeingRidden())
-                    {
+                    if (!entityIn.isBeingRidden()) {
                         entityIn.addVelocity(d0, 0.0D, d1);
                     }
                 }
@@ -261,7 +261,7 @@ public class EntityDragonCarriage extends Entity {
         
     	if(!(passenger instanceof EntityPlayer)) {
            passenger.rotationYaw = this.rotationYaw;
-           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
+           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw); 
            this.applyYawToEntity(passenger); 
     	}
     }
@@ -278,6 +278,7 @@ public class EntityDragonCarriage extends Entity {
         entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
     }
     
+    
     /**
      * Gets the horizontal facing direction of this Entity, adjusted to take specially-treated entity types into
      * account.
@@ -292,7 +293,7 @@ public class EntityDragonCarriage extends Entity {
      */
     @Override
     public double getMountedYOffset() {
-        return (double)this.height * -0.3D;
+        return (double)this.height * 0D;
     }
     
     
@@ -301,8 +302,7 @@ public class EntityDragonCarriage extends Entity {
      * Returns true if this entity should push and be pushed by other entities when colliding.
      */
     @Override
-    public boolean canBePushed()
-    {
+    public boolean canBePushed() {
         return true;
     }
     
@@ -310,8 +310,7 @@ public class EntityDragonCarriage extends Entity {
      * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
      */
     @SideOnly(Side.CLIENT)
-    public void performHurtAnimation()
-    {
+    public void performHurtAnimation() {
         this.setForwardDirection(-this.getForwardDirection());
         this.setTimeSinceHit(10);
         this.setDamage(this.getDamage() * 11.0F);

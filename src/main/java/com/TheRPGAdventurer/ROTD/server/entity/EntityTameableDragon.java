@@ -667,7 +667,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	/**
 	 * Returns the sound this mob makes on swimming.
-	 * 
 	 * @TheRPGAdenturer: disabled due to its annoyance while swimming underwater it
 	 *                   play it too many times
 	 */
@@ -836,11 +835,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	@Override
 	protected boolean canDespawn() {
-		if (isTamed() || isEgg() || isHatchling()) {
-			return false;
-		} else {
-			return DragonMountsConfig.canDragonDespawn;
-		}
+		return isTamed() || isEgg() || isHatchling() || DragonMountsConfig.canDragonDespawn;
 	}
 
 	/**
@@ -885,20 +880,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
 		}
 
-		return attacked;
-	}
-
-	public boolean attackEntityWithRanged(EntityLivingBase e) {
-		boolean attacked = e.attackEntityFrom(DamageSource.causeMobDamage(this),
-				(float) getEntityAttribute(ATTACK_DAMAGE).getAttributeValue());
-		if (e.isDead) {
-			return false;
-		}
-
-		if (attacked == true) {
-			this.setBreathing(attacked);
-			this.getLookHelper().setLookPositionWithEntity(e, getHeadYawSpeed(), getHeadPitchSpeed());
-		}
 		return attacked;
 	}
 
@@ -1068,14 +1049,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 	}
 	
-	@Override
-	public void move(MoverType type, double x, double y, double z) {
-	//	if(!(getControllingPassenger() instanceof EntityPlayer)) {
-	//		super.move(MoverType.SELF, x, y, z);
-	//	} 
-		super.move(type, x, y, z); 
-	}
-	
     @Nullable
     public Entity getControllingPassenger() {
     	return this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);		
@@ -1118,11 +1091,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				pos = new Vec3d(-0.4, 0.0, 0.12 * getScale());
 			} 
 			
-			if (passenger instanceof EntityDragonCarriage) { 
-				float f = 0.0F;
-		    	Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
-	            this.applyYawToEntity(passenger);
-	        }
+			float f = 0.0F;
+	        float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+	        Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
+	        passenger.setPosition(this.posX + vec3d.x, this.posY + (double)f1, this.posZ + vec3d.z);
+	        
+	    	if(!(passenger instanceof EntityPlayer)) {
+	           passenger.rotationYaw = this.rotationYaw;
+	           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
+	           this.applyYawToEntity(passenger); 
+	    	}
 
 			pos = pos.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
 			px += pos.x;

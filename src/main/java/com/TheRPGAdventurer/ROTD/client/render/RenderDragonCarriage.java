@@ -55,11 +55,11 @@ public class RenderDragonCarriage extends Render<EntityDragonCarriage> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    public void setupRotation(EntityDragonCarriage p_188311_1_, float p_188311_2_, float p_188311_3_)
+    public void setupRotation(EntityDragonCarriage entity, float entityYaw, float partialTicks)
     {
-        GlStateManager.rotate(90.0F - p_188311_2_, 0.0F, 1.0F, 0.0F);
-        float f = (float)p_188311_1_.getTimeSinceHit() - p_188311_3_;
-        float f1 = p_188311_1_.getDamage() - p_188311_3_;
+        GlStateManager.rotate(90.0F - entityYaw, 0.0F, 1.0F, 0.0F);
+        float f = (float)entity.getTimeSinceHit() - partialTicks;
+        float f1 = entity.getDamage() - partialTicks;
 
         if (f1 < 0.0F)
         {
@@ -68,10 +68,10 @@ public class RenderDragonCarriage extends Render<EntityDragonCarriage> {
 
         if (f > 0.0F)
         {
-            GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * (float)p_188311_1_.getForwardDirection(), 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * (float)entity.getForwardDirection(), 1.0F, 0.0F, 0.0F);
         }
 
-        GlStateManager.scale(-1.0F, -1.0F, 1.0F);
+        GlStateManager.scale(-0.8F, -0.8F, 0.8F);
     }
 
     public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_)

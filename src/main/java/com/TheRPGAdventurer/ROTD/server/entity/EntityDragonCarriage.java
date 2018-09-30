@@ -5,12 +5,16 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.util.ICollisionHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityMinecart;
@@ -18,6 +22,7 @@ import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +30,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EntitySelectors;
@@ -46,12 +52,18 @@ public class EntityDragonCarriage extends Entity {
     private static final DataParameter<Float> DAMAGE = EntityDataManager.<Float>createKey(EntityMinecart.class, DataSerializers.FLOAT);
     private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityBoat.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityBoat.class, DataSerializers.VARINT);
+    private static ICollisionHandler collisionHandler = null;
+    public static float defaultMaxSpeedAirLateral = 0.4f;
+    public static float defaultMaxSpeedAirVertical = -1f;
+    public static double defaultDragAir = 0.94999998807907104D;
+    protected float maxSpeedAirLateral = defaultMaxSpeedAirLateral;
+    protected float maxSpeedAirVertical = defaultMaxSpeedAirVertical;
+    protected double dragAir = defaultDragAir;
     private boolean isInReverse;
     
     public EntityDragonCarriage(World worldIn) { 
         super(worldIn);
         this.preventEntitySpawning = true;
-    //    this.canUseRail = false;
         this.setSize(0.98F, 0.7F); 
     }
     
@@ -110,67 +122,99 @@ public class EntityDragonCarriage extends Entity {
     public boolean canBeCollidedWith() {
         return !this.isDead;
     }
-    
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-    	if (!this.isRiding())
-        {
-            if (onGroundIn)
-            {
-                if (this.fallDistance > 3.0F)
-                {
-                    
-
-                    this.fall(this.fallDistance, 1.0F);
-
-                    if (!this.world.isRemote && !this.isDead)
-                    {
-                        this.setDead();
-
-                       
-                    }
-                }
-
-                this.fallDistance = 0.0F;
-            }
-            else if (this.world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0.0D)
-            {
-                this.fallDistance = (float)((double)this.fallDistance - y);
-            }
-        }   
-    }
 
     /**
      * Returns the collision bounding box for this entity
      */
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox()
-    {
+    public AxisAlignedBB getCollisionBoundingBox() {
         return this.getEntityBoundingBox(); 
     } 
     
     @Override
-    public void onUpdate() {
-    	this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+    	super.updateFallState(y, onGroundIn, state, pos); 
+    } 
+    
+    public float getMaxSpeedAirVertical()
+    {
+        return maxSpeedAirVertical;
+    }
+    
+    /**
+     * Get's the maximum speed for a minecart
+     */
+    protected double getMaximumSpeed()
+    {
+        return 0.4D;
+    }
+    
+    public float getMaxSpeedAirLateral()
+    {
+        return maxSpeedAirLateral;
+    }
+    
+    public double getDragAir()
+    {
+        return dragAir;
+    }
+
+    public void setDragAir(double value)
+    {
+        dragAir = value;
+    }
+    
+    @Override
+    public void onUpdate() { 
+//    	this.motionX = 0.0D;
+//        this.motionY = 0.0D;
+//        this.motionZ = 0.0D;
         
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
         
-        if (this.getTimeSinceHit() > 0)
-        {
+        if (this.getTimeSinceHit() > 0) {
             this.setTimeSinceHit(this.getTimeSinceHit() - 1);
+        }  
+        
+        if(world.isRemote) {
+        	
+        } else {
+        	if (!this.hasNoGravity()) {
+                this.motionY -= 0.03999999910593033D;
+            }
         }
         
+        double d0 = onGround ? this.getMaximumSpeed() : getMaxSpeedAirLateral();
+        this.motionX = MathHelper.clamp(this.motionX, -d0, d0);
+        this.motionZ = MathHelper.clamp(this.motionZ, -d0, d0);
 
-        if (!this.hasNoGravity())
-        {
-            this.motionY -= 0.03999999910593033D;
+        double moveY = motionY;
+        if(getMaxSpeedAirVertical() > 0 && motionY > getMaxSpeedAirVertical()) {
+            moveY = getMaxSpeedAirVertical();
+            if(Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f) {
+                moveY = 0.15f;
+                motionY = moveY;
+            }
         }
 
-        if (this.getDamage() > 0.0F)
+        if (this.onGround) {
+            this.motionX *= 0.5D;
+            this.motionY *= 0.5D;
+            this.motionZ *= 0.5D;
+        }
+
+        this.move(MoverType.SELF, this.motionX, moveY, this.motionZ);
+
+        if (!this.onGround)
         {
+            this.motionX *= getDragAir();
+            this.motionY *= getDragAir();
+            this.motionZ *= getDragAir();
+        }
+
+        if (this.getDamage() > 0.0F) {
             this.setDamage(this.getDamage() - 1.0F);
         }
         
@@ -193,64 +237,19 @@ public class EntityDragonCarriage extends Entity {
         if (!list.isEmpty()) {
             boolean flag = !this.world.isRemote && !(this.getControllingPassenger() instanceof EntityPlayer);
 
-            for (int j = 0; j < list.size(); ++j)
-            {
+            for (int j = 0; j < list.size(); ++j) {
                 Entity entity = list.get(j);
 
-                if (!entity.isPassenger(this)) 
-                { 
-                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer))
-                    {
+                if (!entity.isPassenger(this)) { 
+                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity); 
                     }
                 }
             }
-        }
-        
-        super.onUpdate();
+        }    super.onUpdate();
     }
-    
-    /**
-     * Applies a velocity to the entities, to push them away from eachother.
-     */
-    public void applyEntityCollision(Entity entityIn) {
-        if (!this.isRidingSameEntity(entityIn)) {
-            if (!entityIn.noClip && !this.noClip) {
-                double d0 = entityIn.posX - this.posX;
-                double d1 = entityIn.posZ - this.posZ;
-                double d2 = MathHelper.absMax(d0, d1);
-
-                if (d2 >= 0.009999999776482582D) {
-                    d2 = (double)MathHelper.sqrt(d2);
-                    d0 = d0 / d2;
-                    d1 = d1 / d2;
-                    double d3 = 1.0D / d2;
-
-                    if (d3 > 1.0D) {
-                        d3 = 1.0D;
-                    }
-
-                    d0 = d0 * d3;
-                    d1 = d1 * d3;
-                    d0 = d0 * 0.05000000074505806D;
-                    d1 = d1 * 0.05000000074505806D;
-                    d0 = d0 * (double)(1.0F - this.entityCollisionReduction);
-                    d1 = d1 * (double)(1.0F - this.entityCollisionReduction);
-
-                    if (!this.isBeingRidden()) {
-                        this.addVelocity(-d0, 0.0D, -d1);
-                    }
-
-                    if (!entityIn.isBeingRidden()) {
-                        entityIn.addVelocity(d0, 0.0D, d1);
-                    }
-                }
-            }
-        }
-    }
-    
     
     @Override
     public void updatePassenger(Entity passenger) {	
@@ -275,9 +274,79 @@ public class EntityDragonCarriage extends Entity {
         float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
         entityToUpdate.prevRotationYaw += f1 - f;
         entityToUpdate.rotationYaw += f1 - f;
-        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw); 
     }
     
+    /**
+     * Applies a velocity to the entities, to push them away from eachother.
+     */
+    public void applyEntityCollision(Entity entityIn) {
+     //   net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartCollisionEvent(this, entityIn));
+        if (getCollisionHandler() != null) {
+            getCollisionHandler().onEntityCollision(this, entityIn);
+            return;
+        }
+        if (!this.world.isRemote) {
+            if (!entityIn.noClip && !this.noClip)  {
+                if (!this.isPassenger(entityIn)) {
+                    double d0 = entityIn.posX - this.posX;
+                    double d1 = entityIn.posZ - this.posZ;
+                    double d2 = d0 * d0 + d1 * d1;
+
+                    if (d2 >= 9.999999747378752E-5D)
+                    {
+                        d2 = (double)MathHelper.sqrt(d2);
+                        d0 = d0 / d2;
+                        d1 = d1 / d2;
+                        double d3 = 1.0D / d2;
+
+                        if (d3 > 1.0D)
+                        {
+                            d3 = 1.0D;
+                        }
+
+                        d0 = d0 * d3;
+                        d1 = d1 * d3;
+                        d0 = d0 * 0.10000000149011612D;
+                        d1 = d1 * 0.10000000149011612D;
+                        d0 = d0 * (double)(1.0F - this.entityCollisionReduction);
+                        d1 = d1 * (double)(1.0F - this.entityCollisionReduction);
+                        d0 = d0 * 0.5D;
+                        d1 = d1 * 0.5D;
+
+                        if (entityIn instanceof EntityDragonCarriage) {
+                            double d4 = entityIn.posX - this.posX;
+                            double d5 = entityIn.posZ - this.posZ;
+                            Vec3d vec3d = (new Vec3d(d4, 0.0D, d5)).normalize();
+                            Vec3d vec3d1 = (new Vec3d((double)MathHelper.cos(this.rotationYaw * 0.017453292F), 0.0D, (double)MathHelper.sin(this.rotationYaw * 0.017453292F))).normalize();
+                            double d6 = Math.abs(vec3d.dotProduct(vec3d1));
+
+                            if (d6 < 0.800000011920929D) {
+                                return;
+                            }
+
+                            double d7 = entityIn.motionX + this.motionX;
+                            double d8 = entityIn.motionZ + this.motionZ;
+
+                            
+                                d7 = d7 / 2.0D;
+                                d8 = d8 / 2.0D;
+                                this.motionX *= 0.20000000298023224D;
+                                this.motionZ *= 0.20000000298023224D;
+                                this.addVelocity(d7 - d0, 0.0D, d8 - d1);
+                                entityIn.motionX *= 0.20000000298023224D;
+                                entityIn.motionZ *= 0.20000000298023224D;
+                                entityIn.addVelocity(d7 + d0, 0.0D, d8 + d1);
+                            
+                        }  else {
+                            this.addVelocity(-d0, 0.0D, -d1);
+                            entityIn.addVelocity(d0 / 4.0D, 0.0D, d1 / 4.0D);
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     /**
      * Gets the horizontal facing direction of this Entity, adjusted to take specially-treated entity types into
@@ -295,8 +364,6 @@ public class EntityDragonCarriage extends Entity {
     public double getMountedYOffset() {
         return (double)this.height * 0D;
     }
-    
-    
     
     /**
      * Returns true if this entity should push and be pushed by other entities when colliding.
@@ -374,6 +441,27 @@ public class EntityDragonCarriage extends Entity {
 	}
 	
     /**
+     * Gets the current global Minecart Collision handler if none
+     * is registered, returns null
+     * @return The collision handler or null
+     */
+    @Nullable
+    public static ICollisionHandler getCollisionHandler()
+    {
+        return collisionHandler;
+    }
+
+    /**
+     * Sets the global Minecart Collision handler, overwrites any
+     * that is currently set.
+     * @param handler The new handler
+     */
+    public static void setCollisionHandler(ICollisionHandler handler)
+    {
+        collisionHandler = handler;
+    }
+	
+    /**
      * Sets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
      * 40.
      */
@@ -430,6 +518,5 @@ public class EntityDragonCarriage extends Entity {
 		this.setForwardDirection(compound.getInteger("forward"));
 		this.setTimeSinceHit(compound.getInteger("forward"));
 	}
-
 
 }

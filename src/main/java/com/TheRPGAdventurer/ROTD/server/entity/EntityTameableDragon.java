@@ -552,24 +552,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 			hasChestVarChanged = false;
 		}
-		
-//		if (this.canPassengerSteer2()) {
-//            if (!(this.getPassengers().get(0) instanceof EntityPlayer)) {
- //               this.setPaddleState(false, false);
-    //        	setPositionAndRotation(getMoveHelper().getX(), getMoveHelper().getY(), getMoveHelper().getZ(), rotationYaw, rotationPitch);
-            
-        //    } 
-
-       //     this.updateMotion();
-
-         //   if (this.world.isRemote)
-        //    {
-          //      this.controlBoat();
-            //    this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
-        //    }
-
-      //      this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-       // }
 
 		updateMultipleBoundingBox();
 		updateShearing();
@@ -1086,15 +1068,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			if (passenger == getPassengers().get(0)) {
 				pos = new Vec3d(0, 0, 0.8 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.4, 0.0, 0.12 * getScale());
+				pos = new Vec3d(0.4, 0.0, 0.14 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.4, 0.0, 0.12 * getScale());
+				pos = new Vec3d(-0.4, 0.0, 0.14 * getScale());
 			} 
-			
-			float f = 0.0F;
-	        float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-	        Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
-	        passenger.setPosition(this.posX + vec3d.x, this.posY + (double)f1, this.posZ + vec3d.z);
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {
 	           passenger.rotationYaw = this.rotationYaw;
@@ -1248,7 +1225,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * appropriate age for riding the dragon appropriate age for opening gui etc.
 	 */
 	public static int getAppropriateAgeForInteraction() {
-		return 45000;
+		return 35000;
 	}
 
 	/**
@@ -1510,7 +1487,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void updateForRiding() { 
-//      doBlockCollisions();
+     doBlockCollisions();
 		List<Entity> list = this.world.getEntitiesInAABBexcluding(this,
 				this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D),
 				EntitySelectors.getTeamCollisionPredicate(this));

@@ -18,6 +18,7 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -133,7 +134,7 @@ public class EntityDragonCarriage extends Entity {
     
     @Override
     protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-    	super.updateFallState(y, onGroundIn, state, pos); 
+    	super.updateFallState(y, onGroundIn, state, pos);  
     } 
     
     public float getMaxSpeedAirVertical() {
@@ -191,7 +192,7 @@ public class EntityDragonCarriage extends Entity {
         } else if(this.isInWater()) {
         	moveY = getMaxSpeedAirVertical();
             if(Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f) {
-                moveY = 0.1f;
+                moveY = 0.000002213f;
                 motionY = moveY;
             }
         }
@@ -256,9 +257,13 @@ public class EntityDragonCarriage extends Entity {
         
     	if(!(passenger instanceof EntityPlayer)) {
            passenger.rotationYaw = this.rotationYaw;
-           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw); 
+           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
            this.applyYawToEntity(passenger); 
     	}
+    	
+    	EntityTameableDragon dragon = new EntityTameableDragon(world);
+    	
+        passenger.setEntityInvulnerable(true);
     }
     
     /**

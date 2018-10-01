@@ -49,9 +49,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityDragonCarriage extends Entity {
 	
-    private static final DataParameter<Float> DAMAGE = EntityDataManager.<Float>createKey(EntityMinecart.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityBoat.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityBoat.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.<Float>createKey(EntityDragonCarriage.class, DataSerializers.FLOAT);
+    private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityDragonCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityDragonCarriage.class, DataSerializers.VARINT);
     private static ICollisionHandler collisionHandler = null;
     public static float defaultMaxSpeedAirLateral = 0.4f;
     public static float defaultMaxSpeedAirVertical = -1f;
@@ -136,40 +136,31 @@ public class EntityDragonCarriage extends Entity {
     	super.updateFallState(y, onGroundIn, state, pos); 
     } 
     
-    public float getMaxSpeedAirVertical()
-    {
+    public float getMaxSpeedAirVertical() {
         return maxSpeedAirVertical;
     }
     
     /**
      * Get's the maximum speed for a minecart
      */
-    protected double getMaximumSpeed()
-    {
+    protected double getMaximumSpeed() {
         return 0.4D;
     }
     
-    public float getMaxSpeedAirLateral()
-    {
+    public float getMaxSpeedAirLateral() {
         return maxSpeedAirLateral;
     }
     
-    public double getDragAir()
-    {
+    public double getDragAir() {
         return dragAir;
     }
 
-    public void setDragAir(double value)
-    {
+    public void setDragAir(double value) {
         dragAir = value;
     }
     
     @Override
     public void onUpdate() { 
-//    	this.motionX = 0.0D;
-//        this.motionY = 0.0D;
-//        this.motionZ = 0.0D;
-        
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
@@ -197,9 +188,15 @@ public class EntityDragonCarriage extends Entity {
                 moveY = 0.15f;
                 motionY = moveY;
             }
+        } else if(this.isInWater()) {
+        	moveY = getMaxSpeedAirVertical();
+            if(Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f) {
+                moveY = 0.1f;
+                motionY = moveY;
+            }
         }
 
-        if (this.onGround) {
+        if (this.onGround || this.isInWater()) {
             this.motionX *= 0.5D;
             this.motionY *= 0.5D;
             this.motionZ *= 0.5D;
@@ -207,8 +204,7 @@ public class EntityDragonCarriage extends Entity {
 
         this.move(MoverType.SELF, this.motionX, moveY, this.motionZ);
 
-        if (!this.onGround)
-        {
+        if (!this.onGround || this.isInWater()) {
             this.motionX *= getDragAir();
             this.motionY *= getDragAir();
             this.motionZ *= getDragAir();
@@ -241,7 +237,7 @@ public class EntityDragonCarriage extends Entity {
                 Entity entity = list.get(j);
 
                 if (!entity.isPassenger(this)) { 
-                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
+                    if (flag && this.getPassengers().size() < 1 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity); 
@@ -416,16 +412,11 @@ public class EntityDragonCarriage extends Entity {
     }
     
     @Override
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-    {
-        if (player.isSneaking())
-        {
+    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+        if (player.isSneaking()) {
             return false;
-        }
-        else
-        {
-            if (!this.world.isRemote)
-            {
+        } else {
+            if (!this.world.isRemote) {
                 player.startRiding(this);
             }
 
@@ -516,7 +507,7 @@ public class EntityDragonCarriage extends Entity {
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		this.setDamage(compound.getFloat("damage"));
 		this.setForwardDirection(compound.getInteger("forward"));
-		this.setTimeSinceHit(compound.getInteger("forward"));
+		this.setTimeSinceHit(compound.getInteger("timesincehit"));
 	}
 
 }

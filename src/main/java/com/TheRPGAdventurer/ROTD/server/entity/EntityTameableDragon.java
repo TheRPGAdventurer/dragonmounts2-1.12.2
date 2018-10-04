@@ -1077,7 +1077,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			} else if (passenger == getPassengers().get(1)) {
 				pos = new Vec3d(0.3, 0.2, 0.15 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3, 0.2, 0.15 * getScale());
+				pos = new Vec3d(-0.3, 0.2, 0.15 * getScale()); 
 			} 
 			
 			if(passenger == getControllingPlayer()) {
@@ -1537,7 +1537,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 					if (getBreedType() == EnumDragonBreed.END && this.getHealth() < this.getMaxHealth()) {
 						this.setHealth(this.getHealth() + 1.0F);
 					}
-
+					
 					addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 15 * 20));
 				}
 			}

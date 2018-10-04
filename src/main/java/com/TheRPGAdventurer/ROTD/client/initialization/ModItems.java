@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.client.items.ItemCarriage;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;
 import com.TheRPGAdventurer.ROTD.client.items.ItemStructureSpawner;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 
 import net.minecraft.item.Item;
@@ -29,7 +30,13 @@ public class ModItems {
 	public static final Item SpawnNether;
 	
 	public static final Item structure_spawner;
-	public static final Item dragon_carriage;
+	
+	public static final Item carriage_oak;
+	public static final Item carriage_acacia;
+	public static final Item carriage_birch;
+	public static final Item carriage_darkoak;
+	public static final Item carriage_jungle;
+	public static final Item carriage_spruce;
 	
 	
 	public static final Item[] ITEMS = {
@@ -51,6 +58,12 @@ public class ModItems {
 		SpawnNether = new ItemDragonSpawner(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER, DragonMounts.TAB),
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
-		dragon_carriage   = new ItemCarriage("dragon_carriage")
+		
+		carriage_oak   = new ItemCarriage("carriage_", EntityCarriage.Type.OAK),
+		carriage_spruce = new ItemCarriage("carriage_", EntityCarriage.Type.SPRUCE),
+		carriage_birch = new ItemCarriage("carriage_", EntityCarriage.Type.BIRCH),
+		carriage_jungle = new ItemCarriage("carriage_", EntityCarriage.Type.JUNGLE),
+		carriage_acacia = new ItemCarriage("carriage_", EntityCarriage.Type.ACACIA),
+		carriage_darkoak = new ItemCarriage("carriage_", EntityCarriage.Type.DARK_OAK),
 	};
 }

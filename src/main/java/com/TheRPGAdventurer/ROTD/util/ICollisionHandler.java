@@ -19,7 +19,7 @@
 
 package com.TheRPGAdventurer.ROTD.util;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityDragonCarriage;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,7 +39,7 @@ public interface ICollisionHandler
      * @param cart The cart that called the collision.
      * @param other The object it collided with.
      */
-    void onEntityCollision(EntityDragonCarriage cart, Entity other);
+    void onEntityCollision(EntityCarriage cart, Entity other);
 
     /**
      * This function replaced the function of the same name in EntityMinecart.
@@ -49,7 +49,7 @@ public interface ICollisionHandler
      * @param other The entity requesting the collision box.
      * @return The collision box or null.
      */
-    AxisAlignedBB getCollisionBox(EntityDragonCarriage cart, Entity other);
+    AxisAlignedBB getCollisionBox(EntityCarriage cart, Entity other);
 
     /**
      * This function is used to define the box used for detecting minecart collisions.
@@ -57,7 +57,7 @@ public interface ICollisionHandler
      * @param cart The cart for which the collision box was requested.
      * @return The collision box, cannot be null.
      */
-    AxisAlignedBB getMinecartCollisionBox(EntityDragonCarriage cart);
+    AxisAlignedBB getMinecartCollisionBox(EntityCarriage cart);
 
     /**
      * This function replaces the function of the same name in EntityMinecart.
@@ -65,5 +65,5 @@ public interface ICollisionHandler
      * @param cart The cart for which the bounding box was requested.
      * @return The bounding box or null.
      */
-    AxisAlignedBB getBoundingBox(EntityDragonCarriage cart);
+    AxisAlignedBB getBoundingBox(EntityCarriage cart);
 }

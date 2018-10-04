@@ -138,7 +138,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public static final double BASE_ARMOR = 20.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
-	public static final float BASE_HEIGHT = 2.35f;
+	public static final float BASE_HEIGHT = 2.10f;
 	public static final float RESISTANCE = 20.0f;
 	public static final double BASE_FOLLOW_RANGE = 70;
 	public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
@@ -785,6 +785,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 		return eyeHeight;
 	}
+	
+	/**
+	 * Returns the height of the eyes. Used for looking at other entities.
+	 * @TheRPGAdventurer duplicate one for firebreathing
+	 */
+	public float getEyeHeight2() {
+		float eyeHeight = height * 0.85F;
+
+		if (isSitting()) {
+			eyeHeight *= 0.8f;
+		}
+
+		if (isEgg()) {
+			eyeHeight = 1.3f;
+		}
+
+		return eyeHeight;
+	}
 
 	/**
 	 * Returns the Y offset from the entity's position for any entity riding this
@@ -1009,17 +1027,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		// with DragonMoveHelper a custom move coe that supports tameable flying entities like a dragonarmor_diamond
 		return false;
 	}
-	
-	@Override
-	public Entity getLowestRidingEntity() {
-		Entity entity;
-
-        for (entity = this; entity.isRiding(); entity = entity.getRidingEntity()) {
-            ;
-        }
-
-        return entity;
-	}
 
 	@Override
 	public void travel(float strafe, float up, float forward) {
@@ -1066,12 +1073,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0, 0, 0.8 * getScale());
+				pos = new Vec3d(0, 0.2, 0.8 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.4, 0.0, 0.14 * getScale());
+				pos = new Vec3d(0.3, 0.2, 0.15 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.4, 0.0, 0.14 * getScale());
+				pos = new Vec3d(-0.3, 0.2, 0.15 * getScale());
 			} 
+			
+			if(passenger == getControllingPlayer()) {
+
+			}
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {
 	           passenger.rotationYaw = this.rotationYaw;
@@ -1497,8 +1508,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 			for (int j = 0; j < list.size(); ++j) {
 				Entity entity = list.get(j);
-				if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityDragonCarriage && entity.isBeingRidden()) {
-					if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width - 1) {
+				if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
+					if (flag && this.getPassengers().size() < 3 && !entity.isRiding()) {
 						entity.startRiding(this);
 					} else {
 						this.applyEntityCollision(entity); 

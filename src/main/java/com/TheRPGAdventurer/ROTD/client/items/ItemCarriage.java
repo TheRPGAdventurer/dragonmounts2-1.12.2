@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.client.items;
 import java.util.List;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityDragonCarriage;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
@@ -33,9 +33,12 @@ import net.minecraft.world.World;
 
 public class ItemCarriage extends Item {
 	
-	public ItemCarriage(String name) {
-		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
-		this.setUnlocalizedName(name);
+	EntityCarriage.Type type;
+	
+	public ItemCarriage(String name, EntityCarriage.Type type) {
+		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name + type.getName()));
+		this.setUnlocalizedName(name + type.getName());
+		this.type = type;
 		this.setMaxDamage(1);
 		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.TAB);
@@ -100,11 +103,11 @@ public class ItemCarriage extends Item {
             {
                 Block block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
                 boolean flag1 = block == Blocks.WATER || block == Blocks.FLOWING_WATER;
-                EntityDragonCarriage entityboat = new EntityDragonCarriage(worldIn, raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
-//                entityboat.setBoatType(this.type);
-                entityboat.rotationYaw = playerIn.rotationYaw;
+                EntityCarriage entitycarriage = new EntityCarriage(worldIn, raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
+                entitycarriage.setType(this.type);  
+                entitycarriage.rotationYaw = playerIn.rotationYaw;
 
-                if (!worldIn.getCollisionBoxes(entityboat, entityboat.getEntityBoundingBox().grow(-0.1D)).isEmpty())
+                if (!worldIn.getCollisionBoxes(entitycarriage, entitycarriage.getEntityBoundingBox().grow(-0.1D)).isEmpty())
                 {
                     return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
                 }
@@ -112,7 +115,7 @@ public class ItemCarriage extends Item {
                 {
                     if (!worldIn.isRemote)
                     {
-                        worldIn.spawnEntity(entityboat);
+                        worldIn.spawnEntity(entitycarriage);
                     }
 
                     if (!playerIn.capabilities.isCreativeMode)

@@ -12,7 +12,7 @@ package com.TheRPGAdventurer.ROTD.server;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.cmd.CommandDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityDragonCarriage;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessage;
@@ -85,7 +85,7 @@ public class ServerProxy {
         EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "dragon"), EntityTameableDragon.class, "DragonMount",
                 ENTITY_ID, DragonMounts.instance, ENTITY_TRACKING_RANGE, ENTITY_UPDATE_FREQ,
                 ENTITY_SEND_VELO_UPDATES); 
-        EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "carriage"), EntityDragonCarriage.class, "DragonCarriage",
+        EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "carriage"), EntityCarriage.class, "DragonCarriage",
                 2, DragonMounts.instance, ENTITY_TRACKING_RANGE, ENTITY_UPDATE_FREQ,
                 ENTITY_SEND_VELO_UPDATES);
     } 

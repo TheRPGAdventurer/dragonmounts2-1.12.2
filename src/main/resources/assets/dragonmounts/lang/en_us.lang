@@ -15,9 +15,16 @@ commands.dragon.canttame=You cannot tame dragons
 
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
-tile.rotd:pileofsticks.name=Nest Block
 
+tile.rotd:pileofsticks.name=Nest Block
 item.dragonEgg.name=%s Egg
+
+item.carriage_oak.name=Oak Carriage
+item.carriage_birch.name=Birch Carriage
+item.carriage_spruce.name=Spruce Carriage
+item.carriage_acacia.name=Acacia Carriage
+item.carriage_dark_oak.name=Dark Oak Carriage
+item.carriage_jungle.name=Jungle Carriage
 
 item.ender_dragonscales.name=Dragon Scales
 item.ender_dragon_pickaxe.name=Dragon Pickaxe

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/dragon_carriage"
+	    "layer0": "dragonmounts:items/carriage_jungle"
 	}
 }

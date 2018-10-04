@@ -29,6 +29,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
     private int failedPathFindingPenalty = 0;
     private boolean canPenalize = false;
     public float breathTick;
+    private boolean shouldUseRange = false;
 
     public EntityAIDragonAttack(EntityTameableDragon dragon, double speedIn, boolean useLongMemory) {
     	super(dragon);
@@ -135,7 +136,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
             this.targetZ = target.posZ;
             this.delayCounter = 4 + this.dragon.getRNG().nextInt(7);
 
-            if (this.canPenalize) {
+            if (this.canPenalize && !shouldUseRange) {
                 this.delayCounter += failedPathFindingPenalty;
                 if (dragon.getNavigator().getPath() != null) {
                     PathPoint finalPathPoint = this.dragon.getNavigator().getPath().getFinalPathPoint();
@@ -166,23 +167,20 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
 
     protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
         double attackReach = this.getAttackReachSqr(target);
-        boolean shouldUseRange = this.attackTick <= 0 
-                ; // && dragon.getMaxHealth() <= 140 
+        shouldUseRange = this.attackTick <= 0 && targetDistSq >= attackReach 
+        		&& dragon.getEntitySenses().canSee(target) && targetDistSq >= attackReach; 
         boolean shouldUseMelee = this.attackTick <= 0  || targetDistSq <= attackReach;
 
         if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
             this.attackTick = 20;
             this.dragon.swingArm(EnumHand.MAIN_HAND);
             this.dragon.attackEntityAsMob(target); 
-        } 
-     //       else if(shouldUseRange) { 
-   //    this.attackTick <= 0  ||  	this.attackTick = 20;
- //       	breathTick++;
-  //      	this.breathTick = 20;
-       // 	this.attackTick = 20;
-       // 	dragon.setBreathing(true);
-       //	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-     //   }
+        } //else if(shouldUseRange) { 
+//       this.attackTick <= 0  ||  	this.attackTick = 20;
+        //	this.attackTick = 20;
+        //	dragon.setBreathing(true);
+      // 	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+        //}
     }
 
     protected double getAttackReachSqr(EntityLivingBase attackTarget) {

@@ -49,6 +49,11 @@ public class DragonBreedAir extends DragonBreed {
     public void onDeath(EntityTameableDragon dragon) {}
     
     @Override
+    public void onLivingUpdate(EntityTameableDragon dragon) {
+    	super.onLivingUpdate(dragon);
+    }
+    
+    @Override
     public ResourceLocation getLootTable() {
     	return DragonMountsLootTables.ENTITIES_DRAGON_AETHER;
     }

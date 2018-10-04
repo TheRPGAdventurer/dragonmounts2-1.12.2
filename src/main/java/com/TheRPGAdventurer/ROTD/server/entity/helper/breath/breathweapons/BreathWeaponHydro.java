@@ -15,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -144,15 +145,19 @@ public class BreathWeaponHydro extends BreathWeapon {
 			} else {
 				entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 			}
-		} else {
-			entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+		} 
+		
+		if(entity instanceof EntityWaterMob) {
+			EntityWaterMob watermob = (EntityWaterMob) entity;
+			watermob.attackEntityFrom(DamageSource.GENERIC, DAMAGE_PER_HIT_DENSITY + 4);
 		}
-
+					
 		if (entity.isBurning()) {
 			entity.extinguish();
 			entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 1.0f, 0.0f);
 		}
 		
+		entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 		entity.isWet();		
 		((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
 		PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50 * 10);

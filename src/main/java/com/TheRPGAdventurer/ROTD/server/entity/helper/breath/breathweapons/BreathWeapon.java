@@ -79,8 +79,8 @@ public class BreathWeapon {
     checkNotNull(currentHitDensity);
 
     BlockPos pos = new BlockPos(blockPosition);
-    IBlockState iBlockState = world.getBlockState(pos);
-    Block block = iBlockState.getBlock();
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
 
     Random rand = new Random();
 
@@ -108,17 +108,17 @@ public class BreathWeapon {
         
         }
         
-        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, pos) != -1) {
+        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) > -1) {
             world.setBlockToAir(pos); 
         }
       }
     }
     
-    Block block1 = iBlockState.getBlock();
+    Block block1 = state.getBlock();
     Item itemFromBlock = Item.getItemFromBlock(block1);
     ItemStack itemStack;
-    if (itemFromBlock != null && itemFromBlock.getHasSubtypes())     {
-      int metadata = block1.getMetaFromState(iBlockState);
+    if (itemFromBlock != null && itemFromBlock.getHasSubtypes()) {
+      int metadata = block1.getMetaFromState(state);
       itemStack = new ItemStack(itemFromBlock, 1, metadata);
     } else {
       itemStack = new ItemStack(itemFromBlock);

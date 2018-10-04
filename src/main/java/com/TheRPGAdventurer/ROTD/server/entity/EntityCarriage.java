@@ -7,38 +7,25 @@ import javax.annotation.Nullable;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.util.ICollisionHandler;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.item.EntityBoat;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -48,11 +35,12 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityDragonCarriage extends Entity {
+public class EntityCarriage extends Entity {
 	
-    private static final DataParameter<Float> DAMAGE = EntityDataManager.<Float>createKey(EntityDragonCarriage.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityDragonCarriage.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityDragonCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.<Float>createKey(EntityCarriage.class, DataSerializers.FLOAT);
+    private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer>createKey(EntityCarriage.class, DataSerializers.VARINT);
     private static ICollisionHandler collisionHandler = null;
     public static float defaultMaxSpeedAirLateral = 0.4f;
     public static float defaultMaxSpeedAirVertical = -1f;
@@ -62,15 +50,22 @@ public class EntityDragonCarriage extends Entity {
     protected double dragAir = defaultDragAir;
     private boolean isInReverse;
     
-    public EntityDragonCarriage(World worldIn) { 
+    private int lerpSteps;
+    private double boatPitch;
+    private double lerpY;
+    private double lerpZ;
+    private double boatYaw;
+    private double lerpXRot;
+    
+    public EntityCarriage(World worldIn) { 
         super(worldIn);
         this.preventEntitySpawning = true;
-        this.setSize(0.98F, 0.7F); 
+        this.setSize(0.65F, 0.3F); 
     }
     
-    public EntityDragonCarriage(World worldIn, double x, double y, double z)  {
+    public EntityCarriage(World worldIn, double x, double y, double z)  {
         this(worldIn);
-        this.setPosition(x, y, z);
+        this.setPosition(x, y, z); 
         this.motionX = 0.0D;
         this.motionY = 0.0D;
         this.motionZ = 0.0D;
@@ -134,34 +129,43 @@ public class EntityDragonCarriage extends Entity {
     
     @Override
     protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-    	super.updateFallState(y, onGroundIn, state, pos);  
+    	super.updateFallState(y, onGroundIn, state, pos); 
     } 
     
-    public float getMaxSpeedAirVertical() {
+    public float getMaxSpeedAirVertical()
+    {
         return maxSpeedAirVertical;
     }
     
     /**
      * Get's the maximum speed for a minecart
      */
-    protected double getMaximumSpeed() {
+    protected double getMaximumSpeed()
+    {
         return 0.4D;
     }
     
-    public float getMaxSpeedAirLateral() {
+    public float getMaxSpeedAirLateral()
+    {
         return maxSpeedAirLateral;
     }
     
-    public double getDragAir() {
+    public double getDragAir()
+    {
         return dragAir;
     }
 
-    public void setDragAir(double value) {
+    public void setDragAir(double value)
+    {
         dragAir = value;
     }
     
     @Override
     public void onUpdate() { 
+    	this.motionX = 0.0D;
+        this.motionY = 0.0D;
+        this.motionZ = 0.0D;
+        
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
@@ -189,23 +193,23 @@ public class EntityDragonCarriage extends Entity {
                 moveY = 0.15f;
                 motionY = moveY;
             }
-        } else if(this.isInWater()) {
+        } else if(isInWater()) {
         	moveY = getMaxSpeedAirVertical();
             if(Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f) {
-                moveY = 0.000002213f;
+                moveY = 0.00000024f;
                 motionY = moveY;
             }
         }
 
-        if (this.onGround || this.isInWater()) {
+        if (this.onGround) {
             this.motionX *= 0.5D;
             this.motionY *= 0.5D;
             this.motionZ *= 0.5D;
         }
 
         this.move(MoverType.SELF, this.motionX, moveY, this.motionZ);
-
-        if (!this.onGround || this.isInWater()) {
+        
+        if (!this.onGround) {
             this.motionX *= getDragAir();
             this.motionY *= getDragAir();
             this.motionZ *= getDragAir();
@@ -217,6 +221,46 @@ public class EntityDragonCarriage extends Entity {
         
         if (this.posY < -64.0D) {
             this.outOfWorld();
+        }
+        
+        if (!this.world.isRemote && this.world instanceof WorldServer) {
+            this.world.profiler.startSection("portal");
+            MinecraftServer minecraftserver = this.world.getMinecraftServer();
+            int i = this.getMaxInPortalTime();
+
+            if (this.inPortal) {
+                if (minecraftserver.getAllowNether()) {
+                    if (!this.isRiding() && this.portalCounter++ >= i) {
+                        this.portalCounter = i;
+                        this.timeUntilPortal = this.getPortalCooldown();
+                        int j;
+
+                        if (this.world.provider.getDimensionType().getId() == -1) {
+                            j = 0;
+                        } else {
+                            j = -1;
+                        }
+
+                        this.changeDimension(j);
+                    }
+
+                    this.inPortal = false;
+                }
+            } else {
+                if (this.portalCounter > 0) {
+                    this.portalCounter -= 4;
+                }
+
+                if (this.portalCounter < 0) {
+                    this.portalCounter = 0;
+                }
+            }
+
+            if (this.timeUntilPortal > 0) {
+                --this.timeUntilPortal;
+            }
+
+            this.world.profiler.endSection();
         }
         
         double d3 = (double)MathHelper.wrapDegrees(this.rotationYaw - this.prevRotationYaw);
@@ -238,7 +282,7 @@ public class EntityDragonCarriage extends Entity {
                 Entity entity = list.get(j);
 
                 if (!entity.isPassenger(this)) { 
-                    if (flag && this.getPassengers().size() < 1 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
+                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity); 
@@ -246,6 +290,50 @@ public class EntityDragonCarriage extends Entity {
                 }
             }
         }    super.onUpdate();
+             tickLerp(); 
+    }
+    
+    private void tickLerp() {
+        if (this.lerpSteps > 0 && !this.canPassengerSteer()) {
+            double d0 = this.posX + (this.boatPitch - this.posX) / (double)this.lerpSteps;
+            double d1 = this.posY + (this.lerpY - this.posY) / (double)this.lerpSteps;
+            double d2 = this.posZ + (this.lerpZ - this.posZ) / (double)this.lerpSteps;
+            double d3 = MathHelper.wrapDegrees(this.boatYaw - (double)this.rotationYaw);
+            this.rotationYaw = (float)((double)this.rotationYaw + d3 / (double)this.lerpSteps);
+            this.rotationPitch = (float)((double)this.rotationPitch + (this.lerpXRot - (double)this.rotationPitch) / (double)this.lerpSteps);
+            --this.lerpSteps;
+            this.setPosition(d0, d1, d2);
+            this.setRotation(this.rotationYaw, this.rotationPitch);
+        }
+    }
+    
+    
+    // Forge: Fix MC-119811 by instantly completing lerp on board
+    @Override
+    protected void addPassenger(Entity passenger) {
+        super.addPassenger(passenger);
+        if(this.lerpSteps > 0) {
+            this.lerpSteps = 0;
+            this.posX = this.boatPitch;
+            this.posY = this.lerpY;
+            this.posZ = this.lerpZ;
+            this.rotationYaw = (float)this.boatYaw;
+            this.rotationPitch = (float)this.lerpXRot;
+        }
+    }
+    
+    /**
+     * Set the position and rotation values directly without any clamping.
+     */
+    @SideOnly(Side.CLIENT)
+    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
+    {
+        this.boatPitch = x;
+        this.lerpY = y;
+        this.lerpZ = z;
+        this.boatYaw = (double)yaw;
+        this.lerpXRot = (double)pitch;
+        this.lerpSteps = 10;
     }
     
     @Override
@@ -257,13 +345,13 @@ public class EntityDragonCarriage extends Entity {
         
     	if(!(passenger instanceof EntityPlayer)) {
            passenger.rotationYaw = this.rotationYaw;
-           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
+           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw); 
            this.applyYawToEntity(passenger); 
     	}
     	
-    	EntityTameableDragon dragon = new EntityTameableDragon(world);
-    	
-        passenger.setEntityInvulnerable(true);
+    	passenger.isImmuneToFire();
+    	passenger.isEntityInvulnerable(DamageSource.FALL);
+    	passenger.isEntityInvulnerable(DamageSource.DROWN);
     }
     
     /**
@@ -283,10 +371,6 @@ public class EntityDragonCarriage extends Entity {
      */
     public void applyEntityCollision(Entity entityIn) {
      //   net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartCollisionEvent(this, entityIn));
-        if (getCollisionHandler() != null) {
-            getCollisionHandler().onEntityCollision(this, entityIn);
-            return;
-        }
         if (!this.world.isRemote) {
             if (!entityIn.noClip && !this.noClip)  {
                 if (!this.isPassenger(entityIn)) {
@@ -315,7 +399,7 @@ public class EntityDragonCarriage extends Entity {
                         d0 = d0 * 0.5D;
                         d1 = d1 * 0.5D;
 
-                        if (entityIn instanceof EntityDragonCarriage) {
+                        if (entityIn instanceof EntityCarriage) {
                             double d4 = entityIn.posX - this.posX;
                             double d5 = entityIn.posZ - this.posZ;
                             Vec3d vec3d = (new Vec3d(d4, 0.0D, d5)).normalize();
@@ -403,7 +487,7 @@ public class EntityDragonCarriage extends Entity {
 
                 if (flag || this.getDamage() > 40.0F)  {
                     if (!flag && this.world.getGameRules().getBoolean("doEntityDrops")) {
-                        this.dropItemWithOffset(ModItems.dragon_carriage, 1, 0.0F); 
+                        this.dropItemWithOffset(this.getItemDrop(), 1, 0.0F); 
                     } 
 
                     this.setDead();
@@ -413,6 +497,24 @@ public class EntityDragonCarriage extends Entity {
             }
         } else {
             return true;
+        }
+    }
+    
+    public Item getItemDrop() {
+        switch (this.getType()) {
+            case OAK:
+            default:
+                return ModItems.carriage_oak;
+            case SPRUCE:
+                return ModItems.carriage_spruce;
+            case BIRCH:
+                return ModItems.carriage_birch;
+            case JUNGLE:
+                return ModItems.carriage_jungle;
+            case ACACIA:
+                return ModItems.carriage_acacia;
+            case DARK_OAK:
+                return ModItems.carriage_darkoak;
         }
     }
     
@@ -434,6 +536,7 @@ public class EntityDragonCarriage extends Entity {
 		this.dataManager.register(DAMAGE, Float.valueOf(0.0F));
         this.dataManager.register(FORWARD_DIRECTION, Integer.valueOf(1));
         this.dataManager.register(TIME_SINCE_HIT, Integer.valueOf(2));
+        this.dataManager.register(TYPE, Integer.valueOf(EntityCarriage.Type.OAK.ordinal()));
 	}
 	
     /**
@@ -442,8 +545,7 @@ public class EntityDragonCarriage extends Entity {
      * @return The collision handler or null
      */
     @Nullable
-    public static ICollisionHandler getCollisionHandler()
-    {
+    public static ICollisionHandler getCollisionHandler() {
         return collisionHandler;
     }
 
@@ -452,8 +554,7 @@ public class EntityDragonCarriage extends Entity {
      * that is currently set.
      * @param handler The new handler
      */
-    public static void setCollisionHandler(ICollisionHandler handler)
-    {
+    public static void setCollisionHandler(ICollisionHandler handler) {
         collisionHandler = handler;
     }
 	
@@ -501,11 +602,20 @@ public class EntityDragonCarriage extends Entity {
         return ((Integer)this.dataManager.get(FORWARD_DIRECTION)).intValue();
     }
     
+    public void setType(EntityCarriage.Type boatType) {
+        this.dataManager.set(TYPE, Integer.valueOf(boatType.ordinal()));
+    }
+
+    public EntityCarriage.Type getType() {
+        return EntityCarriage.Type.byId(((Integer)this.dataManager.get(TYPE)).intValue());
+    }
+    
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		compound.setFloat("damage", this.getDamage());
 		compound.setInteger("forward", this.getForwardDirection());
 		compound.setInteger("timesincehit", this.getTimeSinceHit());
+		compound.setString("Type", this.getType().getName()); 
 	}	
 
 	@Override
@@ -513,6 +623,61 @@ public class EntityDragonCarriage extends Entity {
 		this.setDamage(compound.getFloat("damage"));
 		this.setForwardDirection(compound.getInteger("forward"));
 		this.setTimeSinceHit(compound.getInteger("timesincehit"));
+        if (compound.hasKey("Type", 8)) {
+            this.setType(EntityCarriage.Type.getTypeFromString(compound.getString("Type")));
+        }
 	}
+	
+    public static enum Type {
+        OAK(BlockPlanks.EnumType.OAK.getMetadata(), "oak"),
+        SPRUCE(BlockPlanks.EnumType.SPRUCE.getMetadata(), "spruce"),
+        BIRCH(BlockPlanks.EnumType.BIRCH.getMetadata(), "birch"),
+        JUNGLE(BlockPlanks.EnumType.JUNGLE.getMetadata(), "jungle"),
+        ACACIA(BlockPlanks.EnumType.ACACIA.getMetadata(), "acacia"),
+        DARK_OAK(BlockPlanks.EnumType.DARK_OAK.getMetadata(), "dark_oak");
+
+        private final String name;
+        private final int metadata;
+
+        private Type(int metadataIn, String nameIn) {
+            this.name = nameIn;
+            this.metadata = metadataIn;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public int getMetadata() {
+            return this.metadata;
+        }
+
+        public String toString() {
+            return this.name;
+        }
+
+        /**
+         * Get a boat type by it's enum ordinal
+         */
+        public static EntityCarriage.Type byId(int id) {
+            if (id < 0 || id >= values().length) {
+                id = 0;
+            }
+
+            return values()[id];
+        }
+
+        public static EntityCarriage.Type getTypeFromString(String nameIn) {
+            for (int i = 0; i < values().length; ++i)
+            {
+                if (values()[i].getName().equals(nameIn))
+                {
+                    return values()[i];
+                }
+            }
+
+            return values()[0];
+        }
+    }
 
 }

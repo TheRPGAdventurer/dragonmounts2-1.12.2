@@ -14,7 +14,7 @@ import com.TheRPGAdventurer.ROTD.client.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.client.render.RenderDragonCarriage;
+import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderEnderBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderFlameBreathFX;
@@ -23,7 +23,7 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderIceBr
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderNetherBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderWitherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityDragonCarriage;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.EnderBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
@@ -33,8 +33,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBoat;
-import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -65,7 +63,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDragonCarriage.class, RenderDragonCarriage::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
       
     }
 

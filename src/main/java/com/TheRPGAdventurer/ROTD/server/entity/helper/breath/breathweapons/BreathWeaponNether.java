@@ -72,9 +72,9 @@ public class BreathWeaponNether extends BreathWeapon {
     checkNotNull(blockPosition);
     checkNotNull(currentHitDensity);
 
-    BlockPos blockPos = new BlockPos(blockPosition);
-    IBlockState iBlockState = world.getBlockState(blockPos);
-    Block block = iBlockState.getBlock();
+    BlockPos pos = new BlockPos(blockPosition);
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
 
     Random rand = new Random();
 
@@ -86,7 +86,7 @@ public class BreathWeaponNether extends BreathWeapon {
     // 3) If the block can't be smelted then convert to lava
 
     for (EnumFacing facing : EnumFacing.values()) {
-      BlockPos sideToIgnite = blockPos.offset(facing);
+      BlockPos sideToIgnite = pos.offset(facing);
       if (processFlammability(block, world, sideToIgnite, facing) > 0) {
         int flammability = processFlammability(block, world, sideToIgnite, facing);     	
         float thresholdForIgnition = convertFlammabilityToHitDensityThreshold(flammability);
@@ -101,18 +101,18 @@ public class BreathWeaponNether extends BreathWeapon {
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
         
-        if (densityOfThisFace >= thresholdForDestruction && block.getBlockHardness(iBlockState, world, blockPos) != -1) {
-          world.setBlockToAir(blockPos);
+        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) > -1) {
+          world.setBlockToAir(pos);
         }
       }
     }
 
-    BlockBurnProperties burnProperties = getBurnProperties(iBlockState);
+    BlockBurnProperties burnProperties = getBurnProperties(state);
     if (burnProperties.burnResult == null
         || currentHitDensity.getMaxHitDensity() < burnProperties.threshold) {
       return currentHitDensity;
     }
-    world.setBlockState(blockPos, burnProperties.burnResult);
+    world.setBlockState(pos, burnProperties.burnResult);
     return new BreathAffectedBlock();  // reset to zero
   }
 

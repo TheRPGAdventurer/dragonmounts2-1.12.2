@@ -10,11 +10,11 @@
       "item": "minecraft:stick"
     },
     "X": {
-      "item": "dragonmounts:fire_dragonscales"
+      "item": "dragonmounts:water_dragonscales"
     }
   },
   "result": {
-    "item": "dragonmounts:fire_dragonscale_hoe"
+    "item": "dragonmounts:water_dragon_hoe"
   }
 }
 

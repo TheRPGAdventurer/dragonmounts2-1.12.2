@@ -30,7 +30,7 @@ public class RenderCarriage extends Render<EntityCarriage> {
 
     public RenderCarriage(RenderManager renderManagerIn){
         super(renderManagerIn);
-        this.shadowSize = 0.5F;
+        this.shadowSize = 0.2F;
     }
 
     /**

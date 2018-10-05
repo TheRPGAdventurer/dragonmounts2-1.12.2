@@ -3,13 +3,15 @@
   "pattern": [
     "X X",
     "###"
+  
   ],
   "key": {
     "#": {
       "item": "minecraft:leather"
     },
     "X": {
-      "item": "minecraft:jungle_planks"
+      "item": "minecraft:planks",
+      "data": 3
     }
   },
   "result": {

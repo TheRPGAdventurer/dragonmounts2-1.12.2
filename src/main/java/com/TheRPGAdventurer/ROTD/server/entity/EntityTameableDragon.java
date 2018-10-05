@@ -1073,11 +1073,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0, 0.2, 0.8 * getScale());
+				pos = new Vec3d(0 * getScale(), 0.2 * getScale(), 0.9 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3, 0.2, 0.15 * getScale());
+				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), -0.20 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3, 0.2, 0.15 * getScale()); 
+				pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), -0.20 * getScale()); 
 			} 
 			
 			if(passenger == getControllingPlayer()) {
@@ -1509,8 +1509,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			for (int j = 0; j < list.size(); ++j) {
 				Entity entity = list.get(j);
 				if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-					if (flag && this.getPassengers().size() < 3 && !entity.isRiding()) {
+					if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && getLifeStageHelper().getTicksSinceCreation() >= 39000) {
 						entity.startRiding(this);
+						setSitting(false);
 					} else {
 						this.applyEntityCollision(entity); 
 					}
@@ -1798,26 +1799,25 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	public void updateMultipleBoundingBox() {
-		if (isAdult()) {
-			DragonLifeStageHelper stage = getLifeStageHelper();
-			double hx, hy, hz;
-			float angle;
-			DragonHeadPositionHelper pos = getAnimator().getDragonHeadPositionHelper();
+		DragonLifeStageHelper stage = getLifeStageHelper();
+		double hx, hy, hz;
+		float angle;
+		DragonHeadPositionHelper pos = getAnimator().getDragonHeadPositionHelper();
 
-			angle = (((renderYawOffset + 0) * 3.14159265F) / 180F);
-			hx = posX - MathHelper.sin(angle) * 3.0 - pos.head.rotateAngleX * getScale();
-			hy = posY + 2 * getScale();
-			hz = posZ + MathHelper.cos(angle) * 3.0 + pos.head.rotateAngleZ * getScale();
-			dragonPartHead.setPosition(hx, hy, hz);
-			dragonPartHead.width = dragonPartHead.height = 1.0F * getScale();
-			dragonPartHead.onUpdate();
+		angle = (((renderYawOffset + 0) * 3.14159265F) / 180F);
+		hx = posX - MathHelper.sin(angle) * 3.0 - pos.head.rotateAngleX * getScale();
+		hy = posY + 2 * getScale();
+		hz = posZ + MathHelper.cos(angle) * 3.0 + pos.head.rotateAngleZ * getScale();
+		dragonPartHead.setPosition(hx * getScale(), hy * getScale(), hz * getScale());
+		dragonPartHead.width = dragonPartHead.height = 1.0F * getScale();
+		dragonPartHead.onUpdate();
 
-			dragonPartBody.width = 2.4f * getScale();
-			dragonPartBody.height = 2.2f * getScale();
-			dragonPartBody.setPosition(posX, posY, posZ);
-			dragonPartBody.onUpdate();
+		dragonPartBody.width = 2.4f * getScale();
+		dragonPartBody.height = 2.2f * getScale();
+		dragonPartBody.setPosition(posX, posY, posZ);
+		dragonPartBody.onUpdate();
 
-		}
+		
 	}
 
 	/**

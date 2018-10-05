@@ -60,7 +60,7 @@ public class EntityCarriage extends Entity {
     public EntityCarriage(World worldIn) { 
         super(worldIn);
         this.preventEntitySpawning = true;
-        this.setSize(0.65F, 0.3F); 
+        this.setSize(0.85F, 0.3F); 
     }
     
     public EntityCarriage(World worldIn, double x, double y, double z)  {
@@ -127,48 +127,40 @@ public class EntityCarriage extends Entity {
         return this.getEntityBoundingBox(); 
     } 
     
-    @Override
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-    	super.updateFallState(y, onGroundIn, state, pos); 
-    } 
-    
-    public float getMaxSpeedAirVertical()
-    {
+    public float getMaxSpeedAirVertical() {
         return maxSpeedAirVertical;
     }
     
     /**
      * Get's the maximum speed for a minecart
      */
-    protected double getMaximumSpeed()
-    {
+    protected double getMaximumSpeed() {
         return 0.4D;
     }
     
-    public float getMaxSpeedAirLateral()
-    {
+    public float getMaxSpeedAirLateral() {
         return maxSpeedAirLateral;
     }
     
-    public double getDragAir()
-    {
+    public double getDragAir() {
         return dragAir;
     }
 
-    public void setDragAir(double value)
-    {
+    public void setDragAir(double value) {
         dragAir = value;
     }
     
     @Override
     public void onUpdate() { 
-    	this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
+    //	this.motionX = 0.0D;
+    ///    this.motionY = 0.0D;
+    //    this.motionZ = 0.0D;
         
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
+   //     this.prevPosX = this.posX;
+    //    this.prevPosY = this.posY;
+    //    this.prevPosZ = this.posZ;
+        super.onUpdate();
+        tickLerp(); 
         
         if (this.getTimeSinceHit() > 0) {
             this.setTimeSinceHit(this.getTimeSinceHit() - 1);
@@ -196,24 +188,24 @@ public class EntityCarriage extends Entity {
         } else if(isInWater()) {
         	moveY = getMaxSpeedAirVertical();
             if(Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f) {
-                moveY = 0.00000024f;
+                moveY = 0.0000006f;
                 motionY = moveY;
             }
         }
 
         if (this.onGround) {
-            this.motionX *= 0.5D;
-            this.motionY *= 0.5D;
+            this.motionX *= 0.5D; 
+            this.motionY *= 1.0D;
             this.motionZ *= 0.5D;
         }
 
         this.move(MoverType.SELF, this.motionX, moveY, this.motionZ);
         
-        if (!this.onGround) {
-            this.motionX *= getDragAir();
-            this.motionY *= getDragAir();
-            this.motionZ *= getDragAir();
-        }
+      ////  if (!this.onGround) {
+      ///      this.motionX *= getDragAir();
+      //      this.motionY *= getDragAir();
+      //      this.motionZ *= getDragAir();
+      //  }
 
         if (this.getDamage() > 0.0F) {
             this.setDamage(this.getDamage() - 1.0F);
@@ -247,7 +239,7 @@ public class EntityCarriage extends Entity {
                     this.inPortal = false;
                 }
             } else {
-                if (this.portalCounter > 0) {
+                if (this.portalCounter > 0) { 
                     this.portalCounter -= 4;
                 }
 
@@ -282,15 +274,14 @@ public class EntityCarriage extends Entity {
                 Entity entity = list.get(j);
 
                 if (!entity.isPassenger(this)) { 
-                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
+                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width + 0.7 && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity); 
                     }
                 }
             }
-        }    super.onUpdate();
-             tickLerp(); 
+        }        
     }
     
     private void tickLerp() {
@@ -337,6 +328,11 @@ public class EntityCarriage extends Entity {
     }
     
     @Override
+    public boolean isEntityInvulnerable(DamageSource source) {
+    	return source == DamageSource.FALL && source == DamageSource.DROWN && super.isEntityInvulnerable(source);
+    }
+    
+    @Override
     public void updatePassenger(Entity passenger) {	
         float f = 0.0F;
         float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
@@ -345,25 +341,23 @@ public class EntityCarriage extends Entity {
         
     	if(!(passenger instanceof EntityPlayer)) {
            passenger.rotationYaw = this.rotationYaw;
-           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw); 
+           passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw ); 
            this.applyYawToEntity(passenger); 
-    	}
-    	
-    	passenger.isImmuneToFire();
-    	passenger.isEntityInvulnerable(DamageSource.FALL);
-    	passenger.isEntityInvulnerable(DamageSource.DROWN);
+    	}    
     }
     
     /**
      * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
      */
-    protected void applyYawToEntity(Entity entityToUpdate) {
-        entityToUpdate.setRenderYawOffset(this.rotationYaw);
-        float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
+    protected void applyYawToEntity(Entity passenger) {
+    	EntityTameableDragon dragon = new EntityTameableDragon(world);
+    	//float rotation = dragon.isPassenger(this) && this == dragon.getPassengers().get(0) ? -50: dragon.isPassenger(this) && this == dragon.getPassengers().get(0) ? 50: 0;
+    	passenger.setRenderYawOffset(this.rotationYaw + 0);
+        float f = MathHelper.wrapDegrees(passenger.rotationYaw - this.rotationYaw);
         float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
-        entityToUpdate.prevRotationYaw += f1 - f;
-        entityToUpdate.rotationYaw += f1 - f;
-        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw); 
+        passenger.prevRotationYaw += f1 - f;
+        passenger.rotationYaw += f1 - f;
+        passenger.setRotationYawHead(passenger.rotationYaw); 
     }
     
     /**
@@ -378,15 +372,13 @@ public class EntityCarriage extends Entity {
                     double d1 = entityIn.posZ - this.posZ;
                     double d2 = d0 * d0 + d1 * d1;
 
-                    if (d2 >= 9.999999747378752E-5D)
-                    {
+                    if (d2 >= 9.999999747378752E-5D) {
                         d2 = (double)MathHelper.sqrt(d2);
                         d0 = d0 / d2;
                         d1 = d1 / d2;
                         double d3 = 1.0D / d2;
 
-                        if (d3 > 1.0D)
-                        {
+                        if (d3 > 1.0D) {
                             d3 = 1.0D;
                         }
 
@@ -628,13 +620,24 @@ public class EntityCarriage extends Entity {
         }
 	}
 	
+	/**
+	 * Called when the mob is falling. Calculates and applies fall damage.
+	 */
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		// ignore fall damage if the entity can fly
+		if (!isBeingRidden()) {
+			super.fall(distance, damageMultiplier);
+		}
+	}
+	
     public static enum Type {
         OAK(BlockPlanks.EnumType.OAK.getMetadata(), "oak"),
-        SPRUCE(BlockPlanks.EnumType.SPRUCE.getMetadata(), "spruce"),
+        SPRUCE(BlockPlanks.EnumType.SPRUCE.getMetadata(), "spruce"), 
         BIRCH(BlockPlanks.EnumType.BIRCH.getMetadata(), "birch"),
         JUNGLE(BlockPlanks.EnumType.JUNGLE.getMetadata(), "jungle"),
         ACACIA(BlockPlanks.EnumType.ACACIA.getMetadata(), "acacia"),
-        DARK_OAK(BlockPlanks.EnumType.DARK_OAK.getMetadata(), "dark_oak");
+        DARK_OAK(BlockPlanks.EnumType.DARK_OAK.getMetadata(), "dark_oak"); 
 
         private final String name;
         private final int metadata;

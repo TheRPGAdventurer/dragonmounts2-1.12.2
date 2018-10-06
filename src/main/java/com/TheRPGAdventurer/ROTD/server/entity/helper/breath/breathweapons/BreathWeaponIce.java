@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
@@ -105,6 +106,13 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
     if(dragon.isBeingRidden()) {
        if (dragon.isPassenger(entity)) return null;
     }
+    
+    EntityCarriage carriage = new EntityCarriage(dragon.world);
+	   if(dragon.isPassenger(carriage)) {
+		   if(carriage.isPassenger(entity)) {
+			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
+		   }
+	   }
     
     float hitDensity = currentHitDensity.getHitDensity();
     final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;

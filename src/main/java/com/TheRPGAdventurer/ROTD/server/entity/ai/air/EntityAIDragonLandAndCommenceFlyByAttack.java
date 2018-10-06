@@ -93,9 +93,9 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		}// else if (dragon.getOwner() != null && !tryMoveToBlockPos(dragon.getOwner().getPosition(), speed)) {
 	//		tryMoveToBlockPos(dragon.getPosition().down(4), speed);
 		//}
-	      else if (commenceAttackPath && !tryMoveToBlockPos(target.getPosition(), speed)) {
-			tryMoveToBlockPos(target.getPosition(), speed);
-		} //else if(commencAttackFlying && !tryMoveToBlockPos(target.getPosition(), speed)) {
+	//      else if (commenceAttackPath && !tryMoveToBlockPos(target.getPosition(), speed)) {
+	//		tryMoveToBlockPos(target.getPosition(), speed);
+	//	} //else if(commencAttackFlying && !tryMoveToBlockPos(target.getPosition(), speed)) {
 		//	tryMoveToBlockPos(target.getPosition().up(3), speed);
 		//}
     }

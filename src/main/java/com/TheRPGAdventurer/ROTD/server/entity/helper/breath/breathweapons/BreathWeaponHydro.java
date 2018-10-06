@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
@@ -119,6 +120,13 @@ public class BreathWeaponHydro extends BreathWeapon {
 	    if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
 	      return null;
 	    }
+	    
+	    EntityCarriage carriage = new EntityCarriage(dragon.world);
+		   if(dragon.isPassenger(carriage)) {
+			   if(carriage.isPassenger(entity)) {
+				   entity.attackEntityFrom(DamageSource.GENERIC, 0);
+			   }
+		   }
 	    
 	    if (entityID == dragon.getEntityId()) return null;
 	    if(dragon.isBeingRidden()) {

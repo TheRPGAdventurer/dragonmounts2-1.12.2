@@ -835,7 +835,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	@Override
 	protected boolean canDespawn() {
-		return isTamed() || isEgg() || isHatchling() || DragonMountsConfig.canDragonDespawn;
+		return false;
 	}
 
 	/**
@@ -1073,7 +1073,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0 * getScale(), 0.2 * getScale(), 0.9 * getScale());
+				pos = new Vec3d(0 * getScale(), 0.1* getScale(), 1.0 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
 				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), -0.20 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
@@ -1511,7 +1511,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
 					if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && getLifeStageHelper().getTicksSinceCreation() >= 39000) {
 						entity.startRiding(this);
-						setSitting(false);
 					} else {
 						this.applyEntityCollision(entity); 
 					}

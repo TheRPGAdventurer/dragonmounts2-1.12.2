@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
@@ -264,6 +265,13 @@ public class BreathWeapon {
   
   
   protected void triggerDamageExceptionsForFire(Entity entity, float DAMAGE_PER_HIT_DENSITY) {
+	   EntityCarriage carriage = new EntityCarriage(dragon.world);
+	   if(dragon.isPassenger(carriage)) {
+		   if(carriage.isPassenger(entity)) {
+			   entity.setFire(0);
+			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
+		   }
+	   }
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
 	    	entity.setFire((int)(40 * 10));
 	    } else if(entity instanceof EntityTameable) {

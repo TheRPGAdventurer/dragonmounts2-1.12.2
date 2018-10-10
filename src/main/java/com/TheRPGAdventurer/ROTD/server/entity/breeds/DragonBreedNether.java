@@ -7,10 +7,12 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 
 public class DragonBreedNether extends DragonBreed {
@@ -69,6 +71,15 @@ public class DragonBreedNether extends DragonBreed {
 	@Override
 	public ResourceLocation getLootTable() {
 		return DragonMountsLootTables.ENTITIES_DRAGON_NETHER;
+	}
+	
+	@Override
+	public void onLivingUpdate(EntityTameableDragon dragon) {
+		World world = dragon.world;
+		if (world instanceof WorldServer && dragon.isWet() &&  !dragon.isEgg()) {
+			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) dragon.posX + 0.5D,
+					(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
+		}
 	}
     
 }

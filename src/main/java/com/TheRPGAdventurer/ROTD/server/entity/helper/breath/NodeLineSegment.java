@@ -152,7 +152,7 @@ public class NodeLineSegment {
         return totalDensity;
       }
     }
-    float stochasticHitDensity = collisionCheckAABBstochastic(aabb, totalDensity, numberOfCloudPoints);
+    float stochasticHitDensity = collisionCheckAABBstochastic(aabb, totalDensity, numberOfCloudPoints - 4);
     float aabbCornersHitDensity = collisionCheckAABBcorners(aabb, totalDensity);
     return Math.max(stochasticHitDensity, aabbCornersHitDensity);
   }

@@ -101,7 +101,7 @@ public class BreathWeaponNether extends BreathWeapon {
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
         
-        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) > -1) {
+        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) != -1 && DragonMountsConfig.canFireBreathAffectBlocks) {
           world.setBlockToAir(pos);
         }
       }

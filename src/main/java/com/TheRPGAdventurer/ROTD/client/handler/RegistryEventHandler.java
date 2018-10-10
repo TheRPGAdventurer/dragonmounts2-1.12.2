@@ -19,8 +19,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 @Mod.EventBusSubscriber
 public class RegistryEventHandler {
@@ -97,4 +99,14 @@ public class RegistryEventHandler {
     	Utils.getLogger().info("Models Sucessfully Registered");
 	}
   }
+	
+    @SubscribeEvent
+    public void missingMapping(RegistryEvent.MissingMappings<Item> event) {
+        for (MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+            if (entry.key.toString().equals("dragonmounts:ender_dragonscales"))  {
+                ResourceLocation newTotem = new ResourceLocation("dragonmounts:ender_dragonscales1");
+                entry.remap(ForgeRegistries.ITEMS.getValue(newTotem));
+            }
+        }
+    }
 }

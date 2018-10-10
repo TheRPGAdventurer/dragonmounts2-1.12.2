@@ -1,18 +1,15 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 import java.util.Arrays;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import net.minecraft.block.properties.IProperty;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
+
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
 
 public enum EnumDragonBreed implements IStringSerializable {
     
@@ -24,7 +21,8 @@ public enum EnumDragonBreed implements IStringSerializable {
     END(5, DragonBreedEnd::new),
     NETHER(6, DragonBreedNether::new),
 	SKELETON(7, DragonBreedSkeleton::new),
-	WITHER(8, DragonBreedWither::new);
+	WITHER(8, DragonBreedWither::new),
+	ENCHANT(9, DragonBreedEnchant::new);
     
     
     // create static bimap between enums and meta data for faster and easier

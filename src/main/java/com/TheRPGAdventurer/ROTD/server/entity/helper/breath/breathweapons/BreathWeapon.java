@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -99,7 +101,7 @@ public class BreathWeapon {
         float thresholdForIgnition = convertFlammabilityToHitDensityThreshold(flammability);
         float thresholdForDestruction = thresholdForIgnition * 10;
         float densityOfThisFace = currentHitDensity.getHitDensity(facing);
-        if (densityOfThisFace >= thresholdForIgnition && world.isAirBlock(sideToIgnite) && thresholdForIgnition != 0) {
+        if (densityOfThisFace >= thresholdForIgnition && world.isAirBlock(sideToIgnite) && thresholdForIgnition != 0  && DragonMountsConfig.canFireBreathAffectBlocks) {
           final float MIN_PITCH = 0.8F; 
           final float MAX_PITCH = 1.2F;
           final float VOLUME = 1.0F;
@@ -109,7 +111,7 @@ public class BreathWeapon {
         
         }
         
-        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) > -1) {
+        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) != -1 && DragonMountsConfig.canFireBreathAffectBlocks) {
             world.setBlockToAir(pos); 
         }
       }
@@ -320,6 +322,7 @@ public class BreathWeapon {
 	    final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
 	    float hitDensity = currentHitDensity.getHitDensity();
 	    final float DAMAGE_PER_HIT_DENSITY = 2.0F * hitDensity;
+	    MathX.clamp(hitDensity, 0, 2);
 
 	    Entity entity = world.getEntityByID(entityID);
 	    if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {

@@ -57,7 +57,7 @@ public class ItemDragonSpawner extends Item {
     	EntityTameableDragon dragon = new EntityTameableDragon(world);
             try {               
                 if (player.isSneaking()) {
-                    dragon.getLifeStageHelper().setTicksSinceCreation(24500);
+                    dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.HATCHLING);
                 } else {
                 	dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.ADULT);
                 }
@@ -67,6 +67,7 @@ public class ItemDragonSpawner extends Item {
                 dragon.rotationYawHead = dragon.rotationYaw;
                 dragon.renderYawOffset = dragon.rotationYaw;
                 dragon.setBreedType(breed);
+                dragon.setHealth(200);
                 return dragon;
             } catch (Exception e) {
                 e.printStackTrace();

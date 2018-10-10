@@ -30,7 +30,6 @@ public class DragonAnimator {
     
     private final DragonHeadPositionHelper dragonHeadPositionHelper;
     private SegmentSizePositionRotation[] tailSegments;
-    private DragonModel model;
     private SegmentSizePositionRotation tail = new SegmentSizePositionRotation();  //not required?  not sure.
 
     private boolean haveCalculatedAnimations = false;

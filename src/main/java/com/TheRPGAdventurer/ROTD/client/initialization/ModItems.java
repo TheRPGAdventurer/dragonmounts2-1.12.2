@@ -21,6 +21,7 @@ public class ModItems {
 	public static final Item EnderDragonScales;
 	
 	public static final Item SpawnForest;
+	public static final Item SpawnAether;
 	public static final Item SpawnFire;
 	public static final Item SpawnIce;
 	public static final Item SpawnWater;
@@ -49,6 +50,7 @@ public class ModItems {
 		EnderDragonScales = new ItemDragonScales("ender_dragonscales", EnumItemBreedTypes.END, 16),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
+		SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.TAB),
 		SpawnFire = new ItemDragonSpawner(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE, DragonMounts.TAB),
 		SpawnIce = new ItemDragonSpawner(EnumItemBreedTypes.ICE, EnumDragonBreed.ICE, DragonMounts.TAB),
 		SpawnWater = new ItemDragonSpawner(EnumItemBreedTypes.WATER, EnumDragonBreed.SYLPHID, DragonMounts.TAB),

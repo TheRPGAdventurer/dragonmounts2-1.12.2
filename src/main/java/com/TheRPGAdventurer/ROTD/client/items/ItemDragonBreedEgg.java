@@ -31,8 +31,8 @@ public class ItemDragonBreedEgg extends ItemBlock {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        EnumDragonBreed type = EnumDragonBreed.META_MAPPING.inverse().get(stack.getMetadata());
-        String breedName = I18n.translateToLocal("entity.DragonMounts.dragon." + type.getName() + ".name");
+        EnumDragonBreed breed = EnumDragonBreed.META_MAPPING.inverse().get(stack.getMetadata());
+        String breedName = I18n.translateToLocal("entity.DragonMounts.dragon." + breed.getName() + ".name");
         return I18n.translateToLocalFormatted("item.dragonEgg.name", breedName);
     }
     

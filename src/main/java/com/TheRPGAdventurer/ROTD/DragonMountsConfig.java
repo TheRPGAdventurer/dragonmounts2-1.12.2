@@ -35,7 +35,7 @@ public class DragonMountsConfig {
 	public static boolean shouldChangeBreedViaHabitatOrBlock = true;
     public static boolean canDragonDespawn = true;
     
-    public static boolean canIceBreathBePermanent = true;
+    public static boolean canIceBreathBePermanent = false;
     public static boolean canFireBreathAffectBlocks = true;
     
     public static boolean useCommandingPlayer = false;

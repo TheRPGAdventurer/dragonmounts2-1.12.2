@@ -9,6 +9,7 @@ entity.DragonMount.nether.name=Nether Dragon
 entity.DragonMount.fire.name=Fire Dragon
 entity.DragonMount.skeleton.name=Skeleton Dragon
 entity.DragonMount.wither.name=Wither Dragon
+entity.DragonMount.enchant.name=Enchantment Dragon
 
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons

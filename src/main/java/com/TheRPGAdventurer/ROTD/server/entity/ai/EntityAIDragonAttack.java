@@ -168,19 +168,18 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
     protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
         double attackReach = this.getAttackReachSqr(target);
         shouldUseRange = this.attackTick <= 0 && targetDistSq >= attackReach 
-        		&& dragon.getEntitySenses().canSee(target) && targetDistSq >= attackReach; 
+        		&& dragon.getEntitySenses().canSee(target); 
         boolean shouldUseMelee = this.attackTick <= 0  || targetDistSq <= attackReach;
 
         if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
             this.attackTick = 20;
             this.dragon.swingArm(EnumHand.MAIN_HAND);
             this.dragon.attackEntityAsMob(target); 
-        } //else if(shouldUseRange) { 
-//       this.attackTick <= 0  ||  	this.attackTick = 20;
-        //	this.attackTick = 20;
-        //	dragon.setBreathing(true);
-      // 	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-        //}
+        } else if(shouldUseRange) { 
+        	this.attackTick = 20;
+        	dragon.setBreathing(true);
+       	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+        }
     }
 
     protected double getAttackReachSqr(EntityLivingBase attackTarget) {

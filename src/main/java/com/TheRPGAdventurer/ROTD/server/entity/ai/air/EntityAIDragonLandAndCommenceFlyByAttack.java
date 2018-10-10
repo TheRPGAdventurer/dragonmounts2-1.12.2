@@ -39,13 +39,9 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		for (int Y = 1; Y <= 2; Y++) {
 			for (int Z = 1; Z <= 2; Z++) {
 				for (int X = 1; X <= 2; X++) {
-					try {
 					    world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid(); {
 						pos = pos.down();
-					   }
-				    } catch(NullPointerException c) {
-					   
-				   }
+					}				    
 				}
 			}
 		}

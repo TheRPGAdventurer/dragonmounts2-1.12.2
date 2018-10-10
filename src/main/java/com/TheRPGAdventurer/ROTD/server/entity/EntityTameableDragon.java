@@ -1017,11 +1017,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public double getDragonSpeed() {
 		return isFlying() ? BASE_FOLLOW_RANGE_FLYING : BASE_FOLLOW_RANGE;
 	}
-	
-	@Override
-	protected float getWaterSlowDown() {
-		return 1.0F; 
-	}
 
 	@Override
 	public boolean canBeSteered() {
@@ -1370,6 +1365,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		java.util.List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
 		for (int j = 0; j < i; ++j)
 			ret.add(new ItemStack(this.getShearDropItem()));
+		
+		if(getBreedType() == EnumDragonBreed.ENCHANT) {
+		   this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, 4000));
+		}
 
 		ticksShear = 50000;
 		playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);

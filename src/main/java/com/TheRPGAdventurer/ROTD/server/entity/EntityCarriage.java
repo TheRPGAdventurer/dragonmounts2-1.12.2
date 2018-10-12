@@ -317,8 +317,7 @@ public class EntityCarriage extends Entity {
      * Set the position and rotation values directly without any clamping.
      */
     @SideOnly(Side.CLIENT)
-    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
-    {
+    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
         this.boatPitch = x;
         this.lerpY = y;
         this.lerpZ = z;
@@ -415,7 +414,7 @@ public class EntityCarriage extends Entity {
                                 entityIn.motionZ *= 0.20000000298023224D;
                                 entityIn.addVelocity(d7 + d0, 0.0D, d8 + d1);
                             
-                        }  else {
+                        } else {
                             this.addVelocity(-d0, 0.0D, -d1);
                             entityIn.addVelocity(d0 / 4.0D, 0.0D, d1 / 4.0D);
                         }

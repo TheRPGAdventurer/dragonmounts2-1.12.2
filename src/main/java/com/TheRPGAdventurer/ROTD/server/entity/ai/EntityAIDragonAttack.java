@@ -3,6 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.entity.ai;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
@@ -10,8 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIDragonAttack extends EntityAIDragonBase
-{
+public class EntityAIDragonAttack extends EntityAIDragonBase {
     World world;
     /** An amount of decrementing ticks that allows the entity to attack once the tick reaches 0. */
     protected int attackTick;
@@ -79,6 +80,10 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
         {
             return false;
         }
+        else if (dragon.getControllingPassenger() != null) 
+        {
+        	return false;
+        }
         else if (!entitylivingbase.isEntityAlive())
         {
             return false;
@@ -100,8 +105,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting()
-    {
+    public void startExecuting() {
         this.dragon.getNavigator().setPath(this.entityPathEntity, this.speedTowardsTarget);
         this.delayCounter = 0;
     }
@@ -113,8 +117,9 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
         EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
         if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
             this.dragon.setAttackTarget((EntityLivingBase)null);
+            dragon.setBreathing(false);
         }
-        this.dragon.getNavigator().clearPathEntity();
+        this.dragon.getNavigator().clearPathEntity(); 
         dragon.setBreathing(false);
     }
 
@@ -164,22 +169,39 @@ public class EntityAIDragonAttack extends EntityAIDragonBase
         this.attackTick = Math.max(this.attackTick - 1, 0);
         this.checkAndPerformAttack(target, targetDistSq);
     }
+    
+    public boolean isWithinBreathRange(double targetDistSq) {
+		return targetDistSq > 3 && targetDistSq < 9 ? true : false;
+    }
+    
+    public boolean isWithinMeleeRange(double targetDistSq) {
+		return targetDistSq < 3 ? true: false;
+    }
+    
+    public boolean shouldUseBreathWeapon() {
+		return false;
+    	
+    }
+    
+    public int threatLevel() {
+		return 0;   	
+    }
 
     protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
         double attackReach = this.getAttackReachSqr(target);
-        shouldUseRange = this.attackTick <= 0 && targetDistSq >= attackReach 
-        		&& dragon.getEntitySenses().canSee(target); 
         boolean shouldUseMelee = this.attackTick <= 0  || targetDistSq <= attackReach;
+        shouldUseRange = this.attackTick <= 0 || isWithinBreathRange(dragon.getDistanceToEntity(target)) 
+        		 && dragon.getEntitySenses().canSee(target) && !(target instanceof EntityAnimal); 
 
         if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
             this.attackTick = 20;
             this.dragon.swingArm(EnumHand.MAIN_HAND);
             this.dragon.attackEntityAsMob(target); 
-        } else if(shouldUseRange) { 
-        	this.attackTick = 20;
-        	dragon.setBreathing(true);
-       	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-        }
+        } //else  if(shouldUseRange) { 
+        	//this.attackTick = 20;
+        	//dragon.setBreathing(target.isEntityAlive());
+       	   /// dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+       // }
     }
 
     protected double getAttackReachSqr(EntityLivingBase attackTarget) {

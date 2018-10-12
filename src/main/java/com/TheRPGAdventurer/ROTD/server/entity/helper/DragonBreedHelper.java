@@ -148,6 +148,7 @@ public class DragonBreedHelper extends DragonHelper {
             breedPoints.get(newType).set(POINTS_INITIAL);
         }
     }
+    
     /**
      * Get's the health of the dragon per breed, doubles
      * when it turns into an adult

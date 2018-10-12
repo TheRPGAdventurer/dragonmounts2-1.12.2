@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonAttack;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonCatchOwner;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonHurtByTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonRide;
@@ -29,7 +30,6 @@ import com.TheRPGAdventurer.ROTD.server.util.EntityClassPredicate;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -88,6 +88,12 @@ public class DragonBrain extends DragonHelper {
         clearTasks(targetTasks);
     }
     
+    public void clearTasks2() {
+    	clearTasks(tasks);
+        clearTasks(targetTasks);
+    	clearTasks(attackTasks);
+    }
+    
     public void clearTasks(EntityAITasks tasks) {
         List<EntityAITaskEntry> taskEntries = new ArrayList<>(tasks.taskEntries);
         taskEntries.forEach(entry -> tasks.removeTask(entry.action));
@@ -125,7 +131,7 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4   
 
             tasks.addTask(6, new EntityAITempt(dragon, 0.75, dragon.getBreed().getBreedingItem(), false)); // mutex 2+1
-            tasks.addTask(7, new  EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
+            tasks.addTask(7, new  EntityAIDragonAttack(dragon, 1, true)); // mutex 2+1
                        
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 15, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
@@ -139,7 +145,7 @@ public class DragonBrain extends DragonHelper {
         }
                 targetTasks.addTask(2, new EntityAIOwnerHurtByTarget(dragon)); // mutex 1
                 targetTasks.addTask(3, new EntityAIOwnerHurtTarget(dragon)); // mutex 1
-                targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, true, new Class[] {})); // mutex 1
+                targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, false, new Class[] {})); // mutex 1
             
             if (dragon.isHatchling()) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.4F)); // mutex 1

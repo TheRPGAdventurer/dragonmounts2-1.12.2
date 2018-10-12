@@ -18,6 +18,7 @@ item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
 
 tile.rotd:pileofsticks.name=Nest Block
+item.dragonEgg.name=%s Egg
 
 item.carriage_oak.name=Oak Carriage
 item.carriage_birch.name=Birch Carriage

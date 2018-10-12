@@ -33,12 +33,6 @@ public class DragonBreedSkeleton extends DragonBreed {
         int bz = MathHelper.floor(dragon.posZ);
 
         BlockPos blockPos = new BlockPos(bx, by, bz);
-        if (dragon.world.canBlockSeeSky(blockPos)) { // sun is shining!
-            return false;
-        }
-        if (dragon.world.getLight(blockPos) > 4) { // too bright!
-            return false;
-        }
         if (dragon.world.canBlockSeeSky(blockPos)) {
             // sun is shining!
             return false;
@@ -76,10 +70,6 @@ public class DragonBreedSkeleton extends DragonBreed {
 	@Override
 	public boolean canBreathFire() {
 		return false;
-	}
-	
-	public String name() {
-		return "ghost" + "skeleton";
 	}
 	
 //	@Override

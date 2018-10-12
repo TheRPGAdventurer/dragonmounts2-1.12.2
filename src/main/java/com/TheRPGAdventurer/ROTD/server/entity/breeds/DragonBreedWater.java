@@ -124,6 +124,6 @@ public class DragonBreedWater extends DragonBreed {
 		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
     	if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,
     		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
-		}
+		}   	
 	}
 }

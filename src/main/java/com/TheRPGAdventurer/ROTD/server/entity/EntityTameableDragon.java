@@ -9,12 +9,10 @@ c ** 2012 August 13
  */
 package com.TheRPGAdventurer.ROTD.server.entity;
 
-import static net.minecraft.entity.SharedMonsterAttributes.ARMOR_TOUGHNESS;
 import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
 import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
-import static net.minecraft.entity.SharedMonsterAttributes.KNOCKBACK_RESISTANCE;
-import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +25,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
@@ -62,22 +59,18 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityMultiPart;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -98,7 +91,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -106,14 +98,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -790,7 +777,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	/**
 	 * Returns the height of the eyes. Used for looking at other entities.
-	 * @TheRPGAdventurer duplicate one for firebreathing
+	 * @TheRPGAdventurer duplicated one for firebreathing
 	 */
 	public float getEyeHeight2() {
 		float eyeHeight = height * 0.85F;
@@ -1362,12 +1349,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setSheared(true);
 		int i = 1 + this.rand.nextInt(2);
 
-		java.util.List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
+		List<ItemStack> ret = new ArrayList<ItemStack>();
 		for (int j = 0; j < i; ++j)
 			ret.add(new ItemStack(this.getShearDropItem()));
 		
 		if(getBreedType() == EnumDragonBreed.ENCHANT) {
-		   this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY, this.posZ, 4000));
+			this.world.spawnEntity(new EntityXPOrb(this.world, posX, posY, posZ, 100));
 		}
 
 		ticksShear = 50000;
@@ -1705,9 +1692,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public class DragonInventory extends ContainerHorseChest {
 
-		public DragonInventory(String inventoryTitle, int slotCount, EntityTameableDragon hippogryph) {
+		public DragonInventory(String inventoryTitle, int slotCount, EntityTameableDragon dragon) {
 			super(inventoryTitle, slotCount);
-			this.addInventoryChangeListener(new DragonInventoryListener(hippogryph));
+			this.addInventoryChangeListener(new DragonInventoryListener(dragon));
 		}
 	}
 
@@ -1741,7 +1728,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return false;
 		}
 
-		if (damage > 19 ) {
+		if (damage >= 20 ) {
 			return damage == 6.0f;
 		}
 

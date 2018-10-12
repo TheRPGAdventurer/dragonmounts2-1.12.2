@@ -1,8 +1,12 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -17,6 +21,9 @@ public class DragonBreedEnchant extends DragonBreed {
         addImmunity(DamageSource.HOT_FLOOR);
         addImmunity(DamageSource.LIGHTNING_BOLT);
         addImmunity(DamageSource.WITHER);
+        
+        addHabitatBlock(Blocks.BOOKSHELF);
+        addHabitatBlock(Blocks.ENCHANTING_TABLE);
 	}
 
 	@Override
@@ -43,9 +50,9 @@ public class DragonBreedEnchant extends DragonBreed {
 		}
 		
 		if(dragon.isSheared()) {
-		   if (!world.isRemote && world.getGameRules().getBoolean("doMobLoot")) {
-                world.spawnEntity(new EntityXPOrb(world, dragon.posX, dragon.posY, dragon.posZ, 4000));           
-		    }
-        }
+		   if(dragon.getBreedType() == EnumDragonBreed.ENCHANT) {
+		    	dragon.world.spawnEntity(new EntityXPOrb(dragon.world, dragon.posX, dragon.posY, dragon.posZ, 100));
+	     	}
+		}
 	}
 }

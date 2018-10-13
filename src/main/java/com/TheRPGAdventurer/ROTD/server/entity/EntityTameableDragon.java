@@ -869,7 +869,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean attacked = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
 				(float) getEntityAttribute(ATTACK_DAMAGE).getAttributeValue());
-		if(shouldAttackEntity(getAttackTarget(), getOwner())) {
 
 		   if (attacked) {
 			   applyEnchantments(this, entityIn);
@@ -877,8 +876,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 		   if (getBreedType() == EnumDragonBreed.WITHER) {
 			     ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
-           }
-		}
+           }		
 
 	  return attacked;
 		
@@ -1431,19 +1429,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				}
 			}
 
-			if (target instanceof EntityTameableDragon) {
-				EntityTameableDragon targetDragon = (EntityTameableDragon) target;
-				return targetDragon.getLifeStageHelper().getTicksSinceCreation() >= targetDragon
-						.getAppropriateAgeForInteraction();
-			}
-
 			if (target.hasCustomName()) {
 				return false;
 			}
 
 		}
 		
-		return false;
+		return super.shouldAttackEntity(target, owner);
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {

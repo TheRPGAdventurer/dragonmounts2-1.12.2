@@ -94,7 +94,7 @@ public class DragonBreedStorm extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		EntityLivingBase target = dragon.getAttackingEntity();
+		EntityLivingBase target = dragon.getAttackTarget();
 		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
     	if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,
     		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
@@ -111,15 +111,16 @@ public class DragonBreedStorm extends DragonBreed {
     	}
     	
     	if(shouldelectrecute) {
-    		  if(random.nextInt(5) == 1) {
+    		  if(random.nextInt(30) == 1) {
     		     dragon.world.addWeatherEffect(new EntityLightningBolt(target.world, target.posX, target.posY, target.posZ, false)); 		   
     		}
     	}
     	
 		World world = dragon.world;
+		
 		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.CLOUD, (double) dragon.posX,
-					(double) dragon.posY + dragon.getEyeHeight() + 0.7, (double) dragon.posZ, 12, 0.5D, 0.25D, 0.5D, 0.0D);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_WATER, (double) dragon.posX,
+					(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
     	
     	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {

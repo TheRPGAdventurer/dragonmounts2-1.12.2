@@ -135,15 +135,6 @@ public class BreathWeapon {
          iBlockStateSmelted = smeltedResultBlock.getStateFromMeta(smeltingResult.getMetadata());
       }
     }
-
-    if (block1 == Blocks.IRON_ORE) world.setBlockState(pos,  Blocks.IRON_BLOCK.getDefaultState());
-    if (block1 == Blocks.GOLD_ORE) world.setBlockState(pos,  Blocks.GOLD_BLOCK.getDefaultState());
-    if (block1 == Blocks.EMERALD_ORE) world.setBlockState(pos,  Blocks.EMERALD_BLOCK.getDefaultState());
-    if (block1 == Blocks.DIAMOND_ORE) world.setBlockState(pos,  Blocks.DIAMOND_BLOCK.getDefaultState());
-    if (block1 == Blocks.COAL_ORE) world.setBlockState(pos,  Blocks.COAL_BLOCK.getDefaultState());
-    if (block1 == Blocks.REDSTONE_ORE) world.setBlockState(pos,  Blocks.REDSTONE_BLOCK.getDefaultState());
-    if (block1 == Blocks.LAPIS_ORE) world.setBlockState(pos,  Blocks.LAPIS_BLOCK.getDefaultState());
-    if (block1 == Blocks.QUARTZ_ORE) world.setBlockState(pos,  Blocks.QUARTZ_BLOCK.getDefaultState());
     return new BreathAffectedBlock();  // reset to zero
   }
 

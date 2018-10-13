@@ -13,6 +13,19 @@ entity.DragonMount.enchant.name=Enchantment Dragon
 entity.DragonMount.sunlight.name=Sunlight Dragon
 entity.DragonMount.storm.name=Storm Dragon
 
+entity.DragonMounts.dragon.ice.name=Ice Dragon
+entity.DragonMounts.dragon.end.name=Ender Dragon
+entity.DragonMounts.dragon.aether.name=Aether Dragon
+entity.DragonMounts.dragon.forest.name=Forest Dragon
+entity.DragonMounts.dragon.sylphid.name=Water Dragon
+entity.DragonMounts.dragon.nether.name=Nether Dragon
+entity.DragonMounts.dragon.fire.name=Fire Dragon
+entity.DragonMounts.dragon.skeleton.name=Skeleton Dragon
+entity.DragonMounts.dragon.wither.name=Wither Dragon
+entity.DragonMounts.dragon.enchant.name=Enchant Dragon
+entity.DragonMounts.dragon.sunlight.name=Sunlight Dragon
+entity.DragonMounts.dragon.storm.name=Storm Dragon
+
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 
@@ -107,16 +120,6 @@ key.categories.dragon = Dragon Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
 
-entity.DragonMounts.dragon.ice.name=Ice Dragon
-entity.DragonMounts.dragon.end.name=Ender Dragon
-entity.DragonMounts.dragon.aether.name=Aether Dragon
-entity.DragonMounts.dragon.forest.name=Forest Dragon
-entity.DragonMounts.dragon.sylphid.name=Water Dragon
-entity.DragonMounts.dragon.nether.name=Nether Dragon
-entity.DragonMounts.dragon.fire.name=Fire Dragon
-entity.DragonMounts.dragon.skeleton.name=Skeleton Dragon
-entity.DragonMounts.dragon.wither.name=Wither Dragon
-
 item.dragonarmor_diamond.name=Diamond Dragon Armor
 item.dragonarmor_iron.name=Iron Dragon Armor
 item.dragonarmor_gold.name=Gold Dragon Armor
@@ -143,5 +146,8 @@ dragon.skeleton=Skeleton
 dragon.wither=Wither
 dragon.nether=Nether
 dragon.end=Ender
+dragon.enchant=Enchant
+dragon.sunlight=Sunlight
+dragon.storm=Storm
 
 

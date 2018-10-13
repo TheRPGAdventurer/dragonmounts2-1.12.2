@@ -12,7 +12,10 @@ public enum EnumItemBreedTypes {
 	SKELETON(TextFormatting.WHITE),
 	WITHER(TextFormatting.WHITE),
 	NETHER(TextFormatting.GOLD),
-	END(TextFormatting.LIGHT_PURPLE);
+	END(TextFormatting.LIGHT_PURPLE),
+	ENCHANT(TextFormatting.LIGHT_PURPLE),
+	SUNLIGHT(TextFormatting.YELLOW),
+	STORM(TextFormatting.BLUE);
 	
 	public TextFormatting color;
 	

@@ -170,14 +170,6 @@ public class BreathWeaponNether extends BreathWeapon {
         return iBlockStateSmelted;
       }
     } 
-    if (block == Blocks.IRON_ORE) return Blocks.IRON_BLOCK.getDefaultState();
-    if (block == Blocks.GOLD_ORE) return Blocks.GOLD_BLOCK.getDefaultState();
-    if (block == Blocks.EMERALD_ORE) return Blocks.EMERALD_BLOCK.getDefaultState();
-    if (block == Blocks.DIAMOND_ORE) return Blocks.DIAMOND_BLOCK.getDefaultState();
-    if (block == Blocks.COAL_ORE) return Blocks.COAL_BLOCK.getDefaultState();
-    if (block == Blocks.REDSTONE_ORE) return Blocks.REDSTONE_BLOCK.getDefaultState();
-    if (block == Blocks.LAPIS_ORE) return Blocks.LAPIS_BLOCK.getDefaultState();
-    if (block == Blocks.QUARTZ_ORE) return Blocks.QUARTZ_BLOCK.getDefaultState();
     return null;
   }
 

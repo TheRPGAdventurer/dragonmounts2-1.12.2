@@ -20,8 +20,7 @@ public class DragonBreathMessage implements IMessage {
 	    return retval;
 	}
 
-	/** Creates a message specifying the current target
-	  * @param i_target the target
+	/** Creates a message specifying the current target	  
 	  * @return the message for sending
 	  */
 	public static DragonBreathMessage createTargetMessage() {
@@ -36,9 +35,6 @@ public class DragonBreathMessage implements IMessage {
 	    packetIsValid = false;
 	    try {
 	      breathing = buf.readBoolean();
-	 //     if (breathing) {
-	 //       target = BreathWeaponTarget.fromBytes(buf);
-	 //     }
 	    } catch (IndexOutOfBoundsException ioe) {
 	      if (printedError) return;
 	      printedError = true;

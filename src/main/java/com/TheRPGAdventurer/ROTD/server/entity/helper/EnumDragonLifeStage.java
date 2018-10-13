@@ -22,7 +22,7 @@ import net.minecraft.util.math.MathHelper;
 public enum EnumDragonLifeStage {
     
     EGG(0.25f),
-    HATCHLING(0.33f),
+    HATCHLING(0.14f),
     JUVENILE(0.66f),
     ADULT(1);
     

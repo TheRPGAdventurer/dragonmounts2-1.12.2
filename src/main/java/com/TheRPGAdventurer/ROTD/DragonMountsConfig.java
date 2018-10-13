@@ -48,11 +48,11 @@ public class DragonMountsConfig {
 	
     
 	// chances
-	public static int MainNestRarity  = 1000;
+	public static int MainNestRarity  = 1200;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	
-	public static int MainSnowNestRarity  = 1000;
+	public static int MainSnowNestRarity  = 1200;
 	public static int MainSnowNestRarerityInX = 18;
 	public static int MainSnowNestRarerityInZ = 18;
 	
@@ -69,7 +69,7 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInZ = 32;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 24000;
+	public static int GET_TICKS_PER_STAGE = 44000;
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");

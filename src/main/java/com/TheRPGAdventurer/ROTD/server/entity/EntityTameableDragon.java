@@ -53,6 +53,8 @@ import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
@@ -454,7 +456,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	@SideOnly(Side.CLIENT)
 	public void updateBreathing() {
-		if (getControllingPlayer() != null) {
+		Minecraft mc = Minecraft.getMinecraft();
+		if (hasControllingPlayer(mc.player)) {
 			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
 		}
@@ -780,7 +783,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * @TheRPGAdventurer duplicated one for firebreathing
 	 */
 	public float getEyeHeight2() {
-		float eyeHeight = height * 0.85F;
+		float eyeHeight = 2.75f * 0.85F;
 
 		if (isSitting()) {
 			eyeHeight *= 0.8f;
@@ -1036,6 +1039,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return null;
 		}
 	}
+    
+    public boolean hasControllingPlayer(EntityPlayer player) {
+        return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
+    }
 
 	public void setRidingPlayer(EntityPlayer player) {
 		L.trace("setRidingPlayer({})", player.getName());

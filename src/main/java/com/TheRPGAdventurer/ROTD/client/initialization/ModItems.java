@@ -31,7 +31,7 @@ public class ModItems {
 	public static final Item SpawnNether;
 	public static final Item SpawnEnchant;
 	public static final Item SpawnSunlight;
-	public static final Item SpawnStorm;
+//	public static final Item SpawnStorm;
 	
 	public static final Item structure_spawner;
 	
@@ -63,7 +63,7 @@ public class ModItems {
 		SpawnNether = new ItemDragonSpawner(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER, DragonMounts.TAB),
 		SpawnEnchant = new ItemDragonSpawner(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT, DragonMounts.TAB),
 		SpawnSunlight = new ItemDragonSpawner(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT, DragonMounts.TAB),
-		SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
+	//	SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		

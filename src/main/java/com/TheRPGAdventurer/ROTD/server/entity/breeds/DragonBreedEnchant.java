@@ -48,11 +48,5 @@ public class DragonBreedEnchant extends DragonBreed {
 			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) dragon.posX,
 					(double) dragon.posY + dragon.getEyeHeight() + 0.7, (double) dragon.posZ, 12, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
-		
-		if(dragon.isSheared()) {
-		   if(dragon.getBreedType() == EnumDragonBreed.ENCHANT) {
-		    	dragon.world.spawnEntity(new EntityXPOrb(dragon.world, dragon.posX, dragon.posY, dragon.posZ, 100));
-	     	}
-		}
 	}
 }

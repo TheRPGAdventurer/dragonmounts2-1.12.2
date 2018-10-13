@@ -162,10 +162,13 @@ public class DragonBreedHelper extends DragonHelper {
         if (currentType == EnumDragonBreed.FIRE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
         if (currentType == EnumDragonBreed.FOREST) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
         if (currentType == EnumDragonBreed.ICE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SYLPHID) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D); }
+        if (currentType == EnumDragonBreed.SYLPHID) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
         if (currentType == EnumDragonBreed.AETHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SKELETON) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(65.0D); }
+        if (currentType == EnumDragonBreed.SKELETON) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(65.0D);}
         if (currentType == EnumDragonBreed.WITHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);}
+        if (currentType == EnumDragonBreed.ENCHANT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
+        if (currentType == EnumDragonBreed.SUNLIGHT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
+        if (currentType == EnumDragonBreed.STORM) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
     }
     
     @Override

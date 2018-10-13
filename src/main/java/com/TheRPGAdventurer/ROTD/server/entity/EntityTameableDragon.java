@@ -469,7 +469,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		super.onUpdate();
 		if (world.isRemote) {
 			this.updateBreathing();
-			// this.updateSlowed();
 		}
 	}
 
@@ -1420,11 +1419,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		if (!target.isChild()) {
 			if (target instanceof EntityTameable) {
 				EntityTameable tamedEntity = (EntityTameable) target;
-				if (tamedEntity.isTamed()) {
+				if (!tamedEntity.isTamed()) {
 					return false;
-				} else if (!tamedEntity.isTamed()) {
-					return true;
-				}
+				} 
 			}
 
 			if (target instanceof EntityPlayer) {
@@ -1445,7 +1442,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 
 		}
-		return super.shouldAttackEntity(target, owner);
+		
+		return false;
 	}
 
 	protected boolean canFitPassenger(Entity passenger) {

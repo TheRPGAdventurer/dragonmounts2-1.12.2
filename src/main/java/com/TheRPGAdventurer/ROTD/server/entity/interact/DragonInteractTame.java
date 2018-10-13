@@ -14,7 +14,6 @@ import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 
 /**
  *
@@ -27,13 +26,12 @@ public class DragonInteractTame extends DragonInteract {
     }
 
     @Override
-    public boolean interact(EntityPlayer player, ItemStack item) { 
-		// baby dragons are tameable now! :D
-        if (dragon.isServer() && !dragon.isTamed() && ItemUtils.consumeEquipped(player, dragon.getBreed().getBreedingItem()) && dragon.isChild()) {
+    public boolean interact(EntityPlayer player, ItemStack item) {
+        if (dragon.isServer() && !dragon.isTamed() &&
+                ItemUtils.consumeEquipped(player, dragon.getBreed().getBreedingItem())) {
             dragon.tamedFor(player, dragon.getRNG().nextInt(5) == 0);
             return true;
         }
-        
         return false;
     }    
 }

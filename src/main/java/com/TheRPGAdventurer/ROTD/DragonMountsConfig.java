@@ -131,7 +131,7 @@ public class DragonMountsConfig {
 		canDragonDespawn = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_MAIN, "ice breath", canIceBreathBePermanent);
+		prop = config.get(CATEGORY_MAIN, "can ice breath be permanent", canIceBreathBePermanent);
 		prop.setComment("refers to the ice breath for the dragon in water, set true if you want the ice block to be permamnenet. false otherwise.");
 		canIceBreathBePermanent = prop.getBoolean();
 		propOrder.add(prop.getName());

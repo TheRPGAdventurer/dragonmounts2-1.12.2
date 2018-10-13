@@ -49,6 +49,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonArmor;
+import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.google.common.base.Optional;
 
@@ -713,25 +714,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return null;
 	}
 
-	/**
-	 * Called when a player interacts with a mob. e.g. gets milk from a cow, gets
-	 * into the saddle on a pig.
-	 */
-	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		ItemStack item = player.getHeldItem(hand);
-		// don't interact with eggs!
-		if (isEgg()) {
-			return false;
-		}
-
-		// inherited interaction
-		if (super.processInteract(player, hand)) {
-			return true;
-		}
-
-		return getInteractHelper().interact(player, item);
-	}
+    /**
+     * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
+     */
+    @Override
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    	ItemStack item = player.getHeldItem(hand);    
+        // don't interact with eggs!
+        if (isEgg()) { 
+            return !this.canBeLeashedTo(player);
+        }
+        
+        // inherited interaction
+        if (super.processInteract(player, hand)) {
+            return true;
+        }
+           
+        return getInteractHelper().interact(player, item);
+    }
 
 	public void tamedFor(EntityPlayer player, boolean successful) {
 		if (successful) {
@@ -863,16 +863,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public boolean attackEntityAsMob(Entity entityIn) {
 		boolean attacked = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this),
 				(float) getEntityAttribute(ATTACK_DAMAGE).getAttributeValue());
+		if(shouldAttackEntity(getAttackTarget(), getOwner())) {
 
-		if (attacked) {
-			applyEnchantments(this, entityIn);
+		   if (attacked) {
+			   applyEnchantments(this, entityIn);
+		   }
+
+		   if (getBreedType() == EnumDragonBreed.WITHER) {
+			     ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
+           }
 		}
 
-		if (getBreedType() == EnumDragonBreed.WITHER) {
-			((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WITHER, 200));
-		}
-
-		return attacked;
+	  return attacked;
+		
 	}
 
 	/**
@@ -1064,16 +1067,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0 * getScale(), 0.1* getScale(), 1.0 * getScale());
+				pos = new Vec3d(0, 0.1, 1.0);
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), -0.20 * getScale());
+				pos = new Vec3d(0.3, 0.2, -0.20);
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), -0.20 * getScale()); 
-			} 
-			
-			if(passenger == getControllingPlayer()) {
-
-			}
+				pos = new Vec3d(-0.3, 0.2, -0.20); 
+			} 			
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {
 	           passenger.rotationYaw = this.rotationYaw;
@@ -1086,7 +1085,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			py += pos.y;
 			pz += pos.z;
 
-			passenger.setPosition(px, py, pz);
+			passenger.setPosition(px * getScale(), py * getScale(), pz * getScale());
 
 			// fix rider rotation
 			if (passenger == getControllingPlayer()) {
@@ -1580,11 +1579,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * Credits: AlexThe 666 Ice and Fire
 	 */
 	public void openGUI(EntityPlayer playerEntity) {
-		if (!this.world.isRemote && (!this.isBeingRidden() || !this.isPassenger(playerEntity))
-				&& getLifeStageHelper().getTicksSinceCreation() >= getAppropriateAgeForInteraction()) {
+		if (!this.world.isRemote && (!this.isBeingRidden() || !this.isPassenger(playerEntity))) {
 			playerEntity.openGui(DragonMounts.instance, 0, this.world, this.getEntityId(), 0, 0);
-		} else if (!this.world.isRemote && getLifeStageHelper().getTicksSinceCreation() >= 38000) {
-			playerEntity.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung", new Object[0]), true);
 		}
 	}
 
@@ -1773,8 +1769,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dragonPartHead.width = dragonPartHead.height = 1.0F * getScale();
 		dragonPartHead.onUpdate();
 
-		dragonPartBody.width = (float) (this.width - 0.1 * getScale());
-		dragonPartBody.height = (float) (this.height - 0.1 * getScale());
+		dragonPartBody.width = (float) (this.width - 0.3 * getScale());
+		dragonPartBody.height = (float) (this.height - 0.3 * getScale());
 		dragonPartBody.setPosition(posX, posY, posZ);
 		dragonPartBody.onUpdate();
 

@@ -13,7 +13,7 @@ public class DragonInteractOpenGUI extends DragonInteract {
 	
 	@Override
 	public boolean interact(EntityPlayer player, ItemStack item) {
-		if (player.isSneaking() && dragon.isTamed() && (dragon.isJuvenile() || dragon.isAdult())) {
+		if (player.isSneaking() && dragon.isTamed() && !dragon.isHatchling()) {
 			dragon.openGUI(player);
 			return true;
 		}

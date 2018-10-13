@@ -69,7 +69,7 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInZ = 32;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 77000; // 77000
+	public static int GET_TICKS_PER_STAGE = 77000; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
@@ -149,11 +149,6 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "Allow Other Player's Control", allowOtherPlayerControl);
 		prop.setComment("Disable or enable the dragon's ability to obey ther players");
 		allowOtherPlayerControl = prop.getBoolean();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_WORLDGEN, "3 Bone nest Rarity Z", GET_TICKS_PER_STAGE);
-		prop.setComment("smaller numbers shorter time for the dragons to grow");
-		GET_TICKS_PER_STAGE = prop.getInt();
 		propOrder.add(prop.getName());
         
 		/**

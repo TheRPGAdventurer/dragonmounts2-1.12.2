@@ -298,6 +298,7 @@ public class DragonModel extends ModelBase {
         horn.isHidden = true;
         horn.showModel = breed == EnumDragonBreed.NETHER;
         horn.showModel = breed == EnumDragonBreed.SYLPHID;
+        horn.showModel = breed == EnumDragonBreed.STORM;
         
         if (mirror) {
             tailHornLeft = horn;

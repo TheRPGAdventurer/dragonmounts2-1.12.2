@@ -127,7 +127,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public static final double BASE_GROUND_SPEED = 0.3;
 	public static final double BASE_AIR_SPEED = 0.8;
 	public static final double BASE_DAMAGE = 3.5D; 
-	public static final double BASE_ARMOR = 20.0D;
+	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
 	public static final float BASE_HEIGHT = 2.10f;
@@ -1400,7 +1400,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 16 == 0 && !isDead) {
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 55 == 0 && !isDead) {
 			Random rand = new Random();
 			this.heal(rand.nextInt(7));
 		}

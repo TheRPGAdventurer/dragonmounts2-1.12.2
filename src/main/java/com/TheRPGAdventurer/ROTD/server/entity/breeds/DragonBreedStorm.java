@@ -122,7 +122,7 @@ public class DragonBreedStorm extends DragonBreed {
 					(double) dragon.posY + dragon.getEyeHeight() + 0.7, (double) dragon.posZ, 12, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
     	
-    	if(dragon.getHealth() > dragon.getMaxHealth() * 0.65) {
+    	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
     		dragon.setBreedType(EnumDragonBreed.SYLPHID);
     	}
 	}

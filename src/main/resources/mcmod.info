@@ -2,21 +2,22 @@
 {
   "modid": "dragonmounts",
   "name": "Dragon Mounts",
-  "description": "Don't forget to right click the egg to make it hatch",
+  "description": "1. Don't forget to right click the egg to make it hatch, 
+                  2. also water dragon needs strength effect to be a storm dragon",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/wip-mods/2878357-realm-of-the-dragons-1-10-2-1-12",
-  "authorList": [
-  "BarracudaATA, 
-  TheRPGAdventurer"
-  ],
+  "url": "https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/2912751-dragon-mounts-2-1-12-firebreathing-dragons-dragon",
+  "authorList": ["BarracudaATA, TheRPGAdventurer"],
+  
   "credits": 
+  
   "BarracudaATA4 - The Original Owner, 
    FlaemWing - for new nest block textures and dragonarmor item textures, 
    cesar_zorak - for dragon armor model textures,
    qnebra - for polish translation, 
-   merpou - more textures much help :D Thanks Man...,
+   merpou/Kingdomall - more textures much help :D Thanks Man... (just found out shes a girl BTW :D),
    AlexThe666 - for open source code,",
+   
   "logoFile": "logo.png",
   "screenshots": []
 }

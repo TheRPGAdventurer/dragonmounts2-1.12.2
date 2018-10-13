@@ -24,7 +24,7 @@ public enum EnumDragonLifeStage {
     EGG(0.25f),
     HATCHLING(0.14f),
     JUVENILE(0.66f),
-    ADULT(1);
+    ADULT(1.2f);
     
     public static final int TICKS_PER_STAGE = DragonMountsConfig.GET_TICKS_PER_STAGE;
     public static final EnumDragonLifeStage[] VALUES = values(); // cached for speed
@@ -42,7 +42,7 @@ public enum EnumDragonLifeStage {
     public static float scaleFromTickCount(int ticksSinceCreation) {
         EnumDragonLifeStage lifeStage = fromTickCount(ticksSinceCreation);
         
-        // constant size for egg and adult stage
+        // constant size for egg and adult stage end growth if adult
         if (lifeStage == EGG || lifeStage == ADULT) {
             return lifeStage.scale;
         }

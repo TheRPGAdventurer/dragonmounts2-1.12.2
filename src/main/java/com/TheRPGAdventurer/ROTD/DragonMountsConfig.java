@@ -69,7 +69,7 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInZ = 32;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 44000;
+	public static int GET_TICKS_PER_STAGE = 77000;
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");

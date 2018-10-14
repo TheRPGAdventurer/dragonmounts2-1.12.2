@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 
-	public int dragonId;
+	private int dragonId;
 	public boolean isBreathing;
 	
 

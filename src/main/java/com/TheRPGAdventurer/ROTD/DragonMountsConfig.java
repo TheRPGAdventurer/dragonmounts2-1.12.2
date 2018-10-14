@@ -108,7 +108,7 @@ public class DragonMountsConfig {
 		List<String> propOrder = Lists.newArrayList();
 		Property prop;
 		
-		/**
+		/*
 		 *  MAIN
 		 */
 		prop = config.get(CATEGORY_MAIN, "debug", debug);
@@ -151,7 +151,7 @@ public class DragonMountsConfig {
 		allowOtherPlayerControl = prop.getBoolean();
 		propOrder.add(prop.getName());
         
-		/**
+		/*
 		 *  WORLDGEN
 		 */
         prop = config.get(CATEGORY_WORLDGEN, "canSpawnSurfaceDragonNest", canSpawnSurfaceDragonNest);

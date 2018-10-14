@@ -116,6 +116,39 @@ item.water_dragonscale_leggings.name=Dragon Leggings
 item.water_dragon_hoe.name=Dragon Hoe
 item.water_dragonscale_boots.name=Dragon Boots
 
+item.sunlight_dragonscales.name=Dragon Scales
+item.sunlight_dragon_pickaxe.name=Dragon Pickaxe
+item.sunlight_dragon_axe.name=Dragon Axe
+item.sunlight_dragon_shovel.name=Dragon Spade
+item.sunlight_dragon_sword.name=Dragon Sword
+item.sunlight_dragonscale_cap.name=Dragon Cap
+item.sunlight_dragonscale_tunic.name=Dragon Tunic
+item.sunlight_dragonscale_leggings.name=Dragon Leggings
+item.sunlight_dragon_hoe.name=Dragon Hoe
+item.sunlight_dragonscale_boots.name=Dragon Boots
+
+item.storm_dragonscales.name=Dragon Scales
+item.storm_dragon_pickaxe.name=Dragon Pickaxe
+item.storm_dragon_axe.name=Dragon Axe
+item.storm_dragon_shovel.name=Dragon Spade
+item.storm_dragon_sword.name=Dragon Sword
+item.storm_dragonscale_cap.name=Dragon Cap
+item.storm_dragonscale_tunic.name=Dragon Tunic
+item.storm_dragonscale_leggings.name=Dragon Leggings
+item.storm_dragon_hoe.name=Dragon Hoe
+item.storm_dragonscale_boots.name=Dragon Boots
+
+item.enchant_dragonscales.name=Dragon Scales
+item.enchant_dragon_pickaxe.name=Dragon Pickaxe
+item.enchant_dragon_axe.name=Dragon Axe
+item.enchant_dragon_shovel.name=Dragon Spade
+item.enchant_dragon_sword.name=Dragon Sword
+item.enchant_dragonscale_cap.name=Dragon Cap
+item.enchant_dragonscale_tunic.name=Dragon Tunic
+item.enchant_dragonscale_leggings.name=Dragon Leggings
+item.enchant_dragon_hoe.name=Dragon Hoe
+item.enchant_dragonscale_boots.name=Dragon Boots
+
 key.categories.dragon = Dragon Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
@@ -125,7 +158,6 @@ item.dragonarmor_iron.name=Iron Dragon Armor
 item.dragonarmor_gold.name=Gold Dragon Armor
 
 entity.dragon.tooYounng=The dragon is too young let it grow.
-death.attack.DRAGON_BREATH=was killed by dragon's breath.
 
 item.summon_forest.name=Summon Dragon
 item.summon_aether.name=Summon Dragon
@@ -136,6 +168,8 @@ item.summon_nether.name=Summon Dragon
 item.summon_end.name=Summon Dragon
 item.summon_skeleton.name=Summon Dragon
 item.summon_wither.name=Summon Dragon
+item.summon_sunlight.name=Summon Dragon
+item.summon_storm.name=Summon Dragon
 
 dragon.forest=Forest
 dragon.aether=Aether

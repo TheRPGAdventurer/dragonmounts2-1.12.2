@@ -111,7 +111,7 @@ public class DragonBreedStorm extends DragonBreed {
     	}
     	
     	if(shouldelectrecute) {
-    		  if(random.nextInt(30) == 1) {
+    		  if(random.nextInt(33) == 1) {
     		     dragon.world.addWeatherEffect(new EntityLightningBolt(target.world, target.posX, target.posY, target.posZ, false)); 		   
     		}
     	}

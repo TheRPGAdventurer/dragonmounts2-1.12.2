@@ -59,11 +59,11 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		landingPos = landingPos.add(ox, 0, oz);
 
 		// get ground block
-	//	if (dragon.world.provider.getDimensionType() == DimensionType.NETHER) {
+		if (dragon.world.provider.getDimensionType() == DimensionType.NETHER) {
 			landingPos = findLandingArea(landingPos);
-	//	} else {
-	//		landingPos = dragon.world.getHeight(landingPos);
-	//	}
+		} else {
+			landingPos = dragon.world.getHeight(landingPos);
+		}
 
 		// make sure the block below is solid
 		return world.getBlockState(landingPos.down()).getMaterial().isSolid();

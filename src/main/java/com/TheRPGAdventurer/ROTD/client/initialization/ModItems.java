@@ -19,6 +19,9 @@ public class ModItems {
 	public static final Item AetherDragonScales;
 	public static final Item NetherDragonScales;
 	public static final Item EnderDragonScales;
+	public static final Item SunlightDragonScales;
+	public static final Item EnchantDragonScales;
+	public static final Item StormDragonScales;
 	
 	public static final Item SpawnForest;
 	public static final Item SpawnAether;
@@ -51,6 +54,9 @@ public class ModItems {
 		AetherDragonScales = new ItemDragonScales("aether_dragonscales", EnumItemBreedTypes.AETHER, 16),
 		NetherDragonScales = new ItemDragonScales("nether_dragonscales", EnumItemBreedTypes.NETHER, 16),
 		EnderDragonScales = new ItemDragonScales("ender_dragonscales", EnumItemBreedTypes.END, 16),
+		SunlightDragonScales = new ItemDragonScales("sunlight_dragonscales", EnumItemBreedTypes.SUNLIGHT, 16),
+		EnchantDragonScales = new ItemDragonScales("enchant_dragonscales", EnumItemBreedTypes.ENCHANT, 16),
+		StormDragonScales = new ItemDragonScales("storm_dragonscales", EnumItemBreedTypes.STORM, 16),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
 		SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.TAB),

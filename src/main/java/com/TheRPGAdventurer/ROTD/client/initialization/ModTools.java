@@ -94,10 +94,12 @@ public class ModTools {
 		forestDragonSword, forestDragonPickaxe, forestDragonAxe, forestDragonShovel,
 		iceDragonSword, iceDragonPickaxe, iceDragonAxe, iceDragonShovel, iceDragonHoe,
 		stormDragonSword, stormDragonPickaxe, stormDragonAxe, stormDragonShovel, stormDragonHoe,
-		sunlightDragonSword, stormDragonPickaxe, sunlightDragonAxe, sunlightDragonShovel, sunlightDragonHoe,
+		sunlightDragonSword, sunlightDragonPickaxe, sunlightDragonAxe, sunlightDragonShovel, sunlightDragonHoe,
 		waterDragonSword, waterDragonPickaxe, waterDragonAxe, waterDragonShovel, waterDragonHoe,	
 		enderDragonSword, enderDragonPickaxe, enderDragonAxe, enderDragonShovel, 
 		netherDragonSword, netherDragonPickaxe, netherDragonAxe, netherDragonShovel, 
+		
+		diamond_shears,
 		
 	};
 	

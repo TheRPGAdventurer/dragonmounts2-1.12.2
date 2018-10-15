@@ -52,6 +52,7 @@ public abstract class DragonBreed {
         
         addImmunity(DamageSource.ON_FIRE);
         addImmunity(DamageSource.IN_FIRE);
+        addImmunity(DamageSource.HOT_FLOOR);
         
         // assume that cactus needles don't do much damage to animals with horned scales
         addImmunity(DamageSource.CACTUS);        

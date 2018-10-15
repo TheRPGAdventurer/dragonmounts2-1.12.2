@@ -49,9 +49,9 @@ public class ItemDiamondShears extends ItemShears {
 	                }
 	                
 	                Random random = new Random();
-	                target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
+	  //              target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
 	                
-	                itemstack.damageItem(35, target);
+	                itemstack.damageItem(30, target);
 	            }
 	     
 	      return true;

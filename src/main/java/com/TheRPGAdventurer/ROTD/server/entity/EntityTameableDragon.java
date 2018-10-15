@@ -1305,6 +1305,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return ModItems.WaterDragonScales;
 		case AETHER:
 			return ModItems.AetherDragonScales;
+		case STORM:
+			return ModItems.StormDragonScales;
+		case SUNLIGHT:
+			return ModItems.SunlightDragonScales;
+		case ENCHANT:
+			return ModItems.EnchantDragonScales;
 		default:
 			return null;
 
@@ -1363,11 +1369,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		for (int j = 0; j < i; ++j)
 			ret.add(new ItemStack(this.getShearDropItem()));
 		
-		if(getBreedType() == EnumDragonBreed.ENCHANT) {
-			this.world.spawnEntity(new EntityXPOrb(this.world, posX, posY, posZ, 100));
-		}
 
-		ticksShear = 50000;
+		ticksShear = 4500;
 		playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
 		playSound(ModSounds.ENTITY_DRAGON_GROWL, 1.0F, 1.0F);
 
@@ -1417,7 +1420,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		if (!target.isChild()) {
 			if (target instanceof EntityTameable) {
 				EntityTameable tamedEntity = (EntityTameable) target;
-				if (!tamedEntity.isTamed()) {
+				if (tamedEntity.isTamed()) {
 					return false;
 				} 
 			}

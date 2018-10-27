@@ -1,16 +1,19 @@
 [
 {
   "modid": "dragonmounts",
+  
   "name": "Dragon Mounts",
+  
   "description": "1. Don't forget to right click the egg to make it hatch, 
                   2. also water dragon needs strength effect to be a storm dragon",
   "version": "${version}",
+  
   "mcversion": "${mcversion}",
+  
   "url": "https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/2912751-dragon-mounts-2-1-12-firebreathing-dragons-dragon",
   "authorList": ["BarracudaATA, TheRPGAdventurer"],
   
-  "credits": 
-  
+  "credits":
   "BarracudaATA4 - The Original Owner, 
    FlaemWing - for new nest block textures and dragonarmor item textures, 
    cesar_zorak - for dragon armor model textures,
@@ -19,6 +22,7 @@
    AlexThe666 - for open source code,",
    
   "logoFile": "logo.png",
+  
   "screenshots": []
 }
 ]

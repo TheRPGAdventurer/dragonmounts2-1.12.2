@@ -1,8 +1,10 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 
 public class DragonBreedSunlight extends DragonBreed {
 
@@ -26,6 +28,11 @@ public class DragonBreedSunlight extends DragonBreed {
 	@Override
 	public void onDeath(EntityTameableDragon dragon) {
 		
+	}
+	
+	@Override
+	public ResourceLocation getLootTable() {
+		return DragonMountsLootTables.ENTITIES_DRAGON_SUNLIGHT;
 	}
 
 }

@@ -31,7 +31,7 @@ public class EntityAIDragonSwimming extends EntityAIDragonBase {
      * Keep ticking a continuous task that has already been started
      */
     public void updateTask() {
-        if (this.dragon.getRNG().nextFloat() < 0.8F && !dragon.onGround && !dragon.isInWater()) {
+        if (this.dragon.getRNG().nextFloat() < 1.3F && !dragon.onGround && !dragon.isInWater()) {
             this.dragon.getJumpHelper().setJumping();
         }
     }

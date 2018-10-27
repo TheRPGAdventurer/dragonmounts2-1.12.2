@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -126,8 +127,8 @@ public class DragonBreedWater extends DragonBreed {
     		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
 		}  
     	
-    	if(dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion()) && dragon.getWorld().getWorldInfo().isRaining()) {
+    	if(dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
     		dragon.setBreedType(EnumDragonBreed.STORM);
-    	}
+     	}
 	}
 }

@@ -22,7 +22,7 @@ import net.minecraft.util.math.MathHelper;
 public enum EnumDragonLifeStage {
     
     EGG(0.25f),
-    HATCHLING(0.14f),
+    HATCHLING(0.10f),
     JUVENILE(0.66f),
     ADULT(1.0f);
     
@@ -67,6 +67,6 @@ public enum EnumDragonLifeStage {
     }
     
     public EnumDragonLifeStage next() {
-        return this == ADULT ? null : VALUES[ordinal() + 1];
+        return this == ADULT ? null : VALUES[ordinal() + (1 + DragonMountsConfig.GROWTH_SPEED_DIVIDE)];
     }
 }

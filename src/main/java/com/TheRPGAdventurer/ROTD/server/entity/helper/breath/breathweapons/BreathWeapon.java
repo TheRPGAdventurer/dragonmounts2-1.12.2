@@ -111,9 +111,9 @@ public class BreathWeapon {
         
         }
         
-        if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) != -1 && DragonMountsConfig.canFireBreathAffectBlocks) {
-            world.setBlockToAir(pos); 
-        }
+    //    if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) != -1 && DragonMountsConfig.canFireBreathAffectBlocks) {
+         //   world.setBlockToAir(pos); 
+ //       }
       }
     }
     

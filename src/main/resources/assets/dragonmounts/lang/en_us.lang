@@ -169,6 +169,7 @@ item.summon_end.name=Summon Dragon
 item.summon_skeleton.name=Summon Dragon
 item.summon_wither.name=Summon Dragon
 item.summon_sunlight.name=Summon Dragon
+item.summon_enchant.name=Summon Dragon
 item.summon_storm.name=Summon Dragon
 
 dragon.forest=Forest

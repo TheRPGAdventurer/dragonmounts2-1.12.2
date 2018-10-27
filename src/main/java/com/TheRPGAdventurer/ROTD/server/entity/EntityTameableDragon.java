@@ -500,7 +500,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && !isInLava();
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
 			if (flying != isFlying()) {
 
 				// notify client
@@ -711,6 +711,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return entityplayer;
 		}
 		return null;
+	}
+	
+	@Override
+	protected float getWaterSlowDown() {
+		return 0.8F;
 	}
 
     /**
@@ -1071,11 +1076,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0, 0.1, 1.0);
+				pos = new Vec3d(0  * getScale(), 0.1  * getScale(), 1.0 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3, 0.2, -0.20);
+				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), -0.20 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3, 0.2, -0.20); 
+				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), -0.20  * getScale()); 
 			} 			
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {
@@ -1089,7 +1094,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			py += pos.y;
 			pz += pos.z;
 
-			passenger.setPosition(px * getScale(), py * getScale(), pz * getScale());
+			passenger.setPosition(px, py, pz);
 
 			// fix rider rotation
 			if (passenger == getControllingPlayer()) {
@@ -1445,19 +1450,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return this.getPassengers().size() < 3;
 	}
 
-	/**
-	 * Applies a velocity to the entities, to push them away from eachother.
-	 */
-	public void applyEntityCollision(Entity entityIn) {
-		if (entityIn instanceof EntityTameableDragon) {
-			if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY) {
-				super.applyEntityCollision(entityIn);
-			}
-		} else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY) {
-			super.applyEntityCollision(entityIn);
-		}
-	}
-
 	private void updateForRiding() { 
      doBlockCollisions();
 		List<Entity> list = this.world.getEntitiesInAABBexcluding(this,
@@ -1470,7 +1462,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			for (int j = 0; j < list.size(); ++j) {
 				Entity entity = list.get(j);
 				if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-					if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && getLifeStageHelper().getTicksSinceCreation() >= 39000) {
+					if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && (isJuvenile() || isAdult())) {
 						entity.startRiding(this);
 					} else {
 						this.applyEntityCollision(entity); 

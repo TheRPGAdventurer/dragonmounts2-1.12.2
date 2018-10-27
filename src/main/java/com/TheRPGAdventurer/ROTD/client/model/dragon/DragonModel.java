@@ -257,7 +257,7 @@ public class DragonModel extends ModelBase {
         tailScaleMiddle = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, 0);
         tailScaleRight = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, -scaleRotZ);
         
-        boolean ice = breed == EnumDragonBreed.ICE;
+        boolean ice = breed == EnumDragonBreed.ICE || breed == EnumDragonBreed.STORM;
         
         tailScaleMiddle.showModel = !ice;
         tailScaleLeft.showModel = ice;
@@ -298,7 +298,6 @@ public class DragonModel extends ModelBase {
         horn.isHidden = true;
         horn.showModel = breed == EnumDragonBreed.NETHER;
         horn.showModel = breed == EnumDragonBreed.SYLPHID;
-        horn.showModel = breed == EnumDragonBreed.STORM;
         
         if (mirror) {
             tailHornLeft = horn;

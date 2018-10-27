@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -9,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -48,5 +50,10 @@ public class DragonBreedEnchant extends DragonBreed {
 			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, (double) dragon.posX,
 					(double) dragon.posY + dragon.getEyeHeight() + 0.7, (double) dragon.posZ, 12, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
+	}
+	
+	@Override
+	public ResourceLocation getLootTable() {
+		return DragonMountsLootTables.ENTITIES_DRAGON_ENCHANT;
 	}
 }

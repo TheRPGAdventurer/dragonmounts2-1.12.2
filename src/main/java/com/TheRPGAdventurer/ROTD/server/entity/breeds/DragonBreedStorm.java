@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import java.util.Random;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
@@ -13,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -126,5 +128,10 @@ public class DragonBreedStorm extends DragonBreed {
     	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
     		dragon.setBreedType(EnumDragonBreed.SYLPHID);
     	}
+	}
+	
+	@Override
+	public ResourceLocation getLootTable() {
+		return DragonMountsLootTables.ENTITIES_DRAGON_STORM;
 	}
 }

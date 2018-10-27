@@ -152,13 +152,6 @@ public class EntityCarriage extends Entity {
     
     @Override
     public void onUpdate() { 
-    //	this.motionX = 0.0D;
-    ///    this.motionY = 0.0D;
-    //    this.motionZ = 0.0D;
-        
-   //     this.prevPosX = this.posX;
-    //    this.prevPosY = this.posY;
-    //    this.prevPosZ = this.posZ;
         super.onUpdate();
         tickLerp(); 
         

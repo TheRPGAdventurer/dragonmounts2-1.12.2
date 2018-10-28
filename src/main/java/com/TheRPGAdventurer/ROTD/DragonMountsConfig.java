@@ -40,6 +40,7 @@ public class DragonMountsConfig {
     
     public static boolean useCommandingPlayer = false;
     public static boolean allowOtherPlayerControl = true;
+    public static boolean allowBreeding = true;
 	
     public static boolean canSpawnSurfaceDragonNest = true;
 	public static boolean canSpawnUnderGroundNest = false;
@@ -150,6 +151,11 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "Allow Other Player's Control", allowOtherPlayerControl);
 		prop.setComment("Disable or enable the dragon's ability to obey ther players");
 		allowOtherPlayerControl = prop.getBoolean();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Allow Other Breeding", allowBreeding);
+		prop.setComment("Allow or disallow breeding");
+		allowBreeding = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_MAIN, "Ticks Per Stage", GET_TICKS_PER_STAGE);

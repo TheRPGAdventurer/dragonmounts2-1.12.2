@@ -62,6 +62,11 @@ public class DragonBreedStorm extends DragonBreed {
     }
 	
 	@Override
+	public boolean isInfertile() {
+		return true;
+	}
+	
+	@Override
 	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
     	final SoundEffectNames hatchling[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
                 SoundEffectNames.ADULT_BREATHE_ICE_LOOP,

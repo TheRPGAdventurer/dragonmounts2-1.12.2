@@ -36,22 +36,13 @@ public interface IDragonModifier {
     default void applyModifier(MinecraftServer server, ICommandSender sender, Consumer<EntityTameableDragon> modifier) throws CommandException {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
-            
-            AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .expand(MODIFIER_RANGE, MODIFIER_RANGE, MODIFIER_RANGE);
-            
-            List<EntityTameableDragon> dragons = player.world
-                .getEntitiesWithinAABB(EntityTameableDragon.class, aabb);
+            EntityTameableDragon dragon = new EntityTameableDragon(player.world);       
 
-            // get closest dragon
-            Optional<EntityTameableDragon> closestDragon = dragons.stream()
-                .max((dragon1, dragon2) -> Double.compare(dragon1.getDistanceSqToEntity(player), dragon2.getDistanceSqToEntity(player)));
-
-            if (!closestDragon.isPresent()) {
-                throw new CommandException("commands.dragon.nodragons");
+            if (!dragon.isSelectedForChange() || !dragon.isTamedFor(player)) {
+                throw new CommandException("commands.dragon.nodragons"); 
+            } else {
+                 modifier.accept(dragon);
             }
-            
-            modifier.accept(closestDragon.get());
         } else {
             // scan all entities on all dimensions
             for (WorldServer worldServer : server.worlds) {

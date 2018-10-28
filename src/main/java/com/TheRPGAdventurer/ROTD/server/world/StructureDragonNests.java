@@ -90,7 +90,7 @@ public class StructureDragonNests {
 	    world.setBlockState(new BlockPos(x-2,y+0,z+1), ModBlocks.pileofsticks.getDefaultState());
 	    world.setBlockState(new BlockPos(x-1,y+0,z+2), Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, DirtType.COARSE_DIRT));
 	    
-	    world.setBlockState(new BlockPos(x+0,y+1,z+0), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(world.rand.nextInt(4)));
+	    world.setBlockState(new BlockPos(x+0,y+1,z+0), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(world.rand.nextInt(4|8|9|11)));
 	    return true;
 	}   
 	

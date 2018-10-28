@@ -9,6 +9,8 @@ import com.TheRPGAdventurer.ROTD.client.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -21,10 +23,13 @@ public class ItemDragonShield extends ItemShield {
 	public EnumItemBreedTypes type;
 	public ToolMaterial material;
 	
-	public ItemDragonShield(String name, EnumItemBreedTypes type) {
-		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
+	public ItemDragonShield(EnumItemBreedTypes type) {
+		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_shield_" + type.toString().toLowerCase()));
 //		this.material = material;
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("dragon_shield_" + type.toString().toLowerCase());
+		this.setMaxDamage(669);
+		this.setMaxStackSize(1);
+		this.setCreativeTab(DragonMounts.TAB);
 		this.type = type;
 		
 	}
@@ -33,6 +38,11 @@ public class ItemDragonShield extends ItemShield {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+	}
+	
+	@Override
+	public boolean isShield(ItemStack stack, EntityLivingBase entity) {
+		return true;
 	}
 
 }

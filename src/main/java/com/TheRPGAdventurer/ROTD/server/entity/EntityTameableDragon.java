@@ -63,6 +63,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityMultiPart;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
@@ -169,6 +170,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			.<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
 	private static final DataParameter<String> DATA_BREATH_WEAPON = EntityDataManager
 			.<String>createKey(EntityTameableDragon.class, DataSerializers.STRING);
+	private static final DataParameter<Boolean> DATA_SELECTED = EntityDataManager
+			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 
 	// data NBT IDs
 	private static final String NBT_ARMOR = "Armor";
@@ -178,6 +181,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private static final String NBT_BREATHING = "Breathing";
 	private static final String NBT_ISMALE = "IsMale";
 	private static final String NBT_SLOWED = "IsSlowed";
+	private static final String NBT_SELECTED = "IsSelected";
 
 	// server/client delegates
 	private final Map<Class, DragonHelper> helpers = new HashMap<>();
@@ -303,6 +307,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_CHESTED, this.isChested());
 		nbt.setBoolean(NBT_SHEARED, this.isSheared());
 		nbt.setBoolean(NBT_BREATHING, this.isBreathing());
+		nbt.setBoolean(NBT_SELECTED, this.isSelectedForChange());
+		nbt.setBoolean("onGround2", this.onGround2);
 		writeDragonInventory(nbt);
 		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
 	}
@@ -318,6 +324,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setSheared(nbt.getBoolean(NBT_SHEARED));
 		this.setBreathing(nbt.getBoolean(NBT_BREATHING));
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
+		this.setSelectedForChange(nbt.getBoolean(NBT_SELECTED));
+		this.onGround2 = nbt.getBoolean("onGround2");
 		readDragonInventory(nbt);
 		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 
@@ -340,12 +348,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// used to be called isChestedLeft
 	public boolean isChested() {
-		return this.dataManager.get(CHESTED);
+		return dataManager.get(CHESTED);
 	}
 
 	public void setChested(boolean chested) {
-		this.dataManager.set(CHESTED, chested);
-		this.hasChestVarChanged = true;
+		dataManager.set(CHESTED, chested);
+		hasChestVarChanged = true;
+	}
+	
+	public boolean isSelectedForChange() {
+		return dataManager.get(DATA_SELECTED);
+	}
+
+	public void setSelectedForChange(boolean select) {
+		dataManager.set(DATA_SELECTED, select);
 	}
 
 	/**
@@ -494,7 +510,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 
 			// delay flying state for 10 ticks (0.5s)
-			if (!onGround) {
+			if (!onGround2) {
 				inAirTicks++;
 			} else {
 				inAirTicks = 0;
@@ -1035,6 +1051,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		if (!isFlying()) {
 			super.travel(strafe, up, forward); 
 		}
+	}
+	
+	@Override
+	public void move(MoverType type, double x, double y, double z) {
+		this.onGround2 = this.isCollidedVertically && y < 0.0D;
+		super.move(type, x, y, z);
 	}
 	
     @Nullable

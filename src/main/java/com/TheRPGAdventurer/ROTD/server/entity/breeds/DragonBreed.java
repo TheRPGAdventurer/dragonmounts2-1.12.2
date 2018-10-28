@@ -297,6 +297,10 @@ public abstract class DragonBreed {
 	public void onLivingUpdate(EntityTameableDragon dragon) {	
 		
 	}
+	
+	public boolean isInfertile() {
+		return false;
+	}
 
 }
 

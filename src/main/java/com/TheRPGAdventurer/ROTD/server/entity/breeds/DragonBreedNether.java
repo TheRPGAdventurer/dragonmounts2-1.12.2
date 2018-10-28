@@ -80,6 +80,16 @@ public class DragonBreedNether extends DragonBreed {
 			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) dragon.posX + 0.5D,
 					(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
+		
+		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
+			((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_LAVA, (double) dragon.posX,
+					(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+		}
+	}
+	
+	@Override
+	public boolean isInfertile() {
+		return true;
 	}
     
 }

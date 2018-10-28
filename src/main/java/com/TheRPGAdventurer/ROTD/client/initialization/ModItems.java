@@ -3,7 +3,9 @@ package com.TheRPGAdventurer.ROTD.client.initialization;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.items.ItemCarriage;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonShield;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWand;
 import com.TheRPGAdventurer.ROTD.client.items.ItemStructureSpawner;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
@@ -37,13 +39,25 @@ public class ModItems {
 //	public static final Item SpawnStorm;
 	
 	public static final Item structure_spawner;
+	public static final Item dragon_wand;
 	
 	public static final Item carriage_oak;
 	public static final Item carriage_acacia;
 	public static final Item carriage_birch;
 	public static final Item carriage_darkoak;
 	public static final Item carriage_jungle;
-	public static final Item carriage_spruce;
+	public static final Item carriage_spruce;	
+	
+	public static final Item aether_dragon_shield;
+	public static final Item forest_dragon_shield;
+	public static final Item fire_dragon_shield;
+	public static final Item ice_dragon_shield;
+	public static final Item water_dragon_shield;
+	public static final Item sunlight_dragon_shield;
+	public static final Item enchant_dragon_shield;
+	public static final Item storm_dragon_shield;
+	public static final Item nether_dragon_shield;
+	public static final Item ender_dragon_shield;
 	
 	
 	public static final Item[] ITEMS = {
@@ -72,6 +86,7 @@ public class ModItems {
 	//	SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
+		dragon_wand = new ItemDragonWand("dragon_wand"),
 		
 		carriage_oak   = new ItemCarriage("carriage_", EntityCarriage.Type.OAK),
 		carriage_spruce = new ItemCarriage("carriage_", EntityCarriage.Type.SPRUCE),
@@ -79,5 +94,16 @@ public class ModItems {
 		carriage_jungle = new ItemCarriage("carriage_", EntityCarriage.Type.JUNGLE),
 		carriage_acacia = new ItemCarriage("carriage_", EntityCarriage.Type.ACACIA),
 		carriage_darkoak = new ItemCarriage("carriage_", EntityCarriage.Type.DARK_OAK),
+		
+		aether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.AETHER),
+		forest_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FOREST),
+		ice_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ICE),
+		fire_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE),
+		water_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.WATER),
+		enchant_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ENCHANT),
+		sunlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.SUNLIGHT),
+		storm_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.STORM),
+		nether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.NETHER),
+		ender_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.END),
 	};
 }

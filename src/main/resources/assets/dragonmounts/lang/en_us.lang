@@ -29,6 +29,8 @@ entity.DragonMounts.dragon.storm.name=Storm Dragon
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 
+entity.dragon.tooYoung=Dragon is too young for that let it grow
+
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
 

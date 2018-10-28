@@ -15,6 +15,7 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.google.common.base.Optional;
@@ -106,7 +107,7 @@ public class DragonReproductionHelper extends DragonHelper  {
     }
     
     public boolean canReproduce() {
-        return dragon.isTamed() && getReproCount() < REPRO_LIMIT;
+        return dragon.isTamed() && getReproCount() < REPRO_LIMIT && !dragon.getBreed().isInfertile() && DragonMountsConfig.allowBreeding;
     }
     
     public Optional<UUID> getBreederID() {

@@ -64,6 +64,11 @@ public class DragonBreedEnd extends DragonBreed {
 	public ResourceLocation getLootTable() {
 		return DragonMountsLootTables.ENTITIES_DRAGON_END;
 	}
+	
+	@Override
+	public boolean isInfertile() {
+		return true;
+	}
     
 }
 	

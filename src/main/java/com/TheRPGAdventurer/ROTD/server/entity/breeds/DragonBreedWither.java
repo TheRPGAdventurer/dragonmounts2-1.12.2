@@ -67,6 +67,11 @@ public class DragonBreedWither extends DragonBreed {
 	public ResourceLocation getLootTable() {
 		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
 	}
+	
+	@Override
+	public boolean isInfertile() {
+		return true;
+	}
     
 }
 	

@@ -139,4 +139,6 @@ public class DragonBreedStorm extends DragonBreed {
 	public ResourceLocation getLootTable() {
 		return DragonMountsLootTables.ENTITIES_DRAGON_STORM;
 	}
+	
+	
 }

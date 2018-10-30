@@ -13,6 +13,7 @@ public class DragonBreedSunlight extends DragonBreed {
 		
 		addHabitatBlock(Blocks.DAYLIGHT_DETECTOR);
 		addHabitatBlock(Blocks.DAYLIGHT_DETECTOR_INVERTED);
+		addHabitatBlock(Blocks.GLOWSTONE);
 	}
 
 	@Override

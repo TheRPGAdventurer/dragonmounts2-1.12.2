@@ -67,6 +67,6 @@ public enum EnumDragonLifeStage {
     }
     
     public EnumDragonLifeStage next() {
-        return this == ADULT ? null : VALUES[ordinal() + (1 + DragonMountsConfig.GROWTH_SPEED_DIVIDE)];
+        return this == ADULT ? null : VALUES[ordinal() + 1];
     }
 }

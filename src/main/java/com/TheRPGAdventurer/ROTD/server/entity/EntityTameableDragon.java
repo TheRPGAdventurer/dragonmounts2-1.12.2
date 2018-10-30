@@ -62,6 +62,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
@@ -102,6 +103,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -127,7 +129,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
 	public static final double BASE_AIR_SPEED = 0.8;
-	public static final double BASE_DAMAGE = 3.5D; 
+	public static final double BASE_DAMAGE = 4.5D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
@@ -147,8 +149,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private static final DataParameter<Boolean> DATA_SADDLED = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> DATA_BREATHING = EntityDataManager
-			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> DATA_SLOWED = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> CHESTED = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -274,6 +274,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.register(IS_MALE, false);
 		dataManager.register(DRAGON_SCALES, Byte.valueOf((byte) 0));
 		dataManager.register(ARMOR, 0);
+		dataManager.register(DATA_SELECTED, false);
 	}
 
 	@Override
@@ -308,6 +309,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_SHEARED, this.isSheared());
 		nbt.setBoolean(NBT_BREATHING, this.isBreathing());
 		nbt.setBoolean(NBT_SELECTED, this.isSelectedForChange());
+		nbt.setBoolean(NBT_ISMALE, this.isMale());
 		nbt.setBoolean("onGround2", this.onGround2);
 		writeDragonInventory(nbt);
 		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
@@ -325,6 +327,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setBreathing(nbt.getBoolean(NBT_BREATHING));
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
 		this.setSelectedForChange(nbt.getBoolean(NBT_SELECTED));
+		this.setMale(nbt.getBoolean(NBT_ISMALE));
 		this.onGround2 = nbt.getBoolean("onGround2");
 		readDragonInventory(nbt);
 		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
@@ -362,6 +365,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public void setSelectedForChange(boolean select) {
 		dataManager.set(DATA_SELECTED, select);
+	}
+	
+	public boolean isMale() {
+		return dataManager.get(IS_MALE);
+	}
+
+	public void setMale(boolean male) {
+		dataManager.set(IS_MALE, male);
 	}
 
 	/**
@@ -487,6 +498,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			this.updateBreathing();
 		}
 	}
+	
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		setMale(this.getRNG().nextBoolean());
+		return livingdata;
+	}
 
 	@Override
 	public void onLivingUpdate() {
@@ -501,6 +518,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			animator.setLook(netYawHead, rotationPitch);
 			animator.tickingUpdate();
 			animator.animate();
+			
 			// set home position near owner when tamed
 			if (isTamed()) {
 				Entity owner = getOwner();
@@ -1055,7 +1073,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public void move(MoverType type, double x, double y, double z) {
-		this.onGround2 = this.isCollidedVertically && y < 0.0D;
+		this.onGround2 = this.isCollidedVertically && y > -20.0D;
 		super.move(type, x, y, z);
 	}
 	
@@ -1592,9 +1610,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	/**
 	 * Credits: AlexThe 666 Ice and Fire
 	 */
-	public void openGUI(EntityPlayer playerEntity) {
+	public void openGUI(EntityPlayer playerEntity, int guiId) {
 		if (!this.world.isRemote && (!this.isBeingRidden() || !this.isPassenger(playerEntity))) {
-			playerEntity.openGui(DragonMounts.instance, 0, this.world, this.getEntityId(), 0, 0);
+			playerEntity.openGui(DragonMounts.instance, guiId, this.world, this.getEntityId(), 0, 0);
 		}
 	}
 
@@ -1746,7 +1764,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 
 		if (damage >= 20 ) {
-			return damage == 6.0f;
+			return damage == 4.0f;
 		}
 
 		// don't just sit there!
@@ -1809,17 +1827,4 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 // */
 // public boolean isMale() {
 // return dataManager.get(IS_MALE);
-// }
-
-// public boolean isFemale() {
-// return !isMale();
-// }
-
-// /**
-// * false if female
-// * @param male
-// */
-// public void setTrueIfMale(boolean male) {
-// dataManager.set(IS_MALE, male);
-// }
 // }

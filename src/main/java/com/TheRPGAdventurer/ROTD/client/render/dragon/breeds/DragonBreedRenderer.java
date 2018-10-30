@@ -46,4 +46,6 @@ public interface DragonBreedRenderer {
     
     public ResourceLocation getArmorTexture();
     
+    public ResourceLocation getGenderTexture();
+    
 }

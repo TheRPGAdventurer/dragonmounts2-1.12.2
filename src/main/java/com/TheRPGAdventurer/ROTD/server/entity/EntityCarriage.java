@@ -321,7 +321,7 @@ public class EntityCarriage extends Entity {
     
     @Override
     public boolean isEntityInvulnerable(DamageSource source) {
-    	return source == DamageSource.FALL && source == DamageSource.DROWN && super.isEntityInvulnerable(source);
+    	return source == DamageSource.FALL && source == DamageSource.DROWN && super.isEntityInvulnerable(source) && isRiding();
     }
     
     @Override

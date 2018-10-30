@@ -729,7 +729,7 @@ public class DragonModel extends ModelBase {
     }
 
     protected void renderHead(float scale) {
-        float headScale = 1.4f / (size + 0.4f);
+        float headScale = size * (float)0.9;
         
      // smaller heads for baby dragons unlike other animals
         if (this.isChild) {       	
@@ -749,6 +749,7 @@ public class DragonModel extends ModelBase {
     protected void renderTail(float scale) {
         for (ModelPartProxy proxy : tailProxy) {
             proxy.render(scale);
+            
         }
     }
     

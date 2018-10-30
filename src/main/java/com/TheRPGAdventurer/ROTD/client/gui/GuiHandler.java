@@ -13,21 +13,22 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuiHandler implements IGuiHandler {
+	
+	public static final int GUI_DRAGON = 0;
+	public static final int GUI_DRAGON_WAND = 1;
 
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		Entity entity = world.getEntityByID(x);
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 
-		switch (id) {
-
-			case 0:
+		switch (id) { 
+			case GUI_DRAGON:
 				if (entity != null) {
 					if (entity instanceof EntityTameableDragon) {
 						return new ContainerDragon((EntityTameableDragon) entity, player);
 					}
 				}
-				break;
+				break;			
 		}
 		return null;
 
@@ -39,14 +40,19 @@ public class GuiHandler implements IGuiHandler {
 		Entity entity = world.getEntityByID(x);
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 		switch (id) {
-
-			case 0:
+			case GUI_DRAGON:
 				if (entity != null) {
-
 					if (entity instanceof EntityTameableDragon) {
 						return new GuiDragon(player.inventory, (EntityTameableDragon) entity);
 					}
 				}
+				break;
+			case GUI_DRAGON_WAND:
+				if(entity != null) {
+					if(entity instanceof EntityTameableDragon) {
+						return new GuiDragonWand((EntityTameableDragon) entity, player.inventory);
+					}
+			    }
 				break;
 		}
 		return entity;

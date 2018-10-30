@@ -23,7 +23,6 @@ public class DragonBreedForest extends DragonBreed {
         
         addHabitatBlock(Blocks.YELLOW_FLOWER);
         addHabitatBlock(Blocks.RED_FLOWER);
-        addHabitatBlock(Blocks.GRASS);
         addHabitatBlock(Blocks.TALLGRASS);
         addHabitatBlock(Blocks.MOSSY_COBBLESTONE);
         addHabitatBlock(Blocks.VINE);

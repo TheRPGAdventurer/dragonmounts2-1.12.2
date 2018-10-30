@@ -27,7 +27,7 @@ public class ModArmour {
 	public static final ArmorMaterial IceDragonScaleMaterial           = EnumHelper.addArmorMaterial("ice", DragonMounts.MODID + ":ice", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial NetherDragonScaleMaterial        = EnumHelper.addArmorMaterial("nether", DragonMounts.MODID + ":nether", 47, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 6.0F);
 	public static final ArmorMaterial EnderDragonScaleMaterial         = EnumHelper.addArmorMaterial("ender", DragonMounts.MODID + ":ender", 50, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
-	public static final ArmorMaterial EnchantDragonScaleMaterial       = EnumHelper.addArmorMaterial("enchant", DragonMounts.MODID + ":enchant", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
+	public static final ArmorMaterial EnchantDragonScaleMaterial       = EnumHelper.addArmorMaterial("enchant", DragonMounts.MODID + ":enchant", 45, new int [] {4,6,8,4}, 17, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial SunlightDragonScaleMaterial      = EnumHelper.addArmorMaterial("sunlight", DragonMounts.MODID + ":sunlight", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial StormDragonScaleMaterial         = EnumHelper.addArmorMaterial("storm", DragonMounts.MODID + ":storm", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	

@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.interact;
 
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
@@ -29,7 +30,8 @@ public class DragonInteractRide extends DragonInteract {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer() && dragon.isTamed() && dragon.isSaddled() && !ItemUtils.hasEquippedUsable(player) && 
-        	!ItemUtils.hasEquipped(player, ModTools.diamond_shears) && !player.isSneaking()) { // isInAppropriateAgeForInteraction()
+        	!ItemUtils.hasEquipped(player, ModTools.diamond_shears) && !player.isSneaking()&& 
+        	!ItemUtils.hasEquipped(player, ModItems.dragon_wand)) { // isInAppropriateAgeForInteraction()
             dragon.setRidingPlayer(player);
             return true;
         }

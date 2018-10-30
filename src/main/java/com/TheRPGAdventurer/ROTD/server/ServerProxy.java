@@ -11,16 +11,13 @@ package com.TheRPGAdventurer.ROTD.server;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.server.cmd.CommandDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessageHandlerServer;
 
-import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Biomes;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
@@ -74,9 +71,7 @@ public class ServerProxy {
     }
     
     public void ServerStarting(FMLServerStartingEvent evt) {
-        MinecraftServer server = evt.getServer();
-        ServerCommandManager cmdman = (ServerCommandManager) server.getCommandManager(); 
-        cmdman.registerCommand(new CommandDragon());
+    	
     }
     
     public void ServerStopped(FMLServerStoppedEvent evt) {}

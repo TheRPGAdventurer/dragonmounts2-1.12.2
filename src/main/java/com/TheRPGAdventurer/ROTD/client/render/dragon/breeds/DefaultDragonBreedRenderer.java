@@ -46,6 +46,7 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     private final ResourceLocation eggTexture;
     private final ResourceLocation dissolveTexture;
     private final ResourceLocation chestTexture;
+ //   private final ResourceLocation genderTexture;
 //    private final ResourceLocation armorTexture;
 
     public DefaultDragonBreedRenderer(DragonRenderer parent, EnumDragonBreed breed) {
@@ -59,6 +60,7 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         layers.add(new LayerRendererDragonArmor(parent, this, model));
         layers.add(new LayerRendererDragonChest(parent, this, model));
         
+        
         // textures
         String skin = breed.getBreed().getSkin();
         bodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/body.png");
@@ -68,6 +70,7 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         eggTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/egg.png");
         dissolveTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "dissolve.png");
         chestTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/chest.png");
+//        genderTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + dragon.isMale() != null ?"/male.png":"/female.png");
     }
     
     @Override
@@ -118,6 +121,11 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
 	@Override
 	public ResourceLocation getChestTexture() {
 		return chestTexture;
+	}
+	
+	@Override
+	public ResourceLocation getGenderTexture() {
+		return null;
 	}
 
 	@Override

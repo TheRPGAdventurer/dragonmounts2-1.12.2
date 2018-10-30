@@ -71,7 +71,6 @@ public class DragonMountsConfig {
 	
 	// dragon
 	public static int GET_TICKS_PER_STAGE = 24000; 
-	public static int GROWTH_SPEED_DIVIDE = 1; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
@@ -162,12 +161,6 @@ public class DragonMountsConfig {
 		prop.setComment("how long does a dragon grow per stage higher numbers higher time growth)"
 				+ "(Note:VERY VERY DANGEROUS Can cause disappearances of dragons, only edit at the beginning of the world where there are no tameable dragons yet to be sure, Im not even sure if it even works!)");
 		GET_TICKS_PER_STAGE = prop.getInt();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_MAIN, "Divide Growth Speed", GROWTH_SPEED_DIVIDE);
-		prop.setComment("divides dragon's growth speed to be slower, 0 is not allowed"
-				+ "(Note:VERY VERY DANGEROUS Can cause disappearances of dragons, only edit at the beginning of the world where there are no tameable dragons yet to be sure, Im not even sure if it even works!)");
-		GROWTH_SPEED_DIVIDE = prop.getInt();
 		propOrder.add(prop.getName());
         
 		/*

@@ -1,6 +1,6 @@
 {
     "parent": "dragonmounts:item/shield/shield",
 	"textures": {
-	    "layer0": "dragonmounts:items/dragon_shield_forest"
+	    "base": "dragonmounts:items/dragon_shield/end"
 	}
 }

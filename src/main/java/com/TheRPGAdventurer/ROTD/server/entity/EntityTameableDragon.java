@@ -55,14 +55,12 @@ import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
@@ -72,7 +70,6 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -96,14 +93,13 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -191,6 +187,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public EntityEnderCrystal healingEnderCrystal;
 	public DragonInventory dragonInv;
+	public DragonInventory dragonStats;
 	private ItemStackHandler itemHandler = null;
 	private boolean hasChestVarChanged = false;
 	public boolean onGround2;
@@ -271,7 +268,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.register(DATA_BREATHING, false);
 		dataManager.register(DATA_SADDLED, false);
 		dataManager.register(CHESTED, false);
-		dataManager.register(IS_MALE, Boolean.valueOf(this.getRNG().nextBoolean()));
+		dataManager.register(IS_MALE, getRNG().nextBoolean());
 		dataManager.register(DRAGON_SCALES, Byte.valueOf((byte) 0));
 		dataManager.register(ARMOR, 0);
 		dataManager.register(DATA_SELECTED, false);
@@ -498,12 +495,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			this.updateBreathing();
 		}
 	}
-	
-	@Override
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		setMale(true);
-		return livingdata;
-	}
 
 	@Override
 	public void onLivingUpdate() {
@@ -518,6 +509,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			animator.setLook(netYawHead, rotationPitch);
 			animator.tickingUpdate();
 			animator.animate();
+			
+			if(!isMale()) {
+				((WorldServer)world).spawnParticle(EnumParticleTypes.HEART, posX, posY, posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+			}
 			
 			// set home position near owner when tamed
 			if (isTamed()) {

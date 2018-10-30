@@ -20,7 +20,6 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		Entity entity = world.getEntityByID(x);
-
 		switch (id) { 
 			case GUI_DRAGON:
 				if (entity != null) {
@@ -38,7 +37,6 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		Entity entity = world.getEntityByID(x);
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 		switch (id) {
 			case GUI_DRAGON:
 				if (entity != null) {

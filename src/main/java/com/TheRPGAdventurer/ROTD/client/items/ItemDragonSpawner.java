@@ -67,7 +67,7 @@ public class ItemDragonSpawner extends Item {
                 dragon.rotationYawHead = dragon.rotationYaw;
                 dragon.renderYawOffset = dragon.rotationYaw;
                 dragon.setBreedType(breed);
-                dragon.setHealth(200);
+                dragon.heal(200);
                 return dragon;
             } catch (Exception e) {
                 e.printStackTrace();

@@ -271,7 +271,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.register(DATA_BREATHING, false);
 		dataManager.register(DATA_SADDLED, false);
 		dataManager.register(CHESTED, false);
-		dataManager.register(IS_MALE, false);
+		dataManager.register(IS_MALE, Boolean.valueOf(this.getRNG().nextBoolean()));
 		dataManager.register(DRAGON_SCALES, Byte.valueOf((byte) 0));
 		dataManager.register(ARMOR, 0);
 		dataManager.register(DATA_SELECTED, false);
@@ -501,7 +501,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		setMale(this.getRNG().nextBoolean());
+		setMale(true);
 		return livingdata;
 	}
 

@@ -8,7 +8,7 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.util.Utils;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -30,7 +30,7 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {	
 		event.getRegistry().registerAll(ModBlocks.BLOCKS);
-		Utils.getLogger().info("Block Registries Successfully Registered!");
+		DMUtils.getLogger().info("Block Registries Successfully Registered!");
 	}
 	
 	@SubscribeEvent
@@ -43,7 +43,7 @@ public class RegistryEventHandler {
 			event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 		}
 		
-		Utils.getLogger().info("Item Registries Successfully Registered!");
+		DMUtils.getLogger().info("Item Registries Successfully Registered!");
 	}
 	
 	@SubscribeEvent
@@ -96,7 +96,7 @@ public class RegistryEventHandler {
 		ModTools.initRepairs();
 		ModArmour.initRepairs();
 		
-    	Utils.getLogger().info("Models Sucessfully Registered");
+    	DMUtils.getLogger().info("Models Sucessfully Registered");
 	}
   }
 	

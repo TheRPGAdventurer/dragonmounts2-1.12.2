@@ -40,10 +40,8 @@ public class GuiDragon extends GuiContainer {
 	 * items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		if(dragon.hasCustomName()) {
-		   this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, 4210752);
-		   this.fontRenderer.drawString(dragon.isMale() ? "MALE" : "FEMALE", 15, 20, dragon.isMale() ?  0x83d2ff : 0Xffb0b0);
-		}
+		this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
+		this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 156, 60, dragon.isMale() ?  0x83d2ff : 0Xffb0b0);
 	}
 
 	@Override
@@ -56,7 +54,7 @@ public class GuiDragon extends GuiContainer {
 		if (dragon.isChested()) {
 			this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
 		}
-		GuiInventory.drawEntityOnScreen(x + 88, y + 65, (int) (19 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
+		GuiInventory.drawEntityOnScreen(x + 88, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
 				this.dragon);
 
 	}

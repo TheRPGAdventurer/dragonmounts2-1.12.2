@@ -605,7 +605,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
-			for (int i = 7; i < 30; i++) {
+			for (int i = 5; i < 30; i++) {
 				if (!dragonInv.getStackInSlot(i).isEmpty()) {
 					if (!world.isRemote) {
 						this.entityDropItem(dragonInv.getStackInSlot(i), 1);

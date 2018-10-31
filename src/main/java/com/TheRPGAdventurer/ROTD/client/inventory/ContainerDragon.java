@@ -95,9 +95,9 @@ public class ContainerDragon extends Container {
 		});
 		
 		// location of the dragon's chest inventory when chested in the dragon inventory 
-		for (int k = 0; k < 3; ++k) {
-			for (int l = 0; l < 9; ++l) {                                            
-				this.addSlotToContainer(new Slot(dragonInv, 4 + l + k * inventoryColumn, 8 + l * 18, 75 + k * 18) {
+		for (int collumn = 0; collumn < 3; ++collumn) {
+			for (int row = 0; row < 9; ++row) {                                            
+				this.addSlotToContainer(new Slot(dragonInv, 5 + row + collumn * inventoryColumn, 8 + row * 18, 75 + collumn * 18) {
 					@SideOnly(Side.CLIENT)
 					public boolean isEnabled() {
 						return ContainerDragon.this.dragon.isChested();

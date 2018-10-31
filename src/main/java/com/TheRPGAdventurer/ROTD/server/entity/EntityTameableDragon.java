@@ -1481,7 +1481,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 55 == 0 && !isDead) {
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 57 == 0 && !isDead) {
 			Random rand = new Random();
 			this.heal(rand.nextInt(7));
 		}

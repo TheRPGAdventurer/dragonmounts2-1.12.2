@@ -1311,14 +1311,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	/**
-	 * Get's the appopriate age via ticksSinceCreation for interactions like
-	 * appropriate age for riding the dragon appropriate age for opening gui etc.
-	 */
-	public static int getAppropriateAgeForInteraction() {
-		return 35000;
-	}
-
-	/**
 	 * Returns the size multiplier for the current age.
 	 * 
 	 * @return scale
@@ -1655,7 +1647,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private void initDragonInv() {
 		int numberOfInventoryforChest = 27;
 		DragonInventory animalchest = this.dragonInv;
-		this.dragonInv = new DragonInventory("dragonInv", 3 + numberOfInventoryforChest, this);
+		this.dragonInv = new DragonInventory("dragonInv", 5 + numberOfInventoryforChest + 2, this);
 		this.dragonInv.setCustomName(this.getName());
 		if (animalchest != null) {
 			int i = Math.min(animalchest.getSizeInventory(), this.dragonInv.getSizeInventory());

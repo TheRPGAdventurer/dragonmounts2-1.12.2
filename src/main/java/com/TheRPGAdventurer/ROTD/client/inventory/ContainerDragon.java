@@ -72,7 +72,7 @@ public class ContainerDragon extends Container {
 		});
 		
 		// location of the slot for the banner in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 31, 152, 18) {
+		this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -84,7 +84,7 @@ public class ContainerDragon extends Container {
 		});
 				
 		// location of the slot for the dragon wand in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 32, 152, 32) {
+		this.addSlotToContainer(new Slot(dragonInv, 32, 153, 36) {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == ModItems.dragon_wand && !this.getHasStack();
 			}

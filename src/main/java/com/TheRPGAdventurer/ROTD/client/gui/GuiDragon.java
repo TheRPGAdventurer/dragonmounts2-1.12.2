@@ -41,7 +41,7 @@ public class GuiDragon extends GuiContainer {
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
-		this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 156, 60, dragon.isMale() ?  0x83d2ff : 0Xffb0b0);
+		this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 156, 60, dragon.isMale() ?  0x0079be : 0Xff8b8b);
 	}
 
 	@Override

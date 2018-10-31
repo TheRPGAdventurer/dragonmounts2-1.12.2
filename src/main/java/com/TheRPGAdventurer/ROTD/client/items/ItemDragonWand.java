@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,16 +22,5 @@ public class ItemDragonWand extends Item {
 		this.setCreativeTab(DragonMounts.TAB);
 	}
 	
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
-		if(dragon.isTamedFor(playerIn)) {
-			dragon.setSelectedForChange(true);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-		} else {
-			return new ActionResult<ItemStack>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
-		}
-		
-	}
 
 }

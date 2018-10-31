@@ -23,9 +23,7 @@ public class DragonInteractOpenGUI extends DragonInteract {
 			return true;
 		} else if(dragon.isHatchling() && dragon.isTamed() && player.isSneaking()) {
 			player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung", new Object[0]), true);
-		} else if (ItemUtils.hasEquipped(player, ModItems.dragon_wand) && player.isSneaking()) {
-			dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
-		}
+		} 
 		return false;
 	}
 

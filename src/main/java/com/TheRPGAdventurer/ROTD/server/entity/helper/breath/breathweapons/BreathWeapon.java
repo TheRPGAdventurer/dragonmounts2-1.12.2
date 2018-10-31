@@ -257,7 +257,7 @@ public class BreathWeapon {
 		   }
 	   }
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
-	    	entity.setFire((int)(40 * 10));
+	    	entity.setFire((int)(10 * 2));
 	    } else if(entity instanceof EntityTameable) {
 	    	EntityTameable entityTameable = (EntityTameable) entity;
 	    	if(entityTameable.isTamed()) {

@@ -53,6 +53,7 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 		Entity entity = player.world.getEntityByID(message.dragonId);
 		if (entity instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
+			
 			if (message.slot_index == 0) {
 				dragon.setSaddled(message.armor_type == 1);
 			}
@@ -63,9 +64,14 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 				dragon.setArmor(message.armor_type);
 			}
 			
-//			if (message.slot_index == 3) {
-//				dragon.setChestedInRight(message.armor_type == 1);
-//			}
+			if (message.slot_index == 3) {
+				dragon.setBannered(message.armor_type == 1);
+			}
+			
+			if (message.slot_index == 4) {
+				dragon.setWanded(message.armor_type == 1);
+			}
+			
 		}
 	}
 }

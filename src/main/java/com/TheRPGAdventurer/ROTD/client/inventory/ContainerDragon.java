@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ContainerDragon extends Container {
+	
 	private final IInventory dragonInv;
 	private final EntityTameableDragon dragon;
 	private final EntityPlayer player;
@@ -33,12 +35,8 @@ public class ContainerDragon extends Container {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.SADDLE && !this.getHasStack();
 			}
-
-			@SideOnly(Side.CLIENT)
-			public boolean isEnabled() {
-				return true;
-			}
 		});
+		
 		// location of the slot for chest in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 1, 8, 36) {
 			public boolean isItemValid(ItemStack stack) {
@@ -47,11 +45,6 @@ public class ContainerDragon extends Container {
 
 			public void onSlotChanged() {
 				ContainerDragon.this.dragon.refreshInventory();
-			}
-
-			@SideOnly(Side.CLIENT)
-			public boolean isEnabled() {
-				return true;
 			}
 		});
 		
@@ -68,17 +61,27 @@ public class ContainerDragon extends Container {
 
 		});
 		
-		// location of the dragon's chest inventory when chested in the dragon inventory 
-		for (int k = 0; k < 3; ++k) {
-			for (int l = 0; l < 9; ++l) {                                            
-				this.addSlotToContainer(new Slot(dragonInv, 3 + l + k * inventoryColumn, 8 + l * 18, 75 + k * 18) {
-					@SideOnly(Side.CLIENT)
-					public boolean isEnabled() {
-						return ContainerDragon.this.dragon.isChested();
-					}
-				});
-			}
-		}
+		// location of the slot for the banner in the dragon inventory
+//		this.addSlotToContainer(new Slot(dragonInv, 3, 154, 18) {
+//			public boolean isItemValid(ItemStack stack) {
+//				return stack.getItem() == Items.BANNER && !this.getHasStack();
+//			}
+		    
+//			public int getSlotStackLimit() {
+//				return 1;
+//			}
+//		});
+				
+				// location of the slot for the dragon wand in the dragon inventory
+//		this.addSlotToContainer(new Slot(dragonInv, 4, 154, 36) {
+//			public boolean isItemValid(ItemStack stack) {
+//				return stack.getItem() == ModItems.dragon_wand && !this.getHasStack();
+////			}
+			
+//			public int getSlotStackLimit() {
+//				return 1;
+//			}
+//		});
 		
 		int j1;
 		int k;

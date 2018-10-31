@@ -25,11 +25,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.client.message.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
@@ -49,7 +49,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonArmor;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.google.common.base.Optional;
@@ -405,6 +405,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.set(IS_MALE, male);
 	}
 	
+	/**
+	 * Gets the gender since booleans return only 2 values (true or false) true == MALE, false == FEMALE
+	 * 2 genders only dont call me sexist and dont talk to me about political correctness
+     */
 	public boolean isMale() {
 		return dataManager.get(IS_MALE);
 	}
@@ -605,7 +609,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
-			for (int i = 7; i < 30; i++) {
+			for (int i = ContainerDragon.chestStartIndex; i < 32; i++) {
 				if (!dragonInv.getStackInSlot(i).isEmpty()) {
 					if (!world.isRemote) {
 						this.entityDropItem(dragonInv.getStackInSlot(i), 1);
@@ -1667,20 +1671,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				ItemStack chest_left = animalchest.getStackInSlot(1);
 				ItemStack banner = this.dragonInv.getStackInSlot(2);
 				ItemStack dragon_wand = this.dragonInv.getStackInSlot(3);
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 0,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,
 						saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 1,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 1,
 						chest_left != null && chest_left.getItem() == Item.getItemFromBlock(Blocks.CHEST)
 								&& !chest_left.isEmpty() ? 1 : 0));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 2,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 						this.getIntFromArmor(animalchest.getStackInSlot(2))));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 3,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
 						banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 3,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
 						dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
 			
 			}
@@ -1712,20 +1716,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				ItemStack banner = dragonInv.getStackInSlot(2);
 				ItemStack dragon_wand = dragonInv.getStackInSlot(3);
 				if (world.isRemote) {
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 0,
+					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,
 							saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
 					
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 1,
+					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 1,
 							chest != null && chest.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !chest.isEmpty()
 									? 1 : 0));
 					
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 2,
+					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 							this.getIntFromArmor(dragonInv.getStackInSlot(2))));
 					
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 3,
+					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
 							banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
 					
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 4,
+					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 4,
 							dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
 					
 				}
@@ -1763,7 +1767,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		ItemStack leftChestforInv = this.dragonInv.getStackInSlot(1);
 		ItemStack banner = this.dragonInv.getStackInSlot(2);
 		ItemStack dragon_wand = this.dragonInv.getStackInSlot(3);
-		
 		this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
 		this.setChested(leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
 		this.setBannered(banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty());
@@ -1771,15 +1774,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));
 		
 		if (this.world.isRemote) {
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 0,
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,
 					saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 1,
-					leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty() ? 1 : 0));
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 2,
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 1,
+					leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST)
+							&& !leftChestforInv.isEmpty() ? 1 : 0));
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 					this.getIntFromArmor(this.dragonInv.getStackInSlot(2))));
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 3,
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
 					banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), 4,
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 4,
 					dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
 		}
 	}
@@ -1881,12 +1885,3 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 }
 
-// /**
-// * Gets the gender since booleans return only 2 values (true or false) true ==
-// MALE, false == FEMALE
-// * 2 genders only dont call me sexist and dont talk to me about political
-// correctness
-// */
-// public boolean isMale() {
-// return dataManager.get(IS_MALE);
-// }

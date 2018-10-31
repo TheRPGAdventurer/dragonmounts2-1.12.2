@@ -63,14 +63,15 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         
         // textures
         String skin = breed.getBreed().getSkin();
-        bodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/body.png");
-        glowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glow.png");
+        String bodyGender = dragon.isMale() ? "/bodyM.png" : "/bodyFM.png";
+        String glowGender = dragon.isMale() ? "/glowM.png" : "/glowFM.png";
+        bodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + bodyGender);
+        glowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + glowGender);
         glowAnimTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glow_anim.png");
         saddleTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/saddle.png");
         eggTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/egg.png");
         dissolveTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "dissolve.png");
         chestTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/chest.png");
-//        genderTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + dragon.isMale() != null ?"/male.png":"/female.png");
     }
     
     @Override

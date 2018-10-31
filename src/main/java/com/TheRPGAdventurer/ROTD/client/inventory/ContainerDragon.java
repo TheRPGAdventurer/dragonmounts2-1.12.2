@@ -18,6 +18,7 @@ public class ContainerDragon extends Container {
 	private final IInventory dragonInv;
 	private final EntityTameableDragon dragon;
 	private final EntityPlayer player;
+	public static final int chestStartIndex = 5;
 
 	public ContainerDragon(final EntityTameableDragon dragon, EntityPlayer player) {
 		this.dragonInv = dragon.dragonInv;
@@ -71,7 +72,7 @@ public class ContainerDragon extends Container {
 		});
 		
 		// location of the slot for the banner in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 32, 153, 18) {
+		this.addSlotToContainer(new Slot(dragonInv, 3, 152, 18) {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -83,7 +84,7 @@ public class ContainerDragon extends Container {
 		});
 				
 		// location of the slot for the dragon wand in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 31, 153, 36) {
+		this.addSlotToContainer(new Slot(dragonInv, 4, 152, 32) {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == ModItems.dragon_wand && !this.getHasStack();
 			}
@@ -95,15 +96,13 @@ public class ContainerDragon extends Container {
 		});
 		
 		// location of the dragon's inventory when chested in the dragon inventory 
-		for (int collumn = 0; collumn < 3; ++collumn) {
-			for (int row = 0; row < 9; ++row) {                                            
-				this.addSlotToContainer(new Slot(dragonInv, 5 + row + collumn * inventoryColumn, 8 + row * 18, 75 + collumn * 18) {
-			
+		for (int k = 0; k < 3; ++k) {
+			for (int l = 0; l < 9; ++l) {                                            
+				this.addSlotToContainer(new Slot(dragonInv, chestStartIndex + l + k * inventoryColumn, 8 + l * 18, 75 + k * 18) {
 					@SideOnly(Side.CLIENT)
 					public boolean isEnabled() {
 						return ContainerDragon.this.dragon.isChested();
 					}
-					
 				});
 			}
 		}
@@ -150,7 +149,7 @@ public class ContainerDragon extends Container {
 				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (this.dragonInv.getSizeInventory() <= 4 || !this.mergeItemStack(itemstack1, 3, this.dragonInv.getSizeInventory(), false)) {
+			} else if (this.dragonInv.getSizeInventory() <= chestStartIndex || !this.mergeItemStack(itemstack1, chestStartIndex, this.dragonInv.getSizeInventory(), false)) {
 				return ItemStack.EMPTY;
 			}
 

@@ -12,19 +12,19 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
+public class MessageDragonInventory extends AbstractMessage<MessageDragonInventory> {
 
 	public int dragonId;
 	public int slot_index;
 	public int armor_type;
 
-	public MessageDragonArmor(int dragonId, int slot_index, int armor_type) {
+	public MessageDragonInventory(int dragonId, int slot_index, int armor_type) {
 		this.dragonId = dragonId;
 		this.slot_index = slot_index;
 		this.armor_type = armor_type;
 	}
 
-	public MessageDragonArmor() {
+	public MessageDragonInventory() {
 	}
 
 	@Override
@@ -44,16 +44,15 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {
+	public void onClientReceived(Minecraft client, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
 
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {
+	public void onServerReceived(MinecraftServer server, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
 		Entity entity = player.world.getEntityByID(message.dragonId);
 		if (entity instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
-			
 			if (message.slot_index == 0) {
 				dragon.setSaddled(message.armor_type == 1);
 			}
@@ -64,14 +63,13 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 				dragon.setArmor(message.armor_type);
 			}
 			
-			if (message.slot_index == 31) {
+			if (message.slot_index == 3) {
 				dragon.setBannered(message.armor_type == 1);
 			}
 			
-			if (message.slot_index == 32) {
+			if (message.slot_index == 4) {
 				dragon.setWanded(message.armor_type == 1);
 			}
-			
 		}
 	}
 }

@@ -15,8 +15,6 @@ import com.TheRPGAdventurer.ROTD.server.cmd.CommandDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
-import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessage;
-import com.TheRPGAdventurer.ROTD.server.network.DragonBreathMessageHandlerServer;
 
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Biomes;
@@ -32,7 +30,6 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  *
@@ -64,8 +61,6 @@ public class ServerProxy {
         MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
 //        EntityRegistry.addSpawn(EntityTameableDragon.class, 1, 1, 1, EnumCreatureType.AMBIENT, biomes);
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
-        network.registerMessage(DragonBreathMessageHandlerServer.class, DragonBreathMessage.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
-
     }
 
     public void PostInitialization(FMLPostInitializationEvent event) {

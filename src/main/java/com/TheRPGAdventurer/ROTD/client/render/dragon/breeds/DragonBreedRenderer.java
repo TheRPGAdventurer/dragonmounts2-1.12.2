@@ -24,13 +24,17 @@ import net.minecraft.util.ResourceLocation;
  */
 public interface DragonBreedRenderer {
 
-    public ResourceLocation getBodyTexture();
+    public ResourceLocation getMaleBodyTexture();
+    
+    public ResourceLocation getFemaleBodyTexture();
 
     public ResourceLocation getDissolveTexture();
 
     public ResourceLocation getEggTexture();
 
-    public ResourceLocation getGlowTexture();
+    public ResourceLocation getMaleGlowTexture();
+    
+    public ResourceLocation getFemaleGlowTexture();
     
     public ResourceLocation getGlowAnimTexture();
 

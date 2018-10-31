@@ -68,7 +68,7 @@ public class DragonBreedHelper extends DragonHelper {
             }
             
             // default breed has initial points
-            breedPoints.get(EnumDragonBreed.END).set(POINTS_INITIAL);
+            breedPoints.get(EnumDragonBreed.FIRE).set(POINTS_INITIAL);
         }
         
         dataWatcher.register(dataParam, EnumDragonBreed.END.getName());
@@ -91,7 +91,7 @@ public class DragonBreedHelper extends DragonHelper {
         String breedName = nbt.getString(NBT_BREED);
         EnumDragonBreed breed = EnumUtils.getEnum(EnumDragonBreed.class, breedName.toUpperCase());
         if (breed == null) {
-            breed = EnumDragonBreed.END;
+            breed = EnumDragonBreed.FIRE;
             L.warn("Dragon {} loaded with invalid breed type {}, using {} instead",
                     dragon.getEntityId(), breedName, breed);
         }

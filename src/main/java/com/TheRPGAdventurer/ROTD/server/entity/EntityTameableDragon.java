@@ -374,35 +374,35 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 	
 	public boolean isBannered() {
-		return dataManager.get(IS_MALE);
+		return dataManager.get(BANNERED);
 	}
 
 	public void setBannered(boolean male) {
-		dataManager.set(IS_MALE, male);
+		dataManager.set(BANNERED, male);
 	}
 	
 	public boolean canBeAducator() {
-		return dataManager.get(IS_MALE);
+		return dataManager.get(HAS_ADJUCATOR_STONE);
 	}
 
 	public void setCanBeAdjucator(boolean male) {
-		dataManager.set(IS_MALE, male);
+		dataManager.set(HAS_ADJUCATOR_STONE, male);
 	}
 	
 	public boolean canBeElder() {
-		return dataManager.get(IS_MALE);
+		return dataManager.get(HAS_ELDER_STONE);
 	}
 
 	public void setCanBeElder(boolean male) {
-		dataManager.set(IS_MALE, male);
+		dataManager.set(HAS_ELDER_STONE, male);
 	}
 	
 	public boolean isWanded() {
-		return dataManager.get(IS_MALE);
+		return dataManager.get(WANDED);
 	}
 
 	public void setWanded(boolean male) {
-		dataManager.set(IS_MALE, male);
+		dataManager.set(WANDED, male);
 	}
 	
 	/**
@@ -609,7 +609,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
-			for (int i = ContainerDragon.chestStartIndex; i < 32; i++) {
+			for (int i = ContainerDragon.chestStartIndex; i < 33; i++) {
 				if (!dragonInv.getStackInSlot(i).isEmpty()) {
 					if (!world.isRemote) {
 						this.entityDropItem(dragonInv.getStackInSlot(i), 1);
@@ -1681,10 +1681,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 						this.getIntFromArmor(animalchest.getStackInSlot(2))));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31,
 						banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
+				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32,
 						dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
 			
 			}

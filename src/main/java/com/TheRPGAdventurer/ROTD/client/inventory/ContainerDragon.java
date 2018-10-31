@@ -18,7 +18,7 @@ public class ContainerDragon extends Container {
 	private final IInventory dragonInv;
 	private final EntityTameableDragon dragon;
 	private final EntityPlayer player;
-	public static final int chestStartIndex = 5;
+	public static final int chestStartIndex = 3;
 
 	public ContainerDragon(final EntityTameableDragon dragon, EntityPlayer player) {
 		this.dragonInv = dragon.dragonInv;
@@ -72,7 +72,7 @@ public class ContainerDragon extends Container {
 		});
 		
 		// location of the slot for the banner in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 3, 152, 18) {
+		this.addSlotToContainer(new Slot(dragonInv, 31, 152, 18) {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -84,7 +84,7 @@ public class ContainerDragon extends Container {
 		});
 				
 		// location of the slot for the dragon wand in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 4, 152, 32) {
+		this.addSlotToContainer(new Slot(dragonInv, 32, 152, 32) {
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == ModItems.dragon_wand && !this.getHasStack();
 			}

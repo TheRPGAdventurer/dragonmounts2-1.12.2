@@ -39,8 +39,10 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     private final DragonModel model;
     private EntityTameableDragon dragon;
     
-    private final ResourceLocation bodyTexture;
-    private final ResourceLocation glowTexture;
+    private final ResourceLocation maleBodyTexture;
+    private final ResourceLocation femaleBodyTexture;
+    private final ResourceLocation maleGlowTexture;
+    private final ResourceLocation femaleGlowTexture;
     private final ResourceLocation glowAnimTexture;
     private final ResourceLocation saddleTexture;
     private final ResourceLocation eggTexture;
@@ -63,10 +65,10 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         
         // textures
         String skin = breed.getBreed().getSkin();
-        String bodyGender = dragon.isMale() ? "/bodyM.png" : "/bodyFM.png";
-        String glowGender = dragon.isMale() ? "/glowM.png" : "/glowFM.png";
-        bodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + bodyGender);
-        glowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + glowGender);
+        maleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodym.png");
+        femaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodyfm.png");
+        maleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowm.png");
+        femaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowfm.png");
         glowAnimTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glow_anim.png");
         saddleTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/saddle.png");
         eggTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/egg.png");
@@ -90,13 +92,23 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     }
 
     @Override
-    public ResourceLocation getBodyTexture() {
-        return bodyTexture;
+    public ResourceLocation getMaleBodyTexture() {
+        return maleBodyTexture;
     }
+    
+	@Override
+	public ResourceLocation getFemaleBodyTexture() {
+		return femaleBodyTexture;
+	}
 
     @Override
-    public ResourceLocation getGlowTexture() {
-        return glowTexture;
+    public ResourceLocation getMaleGlowTexture() {
+        return maleGlowTexture;
+    }
+    
+    @Override
+    public ResourceLocation getFemaleGlowTexture() {
+        return femaleGlowTexture;
     }
     
     @Override
@@ -133,4 +145,5 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
 	public ResourceLocation getArmorTexture() {
 		return null;
 	}
+
 }

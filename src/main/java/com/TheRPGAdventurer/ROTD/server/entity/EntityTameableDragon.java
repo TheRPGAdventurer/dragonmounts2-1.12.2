@@ -605,7 +605,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
-			for (int i = 5; i < 35; i++) {
+			for (int i = 7; i < 30; i++) {
 				if (!dragonInv.getStackInSlot(i).isEmpty()) {
 					if (!world.isRemote) {
 						this.entityDropItem(dragonInv.getStackInSlot(i), 1);
@@ -1481,7 +1481,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 57 == 0 && !isDead) {
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 65 == 0 && !isDead) {
 			Random rand = new Random();
 			this.heal(rand.nextInt(7));
 		}

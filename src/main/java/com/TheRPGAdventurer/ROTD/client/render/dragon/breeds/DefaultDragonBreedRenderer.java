@@ -17,9 +17,9 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonArmor;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonBanner;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonChest;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonGlow;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonGlowAnim;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonSaddle;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
@@ -61,6 +61,7 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         layers.add(new LayerRendererDragonSaddle(parent, this, model));
         layers.add(new LayerRendererDragonArmor(parent, this, model));
         layers.add(new LayerRendererDragonChest(parent, this, model));
+        layers.add(new LayerRendererDragonBanner(parent, this, model));
         
         
         // textures

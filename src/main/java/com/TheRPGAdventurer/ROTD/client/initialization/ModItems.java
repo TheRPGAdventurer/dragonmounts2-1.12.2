@@ -37,6 +37,7 @@ public class ModItems {
 	public static final Item SpawnEnchant;
 	public static final Item SpawnSunlight;
 //	public static final Item SpawnStorm;
+	public static final Item SpawnZombie;
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
@@ -84,6 +85,7 @@ public class ModItems {
 		SpawnEnchant = new ItemDragonSpawner(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT, DragonMounts.TAB),
 		SpawnSunlight = new ItemDragonSpawner(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT, DragonMounts.TAB),
 	//	SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
+		SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.TAB),
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),
@@ -105,5 +107,6 @@ public class ModItems {
 		storm_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.STORM),
 		nether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.NETHER),
 		ender_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.END),
+		
 	};
 }

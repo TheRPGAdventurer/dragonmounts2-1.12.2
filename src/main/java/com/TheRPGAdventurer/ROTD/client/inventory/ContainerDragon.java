@@ -19,6 +19,7 @@ public class ContainerDragon extends Container {
 	private final EntityTameableDragon dragon;
 	private final EntityPlayer player;
 	public static final int chestStartIndex = 3;
+	public static Item banner = Items.BANNER;
 
 	public ContainerDragon(final EntityTameableDragon dragon, EntityPlayer player) {
 		this.dragonInv = dragon.dragonInv;
@@ -40,6 +41,10 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
+			
+			public int getSlotStackLimit() {
+				return 1;
+			}
 		});
 		
 		// location of the slot for chest in the dragon inventory
@@ -50,6 +55,10 @@ public class ContainerDragon extends Container {
 
 			public void onSlotChanged() {
 				ContainerDragon.this.dragon.refreshInventory();
+			}
+			
+			public int getSlotStackLimit() {
+				return 1;
 			}
 
 			@SideOnly(Side.CLIENT)
@@ -74,12 +83,16 @@ public class ContainerDragon extends Container {
 		// location of the slot for the banner in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
 			public boolean isItemValid(ItemStack stack) {
-				return stack.getItem() == Items.BANNER && !this.getHasStack();
+				return stack.getItem() == banner && !this.getHasStack();
 			}
 
 			@SideOnly(Side.CLIENT)
 			public boolean isEnabled() {
 				return true;
+			}
+			
+			public int getSlotStackLimit() {
+				return 1;
 			}
 		});
 				
@@ -93,6 +106,10 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
+			
+			public int getSlotStackLimit() {
+				return 1;
+			}
 		});
 		
 		// location of the dragon's inventory when chested in the dragon inventory 
@@ -102,6 +119,10 @@ public class ContainerDragon extends Container {
 					@SideOnly(Side.CLIENT)
 					public boolean isEnabled() {
 						return ContainerDragon.this.dragon.isChested();
+					}
+					
+					public int getSlotStackLimit() {
+						return 1;
 					}
 				});
 			}

@@ -45,6 +45,12 @@ public class GuiHandler implements IGuiHandler {
 					}
 				}
 				break;
+			case GUI_DRAGON_WAND:
+				if(entity != null) {
+					if (entity instanceof EntityTameableDragon) {
+						return new GuiDragonWand(player.inventory, (EntityTameableDragon) entity);
+					}
+				}
 		}
 		return entity;
 	}

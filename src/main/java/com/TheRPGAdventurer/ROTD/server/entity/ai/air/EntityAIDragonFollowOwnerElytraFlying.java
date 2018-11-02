@@ -13,6 +13,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
 
 /**
  *
@@ -57,5 +59,12 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     @Override
     public void updateTask() {
         dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
+        
+        if(dragon.getDistanceToEntity(owner) > 10) {
+    		PotionEffect speed = new PotionEffect(MobEffects.SPEED, 20*10, 3);
+        	if (!dragon.isPotionActive(speed.getPotion())) { // If the Potion isn't currently active,
+        		dragon.addPotionEffect(speed); // Apply a copy of the PotionEffect to the player
+    		} 
+        }
     }
 }

@@ -36,7 +36,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
      //       return false;
     //    }
         
-        if(!dragon.isTamed()) {
+        if(!dragon.isSaddled()) {
         	return false;
         }
         

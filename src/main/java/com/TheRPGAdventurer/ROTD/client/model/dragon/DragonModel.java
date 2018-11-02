@@ -307,6 +307,8 @@ public class DragonModel extends ModelBase {
     }
     
     private void buildBody() {
+    	
+    	boolean zombie = breed == EnumDragonBreed.ZOMBIE;
         body = new ModelPart(this, "body");
         body.setRotationPoint(0, 4, 8);
         body.addBox("body",  -12,   0,  -16, 24, 24, 64);
@@ -725,6 +727,9 @@ public class DragonModel extends ModelBase {
     }
     
     protected void renderBody(float scale) {
+    	//boolean zombie = breed == EnumDragonBreed.ZOMBIE;
+    	//int heartSize = zombie ? + 2 : 0;
+    //	heart.setRenderScale(heartSize);
         body.render(scale);
     }
 

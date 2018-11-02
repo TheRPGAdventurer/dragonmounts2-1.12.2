@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.WalkNodeProcessor;
@@ -58,6 +59,12 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (ownerCurrent == null) {
             return false;
         }
+        
+        if(ownerCurrent instanceof EntityPlayer) {
+           if (((EntityPlayer) ownerCurrent).isSpectator()) {
+               return false;
+           }
+       }
 
         if (dragon.isSitting()) {
             return false;

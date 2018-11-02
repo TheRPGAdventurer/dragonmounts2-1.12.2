@@ -1,6 +1,6 @@
 {
     "parent": "dragonmounts:item/shield/shield",
 	"textures": {
-	    "base": "dragonmounts:items/dragon_shield/water"
+	    "base": "dragonmounts:entities/dragon_shield/water"
 	}
 }

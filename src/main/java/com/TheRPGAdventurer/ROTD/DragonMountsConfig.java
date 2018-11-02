@@ -133,7 +133,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_MAIN, "can ice breath be permanent", canIceBreathBePermanent);
-		prop.setComment("refers to the ice breath for the dragon in water, set true if you want the ice block to be permamnenet. false otherwise.");
+		prop.setComment("refers to the ice breath for the dragon in water, set true if you want the ice block to be permanent. false otherwise.");
 		canIceBreathBePermanent = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
@@ -148,7 +148,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_MAIN, "Allow Other Player's Control", allowOtherPlayerControl);
-		prop.setComment("Disable or enable the dragon's ability to obey ther players");
+		prop.setComment("Disable or enable the dragon's ability to obey other players");
 		allowOtherPlayerControl = prop.getBoolean();
 		propOrder.add(prop.getName());
 		

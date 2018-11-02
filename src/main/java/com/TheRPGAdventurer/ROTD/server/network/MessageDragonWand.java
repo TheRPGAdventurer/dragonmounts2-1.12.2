@@ -14,19 +14,19 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MessageDragonInventory extends AbstractMessage<MessageDragonInventory> {
+public class MessageDragonWand extends AbstractMessage<MessageDragonWand> {
 
 	public int dragonId;
 	public int slot_index;
 	public int armor_type;
 
-	public MessageDragonInventory(int dragonId, int slot_index, int armor_type) {
+	public MessageDragonWand(int dragonId, int slot_index, int armor_type) {
 		this.dragonId = dragonId;
 		this.slot_index = slot_index;
 		this.armor_type = armor_type;
 	}
 
-	public MessageDragonInventory() {
+	public MessageDragonWand() {
 	}
 
 	@Override
@@ -46,28 +46,15 @@ public class MessageDragonInventory extends AbstractMessage<MessageDragonInvento
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
+	public void onClientReceived(Minecraft client, MessageDragonWand message, EntityPlayer player, MessageContext messageContext) {
 		
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
+	public void onServerReceived(MinecraftServer server, MessageDragonWand message, EntityPlayer player, MessageContext messageContext) {
 		Entity entity = player.world.getEntityByID(message.dragonId);
 		if (entity instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
-			if (message.slot_index == 0) {
-				dragon.setSaddled(message.armor_type == 1);
-			}
-			if (message.slot_index == 1) {
-				dragon.setChested(message.armor_type == 1);
-			}
-			if (message.slot_index == 2) {
-				dragon.setArmor(message.armor_type);
-			}
-			
-			if (message.slot_index == 31) {
-				dragon.setBannered(message.armor_type == 1);
-			}
 		}
 	}
 }

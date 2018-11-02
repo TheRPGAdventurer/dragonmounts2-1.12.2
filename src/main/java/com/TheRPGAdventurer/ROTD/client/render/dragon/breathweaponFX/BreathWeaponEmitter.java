@@ -6,6 +6,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
+import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.PoisonBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
@@ -103,6 +104,38 @@ public class BreathWeaponEmitter {
     previousDirection = direction;
     previousOrigin = origin;
     previousTickCount = tickCounter;
+  }
+  
+  /**
+   * Spawn breath particles for this tick.  If the beam endpoints have moved, interpolate between them, unless
+   *   the beam stopped for a while (tickCount skipped one or more tick)
+   * @param world
+   * @param power the strength of the beam
+   * @param tickCount
+   */
+  public void spawnBreathParticlesForPoison(World world, BreathNode.Power power, int tickCount) {
+	  EntityTameableDragon dragon = new EntityTameableDragon(world);
+    if (tickCount != previousTickCount + 1) {
+      previousDirection = direction;
+      previousOrigin = origin;
+    } else {
+      if (previousDirection == null) previousDirection = direction;
+      if (previousOrigin == null) previousOrigin = origin;
+    }
+    final int PARTICLES_PER_TICK = 4;
+    for (int i = 0; i < PARTICLES_PER_TICK; ++i) {
+      float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
+      Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
+      Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
+      PoisonBreathFX flameBreathFX = PoisonBreathFX.createPoisonBreathFX(world,
+              interpOrigin.x, interpOrigin.y, interpOrigin.z,
+              interpDirection.x, interpDirection.y, interpDirection.z, power, partialTickHeadStart);
+      
+      Minecraft.getMinecraft().world.spawnEntity(flameBreathFX);
+    }
+    previousDirection = direction;
+    previousOrigin = origin;
+    previousTickCount = tickCount;
   }
   
   /**

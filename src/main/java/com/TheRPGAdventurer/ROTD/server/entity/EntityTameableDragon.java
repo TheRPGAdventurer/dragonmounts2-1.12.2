@@ -52,6 +52,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;

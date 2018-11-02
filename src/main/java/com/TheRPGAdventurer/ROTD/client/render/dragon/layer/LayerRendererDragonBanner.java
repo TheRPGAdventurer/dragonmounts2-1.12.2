@@ -10,6 +10,7 @@ import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.block.BlockBanner;
@@ -60,17 +61,22 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 
     	GlStateManager.pushMatrix();
     	
-     //   if(!itemstack.isEmpty()) {
- 	        this.model.body.postRender(scale);
+        if(!itemstack.isEmpty()) {
+ 	   //     this.model.body.postRender(scale);
  	       float f = 0.625F;
-           GlStateManager.translate(1.0F, 0.8, 0.0F);
+ 	       
+ 	   //    if(dragon.isSitting()) {
+ 	    //	  GlStateManager.translate(1.0F, 0.4, -0.7F);
+ 	    //   }
+ 	       
+           GlStateManager.translate(1.0F, 0.4 - (dragon.isSitting() ? -0.5 : 0), 0.7F);
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-           GlStateManager.scale(0.625F, -0.625F, -0.625F);
+           GlStateManager.scale(1.625F, -0.625F, -0.625F);
 //           Minecraft.getMinecraft().getItemRenderer().renderItem(entitylivingbaseIn, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);
        //    mc.getItemRenderer().renderItem(dragon, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);           
            mc.getItemRenderer().renderItem(dragon, itemstack, ItemCameraTransforms.TransformType.HEAD);   
 	           	  
-       // }  
+        }  
         GlStateManager.popMatrix(); 	       		
 	}
 	

@@ -72,6 +72,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
            GlStateManager.translate(1.0F, 0.4 - (dragon.isSitting() ? -0.5 : 0), 0.7F);
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
            GlStateManager.scale(1.625F, -0.625F, -0.625F);
+           GlStateManager.rotate(90, 1, 0, 0);
 //           Minecraft.getMinecraft().getItemRenderer().renderItem(entitylivingbaseIn, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);
        //    mc.getItemRenderer().renderItem(dragon, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);           
            mc.getItemRenderer().renderItem(dragon, itemstack, ItemCameraTransforms.TransformType.HEAD);   

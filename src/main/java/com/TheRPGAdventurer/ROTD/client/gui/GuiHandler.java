@@ -1,12 +1,11 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
+import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonWand;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,7 +26,14 @@ public class GuiHandler implements IGuiHandler {
 						return new ContainerDragon((EntityTameableDragon) entity, player);
 					}
 				}
-				break;			
+				break;		
+				case GUI_DRAGON_WAND:
+					if (entity != null) {
+						if (entity instanceof EntityTameableDragon) {
+							return new ContainerDragonWand((EntityTameableDragon) entity, player);
+					}
+				}
+				break;	
 		}
 		return null;
 
@@ -44,13 +50,14 @@ public class GuiHandler implements IGuiHandler {
 						return new GuiDragon(player.inventory, (EntityTameableDragon) entity);
 					}
 				}
-				break;
+			break;
 			case GUI_DRAGON_WAND:
 				if(entity != null) {
 					if (entity instanceof EntityTameableDragon) {
 						return new GuiDragonWand(player.inventory, (EntityTameableDragon) entity);
 					}
 				}
+			break;
 		}
 		return entity;
 	}

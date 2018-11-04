@@ -106,7 +106,7 @@ public class DragonSoundManager extends DragonHelper {
             // play wing sounds
             float pitch = (1 - speed);
             float volume = 2.5f + (1 + speed) * 1.2f;
-            playSound(getWingsSound(), volume, pitch, true);
+            playSound(getWingsSound(), volume, pitch, false);
         }
     }
     

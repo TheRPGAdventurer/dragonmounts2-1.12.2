@@ -21,6 +21,16 @@
     ]
   },
   
+    "mob.dragon.zombiegrowl": {
+  "category": "zombie_dragon_growl",
+    "sounds": [
+      "dragonmounts:mob/dragon/zombiegrowl",
+      "dragonmounts:mob/dragon/zombiegrowl1",
+      "dragonmounts:mob/dragon/zombiegrowl2",
+	  "dragonmounts:mob/dragon/zombiegrowl3"
+    ]
+  },
+  
   "mob.dragon.skeletongrowl": {
   "category": "skeleton_dragon_growl",
     "sounds": [
@@ -56,6 +66,12 @@
     "category": "dragon_death",
     "sounds": [
       "dragonmounts:mob/dragon/death"
+    ]
+  },
+     "mob.dragon.zombiedeath": {
+    "category": "dragon_zombie_death",
+    "sounds": [
+      "dragonmounts:mob/dragon/zombiedeath"
     ]
   },
   "mob.dragon.breathweapon.adultbreathefirestart": {

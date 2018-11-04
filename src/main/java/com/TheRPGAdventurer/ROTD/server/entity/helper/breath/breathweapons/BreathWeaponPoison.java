@@ -35,7 +35,7 @@ import net.minecraft.world.World;
  */
 public class BreathWeaponPoison extends BreathWeapon {
 	
-  private int witherduration = 350 * 10; 
+  private int poisonDuration = 10 * 10; 
 	
   public BreathWeaponPoison(EntityTameableDragon i_dragon) {
     super(i_dragon);
@@ -61,11 +61,11 @@ public class BreathWeaponPoison extends BreathWeapon {
     if (!world.isRemote) { 
         EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
         entityareaeffectcloud.setOwner(this.dragon);
-        entityareaeffectcloud.setParticle(EnumParticleTypes.SMOKE_NORMAL);
+      //  entityareaeffectcloud.setParticle(EnumParticleTypes.SMOKE_NORMAL); 
         entityareaeffectcloud.setRadius(1.4F);
         entityareaeffectcloud.setDuration(600);
         entityareaeffectcloud.setRadiusPerTick((1.0F - entityareaeffectcloud.getRadius()) / (float)entityareaeffectcloud.getDuration());
-        entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.POISON, witherduration));
+        entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.POISON, poisonDuration));
 
         entityareaeffectcloud.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());                 
         int i = rand.nextInt(10000);

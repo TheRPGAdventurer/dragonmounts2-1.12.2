@@ -21,6 +21,7 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderFlame
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderHydroBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderIceBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderNetherBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderPoisonBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderWitherBreathFX;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
@@ -30,6 +31,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
+import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.PoisonBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 
 import net.minecraft.client.Minecraft;
@@ -63,6 +65,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
+		RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
       
     }

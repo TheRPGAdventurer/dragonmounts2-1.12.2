@@ -98,6 +98,7 @@ import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -246,8 +247,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		addHelper(new DragonSoundManager(this));
 		addHelper(new DragonInteractHelper(this));
 
-		initDragonInv();
-		initDragonStats();
+		InitializeDragonInventory();
+		InitializeDragonStats();
 
 		if (isClient()) {
 			addHelper(new DragonParticleHelper(this));
@@ -392,6 +393,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	public void setCanBeAdjucator(boolean male) {
+		world.playSound(posX, posY, posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.NEUTRAL, 10F, 1F, true);
 		dataManager.set(HAS_ADJUCATOR_STONE, male);
 	}
 	
@@ -1657,7 +1659,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	/**
 	 * Credits: AlexThe 666 Ice and Fire
 	 */
-	private void initDragonInv() {
+	private void InitializeDragonInventory() {
 		int numberOfInventoryforChest = 27;
 		DragonInventory dragonInv = this.dragonInv;
 		this.dragonInv = new DragonInventory("dragonInv", 5 + numberOfInventoryforChest + 2, this);
@@ -1703,7 +1705,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public void readDragonInventory(NBTTagCompound nbt) {
 		if (dragonInv != null) {
 			NBTTagList nbttaglist = nbt.getTagList("Items", 10);
-			initDragonInv();
+			InitializeDragonInventory();
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 				NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 				int j = nbttagcompound.getByte("Slot") & 255;
@@ -1711,11 +1713,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 		} else {
 			NBTTagList nbttaglist = nbt.getTagList("Items", 10);
-			initDragonInv();
+			InitializeDragonInventory();
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 				NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 				int j = nbttagcompound.getByte("Slot") & 255;
-				this.initDragonInv();
+				this.InitializeDragonInventory();
 				this.dragonInv.setInventorySlotContents(j, new ItemStack(nbttagcompound));
 				
 				ItemStack saddle = dragonInv.getStackInSlot(0);
@@ -1767,9 +1769,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 	}
 	
-	public void initDragonStats() {
+	public void InitializeDragonStats() {
 		DragonInventory dragonStats = this.dragonStats;
-		this.dragonStats = new DragonInventory("dragonStats", 0, this);
+		this.dragonStats = new DragonInventory("dragonStats", 6, this);
 		if(world.isRemote) {
 			
 		}
@@ -1778,7 +1780,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public void readDragonStats(NBTTagCompound nbt) {
 		if(dragonStats != null) {
 			NBTTagList nbttaglist = nbt.getTagList("stones", 10);
-			initDragonStats();
+			InitializeDragonStats();
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 				NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 				int j = nbttagcompound.getByte("StoneSlot") & 255;
@@ -1786,11 +1788,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 		} else {
 			NBTTagList nbttaglist = nbt.getTagList("stones", 10);
-			initDragonStats();
+			InitializeDragonStats();
 			for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 				NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 				int j = nbttagcompound.getByte("StoneSlot") & 255;
-				this.initDragonStats();
+				this.InitializeDragonStats();
 				this.dragonStats.setInventorySlotContents(j, new ItemStack(nbttagcompound));
 			}
 		}
@@ -1885,7 +1887,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return false;
 		}
 
-		if (damage >= 20 ) {
+		if (damage >= 45 ) {
 			return damage == 4.0f;
 		}
 

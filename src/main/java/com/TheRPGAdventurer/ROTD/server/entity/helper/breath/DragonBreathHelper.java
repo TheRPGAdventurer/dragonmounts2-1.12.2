@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.Breat
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponHydro;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponIce;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponNether;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponPoison;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponWither;
 
 import net.minecraft.client.Minecraft;
@@ -60,6 +61,7 @@ public class DragonBreathHelper extends DragonHelper {
   public BreathAffectedArea breathAffectedAreaIce = null;
   public BreathAffectedArea breathAffectedAreaHydro = null;
   public BreathAffectedArea breathAffectedAreaWither = null;
+  public BreathAffectedArea breathAffectedAreaPoison = null;
   private static final Logger L = LogManager.getLogger();
 	
   public DragonBreathHelper(EntityTameableDragon dragon, DataParameter<String> dataParam) {
@@ -73,6 +75,7 @@ public class DragonBreathHelper extends DragonHelper {
     breathAffectedAreaHydro = new BreathAffectedArea(new BreathWeaponHydro(dragon));
     breathAffectedAreaEnder = new BreathAffectedArea(new BreathWeaponEnder(dragon));
     breathAffectedAreaWither = new BreathAffectedArea(new BreathWeaponWither(dragon));
+    breathAffectedAreaPoison = new BreathAffectedArea(new BreathWeaponPoison(dragon));
   }
   
   public enum  BreathState {IDLE, STARTING, SUSTAIN, STOPPING}
@@ -245,6 +248,10 @@ public class DragonBreathHelper extends DragonHelper {
   
   public BreathAffectedArea getBreathAffectedAreaHydro() {
 	  return breathAffectedAreaHydro;
+  }
+  
+  public BreathAffectedArea getBreathAffectedAreaPoison() {
+	  return breathAffectedAreaPoison;
   }
   
 }

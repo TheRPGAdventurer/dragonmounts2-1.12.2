@@ -15,7 +15,7 @@ import net.minecraft.util.math.MathHelper;
 public class DragonBreedSkeleton extends DragonBreed {
 
     DragonBreedSkeleton() {
-        super("skeleton", 0xbebebe);
+        super("skeleton", 0xffffff);
         
         addImmunity(DamageSource.LIGHTNING_BOLT);
         addImmunity(DamageSource.WITHER);

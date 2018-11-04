@@ -41,6 +41,7 @@ public class DragonMountsConfig {
     public static boolean useCommandingPlayer = false;
     public static boolean allowOtherPlayerControl = true;
     public static boolean allowBreeding = true;
+    
 	
     public static boolean canSpawnSurfaceDragonNest = true;
 	public static boolean canSpawnUnderGroundNest = false;

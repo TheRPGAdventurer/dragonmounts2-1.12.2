@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderPoisonBreathFX extends Render<PoisonBreathFX> {
 	
-    private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_wither.png");
+    private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_poison.png");
 
     public RenderPoisonBreathFX(RenderManager renderManagerIn) {
         super(renderManagerIn); 

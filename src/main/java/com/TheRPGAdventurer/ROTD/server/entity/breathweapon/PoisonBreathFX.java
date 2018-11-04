@@ -70,16 +70,6 @@ public class PoisonBreathFX extends Entity {
     float currentEntitySize = breathNode.getCurrentRenderDiameter();
     scale = ENTITY_SCALE_RELATIVE_TO_SIZE * currentEntitySize;
 
-    // spawn a smoke trail after some time
-    if (SMOKE_CHANCE != 0 && rand.nextFloat() < lifetimeFraction && rand.nextFloat() <= SMOKE_CHANCE) {
-      world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, motionX * 0.5, motionY * 0.5, motionZ * 0.5);
-    }
-
-    // smoke / steam when hitting water.  node is responsible for aging to death
-    if (handleWaterMovement()) {
-      world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, 0, 0, 0);
-    }
-
     float newAABBDiameter = breathNode.getCurrentAABBcollisionSize();
 
     prevPosX = posX;
@@ -126,14 +116,6 @@ public class PoisonBreathFX extends Entity {
     z += actualMotion.z * partialTicksHeadStart;
     PoisonBreathFX newNetherBreathFX = new PoisonBreathFX(world, x, y, z, actualMotion, breathNode);
     return newNetherBreathFX;
-  }
-
-  protected EnumParticleTypes getSmokeParticleID() {
-    if (LAVA_CHANCE != 0 && rand.nextFloat() <= LAVA_CHANCE) {
-      return EnumParticleTypes.LAVA;
-    } else {
-      return EnumParticleTypes.SMOKE_LARGE;
-    }
   }
 
   /** Vanilla moveEntity does a pile of unneeded calculations, and also doesn't handle resize around the centre properly,

@@ -69,13 +69,7 @@ public class ContainerDragonWand extends Container {
 				if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (this.getSlot(0).isItemValid(itemstack1)) {
-				if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-					return ItemStack.EMPTY;
-				}
-			} else if (this.dragonStats.getSizeInventory() <= chestStartIndex || !this.mergeItemStack(itemstack1, chestStartIndex, this.dragonStats.getSizeInventory(), false)) {
-				return ItemStack.EMPTY;
-			}
+			}  
 
 			if (itemstack1.isEmpty()) {
 				slot.putStack(ItemStack.EMPTY);

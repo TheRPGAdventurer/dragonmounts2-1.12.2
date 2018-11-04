@@ -10,6 +10,7 @@ import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.mojang.authlib.GameProfile;
 
@@ -56,35 +57,41 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 	public void doRenderLayer(EntityTameableDragon dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		Minecraft mc = Minecraft.getMinecraft();
 		ItemStack itemstack = dragon.dragonInv.getStackInSlot(31);
-		Item item = itemstack.getItem();
-		TileEntityBanner te = new TileEntityBanner(); 
+		ItemStack itemstack2 = dragon.dragonInv.getStackInSlot(32);
 
     	GlStateManager.pushMatrix();
     	
         if(!itemstack.isEmpty()) {
- 	   //     this.model.body.postRender(scale);
- 	       float f = 0.625F;
- 	       
- 	   //    if(dragon.isSitting()) {
- 	    //	  GlStateManager.translate(1.0F, 0.4, -0.7F);
- 	    //   }
- 	       
-           GlStateManager.translate(1.0F, 0.4 - (dragon.isSitting() ? -0.5 : 0), 0.7F);
+ 	       float f = 0.625F; 	   	       
+ 	       model.body.postRender(0.0625F);
+           GlStateManager.translate(1.0F, 0.4, -0.8F); 
+           GlStateManager.translate(0.0F, 0.0, -2.4F);
+           GlStateManager.translate(0, 0.1, 0);
+     //      GlStateManager.translate(0F, 0.8, 0F); 
+          // GlStateManager.translate(0.0F, -0.3F, -1.9F); 
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-           GlStateManager.scale(1.625F, -0.625F, -0.625F);
-           GlStateManager.rotate(90, 1, 0, 0);
-//           Minecraft.getMinecraft().getItemRenderer().renderItem(entitylivingbaseIn, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);
-       //    mc.getItemRenderer().renderItem(dragon, new ItemStack(Blocks.PUMPKIN, 1), ItemCameraTransforms.TransformType.HEAD);           
+           GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
+           GlStateManager.scale(0.625F, -0.625F, -0.625F);
            mc.getItemRenderer().renderItem(dragon, itemstack, ItemCameraTransforms.TransformType.HEAD);   
 	           	  
-        }  
+        } 
+        
+        GlStateManager.popMatrix(); 
+        
+        GlStateManager.pushMatrix();
+        
+        if (!itemstack2.isEmpty()) {
+        	float f = 0.625F; 	   	       
+  	        model.body.postRender(0.0625F);
+            GlStateManager.translate(-1.0F, 0.4, -0.8F);
+            GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
+            GlStateManager.scale(0.625F, -0.625F, -0.625F);
+            mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD); 
+        }
+        
         GlStateManager.popMatrix(); 	       		
 	}
-	
-    @Nullable
-    private ResourceLocation getBannerResourceLocation(TileEntityBanner bannerObj) {
-        return BannerTextures.BANNER_DESIGNS.getResourceLocation(bannerObj.getPatternResourceLocation(), bannerObj.getPatternList(), bannerObj.getColorList());
-    }
 	
 	@Override
 	public boolean shouldCombineTextures() {

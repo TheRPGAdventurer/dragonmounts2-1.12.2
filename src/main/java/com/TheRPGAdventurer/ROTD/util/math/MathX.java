@@ -97,6 +97,11 @@ public class MathX {
         return a;
     }
     
+    public static float quart(float a) {
+		return a / a;
+    	
+    }
+    
     // normalizes a double radians angle to between +π and -π
     public static double normRad(double a) {
         a %= PI_D * 2;
@@ -205,8 +210,7 @@ public class MathX {
         return centreAngle + clamp(normDeg(targetAngle - centreAngle), -maximumDifference, maximumDifference);
     }
 
-    public static Vec3d multiply(Vec3d source, double multiplier)
-    {
+    public static Vec3d multiply(Vec3d source, double multiplier) {
       return new Vec3d(source.x * multiplier, source.y * multiplier, source.z * multiplier);
     }
 
@@ -217,8 +221,7 @@ public class MathX {
       return Math.abs(x1 - x2) <= MINIMUM_SIGNIFICANT_DIFFERENCE;
     }
 
-  public static boolean isSignificantlyDifferent(double x1, double x2)
-  {
+  public static boolean isSignificantlyDifferent(double x1, double x2) {
     return Math.abs(x1 - x2) > MINIMUM_SIGNIFICANT_DIFFERENCE;
   }
 

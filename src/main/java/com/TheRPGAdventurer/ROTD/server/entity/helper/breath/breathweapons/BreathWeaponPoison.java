@@ -105,7 +105,7 @@ public class BreathWeaponPoison extends BreathWeapon {
 	   }
     
     float hitDensity = currentHitDensity.getHitDensity();
-    final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
+    final float DAMAGE_PER_HIT_DENSITY = 3.5F * hitDensity;
     
     if(entity instanceof EntityTameable) {
     	EntityTameable entityTameable = (EntityTameable) entity;

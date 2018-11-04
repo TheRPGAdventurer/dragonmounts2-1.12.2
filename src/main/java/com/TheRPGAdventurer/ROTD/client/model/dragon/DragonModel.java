@@ -306,8 +306,7 @@ public class DragonModel extends ModelBase {
         }
     }
     
-    private void buildBody() {
-    	
+    private void buildBody() {  	
     	boolean zombie = breed == EnumDragonBreed.ZOMBIE;
         body = new ModelPart(this, "body");
         body.setRotationPoint(0, 4, 8);

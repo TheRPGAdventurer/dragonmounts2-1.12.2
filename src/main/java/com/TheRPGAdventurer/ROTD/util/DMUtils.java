@@ -37,4 +37,23 @@ public class DMUtils {
 	    return random;
 	}
 	
+	/**
+	 * taken from stackoverflow
+	 * @param rnd
+	 * @param min
+	 * @param max
+	 * @param exclude
+	 * @return
+	 */
+	public static int getRandomWithExclusionstatic(Random rnd, int start, int end, int... exclude) {
+	    int random = start + rnd.nextInt(end - start + 1 - exclude.length);
+	    for (int ex : exclude) {
+	        if (random < ex) {
+	            break;
+	        }
+	        random++;
+	    }
+	    return random;
+	}
+	
 }

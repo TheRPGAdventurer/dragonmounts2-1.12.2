@@ -11,19 +11,18 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
+public class DragonBreathMessage extends AbstractMessage<DragonBreathMessage> {
 
 	private int dragonId;
 	public boolean isBreathing;
 	
 
-	public MessageDragonBreath(int dragonId, boolean isBreathing) {
+	public DragonBreathMessage(int dragonId, boolean isBreathing) {
 		this.dragonId = dragonId;
 		this.isBreathing = isBreathing;
 	}
 
-	public MessageDragonBreath() {
-	}
+	public DragonBreathMessage() {}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
@@ -41,12 +40,12 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonBreath message, EntityPlayer player, MessageContext messageContext) {
+	public void onClientReceived(Minecraft client, DragonBreathMessage message, EntityPlayer player, MessageContext messageContext) {
 	
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageDragonBreath message, EntityPlayer player, MessageContext messageContext) {
+	public void onServerReceived(MinecraftServer server, DragonBreathMessage message, EntityPlayer player, MessageContext messageContext) {
 		Entity entity = player.world.getEntityByID(message.dragonId);
 		if (entity instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;

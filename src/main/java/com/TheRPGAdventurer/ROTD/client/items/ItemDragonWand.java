@@ -19,7 +19,7 @@ public class ItemDragonWand extends Item {
 		this.setUnlocalizedName(name);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
 		this.setMaxStackSize(1);
-		this.setCreativeTab(DragonMounts.TAB);
+	//	this.setCreativeTab(DragonMounts.TAB);
 	}
 	
 

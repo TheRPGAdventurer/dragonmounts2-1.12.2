@@ -62,7 +62,7 @@ public class BreathWeaponPoison extends BreathWeapon {
         EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
         entityareaeffectcloud.setOwner(this.dragon);
       //  entityareaeffectcloud.setParticle(EnumParticleTypes.SMOKE_NORMAL); 
-        entityareaeffectcloud.setRadius(1.4F);
+        entityareaeffectcloud.setRadius(1.3F);
         entityareaeffectcloud.setDuration(600);
         entityareaeffectcloud.setRadiusPerTick((1.0F - entityareaeffectcloud.getRadius()) / (float)entityareaeffectcloud.getDuration());
         entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.POISON, poisonDuration));

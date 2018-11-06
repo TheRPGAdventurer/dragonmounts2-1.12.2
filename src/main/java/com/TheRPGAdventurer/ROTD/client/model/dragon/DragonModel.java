@@ -315,8 +315,8 @@ public class DragonModel extends ModelBase {
         body.addBox("scale",  -1,  -6,   30,  2,  6, 12);
         heart        = body.addChildBox("heart", -4, 12, -5, 8, 6, 15);
         back         = body.addChildBox("scale",        -1,  -6,  -10,  2,  6, 12);
-        chestL       = body.addChildBox("chestL",        12, 0, 18, 4, 12, 12);
-        chestR       = body.addChildBox("chestR",       -16, 0, 18, 4, 12, 12);
+        chestL       = body.addChildBox("chestL",        12, 0, 21, 4, 12, 12);
+        chestR       = body.addChildBox("chestR",       -16, 0, 21, 4, 12, 12);
         saddle       = body.addChildBox("saddle",       -7, -2, -15, 15, 3, 20); 
         saddleFront  = body.addChildBox("saddleFront",  -3, -3, -14, 6, 1, 2); 
         saddleBack   = body.addChildBox("saddleBack",   -6, -4, 2, 13, 2, 2); 

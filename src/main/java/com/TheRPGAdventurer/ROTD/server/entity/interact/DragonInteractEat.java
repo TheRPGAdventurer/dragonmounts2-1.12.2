@@ -10,6 +10,7 @@
 package com.TheRPGAdventurer.ROTD.server.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
 import net.minecraft.entity.player.EntityPlayer;

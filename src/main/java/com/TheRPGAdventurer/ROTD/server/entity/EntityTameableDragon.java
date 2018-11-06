@@ -30,7 +30,7 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.client.message.MessageDragonBreath;
+import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
@@ -51,8 +51,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
-import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
@@ -68,10 +68,12 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -92,11 +94,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -128,7 +128,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 0.8;
+	public static final double BASE_AIR_SPEED = 1.0;
 	public static final double BASE_DAMAGE = 4.5D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
@@ -141,7 +141,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public static final double IN_AIR_THRESH = 10;
 
 	protected int ticksSinceLastAttack;
-	public static int ticksShear;
+	public static int ticksShear; 
 
 	// data value IDs
 	private static final DataParameter<Boolean> DATA_FLYING = EntityDataManager
@@ -322,8 +322,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_SHEARED, this.isSheared());
 		nbt.setBoolean(NBT_BREATHING, this.isBreathing());
 		nbt.setBoolean(NBT_ISMALE, this.isMale());
-		nbt.setBoolean(NBT_BANNERED, this.isBannered());
-		nbt.setBoolean(NBT_WANDED, this.isWanded());
+		nbt.setBoolean(NBT_BANNERED, this.isBannered1());
+		nbt.setBoolean(NBT_WANDED, this.isBannered2());
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAducator());
 		nbt.setBoolean("onGround2", this.onGround2);
@@ -344,8 +344,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setBreathing(nbt.getBoolean(NBT_BREATHING));
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
 		this.setMale(nbt.getBoolean(NBT_ISMALE));
-		this.setBannered(nbt.getBoolean(NBT_BANNERED));
-		this.setWanded(nbt.getBoolean(NBT_WANDED));
+		this.setBannered1(nbt.getBoolean(NBT_BANNERED));
+		this.setBannered2(nbt.getBoolean(NBT_WANDED));
 		this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.onGround2 = nbt.getBoolean("onGround2");
@@ -380,12 +380,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		hasChestVarChanged = true;
 	}
 	
-	public boolean isBannered() {
+	public boolean isBannered1() {
 		return dataManager.get(BANNERED);
 	}
 
-	public void setBannered(boolean male) {
-		dataManager.set(BANNERED, male);
+	public void setBannered1(boolean bannered) {
+		dataManager.set(BANNERED, bannered);
 	}
 	
 	public boolean canBeAducator() {
@@ -405,11 +405,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.set(HAS_ELDER_STONE, male);
 	}
 	
-	public boolean isWanded() {
+	public boolean isBannered2() {
 		return dataManager.get(WANDED);
 	}
 
-	public void setWanded(boolean male) {
+	public void setBannered2(boolean male) {
 		dataManager.set(WANDED, male);
 	}
 	
@@ -424,7 +424,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public void setMale(boolean male) {
 		dataManager.set(IS_MALE, male);
 	}
-
+	
+	public boolean getOppositeGender() {
+		if(isMale()) {
+			return false;
+		} else if(!isMale()) {
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * 1 equals iron 2 equals gold 3 equals diamond
 	 * 
@@ -537,7 +545,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		Minecraft mc = Minecraft.getMinecraft();
 		if (hasControllingPlayer(mc.player)) {
 			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing));
 		}
 	}
 
@@ -605,12 +613,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				// tasks need to be updated after switching modes
 				getBrain().updateAITasks();
 				
-				if(isBannered()) {
-					ItemStack banner = new ItemStack(ContainerDragon.banner);
-					TileEntityBanner tilebanner = new TileEntityBanner();
-					world.addTileEntity(tilebanner);
-					tilebanner.setItemValues(banner, false);
-				}
+				
 			}
 		} else {
 			animator.tickingUpdate();
@@ -840,7 +843,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			setAttackTarget(null);
 			setOwnerId(player.getUniqueID());
 			playTameEffect(true);
-			world.setEntityState(this, (byte) 7);
+			world.setEntityState(this, (byte) 7); 
 		} else {
 			playTameEffect(false);
 			world.setEntityState(this, (byte) 6);
@@ -1034,7 +1037,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	@Override
 	public EntityAgeable createChild(EntityAgeable mate) {
-		return getReproductionHelper().createChild(mate);
+        EntityTameableDragon parent1 = this;
+        EntityTameableDragon parent2 = (EntityTameableDragon) mate;
+        EntityTameableDragon baby = new EntityTameableDragon(this.world);
+        
+        if(parent1.isMale() && !parent2.isMale() || !parent1.isMale() && parent2.isMale()) {
+        	
+		   return getReproductionHelper().createChild(mate);
+		   
+        } else {
+        	
+	       return null;
+        }
 	}
 
 	private void addHelper(DragonHelper helper) {
@@ -1492,9 +1506,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 65 == 0 && !isDead) {
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 60 == 0 && !isDead) {
 			Random rand = new Random();
-			this.heal(rand.nextInt(7));
+			int[] exclude = {3};
+			int health = DMUtils.getRandomWithExclusionstatic(rand, 3, 8, exclude);
+			this.heal(health);
 		}
 	}
 
@@ -1662,7 +1678,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private void InitializeDragonInventory() {
 		int numberOfInventoryforChest = 27;
 		DragonInventory dragonInv = this.dragonInv;
-		this.dragonInv = new DragonInventory("dragonInv", 5 + numberOfInventoryforChest + 2, this);
+		this.dragonInv = new DragonInventory("dragonInv", 5 + numberOfInventoryforChest, this);
 		this.dragonInv.setCustomName(this.getName());
 		if (dragonInv != null) {
 			int i = Math.min(dragonInv.getSizeInventory(), this.dragonInv.getSizeInventory());
@@ -1676,8 +1692,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			if (world.isRemote) {
 				ItemStack saddle = dragonInv.getStackInSlot(0);
 				ItemStack chest_left = dragonInv.getStackInSlot(1);
-				ItemStack banner = this.dragonInv.getStackInSlot(2);
-				ItemStack dragon_wand = this.dragonInv.getStackInSlot(3);
+			//	ItemStack banner1 = this.dragonInv.getStackInSlot(31);
+			//	ItemStack banner2 = this.dragonInv.getStackInSlot(32);
 				
 				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,
 						saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
@@ -1689,11 +1705,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 						this.getIntFromArmor(dragonInv.getStackInSlot(2))));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31,
-						banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
+			//	DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31,
+			//			banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty() ? 1 : 0));
 				
-				DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32,
-						dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
+			//	DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32,
+			//			banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty() ? 1 : 0));
 			
 			}
 		}
@@ -1722,8 +1738,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				
 				ItemStack saddle = dragonInv.getStackInSlot(0);
 				ItemStack chest = dragonInv.getStackInSlot(1);
-				ItemStack banner = dragonInv.getStackInSlot(2);
-				ItemStack dragon_wand = dragonInv.getStackInSlot(3);
+			//	ItemStack banner1 = dragonInv.getStackInSlot(31);
+			//	ItemStack banner2 = dragonInv.getStackInSlot(32);
 				
 				if (world.isRemote) {
 					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,
@@ -1736,11 +1752,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 							this.getIntFromArmor(dragonInv.getStackInSlot(2))));
 					
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
-							banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
+				//	DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31,
+				//			banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty() ? 1 : 0));
 					
-					DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 4,
-							dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
+				//	DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32,
+				//			banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty() ? 1 : 0));
 					
 				}
 			}
@@ -1823,12 +1839,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public void refreshInventory() {
 		ItemStack saddle = this.dragonInv.getStackInSlot(0);
 		ItemStack leftChestforInv = this.dragonInv.getStackInSlot(1);
-		ItemStack banner = this.dragonInv.getStackInSlot(2);
-		ItemStack dragon_wand = this.dragonInv.getStackInSlot(3);
+		ItemStack banner1 = this.dragonInv.getStackInSlot(31);
+		ItemStack banner2 = this.dragonInv.getStackInSlot(31);
 		this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
 		this.setChested(leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
-		this.setBannered(banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty());
-		this.setWanded(dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty());
+	//	this.setBannered1(banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty());
+	//	this.setBannered2(banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty());
 		this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));
 		
 		if (this.world.isRemote) {
@@ -1839,10 +1855,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 							&& !leftChestforInv.isEmpty() ? 1 : 0));
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 					this.getIntFromArmor(this.dragonInv.getStackInSlot(2))));
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 3,
-					banner != null && banner.getItem() == Items.BANNER && !banner.isEmpty() ? 1 : 0));
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 4,
-					dragon_wand != null && dragon_wand.getItem() == ModItems.dragon_wand && !dragon_wand.isEmpty() ? 1 : 0));
+	//		DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31,
+	//				banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty() ? 1 : 0));
+	//		DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32,
+	//				banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty() ? 1 : 0));
+			
 		}
 	}
 
@@ -1887,8 +1904,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return false;
 		}
 
-		if (damage >= 45 ) {
-			return damage == 4.0f;
+		if (damage >= 25 ) {
+			return damage == 15.0f;
 		}
 
 		// don't just sit there!

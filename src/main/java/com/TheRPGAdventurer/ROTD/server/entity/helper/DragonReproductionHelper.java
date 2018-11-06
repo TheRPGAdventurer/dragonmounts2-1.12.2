@@ -162,8 +162,7 @@ public class DragonReproductionHelper extends DragonHelper  {
         EntityTameableDragon parent2 = (EntityTameableDragon) mate;
         EntityTameableDragon baby = new EntityTameableDragon(dragon.world);
         
-        if(parent1.isMale() && !parent2.isMale() || !parent1.isMale() && parent2.isMale()) {
-            // mix the custom names in case both parents have one
+        // mix the custom names in case both parents have one
             if (parent1.hasCustomName() && parent2.hasCustomName()) {
                 String p1Name = parent1.getCustomNameTag();
                 String p2Name = parent2.getCustomNameTag();
@@ -211,7 +210,7 @@ public class DragonReproductionHelper extends DragonHelper  {
         parent1.getReproductionHelper().addReproduced();
         parent2.getReproductionHelper().addReproduced();
      
-      }
+      
         return baby;
     }
     

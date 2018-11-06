@@ -67,7 +67,7 @@ public class ContainerDragon extends Container {
 			}
 		});
 		
-		// location of the slot for armor in the dragon inventory (2)
+		// location of the slot for armor in the dragon inventory 
 		this.addSlotToContainer(new Slot(dragonInv, 2, 8, 53) {
 
 			public boolean isItemValid(ItemStack stack) {
@@ -80,37 +80,37 @@ public class ContainerDragon extends Container {
 
 		});
 		
-		// location of the slot for the banner in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
-			public boolean isItemValid(ItemStack stack) {
-				return stack.getItem() == banner && !this.getHasStack();
-			}
+		// location of the slot for the banner1 in the dragon inventory
+	//	this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
+	//		public boolean isItemValid(ItemStack stack) {
+	//			return stack.getItem() == banner && !this.getHasStack();
+	//		}
 
-			@SideOnly(Side.CLIENT)
-			public boolean isEnabled() {
-				return true;
-			}
+	//		@SideOnly(Side.CLIENT)
+	//		public boolean isEnabled() {
+	//			return true;
+	//		}
 			
-			public int getSlotStackLimit() {
-				return 1;
-			}
-		});
+	//		public int getSlotStackLimit() {
+	////			return 1;
+	//		}
+	//	});
 				
-		// location of the slot for the dragon wand in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 32, 153, 36) {
-			public boolean isItemValid(ItemStack stack) {
-				return stack.getItem() == Items.BANNER && !this.getHasStack();
-			}
+		// location of the slot for the dragon banner2 in the dragon inventory
+	//	this.addSlotToContainer(new Slot(dragonInv, 32, 153, 36) {
+	//		public boolean isItemValid(ItemStack stack) {
+	//			return stack.getItem() == Items.BANNER && !this.getHasStack();
+	//		}
 
-			@SideOnly(Side.CLIENT)
-			public boolean isEnabled() {
-				return true;
-			}
-			
-			public int getSlotStackLimit() {
-				return 1;
-			}
-		});
+	//		@SideOnly(Side.CLIENT)
+	//		public boolean isEnabled() {
+	//			return true;
+	//		}
+	//		
+	//		public int getSlotStackLimit() {
+	//			return 1;
+	//		}
+	//	});
 		
 		// location of the dragon's inventory when chested in the dragon inventory 
 		for (int k = 0; k < 3; ++k) {

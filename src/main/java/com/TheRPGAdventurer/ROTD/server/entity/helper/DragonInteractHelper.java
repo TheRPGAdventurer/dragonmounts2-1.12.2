@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteract;
+import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractConversion;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractEat;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractOpenGUI;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractRide;
@@ -39,6 +40,7 @@ public class DragonInteractHelper extends DragonHelper {
         actions.add(new DragonInteractSit(dragon));
         actions.add(new DragonInteractRide(dragon));
         actions.add(new DragonInteractOpenGUI(dragon));
+        actions.add(new DragonInteractConversion(dragon));
     }
     
     public boolean interact(EntityPlayer player, ItemStack item) {

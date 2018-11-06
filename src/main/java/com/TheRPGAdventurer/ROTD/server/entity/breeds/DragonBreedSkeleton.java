@@ -3,6 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;

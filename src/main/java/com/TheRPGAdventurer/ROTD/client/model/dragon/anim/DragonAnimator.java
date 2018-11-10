@@ -30,6 +30,7 @@ public class DragonAnimator {
     
     private final DragonHeadPositionHelper dragonHeadPositionHelper;
     private SegmentSizePositionRotation[] tailSegments;
+    private DragonModel model;
     private SegmentSizePositionRotation tail = new SegmentSizePositionRotation();  //not required?  not sure.
 
     private boolean haveCalculatedAnimations = false;
@@ -45,6 +46,8 @@ public class DragonAnimator {
     private double yawAbs;
     private BlockPos pos;
     
+    public boolean isHovering;
+    
     // timing vars
     private float animBase;
     private float cycleOfs;
@@ -52,7 +55,6 @@ public class DragonAnimator {
     private float ground;
     private float flutter;
     private float walk;
-    private float sprint;
     private float sit;
     private float bite;
     private float breath;
@@ -63,7 +65,6 @@ public class DragonAnimator {
     private TickFloat groundTimer = new TickFloat(1).setLimit(0, 1);
     private TickFloat FlutterTimer = new TickFloat().setLimit(0, 1);
     private TickFloat walkTimer = new TickFloat().setLimit(0, 1);
-    private TickFloat sprintTimer = new TickFloat().setLimit(0, 1);
     private TickFloat sitTimer = new TickFloat().setLimit(0, 1);
     private TickFloat biteTimer = new TickFloat().setLimit(0, 1);
     private TickFloat breathTimer = new TickFloat().setLimit(0, 1);
@@ -196,7 +197,6 @@ public class DragonAnimator {
         ground = groundTimer.get(partialTicks);
         flutter = FlutterTimer.get(partialTicks);
         walk = walkTimer.get(partialTicks);
-        sprint = sprintTimer.get(partialTicks);
         sit = sitTimer.get(partialTicks);
         bite = biteTimer.get(partialTicks);
         breath = breathTimer.get(partialTicks);
@@ -273,11 +273,12 @@ public class DragonAnimator {
         } else {
             groundVal -= 0.1f;
         }
-        groundTimer.set(groundVal);     
+        groundTimer.set(groundVal);
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided 
-        		|| dragon.motionY > -0.1 || speedEnt < speedMax);
+        		|| dragon.motionY > -0.1 || speedEnt < speedMax); // && dragon.getPassengers().size() < 2)
+        isHovering = HoverFlag;
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
         // update walking transition
@@ -338,7 +339,7 @@ public class DragonAnimator {
         }
 
         // TODO: where's yOffset?
-    //    yTrail.update((float) (dragon.posY - dragon.getYOffset()));
+        //yTrail.update(entity.posY - entity.yOffset);
         yTrail.update((float) dragon.posY);
         yawTrail.update((float) yawAbs);
         pitchTrail.update(getBodyPitch());
@@ -576,9 +577,9 @@ public class DragonAnimator {
         return getBodyPitch(partialTicks);
     }
     
-    public float getBodyPitch(float partialTicks) {
+    public float getBodyPitch(float pt) {
         float pitchMovingMax = 90;
-        float pitchMoving = MathX.clamp(yTrail.get(partialTicks, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
+        float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60; 
         return Interpolation.smoothStep(pitchHoverMax, pitchMoving, speed);
     }
@@ -677,10 +678,6 @@ public class DragonAnimator {
     
     public float getLookYaw() {
     	return lookYaw;
-    }
-    
-    public float getLookPitch() {
-    	return lookPitch;
     }
     
 }

@@ -16,7 +16,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -75,8 +74,8 @@ public class DragonBreedWater extends DragonBreed {
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
-		dragon.getBreathHelper().getBreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power);
-		dragon.getBreathHelper().getBreathAffectedAreaHydro().updateTick(world);
+		dragon.getBreathHelper().getbreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power);
+		dragon.getBreathHelper().getbreathAffectedAreaHydro().updateTick(world);
     }
     
 	@Override

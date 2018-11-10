@@ -17,10 +17,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 
 import net.minecraft.command.ServerCommandManager;
-import net.minecraft.init.Biomes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -48,7 +46,7 @@ public class ServerProxy {
     private final boolean ENTITY_SEND_VELO_UPDATES = true;
     
     public SimpleNetworkWrapper getNetwork() {
-        return network;
+        return this.network;
     }
     
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -56,9 +54,7 @@ public class ServerProxy {
     }
     
     
-    public void Initialization(FMLInitializationEvent evt) { 
-    	Biome biomes[] = {Biomes.BEACH, Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_EDGE, Biomes.EXTREME_HILLS_WITH_TREES, Biomes.MUTATED_EXTREME_HILLS, Biomes.MUTATED_EXTREME_HILLS_WITH_TREES, Biomes.STONE_BEACH, Biomes.BEACH, Biomes.ICE_PLAINS, Biomes.MUTATED_ICE_FLATS, Biomes.ICE_MOUNTAINS}; 
-        MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
+    public void Initialization(FMLInitializationEvent evt) {         MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
 //        EntityRegistry.addSpawn(EntityTameableDragon.class, 1, 1, 1, EnumCreatureType.AMBIENT, biomes);
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
     }

@@ -38,14 +38,14 @@ public class DragonBreedZombie extends DragonBreed {
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {     
-        dragon.getBreathHelper().getBreathAffectedAreaPoison().continueBreathing(world, origin, endOfLook, power);
-        dragon.getBreathHelper().getBreathAffectedAreaPoison().updateTick(world);
+        dragon.getBreathHelper().getbreathAffectedAreaPoison().continueBreathing(world, origin, endOfLook, power);
+        dragon.getBreathHelper().getbreathAffectedAreaPoison().updateTick(world);
     }
     
 	@Override
     public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
-        dragon.getBreathHelper().getEmitter().spawnBreathParticlesForPoison(world, power, tickCounter);
+        dragon.getBreathHelper().getEmitter().spawnBreathParticlesforPoison(world, power, tickCounter);
     }
 	
 	@Override

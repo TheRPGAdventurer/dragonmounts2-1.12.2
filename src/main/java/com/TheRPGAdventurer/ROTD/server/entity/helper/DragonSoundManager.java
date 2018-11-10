@@ -1,5 +1,5 @@
 /*
-** 2016 MÃ¤rz 14
+** 2016 März 14
 **
 ** The author disclaims copyright to this source code. In place of
 ** a legal notice, here is a blessing:
@@ -105,8 +105,8 @@ public class DragonSoundManager extends DragonHelper {
         if (!dragon.isInWater()) {
             // play wing sounds
             float pitch = (1 - speed);
-            float volume = 2.5f + (1 + speed) * 1.2f;
-            playSound(getWingsSound(), volume, pitch, false);
+            float volume = 0.3f + (1 - speed) * 0.2f;
+            playSound(getWingsSound(), volume, pitch, true);
         }
     }
     
@@ -115,7 +115,7 @@ public class DragonSoundManager extends DragonHelper {
      */
     public void playStepSound(BlockPos entityPos, Block block) {
         // no sounds for eggs or underwater action
-        if (dragon.isEgg() || dragon.isInWater() || dragon.isOverWater() || dragon.isFlying()) {
+        if (dragon.isEgg() || dragon.isInWater() || dragon.isOverWater()) {
             return;
         }
         

@@ -3,14 +3,13 @@ package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponEmitter;
+import com.TheRPGAdventurer.ROTD.client.render.BreathWeaponEmitter;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponEnder;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponHydro;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponIce;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponNether;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponPoison;
@@ -72,7 +71,6 @@ public class DragonBreathHelper extends DragonHelper {
     breathAffectedArea = new BreathAffectedArea(new BreathWeapon(dragon));
     breathAffectedAreaNether = new BreathAffectedArea(new BreathWeaponNether(dragon));
     breathAffectedAreaIce = new BreathAffectedArea(new BreathWeaponIce(dragon));
-    breathAffectedAreaHydro = new BreathAffectedArea(new BreathWeaponHydro(dragon));
     breathAffectedAreaEnder = new BreathAffectedArea(new BreathWeaponEnder(dragon));
     breathAffectedAreaWither = new BreathAffectedArea(new BreathWeaponWither(dragon));
     breathAffectedAreaPoison = new BreathAffectedArea(new BreathWeaponPoison(dragon));
@@ -125,7 +123,7 @@ public class DragonBreathHelper extends DragonHelper {
               lookDirection.y, 
               lookDirection.z);   
       BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();
-      if (endOfLook != null && currentBreathState == BreathState.SUSTAIN && dragon.getBreed().canUseBreathWeapon()) {
+      if (endOfLook != null && currentBreathState == BreathState.SUSTAIN) {
     	 dragon.getBreed().continueAndUpdateBreathing(dragon.getEntityWorld(), origin, endOfLook, power, dragon);
       }
     }
@@ -205,18 +203,18 @@ public class DragonBreathHelper extends DragonHelper {
       infoToUpdate.relativeVolume = dragon.getScale();
       infoToUpdate.lifeStage = dragon.getLifeStageHelper().getLifeStage();
 
-      boolean isBreathing = false;
+      boolean isUsingBreathweapon = false;
       if (dragon.isUsingBreathWeapon()) {
           Vec3d lookDirection = dragon.getLook(1.0f);
           Vec3d endOfLook = origin.addVector(lookDirection.x,
                   lookDirection.y, 
                   lookDirection.z);
         if (endOfLook != null && currentBreathState == BreathState.SUSTAIN && dragon.getBreed().canUseBreathWeapon()) {
-          isBreathing = true;
+          isUsingBreathweapon = true;
         }
       }
       
-      infoToUpdate.breathingState = isBreathing ? SoundEffectBreathWeapon.WeaponSoundInfo.State.BREATHING
+      infoToUpdate.breathingState = isUsingBreathweapon ? SoundEffectBreathWeapon.WeaponSoundInfo.State.BREATHING
                                                 : SoundEffectBreathWeapon.WeaponSoundInfo.State.IDLE;
       return true;
     }
@@ -242,15 +240,15 @@ public class DragonBreathHelper extends DragonHelper {
 	  return breathAffectedAreaEnder;
   }
   
+  public BreathAffectedArea getbreathAffectedAreaHydro() {
+	  return breathAffectedAreaHydro;
+  }
+  
   public BreathAffectedArea getbreathAffectedAreaWither() {
 	  return breathAffectedAreaWither;
   }
   
-  public BreathAffectedArea getBreathAffectedAreaHydro() {
-	  return breathAffectedAreaHydro;
-  }
-  
-  public BreathAffectedArea getBreathAffectedAreaPoison() {
+  public BreathAffectedArea getbreathAffectedAreaPoison() {
 	  return breathAffectedAreaPoison;
   }
   

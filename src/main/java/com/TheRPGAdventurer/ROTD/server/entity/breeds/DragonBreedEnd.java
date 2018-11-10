@@ -1,11 +1,13 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -61,7 +63,7 @@ public class DragonBreedEnd extends DragonBreed {
     }
 	
 	@Override
-	public ResourceLocation getLootTable() {
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
 		return DragonMountsLootTables.ENTITIES_DRAGON_END;
 	}
 	
@@ -69,6 +71,11 @@ public class DragonBreedEnd extends DragonBreed {
 	public boolean isInfertile() {
 		return true;
 	}
+	
+    @Override
+    public Item getShearDropitem(EntityTameableDragon dragon) {    	
+    	return ModItems.EnderDragonScales;
+    }
     
 }
 	

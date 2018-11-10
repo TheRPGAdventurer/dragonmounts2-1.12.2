@@ -10,10 +10,12 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 
@@ -56,8 +58,13 @@ public class DragonBreedFire extends DragonBreed {
 	}
 	
 	@Override
-	public ResourceLocation getLootTable() {		
-		return DragonMountsLootTables.ENTITIES_DRAGON_FIRE;
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {		
+		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
 	}
+	
+    @Override
+    public Item getShearDropitem(EntityTameableDragon dragon) {    	
+    	return dragon.isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
+    }
 	
 }

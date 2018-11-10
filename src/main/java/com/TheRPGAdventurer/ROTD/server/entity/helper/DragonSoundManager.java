@@ -32,7 +32,7 @@ public class DragonSoundManager extends DragonHelper {
      * Returns the sound this mob makes while it's alive.
      */
     public SoundEvent getLivingSound() {
-        if (dragon.isEgg() || dragon.isBreathing()) { // isFlying
+        if (dragon.isEgg() || dragon.isUsingBreathWeapon()) { // isFlying
             return null;
         } else {
             return dragon.getBreed().getLivingSound();

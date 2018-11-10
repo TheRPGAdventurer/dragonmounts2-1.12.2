@@ -93,20 +93,10 @@ public class RegistryEventHandler {
 	        });
 		}
 		
-		ModTools.initRepairs();
-		ModArmour.initRepairs();
+		ModTools.InitializaRepairs();
+		ModArmour.InitializaRepairs();
 		
     	DMUtils.getLogger().info("Models Sucessfully Registered");
 	}
   }
-	
-    @SubscribeEvent
-    public void missingMapping(RegistryEvent.MissingMappings<Item> event) {
-        for (MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
-            if (entry.key.toString().equals("dragonmounts:ender_dragonscales"))  {
-                ResourceLocation newTotem = new ResourceLocation("dragonmounts:ender_dragonscales1");
-                entry.remap(ForgeRegistries.ITEMS.getValue(newTotem));
-            }
-        }
-    }
 }

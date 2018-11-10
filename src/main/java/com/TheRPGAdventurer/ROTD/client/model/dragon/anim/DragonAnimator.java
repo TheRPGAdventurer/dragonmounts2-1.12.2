@@ -324,7 +324,7 @@ public class DragonAnimator {
 
         // update speed transition
         boolean nearGround = dragon.getAltitude() < dragon.height * 2;
-        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2 || dragon.isBannered1() || dragon.isBannered2();
+        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2;
         float speedValue = 0.05f;
         speedTimer.add(speedFlag ? speedValue : -speedValue);
            
@@ -338,7 +338,7 @@ public class DragonAnimator {
         }
 
         // TODO: where's yOffset?
-        //yTrail.update(entity.posY - entity.yOffset);
+    //    yTrail.update((float) (dragon.posY - dragon.getYOffset()));
         yTrail.update((float) dragon.posY);
         yawTrail.update((float) yawAbs);
         pitchTrail.update(getBodyPitch());

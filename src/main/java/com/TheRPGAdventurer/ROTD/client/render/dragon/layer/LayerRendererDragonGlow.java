@@ -26,6 +26,7 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
             float lookPitch, float scale) {
         renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture() : breedRenderer.getFemaleGlowTexture());
         
+        GlStateManager.pushMatrix();
         GlStateManager.pushAttrib();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL_ONE, GL_ONE);
@@ -38,6 +39,7 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
         
         GlStateManager.disableBlend();
         GlStateManager.popAttrib();
+        GlStateManager.popMatrix();
     }
 
     @Override

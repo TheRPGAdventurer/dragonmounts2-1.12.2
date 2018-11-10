@@ -26,7 +26,7 @@ public class DragonInteractConversion extends DragonInteract {
            if (ItemUtils.consumeEquipped(player, Items.ROTTEN_FLESH) && dragon.isPotionActive(MobEffects.STRENGTH)) {
                 if (!dragon.world.isRemote) {
                      this.startConverting(dragon.getRNG().nextInt(40) == 0);
-                     dragon.playSound(dragon.getSoundManager().getEatSound(), 0.7f, 2.3F);
+                     dragon.playSound(dragon.getSoundManager().getEatSound(), 0.7f, 1.0F);
                      return true;
                }
             }

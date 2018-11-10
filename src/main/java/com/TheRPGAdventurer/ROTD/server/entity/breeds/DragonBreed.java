@@ -21,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -233,7 +234,7 @@ public abstract class DragonBreed {
     	return true;
     }
     
-    public boolean canBreathFire() {
+    public boolean canUseBreathWeapon() {
     	return true;
     }
     
@@ -292,7 +293,7 @@ public abstract class DragonBreed {
     }   
     
     @Nullable
-    public ResourceLocation getLootTable() {
+    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
     	return null;
     }
 
@@ -302,6 +303,19 @@ public abstract class DragonBreed {
 	
 	public boolean isInfertile() {
 		return false;
+	}
+	
+	@Nullable
+	public Item getShearDropitem(EntityTameableDragon dragon) {
+		return null;
+	}
+	
+	public SoundEvent getSneezeSound() {
+		return ModSounds.DRAGON_SNEEZE;
+	}
+	
+	public EnumParticleTypes getSneezeParticle() {
+		return EnumParticleTypes.SMOKE_LARGE;
 	}
 
 }

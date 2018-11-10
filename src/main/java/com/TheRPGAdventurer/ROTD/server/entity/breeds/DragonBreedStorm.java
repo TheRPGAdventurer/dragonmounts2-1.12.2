@@ -3,6 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
@@ -12,6 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -136,9 +138,12 @@ public class DragonBreedStorm extends DragonBreed {
 	}
 	
 	@Override
-	public ResourceLocation getLootTable() {
-		return DragonMountsLootTables.ENTITIES_DRAGON_STORM;
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
+		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_STORM : DragonMountsLootTables.ENTITIES_DRAGON_STORM2;
 	}
 	
-	
+	@Override
+	public Item getShearDropitem(EntityTameableDragon dragon) {		
+		return dragon.isMale() ? ModItems.StormDragonScales : ModItems.StormDragonScales2;
+	}
 }

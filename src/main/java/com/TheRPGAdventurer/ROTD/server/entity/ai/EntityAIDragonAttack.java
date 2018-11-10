@@ -117,10 +117,10 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
         EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
         if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
             this.dragon.setAttackTarget((EntityLivingBase)null);
-            dragon.setBreathing(false);
+            dragon.setUsingBreathWeapon(false);
         }
         this.dragon.getNavigator().clearPathEntity(); 
-        dragon.setBreathing(false);
+        dragon.setUsingBreathWeapon(false);
     }
 
     /**

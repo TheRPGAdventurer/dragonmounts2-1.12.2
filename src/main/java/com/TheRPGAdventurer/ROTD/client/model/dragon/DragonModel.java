@@ -257,7 +257,7 @@ public class DragonModel extends ModelBase {
         tailScaleMiddle = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, 0);
         tailScaleRight = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, -scaleRotZ);
         
-        boolean ice = breed == EnumDragonBreed.ICE || breed == EnumDragonBreed.STORM;
+        boolean ice = breed == EnumDragonBreed.ICE;
         
         tailScaleMiddle.showModel = !ice;
         tailScaleLeft.showModel = ice;
@@ -298,6 +298,7 @@ public class DragonModel extends ModelBase {
         horn.isHidden = true;
         horn.showModel = breed == EnumDragonBreed.NETHER;
         horn.showModel = breed == EnumDragonBreed.SYLPHID;
+        horn.showModel = breed == EnumDragonBreed.STORM;
         
         if (mirror) {
             tailHornLeft = horn;
@@ -306,8 +307,7 @@ public class DragonModel extends ModelBase {
         }
     }
     
-    private void buildBody() {  	
-    	boolean zombie = breed == EnumDragonBreed.ZOMBIE;
+    private void buildBody() {
         body = new ModelPart(this, "body");
         body.setRotationPoint(0, 4, 8);
         body.addBox("body",  -12,   0,  -16, 24, 24, 64);
@@ -374,9 +374,7 @@ public class DragonModel extends ModelBase {
     
     private void buildLeg(boolean hind) {
         // thinner legs for skeletons
-        boolean skeleton = breed == EnumDragonBreed.SKELETON;
-        boolean wither = breed == EnumDragonBreed.WITHER;
-    	
+        
         float baseLength = 26;
         String baseName = hind ? "hind" : "fore";
         
@@ -385,7 +383,7 @@ public class DragonModel extends ModelBase {
         float thighPosY = 18;
         float thighPosZ = 4;
         
-        int thighThick = 9 - (skeleton || wither ? 2 : 0);
+        int thighThick = 9;
         int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
         
         if (hind) {
@@ -726,14 +724,11 @@ public class DragonModel extends ModelBase {
     }
     
     protected void renderBody(float scale) {
-    	//boolean zombie = breed == EnumDragonBreed.ZOMBIE;
-    	//int heartSize = zombie ? + 2 : 0;
-    //	heart.setRenderScale(heartSize);
         body.render(scale);
     }
 
     protected void renderHead(float scale) {
-        float headScale = (float)1.0;
+        float headScale = 1.4f / (size + 0.4f);
         
      // smaller heads for baby dragons unlike other animals
         if (this.isChild) {       	
@@ -753,7 +748,6 @@ public class DragonModel extends ModelBase {
     protected void renderTail(float scale) {
         for (ModelPartProxy proxy : tailProxy) {
             proxy.render(scale);
-            
         }
     }
     

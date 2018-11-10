@@ -6,11 +6,9 @@
     " W "
   ],
   "key": {
-    "W": [
-      {
-        "item": "dragonmounts:nether_dragonscales",
-      }
-    ],
+    "W": {
+        "item": "dragonmounts:nether_dragonscales"
+      },
     "o": {
       "item": "minecraft:iron_ingot"
     }

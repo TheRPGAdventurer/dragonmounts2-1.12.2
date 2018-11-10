@@ -70,6 +70,9 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
+	public static double ThirdPerson1Zoom = 4.6;
+	public static double ThirdPerson2Zoom = 4.6;
+	
 	// dragon
 	public static int GET_TICKS_PER_STAGE = 24000; 
     
@@ -162,6 +165,16 @@ public class DragonMountsConfig {
 		prop.setComment("how long does a dragon grow per stage higher numbers higher time growth)"
 				+ "(Note:VERY VERY DANGEROUS Can cause disappearances of dragons, only edit at the beginning of the world where there are no tameable dragons yet to be sure, Im not even sure if it even works!)");
 		GET_TICKS_PER_STAGE = prop.getInt();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Third Person Zoom BACK", ThirdPerson1Zoom);
+		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
+		ThirdPerson1Zoom = prop.getDouble();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Third Person Zoom FRONT", ThirdPerson2Zoom);
+		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
+		ThirdPerson2Zoom = prop.getDouble();
 		propOrder.add(prop.getName());
         
 		/*

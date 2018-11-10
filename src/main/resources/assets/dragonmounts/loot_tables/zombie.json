@@ -1,0 +1,38 @@
+{
+    "pools": [
+        {   
+		    "name": "zombie",
+            "rolls": {
+			        "min": 1,
+					"max": 2
+			},
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:rotten_flesh",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+							         "min": 26,
+									 "max": 34
+						    }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+		    "name": "xombie_dragon",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "loot_table",
+                    "name": "dragonmounts:entities/dragon",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}

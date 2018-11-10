@@ -19,6 +19,7 @@ public class MessageDragonWand extends AbstractMessage<MessageDragonWand> {
 	public int dragonId;
 	public int slot_index;
 	public int armor_type;
+	public boolean gender;
 
 	public MessageDragonWand(int dragonId, int slot_index, int armor_type) {
 		this.dragonId = dragonId;

@@ -53,6 +53,12 @@
       }
     ]
   },
+    "mob.dragon.sneeze": {
+    "category": "dragon_sneeze",
+    "sounds": [
+      "dragonmounts:mob/dragon/sneeze"
+    ]
+  },
   "mob.dragon.step": {
     "category": "dragon_step",
     "sounds": [
@@ -145,5 +151,18 @@
     "sounds": [
       "dragonmounts:mob/dragon/breathweapon/adultbreatheicestop"
     ]
-  }
+  }  
+  "mob.dragon.hatched": {
+  "category": "dragon_hatched",
+  "sounds": [
+      "dragonmounts:mob/dragon/hatched"
+    ]
+  },
+  "mob.dragon.hatching": {
+  "category": "dragon_hatching",
+  "sounds": [
+    "dragonmounts:mob/dragon/hatching1",
+    "dragonmounts:mob/dragon/hatching2"
+    ]
+  },
 }

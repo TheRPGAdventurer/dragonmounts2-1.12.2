@@ -7,6 +7,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -53,7 +54,12 @@ public class DragonBreedEnchant extends DragonBreed {
 	}
 	
 	@Override
-	public ResourceLocation getLootTable() {
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
 		return DragonMountsLootTables.ENTITIES_DRAGON_ENCHANT;
 	}
+	
+    @Override
+    public Item getShearDropitem(EntityTameableDragon dragon) {    	
+    	return ModItems.EnchantDragonScales;
+    }
 }

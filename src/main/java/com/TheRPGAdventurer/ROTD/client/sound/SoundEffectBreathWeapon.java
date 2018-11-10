@@ -218,7 +218,7 @@ public class SoundEffectBreathWeapon {
   private class BreathWeaponSound extends PositionedSound implements ITickableSound {
     public BreathWeaponSound(ResourceLocation i_resourceLocation, float i_volume, RepeatType i_repeat,
                              ComponentSoundSettings i_soundSettings) {
-      super(i_resourceLocation, SoundCategory.NEUTRAL);
+      super(i_resourceLocation, SoundCategory.HOSTILE);
       repeat = (i_repeat == RepeatType.REPEAT);
       volume = i_volume;
       attenuationType = AttenuationType.NONE;

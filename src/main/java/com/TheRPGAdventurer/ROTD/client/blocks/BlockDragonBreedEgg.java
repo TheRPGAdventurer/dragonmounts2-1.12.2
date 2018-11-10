@@ -44,7 +44,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     public static final PropertyEnum<EnumDragonBreed> BREED = PropertyEnum.create("breed", EnumDragonBreed.class);
     public static BlockDragonBreedEgg DRAGON_BREED_EGG;
     private EntityTameableDragon dragon;
-    public int meta; 
+    public static int meta; 
     
     public BlockDragonBreedEgg() {
         setUnlocalizedName("dragonEgg");

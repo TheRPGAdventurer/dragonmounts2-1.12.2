@@ -19,7 +19,6 @@ public class ContainerDragon extends Container {
 	private final EntityTameableDragon dragon;
 	private final EntityPlayer player;
 	public static final int chestStartIndex = 3;
-	public static Item banner = Items.BANNER;
 
 	public ContainerDragon(final EntityTameableDragon dragon, EntityPlayer player) {
 		this.dragonInv = dragon.dragonInv;
@@ -42,9 +41,6 @@ public class ContainerDragon extends Container {
 				return true;
 			}
 			
-			public int getSlotStackLimit() {
-				return 1;
-			}
 		});
 		
 		// location of the slot for chest in the dragon inventory
@@ -55,10 +51,6 @@ public class ContainerDragon extends Container {
 
 			public void onSlotChanged() {
 				ContainerDragon.this.dragon.refreshInventory();
-			}
-			
-			public int getSlotStackLimit() {
-				return 1;
 			}
 
 			@SideOnly(Side.CLIENT)
@@ -74,43 +66,33 @@ public class ContainerDragon extends Container {
 				return dragon.getIntFromArmor(stack) != 0;
 			}
 
-			public int getSlotStackLimit() {
-				return 1;
-			}
-
 		});
 		
 		// location of the slot for the banner1 in the dragon inventory
-	//	this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
-	//		public boolean isItemValid(ItemStack stack) {
-	//			return stack.getItem() == banner && !this.getHasStack();
-	//		}
+		this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
+			public boolean isItemValid(ItemStack stack) {
+				return stack.getItem() == Items.BANNER && !this.getHasStack();
+			}
 
-	//		@SideOnly(Side.CLIENT)
-	//		public boolean isEnabled() {
-	//			return true;
-	//		}
+			@SideOnly(Side.CLIENT)
+			public boolean isEnabled() {
+				return true;
+			}
 			
-	//		public int getSlotStackLimit() {
-	////			return 1;
-	//		}
-	//	});
+		});
 				
 		// location of the slot for the dragon banner2 in the dragon inventory
-	//	this.addSlotToContainer(new Slot(dragonInv, 32, 153, 36) {
-	//		public boolean isItemValid(ItemStack stack) {
-	//			return stack.getItem() == Items.BANNER && !this.getHasStack();
-	//		}
+		this.addSlotToContainer(new Slot(dragonInv, 32, 153, 36) {
+			public boolean isItemValid(ItemStack stack) {
+				return stack.getItem() == Items.BANNER && !this.getHasStack();
+			}
 
-	//		@SideOnly(Side.CLIENT)
-	//		public boolean isEnabled() {
-	//			return true;
-	//		}
-	//		
-	//		public int getSlotStackLimit() {
-	//			return 1;
-	//		}
-	//	});
+			@SideOnly(Side.CLIENT)
+			public boolean isEnabled() {
+				return true;
+			}
+			
+		});
 		
 		// location of the dragon's inventory when chested in the dragon inventory 
 		for (int k = 0; k < 3; ++k) {
@@ -121,9 +103,6 @@ public class ContainerDragon extends Container {
 						return ContainerDragon.this.dragon.isChested();
 					}
 					
-					public int getSlotStackLimit() {
-						return 1;
-					}
 				});
 			}
 		}

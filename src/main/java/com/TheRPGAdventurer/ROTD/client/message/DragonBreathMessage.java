@@ -50,9 +50,9 @@ public class DragonBreathMessage extends AbstractMessage<DragonBreathMessage> {
 		if (entity instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
 			if (message.isBreathing) {
-				dragon.setBreathing(true);
+				dragon.setUsingBreathWeapon(true);
 			} else {
-				dragon.setBreathing(false);
+				dragon.setUsingBreathWeapon(false);
 			}
 		} 
 	}

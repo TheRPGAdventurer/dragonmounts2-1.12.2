@@ -189,23 +189,23 @@ public class BreathNode {
     power = newPower;
     switch (newPower) {
       case SMALL: {
-        speedPowerFactor = 0.25F;
+        speedPowerFactor = 1.25F;
         lifetimePowerFactor = 0.25F;
-        sizePowerFactor = 0.25F;
+        sizePowerFactor = 1.25F;
         intensityPowerFactor = 0.10F;
         break;
       }
       case MEDIUM: {
-        speedPowerFactor = 0.5F;
+        speedPowerFactor = 1.5F;
         lifetimePowerFactor = 0.5F;
-        sizePowerFactor = 0.5F;
+        sizePowerFactor = 1.13F;
         intensityPowerFactor = 0.25F;
         break;
       }
       case LARGE: {
-        speedPowerFactor = 1.0F;
+        speedPowerFactor = 2.0F;
         lifetimePowerFactor = 1.0F;
-        sizePowerFactor = 1.0F;
+        sizePowerFactor = 1.25F;
         intensityPowerFactor = 1.0F;
         break;
       }

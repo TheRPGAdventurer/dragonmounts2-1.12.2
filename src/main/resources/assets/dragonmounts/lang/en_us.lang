@@ -66,6 +66,16 @@ item.nether_dragonscale_tunic.name=Dragon Tunic
 item.nether_dragonscale_leggings.name=Dragon Leggings
 item.nether_dragonscale_boots.name=Dragon Boots
 
+item.nether2_dragonscales.name=Dragon Scales
+item.nether2_dragon_pickaxe.name=Dragon Pickaxe
+item.nether2_dragon_axe.name=Dragon Axe
+item.nether2_dragon_shovel.name=Dragon Spade
+item.nether2_dragon_sword.name=Dragon Sword
+item.nether2_dragonscale_cap.name=Dragon Cap
+item.nether2_dragonscale_tunic.name=Dragon Tunic
+item.nether2_dragonscale_leggings.name=Dragon Leggings
+item.nether2_dragonscale_boots.name=Dragon Boots
+
 item.forest_dragonscales.name=Dragon Scales
 item.forest_dragon_pickaxe.name=Dragon Pickaxe
 item.forest_dragon_axe.name=Dragon Axe
@@ -87,6 +97,17 @@ item.fire_dragonscale_tunic.name=Dragon Tunic
 item.fire_dragonscale_leggings.name=Dragon Leggings
 item.fire_dragonscale_boots.name=Dragon Boots
 item.fire_dragon_hoe.name=Dragon Hoe
+
+item.fire2_dragonscales.name=Dragon Scales
+item.fire2_dragon_pickaxe.name=Dragon Pickaxe
+item.fire2_dragon_axe.name=Dragon Axe
+item.fire2_dragon_shovel.name=Dragon Spade
+item.fire2_dragon_sword.name=Dragon Sword
+item.fire2_dragonscale_cap.name=Dragon Cap
+item.fire2_dragonscale_tunic.name=Dragon Tunic
+item.fire2_dragonscale_leggings.name=Dragon Leggings
+item.fire2_dragonscale_boots.name=Dragon Boots
+item.fire2_dragon_hoe.name=Dragon Hoe
 
 item.ice_dragonscales.name=Dragon Scales
 item.ice_dragon_pickaxe.name=Dragon Pickaxe
@@ -141,6 +162,28 @@ item.storm_dragonscale_tunic.name=Dragon Tunic
 item.storm_dragonscale_leggings.name=Dragon Leggings
 item.storm_dragon_hoe.name=Dragon Hoe
 item.storm_dragonscale_boots.name=Dragon Boots
+
+item.sunlight2_dragonscales.name=Dragon Scales
+item.sunlight2_dragon_pickaxe.name=Dragon Pickaxe
+item.sunlight2_dragon_axe.name=Dragon Axe
+item.sunlight2_dragon_shovel.name=Dragon Spade
+item.sunlight2_dragon_sword.name=Dragon Sword
+item.sunlight2_dragonscale_cap.name=Dragon Cap
+item.sunlight2_dragonscale_tunic.name=Dragon Tunic
+item.sunlight2_dragonscale_leggings.name=Dragon Leggings
+item.sunlight2_dragon_hoe.name=Dragon Hoe
+item.sunlight2_dragonscale_boots.name=Dragon Boots
+
+item.storm2_dragonscales.name=Dragon Scales
+item.storm2_dragon_pickaxe.name=Dragon Pickaxe
+item.storm2_dragon_axe.name=Dragon Axe
+item.storm2_dragon_shovel.name=Dragon Spade
+item.storm2_dragon_sword.name=Dragon Sword
+item.storm2_dragonscale_cap.name=Dragon Cap
+item.storm2_dragonscale_tunic.name=Dragon Tunic
+item.storm2_dragonscale_leggings.name=Dragon Leggings
+item.storm2_dragon_hoe.name=Dragon Hoe
+item.storm2_dragonscale_boots.name=Dragon Boots
 
 item.enchant_dragonscales.name=Dragon Scales
 item.enchant_dragon_pickaxe.name=Dragon Pickaxe

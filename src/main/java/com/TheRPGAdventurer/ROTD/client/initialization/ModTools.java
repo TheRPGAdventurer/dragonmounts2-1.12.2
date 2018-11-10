@@ -16,17 +16,22 @@ import net.minecraftforge.common.util.EnumHelper;
 public class ModTools {
 	
 	static float damage = 10.0F; static float speed = -2.9F; static float netherDamage = 12.0F; static float netherSpeed = -3.0F; static float enderDamage = 9.0F; static float enderSpeed = -3.3F;
+ 
+	public static final ToolMaterial ForestDragonScaleMaterial          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":forestdragonscales",   4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial FireDragonScaleMaterial            = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales",      4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial FireDragonScaleMaterial2           = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales2",      4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial AetherDragonScaleMaterial          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":aetherdragonscales",   4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial IceDragonScaleMaterial             = EnumHelper.addToolMaterial(DragonMounts.MODID + ":firedragonscales",     4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial WaterDragonScaleMaterial           = EnumHelper.addToolMaterial(DragonMounts.MODID + ":waterdragonscales",    4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial NetherDragonScaleMaterial          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":netherdragonscales",   5, 1870, 8.0F, 5.0F, 11);
+	public static final ToolMaterial NetherDragonScaleMaterial2         = EnumHelper.addToolMaterial(DragonMounts.MODID + ":netherdragonscales2",   5, 1870, 8.0F, 5.0F, 11);
+	public static final ToolMaterial EnderDragonScaleMaterial           = EnumHelper.addToolMaterial(DragonMounts.MODID + ":enderdragonscales",    5, 2000, 8.0F, 5.0F, 11);
+	public static final ToolMaterial EnchantDragonScaleMaterial         = EnumHelper.addToolMaterial(DragonMounts.MODID + ":enchantdragonscales",  4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial StormDragonScaleMaterial           = EnumHelper.addToolMaterial(DragonMounts.MODID + ":stormdragonscales",    4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial SunlightDragonScaleMaterial        = EnumHelper.addToolMaterial(DragonMounts.MODID + ":sunlightdragonscales", 4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial StormDragonScaleMaterial2          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":stormdragonscales2",    4, 1700, 8.0F, 4.0F, 11);
+	public static final ToolMaterial SunlightDragonScaleMaterial2       = EnumHelper.addToolMaterial(DragonMounts.MODID + ":sunlightdragonscales2", 4, 1700, 8.0F, 4.0F, 11);
 
-	public static final ToolMaterial ForestDragonScaleMaterial       = EnumHelper.addToolMaterial(DragonMounts.MODID + ":forestdragonscales",   4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial FireDragonScaleMaterial         = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales",      4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial AetherDragonScaleMaterial       = EnumHelper.addToolMaterial(DragonMounts.MODID + ":aetherdragonscales",   4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial IceDragonScaleMaterial          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":firedragonscales",     4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial WaterDragonScaleMaterial        = EnumHelper.addToolMaterial(DragonMounts.MODID + ":waterdragonscales",    4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial NetherDragonScaleMaterial       = EnumHelper.addToolMaterial(DragonMounts.MODID + ":netherdragonscales",   5, 1870, 8.0F, 5.0F, 11);
-	public static final ToolMaterial EnderDragonScaleMaterial        = EnumHelper.addToolMaterial(DragonMounts.MODID + ":enderdragonscales",    5, 2000, 8.0F, 5.0F, 11);
-	public static final ToolMaterial EnchantDragonScaleMaterial      = EnumHelper.addToolMaterial(DragonMounts.MODID + ":enchantdragonscales",  4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial StormDragonScaleMaterial        = EnumHelper.addToolMaterial(DragonMounts.MODID + ":stormdragonscales",    4, 1700, 8.0F, 4.0F, 11);
-	public static final ToolMaterial SunlightDragonScaleMaterial     = EnumHelper.addToolMaterial(DragonMounts.MODID + ":sunlightdragonscales", 4, 1700, 8.0F, 4.0F, 11);
 	
 	public static ItemDragonSword forestDragonSword = new ItemDragonSword(ForestDragonScaleMaterial, "forest_dragon_sword", EnumItemBreedTypes.FOREST);
 	public static ItemDragonPickAxe forestDragonPickaxe = new ItemDragonPickAxe(ForestDragonScaleMaterial, "forest_dragon_pickaxe", EnumItemBreedTypes.FOREST);
@@ -49,7 +54,13 @@ public class ModTools {
 	public static ItemDragonAxe fireDragonAxe = new ItemDragonAxe(FireDragonScaleMaterial, "fire_dragon_axe", damage, damage, EnumItemBreedTypes.FIRE);
 	public static ItemDragonShovel fireDragonShovel = new ItemDragonShovel(FireDragonScaleMaterial, "fire_dragon_shovel", EnumItemBreedTypes.FIRE);
 	public static ItemDragonHoe fireDragonHoe = new ItemDragonHoe(FireDragonScaleMaterial, "fire_dragon_hoe", EnumItemBreedTypes.FIRE);
-	
+
+	public static ItemDragonSword fireDragonSword2 = new ItemDragonSword(FireDragonScaleMaterial2, "fire2_dragon_sword", EnumItemBreedTypes.FIRE);   
+	public static ItemDragonPickAxe fireDragonPickaxe2 = new ItemDragonPickAxe(FireDragonScaleMaterial2, "fire2_dragon_pickaxe", EnumItemBreedTypes.FIRE);
+	public static ItemDragonAxe fireDragonAxe2 = new ItemDragonAxe(FireDragonScaleMaterial2, "fire2_dragon_axe", damage, damage, EnumItemBreedTypes.FIRE);
+	public static ItemDragonShovel fireDragonShovel2 = new ItemDragonShovel(FireDragonScaleMaterial2, "fire2_dragon_shovel", EnumItemBreedTypes.FIRE);
+	public static ItemDragonHoe fireDragonHoe2 = new ItemDragonHoe(FireDragonScaleMaterial2, "fire2_dragon_hoe", EnumItemBreedTypes.FIRE);
+
     public static ItemDragonSword iceDragonSword = new ItemDragonSword(IceDragonScaleMaterial, "ice_dragon_sword", EnumItemBreedTypes.ICE);
 	public static ItemDragonPickAxe iceDragonPickaxe = new ItemDragonPickAxe(IceDragonScaleMaterial, "ice_dragon_pickaxe", EnumItemBreedTypes.ICE);
 	public static ItemDragonAxe iceDragonAxe = new ItemDragonAxe(IceDragonScaleMaterial, "ice_dragon_axe", damage, damage, EnumItemBreedTypes.ICE);
@@ -61,6 +72,11 @@ public class ModTools {
 	public static ItemDragonAxe netherDragonAxe = new ItemDragonAxe(NetherDragonScaleMaterial, "nether_dragon_axe", netherDamage, netherSpeed, EnumItemBreedTypes.NETHER);
 	public static ItemDragonShovel netherDragonShovel = new ItemDragonShovel(NetherDragonScaleMaterial, "nether_dragon_shovel", EnumItemBreedTypes.NETHER);
 	
+	public static ItemDragonSword netherDragonSword2 = new ItemDragonSword(NetherDragonScaleMaterial2, "nether2_dragon_sword", EnumItemBreedTypes.NETHER);
+	public static ItemDragonPickAxe netherDragonPickaxe2 = new ItemDragonPickAxe(NetherDragonScaleMaterial2, "nether2_dragon_pickaxe", EnumItemBreedTypes.NETHER);
+	public static ItemDragonAxe netherDragonAxe2 = new ItemDragonAxe(NetherDragonScaleMaterial2, "nether2_dragon_axe", netherDamage, netherSpeed, EnumItemBreedTypes.NETHER);
+	public static ItemDragonShovel netherDragonShovel2 = new ItemDragonShovel(NetherDragonScaleMaterial2, "nether2_dragon_shovel", EnumItemBreedTypes.NETHER);
+
     public static ItemDragonSword enderDragonSword = new ItemDragonSword(EnderDragonScaleMaterial, "ender_dragon_sword", EnumItemBreedTypes.END);
     public static ItemDragonPickAxe enderDragonPickaxe = new ItemDragonPickAxe(EnderDragonScaleMaterial, "ender_dragon_pickaxe", EnumItemBreedTypes.END);
 	public static ItemDragonAxe enderDragonAxe = new ItemDragonAxe(EnderDragonScaleMaterial, "ender_dragon_axe", enderDamage, enderSpeed, EnumItemBreedTypes.END);
@@ -83,7 +99,19 @@ public class ModTools {
 	public static ItemDragonAxe sunlightDragonAxe = new ItemDragonAxe(SunlightDragonScaleMaterial, "sunlight_dragon_axe", damage, damage, EnumItemBreedTypes.SUNLIGHT);
 	public static ItemDragonShovel sunlightDragonShovel = new ItemDragonShovel(SunlightDragonScaleMaterial, "sunlight_dragon_shovel", EnumItemBreedTypes.SUNLIGHT);
 	public static ItemDragonHoe sunlightDragonHoe = new ItemDragonHoe(SunlightDragonScaleMaterial, "sunlight_dragon_hoe", EnumItemBreedTypes.SUNLIGHT);
+
+	public static ItemDragonSword stormDragonSword2 = new ItemDragonSword(StormDragonScaleMaterial2, "storm2_dragon_sword", EnumItemBreedTypes.STORM);
+	public static ItemDragonPickAxe stormDragonPickaxe2 = new ItemDragonPickAxe(StormDragonScaleMaterial2, "storm2_dragon_pickaxe", EnumItemBreedTypes.STORM);
+	public static ItemDragonAxe stormDragonAxe2 = new ItemDragonAxe(StormDragonScaleMaterial2, "storm2_dragon_axe", damage, damage, EnumItemBreedTypes.STORM);
+	public static ItemDragonShovel stormDragonShovel2 = new ItemDragonShovel(StormDragonScaleMaterial2, "storm2_dragon_shovel", EnumItemBreedTypes.STORM);
+	public static ItemDragonHoe stormDragonHoe2 = new ItemDragonHoe(StormDragonScaleMaterial2, "storm2_dragon_hoe", EnumItemBreedTypes.STORM);
 	
+	public static ItemDragonSword sunlightDragonSword2 = new ItemDragonSword(SunlightDragonScaleMaterial2, "sunlight2_dragon_sword", EnumItemBreedTypes.SUNLIGHT);
+	public static ItemDragonPickAxe sunlightDragonPickaxe2 = new ItemDragonPickAxe(SunlightDragonScaleMaterial2, "sunlight2_dragon_pickaxe", EnumItemBreedTypes.SUNLIGHT);
+	public static ItemDragonAxe sunlightDragonAxe2 = new ItemDragonAxe(SunlightDragonScaleMaterial2, "sunlight2_dragon_axe", damage, damage, EnumItemBreedTypes.SUNLIGHT);
+	public static ItemDragonShovel sunlightDragonShovel2 = new ItemDragonShovel(SunlightDragonScaleMaterial2, "sunlight2_dragon_shovel", EnumItemBreedTypes.SUNLIGHT);
+	public static ItemDragonHoe sunlightDragonHoe2 = new ItemDragonHoe(SunlightDragonScaleMaterial2, "sunlight2_dragon_hoe", EnumItemBreedTypes.SUNLIGHT);
+
 	
 	public static ItemDiamondShears diamond_shears = new ItemDiamondShears(ToolMaterial.DIAMOND, "diamond_shears");
 	
@@ -99,20 +127,29 @@ public class ModTools {
 		enderDragonSword, enderDragonPickaxe, enderDragonAxe, enderDragonShovel, 
 		netherDragonSword, netherDragonPickaxe, netherDragonAxe, netherDragonShovel, 
 		
+		fireDragonSword2, fireDragonPickaxe2, fireDragonAxe2, fireDragonShovel2,  fireDragonHoe2,
+		stormDragonSword2, stormDragonPickaxe2, stormDragonAxe2, stormDragonShovel2, stormDragonHoe2,
+		sunlightDragonSword2, sunlightDragonPickaxe2, sunlightDragonAxe2, sunlightDragonShovel2, sunlightDragonHoe2,
+		netherDragonSword2, netherDragonPickaxe2, netherDragonAxe2, netherDragonShovel2, 
+		
 		diamond_shears,
 		
 	};
 	
-	public static void initRepairs() {
+	public static void InitializaRepairs() {
 		IceDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.IceDragonScales));
 		AetherDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.AetherDragonScales));
 		ForestDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ForestDragonScales));
 		FireDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.FireDragonScales));
+		FireDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.FireDragonScales2));
 		WaterDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.WaterDragonScales));
 		NetherDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.NetherDragonScales));
+		NetherDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.NetherDragonScales2));
 		EnderDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.EnderDragonScales));
 		SunlightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.SunlightDragonScales));
+		SunlightDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.SunlightDragonScales2));
 		StormDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.StormDragonScales));
+		StormDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.StormDragonScales2));
 		EnchantDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.EnchantDragonScales));
 
 	}

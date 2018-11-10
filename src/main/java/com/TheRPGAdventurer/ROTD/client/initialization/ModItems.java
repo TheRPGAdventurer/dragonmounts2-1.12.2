@@ -16,14 +16,18 @@ public class ModItems {
 	
 	public static final Item ForestDragonScales;
 	public static final Item FireDragonScales;
+	public static final Item FireDragonScales2;
 	public static final Item IceDragonScales;
 	public static final Item WaterDragonScales;
 	public static final Item AetherDragonScales;
 	public static final Item NetherDragonScales;
+	public static final Item NetherDragonScales2;
 	public static final Item EnderDragonScales;
 	public static final Item SunlightDragonScales;
+	public static final Item SunlightDragonScales2;
 	public static final Item EnchantDragonScales;
 	public static final Item StormDragonScales;
+	public static final Item StormDragonScales2;
 	
 	public static final Item SpawnForest;
 	public static final Item SpawnAether;
@@ -64,14 +68,18 @@ public class ModItems {
 	public static final Item[] ITEMS = {
 		ForestDragonScales = new ItemDragonScales("forest_dragonscales", EnumItemBreedTypes.FOREST, 16),
 		FireDragonScales = new ItemDragonScales("fire_dragonscales", EnumItemBreedTypes.FIRE, 16),
+		FireDragonScales2 = new ItemDragonScales("fire2_dragonscales", EnumItemBreedTypes.FIRE, 16),
 		IceDragonScales = new ItemDragonScales("ice_dragonscales", EnumItemBreedTypes.ICE, 16),
 		WaterDragonScales = new ItemDragonScales("water_dragonscales", EnumItemBreedTypes.WATER, 16),
 		AetherDragonScales = new ItemDragonScales("aether_dragonscales", EnumItemBreedTypes.AETHER, 16),
 		NetherDragonScales = new ItemDragonScales("nether_dragonscales", EnumItemBreedTypes.NETHER, 16),
+		NetherDragonScales2 = new ItemDragonScales("nether2_dragonscales", EnumItemBreedTypes.NETHER, 16),
 		EnderDragonScales = new ItemDragonScales("ender_dragonscales", EnumItemBreedTypes.END, 16),
 		SunlightDragonScales = new ItemDragonScales("sunlight_dragonscales", EnumItemBreedTypes.SUNLIGHT, 16),
+		SunlightDragonScales2 = new ItemDragonScales("sunlight2_dragonscales", EnumItemBreedTypes.SUNLIGHT, 16),
 		EnchantDragonScales = new ItemDragonScales("enchant_dragonscales", EnumItemBreedTypes.ENCHANT, 16),
 		StormDragonScales = new ItemDragonScales("storm_dragonscales", EnumItemBreedTypes.STORM, 16),
+		StormDragonScales2 = new ItemDragonScales("storm2_dragonscales", EnumItemBreedTypes.STORM, 16),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
 		SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.TAB),

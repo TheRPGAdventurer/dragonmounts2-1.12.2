@@ -62,7 +62,7 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
         } 
 
         // if we're breathing at a target, look at it
-        if (dragon.isBreathing() && dragon.getBreed().canBreathFire()) {
+        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
         	Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = rider.getLook(1.0F);
             Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);

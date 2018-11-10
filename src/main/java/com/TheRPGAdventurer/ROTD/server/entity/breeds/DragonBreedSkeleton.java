@@ -65,11 +65,11 @@ public class DragonBreedSkeleton extends DragonBreed {
         }
     }
     
-	@Override
-	public boolean canChangeBreed() {return false;}
+//	@Override
+//	public boolean canChangeBreed() {return false;}
 	
 	@Override
-	public boolean canBreathFire() {
+	public boolean canUseBreathWeapon() {
 		return false;
 	}
 	
@@ -86,7 +86,7 @@ public class DragonBreedSkeleton extends DragonBreed {
 //   }
 	
 	@Override
-	public ResourceLocation getLootTable() {
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
 		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
 	}
     
@@ -94,5 +94,11 @@ public class DragonBreedSkeleton extends DragonBreed {
 	public boolean isInfertile() {
 		return true;
 	}
+	
+	@Override
+	public SoundEvent getSneezeSound() {
+		return null;
+	}
+
 }
 	

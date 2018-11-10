@@ -48,7 +48,6 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     private final ResourceLocation eggTexture;
     private final ResourceLocation dissolveTexture;
     private final ResourceLocation chestTexture;
- //   private final ResourceLocation genderTexture;
 //    private final ResourceLocation armorTexture;
 
     public DefaultDragonBreedRenderer(DragonRenderer parent, EnumDragonBreed breed) {
@@ -135,11 +134,6 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
 	@Override
 	public ResourceLocation getChestTexture() {
 		return chestTexture;
-	}
-	
-	@Override
-	public ResourceLocation getGenderTexture() {
-		return null;
 	}
 
 	@Override

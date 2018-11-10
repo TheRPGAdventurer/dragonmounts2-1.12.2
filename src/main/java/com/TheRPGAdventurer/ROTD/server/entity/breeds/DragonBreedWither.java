@@ -8,10 +8,12 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 
 public class DragonBreedWither extends DragonBreed {
@@ -64,14 +66,31 @@ public class DragonBreedWither extends DragonBreed {
     }
 	
 	@Override
-	public ResourceLocation getLootTable() {
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
 		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
+	}
+	
+	@Override
+	public void onLivingUpdate(EntityTameableDragon dragon) {
+		World world = dragon.world;
+		if(dragon.isUsingBreathWeapon()) {
+			if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
+				((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) dragon.posX,
+						(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+			}
+		}
 	}
 	
 	@Override
 	public boolean isInfertile() {
 		return true;
 	}
+	
+	@Override
+	public SoundEvent getSneezeSound() {
+		return null;
+	}
+
     
 }
 	

@@ -62,8 +62,7 @@ public enum EnumDragonLifeStage {
     
     EnumDragonLifeStage(float scale) {
         this.scale = scale;
-    }
-    
+    }    
     public int startTicks() {
         return ordinal() * TICKS_PER_STAGE;
     }

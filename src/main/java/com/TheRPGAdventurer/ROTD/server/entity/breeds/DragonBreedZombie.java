@@ -49,8 +49,8 @@ public class DragonBreedZombie extends DragonBreed {
     }
 	
 	@Override
-	public ResourceLocation getLootTable() {
-		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
+		return DragonMountsLootTables.ENTITIES_DRAGON_ZOMBIE;
 	}
 	
 	@Override
@@ -66,6 +66,16 @@ public class DragonBreedZombie extends DragonBreed {
 	@Override
 	public boolean isInfertile() {
 		return true;
+	}
+	
+	@Override
+	public SoundEvent getSneezeSound() {
+		return null;
+	}
+	
+	@Override
+	public boolean canChangeBreed() {
+		return false;
 	}
 
 }

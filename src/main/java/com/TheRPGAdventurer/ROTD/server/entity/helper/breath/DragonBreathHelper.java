@@ -71,6 +71,7 @@ public class DragonBreathHelper extends DragonHelper {
     breathAffectedArea = new BreathAffectedArea(new BreathWeapon(dragon));
     breathAffectedAreaNether = new BreathAffectedArea(new BreathWeaponNether(dragon));
     breathAffectedAreaIce = new BreathAffectedArea(new BreathWeaponIce(dragon));
+    breathAffectedAreaHydro = new BreathAffectedArea(new BreathWeapon(dragon));
     breathAffectedAreaEnder = new BreathAffectedArea(new BreathWeaponEnder(dragon));
     breathAffectedAreaWither = new BreathAffectedArea(new BreathWeaponWither(dragon));
     breathAffectedAreaPoison = new BreathAffectedArea(new BreathWeaponPoison(dragon));

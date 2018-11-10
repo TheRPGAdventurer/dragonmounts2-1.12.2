@@ -14,7 +14,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -37,9 +36,8 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
     
     @Override
     public boolean shouldExecute() {   
-        rider = dragon.getControllingPlayer(); 
+        rider = dragon.getControllingPlayer();
         return rider != null;
-        
     }
 
     @Override
@@ -94,7 +92,7 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
             }
         } 
         
-        dragon.getMoveHelper().setMoveTo(x,y,z,1);
+        dragon.getMoveHelper().setMoveTo(x,y,z,1.2);
     }
     
 }

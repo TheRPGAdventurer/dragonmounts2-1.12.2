@@ -64,12 +64,12 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         if(dragon.isBannered1()) {
  	       float f = 0.625F; 	   	       
  	       model.body.postRender(0.0625F);
-           GlStateManager.translate(1.0F, 0.4, -0.5F); 
-           GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.8F, 0.0F, dragon.getAnimator().getSpeed()));
+           GlStateManager.translate(1.0F, 0.4F, -0.5F); 
+           GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.7F, 0.0F, dragon.getAnimator().getSpeed()));
            GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
            GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
-           GlStateManager.scale(0.625F, -0.625F, -0.625F);
+           GlStateManager.scale(0.825F, -0.625F, -0.625F);
            mc.getItemRenderer().renderItem(dragon, itemstack, ItemCameraTransforms.TransformType.HEAD);   
 	           	  
         } 
@@ -82,11 +82,11 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         	float f = 0.625F; 	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(-1.0F, 0.4, -0.5F);
-            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.8F, 0.0F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.7F, 0.0F, dragon.getAnimator().getSpeed()));
             GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
-            GlStateManager.scale(0.625F, -0.625F, -0.625F);
+            GlStateManager.scale(0.825F, -0.625F, -0.625F);
             mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD); 
         }
         

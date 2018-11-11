@@ -776,7 +776,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	public void ACHOOOOO() {
 		Random rand = new Random();
-		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(18) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg()) {
+		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(18) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
 			double throatPosX = (this.getAnimator().getThroatPosition().x);
 			double throatPosY =  (this.getAnimator().getThroatPosition().z);
 			double throatPosZ =  (this.getAnimator().getThroatPosition().y + 1.7);

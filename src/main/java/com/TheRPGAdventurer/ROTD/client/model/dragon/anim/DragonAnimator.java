@@ -72,9 +72,9 @@ public class DragonAnimator {
     
     // trails
     private boolean initTrails = true;
-    private CircularBuffer yTrail = new CircularBuffer(8);
-    private CircularBuffer yawTrail = new CircularBuffer(16);
-    private CircularBuffer pitchTrail = new CircularBuffer(16);
+    public CircularBuffer yTrail = new CircularBuffer(8);
+    public CircularBuffer yawTrail = new CircularBuffer(16);
+    public CircularBuffer pitchTrail = new CircularBuffer(16);
     
     // model flags
     private boolean onGround;
@@ -581,7 +581,7 @@ public class DragonAnimator {
         float pitchMovingMax = 90;
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60; 
-        return Interpolation.smoothStep(pitchHoverMax, pitchMoving, speed);
+        return Interpolation.smoothStep(pitchHoverMax, 0, speed);
     }
     
     public float getModelOffsetX() {

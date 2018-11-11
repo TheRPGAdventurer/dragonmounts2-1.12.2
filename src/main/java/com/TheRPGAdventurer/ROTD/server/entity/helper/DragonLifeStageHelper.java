@@ -24,12 +24,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.server.util.ClientServerSynchronisedTickCount;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -39,6 +43,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 
 /**
  *
@@ -102,7 +108,20 @@ public class DragonLifeStageHelper extends DragonHelper {
      * Generates some egg shell particles and a breaking sound.
      */
     public void playEggCrackEffect() {
-        dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
+     //   dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
+    	  this.playEvent(dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
+    	
+    }
+    
+    public void playEvent(BlockPos blockPosIn, int data) {
+        Block block = Block.getBlockById(data & 4095);
+
+        if (block.getDefaultState().getMaterial() != Material.AIR) {
+            SoundType soundtype = block.getSoundType(Block.getStateById(data), dragon.world, blockPosIn, null);
+            dragon.world.playSound(null, blockPosIn, ModSounds.DRAGON_HATCHING, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+        }
+
+        Minecraft.getMinecraft().effectRenderer.addBlockDestroyEffects(blockPosIn, block.getStateFromMeta(data >> 12 & 255));
     }
     
     public int getEggWiggleX() {
@@ -212,7 +231,7 @@ public class DragonLifeStageHelper extends DragonHelper {
             // play particle and sound effects when the dragon hatches
             if (prevLifeStage != null && prevLifeStage == EGG && lifeStage == HATCHLING) {
                 playEggCrackEffect();
-                dragon.playSound(SoundEvents.ENTITY_ZOMBIE_BREAK_DOOR_WOOD, 1, 1);
+                dragon.playSound(ModSounds.DRAGON_HATCHED, 5, 5);
             }
         } else {
             // update AI

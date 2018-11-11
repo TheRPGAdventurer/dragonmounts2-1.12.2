@@ -6,6 +6,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -69,7 +70,7 @@ public class DragonBreedZombie extends DragonBreed {
 	}
 	
 	@Override
-	public SoundEvent getSneezeSound() {
+	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
 	

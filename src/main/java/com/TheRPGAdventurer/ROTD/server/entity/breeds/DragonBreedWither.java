@@ -87,7 +87,7 @@ public class DragonBreedWither extends DragonBreed {
 	}
 	
 	@Override
-	public SoundEvent getSneezeSound() {
+	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
 

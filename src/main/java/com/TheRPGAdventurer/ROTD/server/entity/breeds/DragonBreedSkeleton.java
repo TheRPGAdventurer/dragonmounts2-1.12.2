@@ -7,6 +7,7 @@ import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -96,7 +97,7 @@ public class DragonBreedSkeleton extends DragonBreed {
 	}
 	
 	@Override
-	public SoundEvent getSneezeSound() {
+	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
 

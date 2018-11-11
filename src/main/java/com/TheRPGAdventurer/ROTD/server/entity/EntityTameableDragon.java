@@ -125,7 +125,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 1.0;
+	public static final double BASE_AIR_SPEED = 1.2;
 	public static final double BASE_DAMAGE = 4.5D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
@@ -775,14 +775,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 	
 	public void ACHOOOOO() {
-		if(this.getBreed().getSneezeParticle() != null && this.getBreed().getSneezeSound() != null && getRNG().nextInt(777) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg()) {
-			double throatposX = (this.getAnimator().getThroatPosition().x);
-			double throatposZ =  (this.getAnimator().getThroatPosition().z);
-			double throatposY =  (this.getAnimator().getThroatPosition().y + 1.3);
-			world.playSound(null, getPosition(), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, (float) 0.8 * getScale(), (float) 1.1);
-			world.spawnParticle(this.getBreed().getSneezeParticle(), throatposX, throatposY, throatposZ, 0, 0, 0);
-			
+		Random rand = new Random();
+		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(18) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg()) {
+			double throatPosX = (this.getAnimator().getThroatPosition().x);
+			double throatPosY =  (this.getAnimator().getThroatPosition().z);
+			double throatPosZ =  (this.getAnimator().getThroatPosition().y + 1.7);
+			playSneezeEffect(throatPosX, throatPosY, throatPosZ);
 		}
+	}
+	
+	public void playSneezeEffect(double throatPosX, double throatPosY, double throatPosZ) {
+		world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0, 0);
+		world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);			
+	
 	}
 
 	/**

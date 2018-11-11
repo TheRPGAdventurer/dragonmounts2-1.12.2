@@ -22,6 +22,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -140,7 +141,7 @@ public class DragonBreedWater extends DragonBreed {
 	}
 	
 	@Override
-	public SoundEvent getSneezeSound() {
+	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
 

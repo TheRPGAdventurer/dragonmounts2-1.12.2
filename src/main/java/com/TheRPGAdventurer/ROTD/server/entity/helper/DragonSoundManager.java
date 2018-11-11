@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
+import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.block.Block;
@@ -44,7 +45,7 @@ public class DragonSoundManager extends DragonHelper {
      */
     public SoundEvent getHurtSound() {
         if (dragon.isEgg()) {
-            return SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD;
+            return ModSounds.DRAGON_HATCHING;
         } else {
             return dragon.getBreed().getHurtSound();
         }
@@ -55,7 +56,7 @@ public class DragonSoundManager extends DragonHelper {
      */
     public SoundEvent getDeathSound() {
         if (dragon.isEgg()) {
-            return SoundEvents.ENTITY_ZOMBIE_BREAK_DOOR_WOOD;
+            return ModSounds.DRAGON_HATCHED;
         } else {
             return dragon.getBreed().getDeathSound();
         }

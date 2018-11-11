@@ -10,6 +10,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponEnder;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponHydro;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponIce;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponNether;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponPoison;
@@ -71,7 +72,7 @@ public class DragonBreathHelper extends DragonHelper {
     breathAffectedArea = new BreathAffectedArea(new BreathWeapon(dragon));
     breathAffectedAreaNether = new BreathAffectedArea(new BreathWeaponNether(dragon));
     breathAffectedAreaIce = new BreathAffectedArea(new BreathWeaponIce(dragon));
-    breathAffectedAreaHydro = new BreathAffectedArea(new BreathWeapon(dragon));
+    breathAffectedAreaHydro = new BreathAffectedArea(new BreathWeaponHydro(dragon));
     breathAffectedAreaEnder = new BreathAffectedArea(new BreathWeaponEnder(dragon));
     breathAffectedAreaWither = new BreathAffectedArea(new BreathWeaponWither(dragon));
     breathAffectedAreaPoison = new BreathAffectedArea(new BreathWeaponPoison(dragon));

@@ -296,9 +296,8 @@ public class DragonModel extends ModelBase {
         horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
         horn.setAngles(hornRotX, hornRotY, hornRotZ);
         horn.isHidden = true;
-        horn.showModel = breed == EnumDragonBreed.NETHER;
-        horn.showModel = breed == EnumDragonBreed.SYLPHID;
-        horn.showModel = breed == EnumDragonBreed.STORM;
+        boolean showSpike = breed == EnumDragonBreed.NETHER || breed ==EnumDragonBreed.SYLPHID || breed == EnumDragonBreed.STORM;
+        horn.showModel = showSpike;
         
         if (mirror) {
             tailHornLeft = horn;

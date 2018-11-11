@@ -162,7 +162,8 @@
   "category": "dragon_hatching",
   "sounds": [
     "dragonmounts:mob/dragon/hatching1",
-    "dragonmounts:mob/dragon/hatching2"
+    "dragonmounts:mob/dragon/hatching2",
+	"dragonmounts:mob/dragon/hatching3"
     ]
   }
 }

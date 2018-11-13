@@ -69,7 +69,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
            GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
            GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
-           GlStateManager.scale(0.825F, -0.625F, -0.625F);
+           GlStateManager.scale(0.725F, -0.625F, -0.625F);
            mc.getItemRenderer().renderItem(dragon, itemstack, ItemCameraTransforms.TransformType.HEAD);   
 	           	  
         } 
@@ -86,7 +86,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
-            GlStateManager.scale(0.825F, -0.625F, -0.625F);
+            GlStateManager.scale(0.725F, -0.625F, -0.625F);
             mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD); 
         }
         

@@ -125,8 +125,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 1.2;
-	public static final double BASE_DAMAGE = 4.5D; 
+	public static final double BASE_AIR_SPEED = 1.4;
+	public static final double BASE_DAMAGE = 5.0D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
@@ -422,13 +422,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.set(IS_MALE, male);
 	}
 	
-	public boolean getOppositeGender() {
+	public void setOppositeGender() {
 		if(isMale()) {
-			return false;
+			this.setMale(false);
 		} else if(!isMale()) {
-			return true;
-		}
-		return false;
+			this.setMale(true);
+		}		
 	}
 	/**
 	 * 1 equals iron 2 equals gold 3 equals diamond

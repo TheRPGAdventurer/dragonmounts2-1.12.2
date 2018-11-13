@@ -24,13 +24,7 @@ public class CommandDragonGender extends CommandBase implements IDragonModifier 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(sender instanceof EntityPlayerMP) {
-			World world = sender.getEntityWorld();
-			EntityTameableDragon dragon = new EntityTameableDragon(world);
-			if(dragon.isMale()) {
-				applyModifier(server, sender, dragon1 -> dragon.setMale(false));
-			} else if(!dragon.isMale()) {
-				applyModifier(server, sender, dragon1 -> dragon.setMale(true));
-			}
+			applyModifier(server, sender, dragon -> dragon.setOppositeGender());
 		}
 	}
 }

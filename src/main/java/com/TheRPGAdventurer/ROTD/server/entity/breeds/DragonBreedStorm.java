@@ -26,7 +26,7 @@ import net.minecraft.world.WorldServer;
 public class DragonBreedStorm extends DragonBreed {
 
 	DragonBreedStorm() {
-		super("storm", 0xffffff);
+		super("storm", 0xf5f1e9);
 
 	}
 

@@ -114,6 +114,7 @@ public class ContainerDragon extends Container {
 		
 		int j1;
 		int k;
+		
 		// location of the player's inventory in the dragon inventory 
 		for (j = 0; j < 3; ++j) {
 			for (k = 0; k < 9; ++k) {
@@ -124,6 +125,7 @@ public class ContainerDragon extends Container {
 		for (j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 208 + i));
 		}
+		
 	}
 
 	public boolean canInteractWith(EntityPlayer playerIn) {

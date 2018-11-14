@@ -7,13 +7,13 @@
   ],
   "key": {
     "W": {
-        "item": "dragonmounts:ender_dragonscales"
+        "item": "dragonmounts:sunlight2_dragonscales"
       },
     "o": {
       "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "dragonmounts:dragon_shield_end"
+    "item": "dragonmounts:dragon_shield_sunlight2"
   }
 }

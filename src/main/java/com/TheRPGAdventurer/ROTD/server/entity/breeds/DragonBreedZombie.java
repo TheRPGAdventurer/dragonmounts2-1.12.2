@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class DragonBreedZombie extends DragonBreed {
 
 	DragonBreedZombie() {
-		super("zombie", 0X474100);
+		super("zombie", 0X5e5602);
 		addImmunity(DamageSource.MAGIC);
 	}
 

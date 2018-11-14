@@ -1661,7 +1661,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private void InitializeDragonInventory() {
 		int numberOfInventoryforChest = 27;
 		DragonInventory dragonInv = this.dragonInv;
-		this.dragonInv = new DragonInventory("dragonInv", 6 + numberOfInventoryforChest, this);
+		this.dragonInv = new DragonInventory("dragonInv", 6 + numberOfInventoryforChest + 4, this);
 		this.dragonInv.setCustomName(this.getName());
 		if (dragonInv != null) {
 			int i = Math.min(dragonInv.getSizeInventory(), this.dragonInv.getSizeInventory());

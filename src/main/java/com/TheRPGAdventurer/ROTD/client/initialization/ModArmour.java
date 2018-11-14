@@ -167,10 +167,10 @@ public class ModArmour {
 		sunlightDragonScaleLeggings = new ItemDragonArmour(SunlightDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "sunlight_dragonscale_leggings", EnumItemBreedTypes.SUNLIGHT),
 		sunlightDragonScaleBoots = new ItemDragonArmour(SunlightDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "sunlight_dragonscale_boots", EnumItemBreedTypes.SUNLIGHT),
 
-		sunlightDragonScaleCap2 = new ItemDragonArmour(SunlightDragonScaleMaterial2, 1, EntityEquipmentSlot.HEAD, "sunlight2_dragonscale_cap", EnumItemBreedTypes.SUNLIGHT),
-		sunlightDragonScaleTunic2 = new ItemDragonArmour(SunlightDragonScaleMaterial2,  1, EntityEquipmentSlot.CHEST, "sunlight2_dragonscale_tunic", EnumItemBreedTypes.SUNLIGHT),
-		sunlightDragonScaleLeggings2 = new ItemDragonArmour(SunlightDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "sunlight2_dragonscale_leggings", EnumItemBreedTypes.SUNLIGHT),			
-		sunlightDragonScaleBoots2 = new ItemDragonArmour(SunlightDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "sunlight2_dragonscale_boots", EnumItemBreedTypes.SUNLIGHT),
+		sunlightDragonScaleCap2 = new ItemDragonArmour(SunlightDragonScaleMaterial2, 1, EntityEquipmentSlot.HEAD, "sunlight2_dragonscale_cap", EnumItemBreedTypes.SUNLIGHT2),
+		sunlightDragonScaleTunic2 = new ItemDragonArmour(SunlightDragonScaleMaterial2,  1, EntityEquipmentSlot.CHEST, "sunlight2_dragonscale_tunic", EnumItemBreedTypes.SUNLIGHT2),
+		sunlightDragonScaleLeggings2 = new ItemDragonArmour(SunlightDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "sunlight2_dragonscale_leggings", EnumItemBreedTypes.SUNLIGHT2),			
+		sunlightDragonScaleBoots2 = new ItemDragonArmour(SunlightDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "sunlight2_dragonscale_boots", EnumItemBreedTypes.SUNLIGHT2),
 
 		stormDragonScaleCap = new ItemDragonArmour(StormDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "storm_dragonscale_cap", EnumItemBreedTypes.STORM),
 		stormDragonScaleTunic = new ItemDragonArmour(StormDragonScaleMaterial,  1, EntityEquipmentSlot.CHEST, "storm_dragonscale_tunic", EnumItemBreedTypes.STORM),

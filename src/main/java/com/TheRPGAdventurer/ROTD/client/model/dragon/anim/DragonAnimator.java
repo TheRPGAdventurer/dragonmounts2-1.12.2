@@ -277,7 +277,7 @@ public class DragonAnimator {
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided 
-        		|| dragon.motionY > -0.1 || speedEnt < speedMax); // && dragon.getPassengers().size() < 2)
+        		|| dragon.motionY > -0.1 || speedEnt < speedMax); 
         isHovering = HoverFlag;
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
@@ -581,7 +581,8 @@ public class DragonAnimator {
         float pitchMovingMax = 90;
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60; 
-        return Interpolation.smoothStep(pitchHoverMax, 0, speed);
+        boolean dontAlterPitch = dragon.isBannered1() || dragon.isBannered2() || dragon.getPassengers().size() >= 2;
+        return Interpolation.smoothStep(pitchHoverMax, dontAlterPitch ? 0 : pitchMoving, speed);
     }
     
     public float getModelOffsetX() {

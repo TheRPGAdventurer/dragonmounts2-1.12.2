@@ -81,7 +81,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         if (dragon.isBannered2()) {
         	float f = 0.625F; 	   	       
   	        model.body.postRender(0.0625F);
-            GlStateManager.translate(-1.0F, 0.4, -0.5F);
+            GlStateManager.translate(-1.0F, 0.4, -0.5F); 
             GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
             GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);

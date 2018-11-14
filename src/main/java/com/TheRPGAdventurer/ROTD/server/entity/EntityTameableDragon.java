@@ -56,6 +56,7 @@ import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
@@ -125,7 +126,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 1.4;
+	public static final double BASE_AIR_SPEED = 1.0;
 	public static final double BASE_DAMAGE = 5.0D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
@@ -775,11 +776,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	public void ACHOOOOO() {
 		Random rand = new Random();
-		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(18) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
+		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(550) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
 			double throatPosX = (this.getAnimator().getThroatPosition().x);
 			double throatPosY =  (this.getAnimator().getThroatPosition().z);
 			double throatPosZ =  (this.getAnimator().getThroatPosition().y + 1.7);
-			playSneezeEffect(throatPosX, throatPosY, throatPosZ);
+			world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0, 0);
+			world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);			
 		}
 	}
 	
@@ -1768,7 +1770,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	public void InitializeDragonStats() {
 		DragonInventory dragonStats = this.dragonStats;
-		this.dragonStats = new DragonInventory("dragonStats", 6, this);
+		this.dragonStats = new DragonInventory("dragonStats", 27 + 6, this);
 		if(world.isRemote) {
 			
 		}
@@ -1822,8 +1824,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		ItemStack leftChestforInv = this.dragonInv.getStackInSlot(1);
 		ItemStack banner1 = this.dragonInv.getStackInSlot(31);
 		ItemStack banner2 = this.dragonInv.getStackInSlot(32);
-		this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
-		this.setChested(leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
+		this.setSaddled  (saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
+		this.setChested  (leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
 		this.setBannered1(banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty());
 		this.setBannered2(banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty());
 		this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));

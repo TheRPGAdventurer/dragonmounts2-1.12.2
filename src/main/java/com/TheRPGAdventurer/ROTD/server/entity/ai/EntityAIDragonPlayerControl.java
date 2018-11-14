@@ -14,6 +14,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -24,12 +26,12 @@ import net.minecraft.util.math.Vec3d;
  *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAccessor {
+public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements PrivateAccessor {
 
     protected EntityPlayer rider;
     private Vec3d inates;
 
-    public EntityAIDragonRide(EntityTameableDragon dragon) {
+    public EntityAIDragonPlayerControl(EntityTameableDragon dragon) {
         super(dragon);
         setMutexBits(0xffffffff);
     }
@@ -60,12 +62,15 @@ public class EntityAIDragonRide extends EntityAIDragonBase implements PrivateAcc
         } 
 
         // if we're breathing at a target, look at it
-        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() && dragon.getAnimator().getSpeed() > 0) {
-        	Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
-            Vec3d lookDirection = rider.getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
-            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 
+        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        if(dragon.hasControllingPlayer(player)) {
+           if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() && dragon.getAnimator().getSpeed() > 0) {
+               Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+               Vec3d lookDirection = player.getLook(1.0F);
+               Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+               dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 
             		dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+           }
         }
         
                 

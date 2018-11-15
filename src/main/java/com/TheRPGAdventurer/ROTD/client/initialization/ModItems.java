@@ -28,6 +28,7 @@ public class ModItems {
 	public static final Item EnchantDragonScales;
 	public static final Item StormDragonScales;
 	public static final Item StormDragonScales2;
+	public static final Item ZombieDragonScales;
 	
 	public static final Item SpawnForest;
 	public static final Item SpawnAether;
@@ -81,6 +82,7 @@ public class ModItems {
 		EnchantDragonScales = new ItemDragonScales("enchant_dragonscales", EnumItemBreedTypes.ENCHANT, 16),
 		StormDragonScales = new ItemDragonScales("storm_dragonscales", EnumItemBreedTypes.STORM, 16),
 		StormDragonScales2 = new ItemDragonScales("storm2_dragonscales", EnumItemBreedTypes.STORM, 16),
+		ZombieDragonScales = new ItemDragonScales("zombie_dragonscales", EnumItemBreedTypes.ZOMBIE, 16),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
 		SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.TAB),

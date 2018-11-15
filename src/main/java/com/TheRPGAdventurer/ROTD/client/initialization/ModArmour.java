@@ -34,7 +34,7 @@ public class ModArmour {
 	public static final ArmorMaterial SunlightDragonScaleMaterial2        = EnumHelper.addArmorMaterial("sunlight2", DragonMounts.MODID + ":sunlight2", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial StormDragonScaleMaterial            = EnumHelper.addArmorMaterial("storm", DragonMounts.MODID + ":storm", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial StormDragonScaleMaterial2           = EnumHelper.addArmorMaterial("storm2", DragonMounts.MODID + ":storm2", 45, new int [] {4,6,8,4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
-
+	public static final ArmorMaterial ZombieDragonScaleMaterial           = EnumHelper.addArmorMaterial("zombie", DragonMounts.MODID + ":zombie", 45, new int [] {3,5,7,3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	
 	public static ItemDragonArmour forestDragonScaleCap;
 	public static ItemDragonArmour forestDragonScaleTunic;
@@ -105,6 +105,11 @@ public class ModArmour {
 	public static ItemDragonArmour stormDragonScaleTunic2;
 	public static ItemDragonArmour stormDragonScaleLeggings2;
 	public static ItemDragonArmour stormDragonScaleBoots2;
+	
+	public static ItemDragonArmour zombieDragonScaleCap;
+	public static ItemDragonArmour zombieDragonScaleTunic;
+	public static ItemDragonArmour zombieDragonScaleLeggings;
+	public static ItemDragonArmour zombieDragonScaleBoots;
 	
 	// for dragon
 	public static ItemDragonArmor dragonarmor_diamond;
@@ -181,8 +186,12 @@ public class ModArmour {
 		stormDragonScaleTunic2 = new ItemDragonArmour(StormDragonScaleMaterial2,  1, EntityEquipmentSlot.CHEST, "storm2_dragonscale_tunic", EnumItemBreedTypes.STORM),
 		stormDragonScaleLeggings2 = new ItemDragonArmour(StormDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "storm2_dragonscale_leggings", EnumItemBreedTypes.STORM),
 		stormDragonScaleBoots2 = new ItemDragonArmour(StormDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "storm2_dragonscale_boots", EnumItemBreedTypes.STORM),
-
 		
+		zombieDragonScaleCap = new ItemDragonArmour(ZombieDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "zombie_dragonscale_cap", EnumItemBreedTypes.ZOMBIE),
+		zombieDragonScaleTunic = new ItemDragonArmour(ZombieDragonScaleMaterial,  1, EntityEquipmentSlot.CHEST, "zombie_dragonscale_tunic", EnumItemBreedTypes.ZOMBIE),
+		zombieDragonScaleLeggings = new ItemDragonArmour(ZombieDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "zombie_dragonscale_leggings", EnumItemBreedTypes.ZOMBIE),
+		zombieDragonScaleBoots = new ItemDragonArmour(ZombieDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "zombie_dragonscale_boots", EnumItemBreedTypes.ZOMBIE),
+
 		dragonarmor_iron = new ItemDragonArmor( "dragonarmor_iron"),
 		dragonarmor_gold = new ItemDragonArmor("dragonarmor_gold"),
 		dragonarmor_diamond = new ItemDragonArmor("dragonarmor_diamond"),
@@ -197,6 +206,7 @@ public class ModArmour {
 		IceDragonScaleMaterial.   setRepairItem(new ItemStack(ModItems.IceDragonScales));
 		NetherDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.NetherDragonScales));
 		EnderDragonScaleMaterial. setRepairItem(new ItemStack(ModItems.EnderDragonScales));
+		ZombieDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ZombieDragonScales));
 	}
 		
 }

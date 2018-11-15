@@ -62,15 +62,12 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         } 
 
         // if we're breathing at a target, look at it
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
-        if(dragon.hasControllingPlayer(player)) {
-           if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() && dragon.getAnimator().getSpeed() > 0) {
-               Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
-               Vec3d lookDirection = player.getLook(1.0F);
-               Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
-               dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 
+        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() && dragon.getAnimator().getSpeed() > 0) {
+        	Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+            Vec3d lookDirection = rider.getLook(1.0F);
+            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 
             		dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-           }
         }
         
                 

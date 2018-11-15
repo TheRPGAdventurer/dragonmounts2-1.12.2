@@ -179,6 +179,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// data NBT IDs
 	public static final String NBT_ARMOR = "Armor";
+	public static final String NBT_ALLOWOTHERPLAYERS = "AllowOtherPlayers";
 	public static final String NBT_SADDLED = "Saddle";
 	public static final String NBT_SHEARED = "Sheared";
 	public static final String NBT_CHESTED = "Chested";
@@ -286,6 +287,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.register(BANNERED2, false);
 		dataManager.register(HAS_ELDER_STONE, false);
 		dataManager.register(HAS_ADJUCATOR_STONE, false);
+		dataManager.register(ALLOW_OTHERPLAYERS, false);
 	}
 
 	@Override
@@ -324,6 +326,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_WANDED, this.isBannered2());
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
+		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
 		nbt.setBoolean("onGround2", this.onGround2);
 		writeDragonInventory(nbt);
 		writeDragonStats(nbt);
@@ -346,6 +349,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setBannered2(nbt.getBoolean(NBT_WANDED));
 		this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
+		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
 		this.onGround2 = nbt.getBoolean("onGround2");
 		readDragonInventory(nbt);
 		readDragonStats(nbt);
@@ -366,6 +370,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public void setSaddled(boolean saddled) {
 		L.trace("setSaddled({})", saddled);
 		dataManager.set(DATA_SADDLED, saddled);
+	}
+	
+	public boolean allowedOtherPlayers() {
+		return dataManager.get(ALLOW_OTHERPLAYERS);
+	}
+
+	public void setToAllowedOtherPlayers(boolean allow) {
+		dataManager.set(ALLOW_OTHERPLAYERS, allow);
 	}
 
 	// used to be called isChestedLeft

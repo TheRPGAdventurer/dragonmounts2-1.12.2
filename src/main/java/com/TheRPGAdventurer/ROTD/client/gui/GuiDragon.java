@@ -24,7 +24,7 @@ public class GuiDragon extends GuiContainer {
 	private EntityTameableDragon dragon;
 	private float mousePosX;
 	private float mousePosY;
-	private GuiButton SIT;
+	private GuiButton AllowOthers;
 
 	public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
 		super(new ContainerDragon(dragon, Minecraft.getMinecraft().player));
@@ -61,13 +61,13 @@ public class GuiDragon extends GuiContainer {
 
 	// @Override
 	// public void initGui() {
-	// this.buttonList.clear();
-	// this.SIT = this.addButton(new GuiButton(0, 100, 100 , 5, 5, "SIT!"));
-	// if(this.SIT.enabled && !dragon.isSitting()) {
-	// dragon.getAISit().setSitting(true);
-	// } else if(!this.SIT.enabled && dragon.isSitting()) {
-	// dragon.getAISit().setSitting(false);
-	// }
+	//    this.buttonList.clear();
+	//    this.AllowOthers = this.addButton(new GuiButton(0, 100, 100 , 5, 5, "ALLOW OTHERS"));	    
+	//    if(this.AllowOthers.enabled && !dragon.allowedOtherPlayers()) {
+	//       dragon.setToAllowedOtherPlayers(false);;
+	//    } else if(!this.AllowOthers.enabled && dragon.allowedOtherPlayers()) {
+	//      dragon.setToAllowedOtherPlayers(true);
+	//    }
 	// }
 
 	@Override

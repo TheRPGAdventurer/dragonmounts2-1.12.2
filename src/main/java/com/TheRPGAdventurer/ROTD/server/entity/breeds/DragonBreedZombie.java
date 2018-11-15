@@ -1,10 +1,12 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -67,6 +69,11 @@ public class DragonBreedZombie extends DragonBreed {
 	@Override
 	public boolean isInfertile() {
 		return true;
+	}
+	
+	@Override
+	public Item getShearDropitem(EntityTameableDragon dragon) {
+		return ModItems.ZombieDragonScales;
 	}
 	
 	@Override

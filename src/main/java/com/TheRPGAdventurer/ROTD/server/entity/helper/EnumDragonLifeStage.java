@@ -10,6 +10,7 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 
 import net.minecraft.util.math.MathHelper;
@@ -24,9 +25,7 @@ public enum EnumDragonLifeStage {
     EGG(0.25f),
     HATCHLING(0.10f),
     JUVENILE(0.66f),
-    ADULT(1.0f),
-	ELDER(1.4f),
-	ADJUCATOR(2.3F);
+    ADULT(1.0f);
     
     public static final int TICKS_PER_STAGE = DragonMountsConfig.GET_TICKS_PER_STAGE;
     public static final EnumDragonLifeStage[] VALUES = values(); // cached for speed
@@ -61,7 +60,7 @@ public enum EnumDragonLifeStage {
     public final float scale;
     
     EnumDragonLifeStage(float scale) {
-        this.scale = scale;
+        this.scale = scale; 
     }    
     public int startTicks() {
         return ordinal() * TICKS_PER_STAGE;

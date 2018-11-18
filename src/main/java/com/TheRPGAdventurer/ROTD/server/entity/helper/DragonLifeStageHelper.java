@@ -108,20 +108,14 @@ public class DragonLifeStageHelper extends DragonHelper {
      * Generates some egg shell particles and a breaking sound.
      */
     public void playEggCrackEffect() {
-     //   dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
+    //    dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
     	  this.playEvent(dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
     	
     }
     
     public void playEvent(BlockPos blockPosIn, int data) {
-        Block block = Block.getBlockById(data & 4095);
-
-        if (block.getDefaultState().getMaterial() != Material.AIR) {
-            SoundType soundtype = block.getSoundType(Block.getStateById(data), dragon.world, blockPosIn, null);
-            dragon.world.playSound(null, blockPosIn, ModSounds.DRAGON_HATCHING, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-        }
-
-        Minecraft.getMinecraft().effectRenderer.addBlockDestroyEffects(blockPosIn, block.getStateFromMeta(data >> 12 & 255));
+        dragon.world.playSound(null, blockPosIn, ModSounds.DRAGON_HATCHING, SoundCategory.BLOCKS,  + 1.0F, 1.0F);
+        Minecraft.getMinecraft().effectRenderer.addBlockDestroyEffects(blockPosIn, BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(dragon.getBreedType().getMeta()));
     }
     
     public int getEggWiggleX() {
@@ -231,7 +225,7 @@ public class DragonLifeStageHelper extends DragonHelper {
             // play particle and sound effects when the dragon hatches
             if (prevLifeStage != null && prevLifeStage == EGG && lifeStage == HATCHLING) {
                 playEggCrackEffect();
-                dragon.playSound(ModSounds.DRAGON_HATCHED, 5, 5);
+                dragon.world.playSound(dragon.posX, dragon.posY, dragon.posZ, ModSounds.DRAGON_HATCHED, SoundCategory.BLOCKS, 4, 1, false);
             }
         } else {
             // update AI

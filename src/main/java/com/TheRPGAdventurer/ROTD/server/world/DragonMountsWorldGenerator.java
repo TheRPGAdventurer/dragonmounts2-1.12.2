@@ -5,6 +5,7 @@ import java.util.Random;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -51,7 +52,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
-			boolean isHills = (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeHills.class)) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class));
+			boolean isHills = (BiomeDictionary.hasType(world.getBiome(height), Type.HILLS) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class)));
 			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 			     dragonNest.generate(world, height, random);
@@ -63,7 +64,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			    }
 			}
 		}
-    
+
     public void generateNestUnderground(World world, Random random, int chunkX, int chunkZ) {
 		if (DragonMountsConfig.canSpawnUnderGroundNest) {
     	boolean spawn = true;

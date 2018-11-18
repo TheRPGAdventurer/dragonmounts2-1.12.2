@@ -56,7 +56,6 @@ import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
@@ -101,7 +100,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -710,7 +709,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		// return default breed name otherwise
 		String entName = EntityList.getEntityString(this);
 		String breedName = getBreedType().getName().toLowerCase();
-		return I18n.translateToLocal("entity." + entName + "." + breedName + ".name");
+		return I18n.format("entity." + entName + "." + breedName + ".name");
 	}
 
 	/**

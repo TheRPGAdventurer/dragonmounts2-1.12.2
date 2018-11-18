@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
+import org.fusesource.jansi.Ansi.Color;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -40,6 +42,7 @@ public class GuiDragon extends GuiContainer {
 	 * items)
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		float scale = dragon.getScale();
 		this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
 		this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 156, 6, dragon.isMale() ?  0x0079be : 0Xff8b8b);
 	}

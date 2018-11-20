@@ -70,8 +70,8 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
-	public static double ThirdPerson1Zoom = 2.0;
-	public static double ThirdPerson2Zoom = 2.0;
+	public static double ThirdPerson1Zoom = 1.4;
+	public static double ThirdPerson2Zoom = 1.4;
 	
 	// dragon
 	public static int GET_TICKS_PER_STAGE = 24000; 

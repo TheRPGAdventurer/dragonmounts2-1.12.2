@@ -579,7 +579,7 @@ public class DragonModel extends ModelBase {
             xAirAll[1][3] = footAirX * 0.5f;
         }
 
-    // 0 - front leg, right side
+        // 0 - front leg, right side
         // 1 - hind leg, right side
         // 2 - front leg, left side
         // 3 - hind leg, left side

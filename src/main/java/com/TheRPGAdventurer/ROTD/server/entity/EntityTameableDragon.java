@@ -594,7 +594,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null) && getControllingPassenger() != null;
 			if (flying != isFlying()) {
 
 				// notify client
@@ -783,6 +783,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	protected float getSoundPitch() {
 		// note: unused, managed in playSound()
 		return 1;
+	}
+	
+	private void updateIntendedRideRotation() {
+		if(this.isUsingBreathWeapon()) {
+            
+		}
 	}
 	
 	public void ACHOOOOO() {

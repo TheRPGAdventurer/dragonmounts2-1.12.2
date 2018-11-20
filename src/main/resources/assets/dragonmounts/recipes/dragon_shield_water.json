@@ -7,13 +7,13 @@
   ],
   "key": {
     "W": {
-        "item": "dragonmounts:water_dragonscales",
+        "item": "dragonmounts:water_dragonscales"
       },
     "o": {
       "item": "minecraft:iron_ingot"
     }
   },
   "result": {
-    "item": "dragonmounts:water_dragon_shield"
+    "item": "dragonmounts:dragon_shield_water"
   }
 }

@@ -3,6 +3,7 @@ package com.TheRPGAdventurer.ROTD.client.event;
 import org.lwjgl.opengl.GL11;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.client.Minecraft;
@@ -19,15 +20,24 @@ public class DragonViewEvent {
 	@SubscribeEvent
 	public void thirdPersonCameraFix(EntityViewRenderEvent.CameraSetup event) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
-		if(player.getRidingEntity() instanceof EntityTameableDragon) {
+
+		if(player.getRidingEntity() instanceof EntityTameableDragon) {	
 			float scale = ((EntityTameableDragon) player.getRidingEntity()).getScale();
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
-				GL11.glTranslatef(0F , -0.8F , (float) (-DragonMountsConfig.ThirdPerson1Zoom * scale)); // 0.4, -2F
+				GL11.glTranslated(0F , -0.6F, -DragonMountsConfig.ThirdPerson2Zoom * scale); // 0.4, -2F
 			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
-				GL11.glTranslatef(0F , -0.8F, (float) (DragonMountsConfig.ThirdPerson2Zoom * scale));
+				GL11.glTranslated(0F , -0.6F, DragonMountsConfig.ThirdPerson2Zoom * scale);
 			}
-		}	
+		} else if(player.getRidingEntity() instanceof EntityCarriage) {
+			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
+				GL11.glTranslated(0F , -0.6F, -DragonMountsConfig.ThirdPerson2Zoom); // 0.4, -2F
+			}
+			
+			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+				GL11.glTranslated(0F , -0.6F, DragonMountsConfig.ThirdPerson2Zoom);
+			}
+		}
 	}
 }

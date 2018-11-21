@@ -58,6 +58,8 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 		Minecraft mc = Minecraft.getMinecraft();
 		ItemStack itemstack = dragon.dragonInv.getStackInSlot(31);
 		ItemStack itemstack2 = dragon.dragonInv.getStackInSlot(32);
+		ItemStack itemstack3 = dragon.dragonInv.getStackInSlot(33);
+		ItemStack itemstack4 = dragon.dragonInv.getStackInSlot(34);
 
     	GlStateManager.pushMatrix();
     	
@@ -66,7 +68,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
  	       model.body.postRender(0.0625F);
            GlStateManager.translate(1.0F, 0.4F, -0.5F); 
            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
-           GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
+           GlStateManager.translate(0, Interpolation.smoothStep(0.3F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
            GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
            GlStateManager.scale(0.625F, -0.625F, -0.625F);
@@ -83,14 +85,49 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(-1.0F, 0.4, -0.5F); 
             GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
-            GlStateManager.translate(0, Interpolation.smoothStep(0.1F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
+            GlStateManager.translate(0, Interpolation.smoothStep(0.3F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
             GlStateManager.scale(0.625F, -0.625F, -0.625F);
             mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD); 
         }
         
-        GlStateManager.popMatrix(); 	       		
+        GlStateManager.popMatrix(); 	 
+        
+        GlStateManager.pushMatrix();
+        
+        if (dragon.isBannered3()) {
+        	float f = 0.625F; 	   	       
+  	        model.body.postRender(0.0625F);
+            GlStateManager.translate(-0.4F, -1.7F, 1.7F); 
+            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(0F, 0.0F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0, Interpolation.smoothStep(3.2F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);            
+            GlStateManager.translate(0, 0, Interpolation.smoothStep(-1.9F, dragon.getAnimator().getModelOffsetZ() + 1.5F, dragon.getAnimator().getSpeed()));
+            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(-dragon.getBodyPitch() - 5, 1.0F, 0.0F, 0.0F);
+            GlStateManager.scale(0.525F, -0.625F, -0.625F);
+            mc.getItemRenderer().renderItem(dragon, itemstack3, ItemCameraTransforms.TransformType.HEAD); 
+        }
+        
+        GlStateManager.popMatrix(); 
+        
+        GlStateManager.pushMatrix();
+        
+        if (dragon.isBannered4()) {
+        	float f = 0.625F; 	   	       
+  	        model.body.postRender(0.0625F);
+            GlStateManager.translate(0.4F, -1.7F, 1.7F); 
+            GlStateManager.translate(0, Interpolation.smoothStep(3.2F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);            
+            GlStateManager.translate(0, 0, Interpolation.smoothStep(-1.9F, dragon.getAnimator().getModelOffsetZ() + 1.5F, dragon.getAnimator().getSpeed()));
+            
+            GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(-dragon.getBodyPitch() - 5, 1.0F, 0.0F, 0.0F);
+            
+            GlStateManager.scale(0.525F, -0.625F, -0.625F);
+            mc.getItemRenderer().renderItem(dragon, itemstack4, ItemCameraTransforms.TransformType.HEAD); 
+        }
+        
+        GlStateManager.popMatrix(); 
 	}
 	
 	@Override

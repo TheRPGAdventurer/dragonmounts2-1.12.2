@@ -98,6 +98,34 @@ public class ContainerDragon extends Container {
 			
 		});
 		
+		// location of the slot for the dragon banner3 in the dragon inventory
+		this.addSlotToContainer(new Slot(dragonInv, 33, 135, 18) {
+			
+			public boolean isItemValid(ItemStack stack) {
+				return stack.getItem() == Items.BANNER && !this.getHasStack();
+			}
+
+			@SideOnly(Side.CLIENT)
+			public boolean isEnabled() {
+				return true;
+			}
+			
+		});
+		
+		// location of the slot for the dragon banner4 in the dragon inventory
+		this.addSlotToContainer(new Slot(dragonInv, 34, 135, 36) {
+			
+			public boolean isItemValid(ItemStack stack) {
+				return stack.getItem() == Items.BANNER && !this.getHasStack();
+			}
+
+			@SideOnly(Side.CLIENT)
+			public boolean isEnabled() {
+				return true;
+			}
+			
+		});
+		
 		// location of the dragon's inventory when chested in the dragon inventory 
 		for (int k = 0; k < 3; ++k) {
 			for (int l = 0; l < 9; ++l) {                                            

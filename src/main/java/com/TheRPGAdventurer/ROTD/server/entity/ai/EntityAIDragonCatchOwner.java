@@ -32,9 +32,9 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
     @Override
     public boolean shouldExecute() {        
         // don't catch if leashed
-      //  if (dragon.getLeashed()) {
-     //       return false;
-    //    }
+        if (dragon.getLeashed()) {
+            return false;
+        }
         
         if(!dragon.isSaddled()) {
         	return false;

@@ -72,6 +72,14 @@ public class MessageDragonInventory extends AbstractMessage<MessageDragonInvento
 			if(message.slot_index == 32) {
 				dragon.setBannered2(message.armor_type == 1);
 			}
+			
+			if (message.slot_index == 33) {
+				dragon.setBannered3(message.armor_type == 1);
+			}
+			
+			if(message.slot_index == 34) {
+				dragon.setBannered4(message.armor_type == 1);
+			}
 		}
 	}
 }

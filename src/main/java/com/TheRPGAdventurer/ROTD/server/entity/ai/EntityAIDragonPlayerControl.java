@@ -9,13 +9,13 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.ai;
 
+import java.util.BitSet;
+
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -47,12 +47,27 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         dragon.getNavigator().clearPathEntity();
     }
     
+    protected boolean isFlyUp() {
+        return getControlFlag(0);
+    }
+    
+    protected boolean isFlyDown() {
+        return getControlFlag(1);
+    }
+    
+    private boolean getControlFlag(int index) {
+        BitSet controlFlags = dragon.getControlFlags();
+        return controlFlags == null ? false : controlFlags.get(index);
+    }
+    
     @Override
     public void updateTask() {
         Vec3d wp = rider.getLookVec();
         double x = dragon.posX;
         double y = dragon.posY;
         double z = dragon.posZ;
+        
+        double verticalSpeed = 0;    
         
         if(dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
         	PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
@@ -62,14 +77,14 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         } 
 
         // if we're breathing at a target, look at it
-        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() && dragon.getAnimator().getSpeed() > 0) {
+        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
         	Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = rider.getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -90, 90), lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 
             		dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+            updateIntendedRideRotation(rider);
         }
-        
                 
         // control direction with movement keys
         if (rider.moveStrafing != 0 || rider.moveForward != 0) {
@@ -82,10 +97,20 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             } 
             
             x += wp.x * 10;
-            y += wp.y * 10;
-            z += wp.z * 10;
-            
-        }
+       //     y += wp.y * 10;         
+            z += wp.z * 10;         
+     }
+           
+     // control height with custom keys
+     if (isFlyUp()) {
+         verticalSpeed = 0.2f;
+     } else if (isFlyDown()) {
+         verticalSpeed = -0.2f;
+     }
+        
+      dragon.setMoveSpeedAirVert(verticalSpeed);
+      y += wp.y * dragon.getMoveSpeedAirVert();
+      dragon.motionY += dragon.getMoveSpeedAirVert();
       
         // lift off from a jump
         if (!dragon.isFlying()) {
@@ -96,5 +121,14 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         
         dragon.getMoveHelper().setMoveTo(x,y,z,1.2);
     }
+    
+	private void updateIntendedRideRotation(EntityPlayer rider) {
+		boolean hasRider = dragon.hasControllingPlayer(rider);
+		if(dragon.isUsingBreathWeapon() && hasRider) {
+			dragon.rotationYaw = rider.rotationYaw;
+			dragon.rotationPitch = rider.rotationPitch;
+//			dragon.prevRotationYaw = rider.prevRotationYaw;
+		}
+	}
     
 }

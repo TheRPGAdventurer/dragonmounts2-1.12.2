@@ -13,6 +13,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
 import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +101,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -125,7 +125,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 1.0;
+	public static final double BASE_AIR_SPEED = 0.8;
 	public static final double BASE_DAMAGE = 5.0D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
@@ -153,8 +153,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> IS_MALE = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> ARMOR = 
-			EntityDataManager.<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> ARMOR = EntityDataManager
+			.<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> AIRSPEEDVERT = EntityDataManager
+			.<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
 	private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
 			.<Optional<UUID>>createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<String> DATA_BREED = EntityDataManager
@@ -200,6 +202,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// client-only delegates
 	private final DragonBodyHelper bodyHelper = new DragonBodyHelper(this);
+	
+    // server-only flags
+    private BitSet controlFlags;
 
 	public EntityEnderCrystal healingEnderCrystal;
 	public DragonInventory dragonInv;
@@ -212,6 +217,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private int inAirTicks;
 	public final EntityAITasks attackTasks;
 	public DragonAnimator animator;
+    private double airSpeedVertical = 0;
 
 	/** An array containing all body parts of this dragon */
 	public MultiPartEntityPart[] dragonPartArray;
@@ -374,6 +380,33 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public boolean isSaddled() {
 		return dataManager.get(DATA_SADDLED);
 	}
+	
+    public void setControlFlags(BitSet flags) {
+        controlFlags = flags;
+    }
+
+    public BitSet getControlFlags() {
+        return controlFlags;
+    }
+    
+    /**
+     * Returns relative speed multiplier for the vertical flying speed.
+     * 
+     * @return relative vertical speed multiplier
+     */
+    public double getMoveSpeedAirVert() {
+        return this.airSpeedVertical;
+    }
+    
+    /**
+     * Sets new relative speed multiplier for the vertical flying speed.
+     * 
+     * @param airSpeedVertical new relative vertical speed multiplier
+     */
+    public void setMoveSpeedAirVert(double airSpeedVertical) {
+        L.trace("setMoveSpeedAirVert({})", airSpeedVertical);
+        this.airSpeedVertical = airSpeedVertical;
+    }
 
 	/**
 	 * Set or remove the saddle of the dragon.
@@ -668,7 +701,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				}
 			}
 			hasChestVarChanged = false;
-		}
+		}		
 
 		updateMultipleBoundingBox();
 		updateShearing();
@@ -812,12 +845,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	protected float getSoundPitch() {
 		// note: unused, managed in playSound()
 		return 1;
-	}
-	
-	private void updateIntendedRideRotation() {
-		if(this.isUsingBreathWeapon()) {
-            
-		}
 	}
 	
 	public void ACHOOOOO() {
@@ -1482,7 +1509,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * @return max yaw speed in degrees per tick
 	 */
 	public float getHeadYawSpeed() {
-		return 10.0F;
+		return 5.0F;
 	}
 
 	/**

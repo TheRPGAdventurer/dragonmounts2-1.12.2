@@ -38,6 +38,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -81,6 +82,7 @@ public class ClientProxy extends ServerProxy {
         
         if (DragonMountsConfig.isDebug()) { MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());}            
         RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+        MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent()); 
 
     }

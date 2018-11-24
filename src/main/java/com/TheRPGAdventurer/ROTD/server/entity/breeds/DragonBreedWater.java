@@ -130,9 +130,9 @@ public class DragonBreedWater extends DragonBreed {
     		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
 		}  
     	
-    	if(dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
-    		dragon.setBreedType(EnumDragonBreed.STORM);
-     	}
+    //	if(dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
+    //		dragon.setBreedType(EnumDragonBreed.STORM);
+     //	}
 	}
 	
 	@Override

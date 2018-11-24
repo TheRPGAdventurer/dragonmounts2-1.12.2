@@ -65,13 +65,11 @@ public class DragonBrain extends DragonHelper {
     
     // mutex 1: generic targeting
     private final EntityAITasks targetTasks;
-    public final EntityAITasks attackTasks;
     
     public DragonBrain(EntityTameableDragon dragon) {
         super(dragon);
         tasks = dragon.tasks;
         targetTasks = dragon.targetTasks;
-        attackTasks = dragon.attackTasks;
     }
     
     public void setAvoidsWater(boolean avoidWater) {
@@ -85,12 +83,6 @@ public class DragonBrain extends DragonHelper {
     public void clearTasks() {
         clearTasks(tasks);
         clearTasks(targetTasks);
-    }
-    
-    public void clearTasks2() {
-    	clearTasks(tasks);
-        clearTasks(targetTasks);
-    	clearTasks(attackTasks);
     }
     
     public void clearTasks(EntityAITasks tasks) {

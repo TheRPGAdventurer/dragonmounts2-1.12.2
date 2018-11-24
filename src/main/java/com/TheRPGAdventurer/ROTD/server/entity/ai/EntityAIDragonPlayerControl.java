@@ -97,20 +97,20 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             } 
             
             x += wp.x * 10;
-       //     y += wp.y * 10;         
+            y += wp.y * 10;         
             z += wp.z * 10;         
      }
            
      // control height with custom keys
-     if (isFlyUp()) {
-         verticalSpeed = 0.2f;
-     } else if (isFlyDown()) {
-         verticalSpeed = -0.2f;
-     }
+   //  if (isFlyUp()) {
+    //     verticalSpeed = 0.2f;
+   //  } else if (isFlyDown()) {
+    //     verticalSpeed = -0.2f;
+   //  }
         
-      dragon.setMoveSpeedAirVert(verticalSpeed);
-      y += wp.y * dragon.getMoveSpeedAirVert();
-      dragon.motionY += dragon.getMoveSpeedAirVert();
+     // dragon.setMoveSpeedAirVert(verticalSpeed);
+     // y += dragon.getLook(1.0f).y * verticalSpeed;
+   //   dragon.motionY += dragon.getMoveSpeedAirVert();
       
         // lift off from a jump
         if (!dragon.isFlying()) {

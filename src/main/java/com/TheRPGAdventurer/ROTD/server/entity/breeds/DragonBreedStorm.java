@@ -122,7 +122,7 @@ public class DragonBreedStorm extends DragonBreed {
     	}
     	
     	if(shouldelectrecute) {
-    		  if(random.nextInt(33) == 1) {
+    		  if(random.nextInt(70) == 1 && dragon.world.isRaining()) {
     		     dragon.world.addWeatherEffect(new EntityLightningBolt(target.world, target.posX, target.posY, target.posZ, false)); 		   
     		}
     	}
@@ -134,9 +134,9 @@ public class DragonBreedStorm extends DragonBreed {
 					(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
     	
-    	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
-    		dragon.setBreedType(EnumDragonBreed.SYLPHID);
-    	}
+    //	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
+    //		dragon.setBreedType(EnumDragonBreed.SYLPHID);
+    //	}
 	}
 	
 	@Override

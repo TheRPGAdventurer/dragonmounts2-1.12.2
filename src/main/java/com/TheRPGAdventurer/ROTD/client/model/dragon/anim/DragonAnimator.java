@@ -366,7 +366,8 @@ public class DragonAnimator {
         final float BITE_ANGLE = 0.75F;
         final float BREATH_ANGLE = 0.75F;
         jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE);
-        jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
+        float flutters = dragon.isUsingBreathWeapon() ? 1 : flutter;
+        jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutters;
     }
 
     protected void animWings() {

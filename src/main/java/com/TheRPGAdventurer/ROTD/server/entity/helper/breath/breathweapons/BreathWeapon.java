@@ -107,7 +107,7 @@ public class BreathWeapon {
           final float VOLUME = 1.0F;
           world.playSound(sideToIgnite.getX() + 0.5, sideToIgnite.getY() + 0.5, sideToIgnite.getZ() + 0.5,
                   SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH), false);
-          if(rand.nextInt(1377) < 320)
+          if(rand.nextInt(1377) < 280)
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         
         }

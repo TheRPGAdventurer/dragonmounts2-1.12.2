@@ -30,6 +30,7 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWhistle.Commands;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
@@ -116,7 +117,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable, IEntityMultiPart {
+public class EntityTameableDragon extends EntityTameable implements IShearable, IEntityMultiPart, IDragonCommands {
 
 	private static final Logger L = LogManager.getLogger();
 
@@ -131,7 +132,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
 	public static final float BASE_HEIGHT = 2.10f;
-	public static final float RESISTANCE = 20.0f;
+	public static final float RESISTANCE = 10.0f;
 	public static final double BASE_FOLLOW_RANGE = 70;
 	public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
 	public static final int HOME_RADIUS = 64;
@@ -1088,10 +1089,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	public int getArmorResistance() {
 		if (getArmor() == 1) {
-			return 3;
+			return 4;
 		}
 		if (getArmor() == 2) {
-			return 2;
+			return 3;
 		}
 		if (getArmor() == 3) {
 			return 5;
@@ -1509,7 +1510,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * @return max yaw speed in degrees per tick
 	 */
 	public float getHeadYawSpeed() {
-		return 5.0F;
+		return 4.0F;
 	}
 
 	/**
@@ -1671,6 +1672,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				this.healingEnderCrystal = entityendercrystal;
 			}
 		}
+	}
+	
+	@Override
+	public void onHearFlute(EntityTameableDragon dragon, Commands command) {
+		
 	}
 
 	/**

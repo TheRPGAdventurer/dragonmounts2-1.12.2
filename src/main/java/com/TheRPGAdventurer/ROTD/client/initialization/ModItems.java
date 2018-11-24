@@ -6,6 +6,7 @@ import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonShield;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWand;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.items.ItemStructureSpawner;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
@@ -46,6 +47,7 @@ public class ModItems {
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
+	public static final Item dragon_whistle;
 	
 	public static final Item carriage_oak;
 	public static final Item carriage_acacia;
@@ -100,6 +102,7 @@ public class ModItems {
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),
+		dragon_whistle = new ItemDragonWhistle(),
 		
 		carriage_oak   = new ItemCarriage("carriage_", EntityCarriage.Type.OAK),
 		carriage_spruce = new ItemCarriage("carriage_", EntityCarriage.Type.SPRUCE),

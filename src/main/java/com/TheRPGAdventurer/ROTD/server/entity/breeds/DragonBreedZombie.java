@@ -3,7 +3,9 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.item.Item;
@@ -75,6 +77,39 @@ public class DragonBreedZombie extends DragonBreed {
 	public Item getShearDropitem(EntityTameableDragon dragon) {
 		return ModItems.ZombieDragonScales;
 	}
+	
+	@Override
+	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+    	final SoundEffectNames hatchling[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+
+        final SoundEffectNames juvenile[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+
+        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+            SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+            SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+    	
+    	switch(stage) {
+		case ADULT:
+			soundEffectNames = adult;
+			break;
+		case EGG:
+			break;
+		case HATCHLING:
+			soundEffectNames = hatchling;
+			break;
+		case JUVENILE:
+			soundEffectNames = juvenile;       
+			break;
+		default:
+			break;    	
+    	}
+    	
+		return soundEffectNames;
+    } 
 	
 	@Override
 	public EnumParticleTypes getSneezeParticle() {

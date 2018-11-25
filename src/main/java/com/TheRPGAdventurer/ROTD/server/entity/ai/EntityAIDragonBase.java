@@ -33,15 +33,16 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     public EntityAIDragonBase(EntityTameableDragon dragon) {
         this.dragon = dragon;
         this.world = dragon.world;
-        this.random = dragon.getRNG();
+        this.random = dragon.getRNG(); 
     }
     
     protected boolean tryMoveToBlockPos(BlockPos pos, double speed) {
         return dragon.getNavigator().tryMoveToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, speed);
     }
     
-    protected boolean tryToCircleBlockPos(BlockPos pos, double speed) {
-		return dragon.getNavigator().tryMoveToXYZ(pos.getX() + 0.5 * Math.PI, pos.getY() + 10, pos.getZ() + 0.5 * Math.PI, speed);
+    protected boolean tryToCircleBlockPos(BlockPos midPoint, double speed) {
+    	dragon.setFlying(true);
+		return dragon.getNavigator().tryMoveToXYZ(midPoint.getX() + 0.5 * Math.PI, midPoint.getY() + 10, midPoint.getZ() + 0.5 * Math.PI, speed);
     	
     }
     

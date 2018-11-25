@@ -283,6 +283,7 @@ public class BreathWeapon {
 	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	    	}
 	    } 
+	    
   }
 
 
@@ -313,9 +314,8 @@ public class BreathWeapon {
 	    }
 	    
 	    if (entityID == dragon.getEntityId()) return null;
-	    if(dragon.isBeingRidden()) {
-	       if (dragon.isPassenger(entity)) return null;
-	    }
+	    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
+	    
 	    
 	    triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
 	    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);

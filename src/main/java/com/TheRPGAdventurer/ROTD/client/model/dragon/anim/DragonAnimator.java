@@ -9,6 +9,8 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
+import java.util.BitSet;
+
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
@@ -325,7 +327,7 @@ public class DragonAnimator {
 
         // update speed transition
         boolean nearGround = dragon.getAltitude() < dragon.height * 2;
-        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2;
+        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2 || isHoverCancelled();
         float speedValue = 0.05f;
         speedTimer.add(speedFlag ? speedValue : -speedValue);
            
@@ -680,6 +682,15 @@ public class DragonAnimator {
     
     public float getLookYaw() {
     	return lookYaw;
+    }
+    
+    protected boolean isHoverCancelled() {
+        return getControlFlag(2);
+    }
+    
+    private boolean getControlFlag(int index) {
+        BitSet controlFlags = dragon.getControlFlags();
+        return controlFlags == null ? false : controlFlags.get(index);
     }
     
 }

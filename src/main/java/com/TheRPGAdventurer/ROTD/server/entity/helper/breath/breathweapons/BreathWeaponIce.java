@@ -117,7 +117,7 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
 			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
 		   }
 	   }
-    
+    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
     float hitDensity = currentHitDensity.getHitDensity();
     final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
     

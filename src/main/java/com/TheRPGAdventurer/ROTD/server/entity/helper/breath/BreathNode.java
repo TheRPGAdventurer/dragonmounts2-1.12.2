@@ -192,19 +192,19 @@ public class BreathNode {
         speedPowerFactor = 3.95F;
         lifetimePowerFactor = 0.25F;
         sizePowerFactor = 1.25F;
-        intensityPowerFactor = 0.10F;
+        intensityPowerFactor = 0.8F;
         break;
       }
       case MEDIUM: {
-        speedPowerFactor = 3.8F;
-        lifetimePowerFactor = 0.3F;
+        speedPowerFactor = 3.95F;
+        lifetimePowerFactor = 0.6F;
         sizePowerFactor = 1.43F;
         intensityPowerFactor = 0.25F;
         break;
       }
       case LARGE: {
         speedPowerFactor = 4.0F;
-        lifetimePowerFactor = 1.0F;
+        lifetimePowerFactor = 0.8F;
         sizePowerFactor = 1.85F;
         intensityPowerFactor = 1.0F;
         break;

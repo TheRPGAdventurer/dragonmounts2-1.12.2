@@ -230,7 +230,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public EntityTameableDragon(World world) {
 		super(world);
 
-		this.dragonPartArray = new MultiPartEntityPart[] { this.dragonPartHead, this.dragonPartBody };
+		this.dragonPartArray = new MultiPartEntityPart[] { this.dragonPartHead, this.dragonPartBody, this.dragonPartTail};
 
 		// override EntityBodyHelper field, which is private and has no setter
 		// required to fixate body while sitting. also slows down rotation while
@@ -656,7 +656,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null) && getControllingPassenger() != null;
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPassenger() != null;
 			if (flying != isFlying()) {
 
 				// notify client
@@ -1246,6 +1246,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 	}
     
+    @Nullable
+    public Entity getRidingCarriage() {
+    	Entity entity = (Entity) this.getPassengers();
+		if (entity instanceof EntityCarriage) { 
+			return (EntityCarriage) entity;
+		} else {
+			return null;
+		}
+    }
+    
     public boolean hasControllingPlayer(EntityPlayer player) {
         return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
     }
@@ -1272,9 +1282,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			if (passenger == getPassengers().get(0)) {
 				pos = new Vec3d(0  * getScale(), 0.1  * getScale(), 1.0 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.3 * getScale());
+				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.2 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), 0.3  * getScale()); 
+				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), 0.2  * getScale()); 
 			} 			
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {
@@ -1510,7 +1520,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * @return max yaw speed in degrees per tick
 	 */
 	public float getHeadYawSpeed() {
-		return 4.0F;
+		return 13.0F;
 	}
 
 	/**
@@ -1563,8 +1573,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 60 == 0 && !isDead) {
-			int[] exclude = {3};
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 65 == 0 && !isDead) {
+			int[] exclude = {3,6,4};
 			int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 8, exclude);
 			this.heal(health);
 		}
@@ -1615,7 +1625,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D),
 				EntitySelectors.getTeamCollisionPredicate(this));
 
-		if (!list.isEmpty() && isSaddled()) {
+		if (!list.isEmpty() && isSaddled() && isAdult()) {
 			boolean flag = !this.world.isRemote;
 
 			for (int j = 0; j < list.size(); ++j) {
@@ -2032,7 +2042,63 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dragonPartBody.height = (float) (this.height - 0.3 * getScale());
 		dragonPartBody.setPosition(posX, posY, posZ);
 		dragonPartBody.onUpdate();
+		
+		double tx, ty, tz;
+		tx = animator.getTail().rotateAngleX;
+		ty = animator.getTail().rotateAngleY;
+		tz = animator.getTail().rotateAngleZ;
+		dragonPartTail.setPosition(tx, ty, tz);
+		dragonPartTail.onUpdate();
+		
+		if (this.isFlying()) {
+        //    this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartBody.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
+            this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, 
+            		this.dragonPartHead.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D))
+            		, 4.0D);
+            this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(1.0D)));
+        //    this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartBody.getEntityBoundingBox().grow(1.0D)));
+        }
 
+		
+	}
+	
+    /**
+     * Pushes all entities inside the list away from the enderdragon.
+     */
+    private void collideWithEntities(List<Entity> p_70970_1_, double strength) {
+        double d0 = (this.dragonPartBody.getEntityBoundingBox().minX + this.dragonPartBody.getEntityBoundingBox().maxX) / 2.0D;
+        double d1 = (this.dragonPartBody.getEntityBoundingBox().minZ + this.dragonPartBody.getEntityBoundingBox().maxZ) / 2.0D;
+
+        for (Entity entity : p_70970_1_) {
+            if (entity instanceof EntityLivingBase && !this.isPassenger(entity)) {
+                double d2 = entity.posX - d0;
+                double d3 = entity.posZ - d1;
+                double d4 = d2 * d2 + d3 * d3; 
+                entity.addVelocity(d2 / d4 * 4.0D, 0.20000000298023224D, d3 / d4 * strength);
+
+                if (this.isFlying()) {
+                    entity.attackEntityFrom(DamageSource.causeMobDamage(this), 5.0F);
+                    this.applyEnchantments(this, entity);
+                }
+            }
+        }
+    }
+
+    /**
+     * Attacks all entities inside this list, dealing 5 hearts of damage.
+     */
+    private void attackEntitiesInList(List<Entity> p_70971_1_) {
+        for (int i = 0; i < p_70971_1_.size(); ++i) {
+            Entity entity = p_70971_1_.get(i);
+
+            if (entity instanceof EntityLivingBase && !this.isPassenger(entity)) {
+                entity.attackEntityFrom(DamageSource.causeMobDamage(this), 10.0F);
+                this.applyEnchantments(this, entity);
+            }
+        }
+    }
+	
+	public void updateMultipleBoundingBoxCollison(MultiPartEntityPart part) {
 		
 	}
 

@@ -128,6 +128,7 @@ public class BreathWeaponHydro extends BreathWeapon {
 			   }
 		   }
 	    
+	    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
 	    if (entityID == dragon.getEntityId()) return null;
 	    if(dragon.isBeingRidden()) {
 	       if (dragon.isPassenger(entity)) return null;

@@ -262,7 +262,7 @@ public class BreathWeaponNether extends BreathWeapon {
     
     triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
     entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    
+    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
 
     return currentHitDensity;
   }

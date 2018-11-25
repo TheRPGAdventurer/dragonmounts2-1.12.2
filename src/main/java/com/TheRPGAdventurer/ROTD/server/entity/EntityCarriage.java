@@ -457,12 +457,11 @@ public class EntityCarriage extends Entity {
      */
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if (this.isEntityInvulnerable(source)) {
-            return false;
-        } else if (!this.world.isRemote && !this.isDead) {
-            if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null && this.isPassenger(source.getTrueSource())) {
-                return false;
-            } else {
+        if (!this.world.isRemote && !this.isDead) {
+            if (source.getTrueSource() != null 
+            		&& !this.isPassenger(source.getTrueSource())
+            		&& !this.isEntityInvulnerable(source)) {
+                
                 this.setForwardDirection(-this.getForwardDirection());
                 this.setTimeSinceHit(10);
                 this.setDamage(this.getDamage() + amount * 10.0F);
@@ -475,13 +474,10 @@ public class EntityCarriage extends Entity {
                     } 
 
                     this.setDead();
-                }
-
-                return true;
+                }              
             }
-        } else {
-            return true;
         }
+		return false; 
     }
     
     public Item getItemDrop() {

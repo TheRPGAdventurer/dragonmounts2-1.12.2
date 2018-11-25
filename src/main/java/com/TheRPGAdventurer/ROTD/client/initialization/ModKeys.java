@@ -41,6 +41,7 @@ public class ModKeys {
         BitSet flags = dcm.getFlags();
         flags.set(0, KEY_FLY_UP.isKeyDown());
         flags.set(1, KEY_FLY_DOWN.isKeyDown());
+        flags.set(2, KEY_HOVERCANCEL.isPressed());
         
         // send message to server if it has changed
         if (dcm.hasChanged()) {

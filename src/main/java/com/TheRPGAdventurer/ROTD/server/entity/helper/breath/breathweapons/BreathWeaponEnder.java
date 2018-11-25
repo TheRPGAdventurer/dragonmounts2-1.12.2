@@ -97,6 +97,8 @@ public class BreathWeaponEnder extends BreathWeapon {
       return null;
     }
     
+    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
+    
     if (entityID == dragon.getEntityId()) return null;
     if(dragon.isBeingRidden()) {
        if (dragon.isPassenger(entity)) return null;

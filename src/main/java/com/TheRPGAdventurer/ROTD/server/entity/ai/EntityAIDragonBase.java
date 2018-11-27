@@ -1,5 +1,5 @@
 /*
-** 2016 März 15
+** 2016 MÃ¤rz 15
 **
 ** The author disclaims copyright to this source code. In place of
 ** a legal notice, here is a blessing:
@@ -14,10 +14,11 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 /**
@@ -40,11 +41,16 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
         return dragon.getNavigator().tryMoveToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, speed);
     }
     
-    protected boolean tryToCircleBlockPos(BlockPos midPoint, double speed) {
-    	dragon.setFlying(true);
-		return dragon.getNavigator().tryMoveToXYZ(midPoint.getX() + 0.5 * Math.PI, midPoint.getY() + 10, midPoint.getZ() + 0.5 * Math.PI, speed);
-    	
-    }
+	protected boolean tryToCircleBlockPos(BlockPos midPoint, double speed) {   	
+    	Vec3d vec1 = new Vec3d(midPoint.getX(),midPoint.getY(),midPoint.getZ());
+    	Vec3d vec2 = dragon.getPositionVector();
+    	double r = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+        double x = midPoint.getX() + r * Math.cos(dragon.rotationYaw);
+    	double y = midPoint.getY() + 50;
+    	double z = midPoint.getZ() + r * Math.sin(dragon.rotationYaw);
+    	   return dragon.getNavigator().tryMoveToXYZ(midPoint.getX() + x, midPoint.getY() + y, midPoint.getZ() + z, speed);  	﻿
+    	     
+	}
     
     protected double getFollowRange() {
         return dragon.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();

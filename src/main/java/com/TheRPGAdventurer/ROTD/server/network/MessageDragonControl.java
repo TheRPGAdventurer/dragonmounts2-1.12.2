@@ -24,20 +24,6 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
     private int previous;
     private static final Logger L = DMUtils.getLogger();
     
-    public BitSet getFlags() {
-        return bits;
-    }
-
-    @Override
-    public void fromBytes(ByteBuf buf) {
-        fromInteger(buf.readUnsignedByte());
-    }
-
-    @Override
-    public void toBytes(ByteBuf buf) {
-        buf.writeByte(toInteger());
-    }
-    
     public void fromInteger(int value) { // ? BitSet already has inbuilt to do this? leave as is...
         bits.clear();
         for (int i = 0; i < bits.size(); i++) {
@@ -60,6 +46,20 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
         boolean changed = previous != current;
         previous = current;
         return changed;
+    }
+    
+    public BitSet getFlags() {
+        return bits;
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        fromInteger(buf.readUnsignedByte());
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        buf.writeByte(toInteger());
     }
 
 	@Override

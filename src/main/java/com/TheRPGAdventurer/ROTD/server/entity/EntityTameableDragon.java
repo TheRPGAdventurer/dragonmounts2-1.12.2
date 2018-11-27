@@ -117,7 +117,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable, IEntityMultiPart, IDragonCommands {
+public class EntityTameableDragon extends EntityTameable implements IShearable, IEntityMultiPart {
 
 	private static final Logger L = LogManager.getLogger();
 
@@ -206,6 +206,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
     // server-only flags
     private BitSet controlFlags;
+    private BitSet dragonWhistle;
 
 	public EntityEnderCrystal healingEnderCrystal;
 	public DragonInventory dragonInv;
@@ -388,6 +389,27 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public BitSet getControlFlags() {
         return controlFlags;
+    }
+    
+    public void setWhistleFlags(BitSet flags) {
+        dragonWhistle = flags;
+    }
+
+    public BitSet Whistle() {
+        return dragonWhistle;
+    }
+    
+    private boolean getWhistleFlag(int index) {
+        BitSet dragonWhistle = Whistle();
+        return dragonWhistle == null ? false : dragonWhistle.get(index);
+    }
+    
+    public boolean come() {
+    	return getWhistleFlag(0);
+    }
+    
+    public boolean circle() {
+    	return getWhistleFlag(1);
     }
     
     /**
@@ -656,11 +678,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPassenger() != null;
-			if (flying != isFlying()) {
+			boolean flyingControl = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPassenger() != null;
+			if (flyingControl != isFlying()) {
 
 				// notify client
-				setFlying(flying);
+				setFlying(flyingControl);
 
 				// clear tasks (needs to be done before switching the navigator!)
 				getBrain().clearTasks();
@@ -670,7 +692,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				getEntityAttribute(FOLLOW_RANGE).setBaseValue(getDragonSpeed());
 
 				// update pathfinding method
-				if (flying) {
+				if (flyingControl) {
 					navigator = new PathNavigateFlying(this, world);
 				} else {
 					navigator = new PathNavigateGround(this, world);
@@ -1089,13 +1111,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	public int getArmorResistance() {
 		if (getArmor() == 1) {
-			return 4;
-		}
-		if (getArmor() == 2) {
 			return 3;
 		}
+		if (getArmor() == 2) {
+			return 2;
+		}
 		if (getArmor() == 3) {
-			return 5;
+			return 4;
 		}
 		return 0;
 	}
@@ -1248,7 +1270,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     
     @Nullable
     public Entity getRidingCarriage() {
-    	Entity entity = (Entity) this.getPassengers();
+    	Entity entity = this.getRidingEntity();
 		if (entity instanceof EntityCarriage) { 
 			return (EntityCarriage) entity;
 		} else {
@@ -1682,11 +1704,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				this.healingEnderCrystal = entityendercrystal;
 			}
 		}
-	}
-	
-	@Override
-	public void onHearFlute(EntityTameableDragon dragon, Commands command) {
-		
 	}
 
 	/**

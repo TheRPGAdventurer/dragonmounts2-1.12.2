@@ -127,7 +127,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 		if(dragon.isUsingBreathWeapon() && hasRider) {
 			dragon.rotationYaw = rider.rotationYaw;
 			dragon.rotationPitch = rider.rotationPitch;
-//			dragon.prevRotationYaw = rider.prevRotationYaw;
 		}
 	}
     

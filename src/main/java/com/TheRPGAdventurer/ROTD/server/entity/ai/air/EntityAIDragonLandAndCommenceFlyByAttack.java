@@ -86,9 +86,12 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		boolean commenceAttackPath = target != null && dragon.getControllingPlayer() == null;
 		boolean commencAttackFlying = commenceAttackPath && !target.onGround;
 		// try to fly to ground block position
-		if (!tryMoveToBlockPos(landingPos, speed)) {
+	//	if (!tryMoveToBlockPos(landingPos, speed)) {
 			// probably too high, so simply descend vertically
-			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
+	//		tryMoveToBlockPos(dragon.getPosition().down(4), speed);
+	//	}
+		if(!tryToCircleBlockPos(new BlockPos(-8678, 126, 497), speed)) {
+			tryToCircleBlockPos(new BlockPos(-8678, 126, 497), speed);
 		}
     }
 }

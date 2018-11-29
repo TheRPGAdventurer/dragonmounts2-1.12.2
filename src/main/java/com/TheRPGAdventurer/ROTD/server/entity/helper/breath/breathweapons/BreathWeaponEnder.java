@@ -97,7 +97,12 @@ public class BreathWeaponEnder extends BreathWeapon {
       return null;
     }
     
-    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
+    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
+       if(dragon.getRidingCarriage().getRidingEntity() != null 
+    		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
+         	return null;
+       }
+    }
     
     if (entityID == dragon.getEntityId()) return null;
     if(dragon.isBeingRidden()) {
@@ -110,16 +115,9 @@ public class BreathWeaponEnder extends BreathWeapon {
 			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
 		   }
 	   }
-  
 
     float hitDensity = currentHitDensity.getHitDensity();
     final float DAMAGE_PER_HIT_DENSITY = 5.0F * hitDensity;
-    
-    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
-    	entity.setFire((int)(40 * 10));
-    } else if(entity instanceof EntityTameable) {
-    	return null;
-    }
     
     if(entity instanceof EntityLivingBase) {
     	EntityLivingBase entity1 = (EntityLivingBase) entity;

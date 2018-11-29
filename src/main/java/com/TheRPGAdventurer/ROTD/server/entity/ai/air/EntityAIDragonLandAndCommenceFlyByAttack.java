@@ -13,10 +13,12 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 
 /**
@@ -72,7 +74,7 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null;
+				&& findLandingBlock() && dragon.getRevengeTarget() == null && !dragon.isTamed();
 	}
 
 	@Override
@@ -82,16 +84,15 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 
 	@Override
 	public void startExecuting() {
-		EntityLivingBase target = dragon.getAttackTarget();
-		boolean commenceAttackPath = target != null && dragon.getControllingPlayer() == null;
-		boolean commencAttackFlying = commenceAttackPath && !target.onGround;
+		BlockPos midPoint = new BlockPos(-8678, 80, 497); 
+    	
 		// try to fly to ground block position
-	//	if (!tryMoveToBlockPos(landingPos, speed)) {
+		if (!tryMoveToBlockPos(landingPos, speed)) {
 			// probably too high, so simply descend vertically
-	//		tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-	//	}
-		if(!tryToCircleBlockPos(new BlockPos(-8678, 126, 497), speed)) {
-			tryToCircleBlockPos(new BlockPos(-8678, 126, 497), speed);
+			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
 		}
+	//	if(!circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2)) { 
+	//		circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2);
+		//}
     }
 }

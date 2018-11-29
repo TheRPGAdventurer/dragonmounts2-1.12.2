@@ -131,7 +131,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
-	public static final float BASE_HEIGHT = 2.10f;
+	public static final float BASE_HEIGHT = 2.0f;
 	public static final float RESISTANCE = 10.0f;
 	public static final double BASE_FOLLOW_RANGE = 70;
 	public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
@@ -404,14 +404,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return dragonWhistle == null ? false : dragonWhistle.get(index);
     }
     
-    public boolean come() {
+    public boolean comeToPlayer() {
     	return getWhistleFlag(0);
     }
     
-    public boolean circle() {
+    public boolean isCircling() {
     	return getWhistleFlag(1);
     }
-    
+  
     /**
      * Returns relative speed multiplier for the vertical flying speed.
      * 
@@ -678,8 +678,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flyingControl = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPassenger() != null;
-			if (flyingControl != isFlying()) {
+			boolean flyingControl = canFly() && inAirTicks > IN_AIR_THRESH;
+			if (flyingControl != isFlying()) { // && getControllingPassenger() != null
 
 				// notify client
 				setFlying(flyingControl);
@@ -1270,7 +1270,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     
     @Nullable
     public Entity getRidingCarriage() {
-    	Entity entity = this.getRidingEntity();
+    	Entity entity = this.getPassengers().isEmpty() ? null : this.getRidingEntity();
 		if (entity instanceof EntityCarriage) { 
 			return (EntityCarriage) entity;
 		} else {
@@ -2069,10 +2069,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		
 		if (this.isFlying()) {
         //    this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartBody.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D)));
-            this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, 
-            		this.dragonPartHead.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D))
-            		, 4.0D);
-            this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(1.0D)));
+        //    this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, 
+       //.dragonPartHead.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D).offset(0.0D, -2.0D, 0.0D))
+       //     		, 4.0D);
+       //     this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(1.0D)));
         //    this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.dragonPartBody.getEntityBoundingBox().grow(1.0D)));
         }
 

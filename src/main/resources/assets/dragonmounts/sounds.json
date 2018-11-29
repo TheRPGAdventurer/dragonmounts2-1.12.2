@@ -92,6 +92,18 @@
     "dragonmounts:mob/dragon/hatching2"
     ]
   },
+  "mob.dragon.whistle": {
+  "category": "dragon_whistle",
+  "sounds": [
+      "dragonmounts:mob/dragon/whistle"
+    ]
+  },
+  "mob.dragon.whistle1": {
+  "category": "dragon_whistle1",
+  "sounds": [
+      "dragonmounts:mob/dragon/whistle1"
+    ]
+  },
   "mob.dragon.breathweapon.adultbreathefirestart": {
     "category": "dragon_start",
     "sounds": [

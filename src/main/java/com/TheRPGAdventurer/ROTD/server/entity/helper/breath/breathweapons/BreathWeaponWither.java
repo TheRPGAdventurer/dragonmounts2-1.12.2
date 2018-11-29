@@ -97,13 +97,12 @@ public class BreathWeaponWither extends BreathWeapon {
        if (dragon.isPassenger(entity)) return null;
     }
     
-    EntityCarriage carriage = new EntityCarriage(dragon.world);
-	   if(dragon.isPassenger(carriage)) {
-		   if(carriage.isPassenger(entity)) {
-			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
-		   }
-	   }
-	if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
+    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
+        if(dragon.getRidingCarriage().getRidingEntity() != null 
+     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
+          	return null;
+        }
+     }
     float hitDensity = currentHitDensity.getHitDensity();
     final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
     

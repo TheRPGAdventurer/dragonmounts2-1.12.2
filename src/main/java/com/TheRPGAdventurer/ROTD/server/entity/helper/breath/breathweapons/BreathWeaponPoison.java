@@ -92,9 +92,12 @@ public class BreathWeaponPoison extends BreathWeapon {
       return null;
     }
     
-    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
-    
-    if (entityID == dragon.getEntityId()) return null;
+    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
+        if(dragon.getRidingCarriage().getRidingEntity() != null 
+     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
+          	return null;
+        }
+     }if (entityID == dragon.getEntityId()) return null;
     if(dragon.isBeingRidden()) {
        if (dragon.isPassenger(entity)) return null;
     }

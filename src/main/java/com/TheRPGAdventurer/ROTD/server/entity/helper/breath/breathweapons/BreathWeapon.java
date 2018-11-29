@@ -248,6 +248,15 @@ public class BreathWeapon {
     return false;
   }
   
+  protected BreathAffectedEntity triggerExceptions(Entity entity,  BreathAffectedEntity currentHitDensity) {
+	    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
+	        if(dragon.getRidingCarriage().getRidingEntity() != null 
+	     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
+	          	return null;
+	        }
+	     }
+		return currentHitDensity;
+  }
   
   protected void triggerDamageExceptionsForFire(Entity entity, float DAMAGE_PER_HIT_DENSITY) {
 	   EntityCarriage carriage = new EntityCarriage(dragon.world);
@@ -314,8 +323,12 @@ public class BreathWeapon {
 	    }
 	    
 	    if (entityID == dragon.getEntityId()) return null;
-	    if(dragon.getRidingCarriage().getRidingEntity() == entity) return null;
-	    
+	    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
+	        if(dragon.getRidingCarriage().getRidingEntity() != null 
+	     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
+	          	return null;
+	        }	 
+	    }
 	    
 	    triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
 	    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);

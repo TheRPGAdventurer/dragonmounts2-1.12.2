@@ -7,7 +7,7 @@ import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class MissingsEvenyHandler {
+public class MissingsEventHandler {
 	
 	
     @SubscribeEvent

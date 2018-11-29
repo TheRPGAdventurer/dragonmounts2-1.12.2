@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.client.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderEnderBreathFX;
@@ -83,6 +84,7 @@ public class ClientProxy extends ServerProxy {
         if (DragonMountsConfig.isDebug()) { MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());}            
         RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
         MinecraftForge.EVENT_BUS.register(new ModKeys());
+        MinecraftForge.EVENT_BUS.register(new ItemDragonWhistle());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent()); 
 
     }

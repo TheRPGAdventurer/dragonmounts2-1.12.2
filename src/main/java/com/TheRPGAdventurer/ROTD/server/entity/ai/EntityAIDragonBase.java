@@ -63,6 +63,13 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
         		 height + target.posY, target.posZ + radius * Math.sin(directionInt * dragon.ticksExisted* 0.5 * speed / radius + offset), 
         		speed * moveSpeedMultiplier);
     }
+	
+	public boolean followAboveThePlayer(BlockPos playerPos) {
+		double x = playerPos.getX();
+		double y = playerPos.getY() + 12;
+		double z = playerPos.getZ() + 14;
+		return dragon.getNavigator().tryMoveToXYZ(x, y, z, 1.1);
+	}
 
     
     protected double getFollowRange() {

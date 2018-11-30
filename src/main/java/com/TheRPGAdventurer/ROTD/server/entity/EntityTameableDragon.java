@@ -88,6 +88,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializer;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
@@ -126,7 +127,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 1.1;
+	public static final double BASE_AIR_SPEED = 0.9;
 	public static final double BASE_DAMAGE = 5.0D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
@@ -182,6 +183,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> HAS_ELDER_STONE = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager
+			.<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
 
 	// data NBT IDs
 	public static final String NBT_ARMOR = "Armor";
@@ -540,7 +543,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public boolean canFly() {
 		// eggs and hatchlings can't fly
-		return !isEgg() && !isHatchling();
+		return !isEgg() && this.getScale() > getScale() * 0.10;
 	}
 
 	/**
@@ -678,11 +681,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flyingControl = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPassenger() != null;
-			if (flyingControl != isFlying()) { 
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH;
+			if (flying != isFlying()) { 
 
 				// notify client
-				setFlying(flyingControl);
+				if(getControllingPassenger() != null) {
+				   setFlying(flying);
+				}
 
 				// clear tasks (needs to be done before switching the navigator!)
 				getBrain().clearTasks();
@@ -692,7 +697,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				getEntityAttribute(FOLLOW_RANGE).setBaseValue(getDragonSpeed());
 
 				// update pathfinding method
-				if (flyingControl) {
+				if (flying) {
 					navigator = new PathNavigateFlying(this, world);
 				} else {
 					navigator = new PathNavigateGround(this, world);
@@ -872,7 +877,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	public void ACHOOOOO() {
 		Random rand = new Random();
-		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(777) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
+		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(555) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
 			double throatPosX = (this.getAnimator().getThroatPosition().x);
 			double throatPosY =  (this.getAnimator().getThroatPosition().z);
 			double throatPosZ =  (this.getAnimator().getThroatPosition().y + 1.7);
@@ -979,6 +984,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 		if (isSitting()) {
 			eyeHeight *= 0.8f;
+			ACHOOOOO();
 		}
 
 		if (isEgg()) {

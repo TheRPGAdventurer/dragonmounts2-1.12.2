@@ -47,9 +47,9 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     	double r = 12;  // radius is now a constant
     	while(a < Math.PI * 2) {
     		a += 1;
-    	   double x = midPoint.getX() + Math.cos(a) * r * dragon.ticksExisted; // x = playerX +﻿ r * cos(a) as stated
+    	   double x = midPoint.getX() + Math.cos(a) * r; // x = playerX +﻿ r * cos(a) as stated
            double y = midPoint.getY() + 20; // y = playerY + NUM as stated
-           double z = midPoint.getZ() + Math.sin(a) * r * dragon.ticksExisted; //  z = playerZ + r * sin(a) as stated
+           double z = midPoint.getZ() + Math.sin(a) * r; //  z = playerZ + r * sin(a) as stated
            return dragon.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, speed);  	// no more adding    	     
         		
     	}
@@ -63,13 +63,6 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
         		 height + target.posY, target.posZ + radius * Math.sin(directionInt * dragon.ticksExisted* 0.5 * speed / radius + offset), 
         		speed * moveSpeedMultiplier);
     }
-	
-	public boolean followAboveThePlayer(BlockPos playerPos) {
-		double x = playerPos.getX();
-		double y = playerPos.getY() + 12;
-		double z = playerPos.getZ() + 14;
-		return dragon.getNavigator().tryMoveToXYZ(x, y, z, 1.1);
-	}
 
     
     protected double getFollowRange() {

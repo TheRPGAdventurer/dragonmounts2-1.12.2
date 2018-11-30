@@ -50,7 +50,7 @@ public class ItemDragonWhistle extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-	//	tooltip.add(commands.toString());
+//		tooltip.add(StatCollector.translateToLocal(commands.toString().toLowerCase()));
 	}
 	
 	@Override

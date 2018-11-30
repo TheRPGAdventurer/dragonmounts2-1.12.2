@@ -99,7 +99,7 @@ public class BreathWeaponNether extends BreathWeapon {
           world.playSound(null, new BlockPos(sideToIgnite.getX() + 0.5, sideToIgnite.getY() + 0.5, sideToIgnite.getZ() + 0.5),
                   SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH));
           
-          if(rand.nextInt(1377) < 200)
+          if(rand.nextInt(1377) < 100)
           world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
         }
         

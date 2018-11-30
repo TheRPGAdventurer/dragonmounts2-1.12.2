@@ -20,9 +20,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 	@Override
 	public void updateTask() {		
 		if(dragon.isCircling()) {
-			if(!followAboveThePlayer(dragon.getOwner().getPosition())) { 
-				followAboveThePlayer(dragon.getOwner().getPosition());				
-			}
+			if(!circleEntity(dragon.getOwner(), 12f, 40f,  (float)dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue(),  true,  2,  2)) { 
+				circleEntity(dragon.getOwner(), 12f, 40f,  (float)dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue(),  true,  2,  2);
+	        }
 		}		
 	}
 }

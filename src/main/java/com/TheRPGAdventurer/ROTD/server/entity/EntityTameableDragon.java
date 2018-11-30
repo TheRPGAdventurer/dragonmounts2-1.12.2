@@ -126,7 +126,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.3;
-	public static final double BASE_AIR_SPEED = 2.0;
+	public static final double BASE_AIR_SPEED = 1.1;
 	public static final double BASE_DAMAGE = 5.0D; 
 	public static final double BASE_ARMOR = 10.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
@@ -679,7 +679,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 
 			boolean flyingControl = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPassenger() != null;
-			if (flyingControl != isFlying()) { // && getControllingPassenger() != null
+			if (flyingControl != isFlying()) { 
 
 				// notify client
 				setFlying(flyingControl);
@@ -1304,9 +1304,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			if (passenger == getPassengers().get(0)) {
 				pos = new Vec3d(0  * getScale(), 0.1  * getScale(), 1.0 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.3 * getScale());
+				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.2 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), 0.3  * getScale()); 
+				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), 0.2  * getScale()); 
 			} 			
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {

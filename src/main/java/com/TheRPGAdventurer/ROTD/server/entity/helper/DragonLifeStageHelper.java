@@ -183,8 +183,8 @@ public class DragonLifeStageHelper extends DragonHelper {
         
         L.debug("transforming to egg");
 
-        float volume = 1;
-        float pitch = 0.5f + (0.5f - rand.nextFloat()) * 0.1f;
+        float volume = 3;
+        float pitch = 1;
         dragon.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, volume, pitch);
         
         if (dragon.isSaddled()) {

@@ -121,38 +121,20 @@ public class BreathWeaponHydro extends BreathWeapon {
 	      return null;
 	    }
 	    
-	    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
-	        if(dragon.getRidingCarriage().getRidingEntity() != null 
-	     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
-	          	return null;
-	        }
-	     }
-	    if (entityID == dragon.getEntityId()) return null;
-	    if(dragon.isBeingRidden()) {
-	       if (dragon.isPassenger(entity)) return null;
-	    }
 
 		final float DAMAGE_PER_HIT_DENSITY = 3.0F;
-
 		float hitDensity = currentHitDensity.getHitDensity();
 		
 		if(entity instanceof EntityLivingBase) {
 	    	EntityLivingBase entity1 = (EntityLivingBase) entity;
 	    	if(entity1.isPotionActive(MobEffects.WATER_BREATHING)) {
-	    		entity1.attackEntityFrom(DamageSource.GENERIC, 0);
+	    		return null;
 	    	} else {
 	    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	    	}
-	    }  else
+	    } 
+		triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
 
-		if (entity instanceof EntityTameable) {
-			EntityTameable entityTameable = (EntityTameable) entity;
-			if (entityTameable.isTamed()) {
-				entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
-			} else {
-				entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-			}
-		} 
 		
 		if(entity instanceof EntityWaterMob) {
 			EntityWaterMob watermob = (EntityWaterMob) entity;
@@ -167,7 +149,7 @@ public class BreathWeaponHydro extends BreathWeapon {
 		entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 		entity.isWet();		
 		((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
-		PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50 * 10);
+		PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 200);
 		((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the entity
 		entity.playSound(SoundEvents.ENTITY_GENERIC_SPLASH, 0.4f, 1.0f);
 

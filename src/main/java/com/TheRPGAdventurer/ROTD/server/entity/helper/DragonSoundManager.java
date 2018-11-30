@@ -11,6 +11,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -171,6 +172,8 @@ public class DragonSoundManager extends DragonHelper {
      * Returns the pitch for a sound to play.
      */
     public float getPitch(SoundEvent sound) {
-        return (2.0f - dragon.getScale()) * dragon.getBreed().getSoundPitch(sound);
+    	float pitch = (2.0f - dragon.getScale()) * dragon.getBreed().getSoundPitch(sound);
+    	MathX.clamp(1, 0, 1);
+        return pitch;
     }
 }

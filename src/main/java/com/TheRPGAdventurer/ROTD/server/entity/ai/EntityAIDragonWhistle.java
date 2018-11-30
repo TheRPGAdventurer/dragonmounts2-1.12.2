@@ -13,7 +13,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 	public boolean shouldExecute() {
 		if(dragon.getOwner() == null) {
 			return false;
-		} 
+		} else if(dragon.isSitting()) {
+			return false;
+		}
 		return false;
 	}
 	

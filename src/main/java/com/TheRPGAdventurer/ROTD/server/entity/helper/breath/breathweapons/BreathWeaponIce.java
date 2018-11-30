@@ -106,29 +106,10 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
       return null;
     }
     
-    if (entityID == dragon.getEntityId()) return null;
-    if(dragon.isBeingRidden()) {
-       if (dragon.isPassenger(entity)) return null;
-    }
-    
-    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
-        if(dragon.getRidingCarriage().getRidingEntity() != null 
-     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
-          	return null;
-        }
-     }float hitDensity = currentHitDensity.getHitDensity();
+    float hitDensity = currentHitDensity.getHitDensity();
     final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
-    
-    if(entity instanceof EntityTameable) {
-    	EntityTameable entityTameable = (EntityTameable) entity;
-    	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
-    	} else {
-    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    	}
-    } else {
-       entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    }
+    triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
+
     
     if (entity.isBurning()) {
 		entity.extinguish();
@@ -136,11 +117,8 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
 	}
 	
     entity.isWet();
-    PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 50*10);      
+    PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 500);      
     ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the player
-  		
-       //   ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 40*10, 2));
-  //  }
 
     return currentHitDensity;
   }

@@ -54,6 +54,7 @@ import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
@@ -543,7 +544,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public boolean canFly() {
 		// eggs and hatchlings can't fly
-		return !isEgg() && this.getScale() > getScale() * 0.10;
+		return !isEgg() && this.getScale() > getScale() * 0.8;
 	}
 
 	/**
@@ -682,12 +683,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH;
+			boolean flyingControl = flying && getControllingPlayer() != null;
 			if (flying != isFlying()) { 
 
 				// notify client
-				if(getControllingPassenger() != null) {
-				   setFlying(flying);
-				}
+				 setFlying(flyingControl);
 
 				// clear tasks (needs to be done before switching the navigator!)
 				getBrain().clearTasks();
@@ -706,6 +706,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				// tasks need to be updated after switching modes
 				getBrain().updateAITasks();
 				
+				setSitting(false);
 				
 			}
 		} else {
@@ -862,7 +863,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	@Override
 	protected float getSoundVolume() {
-		// note: unused, managed in playSound()
+		// note: unused, managed in playSound() 
+		float sound = 0;
 		return 1;
 	}
 
@@ -871,17 +873,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 */
 	@Override
 	protected float getSoundPitch() {
-		// note: unused, managed in playSound()
+		// note: unused, managed in playSound() 
+		float sound = 0;
 		return 1;
 	}
 	
 	public void ACHOOOOO() {
 		Random rand = new Random();
-		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(555) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
+		if(this.getBreed().getSneezeParticle() != null && rand.nextInt(25) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg() && this.getAnimator().getSpeed() > 0) {
 			double throatPosX = (this.getAnimator().getThroatPosition().x);
 			double throatPosY =  (this.getAnimator().getThroatPosition().z);
 			double throatPosZ =  (this.getAnimator().getThroatPosition().y + 1.7);
-			world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0, 0);
+			world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 4, 0);
 			world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);			
 		}
 	}
@@ -983,8 +986,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		float eyeHeight = height * 0.85F;
 
 		if (isSitting()) {
-			eyeHeight *= 0.8f;
-			ACHOOOOO();
+			eyeHeight *= 0.8f;			
 		}
 
 		if (isEgg()) {
@@ -1154,12 +1156,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         EntityTameableDragon parent2 = (EntityTameableDragon) mate;
         EntityTameableDragon baby = new EntityTameableDragon(this.world);
         
-        if(parent1.isMale() && !parent2.isMale() || !parent1.isMale() && parent2.isMale()) {
-        	
-		   return getReproductionHelper().createChild(mate);
-		   
-        } else {
-        	
+        if(parent1.isMale() && !parent2.isMale() || !parent1.isMale() && parent2.isMale()) {     	
+		   return getReproductionHelper().createChild(mate);	   
+        } else {   	
 	       return null;
         }
 	}
@@ -1276,7 +1275,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     
     @Nullable
     public Entity getRidingCarriage() {
-    	Entity entity = this.getPassengers().isEmpty() ? null : this.getRidingEntity();
+    	List<Entity> entity = this.getPassengers().isEmpty() ? null : this.getPassengers();
 		if (entity instanceof EntityCarriage) { 
 			return (EntityCarriage) entity;
 		} else {
@@ -1308,7 +1307,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0  * getScale(), 0.1  * getScale(), 1.0 * getScale());
+				pos = new Vec3d(0  * getScale(), 0.1 * getScale(), 1.0 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
 				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.2 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
@@ -1571,7 +1570,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			ret.add(new ItemStack(this.getBreed().getShearDropitem(this)));
 		
 
-		ticksShear = 4500;
+		ticksShear = 3600;
 		playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
 		playSound(ModSounds.ENTITY_DRAGON_GROWL, 1.0F, 1.0F);
 
@@ -1684,7 +1683,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				if (this.healingEnderCrystal.isDead) {
 					this.healingEnderCrystal = null;
 				} else if (this.ticksExisted % 10 == 0) {
-					if (getBreedType() == EnumDragonBreed.END && this.getHealth() < this.getMaxHealth()) {
+					if (this.getHealth() < this.getMaxHealth()) {
 						this.setHealth(this.getHealth() + 1.0F);
 					}
 					

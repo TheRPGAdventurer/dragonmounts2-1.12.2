@@ -36,6 +36,18 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		this.speed = speed;
 		setMutexBits(1);
 	}
+	
+	public boolean doesItWantToLand() {
+		if(dragon.isTamed()) {
+		   if(dragon.getOwner().fallDistance > 5) {
+			  return false;
+		   }
+		} else {
+			
+		}
+		
+		return dragon.getControllingPlayer() == null;
+	}
 
 	public BlockPos findLandingArea(BlockPos pos) {
 		for (int Y = 1; Y <= 2; Y++) {
@@ -61,20 +73,17 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		landingPos = landingPos.add(ox, 0, oz);
 
 		// get ground block
-		if (dragon.world.provider.getDimensionType() == DimensionType.NETHER) {
-			landingPos = findLandingArea(landingPos);
-		} else {
-			landingPos = dragon.world.getHeight(landingPos);
-		}
+		landingPos = dragon.world.provider.getDimensionType() == DimensionType.NETHER ? findLandingArea(landingPos) : dragon.world.getHeight(landingPos);
+
 
 		// make sure the block below is solid
-		return world.getBlockState(landingPos.down()).getMaterial().isSolid();
+		return world.getBlockState(landingPos.down()).getMaterial().isSolid() ;
 	}
 
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null && !dragon.isTamed();
+				&& findLandingBlock() && dragon.getRevengeTarget() == null && !dragon.isTamed() && doesItWantToLand();
 	}
 
 	@Override
@@ -84,15 +93,17 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 
 	@Override
 	public void startExecuting() {
-		BlockPos midPoint = new BlockPos(-8678, 80, 497); 
-    	
 		// try to fly to ground block position
-		if (!tryMoveToBlockPos(landingPos, speed)) {
+	//	if (!tryMoveToBlockPos(landingPos, speed)) {
 			// probably too high, so simply descend vertically
-			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-		}
+	//		tryMoveToBlockPos(dragon.getPosition().down(4), speed);
+	//	}
 	//	if(!circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2)) { 
 	//		circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2);
 		//}
+		
+		if(!dragon.isCircling()) {
+			dragon.Whistle().set(0);
+		}
     }
 }

@@ -258,14 +258,29 @@ public class BreathWeapon {
 		return currentHitDensity;
   }
   
-  protected void triggerDamageExceptionsForFire(Entity entity, float DAMAGE_PER_HIT_DENSITY) {
-	   EntityCarriage carriage = new EntityCarriage(dragon.world);
-	   if(dragon.isPassenger(carriage)) {
-		   if(carriage.isPassenger(entity)) {
-			   entity.setFire(0);
-			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
-		   }
-	   }
+  protected BreathAffectedEntity triggerDamageExceptions(Entity entity, float DAMAGE_PER_HIT_DENSITY, Integer entityID, BreathAffectedEntity currentHitDensity) {
+	  if (entityID == dragon.getEntityId()) return null;
+	  
+	  if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
+	        if(dragon.getRidingCarriage().getRidingEntity() != null 
+	     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
+	          	return null;
+	       }	 
+	  } else if(entity instanceof EntityTameable) {
+	    	EntityTameable entityTameable = (EntityTameable) entity;
+	    	if(entityTameable.isTamed()) {
+	    		return null;
+	    	} else {
+	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+	    	}  
+	    } 
+	  
+	  return currentHitDensity;  
+
+  }
+  
+  protected BreathAffectedEntity triggerDamageExceptionsForFire(Entity entity, Integer entityID, float DAMAGE_PER_HIT_DENSITY, BreathAffectedEntity currentHitDensity) {
+	   triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
 	    	entity.setFire((int)(10 * 2));
 	    } else if(entity instanceof EntityTameable) {
@@ -278,23 +293,17 @@ public class BreathWeapon {
 	    if(entity instanceof EntityLivingBase) {
 	    	EntityLivingBase entity1 = (EntityLivingBase) entity;
 	    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-	    		entity1.attackEntityFrom(DamageSource.GENERIC, 0);
+	    		return null;
 	    	} else {
 	    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	    	}
-	    }  else
-	    
-	    if(entity instanceof EntityTameable) {
-	    	EntityTameable entityTameable = (EntityTameable) entity;
-	    	if(entityTameable.isTamed()) {
-	    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
-	    	} else {
-	    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-	    	}
-	    } 
+	    }  else if(dragon.isBeingRidden()) {
+	        if (dragon.isPassenger(entity)) return null;
+	    }
+	      
+	    return currentHitDensity;
 	    
   }
-
 
   private HashMap<Block, BlockBurnProperties> blockBurnPropertiesCache = new HashMap<Block, BlockBurnProperties>();
 
@@ -320,17 +329,9 @@ public class BreathWeapon {
 	    Entity entity = world.getEntityByID(entityID);
 	    if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
 	      return null;
-	    }
+	    }	    
 	    
-	    if (entityID == dragon.getEntityId()) return null;
-	    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
-	        if(dragon.getRidingCarriage().getRidingEntity() != null 
-	     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
-	          	return null;
-	        }	 
-	    }
-	    
-	    triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
+	    triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
 	    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 	      
 	    return currentHitDensity;

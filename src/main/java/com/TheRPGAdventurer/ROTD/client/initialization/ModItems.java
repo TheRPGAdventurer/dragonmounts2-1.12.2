@@ -114,7 +114,7 @@ public class ModItems {
 		aether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.AETHER),
 		forest_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FOREST),
 		ice_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ICE),
-		fire_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE),
+		fire_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE2),
 		water_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.WATER),
 		enchant_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ENCHANT),
 		sunlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.SUNLIGHT),

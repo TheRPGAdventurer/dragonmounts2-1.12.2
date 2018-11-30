@@ -250,9 +250,6 @@ public class BreathWeaponNether extends BreathWeapon {
     }
     
     if (entityID == dragon.getEntityId()) return null;
-    if(dragon.isBeingRidden()) {
-       if (dragon.isPassenger(entity)) return null;
-    }
 
     final float CATCH_FIRE_THRESHOLD = 1.4F;
     final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
@@ -260,14 +257,9 @@ public class BreathWeaponNether extends BreathWeapon {
     
     final float DAMAGE_PER_HIT_DENSITY = 4.0F * hitDensity;
     
-    triggerDamageExceptionsForFire(entity, DAMAGE_PER_HIT_DENSITY);
+    triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
     entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
-        if(dragon.getRidingCarriage().getRidingEntity() != null 
-     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
-          	return null;
-        }
-     }
+    
     return currentHitDensity;
   }
 

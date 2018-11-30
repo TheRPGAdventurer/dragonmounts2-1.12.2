@@ -95,46 +95,13 @@ public class BreathWeaponEnder extends BreathWeapon {
     Entity entity = world.getEntityByID(entityID);
     if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
       return null;
-    }
-    
-    if(entity == dragon.getRidingCarriage() && dragon.getRidingCarriage() != null) { 
-       if(dragon.getRidingCarriage().getRidingEntity() != null 
-    		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
-         	return null;
-       }
-    }
-    
-    if (entityID == dragon.getEntityId()) return null;
-    if(dragon.isBeingRidden()) {
-       if (dragon.isPassenger(entity)) return null;
-    }
-    
-    EntityCarriage carriage = new EntityCarriage(dragon.world);
-	   if(dragon.isPassenger(carriage)) {
-		   if(carriage.isPassenger(entity)) {
-			   entity.attackEntityFrom(DamageSource.GENERIC, 0);
-		   }
-	   }
+    }   
 
     float hitDensity = currentHitDensity.getHitDensity();
     final float DAMAGE_PER_HIT_DENSITY = 5.0F * hitDensity;
     
-    if(entity instanceof EntityLivingBase) {
-    	EntityLivingBase entity1 = (EntityLivingBase) entity;
-    	if(entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-    		return null;
-    	} else {
-    		entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    	}
-    } else if(entity instanceof EntityTameable) {
-    	EntityTameable entityTameable = (EntityTameable) entity;
-    	if(entityTameable.isTamed()) {
-    		entityTameable.attackEntityFrom(DamageSource.GENERIC, 0);
-    	} else {
-    		entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    	}
-    } 
-    
+    triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
+
     entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 
     return currentHitDensity;

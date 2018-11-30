@@ -40,6 +40,10 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
         	return false;
         }
         
+        if(dragon.getLeashed()) {
+           return false;
+        }
+        
         owner = (EntityPlayer) dragon.getOwner2();
         
         // don't follow if ownerless 

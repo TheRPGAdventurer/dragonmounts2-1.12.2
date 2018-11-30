@@ -75,7 +75,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
                 
-        return owner.fallDistance > 4;
+        return false;
     }
 
     @Override

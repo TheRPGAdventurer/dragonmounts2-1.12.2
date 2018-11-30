@@ -55,39 +55,62 @@ public class ItemDragonWhistle extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
-		worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.NEUTRAL, 1, 1);
 		EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
-		if(player.isSneaking()) {		
-			setCommands(Commands.CIRCLE);
-		} else {
-			if(dragon.isTamedFor(player)) {
-			   switch(getCommands()) {
-			     case CIRCLE:
-				  worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.NEUTRAL, 1, 1);				
-				  break;
-			     case COME:
-				  worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE1, SoundCategory.NEUTRAL, 1, 1);
-				  break;
-			     default:
-				  break;		
-			    }
-			}
+		if(dragon.isTamedFor(player)) {
+		   dragon.Whistle().set(0);
+		   worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);	
 		}
+	//	if(commands == null) {
+	//		setCommands(Commands.CIRCLE);
+	//	}
+		
+	//	if(dragon.isTamed() && dragon.isTamedFor(player)) {
+	//		worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);	
+	//		switch(commands) {
+	//		case CIRCLE:
+	//			dragon.Whistle().set(0);
+	//			break;
+	//		case COME:
+	//			break;
+	//		default:
+	//			break;
+	///		
+	//		}
+	//		
+	//	}
+		
+	//	if(player.isSneaking()) {		
+	//		setCommands(Commands.CIRCLE);
+	//	} 
+		//else {
+	///		if(dragon.isTamedFor(player)) {
+	///		   switch(getCommands()) {
+	///		     case CIRCLE:
+	//			  worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.NEUTRAL, 1, 1);				
+	///			  break;
+	///		     case COME:
+	//			  worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE1, SoundCategory.NEUTRAL, 1, 1);
+	///			  break;
+	//		     default:
+	///			  break;		
+	//		    }
+	//		}
+	//	}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 	
-    @SubscribeEvent
-    public void onTick(ClientTickEvent evt) {
-        BitSet flags = dcw.getFlags();
-        flags.set(0, commands == Commands.COME);
-        flags.set(1, commands == Commands.CIRCLE);
+  //  @SubscribeEvent
+  ///  public void onTick(ClientTickEvent evt) {
+  //      BitSet flags = dcw.getFlags();
+  //      flags.set(0, commands == Commands.COME);
+  //      flags.set(1, commands == Commands.CIRCLE);
   //      flags.set(2, KEY_HOVERCANCEL.isPressed());
         
         // send message to server if it has changed
-        if (dcw.hasChanged()) {
-            DragonMounts.NETWORK_WRAPPER.sendToServer(dcw);
-        }
-    }
+   //     if (dcw.hasChanged()) {
+    //        DragonMounts.NETWORK_WRAPPER.sendToServer(dcw);
+   //     }
+  //  }
     
 	public enum Commands {
 	    COME(),

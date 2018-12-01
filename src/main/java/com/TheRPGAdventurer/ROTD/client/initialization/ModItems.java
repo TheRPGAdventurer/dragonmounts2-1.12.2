@@ -59,6 +59,7 @@ public class ModItems {
 	public static final Item aether_dragon_shield;
 	public static final Item forest_dragon_shield;
 	public static final Item fire_dragon_shield;
+	public static final Item fire2_dragon_shield;
 	public static final Item ice_dragon_shield;
 	public static final Item water_dragon_shield;
 	public static final Item sunlight_dragon_shield;
@@ -114,7 +115,8 @@ public class ModItems {
 		aether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.AETHER),
 		forest_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FOREST),
 		ice_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ICE),
-		fire_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE2),
+		fire_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE),
+		fire2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE2),
 		water_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.WATER),
 		enchant_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ENCHANT),
 		sunlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.SUNLIGHT),

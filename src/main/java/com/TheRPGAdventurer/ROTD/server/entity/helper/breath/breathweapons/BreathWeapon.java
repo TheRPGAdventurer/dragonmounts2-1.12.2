@@ -266,7 +266,9 @@ public class BreathWeapon {
 	     		   && dragon.getRidingCarriage().getRidingEntity() == entity) {
 	          	return null;
 	       }	 
-	  } else if(entity instanceof EntityTameable) {
+	  }  
+	  
+	  if(entity instanceof EntityTameable) {
 	    	EntityTameable entityTameable = (EntityTameable) entity;
 	    	if(entityTameable.isTamed()) {
 	    		return null;

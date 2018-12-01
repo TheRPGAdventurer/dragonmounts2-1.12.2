@@ -94,16 +94,12 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 	@Override
 	public void startExecuting() {
 		// try to fly to ground block position
-	//	if (!tryMoveToBlockPos(landingPos, speed)) {
+		if (!tryMoveToBlockPos(landingPos, speed)) {
 			// probably too high, so simply descend vertically
-	//		tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-	//	}
+			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
+		}
 	//	if(!circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2)) { 
 	//		circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2);
 		//}
-		
-		if(!dragon.isCircling()) {
-			dragon.Whistle().set(0);
-		}
     }
 }

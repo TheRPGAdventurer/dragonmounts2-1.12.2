@@ -682,12 +682,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH;
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPlayer() != null;
 			boolean flyingControl = flying && getControllingPlayer() != null;
 			if (flying != isFlying()) { 
 
 				// notify client
-				 setFlying(flyingControl);
+				 setFlying(flying);
 
 				// clear tasks (needs to be done before switching the navigator!)
 				getBrain().clearTasks();

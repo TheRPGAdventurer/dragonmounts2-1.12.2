@@ -113,7 +113,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     
 	private void updateIntendedRideRotation(EntityPlayer rider) {
 		boolean hasRider = dragon.hasControllingPlayer(rider);
-		if(dragon.isUsingBreathWeapon() && hasRider && dragon.moveForward != 0 && dragon.moveStrafing == 0) {
+		if(dragon.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
 			dragon.rotationYaw = rider.rotationYaw;
 			dragon.rotationPitch = rider.rotationPitch;
 		}

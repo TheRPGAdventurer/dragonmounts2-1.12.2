@@ -544,7 +544,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public boolean canFly() {
 		// eggs and hatchlings can't fly
-		return !isEgg() && this.getScale() > getScale() * 0.8;
+		return !isEgg() && this.getScale() > getScale() * 0.14;
 	}
 
 	/**

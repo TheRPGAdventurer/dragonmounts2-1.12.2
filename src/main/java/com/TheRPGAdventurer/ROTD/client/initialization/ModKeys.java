@@ -48,5 +48,4 @@ public class ModKeys {
             DragonMounts.NETWORK_WRAPPER.sendToServer(dcm);
         }
     }
-    
 }

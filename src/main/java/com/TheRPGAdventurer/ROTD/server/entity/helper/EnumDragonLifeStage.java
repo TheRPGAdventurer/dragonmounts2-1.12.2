@@ -24,7 +24,7 @@ public enum EnumDragonLifeStage {
     
     EGG(0.25f),
     HATCHLING(0.10f),
-    JUVENILE(0.55f),
+    JUVENILE(0.66f),
     ADULT(1.2f);
     
     public static final int TICKS_PER_STAGE = DragonMountsConfig.GET_TICKS_PER_STAGE;

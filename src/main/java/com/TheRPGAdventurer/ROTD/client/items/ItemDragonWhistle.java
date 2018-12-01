@@ -57,7 +57,7 @@ public class ItemDragonWhistle extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
 		EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 		if(dragon.isTamedFor(player)) {
-		   dragon.Whistle().set(0);
+			dragon.setSitting(true);
 		   worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);	
 		}
 	//	if(commands == null) {

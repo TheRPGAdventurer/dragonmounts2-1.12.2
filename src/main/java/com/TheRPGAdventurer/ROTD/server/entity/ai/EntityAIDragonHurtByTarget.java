@@ -17,7 +17,7 @@ public class EntityAIDragonHurtByTarget extends EntityAITarget
     private EntityTameableDragon dragon;
 
     public EntityAIDragonHurtByTarget(EntityTameableDragon dragon, boolean entityCallsForHelpIn, Class<?>... excludedReinforcementTypes) {
-        super(dragon, true);
+        super(dragon, true, true);
         this.dragon = dragon;
         this.entityCallsForHelp = entityCallsForHelpIn;
         this.excludedReinforcementTypes = excludedReinforcementTypes;

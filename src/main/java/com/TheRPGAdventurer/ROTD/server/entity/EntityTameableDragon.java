@@ -399,12 +399,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dragonWhistle = flags;
     }
 
-    public BitSet Whistle() {
+    public BitSet getWhistleFlags() {
         return dragonWhistle;
     }
     
     private boolean getWhistleFlag(int index) {
-        BitSet dragonWhistle = Whistle();
+        BitSet dragonWhistle = getWhistleFlags();
         return dragonWhistle == null ? false : dragonWhistle.get(index);
     }
     

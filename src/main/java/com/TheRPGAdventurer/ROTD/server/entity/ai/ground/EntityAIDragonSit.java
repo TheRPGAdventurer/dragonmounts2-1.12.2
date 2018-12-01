@@ -25,12 +25,7 @@ public class EntityAIDragonSit extends EntityAISit {
         } else if (!dragon.onGround) {
             return false;
         } else {
-            EntityLivingBase entitylivingbase = this.dragon.getOwner2();
-            if (entitylivingbase == null) {
-                return true;
-            } else {
-                return this.dragon.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getRevengeTarget() != null ? false : this.isSitting;
-            }
+            return false;
         }
     }
 

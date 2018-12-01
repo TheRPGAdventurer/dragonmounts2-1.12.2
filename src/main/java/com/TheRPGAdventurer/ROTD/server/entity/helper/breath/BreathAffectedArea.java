@@ -215,7 +215,7 @@ public class BreathAffectedArea {
                       if (currentDensity == null) {
                         currentDensity = new BreathAffectedEntity();
                       }
-                      currentDensity.addHitDensity(nodeLineSegments.get(i).getSegmentDirection(), hitDensity - 2);
+                      currentDensity.addHitDensity(nodeLineSegments.get(i).getSegmentDirection(), hitDensity - 16);
                       affectedEntities.put(entityID, currentDensity);
                     }
                   }

@@ -864,7 +864,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	@Override
 	protected float getSoundVolume() {
 		// note: unused, managed in playSound() 
-		float sound = 0;
 		return 1;
 	}
 
@@ -874,7 +873,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	@Override
 	protected float getSoundPitch() {
 		// note: unused, managed in playSound() 
-		float sound = 0;
 		return 1;
 	}
 	
@@ -998,7 +996,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	/**
 	 * Returns the height of the eyes. Used for looking at other entities.
-	 * @TheRPGAdventurer duplicated one for firebreathing
+	 * @TheRPGAdventurer duplicate one for firebreathing
 	 */
 	public float getEyeHeight2() {
 		float eyeHeight = 2.75f * 0.85F;
@@ -1309,9 +1307,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			if (passenger == getPassengers().get(0)) {
 				pos = new Vec3d(0  * getScale(), 0.1 * getScale(), 1.0 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
-				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.2 * getScale());
+				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
 			} else if (passenger == getPassengers().get(2)) {
-				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), 0.2  * getScale()); 
+				pos = new Vec3d(-0.3  * getScale(), 0.2 * getScale(), 0.1  * getScale()); 
 			} 			
 	        
 	    	if(!(passenger instanceof EntityPlayer)) {

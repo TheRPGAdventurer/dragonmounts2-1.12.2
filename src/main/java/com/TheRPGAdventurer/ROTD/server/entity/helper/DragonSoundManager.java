@@ -164,7 +164,7 @@ public class DragonSoundManager extends DragonHelper {
     /**
      * Returns the volume for a sound to play.
      */
-    public float getVolume(SoundEvent sound) {
+    public float getVolume(SoundEvent sound) {   	
         return dragon.getScale() * dragon.getBreed().getSoundVolume(sound);
     }
     
@@ -172,8 +172,7 @@ public class DragonSoundManager extends DragonHelper {
      * Returns the pitch for a sound to play.
      */
     public float getPitch(SoundEvent sound) {
-    	float pitch = (2.0f - dragon.getScale()) * dragon.getBreed().getSoundPitch(sound);
-    	MathX.clamp(1, 0, 1);
+    	float pitch = (2.0f - MathX.clamp(dragon.getScale(), 0.0f, 1.0f) * dragon.getBreed().getSoundPitch(sound));   	
         return pitch;
     }
 }

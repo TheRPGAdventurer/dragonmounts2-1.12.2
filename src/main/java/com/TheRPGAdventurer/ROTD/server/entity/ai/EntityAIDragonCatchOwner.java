@@ -48,9 +48,9 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         }
         
         // no point in catching players in creative mode
-        if (owner.capabilities.isCreativeMode) {
-            return false;
-        }
+    //    if (owner.capabilities.isCreativeMode) {
+     //       return false;
+    //    }
         
         // don't catch if already being ridden
         if (dragon.isPassenger(owner)) {
@@ -67,13 +67,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         ItemStack itemStack = owner.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (itemStack != null && itemStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemStack)) {
             return false;
-        }
-        
-        // don't catch if owner is too far away
-        double followRange = getFollowRange();
-        if (dragon.getDistanceToEntity(owner) > followRange) {
-            return false;
-        }
+        }    
                 
         return false;
     }
@@ -85,16 +79,21 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
     
     @Override
     public void updateTask() {
+    	
         // catch owner in flight if possible
         if (!dragon.isFlying()) {
             dragon.liftOff();
         }
         
-        // mount owner if close enough, otherwise move to owner
-        if (dragon.getDistanceToEntity(owner) < dragon.width) {
-            owner.startRiding(dragon);
-        } else {
-            dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
+        // don't catch if owner is too far away
+        double followRange = getFollowRange();
+        if (dragon.getDistanceToEntity(owner) < followRange) {
+          // mount owner if close enough, otherwise move to owner
+           if (dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale() * 10) {
+              owner.startRiding(dragon);
+           } else {
+              dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
+           }
         }
     }
 }

@@ -68,7 +68,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         double z = dragon.posZ;
         
         double verticalSpeed = 0;    
-        
+              
         if(dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
         	PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
         	if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
@@ -96,9 +96,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 wp = wp.rotateYaw(MathX.PI_F * -0.5f);
             } 
             
-            x += wp.x * 10;
-            y += wp.y * 10;         
-            z += wp.z * 10;         
+            x += wp.x * 4;
+            y += wp.y * 4;         
+            z += wp.z * 4;         
      }
       
      // lift off from a jump

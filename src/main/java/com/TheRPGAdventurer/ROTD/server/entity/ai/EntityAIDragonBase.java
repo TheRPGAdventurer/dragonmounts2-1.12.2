@@ -55,15 +55,7 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     	}
     	//double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector())); 
 		return false;
-      }
-	
-	public boolean circleEntity(Entity target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
-        int directionInt = direction ? 1 : -1;
-        return dragon.getNavigator().tryMoveToXYZ(target.posX + radius * Math.cos(directionInt * dragon.ticksExisted * 0.5 * speed / radius + offset), 
-        		 height + target.posY, target.posZ + radius * Math.sin(directionInt * dragon.ticksExisted* 0.5 * speed / radius + offset), 
-        		speed * moveSpeedMultiplier);
-    }
-
+   }	
     
     protected double getFollowRange() {
         return dragon.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();

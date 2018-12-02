@@ -269,8 +269,8 @@ public class EntityCarriage extends Entity {
                 if (!entity.isPassenger(this)) { 
                     if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width + 0.7 && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer)) {
                         entity.startRiding(this);
-                    } else {
-                        this.applyEntityCollision(entity); 
+                   // } else {
+                    //    this.applyEntityCollision(entity); 
                     }
                 }
             }

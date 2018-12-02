@@ -70,6 +70,7 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -119,7 +120,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable, IEntityMultiPart {
+public class EntityTameableDragon extends EntityTameable implements IShearable, IEntityMultiPart, IDragonWhistle {
 
 	private static final Logger L = LogManager.getLogger();
 
@@ -217,13 +218,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public DragonInventory dragonStats;
 	private ItemStackHandler itemHandler = null;
 	private boolean hasChestVarChanged = false;
-	public boolean onGround2;
+	public boolean nearGround;
+    /** True if after a move this entity has collided with something on Y-axis */
+    public boolean isCollidedVertically2;
 	private boolean isUsingBreathWeapon;
 	public boolean isSlowed;
-	private int inAirTicks;
+	public int inAirTicks;
 	public final EntityAITasks attackTasks;
 	public DragonAnimator animator;
     private double airSpeedVertical = 0;
+	public BlockPos airPosTarget;
+	public final double nearGroundOffset = motionY + 5;
 
 	/** An array containing all body parts of this dragon */
 	public MultiPartEntityPart[] dragonPartArray;
@@ -348,7 +353,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
-		nbt.setBoolean("onGround2", this.onGround2);
+		nbt.setBoolean("nearGround", this.nearGround);
 		writeDragonInventory(nbt);
 		writeDragonStats(nbt);
 		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
@@ -373,7 +378,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
-		this.onGround2 = nbt.getBoolean("onGround2");
+		this.nearGround = nbt.getBoolean("nearGround");
 		readDragonInventory(nbt);
 		readDragonStats(nbt);
 		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
@@ -398,6 +403,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void setWhistleFlags(BitSet flags) {
         dragonWhistle = flags;
     }
+    
+    public boolean isCircling;
+    
+    public boolean isCircling() {
+    	return isCircling;
+    }
+    
+    public void setCircling(boolean isCircling) {
+    	this.isCircling = isCircling;
+    }
 
     public BitSet getWhistleFlags() {
         return dragonWhistle;
@@ -408,13 +423,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return dragonWhistle == null ? false : dragonWhistle.get(index);
     }
     
-    public boolean comeToPlayer() {
-    	return getWhistleFlag(0);
-    }
-    
-    public boolean isCircling() {
-    	return getWhistleFlag(1);
-    }
   
     /**
      * Returns relative speed multiplier for the vertical flying speed.
@@ -682,12 +690,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				inAirTicks = 0;
 			}
 
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && getControllingPlayer() != null;
-			boolean flyingControl = flying && getControllingPlayer() != null;
-			if (flying != isFlying()) { 
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH;
+			boolean flyingOwn = flying;
+			boolean flyWithPlayer = flying && getControllingPlayer() != null;
+			if ((flyingOwn || flyWithPlayer) != isFlying()) { 
 
 				// notify client
-				 setFlying(flying);
+				 setFlying((flyingOwn || flyWithPlayer));
 
 				// clear tasks (needs to be done before switching the navigator!)
 				getBrain().clearTasks();
@@ -697,7 +706,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 				getEntityAttribute(FOLLOW_RANGE).setBaseValue(getDragonSpeed());
 
 				// update pathfinding method
-				if (flying) {
+				if (isFlying()) {
 					navigator = new PathNavigateFlying(this, world);
 				} else {
 					navigator = new PathNavigateGround(this, world);
@@ -802,6 +811,36 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return net.minecraft.util.text.translation.I18n.translateToLocal("entity." + entName + "." + breedName + ".name");
 		
 	}
+	
+	@Override
+	public void Whistle(EntityPlayer player) {
+		if(this.isTamed() && this.isTamedFor(player)) {
+			this.setFlying(false);
+			this.ACHOOOOO();
+		}
+		
+	}
+	
+	public boolean doesWantToLand() {		
+		return this.inAirTicks > 6000 || this.inAirTicks > 40; //&& this.flyProgress == 0;
+	}
+	
+	public boolean circleTarget(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
+        int directionInt = direction ? 1 : -1;
+        return this.getNavigator().tryMoveToXYZ(target.getX() + radius * Math.cos(directionInt * Math.toDegrees(this.ticksExisted) * 0.5 * speed / radius + offset), 
+        		 height + target.getY(), target.getZ() + radius * Math.sin(directionInt * Math.toDegrees(this.ticksExisted) * 0.5 * speed / radius + offset), 
+        		speed * moveSpeedMultiplier);
+    }
+	
+	public void flyAround() {
+		if(this.isFlying() && !this.doesWantToLand()) {
+			double x = 0;
+			double y = 0;
+			double z = 0;
+			circleTarget(new BlockPos(RandomPositionGenerator.getLandPos(this, 15, 15)), 10, 1, 1, this.getRNG().nextBoolean(), 1, 1);
+			//this.getNavigator().tryMoveToXYZ(x, y, z, 1);
+		}
+	}
 
 	/**
 	 * Returns the sound this mob makes while it's alive.
@@ -882,7 +921,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			double throatPosX = (this.getAnimator().getThroatPosition().x);
 			double throatPosY =  (this.getAnimator().getThroatPosition().z);
 			double throatPosZ =  (this.getAnimator().getThroatPosition().y + 1.7);
-			world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 4, 0);
+			world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 2, 0);
 			world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);			
 		}
 	}
@@ -1252,7 +1291,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public void move(MoverType type, double x, double y, double z) {
-		this.onGround2 = this.isCollidedVertically && y > -20.0D;
+		double d3 = nearGroundOffset;
+		this.isCollidedVertically2 = d3 != y;
+		this.nearGround = this.isCollidedVertically2 && y > 0;
 		super.move(type, x, y, z);
 	}
 	
@@ -1305,7 +1346,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			// the shoulders, so move player forwards on Z axis relative to the
 			// dragon's rotation to fix that
 			if (passenger == getPassengers().get(0)) {
-				pos = new Vec3d(0  * getScale(), 0.1 * getScale(), 1.0 * getScale());
+				pos = new Vec3d(0  * getScale(), 0.1 * getScale(), 1.2 * getScale());
 			} else if (passenger == getPassengers().get(1)) {
 				pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
 			} else if (passenger == getPassengers().get(2)) {

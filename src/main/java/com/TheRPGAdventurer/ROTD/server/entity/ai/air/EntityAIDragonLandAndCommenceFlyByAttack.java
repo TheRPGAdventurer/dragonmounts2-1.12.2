@@ -36,18 +36,6 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		this.speed = speed;
 		setMutexBits(1);
 	}
-	
-	public boolean doesItWantToLand() {
-		if(dragon.isTamed()) {
-		   if(dragon.getOwner().fallDistance > 5) {
-			  return false;
-		   }
-		} else {
-			
-		}
-		
-		return dragon.getControllingPlayer() == null;
-	}
 
 	public BlockPos findLandingArea(BlockPos pos) {
 		for (int Y = 1; Y <= 2; Y++) {
@@ -83,7 +71,7 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null && !dragon.isTamed() && doesItWantToLand();
+				&& findLandingBlock() && dragon.getRevengeTarget() == null;
 	}
 
 	@Override
@@ -97,7 +85,7 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		if (!tryMoveToBlockPos(landingPos, speed)) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-		}
+		} 
 	//	if(!circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2)) { 
 	//		circleEntity(dragon.getOwner2(), 12f, 40f,  (float) speed,  true,  2,  2);
 		//}

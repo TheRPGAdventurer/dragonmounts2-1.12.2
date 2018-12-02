@@ -19,6 +19,7 @@ public class EntityAIDragonSit extends EntityAISit {
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
+    @Override
     public boolean shouldExecute() {
         if (!this.dragon.isTamed()) {
             return false;
@@ -32,6 +33,7 @@ public class EntityAIDragonSit extends EntityAISit {
     /**
      * Execute a one shot task or start executing a continuous task
      */
+    @Override
     public void startExecuting() {
         this.dragon.getNavigator().clearPathEntity();
         this.dragon.setSitting(true);
@@ -40,6 +42,7 @@ public class EntityAIDragonSit extends EntityAISit {
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
+    @Override
     public void resetTask() {
         this.dragon.setSitting(false);
     }
@@ -47,6 +50,7 @@ public class EntityAIDragonSit extends EntityAISit {
     /**
      * Sets the sitting flag.
      */
+    @Override
     public void setSitting(boolean sitting) {
         this.isSitting = sitting;
     }

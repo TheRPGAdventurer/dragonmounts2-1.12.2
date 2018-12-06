@@ -285,6 +285,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		animator = new DragonAnimator(this);
 
 	}
+	
+	@Override
+	protected void updateAITasks() {
+		attackTasks.onUpdateTasks();
+	}
 
 	@Override
 	protected float updateDistance(float p_110146_1_, float p_110146_2_) {
@@ -312,11 +317,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		dataManager.register(HAS_ELDER_STONE, false);
 		dataManager.register(HAS_ADJUCATOR_STONE, false);
 		dataManager.register(ALLOW_OTHERPLAYERS, false);
-	}
-
-	@Override
-	protected void updateAITasks() {
-		attackTasks.onUpdateTasks();
+		dataManager.register(WHISTLE_STATE, Byte.valueOf((byte) 0));
 	}
 
 	@Override
@@ -484,7 +485,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	public void setCanBeAdjucator(boolean male) {
-		world.playSound(posX, posY, posZ, SoundEvents.BLOCK_PORTAL_TRIGGER, SoundCategory.NEUTRAL, 10F, 1F, true);
 		dataManager.set(HAS_ADJUCATOR_STONE, male);
 	}
 	
@@ -518,6 +518,61 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	public void setBannered4(boolean male) {
 		dataManager.set(BANNERED4, male);
+	}
+	
+	public boolean nothing() {
+		return (dataManager.get(WHISTLE_STATE).byteValue() & 1) == 1;
+	}
+
+	public boolean follow() {
+		return (dataManager.get(WHISTLE_STATE).byteValue() >> 1 & 1) == 1;
+	}
+
+	public boolean circle() {
+		return (dataManager.get(WHISTLE_STATE).byteValue() >> 2 & 1) == 1;
+	}
+
+	public boolean landToPlayer() {
+		return (dataManager.get(WHISTLE_STATE).byteValue() >> 3 & 1) == 1;
+	}
+
+
+	public void nothing(boolean nothing) {
+		setStateField(0, nothing);
+	}
+
+	public void follow(boolean follow) {
+		setStateField(1, follow);
+	}
+
+	public void circle(boolean circle) {
+		setStateField(2, circle);
+	}
+
+	public void landToPlayer(boolean landToPlayer) {
+		setStateField(3, landToPlayer);
+	}
+
+	/**
+	 * @TheRPGAdventurer thanks AlexThe666
+	 * @param 
+	 * @param 
+	 */
+	private void setStateField(int i, boolean newState) {
+		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
+		if (newState) {
+			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));
+		} else {
+			dataManager.set(WHISTLE_STATE, (byte) (prevState & ~(1 << i)));
+		}
+	}
+
+	public byte getControlState() {
+		return dataManager.get(WHISTLE_STATE).byteValue();
+	}
+
+	public void setControlState(byte state) {
+		dataManager.set(WHISTLE_STATE, (byte) state);
 	}
 	
 	/**

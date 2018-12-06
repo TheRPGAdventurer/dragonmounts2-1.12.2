@@ -70,11 +70,11 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
-	public static double ThirdPerson1Zoom = 0.7;
-	public static double ThirdPerson2Zoom = 0.7;
+	public static double ThirdPerson1Zoom = 9.6;
+	public static double ThirdPerson2Zoom = 9.6;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 24000; 
+	public static int GET_TICKS_PER_STAGE = 27000; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");

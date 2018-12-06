@@ -354,6 +354,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
 		nbt.setBoolean("nearGround", this.nearGround);
+		nbt.setBoolean("isCircling", isCircling);
 		writeDragonInventory(nbt);
 		writeDragonStats(nbt);
 		helpers.values().forEach(helper -> helper.writeToNBT(nbt));
@@ -379,6 +380,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
 		this.nearGround = nbt.getBoolean("nearGround");
+		this.isCircling = nbt.getBoolean("isCircling");
 		readDragonInventory(nbt);
 		readDragonStats(nbt);
 		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
@@ -691,7 +693,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH;
-			boolean flyingOwn = flying;
+			boolean flyingOwn = flying && this.getAttackingEntity() == null;
 			boolean flyWithPlayer = flying && getControllingPlayer() != null;
 			if ((flyingOwn || flyWithPlayer) != isFlying()) { 
 
@@ -814,32 +816,105 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	public void Whistle(EntityPlayer player) {
-		if(this.isTamed() && this.isTamedFor(player)) {
-			this.setFlying(false);
-			this.ACHOOOOO();
+		if(this.isTamed() && this.isTamedFor(player) && !hasControllingPlayer(player)) {
+			this.setCircling(true);
 		}
 		
 	}
 	
 	public boolean doesWantToLand() {		
-		return this.inAirTicks > 6000 || this.inAirTicks > 40; //&& this.flyProgress == 0;
+		return this.inAirTicks > 6000 || this.inAirTicks > 40; 
 	}
 	
-	public boolean circleTarget(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
+	public void boostUp(int durationIn, int amplifierIn) {
+		PotionEffect speed = new PotionEffect(MobEffects.SPEED, durationIn, amplifierIn);
+	//	if(!this.isPotionActive(speed) {
+			this.addPotionEffect(speed);
+	//	}
+	}
+	
+	public boolean circlePlayer(EntityLivingBase entityLivingBase) {
+		BlockPos midPoint = entityLivingBase.getPosition();
+		double x = midPoint.getX();
+		double y = midPoint.getY();
+		double z = midPoint.getZ();
+		boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
+    //	if(isMoving) {
+    //		return circleTarget(midPoint);
+    //	} else {
+    		double offset = 8D;
+    		double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
+    		x = midPoint.getX() + 0.5 + leftOrRight;
+    		y = midPoint.getY() + 0.5 + 20;
+    		z = midPoint.getZ() + 0.5 - offset;
+    		return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
+    //	}
+	}
+	
+	public boolean circleTarget(BlockPos midPoint) {   	
+		Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(),midPoint.getY(),midPoint.getZ());
+    	Vec3d vec2 = new Vec3d(0,0,1);
+    	
+    	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+       	double r = 24;  
+        double x = midPoint.getX() + r * Math.cos(1 * a * this.ticksExisted * 0.5 + 4); 
+        double y = midPoint.getY() + 20; 
+        double z = midPoint.getZ() + r * Math.sin(1 * a * this.ticksExisted * 0.5 + 4);  	   		
+    	
+       
+    	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
+	}
+	
+	public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
         int directionInt = direction ? 1 : -1;
-        return this.getNavigator().tryMoveToXYZ(target.getX() + radius * Math.cos(directionInt * Math.toDegrees(this.ticksExisted) * 0.5 * speed / radius + offset), 
-        		 height + target.getY(), target.getZ() + radius * Math.sin(directionInt * Math.toDegrees(this.ticksExisted) * 0.5 * speed / radius + offset), 
+        return this.getNavigator().tryMoveToXYZ(
+        		 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
+        		 height + target.getY(), 
+        		 target.getZ() + radius * Math.sin(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
         		speed * moveSpeedMultiplier);
     }
 	
-	public void flyAround() {
-		if(this.isFlying() && !this.doesWantToLand()) {
-			double x = 0;
-			double y = 0;
-			double z = 0;
-			circleTarget(new BlockPos(RandomPositionGenerator.getLandPos(this, 15, 15)), 10, 1, 1, this.getRNG().nextBoolean(), 1, 1);
-			//this.getNavigator().tryMoveToXYZ(x, y, z, 1);
-		}
+	public boolean circleTarget1(BlockPos pos) {
+		double d0 = pos.getX();
+        double d1 = pos.getZ();
+        double d2 = d0 - this.posX;
+        double d31 = d1 - this.posZ;
+        double d41 = (double)MathHelper.sqrt(d2 * d2 + d31 * d31);
+        double d5 = Math.min(0.4000000059604645D + d41 / 80.0D - 1.0D, 10.0D);
+        Vec3d vec3d  = new Vec3d(d0, pos.getY() + d5, d1);
+        double x = posX, y = posY, z = posZ;
+		
+
+        if (vec3d != null)
+        {
+            double d6 = vec3d.x - this.posX;
+            double d7 = vec3d.y - this.posY;
+            double d8 = vec3d.z - this.posZ;
+            double d3 = d6 * d6 + d7 * d7 + d8 * d8;
+            float f5 = 1f;
+            d7 = MathHelper.clamp(d7 / (double)MathHelper.sqrt(d6 * d6 + d8 * d8), (double)(-f5), (double)f5);
+            y += d7 * 0.10000000149011612D;
+            this.rotationYaw = MathHelper.wrapDegrees(this.rotationYaw);
+            double d4 = MathHelper.clamp(MathHelper.wrapDegrees(180.0D - MathHelper.atan2(d6, d8) * (180D / Math.PI) - (double)this.rotationYaw), -50.0D, 50.0D);
+            Vec3d vec3d1 = (new Vec3d(vec3d.x - this.posX, vec3d.y - this.posY, vec3d.z - this.posZ)).normalize();
+            Vec3d vec3d2 = (new Vec3d((double)MathHelper.sin(this.rotationYaw * 0.017453292F), y, (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)))).normalize();
+            float f7 = Math.max(((float)vec3d2.dotProduct(vec3d1) + 0.5F) / 1.5F, 0.0F);
+            this.randomYawVelocity *= 0.8F;
+            this.randomYawVelocity = (float)((double)this.randomYawVelocity + d4 * getHeadYawSpeed());
+            this.rotationYaw += this.randomYawVelocity * 0.1F;
+            float f8 = (float)(2.0D / (d3 + 1.0D));
+            this.moveRelative(0.0F, 0.0F, -1.0F, 0.06F * (f7 * f8 + (1.0F - f8)));
+
+            this.move(MoverType.SELF, x, y, z); 
+
+            Vec3d vec3d3 = (new Vec3d(x, y, z)).normalize();
+            float f10 = ((float)vec3d3.dotProduct(vec3d2) + 1.0F) / 2.0F;
+            f10 = 0.8F + 0.15F * f10;
+            x *= (double)f10;
+            z *= (double)f10;
+            y *= 0.9100000262260437D;           
+        }   
+        return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
 
 	/**
@@ -959,7 +1034,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	protected float getWaterSlowDown() {
-		return 0.8F;
+		return 0.4F;
 	}
 
     /**
@@ -1289,13 +1364,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 	}
 	
-	@Override
-	public void move(MoverType type, double x, double y, double z) {
-		double d3 = nearGroundOffset;
-		this.isCollidedVertically2 = d3 != y;
-		this.nearGround = this.isCollidedVertically2 && y > 0;
-		super.move(type, x, y, z);
-	}
+//	@Override
+	//public void move(MoverType type, double x, double y, double z) {
+//		double d3 = nearGroundOffset;
+	//	this.isCollidedVertically2 = d3 != y;
+////		this.nearGround = this.isCollidedVertically2 && y > 0;
+//		super.move(type, x, y, z);
+//	}
 	
     @Nullable
     public Entity getControllingPassenger() {
@@ -1640,8 +1715,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	private void regenerateHealth() {
 		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 65 == 0 && !isDead) {
-			int[] exclude = {3,6,4};
-			int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 8, exclude);
+			int[] exclude = {3,5,4};
+			int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 7, exclude);
 			this.heal(health);
 		}
 	}
@@ -1937,7 +2012,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 							&& !leftChestforInv.isEmpty() ? 1 : 0));
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2,
 					this.getIntFromArmor(this.dragonInv.getStackInSlot(2))));
-			
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31,
 					banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty() ? 1 : 0));
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32,

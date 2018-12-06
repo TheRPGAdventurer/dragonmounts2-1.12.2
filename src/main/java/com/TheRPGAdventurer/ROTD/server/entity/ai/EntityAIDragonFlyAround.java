@@ -14,7 +14,7 @@ public class EntityAIDragonFlyAround extends EntityAIDragonBase {
 		if(dragon.isTamed()) {
 			return false;
 		}
-		return doesWantToLand();
+		return dragon.doesWantToLand();
 	}
 	
 	@Override

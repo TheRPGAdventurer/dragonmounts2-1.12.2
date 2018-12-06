@@ -40,23 +40,6 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
         return dragon.getNavigator().tryMoveToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, speed);
     }
     
-	protected boolean tryToCircleBlockPos(BlockPos midPoint, double speed) {   	
-    //	Vec3d vec1 = dragon.getPositionVector().subtract(midPoint.getX(),midPoint.getY(),midPoint.getZ());
-    //	Vec3d vec2 = new Vec3d(0,0,1); // "calculate the angle between these 2 vectors" I hope vec3d is compat with Blockpos Vec3i
-    	float a = 0;
-    	double r = 12;  // radius is now a constant
-    	while(a < Math.PI * 2) {
-    		a += 1;
-    	   double x = midPoint.getX() + Math.cos(a) * r; // x = playerX +﻿ r * cos(a) as stated
-           double y = midPoint.getY() + 20; // y = playerY + NUM as stated
-           double z = midPoint.getZ() + Math.sin(a) * r; //  z = playerZ + r * sin(a) as stated
-           return dragon.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, speed);  	// no more adding    	     
-        		
-    	}
-    	//double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector())); 
-		return false;
-   }	
-    
     protected double getFollowRange() {
         return dragon.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();
     }

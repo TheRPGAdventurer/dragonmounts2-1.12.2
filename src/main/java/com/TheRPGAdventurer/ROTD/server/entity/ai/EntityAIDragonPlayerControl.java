@@ -80,7 +80,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
         	Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = rider.getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -90, 90), lookDirection.z);
+            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -80, 80), lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 
             		dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
             updateIntendedRideRotation(rider);
@@ -96,9 +96,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 wp = wp.rotateYaw(MathX.PI_F * -0.5f);
             } 
             
-            x += wp.x * 4;
-            y += wp.y * 4;         
-            z += wp.z * 4;         
+            x += wp.x * 4.5;
+            y += wp.y * 4.5;         
+            z += wp.z * 4.5;         
      }
       
      // lift off from a jump

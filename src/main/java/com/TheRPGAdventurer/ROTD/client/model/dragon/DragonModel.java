@@ -679,7 +679,8 @@ public class DragonModel extends ModelBase {
     
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         DragonAnimator animator = dragon.getAnimator();
-        animator.setMovement(moveTime, moveSpeed * dragon.getScale());
+        float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.55f, 1f) : 1;
+        animator.setMovement(moveTime, moveSpeed * speed);
         animator.setLook(lookYaw, lookPitch);
         animator.animate();
         updateFromAnimator(dragon);

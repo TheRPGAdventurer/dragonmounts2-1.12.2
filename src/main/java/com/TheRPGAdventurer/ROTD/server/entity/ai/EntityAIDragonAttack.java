@@ -171,7 +171,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     }
     
     public boolean isWithinBreathRange(double targetDistSq) {
-		return targetDistSq > 3 && targetDistSq < 9 ? true : false;
+		return targetDistSq > 4 && targetDistSq < 9 ? true : false;
     }
     
     public boolean isWithinMeleeRange(double targetDistSq) {
@@ -180,7 +180,6 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     
     public boolean shouldUseBreathWeapon() {
 		return false;
-    	
     }
     
     public int threatLevel() {
@@ -190,18 +189,18 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
         double attackReach = this.getAttackReachSqr(target);
         boolean shouldUseMelee = this.attackTick <= 0  || targetDistSq <= attackReach;
-        shouldUseRange = this.attackTick <= 0 || isWithinBreathRange(dragon.getDistanceToEntity(target)) 
+        shouldUseRange = this.attackTick <= 0 || isWithinBreathRange(targetDistSq) 
         		 && dragon.getEntitySenses().canSee(target) && !(target instanceof EntityAnimal); 
 
         if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
             this.attackTick = 20;
             this.dragon.swingArm(EnumHand.MAIN_HAND);
             this.dragon.attackEntityAsMob(target); 
-        } //else  if(shouldUseRange) { 
-        	//this.attackTick = 20;
-        	//dragon.setBreathing(target.isEntityAlive());
-       	   /// dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-       // }
+        } else  if(shouldUseRange) { 
+        	this.attackTick = 20;
+        	dragon.setUsingBreathWeapon(target.isEntityAlive());
+       	    dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+        }
     }
 
     protected double getAttackReachSqr(EntityLivingBase attackTarget) {

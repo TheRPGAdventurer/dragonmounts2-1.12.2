@@ -842,9 +842,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     //	if(isMoving) {
     //		return circleTarget(midPoint);
     //	} else {
-    		double offset = 14D;
+    		double offset = 16D;
     		double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
-    		x = midPoint.getX() + 0.5 + leftOrRight;
+    		x = midPoint.getX() + 0.5 - 12;
     		y = midPoint.getY() + 0.5 + 20;
     		z = midPoint.getZ() + 0.5 - offset;
     		return this.getNavigator().tryMoveToXYZ(x, y, z, 1);

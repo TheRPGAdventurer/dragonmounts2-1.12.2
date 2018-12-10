@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -26,7 +27,7 @@ import net.minecraft.util.math.Vec3d;
 public class DragonMoveHelper extends EntityMoveHelper {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 5;
+    private final float YAW_SPEED = 12;
     private Entity ent;
     
     public DragonMoveHelper(EntityTameableDragon dragon) {
@@ -35,7 +36,12 @@ public class DragonMoveHelper extends EntityMoveHelper {
     }
 
     @Override
-    public void onUpdateMoveHelper() { 
+    public void onUpdateMoveHelper() {  
+        double d0 = this.posX - this.dragon.posX;
+        double d1 = this.posY - this.dragon.posY;
+        double d2 = this.posZ - this.dragon.posZ;
+        double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+        
         // original movement behavior if the entity isn't flying
         if (!dragon.isFlying()) {
             super.onUpdateMoveHelper();
@@ -52,10 +58,10 @@ public class DragonMoveHelper extends EntityMoveHelper {
         // get euclidean distance to target
         double dist = dragonPos.distanceTo(movePos);
         
+        double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue();
+        
         // move towards target if it's far away enough
-        if (dist > dragon.width) {
-            double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue();
-
+        if (dist > dragon.width) {            
             // update velocity to approach target
             dragon.motionX = dir.x * flySpeed;
             dragon.motionY = dir.y * flySpeed;
@@ -69,13 +75,39 @@ public class DragonMoveHelper extends EntityMoveHelper {
             dragon.motionY += Math.sin(dragon.ticksExisted / 5) * 0.03;
         }
         
+        // move away from other dragons
+  //      if(!isNotColliding(this.posX, this.posY, this.posZ, d3)) {
+  //      	dragon.motionX = dir.x * flySpeed - 5;
+  //          dragon.motionY = dir.y * flySpeed;
+  //          dragon.motionZ = dir.z * flySpeed - 4;
+  //      }
+        
         // face entity towards target
         if (dist > 2.5E-7) {
             float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
             dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
             entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
-             }// apply movement 
-               
+        }
+        
+        // apply movement               
         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
     } 
+    
+    /**
+     * Checks if entity bounding box is not colliding with terrain
+     */
+    private boolean isNotColliding(double x, double y, double z, double distSq) {
+        double d0 = (x - this.dragon.posX) / distSq;
+        double d1 = (y - this.dragon.posY) / distSq;
+        double d2 = (z - this.dragon.posZ) / distSq;
+        AxisAlignedBB dragonHitBox = this.dragon.getEntityBoundingBox();
+
+        for (int i = 1; (double)i < distSq; ++i) {
+        	dragonHitBox = dragonHitBox.offset(d0, d1, d2);
+
+            if (!this.dragon.world.getCollisionBoxes(this.dragon, dragonHitBox).isEmpty()) {
+                return false;
+            }
+        }       return true;
+    }
 }

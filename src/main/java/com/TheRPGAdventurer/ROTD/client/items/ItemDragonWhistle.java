@@ -54,6 +54,8 @@ public class ItemDragonWhistle extends Item {
 //		tooltip.add(StatCollector.translateToLocal(commands.toString().toLowerCase()));
 	}
 	
+	
+	// thanks AlexThe666
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
 		ItemStack itemStackIn = player.getHeldItem(hand);
@@ -75,19 +77,19 @@ public class ItemDragonWhistle extends Item {
 		while (itr_dragons.hasNext()) {
 			IDragonWhistle dragon = itr_dragons.next();
 			dragon.Whistle(player);
-			/*
-			if(dragon.isTamed() && dragon.isOwner(player)) {
-                if (dragon.isFlying() || dragon.isHovering()) {
-                    dragon.setFlying(false);
-                    dragon.setHovering(false);
-                }
-            }*/
 		}
 		
 		worldIn.playSound(player, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);			
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 	
+	/*
+	if(dragon.isTamed() && dragon.isOwner(player)) {
+        if (dragon.isFlying() || dragon.isHovering()) {
+            dragon.setFlying(false);
+            dragon.setHovering(false);
+        }
+    }*/
   //  @SubscribeEvent
   ///  public void onTick(ClientTickEvent evt) {
   //      BitSet flags = dcw.getFlags();

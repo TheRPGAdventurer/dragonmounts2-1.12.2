@@ -10,6 +10,7 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class EntityAIDragonAttack extends EntityAIDragonBase {
@@ -23,6 +24,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     /** The PathEntity of our entity. */
     Path entityPathEntity;
     private int delayCounter;
+    private int breathCooldown;
     private double targetX;
     private double targetY;
     private double targetZ;
@@ -171,7 +173,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     }
     
     public boolean isWithinBreathRange(double targetDistSq) {
-		return targetDistSq > 4 && targetDistSq < 9 ? true : false;
+		return targetDistSq > 4 && targetDistSq < 95 ? true : false;
     }
     
     public boolean isWithinMeleeRange(double targetDistSq) {
@@ -185,16 +187,25 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     public int threatLevel() {
 		return 0;   	
     }
+    
+    public boolean lookingAtTarget(EntityLivingBase target) {
+        Vec3d vec3d = dragon.getLook(1.0F).normalize();
+        Vec3d vec3d1 = new Vec3d(target.posX - dragon.posX, target.getEntityBoundingBox().minY + (double)target.getEyeHeight() - (dragon.posY + (double)dragon.getEyeHeight()), target.posZ - dragon.posZ);
+        double d0 = vec3d1.lengthVector();
+        vec3d1 = vec3d1.normalize();
+        double d1 = vec3d.dotProduct(vec3d1);
+        return d1 > 1.0D - 0.025D / d0 ? dragon.canEntityBeSeen(target) : false;
+    }
 
     protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
-        double attackReach = this.getAttackReachSqr(target);
-        boolean shouldUseMelee = this.attackTick <= 0  || targetDistSq <= attackReach;
-        shouldUseRange = this.attackTick <= 0 || isWithinBreathRange(targetDistSq) 
-        		 && dragon.getEntitySenses().canSee(target) && !(target instanceof EntityAnimal); 
+        double attackReach = this.getAttackReachSqr(target); 
+        boolean shouldUseMelee = this.attackTick <= 0  && targetDistSq <= attackReach;
+        shouldUseRange = this.attackTick <= 0 && isWithinBreathRange(targetDistSq) 
+        		 && dragon.getEntitySenses().canSee(target) && !(target instanceof EntityAnimal) && dragon.isFlying();// && lookingAtTarget(target); 
 
         if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
             this.attackTick = 20;
-            this.dragon.swingArm(EnumHand.MAIN_HAND);
+            this.dragon.swingArm(EnumHand.MAIN_HAND); 
             this.dragon.attackEntityAsMob(target); 
         } else  if(shouldUseRange) { 
         	this.attackTick = 20;

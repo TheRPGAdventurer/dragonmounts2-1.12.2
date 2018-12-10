@@ -200,7 +200,7 @@ public class DragonModel extends ModelBase {
     private void buildHead() {
         head = new ModelPart(this, "head");
         head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
-        head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("mainhead", -8, -8,    7 + HEAD_OFS, 16, 16, 16); // 6
         head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
         head.mirror = true;
         head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
@@ -728,15 +728,15 @@ public class DragonModel extends ModelBase {
     }
 
     protected void renderHead(float scale) {
-        float headScale = 1.4f / (size + 0.4f);
+        float headScale = scale * 0.90f;
         
      // smaller heads for baby dragons unlike other animals
-        if (this.isChild) {       	
-            head.render(scale);
-        } else {
-            head.setRenderScale(headScale); 
-            head.render(scale);
-        }
+     //   if (this.isChild) {       	
+            head.render((float) (headScale));
+       // } else {
+      //      head.setRenderScale(headScale); 
+     //       head.render(scale);
+     //   }
     }
     
     protected void renderNeck(float scale) {

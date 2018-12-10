@@ -28,6 +28,7 @@ public class DragonMountsConfig {
     
     public static final String CATEGORY_MAIN = "main";
     public static final String CATEGORY_WORLDGEN = "worldGen";
+    public static final String CATEGORY_CLIENTDM2 = "clientDM2";
     
     // config properties
     private static boolean disableBlockOverride = false;
@@ -72,6 +73,10 @@ public class DragonMountsConfig {
 	
 	public static double ThirdPerson1Zoom = 9.6;
 	public static double ThirdPerson2Zoom = 9.6;
+	
+	public static int dragonFlightHeight = 80;
+	public static int dragonFolloOwnerFlyingHeight = 50;
+	public static int dragonanderFromHomeDist = 50;
 	
 	// dragon
 	public static int GET_TICKS_PER_STAGE = 27000; 
@@ -167,14 +172,29 @@ public class DragonMountsConfig {
 		GET_TICKS_PER_STAGE = prop.getInt();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_MAIN, "Third Person Zoom BACK", ThirdPerson1Zoom);
+		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", ThirdPerson1Zoom);
 		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
 		ThirdPerson1Zoom = prop.getDouble();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_MAIN, "Third Person Zoom FRONT", ThirdPerson2Zoom);
+		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom FRONT", ThirdPerson2Zoom);
 		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
 		ThirdPerson2Zoom = prop.getDouble();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", dragonFlightHeight);
+		prop.setComment("How high would the dragon fly without the rider");
+		dragonFlightHeight = prop.getInt();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", dragonFlightHeight);
+		prop.setComment("How high would the dragon fly without the rider");
+		dragonFlightHeight = prop.getInt();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_CLIENTDM2, "Wander From HomeDist", dragonanderFromHomeDist);
+		prop.setComment("Wander From HomeDist");
+		dragonanderFromHomeDist = prop.getInt();
 		propOrder.add(prop.getName());
         
 		/*

@@ -17,7 +17,6 @@ import javax.annotation.Nullable;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonAttack;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonCatchOwner;
-import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonFlyAround;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonHurtByTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonPlayerControl;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFollowOwnerElytraFlying;
@@ -124,7 +123,7 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4   
 
 //            tasks.addTask(6, new EntityAITempt(dragon, 0.75, dragon.getBreed().getBreedingItem(), false)); // mutex 2+1
-            tasks.addTask(6, new EntityAIDragonFlyAround(dragon));
+//            tasks.addTask(6, new EntityAIDragonFlyAround(dragon));
 //            tasks.addTask(1, new EntityAIDragonFlyAround(dragon));
             tasks.addTask(7, new  EntityAIDragonAttack(dragon, 1, true)); // mutex 2+1
                        

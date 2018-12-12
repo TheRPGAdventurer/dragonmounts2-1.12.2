@@ -729,14 +729,7 @@ public class DragonModel extends ModelBase {
 
     protected void renderHead(float scale) {
         float headScale = scale * 0.90f;
-        
-     // smaller heads for baby dragons unlike other animals
-     //   if (this.isChild) {       	
-            head.render((float) (headScale));
-       // } else {
-      //      head.setRenderScale(headScale); 
-     //       head.render(scale);
-     //   }
+        head.render((float) (headScale));     
     }
     
     protected void renderNeck(float scale) {

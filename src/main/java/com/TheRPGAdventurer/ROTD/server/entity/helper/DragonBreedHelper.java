@@ -149,11 +149,6 @@ public class DragonBreedHelper extends DragonHelper {
         }
     }
     
-    /**
-     * Get's the health of the dragon per breed, doubles
-     * when it turns into an adult
-     * @TheRPGAdventurer
-     */
     public void getBreedHealth() {
         EnumDragonBreed currentType = getBreedType();
         SharedMonsterAttributes att = new SharedMonsterAttributes();

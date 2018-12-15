@@ -24,19 +24,20 @@ public class DragonViewEvent {
 		if(player.getRidingEntity() instanceof EntityTameableDragon) {	
 			float scale = ((EntityTameableDragon) player.getRidingEntity()).getScale();
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
-				GL11.glTranslated(0F , -0.5F, -DragonMountsConfig.ThirdPerson2Zoom * scale); // 0.4, -2F
+				GL11.glTranslated(0F , -0.5F, ((float)-DragonMountsConfig.ThirdPerson1Zoom * scale)); 
 			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
-				GL11.glTranslated(0F , -0.5F, DragonMountsConfig.ThirdPerson2Zoom * scale);
+				GL11.glTranslated(0F , -0.5F, ((float)DragonMountsConfig.ThirdPerson1Zoom * scale));
 			}
 		} else if(player.getRidingEntity() instanceof EntityCarriage) {
+			float scale = ((EntityTameableDragon) player.getRidingEntity()).getScale();
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
-				GL11.glTranslated(0F , -0.5F, -DragonMountsConfig.ThirdPerson2Zoom); // 0.4, -2F
+				GL11.glTranslated(0F , -0.5F, ((float)-DragonMountsConfig.ThirdPerson2Zoom * scale)); 
 			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
-				GL11.glTranslated(0F , -0.5F, DragonMountsConfig.ThirdPerson2Zoom);
+				GL11.glTranslated(0F , -0.5F, ((float)DragonMountsConfig.ThirdPerson2Zoom * scale));
 			}
 		}
 	}

@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.client;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
+import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWhistle;
@@ -92,4 +93,9 @@ public class ClientProxy extends ServerProxy {
     @SideOnly(Side.CLIENT)
 	@Override
 	public void render() {ModKeys.init();}
+    
+    @Override
+    public void openDragonWhistleGui() {
+    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle());
+    }
 }

@@ -200,7 +200,7 @@ public class DragonModel extends ModelBase {
     private void buildHead() {
         head = new ModelPart(this, "head");
         head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
-        head.addBox("mainhead", -8, -8,    7 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
         head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
         head.mirror = true;
         head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
@@ -679,7 +679,7 @@ public class DragonModel extends ModelBase {
     
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         DragonAnimator animator = dragon.getAnimator();
-        float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.55f, 1f) : 1;
+        float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.88f, 1f) : 1;
         animator.setMovement(moveTime, moveSpeed * speed);
         animator.setLook(lookYaw, lookPitch);
         animator.animate();
@@ -728,7 +728,7 @@ public class DragonModel extends ModelBase {
     }
 
     protected void renderHead(float scale) {
-        float headScale = scale * 0.90f;
+        float headScale = scale * 0.94f;
         head.render((float) (headScale));     
     }
     

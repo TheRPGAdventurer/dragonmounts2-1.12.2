@@ -13,7 +13,6 @@ public class EntityAIDragonSit extends EntityAISit {
     public EntityAIDragonSit(EntityTameableDragon entityIn) {
         super(entityIn);
         this.dragon = entityIn;
-        this.setMutexBits(5);
     }
 
     /**
@@ -23,7 +22,9 @@ public class EntityAIDragonSit extends EntityAISit {
     public boolean shouldExecute() {
         if (!this.dragon.isTamed()) {
             return false;
-        } else if (!dragon.onGround) {
+        } else if (dragon.isFlying()) {
+            return false;
+        } else if (dragon.isInWater()) {
             return false;
         } else {          
             return this.isSitting;       

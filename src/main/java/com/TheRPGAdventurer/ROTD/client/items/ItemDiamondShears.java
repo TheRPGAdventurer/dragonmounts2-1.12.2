@@ -31,7 +31,7 @@ public class ItemDiamondShears extends ItemShears {
 	
 	@Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity, net.minecraft.util.EnumHand hand) {	 
-		if (entity.world.isRemote) {return false;}
+		if (entity.world.isRemote) return false;
 
 	        if (entity instanceof EntityTameableDragon) {
 	            EntityTameableDragon target = (EntityTameableDragon)entity;

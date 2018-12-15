@@ -199,7 +199,10 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String px = dfShort.format(dragon.posX);
         String py = dfShort.format(dragon.posY);
         String pz = dfShort.format(dragon.posZ);
-        text.printf("x: %s y: %s z: %s\n", px, py, pz);
+        String mx = dfShort.format(dragon.motionX);
+        String my = dfShort.format(dragon.motionY);
+        String mz = dfShort.format(dragon.motionZ);
+        text.printf("x: %s y: %s z: %s\n", px, py, pz, mx, my, mz);
         
         // rotation
         String pitch = dfShort.format(dragon.rotationPitch);
@@ -211,7 +214,8 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String health = dfShort.format(dragon.getHealth());
         String healthMax = dfShort.format(dragon.getMaxHealth());
         String healthRel = dfShort.format(dragon.getHealthRelative() * 100);
-        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel);
+        String airTicks = dfShort.format(dragon.inAirTicks);
+        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel, airTicks);
         
         // breed
         text.print("Breed: ");

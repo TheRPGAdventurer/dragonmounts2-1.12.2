@@ -48,7 +48,6 @@ public class DragonMountsConfig {
 	public static boolean canSpawnUnderGroundNest = false;
 	public static boolean canSpawnNetherNest = true;
 	public static boolean canSpawnNetherBoneNest = true;
-	
     
 	// chances
 	public static int MainNestRarity  = 1200;
@@ -71,15 +70,15 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
-	public static double ThirdPerson1Zoom = 9.6;
-	public static double ThirdPerson2Zoom = 9.6;
+	public static double ThirdPerson1Zoom = 7.8;
+	public static double ThirdPerson2Zoom = 7.8;
 	
-	public static int dragonFlightHeight = 20;
+	public static double dragonFlightHeight = 50.0D;
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 27000; 
+	public static int GET_TICKS_PER_STAGE = 32000; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
@@ -182,14 +181,9 @@ public class DragonMountsConfig {
 		ThirdPerson2Zoom = prop.getDouble();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", dragonFlightHeight);
+		prop = config.get(CATEGORY_CLIENTDM2, "FLIGHT HEIGHT", dragonFlightHeight);
 		prop.setComment("How high would the dragon fly without the rider");
-		dragonFlightHeight = prop.getInt();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", dragonFlightHeight);
-		prop.setComment("How high would the dragon fly without the rider");
-		dragonFlightHeight = prop.getInt();
+		dragonFlightHeight = prop.getDouble();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_CLIENTDM2, "Wander From HomeDist", dragonanderFromHomeDist);

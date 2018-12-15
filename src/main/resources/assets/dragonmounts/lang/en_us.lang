@@ -1,7 +1,7 @@
 itemGroup.dragonmounts=Dragon Mounts
 
 entity.DragonMount.ice.name=Snow Dragon
-entity.DragonMount.end.name=Ender Dragon
+entity.DragonMount.ender.name=Ender Dragon
 entity.DragonMount.aether.name=Sky Dragon
 entity.DragonMount.forest.name=Forest Dragon
 entity.DragonMount.sylphid.name=Water Dragon
@@ -15,7 +15,7 @@ entity.DragonMount.storm.name=Storm Dragon
 entity.DragonMount.zombie.name=Zombie Dragon
 
 entity.DragonMounts.dragon.ice.name=Ice Dragon
-entity.DragonMounts.dragon.end.name=Ender Dragon
+entity.DragonMounts.dragon.ender.name=Ender Dragon
 entity.DragonMounts.dragon.aether.name=Aether Dragon
 entity.DragonMounts.dragon.forest.name=Forest Dragon
 entity.DragonMounts.dragon.sylphid.name=Water Dragon

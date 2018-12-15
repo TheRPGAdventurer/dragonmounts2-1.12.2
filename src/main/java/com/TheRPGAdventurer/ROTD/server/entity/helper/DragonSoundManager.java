@@ -107,7 +107,7 @@ public class DragonSoundManager extends DragonHelper {
         if (!dragon.isInWater()) {
             // play wing sounds
             float pitch = (1 - speed);
-            float volume = 0.3f + (1 - speed) * 0.2f;
+            float volume = 2.8f + (1 - speed) * 1.2f;
             playSound(getWingsSound(), volume, pitch, true);
         }
     }

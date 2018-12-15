@@ -82,4 +82,8 @@ public class ServerProxy {
     } 
     
 	public void render() {}
+	
+	public void openDragonWhistleGui() {
+		
+	}
 }

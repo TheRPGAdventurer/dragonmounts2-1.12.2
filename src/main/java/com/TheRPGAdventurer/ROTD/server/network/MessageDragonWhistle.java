@@ -65,7 +65,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
 	@Override
 	public void onClientReceived(Minecraft arg0, MessageDragonWhistle arg1, EntityPlayer arg2, MessageContext arg3) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	

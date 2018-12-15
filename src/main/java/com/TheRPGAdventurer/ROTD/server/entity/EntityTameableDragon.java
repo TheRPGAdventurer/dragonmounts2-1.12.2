@@ -791,8 +791,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		if (canFly()) {		
 			boolean ridden = isBeingRidden();
 			// stronger jump for an easier lift-off
-			motionY += ridden || (isInWater() && isInLava()) ? 0.5 : 25.5;
-			inAirTicks += ridden || (isInWater() && isInLava()) ? 0.5 : 400;
+			motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 25.5;
+			inAirTicks += ridden || (isInWater() && isInLava()) ? 0.7 : 400;
 			jump();
 			DMUtils.getLogger().info("tried to call dragon liftoff");
 		}
@@ -860,9 +860,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 			boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
 		    
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() == null)
-					&& (isMoving && !isCollidedHorizontally && getControllingPlayer() == null);
-			if ((flying) != isFlying()) { 
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() == null);
+				//	&& (isMoving && !isCollidedHorizontally && getControllingPlayer() == null);
+			if (flying != isFlying()) { 
 
 				// notify client
 				 setFlying((flying));

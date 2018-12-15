@@ -70,8 +70,7 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
-	public static double ThirdPerson1Zoom = 7.8;
-	public static double ThirdPerson2Zoom = 7.8;
+	public static double ThirdPersonZoom = 8.8;
 	
 	public static double dragonFlightHeight = 50.0D;
 	public static int dragonFolloOwnerFlyingHeight = 50;
@@ -171,14 +170,9 @@ public class DragonMountsConfig {
 		GET_TICKS_PER_STAGE = prop.getInt();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", ThirdPerson1Zoom);
+		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", ThirdPersonZoom);
 		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
-		ThirdPerson1Zoom = prop.getDouble();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom FRONT", ThirdPerson2Zoom);
-		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
-		ThirdPerson2Zoom = prop.getDouble();
+		ThirdPersonZoom = prop.getDouble();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_CLIENTDM2, "FLIGHT HEIGHT", dragonFlightHeight);

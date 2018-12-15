@@ -264,5 +264,11 @@ dragon.sunlight2=Sunlight
 dragon.storm=Storm
 dragon.zombie=Zombie
 
+gui.nothing=Nothing
+gui.circle=Circle
+gui.followFlying=Flying
+gui.goToPlayer=Come
+
+
 
 

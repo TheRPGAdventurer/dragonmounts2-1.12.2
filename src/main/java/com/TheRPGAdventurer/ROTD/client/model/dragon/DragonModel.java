@@ -200,7 +200,7 @@ public class DragonModel extends ModelBase {
     private void buildHead() {
         head = new ModelPart(this, "head");
         head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
-        head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("mainhead", -8, -8,    4 + HEAD_OFS, 16, 16, 16); // 6
         head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
         head.mirror = true;
         head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
@@ -297,6 +297,40 @@ public class DragonModel extends ModelBase {
         horn.setAngles(hornRotX, hornRotY, hornRotZ);
         horn.isHidden = true;
         boolean showSpike = breed == EnumDragonBreed.NETHER || breed ==EnumDragonBreed.SYLPHID || breed == EnumDragonBreed.STORM;
+        horn.showModel = showSpike;
+        
+        if (mirror) {
+            tailHornLeft = horn;
+        } else {
+            tailHornRight = horn;
+        }
+    }
+    
+    private void buildTailClub(boolean mirror) {
+        int hornThick = 3;
+        int hornLength = 32;
+        
+        float hornOfs = -(hornThick / 2f);
+        
+        float hornPosX = 0;
+        float hornPosY = hornOfs;
+        float hornPosZ = TAIL_SIZE / 2f;
+        
+        float hornRotX = MathX.toRadians(-15);
+        float hornRotY = MathX.toRadians(-145);
+        float hornRotZ = 0;
+        
+        if (mirror) {
+            hornPosX *= -1;
+            hornRotY *= -1;
+        }
+        
+        tail.mirror = mirror;
+        ModelPart horn = tail.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
+        horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
+      //  horn.setAngles(hornRotX, hornRotY, hornRotZ);
+        horn.isHidden = true;
+        boolean showSpike = breed == EnumDragonBreed.SUNLIGHT;
         horn.showModel = showSpike;
         
         if (mirror) {

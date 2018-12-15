@@ -18,6 +18,7 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton circle;
 	GuiButton followFlying;
 	GuiButton goToPlayer;
+	GuiButton sit;
 
 	public GuiDragonWhistle() {
 		super();

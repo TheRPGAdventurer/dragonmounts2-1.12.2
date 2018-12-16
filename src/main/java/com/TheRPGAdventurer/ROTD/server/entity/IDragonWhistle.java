@@ -12,5 +12,5 @@ public interface IDragonWhistle {
 
 	 void circle(boolean circle);
 
-	 void landToPlayer(boolean landToPlayer);
+	 void come(boolean landToPlayer);
 }

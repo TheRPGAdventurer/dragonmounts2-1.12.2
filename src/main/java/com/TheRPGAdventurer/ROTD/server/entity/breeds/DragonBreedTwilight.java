@@ -13,9 +13,9 @@ public class DragonBreedTwilight extends DragonBreed {
 	DragonBreedTwilight() {
 		super("twilight", 0xbf8425);
 		
-		addHabitatBlock(Blocks.DAYLIGHT_DETECTOR);
-		addHabitatBlock(Blocks.DAYLIGHT_DETECTOR_INVERTED);
-		addHabitatBlock(Blocks.GLOWSTONE);
+		setHabitatBlock(Blocks.DAYLIGHT_DETECTOR);
+		setHabitatBlock(Blocks.DAYLIGHT_DETECTOR_INVERTED);
+		setHabitatBlock(Blocks.GLOWSTONE);
 	}
 
 	@Override

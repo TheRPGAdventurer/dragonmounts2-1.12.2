@@ -538,7 +538,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return (dataManager.get(WHISTLE_STATE).byteValue() >> 2 & 1) == 1;
 	}
 
-	public boolean landToPlayer() {
+	public boolean come() {
 		return (dataManager.get(WHISTLE_STATE).byteValue() >> 3 & 1) == 1;
 	}
 
@@ -559,7 +559,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	@Override
-	public void landToPlayer(boolean landToPlayer) {
+	public void come(boolean landToPlayer) {
 		setStateField(3, landToPlayer);
 	}
 

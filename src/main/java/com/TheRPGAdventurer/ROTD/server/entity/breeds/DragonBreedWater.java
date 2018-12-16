@@ -37,17 +37,17 @@ public class DragonBreedWater extends DragonBreed {
     public DragonBreedWater() {
         super("sylphid", 0x4f69a8);
         
-        addImmunity(DamageSource.DROWN);
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.DROWN);
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
         
-        addHabitatBlock(Blocks.WATER);
-        addHabitatBlock(Blocks.FLOWING_WATER);
+        setHabitatBlock(Blocks.WATER);
+        setHabitatBlock(Blocks.FLOWING_WATER);
         
-        addHabitatBiome(Biomes.OCEAN);
-        addHabitatBiome(Biomes.RIVER);
+        setHabitatBiome(Biomes.OCEAN);
+        setHabitatBiome(Biomes.RIVER);
     }
 
 	@Override

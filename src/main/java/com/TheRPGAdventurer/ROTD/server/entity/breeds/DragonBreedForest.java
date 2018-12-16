@@ -17,21 +17,21 @@ public class DragonBreedForest extends DragonBreed {
     DragonBreedForest() {
         super("forest", 0x298317);
         
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
         
-        addHabitatBlock(Blocks.YELLOW_FLOWER);
-        addHabitatBlock(Blocks.RED_FLOWER);
-        addHabitatBlock(Blocks.MOSSY_COBBLESTONE);
-        addHabitatBlock(Blocks.VINE);
-        addHabitatBlock(Blocks.SAPLING);
-        addHabitatBlock(Blocks.LEAVES);
-        addHabitatBlock(Blocks.LEAVES2);
+        setHabitatBlock(Blocks.YELLOW_FLOWER);
+        setHabitatBlock(Blocks.RED_FLOWER);
+        setHabitatBlock(Blocks.MOSSY_COBBLESTONE);
+        setHabitatBlock(Blocks.VINE);
+        setHabitatBlock(Blocks.SAPLING);
+        setHabitatBlock(Blocks.LEAVES);
+        setHabitatBlock(Blocks.LEAVES2);
         
-        addHabitatBiome(Biomes.JUNGLE);
-        addHabitatBiome(Biomes.JUNGLE_HILLS);
+        setHabitatBiome(Biomes.JUNGLE);
+        setHabitatBiome(Biomes.JUNGLE_HILLS);
         
     }
 

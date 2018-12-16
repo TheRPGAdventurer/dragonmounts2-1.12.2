@@ -47,21 +47,21 @@ public class DragonBreedIce extends DragonBreed {
     public DragonBreedIce() {
         super("ice", 0x006470);
 
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
 
-        addHabitatBlock(Blocks.SNOW);
-        addHabitatBlock(Blocks.SNOW_LAYER);
-        addHabitatBlock(Blocks.ICE);
-        addHabitatBlock(Blocks.PACKED_ICE);
-        addHabitatBlock(Blocks.FROSTED_ICE);
+        setHabitatBlock(Blocks.SNOW);
+        setHabitatBlock(Blocks.SNOW_LAYER);
+        setHabitatBlock(Blocks.ICE);
+        setHabitatBlock(Blocks.PACKED_ICE);
+        setHabitatBlock(Blocks.FROSTED_ICE);
 
-        addHabitatBiome(Biomes.FROZEN_OCEAN);
-        addHabitatBiome(Biomes.FROZEN_RIVER);
-        addHabitatBiome(Biomes.ICE_MOUNTAINS);
-        addHabitatBiome(Biomes.ICE_PLAINS);
+        setHabitatBiome(Biomes.FROZEN_OCEAN);
+        setHabitatBiome(Biomes.FROZEN_RIVER);
+        setHabitatBiome(Biomes.ICE_MOUNTAINS);
+        setHabitatBiome(Biomes.ICE_PLAINS);
     }
 
     @Override

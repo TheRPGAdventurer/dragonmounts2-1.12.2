@@ -19,8 +19,8 @@ public class DragonBreedSkeleton extends DragonBreed {
     DragonBreedSkeleton() {
         super("skeleton", 0xffffff);
         
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
     }
     
     @Override

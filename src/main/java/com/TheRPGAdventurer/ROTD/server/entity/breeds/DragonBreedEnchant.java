@@ -20,13 +20,13 @@ public class DragonBreedEnchant extends DragonBreed {
 	DragonBreedEnchant() {
 		super("enchant", 0x8359ae);
 		
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
         
-        addHabitatBlock(Blocks.BOOKSHELF);
-        addHabitatBlock(Blocks.ENCHANTING_TABLE);
+        setHabitatBlock(Blocks.BOOKSHELF);
+        setHabitatBlock(Blocks.ENCHANTING_TABLE);
 	}
 
 	@Override

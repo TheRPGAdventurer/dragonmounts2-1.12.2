@@ -56,11 +56,17 @@ public class GuiDragonWhistle extends GuiScreen {
 	
 	@Override
 	protected void actionPerformed(GuiButton button) {
-		if(button == circle) { 
-			dragonToControl.circle(true);
-		}
-		
-
+		if(dragonToControl != null) {
+		   if(button == circle) { 
+		      dragonToControl.circle(true);
+	       } else if(button == followFlying) {
+	    	  dragonToControl.follow(true);
+	       } else if(button == goToPlayer) {
+	    	  dragonToControl.come(true);
+		   } else if(button == nothing) {
+			  dragonToControl.nothing(true);
+		   }
+		} 
 	}
 	
 	@Override

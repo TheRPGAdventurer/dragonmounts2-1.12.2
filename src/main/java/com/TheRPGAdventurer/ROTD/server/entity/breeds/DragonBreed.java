@@ -48,20 +48,20 @@ public abstract class DragonBreed {
         this.color = color;
         
         // ignore suffocation damage
-        addImmunity(DamageSource.DROWN);
-        addImmunity(DamageSource.IN_WALL);
+        setImmunity(DamageSource.DROWN);
+        setImmunity(DamageSource.IN_WALL);
         
-        addImmunity(DamageSource.ON_FIRE);
-        addImmunity(DamageSource.IN_FIRE);
-        addImmunity(DamageSource.LAVA);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.ON_FIRE);
+        setImmunity(DamageSource.IN_FIRE);
+        setImmunity(DamageSource.LAVA);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.HOT_FLOOR);
         
         // assume that cactus needles don't do much damage to animals with horned scales
-        addImmunity(DamageSource.CACTUS);        
+        setImmunity(DamageSource.CACTUS);        
         
         // ignore damage from vanilla ender dragon
-        addImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
+        setImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
     }
   
     public String getSkin() {
@@ -88,7 +88,7 @@ public abstract class DragonBreed {
         return (color & 0xFF) / 255f;
     }
     
-    protected final void addImmunity(DamageSource dmg) {
+    protected final void setImmunity(DamageSource dmg) {
         immunities.add(dmg.damageType);
     }
     
@@ -100,7 +100,7 @@ public abstract class DragonBreed {
         return immunities.contains(dmg.damageType);
     }
     
-    protected final void addHabitatBlock(Block block) {
+    protected final void setHabitatBlock(Block block) {
         breedBlocks.add(block);
     }
     
@@ -108,7 +108,7 @@ public abstract class DragonBreed {
         return breedBlocks.contains(block);
     }
     
-    protected final void addHabitatBiome(Biome biome) {
+    protected final void setHabitatBiome(Biome biome) {
         biomes.add(biome);
     }
     

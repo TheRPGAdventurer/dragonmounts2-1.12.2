@@ -21,14 +21,14 @@ public class DragonBreedAir extends DragonBreed {
 	    public DragonBreedAir() {
 	        super("aether", 0x0294bd);
 	        
-	     addImmunity(DamageSource.MAGIC);
-	     addImmunity(DamageSource.HOT_FLOOR);
-	     addImmunity(DamageSource.LIGHTNING_BOLT);
-	     addImmunity(DamageSource.WITHER);
+	     setImmunity(DamageSource.MAGIC);
+	     setImmunity(DamageSource.HOT_FLOOR);
+	     setImmunity(DamageSource.LIGHTNING_BOLT);
+	     setImmunity(DamageSource.WITHER);
 	        
-	     addHabitatBiome(Biomes.EXTREME_HILLS);
-	     addHabitatBlock(Blocks.LAPIS_BLOCK);
-	     addHabitatBlock(Blocks.LAPIS_ORE);
+	     setHabitatBiome(Biomes.EXTREME_HILLS);
+	     setHabitatBlock(Blocks.LAPIS_BLOCK);
+	     setHabitatBlock(Blocks.LAPIS_ORE);
 	}
 
 	@Override

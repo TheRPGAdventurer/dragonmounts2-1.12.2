@@ -40,7 +40,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -95,7 +94,7 @@ public class ClientProxy extends ServerProxy {
 	public void render() {ModKeys.init();}
     
     @Override
-    public void openDragonWhistleGui() {
-    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle());
+    public void openDragonWhistleGui(EntityTameableDragon dragon) {
+    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(dragon));
     }
 }

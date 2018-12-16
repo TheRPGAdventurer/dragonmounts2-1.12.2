@@ -69,7 +69,7 @@ public class ItemDragonWhistle extends Item {
         ItemStack itemstack1 = player.getItemStackFromSlot(entityequipmentslot);
 
         if(worldIn.isRemote) {
-        	DragonMounts.proxy.openDragonWhistleGui();
+        	DragonMounts.proxy.openDragonWhistleGui(dragon);
         }
         
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);

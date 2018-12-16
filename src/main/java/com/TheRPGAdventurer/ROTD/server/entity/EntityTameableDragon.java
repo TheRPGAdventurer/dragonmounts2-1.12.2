@@ -361,7 +361,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
 		//nbt.setBoolean("cancelY", );
 		nbt.setBoolean("nearGround", this.nearGround);
-		nbt.setBoolean("isCircling", isCircling);
 		nbt.setBoolean("HasHomePosition", this.hasHomePosition);
 		if (homePos != null && this.hasHomePosition) {
 			nbt.setInteger("HomeAreaX", homePos.getX());
@@ -393,7 +392,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
 		this.nearGround = nbt.getBoolean("nearGround");
-		this.isCircling = nbt.getBoolean("isCircling");
 		this.hasHomePosition = nbt.getBoolean("HasHomePosition");
 		if (hasHomePosition && nbt.getInteger("HomeAreaX") != 0 && nbt.getInteger("HomeAreaY") != 0
 				&& nbt.getInteger("HomeAreaZ") != 0) {
@@ -423,16 +421,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     
     public void setWhistleFlags(BitSet flags) {
         dragonWhistle = flags;
-    }
-    
-    public boolean isCircling;
-    
-    public boolean isCircling() {
-    	return isCircling;
-    }
-    
-    public void setCircling(boolean isCircling) {
-    	this.isCircling = isCircling;
     }
 
     public BitSet getWhistleFlags() {
@@ -982,7 +970,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	@Override
 	public void Whistle(EntityPlayer player) {
 		if(this.isTamed() && this.isTamedFor(player) && !hasControllingPlayer(player)) {
-			this.setCircling(true);
 		}
 		
 	}
@@ -1026,12 +1013,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			return false;
 		}
 		
+		if(!isFlying()) {
+			this.liftOff();
+		}
+		
 		Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
     	Vec3d vec2 = new Vec3d(0,0,1);
     	
     	int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
     	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-       	double r = 1.5 * DragonMountsConfig.dragonFlightHeight;  
+       	double r = 1.2 * DragonMountsConfig.dragonFlightHeight;  
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
         double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight; 
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	   		

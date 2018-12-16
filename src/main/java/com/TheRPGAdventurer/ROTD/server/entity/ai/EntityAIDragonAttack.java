@@ -200,7 +200,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     protected void checkAndPerformAttack(EntityLivingBase target, double targetDistSq) {
         double attackReach = this.getAttackReachSqr(target); 
         boolean shouldUseMelee = this.attackTick <= 0  && targetDistSq <= attackReach;
-        shouldUseRange = this.attackTick <= 0 && isWithinBreathRange(targetDistSq) 
+        shouldUseRange = this.attackTick <= 0 && (isWithinBreathRange(targetDistSq) || dragon.isFlying())
         		 && dragon.getEntitySenses().canSee(target) && !(target instanceof EntityAnimal) && dragon.isFlying();// && lookingAtTarget(target); 
 
         if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)

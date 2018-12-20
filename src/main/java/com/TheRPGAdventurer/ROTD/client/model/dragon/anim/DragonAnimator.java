@@ -9,8 +9,6 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
-import java.util.BitSet;
-
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
@@ -279,7 +277,7 @@ public class DragonAnimator {
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided 
-        		|| dragon.motionY > -0.1 || speedEnt < speedMax); 
+        		|| dragon.motionY > -0.1 || speedEnt < speedMax); // && dragon.getPassengers().size() < 2)
         isHovering = HoverFlag;
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
@@ -327,7 +325,7 @@ public class DragonAnimator {
 
         // update speed transition
         boolean nearGround = dragon.getAltitude() < dragon.height * 2;
-        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2 || isHoverCancelled();
+        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2;
         float speedValue = 0.05f;
         speedTimer.add(speedFlag ? speedValue : -speedValue);
            
@@ -368,8 +366,7 @@ public class DragonAnimator {
         final float BITE_ANGLE = 0.75F;
         final float BREATH_ANGLE = 0.75F;
         jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE);
-        float flutters = dragon.isUsingBreathWeapon() ? 1 : flutter;
-        jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutters;
+        jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
     }
 
     protected void animWings() {
@@ -584,8 +581,9 @@ public class DragonAnimator {
         float pitchMovingMax = 90;
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60; 
-        boolean dontAlterPitch = dragon.isBannered1() || dragon.isBannered2() || dragon.getPassengers().size() >= 2;
-        return Interpolation.smoothStep(pitchHoverMax, dontAlterPitch ? 0 : pitchMoving, speed);
+        boolean shouldChange = dragon.isBannered1() || dragon.isBannered2() || dragon.isBannered3() || dragon.isBannered4() 
+        		|| dragon.getPassengers().size() > 2;
+        return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }
     
     public float getModelOffsetX() {
@@ -682,15 +680,6 @@ public class DragonAnimator {
     
     public float getLookYaw() {
     	return lookYaw;
-    }
-    
-    protected boolean isHoverCancelled() {
-        return getControlFlag(2);
-    }
-    
-    private boolean getControlFlag(int index) {
-        BitSet controlFlags = dragon.getControlFlags();
-        return controlFlags == null ? false : controlFlags.get(index);
     }
     
 }

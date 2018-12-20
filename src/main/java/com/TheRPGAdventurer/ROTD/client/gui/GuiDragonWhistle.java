@@ -1,33 +1,46 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
+import java.util.UUID;
+
 import org.lwjgl.input.Keyboard;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public class GuiDragonWhistle extends GuiScreen {
 	
-	EntityTameableDragon dragonToControl = new EntityTameableDragon(Minecraft.getMinecraft().world);
+	EntityTameableDragon dragon = new EntityTameableDragon(Minecraft.getMinecraft().world);
 	private final MessageDragonWhistle dcw = new MessageDragonWhistle();
 	private float mousePosX;
 	private float mousePosY;
 	
+	ItemStack whistle;
+	UUID uuid;
+	
 	GuiButton nothing;
 	GuiButton circle;
 	GuiButton followFlying;
-	GuiButton goToPlayer;
+	GuiButton come;
 	GuiButton sit;
+	
 
-	public GuiDragonWhistle(EntityTameableDragon dragon) {
+	public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
 		super();
-		this.dragonToControl = dragon;
-		
+		this.whistle = whistle;
+		if(world instanceof WorldServer) {
+	       WorldServer worldServer = (WorldServer) world;
+	       dragon = (EntityTameableDragon) worldServer.getEntityFromUuid(uuid);
+		}		
 	}
 	
 	@Override
@@ -45,27 +58,28 @@ public class GuiDragonWhistle extends GuiScreen {
 		followFlying = new GuiButton(0, width / 2 - 100 - 50, height / 2 + 10, 
 	                   98, 20, I18n.format("gui.followFlying", new Object[0]));
 		
-		goToPlayer =   new GuiButton(0, width / 2 - 50, height / 2 - 15, 
+		come =   new GuiButton(0, width / 2 - 50, height / 2 - 15, 
 	                   98, 20, I18n.format("gui.goToPlayer", new Object[0]));
 		
 		buttonList.add(nothing);
 		buttonList.add(circle);
 		buttonList.add(followFlying);
-		buttonList.add(goToPlayer);
+		buttonList.add(come);
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton button) {
-		if(dragonToControl != null) {
-		   if(button == circle) { 
-		      dragonToControl.circle(true);
-	       } else if(button == followFlying) {
-	    	  dragonToControl.follow(true);
-	       } else if(button == goToPlayer) {
-	    	  dragonToControl.come(true);
-		   } else if(button == nothing) {
-			  dragonToControl.nothing(true);
-		   }
+		if(dragon != null) {
+		   byte previousState = dragon.getWhistleState();
+		   dragon.come(button == come);
+		   dragon.circle(button == circle);
+		   dragon.follow(button == followFlying);
+		   dragon.nothing(button == nothing);
+		   byte controlState = dragon.getWhistleState();
+		   if (controlState != previousState) {
+					DragonMounts.NETWORK_WRAPPER
+							.sendToServer(new MessageDragonWhistle(dragon.getEntityId(), controlState));
+		    }
 		} 
 	}
 	

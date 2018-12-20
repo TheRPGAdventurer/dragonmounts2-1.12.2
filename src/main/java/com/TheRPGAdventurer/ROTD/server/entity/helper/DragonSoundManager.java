@@ -121,6 +121,10 @@ public class DragonSoundManager extends DragonHelper {
             return;
         }
         
+        if(dragon.isFlying()) {
+        	return;
+        }
+        
         // override sound type if the top block is snowy
         SoundType soundType;
         if (dragon.world.getBlockState(entityPos.up()).getBlock() == Blocks.SNOW_LAYER) {

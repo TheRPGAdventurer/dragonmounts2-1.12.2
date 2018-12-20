@@ -9,6 +9,8 @@
  */
 package com.TheRPGAdventurer.ROTD.server;
 
+import java.util.UUID;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.cmd.CommandDragon;
@@ -17,8 +19,10 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 
 import net.minecraft.command.ServerCommandManager;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -54,8 +58,8 @@ public class ServerProxy {
     }
     
     
-    public void Initialization(FMLInitializationEvent evt) {         MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
-//        EntityRegistry.addSpawn(EntityTameableDragon.class, 1, 1, 1, EnumCreatureType.AMBIENT, biomes);
+    public void Initialization(FMLInitializationEvent evt) {         
+    	MinecraftForge.EVENT_BUS.register(new DragonEggBlockHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
     }
 
@@ -83,7 +87,7 @@ public class ServerProxy {
     
 	public void render() {}
 	
-	public void openDragonWhistleGui(EntityTameableDragon dragon) {
+	public void openDragonWhistleGui(UUID dragon, ItemStack whistle, World world) {
 		
 	}
 }

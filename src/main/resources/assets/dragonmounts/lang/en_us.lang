@@ -33,6 +33,9 @@ commands.dragon.canttame=You cannot tame dragons
 
 entity.dragon.tooYoung=Dragon is too young for that let it grow
 
+dragon.notOwned=You do not own this dragon
+whistle.empty=No Dragons To Control
+
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
 
@@ -211,7 +214,7 @@ item.enchant_dragonscale_leggings.name=Dragon Leggings
 item.enchant_dragon_hoe.name=Dragon Hoe
 item.enchant_dragonscale_boots.name=Dragon Boots
 
-key.categories.dragon = Dragon Controls
+key.categories.dragon=Dragon Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
 
@@ -268,6 +271,8 @@ gui.nothing=Nothing
 gui.circle=Circle
 gui.followFlying=Flying
 gui.goToPlayer=Come
+
+item.dragon_whistle.name=Dragon Whistle
 
 
 

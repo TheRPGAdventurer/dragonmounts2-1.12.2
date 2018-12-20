@@ -11,6 +11,8 @@ import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -22,10 +24,12 @@ public class ItemDragonShield extends ItemShield {
 	
 	public EnumItemBreedTypes type;
 	public ToolMaterial material;
+	public Item repair;
 	
-	public ItemDragonShield(EnumItemBreedTypes type) {
+	public ItemDragonShield(EnumItemBreedTypes type, Item repair) {
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_shield_" + type.toString().toLowerCase()));
 //		this.material = material;
+		this.repair = repair;
 		this.setUnlocalizedName("dragon_shield_" + type.toString().toLowerCase());
 		this.setMaxDamage(669);
 		this.setMaxStackSize(1);
@@ -44,5 +48,12 @@ public class ItemDragonShield extends ItemShield {
 	public boolean isShield(ItemStack stack, EntityLivingBase entity) {
 		return true;
 	}
+	
+    /**
+     * Return whether this item is repairable in an anvil.
+     */
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack item) {
+        return item.getItem() == repair ? true : super.getIsRepairable(toRepair, new ItemStack(repair));
+    }
 
 }

@@ -63,7 +63,7 @@ public class DragonHeadPositionHelper {
       float vertMulti = (i + 1) / (float)NUMBER_OF_NECK_SEGMENTS;
 
       float baseRotX = MathX.cos((float) i * 0.45f + animBase) * 0.15f;
-      baseRotX *= MathX.lerp(0.2f, 0.8, flutter);
+      baseRotX *= MathX.lerp(0.2f, 1, flutter);
       baseRotX *= MathX.lerp(1, 0.2f, sit);
       float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.75f;
 
@@ -153,12 +153,12 @@ public class DragonHeadPositionHelper {
     // the head offset plus the headLocation.rotationPoint is the origin of the head, i.e. the point about which the
     //   head rotates, relative to the origin of the body (getPositionEyes)
     final float HEAD_X_OFFSET = 0;
-    final float HEAD_Y_OFFSET = 2; 
-    final float HEAD_Z_OFFSET = -23; 
+    final float HEAD_Y_OFFSET = 2; // 2
+    final float HEAD_Z_OFFSET = -23; //-23
 
     final float THROAT_X_OFFSET = 0;
-    final float THROAT_Y_OFFSET = -8; 
-    final float THROAT_Z_OFFSET = -17; 
+    final float THROAT_Y_OFFSET = -8; // -8 /// 4 
+    final float THROAT_Z_OFFSET = -17; // -17
 
     Vec3d headOffset =  new Vec3d((head.rotationPointX + HEAD_X_OFFSET) * BODY_X_SCALE,
                                 (head.rotationPointY + HEAD_Y_OFFSET) * BODY_Y_SCALE,

@@ -29,6 +29,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.server.util.ClientServerSynchronisedTickCount;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -101,14 +102,14 @@ public class DragonLifeStageHelper extends DragonHelper {
         if (oldModifier != null) {
             instance.removeModifier(oldModifier);
         }
-        instance.applyModifier(new DragonScaleModifier(getScale()));
+        instance.applyModifier(new DragonScaleModifier(MathX.clamp(getScale(), 0.1, 1)));
     }
     
     /**
      * Generates some egg shell particles and a breaking sound.
      */
     public void playEggCrackEffect() {
-        dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
+       // dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
         this.playEvent(dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG)); 	
     }
     

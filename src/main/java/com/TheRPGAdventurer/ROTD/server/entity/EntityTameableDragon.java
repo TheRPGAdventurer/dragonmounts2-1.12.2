@@ -187,7 +187,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> HAS_ELDER_STONE = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager
+	public  static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager
 			.<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
 
 	// data NBT IDs
@@ -410,28 +410,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public boolean isSaddled() {
 		return dataManager.get(DATA_SADDLED);
 	}
-	
-    public void setControlFlags(BitSet flags) {
-        controlFlags = flags;
-    }
-
-    public BitSet getControlFlags() {
-        return controlFlags;
-    }
-    
-    public void setWhistleFlags(BitSet flags) {
-        dragonWhistle = flags;
-    }
-
-    public BitSet getWhistleFlags() {
-        return dragonWhistle;
-    }
-    
-    private boolean getWhistleFlag(int index) {
-        BitSet dragonWhistle = getWhistleFlags();
-        return dragonWhistle == null ? false : dragonWhistle.get(index);
-    }
-    
   
     /**
      * Returns relative speed multiplier for the vertical flying speed.
@@ -559,8 +537,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 
 	@Override
-	public void come(boolean landToPlayer) {
-		setStateField(3, landToPlayer);
+	public void come(boolean come) {
+		setStateField(3, come);
 	}
 
 	/**
@@ -572,17 +550,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
 		if (newState) {
 			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));
+			DMUtils.getLogger().info("Current State at" + WHISTLE_STATE + "" + newState);
 		} else {
 			dataManager.set(WHISTLE_STATE, (byte) (prevState & ~(1 << i)));
 		}
 	}
 
-	public byte getControlState() {
+	public byte getWhistleState() {
 		return dataManager.get(WHISTLE_STATE).byteValue();
 	}
-
-	public void setControlState(byte state) {
-		dataManager.set(WHISTLE_STATE, (byte) state);
+	
+	public void setWhistleState(byte state) {
+		dataManager.set(WHISTLE_STATE, state);
 	}
 	
 	/**
@@ -703,7 +682,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 	
 	public boolean doesWantToLand() {
-		return this.inAirTicks > 6000 || inAirTicks > 40;
+		return this.inAirTicks > 6000 || inAirTicks > 40 && nothing();
 	}
 
 	public boolean isTargetBlocked(Vec3d target) {
@@ -841,7 +820,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 			
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(1500) == 1 && !isSitting()) {
+					&& !this.isHatchling() && this.getRNG().nextInt(1500) == 1 && !isSitting() && (!this.isTamed())) {
 				this.liftOff();
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
@@ -995,8 +974,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     		x = midPoint.getX() + 0.5 - 12;
     		y = midPoint.getY() + 0.5 + 20;
     		z = midPoint.getZ() + 0.5 - offset;
-    		return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
+    		return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
     //	}
+	}
+	
+	public boolean comeToPlayerFlying(BlockPos point) {
+		if(isFlying()) {
+			return this.getNavigator().tryMoveToXYZ(point.getX(), point.getY(), point.getZ(), 2);
+		} else {
+		    return false;
+		}
 	}
 	
 	public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
@@ -1011,10 +998,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public boolean circleTarget1(BlockPos midPoint) {   
 		if(this.getControllingPlayer() != null) {
 			return false;
-		}
-		
-		if(!isFlying()) {
-			this.liftOff();
 		}
 		
 		Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());

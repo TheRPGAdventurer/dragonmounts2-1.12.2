@@ -46,20 +46,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     public void startExecuting() {
         dragon.getNavigator().clearPathEntity();
     }
-    
-    protected boolean isFlyUp() {
-        return getControlFlag(0);
-    }
-    
-    protected boolean isFlyDown() {
-        return getControlFlag(1);
-    }
-    
-    private boolean getControlFlag(int index) {
-        BitSet controlFlags = dragon.getControlFlags();
-        return controlFlags == null ? false : controlFlags.get(index);
-    }
-    
+
     @Override
     public void updateTask() {
         Vec3d wp = rider.getLookVec();

@@ -107,8 +107,9 @@ public BreathAffectedEntity affectEntity(World world, Integer entityID, BreathAf
     }
     
     float hitDensity = currentHitDensity.getHitDensity();
-    final float DAMAGE_PER_HIT_DENSITY = 3.0F * hitDensity;
+    final float DAMAGE_PER_HIT_DENSITY = 1.2F * hitDensity;
     triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
+    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 
     
     if (entity.isBurning()) {

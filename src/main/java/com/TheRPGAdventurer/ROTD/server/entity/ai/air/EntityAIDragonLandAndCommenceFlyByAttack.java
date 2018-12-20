@@ -71,7 +71,7 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null; // && dragon.doesWantToLand()
+				&& findLandingBlock() && dragon.getRevengeTarget() == null;
 	}
 
 	@Override
@@ -82,15 +82,9 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 	@Override
 	public void startExecuting() {
 		// try to fly to ground block position
-	//	if (!tryMoveToBlockPos(landingPos, speed)) {
+		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand()) {
 			// probably too high, so simply descend vertically
-	//		tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-	//	} 
-	//	if(!dragon.circleTarget1(new BlockPos(0, 3, 0))) { 
-	//		dragon.circleTarget1(new BlockPos(0, 3, 0));
-	//   }	
-		if(!dragon.circleTarget1(dragon.getOwner2().getPosition()) && dragon.circle()) {
-			dragon.circleTarget1(dragon.getOwner2().getPosition());
-		}
-    }
+			tryMoveToBlockPos( dragon.doesWantToLand() ? dragon.getPosition().up(1) : dragon.getPosition().down(4), speed);
+		} 
+	}
 }

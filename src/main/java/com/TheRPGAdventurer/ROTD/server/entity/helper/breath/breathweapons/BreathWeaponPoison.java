@@ -93,9 +93,10 @@ public class BreathWeaponPoison extends BreathWeapon {
     }
     
     float hitDensity = currentHitDensity.getHitDensity();
-    final float DAMAGE_PER_HIT_DENSITY = 2.0F * hitDensity;
+    final float DAMAGE_PER_HIT_DENSITY = 1.1F * hitDensity;
     
     triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
+    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 
     return currentHitDensity;
   }

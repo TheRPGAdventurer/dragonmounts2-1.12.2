@@ -31,7 +31,7 @@ public class DragonInteractRide extends DragonInteract {
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer() && dragon.isTamed() && dragon.isSaddled() && !ItemUtils.hasEquippedUsable(player) && 
         	!ItemUtils.hasEquipped(player, ModTools.diamond_shears) && !player.isSneaking()&& 
-        	!ItemUtils.hasEquipped(player, ModItems.dragon_wand)) { // isInAppropriateAgeForInteraction()
+        	!ItemUtils.hasEquipped(player, ModItems.dragon_wand) && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) { // isInAppropriateAgeForInteraction()
             dragon.setRidingPlayer(player);
             return true;
         }

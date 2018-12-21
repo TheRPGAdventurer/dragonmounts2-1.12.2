@@ -76,6 +76,7 @@ public class GuiDragonWhistle extends GuiScreen {
 		   dragon.follow(button == followFlying);
 		   dragon.nothing(button == nothing);
 		   byte controlState = dragon.getWhistleState();
+		   DMUtils.getLogger().info("Current State at " + dragon.getUniqueID().toString());
 		   if (controlState != previousState) {
 					DragonMounts.NETWORK_WRAPPER
 							.sendToServer(new MessageDragonWhistle(dragon.getEntityId(), controlState));

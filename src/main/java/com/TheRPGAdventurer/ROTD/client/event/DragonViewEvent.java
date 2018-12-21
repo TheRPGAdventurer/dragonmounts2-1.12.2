@@ -10,6 +10,7 @@ import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBow;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -25,20 +26,21 @@ public class DragonViewEvent {
 
 		if(player.getRidingEntity() instanceof EntityTameableDragon) {	
 			float scale = MathX.clamp(((EntityTameableDragon) player.getRidingEntity()).getScale(), 0.1f, 1f);
+			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
-				GlStateManager.translate(0F , -1.7F, -10.8 * scale); 
+				GlStateManager.translate(0F , -1.7F, -11.8 * scale); 
 			}
 			
-			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
-				GlStateManager.translate(0F , -0.8F, 10.8 * scale);
+			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) { 
+				GlStateManager.translate(0F , -1.8F, 11.8 * scale);
 			}
 		} else if(player.getRidingEntity() instanceof EntityCarriage) {			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
-				GlStateManager.translate(0F , -0.8F, -10.8); 
+				GlStateManager.translate(0F , -1.8F, -10.8); 
 			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
-				GlStateManager.translate(0F , -0.8F, 10.8);
+				GlStateManager.translate(0F , -1.8F, 10.8);
 			}
 		}
 	}

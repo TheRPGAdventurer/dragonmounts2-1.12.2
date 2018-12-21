@@ -549,8 +549,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	private void setStateField(int i, boolean newState) {
 		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
 		if (newState) {
-			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));
-			DMUtils.getLogger().info("Current State at" + WHISTLE_STATE + "" + newState);
+			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));			
 		} else {
 			dataManager.set(WHISTLE_STATE, (byte) (prevState & ~(1 << i)));
 		}
@@ -1008,7 +1007,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
        	double r = 1.2 * DragonMountsConfig.dragonFlightHeight;  
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
         double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight; 
-        double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	   		
+        double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
+        DMUtils.getLogger().info("dragon circle is being called");
     	
        
     	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    

@@ -33,8 +33,11 @@ commands.dragon.canttame=You cannot tame dragons
 
 entity.dragon.tooYoung=Dragon is too young for that let it grow
 
-dragon.notOwned=You do not own this dragon
+whistle.notOwned=You do not own this dragon
 whistle.empty=No Dragons To Control
+whistle.controlling=Controlling Dragon:
+whistle.noNBT=No NBT for dragon is found
+whistle.limit=One Whistle can only carry 3 Dragons
 
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)

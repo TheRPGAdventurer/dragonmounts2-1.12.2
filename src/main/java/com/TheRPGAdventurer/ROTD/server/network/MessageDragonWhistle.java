@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.network;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
@@ -51,6 +52,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
 			if (dragon.isOwner(player)) {
 				dragon.setWhistleState(message.controlState);
+				DMUtils.getLogger().info("Current State at " + dragon.getUniqueID().toString() + "" + dragon.getWhistleState());
 			}			
 		} 
 	}

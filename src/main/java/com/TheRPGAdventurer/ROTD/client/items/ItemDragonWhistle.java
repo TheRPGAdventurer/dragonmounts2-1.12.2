@@ -41,7 +41,7 @@ public class ItemDragonWhistle extends Item {
 		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
 		this.setMaxStackSize(1);
-		this.setCreativeTab(DragonMounts.TAB);
+	//	this.setCreativeTab(DragonMounts.TAB);
 	}
 
 	@Override 

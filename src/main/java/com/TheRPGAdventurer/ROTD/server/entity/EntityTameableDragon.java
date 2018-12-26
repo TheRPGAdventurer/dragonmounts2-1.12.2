@@ -827,7 +827,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
 		    
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() == null);
-				//	&& (isMoving && !isCollidedHorizontally && getControllingPlayer() == null);
+				//	&& (this.getDistanceToEntity(this.getOwner()) >= 4 && !this.come());
 			if (flying != isFlying()) { 
 
 				// notify client

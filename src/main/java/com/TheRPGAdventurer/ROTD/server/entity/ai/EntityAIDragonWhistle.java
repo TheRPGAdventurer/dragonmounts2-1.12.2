@@ -24,7 +24,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 	
 	@Override
 	public boolean shouldContinueExecuting() {
-		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
+		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && !dragon.nothing();
 	}
 	
 	@Override
@@ -41,8 +41,10 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 				DMUtils.getLogger().info("dragon circle is being called");
 			} else if(dragon.follow() && !dragon.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
 				dragon.followPlayerFlying(dragon.getOwner());
-			} else if(dragon.come() && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition()) && dragon.getOwner() != null) {
-				dragon.comeToPlayerFlying(dragon.getOwner().getPosition());
+			} else if(dragon.come() && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner()) && dragon.getOwner() != null) {
+				dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner());
+			} else if(dragon.nothing()) {
+				return;
 			}
 		}
 	}

@@ -977,12 +977,23 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     //	}
 	}
 	
-	public boolean comeToPlayerFlying(BlockPos point) {
+	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
+		float dist = this.getDistanceToEntity(owner);
+		if(dist <= 4) {
+			this.inAirTicks = 0;
+			this.nothing();
+		}
+		
+		if(!isFlying()) {
+		   this.liftOff();
+		}
+		
 		if(isFlying()) {
 			return this.getNavigator().tryMoveToXYZ(point.getX(), point.getY(), point.getZ(), 2);
 		} else {
 		    return false;
 		}
+		
 	}
 	
 	public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {

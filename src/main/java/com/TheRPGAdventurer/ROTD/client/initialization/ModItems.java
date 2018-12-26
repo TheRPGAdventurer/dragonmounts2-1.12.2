@@ -29,6 +29,7 @@ public class ModItems {
 	public static final Item EnchantDragonScales;
 	public static final Item StormDragonScales;
 	public static final Item StormDragonScales2;
+	public static final Item TerraDragonScales;
 	public static final Item ZombieDragonScales;
 	
 	public static final Item SpawnForest;
@@ -42,8 +43,9 @@ public class ModItems {
 	public static final Item SpawnNether;
 	public static final Item SpawnEnchant;
 	public static final Item SpawnSunlight;
-//	public static final Item SpawnStorm;
+	public static final Item SpawnStorm;
 	public static final Item SpawnZombie;
+	public static final Item SpawnTerra;
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
@@ -68,6 +70,7 @@ public class ModItems {
 	public static final Item storm_dragon_shield;
 	public static final Item nether_dragon_shield;
 	public static final Item ender_dragon_shield;
+	public static final Item terra_dragon_shield;
 	
 	
 	public static final Item[] ITEMS = {
@@ -85,6 +88,7 @@ public class ModItems {
 		EnchantDragonScales = new ItemDragonScales("enchant_dragonscales", EnumItemBreedTypes.ENCHANT, 16),
 		StormDragonScales = new ItemDragonScales("storm_dragonscales", EnumItemBreedTypes.STORM, 16),
 		StormDragonScales2 = new ItemDragonScales("storm2_dragonscales", EnumItemBreedTypes.STORM, 16),
+		TerraDragonScales = new ItemDragonScales("terra_dragon_scales", EnumItemBreedTypes.TERRA, 0),
 		ZombieDragonScales = new ItemDragonScales("zombie_dragonscales", EnumItemBreedTypes.ZOMBIE, 16),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
@@ -98,8 +102,9 @@ public class ModItems {
 		SpawnNether = new ItemDragonSpawner(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER, DragonMounts.TAB),
 		SpawnEnchant = new ItemDragonSpawner(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT, DragonMounts.TAB),
 		SpawnSunlight = new ItemDragonSpawner(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT, DragonMounts.TAB),
-	//	SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
+		SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
 		SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.TAB),
+		SpawnTerra = new ItemDragonSpawner(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA, DragonMounts.TAB),
 		
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),
@@ -124,6 +129,7 @@ public class ModItems {
 		storm_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.STORM, ModItems.StormDragonScales),
 		nether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales),
 		ender_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.END, ModItems.EnderDragonScales),
+		terra_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales)
 		
 	};
 }

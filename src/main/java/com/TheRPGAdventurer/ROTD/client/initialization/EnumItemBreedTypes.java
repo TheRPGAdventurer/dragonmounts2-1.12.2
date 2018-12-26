@@ -18,6 +18,7 @@ public enum EnumItemBreedTypes {
 	SUNLIGHT(TextFormatting.YELLOW),
 	SUNLIGHT2(TextFormatting.LIGHT_PURPLE),
 	STORM(TextFormatting.BLUE),
+	TERRA(TextFormatting.YELLOW),
 	ZOMBIE(TextFormatting.WHITE);
 	
 	public TextFormatting color;

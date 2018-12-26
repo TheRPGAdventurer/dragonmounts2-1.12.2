@@ -70,9 +70,9 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
-	public static double ThirdPersonZoom = 11.8;
+	public static double ThirdPersonZoom = 13.8;
 	
-	public static double dragonFlightHeight = 50.0D;
+	public static double dragonFlightHeight = 60.0D;
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	

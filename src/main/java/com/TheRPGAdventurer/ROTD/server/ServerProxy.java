@@ -87,7 +87,7 @@ public class ServerProxy {
     
 	public void render() {}
 	
-	public void openDragonWhistleGui(UUID dragon, ItemStack whistle, World world) {
+	public void openDragonWhistleGui(int dragon, ItemStack whistle, World world) {
 		
 	}
 }

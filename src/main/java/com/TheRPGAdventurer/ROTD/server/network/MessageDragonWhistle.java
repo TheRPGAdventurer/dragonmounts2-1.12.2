@@ -52,7 +52,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
 			if (dragon.isOwner(player)) {
 				dragon.setWhistleState(message.controlState);
-				DMUtils.getLogger().info("Current State at " + dragon.getUniqueID().toString() + "" + dragon.getWhistleState());
+				DMUtils.getLogger().info("Current State at " + dragon.getBreed().toString() + "" + dragon.getWhistleState());
 			}			
 		} 
 	}

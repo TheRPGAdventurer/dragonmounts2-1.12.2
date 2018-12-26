@@ -25,7 +25,8 @@ public enum EnumDragonBreed implements IStringSerializable {
 	ENCHANT(9, DragonBreedEnchant::new),
 	SUNLIGHT(10, DragonBreedSunlight::new),
 	STORM(11, DragonBreedStorm::new),
-	ZOMBIE(12, DragonBreedZombie::new);
+	ZOMBIE(12, DragonBreedZombie::new),
+	TERRA(13, DragonBreedTerra::new);
     
     
     // create static bimap between enums and meta data for faster and easier

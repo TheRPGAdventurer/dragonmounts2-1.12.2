@@ -71,12 +71,12 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null;
+				&& findLandingBlock() && dragon.getRevengeTarget() == null && dragon.nothing();
 	}
 
 	@Override
 	public boolean shouldContinueExecuting() {
-		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
+		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && dragon.nothing();
 	}
 
 	@Override

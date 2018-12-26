@@ -34,13 +34,11 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton sit;
 	
 
-	public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
+	public GuiDragonWhistle(World world, int uuid, ItemStack whistle) {
 		super();
 		this.whistle = whistle;
-		if(world instanceof WorldServer) {
-	       WorldServer worldServer = (WorldServer) world;
-	       dragon = (EntityTameableDragon) worldServer.getEntityFromUuid(uuid);
-		}		
+		dragon = (EntityTameableDragon) world.getEntityByID(uuid);
+			
 	}
 	
 	@Override

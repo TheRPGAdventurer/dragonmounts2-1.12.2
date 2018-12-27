@@ -209,10 +209,10 @@ public class ModArmour {
 		terraDragonScaleLeggings = new ItemDragonArmour(TerraDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "terra_dragonscale_leggings", EnumItemBreedTypes.TERRA),
 		terraDragonScaleBoots = new ItemDragonArmour(TerraDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "terra_dragonscale_boots", EnumItemBreedTypes.TERRA),
 
-		terra2DragonScaleCap = new ItemDragonArmour(TerraDragonScaleMaterial2, 1, EntityEquipmentSlot.HEAD, "terra2_dragonscale_cap", EnumItemBreedTypes.TERRA),
-		terra2DragonScaleTunic = new ItemDragonArmour(TerraDragonScaleMaterial2,  1, EntityEquipmentSlot.CHEST, "terra2_dragonscale_tunic", EnumItemBreedTypes.TERRA),
-		terra2DragonScaleLeggings = new ItemDragonArmour(TerraDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "terra2_dragonscale_leggings", EnumItemBreedTypes.TERRA),
-		terra2DragonScaleBoots = new ItemDragonArmour(TerraDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "terra2_dragonscale_boots", EnumItemBreedTypes.TERRA),
+		terra2DragonScaleCap = new ItemDragonArmour(TerraDragonScaleMaterial2, 1, EntityEquipmentSlot.HEAD, "terra2_dragonscale_cap", EnumItemBreedTypes.TERRA2),
+		terra2DragonScaleTunic = new ItemDragonArmour(TerraDragonScaleMaterial2,  1, EntityEquipmentSlot.CHEST, "terra2_dragonscale_tunic", EnumItemBreedTypes.TERRA2),
+		terra2DragonScaleLeggings = new ItemDragonArmour(TerraDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "terra2_dragonscale_leggings", EnumItemBreedTypes.TERRA2),
+		terra2DragonScaleBoots = new ItemDragonArmour(TerraDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "terra2_dragonscale_boots", EnumItemBreedTypes.TERRA2),
 
 		dragonarmor_iron = new ItemDragonArmor( "dragonarmor_iron"),
 		dragonarmor_gold = new ItemDragonArmor("dragonarmor_gold"),
@@ -231,7 +231,5 @@ public class ModArmour {
 		ZombieDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ZombieDragonScales));
 		TerraDragonScaleMaterial. setRepairItem(new ItemStack(ModItems.TerraDragonScales));
 		TerraDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.TerraDragonScales2));
-		
-	}
-		
+	}	
 }

@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
@@ -14,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemWrittenBook;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
@@ -41,13 +43,18 @@ public class ItemDragonWhistle extends Item {
 		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
 		this.setMaxStackSize(1);
-	//	this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.TAB);
 	}
 
 	@Override 
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-//		tooltip.add(StatCollector.translateToLocal(dragon.toString()));
+		if(stack.getTagCompound() != null) {
+		  EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(stack.getTagCompound().getInteger("dragon"));
+		  String dragonName = dragon.getName().toString();
+		  if(dragon != null)
+		  tooltip.add(StatCollector.translateToLocal(dragonName) + " owner:" + dragon.getOwner().getName());
+		}
 	}
 
 	@Override
@@ -57,7 +64,7 @@ public class ItemDragonWhistle extends Item {
           if (!player.isSneaking() && stack.hasTagCompound() && stack.getTagCompound().hasKey("dragon")) {
 			  if (worldIn.isRemote) {
 				  DragonMounts.proxy.openDragonWhistleGui(stack.getTagCompound().getInteger("dragon"),
-						new ItemStack(this), worldIn);
+						new ItemStack(this), worldIn); 
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			  }
 		  } //else if(!stack.hasTagCompound() && !stack.hasTagCompound() && !stack.getTagCompound().hasKey("dragon")) {

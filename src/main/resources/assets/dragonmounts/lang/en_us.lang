@@ -13,6 +13,7 @@ entity.DragonMount.enchant.name=Enchantment Dragon
 entity.DragonMount.sunlight.name=Sunlight Dragon
 entity.DragonMount.storm.name=Storm Dragon
 entity.DragonMount.zombie.name=Zombie Dragon
+entity.DragonMount.terra.name=Terra Dragon
 
 entity.DragonMounts.dragon.ice.name=Ice Dragon
 entity.DragonMounts.dragon.ender.name=Ender Dragon
@@ -27,6 +28,7 @@ entity.DragonMounts.dragon.enchant.name=Enchant Dragon
 entity.DragonMounts.dragon.sunlight.name=Sunlight Dragon
 entity.DragonMounts.dragon.storm.name=Storm Dragon
 entity.DragonMounts.dragon.zombie.name=Zombie Dragon
+entity.DragonMounts.dragon.terra.name=Terra Dragon
 
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
@@ -217,6 +219,28 @@ item.enchant_dragonscale_leggings.name=Dragon Leggings
 item.enchant_dragon_hoe.name=Dragon Hoe
 item.enchant_dragonscale_boots.name=Dragon Boots
 
+item.terra_dragonscales.name=Dragon Scales
+item.terra_dragon_pickaxe.name=Dragon Pickaxe
+item.terra_dragon_axe.name=Dragon Axe
+item.terra_dragon_hoe.name=Dragon Hoe
+item.terra_dragon_shovel.name=Dragon Spade
+item.terra_dragon_sword.name=Dragon Sword
+item.terra_dragonscale_cap.name=Dragon Cap
+item.terra_dragonscale_tunic.name=Dragon Tunic
+item.terra_dragonscale_leggings.name=Dragon Leggings
+item.terra_dragonscale_boots.name=Dragon Boots
+
+item.terra2_dragonscales.name=Dragon Scales
+item.terra2_dragon_pickaxe.name=Dragon Pickaxe
+item.terra2_dragon_axe.name=Dragon Axe
+item.terra2_dragon_hoe.name=Dragon Hoe
+item.terra2_dragon_shovel.name=Dragon Spade
+item.terra2_dragon_sword.name=Dragon Sword
+item.terra2_dragonscale_cap.name=Dragon Cap
+item.terra2_dragonscale_tunic.name=Dragon Tunic
+item.terra2_dragonscale_leggings.name=Dragon Leggings
+item.terra2_dragonscale_boots.name=Dragon Boots
+
 key.categories.dragon=Dragon Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
@@ -240,6 +264,7 @@ item.summon_sunlight.name=Summon Dragon
 item.summon_enchant.name=Summon Dragon
 item.summon_storm.name=Summon Dragon
 item.summon_zombie.name=Summon Dragon
+item.summon_terra.name=Summon Dragon
 
 item.dragon_shield_forest.name=Dragon Shield
 item.dragon_shield_aether.name=Dragon Shield
@@ -253,6 +278,8 @@ item.dragon_shield_sunlight2.name=Dragon Shield
 item.dragon_shield_enchant.name=Dragon Shield
 item.dragon_shield_forest.name=Dragon Shield
 item.dragon_shield_storm.name=Dragon Shield
+item.dragon_shield_terra.name=Dragon Shield
+item.dragon_shield_terra2.name=Dragon Shield
 
 dragon.forest=Forest
 dragon.aether=Aether
@@ -269,6 +296,7 @@ dragon.sunlight=Sunlight
 dragon.sunlight2=Sunlight
 dragon.storm=Storm
 dragon.zombie=Zombie
+dragon.terra=Terra
 
 gui.nothing=Nothing
 gui.circle=Circle

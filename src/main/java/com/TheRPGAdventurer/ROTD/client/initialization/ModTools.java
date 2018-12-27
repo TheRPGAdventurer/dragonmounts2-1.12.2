@@ -132,11 +132,11 @@ public class ModTools {
 	public static ItemDragonShovel terraDragonShovel = new ItemDragonShovel(TerraDragonScaleMaterial, "terra_dragon_shovel", EnumItemBreedTypes.TERRA);
 	public static ItemDragonHoe terraDragonHoe = new ItemDragonHoe(TerraDragonScaleMaterial, "terra_dragon_hoe", EnumItemBreedTypes.TERRA);
 	
-	public static ItemDragonSword terraDragonSword2 = new ItemDragonSword(TerraDragonScaleMaterial2, "terra2_dragon_sword", EnumItemBreedTypes.TERRA);
-	public static ItemDragonPickAxe terraDragonPickaxe2 = new ItemDragonPickAxe(TerraDragonScaleMaterial2, "terra2_dragon_pickaxe", EnumItemBreedTypes.TERRA);
-	public static ItemDragonAxe terraDragonAxe2 = new ItemDragonAxe(TerraDragonScaleMaterial2, "terra2_dragon_axe", damage, damage, EnumItemBreedTypes.TERRA);
-	public static ItemDragonShovel terraDragonShovel2 = new ItemDragonShovel(TerraDragonScaleMaterial2, "terra2_dragon_shovel", EnumItemBreedTypes.TERRA);
-	public static ItemDragonHoe terraDragonHoe2 = new ItemDragonHoe(TerraDragonScaleMaterial2, "terra2_dragon_hoe", EnumItemBreedTypes.TERRA);
+	public static ItemDragonSword terraDragonSword2 = new ItemDragonSword(TerraDragonScaleMaterial2, "terra2_dragon_sword", EnumItemBreedTypes.TERRA2);
+	public static ItemDragonPickAxe terraDragonPickaxe2 = new ItemDragonPickAxe(TerraDragonScaleMaterial2, "terra2_dragon_pickaxe", EnumItemBreedTypes.TERRA2);
+	public static ItemDragonAxe terraDragonAxe2 = new ItemDragonAxe(TerraDragonScaleMaterial2, "terra2_dragon_axe", damage, damage, EnumItemBreedTypes.TERRA2);
+	public static ItemDragonShovel terraDragonShovel2 = new ItemDragonShovel(TerraDragonScaleMaterial2, "terra2_dragon_shovel", EnumItemBreedTypes.TERRA2);
+	public static ItemDragonHoe terraDragonHoe2 = new ItemDragonHoe(TerraDragonScaleMaterial2, "terra2_dragon_hoe", EnumItemBreedTypes.TERRA2);
 
 	public static ItemDiamondShears diamond_shears = new ItemDiamondShears(ToolMaterial.DIAMOND, "diamond_shears");
 	
@@ -182,7 +182,5 @@ public class ModTools {
 		ZombieDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ZombieDragonScales));
 		TerraDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.TerraDragonScales));
 		TerraDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.TerraDragonScales2));
-
 	}
-	
 }

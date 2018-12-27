@@ -104,7 +104,7 @@ public class DragonSoundManager extends DragonHelper {
      * @param speed wing animation playback speed
      */
     public void onWingsDown(float speed) {
-        if (!dragon.isInWater()) {
+        if (!dragon.isInWater() && dragon.isFlying()) {
             // play wing sounds
             float pitch = (1 - speed);
             float volume = 2.8f + (1 - speed) * 1.2f;

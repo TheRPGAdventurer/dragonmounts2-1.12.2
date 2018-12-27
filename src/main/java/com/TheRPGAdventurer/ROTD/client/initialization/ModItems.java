@@ -90,8 +90,8 @@ public class ModItems {
 		EnchantDragonScales = new ItemDragonScales("enchant_dragonscales", EnumItemBreedTypes.ENCHANT, 16),
 		StormDragonScales = new ItemDragonScales("storm_dragonscales", EnumItemBreedTypes.STORM, 16),
 		StormDragonScales2 = new ItemDragonScales("storm2_dragonscales", EnumItemBreedTypes.STORM, 16),
-		TerraDragonScales = new ItemDragonScales("terra_dragon_scales", EnumItemBreedTypes.TERRA, 16),
-		TerraDragonScales2 = new ItemDragonScales("terra2_dragon_scales", EnumItemBreedTypes.TERRA, 16),
+		TerraDragonScales = new ItemDragonScales("terra_dragonscales", EnumItemBreedTypes.TERRA, 16),
+		TerraDragonScales2 = new ItemDragonScales("terra2_dragonscales", EnumItemBreedTypes.TERRA2, 16),
 		ZombieDragonScales = new ItemDragonScales("zombie_dragonscales", EnumItemBreedTypes.ZOMBIE, 16),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
@@ -133,7 +133,7 @@ public class ModItems {
 		nether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales),
 		ender_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.END, ModItems.EnderDragonScales),
 		terra_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales),
-		terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales2)
+		terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2)
 		
 	};
 }

@@ -235,7 +235,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	public BlockPos homePos;
 
 	public EntityPartDragon dragonPartHead;
-	public EntityPartDragon dragonPartBody;
 	public EntityPartDragon dragonPartNeck;
 	public EntityPartDragon dragonPartTail[];
 
@@ -287,8 +286,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 	}
 	
-	public void resetParts(float scale) {
-		dragonPartHead = new EntityPartDragon(this, 4.55F, 0, 3.0F, 1.2F, 1.2F, 1.5F);
+	public void resetParts(float s) {
+		float scale = this.getScale();
+		dragonPartHead = new EntityPartDragon(this, 4.55F * scale, 0, 3.4F * scale, 1.2F * scale, 1.2F * scale, 1.5F * scale);
 	}
 	
 	public void removeParts() {
@@ -2238,8 +2238,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      * Pushes all entities inside the list away from the enderdragon.
      */
     private void collideWithEntities(List<Entity> p_70970_1_, double strength) {
-        double d0 = (this.dragonPartBody.getEntityBoundingBox().minX + this.dragonPartBody.getEntityBoundingBox().maxX) / 2.0D;
-        double d1 = (this.dragonPartBody.getEntityBoundingBox().minZ + this.dragonPartBody.getEntityBoundingBox().maxZ) / 2.0D;
+        double d0 = (this.getEntityBoundingBox().minX + this.getEntityBoundingBox().maxX) / 2.0D;
+        double d1 = (this.getEntityBoundingBox().minZ + this.getEntityBoundingBox().maxZ) / 2.0D;
 
         for (Entity entity : p_70970_1_) {
             if (entity instanceof EntityLivingBase && !this.isPassenger(entity)) {

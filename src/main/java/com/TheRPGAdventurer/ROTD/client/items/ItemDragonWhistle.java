@@ -51,7 +51,7 @@ public class ItemDragonWhistle extends Item {
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if(stack.getTagCompound() != null) {
 		  EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(stack.getTagCompound().getInteger("dragon"));
-		  String dragonName = dragon.getName().toString();
+		  String dragonName = dragon.getDisplayName().getUnformattedComponentText();
 		  if(dragon != null)
 		  tooltip.add(StatCollector.translateToLocal(dragonName) + " owner:" + dragon.getOwner().getName());
 		}

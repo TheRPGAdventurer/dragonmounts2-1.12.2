@@ -28,6 +28,7 @@ import org.apache.logging.log4j.Logger;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
@@ -1104,15 +1105,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return true;
         }
         
-    //    if (stack.getItem() == ModItems.dragon_stick) {
-	//		if (player.isSneaking()) {
-	//			BlockPos pos = new BlockPos(this);
-	//			this.homePos = pos;
-	//			this.hasHomePosition = true;
-	//			player.sendStatusMessage(new TextComponentTranslation("dragon.command.new_home",
-	//					homePos.getX(), homePos.getY(), homePos.getZ()), true);
-	//			return true;
-	//	}
+        if (item.getItem() == ModItems.dragon_whistle) {
+			if (player.isSneaking()) {
+				BlockPos pos = new BlockPos(this);
+				this.homePos = pos;
+				this.hasHomePosition = true;
+				player.sendStatusMessage(new TextComponentTranslation("dragon.command.new_home",
+						homePos.getX(), homePos.getY(), homePos.getZ()), true);
+				return true;
+			}
+		}
         
         // inherited interaction
         if (super.processInteract(player, hand)) {

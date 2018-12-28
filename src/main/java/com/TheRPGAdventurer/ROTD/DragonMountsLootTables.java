@@ -20,11 +20,13 @@ public class DragonMountsLootTables {
 	public static final ResourceLocation ENTITIES_DRAGON_NETHER2 = create("nether2");
 	public static final ResourceLocation ENTITIES_DRAGON_SKELETON = create("skeleton");
 	public static final ResourceLocation ENTITIES_DRAGON_SUNLIGHT = create("sunlight");
-	public static final ResourceLocation ENTITIES_DRAGON_STORM = create("storm");
 	public static final ResourceLocation ENTITIES_DRAGON_SUNLIGHT2 = create("sunlight2");
+	public static final ResourceLocation ENTITIES_DRAGON_STORM = create("storm");
 	public static final ResourceLocation ENTITIES_DRAGON_STORM2 = create("storm2");
 	public static final ResourceLocation ENTITIES_DRAGON_ENCHANT = create("enchant");
 	public static final ResourceLocation ENTITIES_DRAGON_ZOMBIE = create("zombie");
+	public static final ResourceLocation ENTITIES_DRAGON_TERRA = create("terra");
+	public static final ResourceLocation ENTITIES_DRAGON_TERRA2 = create("terra2");
 	
 	/**
 	 * Register this mod's {@link LootTable}s.

@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -85,8 +86,16 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand()) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-		} // else if(!dragon.doesWantToLand() && !dragon.circleTarget1()) {
-			// dragon.circleTarget1();
-		// }
+		}  else if(!dragon.doesWantToLand() && !dragon.circleTarget1(getMidPoint())) {
+			 dragon.circleTarget1(getMidPoint());
+		 }
+	}
+	
+	private BlockPos getMidPoint() {
+		if(dragon.isTamed() && dragon.hasHomePosition) {
+			return dragon.homePos;
+		} else {
+			return landingPos;
+		}
 	}
 }

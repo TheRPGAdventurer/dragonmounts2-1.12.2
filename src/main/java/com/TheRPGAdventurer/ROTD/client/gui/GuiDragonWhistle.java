@@ -77,8 +77,7 @@ public class GuiDragonWhistle extends GuiScreen {
 		   dragon.circle(button == circle);
 		   dragon.follow(button == followFlying);
 		   dragon.nothing(button == nothing);
-		   dragon.world.playSound((EntityPlayer) dragon.getOwner(), dragon.getOwner().getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 
-				   4, 2);
+		   dragon.world.playSound((EntityPlayer) dragon.getOwner(), dragon.getOwner().getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 4, 2);
 		   byte controlState = dragon.getWhistleState();
 		   DMUtils.getLogger().info("Current State at " + dragon.getUniqueID().toString());
 		   if (controlState != previousState) {

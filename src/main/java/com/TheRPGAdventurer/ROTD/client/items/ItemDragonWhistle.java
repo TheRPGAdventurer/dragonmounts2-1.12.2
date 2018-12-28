@@ -55,7 +55,7 @@ public class ItemDragonWhistle extends Item {
 		EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger("dragon"));
 		   if(dragon != null) {
 		      String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-		      tooltip.add("Breed:" + dragonName + "," + "Owner:" + " " + dragon.getOwner().getName());
+		      tooltip.add("Breed:" + dragonName + "," + " Owner:" + " " + dragon.getOwner().getName());
 		   }
 		}
 	}
@@ -89,28 +89,26 @@ public class ItemDragonWhistle extends Item {
 		if (target instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) target;
 			
-			if (dragon.isTamedFor(player)) {
-				NBTTagCompound nbt = new NBTTagCompound();
+			NBTTagCompound nbt = new NBTTagCompound();
 
-				if (stack.hasTagCompound()) {
-					nbt = stack.getTagCompound();
-			    } else {
-					stack.setTagCompound(nbt);
-				}
-				
+			if (stack.hasTagCompound()) {
+				nbt = stack.getTagCompound();
+		    } else {
+				stack.setTagCompound(nbt);
+			}
+			
+			if (dragon.isTamedFor(player)) {
 				if (!nbt.hasKey("dragon")) { 
 					  nbt.setInteger("dragon", dragon.getEntityId());
-				   } else {
-					  player.sendStatusMessage(new TextComponentString("whistle.limit"), true);
-				}
+				} 
 
 				if(nbt.hasKey("dragon")) {
-					player.sendStatusMessage(new TextComponentString("whistle.hasDragon" + " " + dragon.getBreed().getSkin()), true);
+					player.sendStatusMessage(new TextComponentString("item.whistle.hasDragon" + " " + dragon.getBreed().getSkin()), true);
 				} else {
-					player.sendStatusMessage(new TextComponentString("whistle.noNBT"), true);
+					player.sendStatusMessage(new TextComponentString("item.whistle.noNBT"), true);
 				}
 			} else {
-                player.sendStatusMessage(new TextComponentString("whistle.notOwned"), true);
+                player.sendStatusMessage(new TextComponentString("item.whistle.notOwned"), true);
 			}
 			return true;
 		} else {

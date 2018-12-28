@@ -367,7 +367,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
-		//nbt.setBoolean("cancelY", );
 		nbt.setBoolean("nearGround", this.nearGround);
 		nbt.setBoolean("HasHomePosition", this.hasHomePosition);
 		if (homePos != null && this.hasHomePosition) {
@@ -685,7 +684,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	}
 	
 	public boolean doesWantToLand() {
-		return this.inAirTicks > 6000 || inAirTicks > 40 && nothing();
+		return this.inAirTicks > 6000 || inAirTicks > 40 && getControllingPlayer() == null;
 	}
 	
 	/**

@@ -26,12 +26,12 @@ import net.minecraft.world.DimensionType;
  * 
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase {
+public class EntityAIDragonFlight extends EntityAIDragonBase {
 
 	private final double speed;
 	private BlockPos landingPos;
 
-	public EntityAIDragonLandAndCommenceFlyByAttack(EntityTameableDragon dragon, double speed) {
+	public EntityAIDragonFlight(EntityTameableDragon dragon, double speed) {
 		super(dragon);
 		this.speed = speed;
 		setMutexBits(1);
@@ -84,7 +84,9 @@ public class EntityAIDragonLandAndCommenceFlyByAttack extends EntityAIDragonBase
 		// try to fly to ground block position
 		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand()) {
 			// probably too high, so simply descend vertically
-			tryMoveToBlockPos( dragon.doesWantToLand() ? dragon.getPosition().up(1) : dragon.getPosition().down(4), speed);
-		} 
+			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
+		} // else if(!dragon.doesWantToLand() && !dragon.circleTarget1()) {
+			// dragon.circleTarget1();
+		// }
 	}
 }

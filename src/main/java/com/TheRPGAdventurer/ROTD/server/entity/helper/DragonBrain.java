@@ -15,13 +15,12 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonAttack;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonCatchOwner;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonHurtByTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonPlayerControl;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonWhistle;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFollowOwnerElytraFlying;
-import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonLandAndCommenceFlyByAttack;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonFollowOwner;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonHunt;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonMate;
@@ -31,6 +30,7 @@ import com.TheRPGAdventurer.ROTD.server.util.EntityClassPredicate;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -120,10 +120,10 @@ public class DragonBrain extends DragonHelper {
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(dragon, 1)); // mutex 1
         
         if (dragon.isFlying()) {
-            tasks.addTask(2, new EntityAIDragonLandAndCommenceFlyByAttack(dragon, 1)); // mutex 1
+            tasks.addTask(2, new EntityAIDragonFlight(dragon, 1)); // mutex 1
         } else {
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4   
-            tasks.addTask(7, new  EntityAIDragonAttack(dragon, 1, true)); // mutex 2+1            
+            tasks.addTask(7, new  EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1            
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 15, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
             tasks.addTask(10, new EntityAIWander(dragon, 1)); // mutex 1

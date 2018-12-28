@@ -23,6 +23,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -49,17 +50,20 @@ public class ItemDragonWhistle extends Item {
 	@Override 
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if(stack.getTagCompound() != null) {
-		  EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(stack.getTagCompound().getInteger("dragon"));
-		  String dragonName = dragon.getDisplayName().getUnformattedComponentText();
-		  if(dragon != null)
-		  tooltip.add(StatCollector.translateToLocal(dragonName) + " owner:" + dragon.getOwner().getName());
+		NBTTagCompound nbt = stack.getTagCompound();
+		if(stack != null) {
+		EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger("dragon"));
+		   if(dragon != null) {
+		      String dragonName = dragon.getDisplayName().toString();
+		      tooltip.add(dragonName + "owner:" + dragon.getOwner().getName());
+		   }
 		}
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
+		EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(stack.getTagCompound().getInteger("dragon"));
 		
           if (!player.isSneaking() && stack.hasTagCompound() && stack.getTagCompound().hasKey("dragon")) {
 			  if (worldIn.isRemote) {
@@ -72,6 +76,10 @@ public class ItemDragonWhistle extends Item {
 		   //     return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 		  //}
     //   }
+          
+          if(player.isSneaking() && dragon != null) {
+        	  player.sendStatusMessage(new TextComponentString(dragon.getDisplayName().toString() + "" + dragon.getOwner().getName()), true);
+          }
         
 	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
 	}

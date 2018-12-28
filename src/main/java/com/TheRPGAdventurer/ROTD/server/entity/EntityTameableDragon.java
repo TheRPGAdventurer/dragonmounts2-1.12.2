@@ -929,7 +929,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		}
 		
 		if(isFlying()) {
-			return this.getNavigator().tryMoveToXYZ(point.getX() + 4, point.getY() + 3, point.getZ(), 2);
+			return this.getNavigator().tryMoveToXYZ(point.getX() + 4, point.getY() + 1, point.getZ(), 2);
 		} else {
 		    return false;
 		}

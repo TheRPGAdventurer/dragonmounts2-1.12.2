@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.lwjgl.input.Keyboard;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -13,9 +14,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import scala.reflect.internal.Trees.Modifiers;
 
 public class GuiDragonWhistle extends GuiScreen {
 	
@@ -73,7 +77,8 @@ public class GuiDragonWhistle extends GuiScreen {
 		   dragon.circle(button == circle);
 		   dragon.follow(button == followFlying);
 		   dragon.nothing(button == nothing);
-		 //  dragon.world.playSound(player, pos, soundIn, category, volume, pitch);
+		   dragon.world.playSound((EntityPlayer) dragon.getOwner(), dragon.getOwner().getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 
+				   4, 2);
 		   byte controlState = dragon.getWhistleState();
 		   DMUtils.getLogger().info("Current State at " + dragon.getUniqueID().toString());
 		   if (controlState != previousState) {

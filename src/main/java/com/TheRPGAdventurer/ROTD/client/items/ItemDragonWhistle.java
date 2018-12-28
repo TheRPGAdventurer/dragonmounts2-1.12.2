@@ -51,11 +51,11 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		if(stack != null) {
+		if(stack != null && stack.hasTagCompound())  {
 		EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger("dragon"));
 		   if(dragon != null) {
-		      String dragonName = dragon.getDisplayName().toString();
-		      tooltip.add(dragonName + "owner:" + dragon.getOwner().getName());
+		      String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
+		      tooltip.add("Breed:" + dragonName + "," + "Owner:" + " " + dragon.getOwner().getName());
 		   }
 		}
 	}

@@ -46,7 +46,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
         if (!dragon.isFlying()) {
             super.onUpdateMoveHelper();
             return; 
-        }
+        } else {
         
         Vec3d dragonPos = dragon.getPositionVector();
         Vec3d movePos = new Vec3d(posX, posY, posZ);
@@ -75,13 +75,6 @@ public class DragonMoveHelper extends EntityMoveHelper {
             dragon.motionY += Math.sin(dragon.ticksExisted / 5) * 0.03;
         }
         
-        // move away from other dragons
-  //      if(!isNotColliding(this.posX, this.posY, this.posZ, d3)) {
-  //      	dragon.motionX = dir.x * flySpeed - 5;
-  //          dragon.motionY = dir.y * flySpeed;
-  //          dragon.motionZ = dir.z * flySpeed - 4;
-  //      }
-        
         // face entity towards target
         if (dist > 2.5E-7) {
             float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
@@ -91,6 +84,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
         
         // apply movement               
         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
+        }
     } 
     
     /**

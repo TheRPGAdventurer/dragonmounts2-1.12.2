@@ -768,7 +768,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 			}
 			
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(1500) == 1 && !isSitting() && (!this.isTamed())) {
+					&& !this.isHatchling() && this.getRNG().nextInt(1000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
 				this.liftOff();
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}

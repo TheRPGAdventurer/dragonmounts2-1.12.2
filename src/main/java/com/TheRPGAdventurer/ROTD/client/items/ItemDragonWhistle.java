@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemWritableBook;
 import net.minecraft.item.ItemWrittenBook;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -25,6 +26,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.config.ConfigElement;
@@ -51,11 +53,12 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		if(stack != null && stack.hasTagCompound())  {
-		EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger("dragon"));
+		if(stack != null && stack.hasTagCompound() && nbt.hasKey("dragon"))  {
+		   EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger("dragon"));
 		   if(dragon != null) {
 		      String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-		      tooltip.add("Breed:" + dragonName + "," + " Owner:" + " " + dragon.getOwner().getName());
+		      String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
+		      tooltip.add("Name:" + dragonName + " " + " Owner:" + " " + ownerName);
 		   }
 		}
 	}
@@ -63,53 +66,59 @@ public class ItemDragonWhistle extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(stack.getTagCompound().getInteger("dragon"));
-		
-          if (!player.isSneaking() && stack.hasTagCompound() && stack.getTagCompound().hasKey("dragon")) {
-			  if (worldIn.isRemote) {
-				  DragonMounts.proxy.openDragonWhistleGui(stack.getTagCompound().getInteger("dragon"),
+		NBTTagCompound nbt = stack.getTagCompound();	
+          if (!player.isSneaking() && stack.hasTagCompound()) {
+      		  if (worldIn.isRemote) {
+				  DragonMounts.proxy.openDragonWhistleGui(nbt.getInteger("dragon"),
 						new ItemStack(this), worldIn); 
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			  }
-		  } //else if(!stack.hasTagCompound() && !stack.hasTagCompound() && !stack.getTagCompound().hasKey("dragon")) {
-			//    player.sendStatusMessage(new TextComponentString("whistle.empty"), true);
-		   //     return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-		  //}
-    //   }
-          
-          if(player.isSneaking() && dragon != null) {
-        	  player.sendStatusMessage(new TextComponentString(dragon.getDisplayName().toString() + "" + dragon.getOwner().getName()), true);
-          }
+		  }      
         
 	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
 	}
-
+	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
+		NBTTagCompound nbt = stack.getTagCompound();		
+
+	    if (stack.hasTagCompound()) {
+	         nbt = stack.getTagCompound(); 
+	    }
+	    else
+	    {
+	         nbt = new NBTTagCompound();
+	    }
+	       				
+        stack.setTagCompound(nbt);
+        
 		if (target instanceof EntityTameableDragon) {
-			EntityTameableDragon dragon = (EntityTameableDragon) target;
+			EntityTameableDragon dragon = (EntityTameableDragon) target;				
 			
-			NBTTagCompound nbt = new NBTTagCompound();
-
-			if (stack.hasTagCompound()) {
-				nbt = stack.getTagCompound();
-		    } else {
-				stack.setTagCompound(nbt);
-			}
+			if (dragon.isTamedFor(player)) {	
+				if(stack.getTagCompound() != null) { 
+				   if (nbt.hasKey("dragon")) { 		
+			          //  nbt.setInteger("dragon", null);
+				    } else {
+				    	String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
+					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
+				    	nbt.setInteger("dragon", dragon.getEntityId());
+				    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon" + dragonName + " for " + ownerName, new Object[0]), true);
+				    }
+			    }
+			//	else { 
+			//		return false;
+			//	}
 			
-			if (dragon.isTamedFor(player)) {
-				if (!nbt.hasKey("dragon")) { 
-					  nbt.setInteger("dragon", dragon.getEntityId());
-				} 
-
-				if(nbt.hasKey("dragon")) {
-					player.sendStatusMessage(new TextComponentString("item.whistle.hasDragon" + " " + dragon.getBreed().getSkin()), true);
-				} else {
-					player.sendStatusMessage(new TextComponentString("item.whistle.noNBT"), true);
-				}
+		//	    EntityTameableDragon storedDragon = (EntityTameableDragon) player.world.getEntityByID(nbt.getInteger("dragon"));
+			  //  if(storedDragon.isDead && storedDragon != null && nbt.hasKey("dragon")) {
+			 //      nbt.removeTag("dragon");
+			//    }
+			    
 			} else {
-                player.sendStatusMessage(new TextComponentString("item.whistle.notOwned"), true);
+	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned", new Object[0]), true);
 			}
+			
 			return true;
 		} else {
 			return false;

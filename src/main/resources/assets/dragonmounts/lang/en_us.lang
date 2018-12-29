@@ -36,6 +36,7 @@ commands.dragon.canttame=You cannot tame dragons
 entity.dragon.tooYoung=Dragon is too young for that let it grow
 
 item.whistle.notOwned=You do not own this dragon
+item.whistle.hasDragon=Controlling Dragon:
 item.whistle.empty=No Dragons To Control
 item.whistle.controlling=Controlling Dragon:
 item.whistle.noNBT=No NBT for dragon is found
@@ -298,6 +299,7 @@ dragon.sunlight2=Moonlight
 dragon.storm=Storm
 dragon.zombie=Zombie
 dragon.terra=Terra
+dragon.terra2=Terra
 
 gui.nothing=Nothing
 gui.circle=Circle

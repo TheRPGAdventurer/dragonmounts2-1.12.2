@@ -39,9 +39,9 @@ public class DragonInteractEat extends DragonInteract {
 
             // heal only if the food was actually consumed
             if (food != null) {
-                dragon.heal(food.getHealAmount(item));
+                dragon.heal(12 * dragon.getScale());
                 dragon.playSound(dragon.getSoundManager().getEatSound(), 0.7f, 1);
-                spawnItemCrackParticles(food);
+            //    spawnItemCrackParticles(food);
                 return true;
             }
         }

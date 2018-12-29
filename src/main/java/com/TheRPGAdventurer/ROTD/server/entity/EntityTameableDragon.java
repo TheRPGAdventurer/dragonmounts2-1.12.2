@@ -1814,7 +1814,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 			if (target instanceof EntityPlayer) {
 				EntityPlayer playertarget = (EntityPlayer) target;
-				if (this.isTamed()) {
+				if (this.isTamedFor(playertarget)) {
 					return false;
 				}
 			}

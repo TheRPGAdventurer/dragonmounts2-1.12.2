@@ -53,8 +53,8 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		if(stack != null && stack.hasTagCompound() && nbt.hasKey("dragon"))  {
-		   EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger("dragon"));
+		if(stack != null && stack.hasTagCompound() && nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon"))  {
+		   EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger(DragonMounts.MODID.toLowerCase() + "dragon"));
 		   if(dragon != null) {
 		      String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
 		      String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
@@ -69,13 +69,18 @@ public class ItemDragonWhistle extends Item {
 		NBTTagCompound nbt = stack.getTagCompound();	
           if (!player.isSneaking() && stack.hasTagCompound()) {
       		  if (worldIn.isRemote) {
-				  DragonMounts.proxy.openDragonWhistleGui(nbt.getInteger("dragon"),
+				  DragonMounts.proxy.openDragonWhistleGui(nbt.getInteger(DragonMounts.MODID.toLowerCase() + "dragon"),
 						new ItemStack(this), worldIn); 
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			  }
 		  }      
         
 	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
+	}
+	
+	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
 	
 	@Override
@@ -95,15 +100,15 @@ public class ItemDragonWhistle extends Item {
 		if (target instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) target;				
 			
-			if (dragon.isTamedFor(player)) {	
+			if (dragon.isTamedFor(player)) {	// I blame this, if my guess is right, this means that it only sets the dragon ID integer and removed if the player is untamed
 				if(stack.getTagCompound() != null) { 
-				   if (nbt.hasKey("dragon")) { 		
+				   if (nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon")) { 		
 			          //  nbt.setInteger("dragon", null);
 				    } else {
 				    	String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
 					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
-				    	nbt.setInteger("dragon", dragon.getEntityId());
-				    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon" + dragonName + " for " + ownerName, new Object[0]), true);
+				    	nbt.setInteger(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getEntityId());
+				    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon" + ":" + dragonName + " for " + ownerName, new Object[0]), true);
 				    }
 			    }
 			//	else { 

@@ -99,7 +99,7 @@ public class ClientProxy extends ServerProxy {
 	public void render() {ModKeys.init();} 
     
     @Override
-    public void openDragonWhistleGui(int dragon, ItemStack whistle, World world) {
+    public void openDragonWhistleGui(UUID dragon, ItemStack whistle, World world) {
     	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, dragon, whistle)); 
     }
 }

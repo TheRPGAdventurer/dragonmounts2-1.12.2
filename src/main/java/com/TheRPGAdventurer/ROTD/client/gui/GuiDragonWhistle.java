@@ -38,11 +38,13 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton sit;
 	
 
-	public GuiDragonWhistle(World world, int uuid, ItemStack whistle) {
+	public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
 		super();
 		this.whistle = whistle;
-		dragon = (EntityTameableDragon) world.getEntityByID(uuid);
-			
+		if(world instanceof WorldServer) {
+			WorldServer worldserver = (WorldServer) world;
+		   dragon = (EntityTameableDragon) worldserver.getEntityFromUuid(uuid);
+		}
 	}
 	
 	@Override
@@ -82,7 +84,7 @@ public class GuiDragonWhistle extends GuiScreen {
 		   DMUtils.getLogger().info("Current State at " + dragon.getUniqueID().toString());
 		   if (controlState != previousState) {
 					DragonMounts.NETWORK_WRAPPER
-							.sendToServer(new MessageDragonWhistle(dragon.getEntityId(), controlState));
+							.sendToServer(new MessageDragonWhistle(dragon.getUniqueID(), controlState));
 		    }
 		} 
 	}

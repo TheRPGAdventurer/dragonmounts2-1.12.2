@@ -54,22 +54,35 @@ public class ItemDragonWhistle extends Item {
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
 		if(stack != null && stack.hasTagCompound() && nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon"))  {
-		   EntityTameableDragon dragon = (EntityTameableDragon) worldIn.getEntityByID(nbt.getInteger(DragonMounts.MODID.toLowerCase() + "dragon"));
-		   if(dragon != null) {
-		      String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-		      String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
-		      tooltip.add("Name:" + dragonName + " " + " Owner:" + " " + ownerName);
+		   if(worldIn instanceof WorldServer) {
+			 WorldServer worldServer = (WorldServer) worldIn; 
+		     EntityTameableDragon dragon = (EntityTameableDragon) worldServer.getEntityFromUuid(nbt.getUniqueId(DragonMounts.MODID.toLowerCase() + "dragon"));
+		     if(dragon != null) {
+		        String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
+		        String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
+		        tooltip.add("Dragon:" + dragonName + " " + " Owner:" + " " + ownerName);
+		      }
 		   }
 		}
 	}
-
+	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		NBTTagCompound nbt = stack.getTagCompound();	
+		NBTTagCompound nbt = stack.getTagCompound();		
+
+	    if (stack.hasTagCompound()) {
+	         nbt = stack.getTagCompound(); 
+	    }
+	    else
+	    {
+	         nbt = new NBTTagCompound();
+	    }
+	       				
+        stack.setTagCompound(nbt);
           if (!player.isSneaking() && stack.hasTagCompound()) {
       		  if (worldIn.isRemote) {
-				  DragonMounts.proxy.openDragonWhistleGui(nbt.getInteger(DragonMounts.MODID.toLowerCase() + "dragon"),
+				  DragonMounts.proxy.openDragonWhistleGui(nbt.getUniqueId(DragonMounts.MODID.toLowerCase() + "dragon"),
 						new ItemStack(this), worldIn); 
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			  }
@@ -107,7 +120,7 @@ public class ItemDragonWhistle extends Item {
 				    } else {
 				    	String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
 					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
-				    	nbt.setInteger(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getEntityId());
+				    	nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
 				    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon" + ":" + dragonName + " for " + ownerName, new Object[0]), true);
 				    }
 			    }
@@ -128,5 +141,25 @@ public class ItemDragonWhistle extends Item {
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public boolean hasEffect(ItemStack stack) {
+		NBTTagCompound nbt = stack.getTagCompound();		
+
+	    if (stack.hasTagCompound()) {
+	         nbt = stack.getTagCompound(); 
+	    }
+	    else
+	    {
+	         nbt = new NBTTagCompound();
+	    }
+	       				
+        stack.setTagCompound(nbt);
+        if(nbt.hasKey("dragon")) {
+        	return true;
+        } else {
+	    	return super.hasEffect(stack);
+        }
 	}
 }

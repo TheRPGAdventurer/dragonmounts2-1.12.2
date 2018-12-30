@@ -906,10 +906,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		double z = midPoint.getZ();
 		boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
     	double offset = 16D;
+    	int exclude[] = {-19};
     	double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
-    	x = midPoint.getX() + 0.5 - 12;
-    	y = midPoint.getY() + 0.5 + 20;
-    	z = midPoint.getZ() + 0.5 - offset;
+    	x = midPoint.getX() + 0.5 - 12 + DMUtils.getRandomWithExclusionstatic(this.getRNG(), -20, 40, exclude);
+    	y = midPoint.getY() + 0.5;
+    	z = midPoint.getZ() + 0.5 - offset - this.getRNG().nextInt(5);
     	return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
 	
@@ -1084,7 +1085,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	
 	@Override
 	protected float getWaterSlowDown() {
-		return 0.8F;
+		return 1.0F;
 	}
 
     /**

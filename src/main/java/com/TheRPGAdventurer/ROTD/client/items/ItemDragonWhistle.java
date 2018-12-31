@@ -1,15 +1,19 @@
 package com.TheRPGAdventurer.ROTD.client.items;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
+import com.google.common.collect.Maps;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,16 +41,12 @@ import scala.reflect.internal.Trees.Modifiers;
 
 public class ItemDragonWhistle extends Item {
 
-	// private final MessageDragonWhistle dcw = new MessageDragonWhistle();
-	// private List<EntityTameableDragon> dragons = new ArrayList();
-	// EntityTameableDragon dragon;
-	private byte oldIndex;
-
 	public ItemDragonWhistle() {
 		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
 		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.TAB);
+
 	}
 
 	@Override 
@@ -54,17 +54,29 @@ public class ItemDragonWhistle extends Item {
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
 		if(stack != null && stack.hasTagCompound() && nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon"))  {
-		   if(worldIn instanceof WorldServer) {
-			 WorldServer worldServer = (WorldServer) worldIn; 
-		     EntityTameableDragon dragon = (EntityTameableDragon) worldServer.getEntityFromUuid(nbt.getUniqueId(DragonMounts.MODID.toLowerCase() + "dragon"));
+		     EntityTameableDragon dragon = getDragon(worldIn, nbt.getUniqueId(DragonMounts.MODID + "dragon"));
 		     if(dragon != null) {
 		        String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
 		        String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
 		        tooltip.add("Dragon:" + dragonName + " " + " Owner:" + " " + ownerName);
-		      }
-		   }
+		    }
 		}
 	}
+
+	@Nullable
+	public EntityTameableDragon getDragon(World world, UUID uuid) {
+		if(world instanceof  WorldServer) {
+			EntityTameableDragon dragon = (EntityTameableDragon)((WorldServer) world).getEntityFromUuid(uuid);
+			return  dragon;
+		}
+
+		return  null;
+	}
+
+	public int converUUIDtoID() {
+
+		return 0;
+    }
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
@@ -73,28 +85,29 @@ public class ItemDragonWhistle extends Item {
 
 	    if (stack.hasTagCompound()) {
 	         nbt = stack.getTagCompound(); 
-	    }
-	    else
-	    {
+	    } else {
 	         nbt = new NBTTagCompound();
 	    }
 	       				
         stack.setTagCompound(nbt);
-          if (!player.isSneaking() && stack.hasTagCompound()) {
+        if (!player.isSneaking() && stack.hasTagCompound()) {
+			EntityTameableDragon dragon = getDragon(worldIn, nbt.getUniqueId(DragonMounts.MODID + "dragon"));
+
       		  if (worldIn.isRemote) {
-				  DragonMounts.proxy.openDragonWhistleGui(nbt.getUniqueId(DragonMounts.MODID.toLowerCase() + "dragon"),
-						new ItemStack(this), worldIn); 
+				  this.openDragonWhistleGui(dragon, new ItemStack(this), worldIn);
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+
 			  }
-		  }      
-        
+		  }
+
 	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
 	}
 	
-	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
-	}
+    @SideOnly(Side.CLIENT)
+    public void openDragonWhistleGui(EntityTameableDragon dragon, ItemStack whistle, World world) {
+    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, dragon, whistle));
+    }
+    
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
@@ -113,26 +126,15 @@ public class ItemDragonWhistle extends Item {
 		if (target instanceof EntityTameableDragon) {
 			EntityTameableDragon dragon = (EntityTameableDragon) target;				
 			
-			if (dragon.isTamedFor(player)) {	// I blame this, if my guess is right, this means that it only sets the dragon ID integer and removed if the player is untamed
-				if(stack.getTagCompound() != null) { 
-				   if (nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon")) { 		
-			          //  nbt.setInteger("dragon", null);
-				    } else {
+			if (dragon.isTamedFor(player)) {
+				if(stack.getTagCompound() != null) {
+				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon")) { 					        
 				    	String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
 					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
 				    	nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
 				    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon" + ":" + dragonName + " for " + ownerName, new Object[0]), true);
 				    }
 			    }
-			//	else { 
-			//		return false;
-			//	}
-			
-		//	    EntityTameableDragon storedDragon = (EntityTameableDragon) player.world.getEntityByID(nbt.getInteger("dragon"));
-			  //  if(storedDragon.isDead && storedDragon != null && nbt.hasKey("dragon")) {
-			 //      nbt.removeTag("dragon");
-			//    }
-			    
 			} else {
 	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned", new Object[0]), true);
 			}

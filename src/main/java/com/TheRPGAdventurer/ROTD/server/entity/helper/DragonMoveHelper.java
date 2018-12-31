@@ -87,24 +87,6 @@ public class DragonMoveHelper extends EntityMoveHelper {
         }
     } 
     
-    /**
-     * Checks if entity bounding box is not colliding with terrain
-     */
-    private boolean isNotColliding(double x, double y, double z, double distSq) {
-        double d0 = (x - this.dragon.posX) / distSq;
-        double d1 = (y - this.dragon.posY) / distSq;
-        double d2 = (z - this.dragon.posZ) / distSq;
-        AxisAlignedBB dragonHitBox = this.dragon.getEntityBoundingBox();
-
-        for (int i = 1; (double)i < distSq; ++i) {
-        	dragonHitBox = dragonHitBox.offset(d0, d1, d2);
-
-            if (!this.dragon.world.getCollisionBoxes(this.dragon, dragonHitBox).isEmpty()) {
-                return false;
-            }
-        }       return true;
-    }
-    
     public void boostUp(boolean should, double factor) {
     	if(should) {
     		double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue();

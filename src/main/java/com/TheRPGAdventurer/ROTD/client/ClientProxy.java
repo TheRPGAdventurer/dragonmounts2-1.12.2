@@ -41,8 +41,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemWritableBook;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -97,9 +96,5 @@ public class ClientProxy extends ServerProxy {
     @SideOnly(Side.CLIENT)
 	@Override
 	public void render() {ModKeys.init();} 
-    
-    @Override
-    public void openDragonWhistleGui(UUID dragon, ItemStack whistle, World world) {
-    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, dragon, whistle)); 
-    }
+  
 }

@@ -25,7 +25,7 @@ public class MessageDragonWandStats extends AbstractMessage<MessageDragonWandSta
 	}
 	
 	public MessageDragonWandStats() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

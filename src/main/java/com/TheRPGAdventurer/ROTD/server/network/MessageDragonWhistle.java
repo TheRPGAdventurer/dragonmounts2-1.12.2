@@ -22,7 +22,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
 	public UUID dragonId;
 	public byte controlState;
-	public int armor_type;
 
 	public MessageDragonWhistle(UUID dragonId, byte controlState) {
 		this.dragonId = dragonId;
@@ -34,14 +33,15 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		PacketBuffer packetBuf = (PacketBuffer) buf;
-		dragonId = packetBuf.readUniqueId();
+		PacketBuffer packetBuf = new PacketBuffer(buf);
+	    dragonId = packetBuf.readUniqueId();
 		controlState = buf.readByte();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		PacketBuffer packetBuf = (PacketBuffer) buf;
+		
+		PacketBuffer packetBuf = new PacketBuffer(buf);
 		packetBuf.writeUniqueId(dragonId);
 		buf.writeByte(controlState);
 
@@ -55,16 +55,15 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
 		World world = player.world; 
-		if(world instanceof WorldServer) {
+	//	if(world instanceof WorldServer) {
 		  WorldServer worldServer = (WorldServer) world;
-	      Entity entity = worldServer.getEntityFromUuid(dragonId);
+	      Entity entity = server.getEntityFromUuid(dragonId);
 		  if (entity != null && entity instanceof EntityTameableDragon) {
 			  EntityTameableDragon dragon = (EntityTameableDragon) entity;
 			  if (dragon.isOwner(player)) {
 				  dragon.setWhistleState(message.controlState);
-				  DMUtils.getLogger().info("Current State at " + dragon.getBreed().toString() + "" + dragon.getWhistleState());
-			   }
+			  }
 			}			
-		} 
+	//	} 
 	}
 }

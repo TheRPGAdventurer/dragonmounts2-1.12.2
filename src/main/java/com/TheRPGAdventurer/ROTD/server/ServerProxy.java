@@ -22,7 +22,7 @@ import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -86,8 +86,5 @@ public class ServerProxy {
     } 
     
 	public void render() {}
-	
-	public void openDragonWhistleGui(UUID dragon, ItemStack whistle, World world) {
-		
-	}
+
 }

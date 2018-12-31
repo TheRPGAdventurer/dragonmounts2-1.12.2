@@ -16,7 +16,6 @@ public class MessageDragonBanners extends AbstractMessage<MessageDragonBanners> 
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -28,14 +27,12 @@ public class MessageDragonBanners extends AbstractMessage<MessageDragonBanners> 
 
 	@Override
 	public void onClientReceived(Minecraft arg0, MessageDragonBanners arg1, EntityPlayer arg2, MessageContext arg3) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onServerReceived(MinecraftServer arg0, MessageDragonBanners arg1, EntityPlayer arg2,
 			MessageContext arg3) {
-		// TODO Auto-generated method stub
 		
 	}
 

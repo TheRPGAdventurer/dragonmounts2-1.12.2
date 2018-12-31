@@ -52,25 +52,15 @@ public class ItemDragonWhistle extends Item {
 	@Override 
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		NBTTagCompound nbt = stack.getTagCompound();
-		if(stack != null && stack.hasTagCompound() && nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon"))  {
-		     EntityTameableDragon dragon = getDragon(worldIn, nbt.getUniqueId(DragonMounts.MODID + "dragon"));
-		     if(dragon != null) {
-		        String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-		        String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
-		        tooltip.add("Dragon:" + dragonName + " " + " Owner:" + " " + ownerName);
-		    }
-		}
-	}
-
-	@Nullable
-	public EntityTameableDragon getDragon(World world, UUID uuid) {
-		if(world instanceof  WorldServer) {
-			EntityTameableDragon dragon = (EntityTameableDragon)((WorldServer) world).getEntityFromUuid(uuid);
-			return  dragon;
-		}
-
-		return  null;
+	//	NBTTagCompound nbt = stack.getTagCompound();
+	//	if(stack != null && stack.hasTagCompound() && nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon"))  {
+	//	     EntityTameableDragon dragon = ;
+	//	     if(dragon != null) {
+	//	        String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
+	//	        String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
+	//	        tooltip.add("Dragon:" + dragonName + " " + " Owner:" + " " + ownerName);
+	//	    }
+	//	}
 	}
 
 	public int converUUIDtoID() {
@@ -91,10 +81,8 @@ public class ItemDragonWhistle extends Item {
 	       				
         stack.setTagCompound(nbt);
         if (!player.isSneaking() && stack.hasTagCompound()) {
-			EntityTameableDragon dragon = getDragon(worldIn, nbt.getUniqueId(DragonMounts.MODID + "dragon"));
-
       		  if (worldIn.isRemote) {
-				  this.openDragonWhistleGui(dragon, new ItemStack(this), worldIn);
+				  this.openDragonWhistleGui(nbt.getUniqueId(DragonMounts.MODID + "dragon"), new ItemStack(this), worldIn);
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 
 			  }
@@ -104,8 +92,8 @@ public class ItemDragonWhistle extends Item {
 	}
 	
     @SideOnly(Side.CLIENT)
-    public void openDragonWhistleGui(EntityTameableDragon dragon, ItemStack whistle, World world) {
-    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, dragon, whistle));
+    public void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world) {
+    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid, whistle));
     }
     
 	

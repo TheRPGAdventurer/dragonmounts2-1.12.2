@@ -562,7 +562,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	 * @param 
 	 * @param 
 	 */
-	private void setStateField(int i, boolean newState) {
+	public void setStateField(int i, boolean newState) {
 		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
 		if (newState) {
 			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));			

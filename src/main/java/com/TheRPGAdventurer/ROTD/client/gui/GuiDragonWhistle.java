@@ -39,6 +39,8 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton come;
 	GuiButton sit;
 
+	byte state;
+
 	public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
 		super();
 		this.whistle = whistle;
@@ -70,20 +72,38 @@ public class GuiDragonWhistle extends GuiScreen {
 		buttonList.add(come);
 	}
 
+	private byte getState() {
+		return  state;
+	}
+	private void setState(byte state) {
+		this.state = state;
+	}
+
+	/* 0 nothing
+	   1 follow
+	   2 circle
+	   3 come
+	 */
 	@Override
 	protected void actionPerformed(GuiButton button) {
-		if(dragon != null) {
-		   byte previousState = dragon.getWhistleState();
-		   dragon.come(button == come); // the commands on what the dragon would do
-		   dragon.circle(button == circle);
-		   dragon.follow(button == followFlying);
-		   dragon.nothing(button == nothing);
+		if(uuid != null) {
+		   byte previousState = getState();
+		   if(button == nothing) {
+		   	   this.setState((byte)0);
+		   } else if (button == followFlying) {
+			   this.setState((byte)1);
+		   } else if (button == circle) {
+			   this.setState((byte)2);
+		   } else if (button == come) {
+			   this.setState((byte)3);
+		   }
+
 		   this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
-		   byte controlState = dragon.getWhistleState();
+		   byte controlState = getState();
 		   
 		   if (controlState != previousState) {
 					DragonMounts.NETWORK_WRAPPER
-							.sendToServer(new MessageDragonWhistle(uuid, controlState)); // packer
+							.sendToServer(new MessageDragonWhistle(uuid, controlState, true));
 		    }
 		  //   }
 		} 

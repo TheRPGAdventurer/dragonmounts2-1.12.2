@@ -908,9 +908,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     	double offset = 16D;
     	int exclude[] = {-19};
     	double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
-    	x = midPoint.getX() + 0.5 - 12 + DMUtils.getRandomWithExclusionstatic(this.getRNG(), -20, 40, exclude);
-    	y = midPoint.getY() + 0.5;
-    	z = midPoint.getZ() + 0.5 - offset - this.getRNG().nextInt(5);
+    	x = midPoint.getX() + posX;
+    	y = midPoint.getY() + 14;
+    	z = midPoint.getZ() + posZ;
     	return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
 	
@@ -1234,9 +1234,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 	/**
 	 * Drop 0-2 items of this living's type.
 	 * 
-	 * @param par1
+	 * @param wasRecentlyHit
 	 *            - Whether this entity has recently been hit by a player.
-	 * @param par2
+	 * @param lootingModifier
 	 *            - Level of Looting used to kill this mob.
 	 */
 	@Override

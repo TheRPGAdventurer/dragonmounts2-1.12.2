@@ -39,6 +39,8 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton come;
 	GuiButton sit;
 
+	boolean newState;
+
 	byte state;
 
 	public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
@@ -75,35 +77,50 @@ public class GuiDragonWhistle extends GuiScreen {
 	private byte getState() {
 		return  state;
 	}
-	private void setState(byte state) {
-		this.state = state;
+
+    /* 0 nothing
+       1 follow
+       2 circle
+       3 come
+     */
+	private void setStateField(int state, boolean newState) {
+	    byte prevState = getState();
+	    if(newState) {
+	        this.state = (byte) (prevState | (1 << state));
+        } else {
+	        this.state = (byte) (prevState & ~(1 << state));
+        }
 	}
 
-	/* 0 nothing
-	   1 follow
-	   2 circle
-	   3 come
-	 */
+    public void nothing(boolean nothing) {
+        setStateField(0, nothing);
+    }
+
+    public void follow(boolean follow) {
+        setStateField(1, follow);
+    }
+
+    public void circle(boolean circle) {
+        setStateField(2, circle);
+    }
+
+    public void come(boolean come) {
+        setStateField(3, come);
+    }
+
 	@Override
 	protected void actionPerformed(GuiButton button) {
 		if(uuid != null) {
 		   byte previousState = getState();
-		   if(button == nothing) {
-		   	   this.setState((byte)0);
-		   } else if (button == followFlying) {
-			   this.setState((byte)1);
-		   } else if (button == circle) {
-			   this.setState((byte)2);
-		   } else if (button == come) {
-			   this.setState((byte)3);
-		   }
-
+		   nothing(button == nothing);
+		   follow(button == followFlying);
+		   come(button == come);
+		   circle(button == circle);
 		   this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
 		   byte controlState = getState();
-		   
 		   if (controlState != previousState) {
-					DragonMounts.NETWORK_WRAPPER
-							.sendToServer(new MessageDragonWhistle(uuid, controlState, true));
+               DMUtils.getLogger().info("Current State casted by gui is " + controlState);
+               DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
 		    }
 		  //   }
 		} 

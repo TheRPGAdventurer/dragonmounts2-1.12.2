@@ -26,34 +26,38 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 @Mod.EventBusSubscriber
 public class RegistryEventHandler {
-	
+
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Block> event) {	
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		event.getRegistry().registerAll(ModBlocks.BLOCKS);
 		DMUtils.getLogger().info("Block Registries Successfully Registered!");
 	}
-	
+
 	@SubscribeEvent
-	public static void registerItems(RegistryEvent.Register<Item> event) {	
+	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().registerAll(ModItems.ITEMS);
 		event.getRegistry().registerAll(ModTools.TOOLS);
 		event.getRegistry().registerAll(ModArmour.ARMOR);
-	
+
 		for (Block block : ModBlocks.BLOCKS) {
 			event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
 		}
-		
+
 		DMUtils.getLogger().info("Item Registries Successfully Registered!");
 	}
-	
+
 	@SubscribeEvent
 	public static void registerDragonEggItem(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(ItemDragonBreedEgg.DRAGON_BREED_EGG.setRegistryName("dragon_egg"));
 	}
-	
+
 	@SubscribeEvent
 	public static void registerDragonnEggBlock(RegistryEvent.Register<Block> event) {
 		event.getRegistry().register(BlockDragonBreedEgg.DRAGON_BREED_EGG.setRegistryName("dragon_egg"));
+	}
+
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent event) {
 		for (Block block: ModBlocks.BLOCKS) {
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
 
@@ -94,10 +98,5 @@ public class RegistryEventHandler {
 
 			DMUtils.getLogger().info("Models Sucessfully Registered");
 		}
-	}
-
-	@SubscribeEvent
-	public static void registerModels(ModelRegistryEvent event) {
-
 	}
 }

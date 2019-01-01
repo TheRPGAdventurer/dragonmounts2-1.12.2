@@ -263,6 +263,8 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         text.println("Breeder: " + breederName);
         text.println("Reproduced: " + reproduction.getReproCount());
         text.println("Saddled: " + dragon.isSaddled());
+
+        text.printf("Command:" + dragon.getWhistleState());
     }
     
     private void renderAttributes() {

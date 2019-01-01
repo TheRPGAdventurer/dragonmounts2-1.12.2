@@ -22,12 +22,10 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
 	public UUID dragonId;
 	public byte controlState;
-	public boolean isNewState;
 
-	public MessageDragonWhistle(UUID dragonId, byte controlState, boolean isNewState) {
+	public MessageDragonWhistle(UUID dragonId, byte controlState) {
 		this.dragonId = dragonId;
 		this.controlState = controlState;
-		this.isNewState = isNewState;
 	}
 
 	public MessageDragonWhistle() {
@@ -38,7 +36,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 		PacketBuffer packetBuf = new PacketBuffer(buf);
 	    dragonId = packetBuf.readUniqueId();
 		controlState = buf.readByte();
-		isNewState = buf.readBoolean();
 	}
 
 	@Override
@@ -47,7 +44,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 		PacketBuffer packetBuf = new PacketBuffer(buf);
 		packetBuf.writeUniqueId(dragonId);
 		buf.writeByte(controlState);
-		buf.writeBoolean(isNewState);
 
 	}
 
@@ -65,7 +61,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 		  if (entity != null && entity instanceof EntityTameableDragon) {
 			  EntityTameableDragon dragon = (EntityTameableDragon) entity;
 			  if (dragon.isOwner(player)) {
-				  dragon.setStateField(message.controlState, message.isNewState);
+				  dragon.setWhistleState(message.controlState);
 			  }
 			}			
 	//	} 

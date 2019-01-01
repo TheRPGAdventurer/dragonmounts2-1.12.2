@@ -107,16 +107,14 @@ public class BreathWeapon {
           final float VOLUME = 1.0F;
           world.playSound(sideToIgnite.getX() + 0.5, sideToIgnite.getY() + 0.5, sideToIgnite.getZ() + 0.5,
                   SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH), false);
-          if(rand.nextInt(1377) < 100)
-          world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
-        
-        }
+          burnBlocks(sideToIgnite, rand, 77, world);
         
     //    if (densityOfThisFace >= thresholdForDestruction && state.getBlockHardness(world, pos) != -1 && DragonMountsConfig.canFireBreathAffectBlocks) {
          //   world.setBlockToAir(pos); 
- //       }
+        }
       }
     }
+
     
     Block block1 = state.getBlock();
     Item itemFromBlock = Item.getItemFromBlock(block1);
@@ -138,6 +136,11 @@ public class BreathWeapon {
     }
     return new BreathAffectedBlock();  // reset to zero
   }
+
+  protected void burnBlocks(BlockPos sideToIgnite, Random rand, int factor, World world) {
+          if(rand.nextInt(1377) < factor)
+              world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
+    }
 
   private BlockBurnProperties getBurnProperties(IBlockState iBlockState, World world, BlockPos pos) {
     Block block = iBlockState.getBlock();

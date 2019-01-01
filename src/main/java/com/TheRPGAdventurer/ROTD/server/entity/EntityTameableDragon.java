@@ -9,22 +9,6 @@ c ** 2012 August 13
  */
 package com.TheRPGAdventurer.ROTD.server.entity;
 
-import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
-import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
-
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
@@ -39,38 +23,16 @@ import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBodyHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBrain;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonInteractHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonLifeStageHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonMoveHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.google.common.base.Optional;
-
-import net.ilexiconn.llibrary.server.entity.multipart.PartEntity;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityMultiPart;
-import net.minecraft.entity.MultiPartEntityPart;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -96,16 +58,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -117,6 +72,14 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nullable;
+import java.util.*;
+
+import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
+import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 
 /**
  * Here be dragons.
@@ -124,7 +87,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable, IDragonWhistle {
+public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	private static final Logger L = LogManager.getLogger();
 
@@ -536,23 +499,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return (dataManager.get(WHISTLE_STATE).byteValue() >> 3 & 1) == 1;
 	}
 
-
-	@Override
 	public void nothing(boolean nothing) {
 		setStateField(0, nothing);
 	}
 
-	@Override
 	public void follow(boolean follow) {
 		setStateField(1, follow);
 	}
 
-	@Override
 	public void circle(boolean circle) {
 		setStateField(2, circle);
 	}
 
-	@Override
 	public void come(boolean come) {
 		setStateField(3, come);
 	}
@@ -891,12 +849,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		String breedName = getBreed().getSkin().toLowerCase();
 		ITextComponent name = new TextComponentTranslation("entity." + entName + "." + breedName + ".name", new Object[0]);
 		return name;
-	}
-	
-	@Override
-	public void Whistle(EntityPlayer player) {
-		if(this.isTamed() && this.isTamedFor(player) && !hasControllingPlayer(player)) {
-		}
 	}
 	
 	public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
@@ -1366,9 +1318,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 		return getHelper(DragonBreathHelper.class);
 	}
 
-	public DragonAnimator getAnimator() {
-		return animator;
-	}
+	public DragonAnimator getAnimator() { return animator; }
 
 	public DragonSoundManager getSoundManager() {
 		return getHelper(DragonSoundManager.class);

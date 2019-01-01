@@ -36,10 +36,9 @@ commands.dragon.canttame=You cannot tame dragons
 entity.dragon.tooYoung=Dragon is too young for that let it grow
 
 item.whistle.notOwned=You do not own this dragon
-item.whistle.hasDragon=Controlling Dragon:
+item.whistle.hasDragon=Dragon Added
 item.whistle.empty=No Dragons To Control
-item.whistle.controlling=Controlling Dragon:
-item.whistle.noNBT=No NBT for dragon is found
+item.whistle.noDragon=Dragon Whistle is empty, Left Click an owned and tamed dragon first
 item.whistle.limit=One Whistle can only carry 3 Dragons
 item.command.new_home=New HomePos at
 
@@ -303,7 +302,7 @@ dragon.terra2=Terra
 
 gui.nothing=Nothing
 gui.circle=Circle
-gui.followFlying=Flying
+gui.followFlying=Follow Flying
 gui.goToPlayer=Come
 
 item.dragon_whistle.name=Dragon Whistle [WIP]

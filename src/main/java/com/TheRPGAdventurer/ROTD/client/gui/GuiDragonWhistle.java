@@ -2,27 +2,20 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
-import com.TheRPGAdventurer.ROTD.server.entity.IDragonWhistle;
+import net.minecraft.client.gui.GuiRepair;
 import org.lwjgl.input.Keyboard;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 public class GuiDragonWhistle extends GuiScreen {
 
@@ -32,7 +25,7 @@ public class GuiDragonWhistle extends GuiScreen {
 	World world;
 	
 	ItemStack whistle;
-	UUID uuid;
+	UUID uuid; GuiRepair
 	GuiButton nothing;
 	GuiButton circle;
 	GuiButton followFlying;

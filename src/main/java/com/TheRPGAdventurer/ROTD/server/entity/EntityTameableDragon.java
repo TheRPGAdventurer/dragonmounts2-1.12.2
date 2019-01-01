@@ -252,7 +252,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public void resetParts(float s) {
 		float scale = this.getScale();
-		dragonPartHead = new EntityPartDragon(this, 4.55F * scale, 0, 3.4F * scale, 1.2F * scale, 1.2F * scale, 1.5F * scale);
+		dragonPartHead = new EntityPartDragon(this, 4.55F * scale, 0, 3.4F - animator.getModelOffsetY(), 1.5F * scale, 1.5F * scale, 1.5F * scale);
 	}
 	
 	public void removeParts() {
@@ -868,7 +868,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
 		float dist = this.getDistanceToEntity(owner);
-		if(dist <= 4) {
+		if(dist <= 8) {
 			this.inAirTicks = 0;
 			this.nothing(true);
 		}
@@ -908,7 +908,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     	
     	int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
     	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-       	double r = 0.9 * DragonMountsConfig.dragonFlightHeight;  
+       	double r = 48;
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
         double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight; 
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	

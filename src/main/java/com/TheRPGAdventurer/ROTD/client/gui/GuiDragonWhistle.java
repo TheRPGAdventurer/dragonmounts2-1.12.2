@@ -25,7 +25,7 @@ public class GuiDragonWhistle extends GuiScreen {
 	World world;
 	
 	ItemStack whistle;
-	UUID uuid; GuiRepair
+	UUID uuid;
 	GuiButton nothing;
 	GuiButton circle;
 	GuiButton followFlying;

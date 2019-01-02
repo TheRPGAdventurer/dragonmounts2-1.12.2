@@ -97,7 +97,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.4;
 	public static final double BASE_AIR_SPEED = 0.9;
-	public static final double BASE_DAMAGE = 4.0D; 
+	public static final double BASE_DAMAGE = 3.7D; 
 	public static final double BASE_ARMOR = 7.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;

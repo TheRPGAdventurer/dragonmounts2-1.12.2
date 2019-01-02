@@ -253,7 +253,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public void resetParts(float s) {
 		float scale = this.getScale();
-		dragonPartHead = new EntityPartDragon(this, 19.55F * scale, 0, 3.0F - animator.getModelOffsetY() * scale, 5.0F * scale, 5.0F * scale, 1.5F * scale);
+		dragonPartHead = new EntityPartDragon(this, 13.55F * scale, 0, 3.0F - animator.getModelOffsetY() * scale, 4.8F * scale, 5.0F * scale, 1.5F * scale);
 	}
 	
 	public void removeParts() {
@@ -740,7 +740,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 			
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(15000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
+					&& !this.isHatchling() && this.getRNG().nextInt(18000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
 				this.liftOff();
 				this.setCirclingAI(true);
 				DMUtils.getLogger().info("tried to liftoff RNG");

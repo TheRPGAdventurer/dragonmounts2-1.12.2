@@ -94,9 +94,7 @@ public class ItemDragonWhistle extends Item {
 
 	    if (stack.hasTagCompound()) {
 	         nbt = stack.getTagCompound(); 
-	    }
-	    else
-	    {
+	    } else {
 	         nbt = new NBTTagCompound();
 	    }
 	       				
@@ -127,19 +125,9 @@ public class ItemDragonWhistle extends Item {
 	}
 	
 	@Override
+    @SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack stack) {
-		NBTTagCompound nbt = stack.getTagCompound();		
-
-	    if (stack.hasTagCompound()) {
-	         nbt = stack.getTagCompound(); 
-	    }
-	    else
-	    {
-	         nbt = new NBTTagCompound();
-	    }
-	       				
-        stack.setTagCompound(nbt);
-        if(nbt.hasKey("dragon")) {
+        if(stack.getTagCompound().hasKey("dragon")) {
         	return true;
         } else {
 	    	return super.hasEffect(stack);

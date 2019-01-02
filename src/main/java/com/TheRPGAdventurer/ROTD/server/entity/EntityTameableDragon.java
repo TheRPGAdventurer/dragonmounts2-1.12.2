@@ -97,7 +97,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.4;
 	public static final double BASE_AIR_SPEED = 0.9;
-	public static final double BASE_DAMAGE = 3.7D; 
+	public static final double BASE_DAMAGE = 3.5D; 
 	public static final double BASE_ARMOR = 7.0D;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.75f;
@@ -191,6 +191,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean isCollidedVertically2;
 	private boolean isUsingBreathWeapon;
 	public boolean isSlowed;
+	public boolean isCirclingAI;
 	public int inAirTicks;
 	public final EntityAITasks attackTasks;
 	public DragonAnimator animator;
@@ -333,6 +334,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
 		nbt.setBoolean("nearGround", this.nearGround);
 		nbt.setBoolean("HasHomePosition", this.hasHomePosition);
+		nbt.setBoolean("circling",this.isCirclingAI);
 		if (homePos != null && this.hasHomePosition) {
 			nbt.setInteger("HomeAreaX", homePos.getX());
 			nbt.setInteger("HomeAreaY", homePos.getY());
@@ -363,6 +365,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
 		this.nearGround = nbt.getBoolean("nearGround");
+		this.isCirclingAI = nbt.getBoolean("circling");
 		this.hasHomePosition = nbt.getBoolean("HasHomePosition");
 		if (hasHomePosition && nbt.getInteger("HomeAreaX") != 0 && nbt.getInteger("HomeAreaY") != 0
 				&& nbt.getInteger("HomeAreaZ") != 0) {
@@ -481,6 +484,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	public void setBannered4(boolean male) {
 		dataManager.set(BANNERED4, male);
+	}
+	
+	public boolean isCirclingAI() {
+		return isCirclingAI;
+	}
+	
+	public void setCirclingAI(boolean circling) {
+		this.isCirclingAI = circling;
 	}
 	
 	public boolean nothing() {
@@ -694,7 +705,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public BlockPos onGround() {
-		return new BlockPos(posX, posY - 0.4, posZ);
+		return new BlockPos(posX, posY - 1, posZ);
 	}
 
 	@Override
@@ -729,8 +740,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 			
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(1000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
+					&& !this.isHatchling() && this.getRNG().nextInt(15000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
 				this.liftOff();
+				this.setCirclingAI(true);
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
 		    

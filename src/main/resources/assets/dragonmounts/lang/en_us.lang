@@ -36,10 +36,11 @@ commands.dragon.canttame=You cannot tame dragons
 entity.dragon.tooYoung=Dragon is too young for that let it grow
 
 item.whistle.notOwned=You do not own this dragon
-item.whistle.hasDragon=Dragon Added
+item.whistle.hasDragon=Dragon Succesfully Added
 item.whistle.empty=No Dragons To Control
 item.whistle.noDragon=Dragon Whistle is empty, Left Click an owned and tamed dragon first
 item.whistle.limit=One Whistle can only carry 3 Dragons
+item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (HomePos is WIP)
 item.command.new_home=New HomePos at
 
 item.diamond_shears.name=Diamond Shears
@@ -301,9 +302,9 @@ dragon.terra=Terra
 dragon.terra2=Terra
 
 gui.nothing=Nothing
-gui.circle=Circle
+gui.circle=Circle Player
 gui.followFlying=Follow Flying
-gui.goToPlayer=Come
+gui.goToPlayer=Come To Player
 
 item.dragon_whistle.name=Dragon Whistle [WIP]
 

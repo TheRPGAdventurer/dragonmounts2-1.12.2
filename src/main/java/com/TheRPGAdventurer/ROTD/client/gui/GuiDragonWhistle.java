@@ -79,9 +79,9 @@ public class GuiDragonWhistle extends GuiScreen {
 	private void setStateField(int state, boolean newState) {
 	    byte prevState = getState();
 	    if(newState) {
-	        this.state = (byte) (prevState | (1 << state));
+	        this.state = (byte) state;
         } else {
-	        this.state = (byte) (prevState & ~(1 << state));
+	        this.state = (byte) prevState;
         }
 	}
 

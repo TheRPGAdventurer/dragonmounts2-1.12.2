@@ -50,25 +50,12 @@ public class ItemDragonWhistle extends Item {
 
 	}
 
-	@Override 
+	@Override
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		if(stack != null && stack.hasTagCompound() && nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon"))  {
-            MessageDragonWhistle whistle = new MessageDragonWhistle();
-		     EntityTameableDragon dragon = whistle.getDragon();
-		     if(dragon != null) {
-		        String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-		        String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "null";
-		        tooltip.add("Dragon:" + dragonName + " " + " Owner:" + " " + ownerName);
-		    }
-		}
+		tooltip.add("item.whistle.info");
 	}
-
-	public int converUUIDtoID() {
-
-		return 0;
-    }
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
@@ -125,7 +112,7 @@ public class ItemDragonWhistle extends Item {
 					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
 				    	nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
 				    	player.sendStatusMessage(new TextComponentTranslation(
-				    	        "item.whistle.hasDragon" + ":" + dragonName + " for " + ownerName, new Object[0]),
+				    	        "item.whistle.hasDragon", new Object[0]),
                                 true);
 				    }
 			    }

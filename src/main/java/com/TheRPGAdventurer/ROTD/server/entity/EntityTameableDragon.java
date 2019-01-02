@@ -252,7 +252,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public void resetParts(float s) {
 		float scale = this.getScale();
-		dragonPartHead = new EntityPartDragon(this, 4.55F * scale, 0, 3.4F - animator.getModelOffsetY(), 1.5F * scale, 1.5F * scale, 1.5F * scale);
+		dragonPartHead = new EntityPartDragon(this, 9.55F * scale, 0, 2.4F - animator.getModelOffsetY() * scale, 5.0F * scale, 5.0F * scale, 1.5F * scale);
 	}
 	
 	public void removeParts() {
@@ -484,24 +484,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean nothing() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE).byteValue()) == 0;
 	}
 
 	public boolean follow() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() >> 1 & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE).byteValue()) == 1;
 	}
 
 	public boolean circle() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() >> 2 & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE).byteValue()) == 2;
 	}
 
 	public boolean come() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() >> 3 & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE).byteValue()) == 3;
 	}
 
-	public void nothing(boolean nothing) {
-		setStateField(0, nothing);
-	}
+	public void nothing(boolean nothing) { setStateField(0, nothing); }
 
 	public void follow(boolean follow) {
 		setStateField(1, follow);
@@ -520,12 +518,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	 * @param 
 	 * @param 
 	 */
-	public void setStateField(int i, boolean newState) {
+	public void setStateField(int state, boolean newState) {
 		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
 		if (newState) {
-			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));			
+			dataManager.set(WHISTLE_STATE, (byte) state);
 		} else {
-			dataManager.set(WHISTLE_STATE, (byte) (prevState & ~(1 << i)));
+			dataManager.set(WHISTLE_STATE, (byte) prevState);
 		}
 	}
 
@@ -733,7 +731,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 			boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
 		    
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null) && getControllingPlayer() != null;
 				//	&& (this.getDistanceToEntity(this.getOwner()) >= 4 && !this.come());
 			if (flying != isFlying()) { 
 
@@ -860,17 +858,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     	double offset = 16D;
     	int exclude[] = {-19};
     	double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
-    	x = midPoint.getX() + posX;
+    	x = midPoint.getX() + 15;
     	y = midPoint.getY() + 14;
-    	z = midPoint.getZ() + posZ;
+    	z = midPoint.getZ() + 8;
     	return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
-	
+
 	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
 		float dist = this.getDistanceToEntity(owner);
-		if(dist <= 8) {
+		if(dist <= 8 && isFlying()) {
 			this.inAirTicks = 0;
 			this.nothing(true);
+			setFlying(false);
 		}
 		
 		if(this.getControllingPlayer() != null) {
@@ -882,7 +881,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 		
 		if(isFlying()) {
-			return this.getNavigator().tryMoveToXYZ(point.getX() + 4, point.getY() + 1, point.getZ(), 2);
+			return this.getNavigator().tryMoveToXYZ(point.getX(), point.getY(), point.getZ(), 2);
 		} else {
 		    return false;
 		}
@@ -1005,9 +1004,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public void playSneezeEffect(double throatPosX, double throatPosY, double throatPosZ) {
-		world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0, 0);
-		world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);			
-	
+		world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 1, 0);
+		world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 1, 0);
+		world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 1, 0);
+		world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 1, 0);
+		world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);
+
 	}
 
 	/**

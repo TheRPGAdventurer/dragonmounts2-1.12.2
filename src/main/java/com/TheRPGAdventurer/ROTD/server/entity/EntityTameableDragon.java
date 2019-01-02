@@ -252,7 +252,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public void resetParts(float s) {
 		float scale = this.getScale();
-		dragonPartHead = new EntityPartDragon(this, 9.55F * scale, 0, 2.4F - animator.getModelOffsetY() * scale, 5.0F * scale, 5.0F * scale, 1.5F * scale);
+		dragonPartHead = new EntityPartDragon(this, 19.55F * scale, 0, 3.0F - animator.getModelOffsetY() * scale, 5.0F * scale, 5.0F * scale, 1.5F * scale);
 	}
 	
 	public void removeParts() {
@@ -692,6 +692,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			this.updateBreathing();
 		}
 	}
+	
+	public BlockPos onGround() {
+		return new BlockPos(posX, posY - 0.4, posZ);
+	}
 
 	@Override
 	public void onLivingUpdate() {
@@ -717,7 +721,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 
 			// delay flying state for 10 ticks (0.5s)			
-			if (!onGround) {
+			BlockPos pos = onGround();
+			if (world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos)) {
 				inAirTicks++;
 			} else {
 				inAirTicks = 0;
@@ -728,11 +733,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				this.liftOff();
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
-
-			boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
 		    
-			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null) && getControllingPlayer() != null;
-				//	&& (this.getDistanceToEntity(this.getOwner()) >= 4 && !this.come());
+			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);				
 			if (flying != isFlying()) { 
 
 				// notify client
@@ -866,7 +868,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
 		float dist = this.getDistanceToEntity(owner);
-		if(dist <= 8 && isFlying()) {
+		if(dist <= 8 && isFlying() && come()) {
 			this.inAirTicks = 0;
 			this.nothing(true);
 			setFlying(false);

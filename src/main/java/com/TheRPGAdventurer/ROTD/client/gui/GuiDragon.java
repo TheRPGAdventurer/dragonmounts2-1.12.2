@@ -1,11 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import org.fusesource.jansi.Ansi.Color;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -15,7 +12,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.swing.TextComponent.HasColumns;
 
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {

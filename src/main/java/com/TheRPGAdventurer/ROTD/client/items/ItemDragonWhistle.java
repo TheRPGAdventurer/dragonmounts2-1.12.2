@@ -54,7 +54,7 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		tooltip.add("item.whistle.info");
+		tooltip.add(new TextComponentTranslation("item.whistle.info").toString());
 	}
 	
 	@Override
@@ -114,6 +114,7 @@ public class ItemDragonWhistle extends Item {
                                 true);
 				    }
 			    }
+				dragon.setControllingWhistle(stack);
 			} else {
 	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned", new Object[0]), true);
 			}
@@ -124,13 +125,11 @@ public class ItemDragonWhistle extends Item {
 		}
 	}
 	
-	@Override
-    @SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack) {
-        if(stack.getTagCompound().hasKey("dragon")) {
-        	return true;
-        } else {
-	    	return super.hasEffect(stack);
-        }
-	}
+//	@Override
+//    @SideOnly(Side.CLIENT)
+//	public boolean hasEffect(ItemStack stack) {
+//       return stack.getTagCompound().hasKey(DragonMounts.MODID + "dragon") && stack.hasTagCompound() && stack.getTagCompound() != null
+//			   || super.hasEffect(stack);
+
+//	}
 }

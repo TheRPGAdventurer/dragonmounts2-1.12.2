@@ -58,6 +58,7 @@ public class DragonAnimator {
     private float bite;
     private float breath;
     private float speed;
+    private float roar;
 
     // timing interp vars
     private TickFloat animTimer = new TickFloat();
@@ -68,6 +69,7 @@ public class DragonAnimator {
     private TickFloat sitTimer = new TickFloat().setLimit(0, 1);
     private TickFloat biteTimer = new TickFloat().setLimit(0, 1);
     private TickFloat breathTimer = new TickFloat().setLimit(0, 1);
+    private TickFloat roarTimer = new TickFloat().setLimit(0, 1);
     private TickFloat speedTimer = new TickFloat(1).setLimit(0, 1);
 
     // trails
@@ -201,6 +203,7 @@ public class DragonAnimator {
         sit = sitTimer.get(partialTicks);
         bite = biteTimer.get(partialTicks);
         breath = breathTimer.get(partialTicks);
+        roar = roarTimer.get(partialTicks);
         speed = speedTimer.get(partialTicks);
 
         animBase = anim * MathX.PI_F * 2;
@@ -291,6 +294,11 @@ public class DragonAnimator {
         sitVal += dragon.isSitting() ? 0.1f : -0.1f;
         sitVal *= 0.95f;
         sitTimer.set(sitVal);
+        
+        int roarticks = dragon.roarTicks;
+        final int JAW_OPENING_TIME_FOR_ROAR = 5;
+        boolean jawFlag1 = (roarticks >= 0 && roarticks < JAW_OPENING_TIME_FOR_ROAR);
+        roarTimer.add(jawFlag1 ? 0.2f: -0.2f);
 
         // update bite opening transition and breath transitions
         DragonBreathHelper.BreathState breathState = dragon.getBreathHelper().getCurrentBreathState();

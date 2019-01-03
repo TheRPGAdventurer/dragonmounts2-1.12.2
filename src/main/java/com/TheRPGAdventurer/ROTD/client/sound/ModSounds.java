@@ -51,6 +51,9 @@ public class ModSounds {
 	@ObjectHolder("mob.dragon.whistle1")
 	public static final SoundEvent DRAGON_WHISTLE1 = createSoundEvent("mob.dragon.whistle1");
 	
+	@ObjectHolder("mob.dragon.roar")
+	public static final SoundEvent DRAGON_ROAR = createSoundEvent("mob.dragon.roar");
+	
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(DragonMounts.MODID, soundName);
 		return new SoundEvent(soundID).setRegistryName(soundID);
@@ -73,7 +76,8 @@ public class ModSounds {
 					DRAGON_HATCHED,
 					DRAGON_HATCHING,
 					DRAGON_WHISTLE,
-					DRAGON_WHISTLE1
+					DRAGON_WHISTLE1,
+					DRAGON_ROAR
 			);
 		}
 	}

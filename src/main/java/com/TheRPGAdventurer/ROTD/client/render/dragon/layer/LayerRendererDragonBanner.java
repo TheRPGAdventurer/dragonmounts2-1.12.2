@@ -56,14 +56,14 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 	@Override
 	public void doRenderLayer(EntityTameableDragon dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		Minecraft mc = Minecraft.getMinecraft();
-		ItemStack itemstack = dragon.dragonInv.getStackInSlot(31);
+		ItemStack itemstack1 = dragon.dragonInv.getStackInSlot(31);
 		ItemStack itemstack2 = dragon.dragonInv.getStackInSlot(32);
 		ItemStack itemstack3 = dragon.dragonInv.getStackInSlot(33);
 		ItemStack itemstack4 = dragon.dragonInv.getStackInSlot(34);
 
     	GlStateManager.pushMatrix();
     	
-        if(dragon.isBannered1()) {
+        if(itemstack1 != null) {
  	       float f = 0.625F; 	   	       
  	       model.body.postRender(0.0625F);
            GlStateManager.translate(1.0F, 0.4F, -0.5F); 
@@ -72,7 +72,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
            GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
            GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
            GlStateManager.scale(0.625F, -0.625F, -0.625F);
-           mc.getItemRenderer().renderItem(dragon, itemstack, ItemCameraTransforms.TransformType.HEAD);   
+           mc.getItemRenderer().renderItem(dragon, itemstack1, ItemCameraTransforms.TransformType.HEAD);
 	           	  
         } 
         
@@ -80,7 +80,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (dragon.isBannered2()) {
+        if (itemstack2 != null) {
         	float f = 0.625F; 	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(-1.0F, 0.4, -0.5F); 
@@ -96,7 +96,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (dragon.isBannered3()) {
+        if (itemstack3 != null) {
         	float f = 0.625F; 	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(-0.4F, -1.7F, 1.7F); 
@@ -113,7 +113,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (dragon.isBannered4()) {
+        if (itemstack3 != null) {
         	float f = 0.625F; 	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(0.4F, -1.7F, 1.7F); 

@@ -745,7 +745,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
 		for(int y = 1; y <= 3.4; y++) {
-		   pos = new BlockPos(posX, posY - y, posZ);
+		   pos = new BlockPos(posX, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ);
 		}
 		return pos;
 	}
@@ -775,7 +775,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 			// delay flying state for 10 ticks (0.5s)			
 			if (world.getBlockState(onGroundAir()).getBlock().isAir(world.getBlockState(onGroundAir()), world, onGroundAir())
-				|| world.getBlockState(onGroundAir()).getMaterial().isLiquid()) {
+				|| (world.getBlockState(onGroundAir()).getMaterial().isLiquid() && getControllingPlayer() != null)) { // liquid
 				inAirTicks++;
 			} else {
 				inAirTicks = 0;

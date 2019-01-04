@@ -531,19 +531,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean nothing() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 1;
 	}
 
 	public boolean follow() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() >> 1 & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 1;
 	}
 
 	public boolean circle() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() >> 2 & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 1;
 	}
 
 	public boolean come() {
-		return (dataManager.get(WHISTLE_STATE).byteValue() >> 3 & 1) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 1;
 	}
 
 	public void nothing(boolean nothing) {
@@ -933,8 +933,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     	double offset = 16D;
     	double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
     	x = midPoint.getX() + 0.5 - 12;
-    	y = midPoint.getY() + 0.5;
-    	z = midPoint.getZ() + 0.5 - offset - this.getRNG().nextInt(5);
+    	y = midPoint.getY() + 0.5 + 12;
+    	z = midPoint.getZ() + 0.5 - offset;
     	return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
 	
@@ -982,7 +982,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
        	double r = 0.9 * DragonMountsConfig.dragonFlightHeight;  
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
-        double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight; 
+        double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight + 0.5; 
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
         DMUtils.getLogger().info("dragon circle is being called");
     	
@@ -994,7 +994,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if(!isDead) {
 		   this.roarTicks = 0;
 		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1),true);
+		   
 		}
+		
+		DMUtils.getLogger().info("roar is called");
 	}
 
 	/**

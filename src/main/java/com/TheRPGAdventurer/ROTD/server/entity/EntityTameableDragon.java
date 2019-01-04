@@ -223,7 +223,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public DragonInventory dragonStats;
 	private ItemStackHandler itemHandler = null;
 	private boolean hasChestVarChanged = false;
-	public boolean nearGround;
 	private boolean cancelYChanges;
     /** True if after a move this entity has collided with something on Y-axis */
     public boolean isCollidedVertically2;
@@ -370,7 +369,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
-		nbt.setBoolean("nearGround", this.nearGround);
 		nbt.setBoolean("HasHomePosition", this.hasHomePosition);
 		if (homePos != null && this.hasHomePosition) {
 			nbt.setInteger("HomeAreaX", homePos.getX());
@@ -401,7 +399,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
-		this.nearGround = nbt.getBoolean("nearGround");
 		this.hasHomePosition = nbt.getBoolean("HasHomePosition");
 		if (hasHomePosition && nbt.getInteger("HomeAreaX") != 0 && nbt.getInteger("HomeAreaY") != 0
 				&& nbt.getInteger("HomeAreaZ") != 0) {
@@ -746,8 +743,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
-		for(int y = 1; y <= 3.4; y++) {
-		   pos = new BlockPos(posX, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ);
+		for(int width = 1; width <= this.width; width++) {
+		    for(int y = 1; y <= 3.4; y++) { 
+		      pos = new BlockPos(posX, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ);
+		    }
 		}
 		return pos;
 	}
@@ -776,8 +775,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 
 			// delay flying state for 10 ticks (0.5s)			
-			if (world.getBlockState(onGroundAir()).getBlock().isAir(world.getBlockState(onGroundAir()), world, onGroundAir())
-				|| (world.getBlockState(onGroundAir()).getMaterial().isLiquid() && getControllingPlayer() != null)) { // liquid
+			IBlockState state = world.getBlockState(onGroundAir());
+			if (!state.getMaterial().isSolid()) { // liquid
 				inAirTicks++;
 			} else {
 				inAirTicks = 0;
@@ -1119,7 +1118,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	@Override
 	protected float getWaterSlowDown() {
-		return 1.0F;
+		return 0.7F;
 	}
 
     /**

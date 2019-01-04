@@ -595,7 +595,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void setMale(boolean male) {
 		dataManager.set(IS_MALE, male);
 	}
-	
+	/**
+	 * set in commands
+	 */
 	public void setOppositeGender() {
 		if(isMale()) {
 			this.setMale(false);

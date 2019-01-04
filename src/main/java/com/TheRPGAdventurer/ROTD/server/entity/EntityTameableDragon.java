@@ -743,12 +743,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
-		for(int width = 1; width <= this.width; width++) {
+		for(int width = 1; width <= this.width / 2; width++) {
 		    for(int y = 1; y <= 3.4; y++) { 
-		      pos = new BlockPos(posX, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ);
+		      pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
 		    }
 		}
 		return pos;
+	}
+	
+	public boolean onSolidGround() {
+		IBlockState state = world.getBlockState(onGroundAir());
+		return !state.getMaterial().isSolid();
+		
 	}
 
 	@Override
@@ -775,8 +781,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 
 			// delay flying state for 10 ticks (0.5s)			
-			IBlockState state = world.getBlockState(onGroundAir());
-			if (!state.getMaterial().isSolid()) { // liquid
+			if (onSolidGround()) { // liquid
 				inAirTicks++;
 			} else {
 				inAirTicks = 0;
@@ -788,8 +793,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
 
-			boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
-		    
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
 				//	&& (this.getDistanceToEntity(this.getOwner()) >= 4 && !this.come());
 			if (flying != isFlying()) { 
@@ -1118,7 +1121,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	@Override
 	protected float getWaterSlowDown() {
-		return 0.7F;
+		return 0.9F;
 	}
 
     /**

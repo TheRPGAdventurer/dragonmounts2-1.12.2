@@ -743,11 +743,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
-		for(int width = 1; width <= this.width / 2; width++) {
+	//	for(int width = 1; width <= this.width / 2; width++) {
 		    for(int y = 1; y <= 3.4; y++) { 
 		      pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
 		    }
-		}
+	//	}
 		return pos;
 	}
 	
@@ -781,7 +781,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 
 			// delay flying state for 10 ticks (0.5s)			
-			if (onSolidGround()) { // liquid
+			if (onSolidGround()) { 
 				inAirTicks++;
 			} else {
 				inAirTicks = 0;
@@ -995,8 +995,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void roar() {
 		if(!isDead) {
 		   this.roarTicks = 0;
-		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1),true);
-		   
+		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
 		}
 		
 		DMUtils.getLogger().info("roar is called");
@@ -1143,7 +1142,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
         
         if (item.getItem() == ModItems.dragon_whistle) {
-			if (player.isSneaking()) {
+			if (player.isSneaking() && this.isTamedFor(player)) {
 				BlockPos pos = new BlockPos(this);
 				this.homePos = pos;
 				this.hasHomePosition = true;

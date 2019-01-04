@@ -54,7 +54,7 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		tooltip.add(new TextComponentTranslation("item.whistle.info").toString());
+		tooltip.add("item.whistle.info");
 	}
 	
 	@Override

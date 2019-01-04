@@ -298,6 +298,7 @@ public class DragonAnimator {
         int roarticks = dragon.roarTicks;
         final int JAW_OPENING_TIME_FOR_ROAR = 5;
         boolean jawFlag1 = (roarticks >= 0 && roarticks < JAW_OPENING_TIME_FOR_ROAR);
+        roarTimer.add(jawFlag1 ? 0.2f : -0.2f);
 
         // update bite opening transition and breath transitions
         DragonBreathHelper.BreathState breathState = dragon.getBreathHelper().getCurrentBreathState();
@@ -373,6 +374,7 @@ public class DragonAnimator {
         final float BITE_ANGLE = 0.75F;
         final float BREATH_ANGLE = 0.75F;
         jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE);
+        jawRotateAngleX = (roar * BITE_ANGLE);
         jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
     }
 

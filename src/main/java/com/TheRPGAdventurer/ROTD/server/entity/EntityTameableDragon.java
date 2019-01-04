@@ -92,6 +92,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializer;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
@@ -192,6 +193,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	public  static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager
 			.<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
+	public  static final DataParameter<ItemStack> WHISTLE = EntityDataManager
+			.<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
 
 	// data NBT IDs
 	public static final String NBT_ARMOR = "Armor";
@@ -235,7 +238,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public boolean hasHomePosition = false;
 	public int roarTicks;
 	public BlockPos homePos;
-	public ItemStack controllingWhistle;
 
 	public EntityPartDragon dragonPartHead;
 	public EntityPartDragon dragonPartNeck;
@@ -333,6 +335,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.register(HAS_ADJUCATOR_STONE, false);
 		dataManager.register(ALLOW_OTHERPLAYERS, false);
 		dataManager.register(WHISTLE_STATE, Byte.valueOf((byte) 0));
+		dataManager.register(WHISTLE, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -428,11 +431,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
     
     public ItemStack getControllingWhistle() {
-    	return controllingWhistle;
+    	return dataManager.get(WHISTLE);
     }
     
     public void setControllingWhistle(ItemStack whistle) {
-    	this.controllingWhistle = whistle;
+    	dataManager.set(WHISTLE, whistle);
     }
     
     /**
@@ -543,19 +546,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		return (dataManager.get(WHISTLE_STATE)) == 3;
 	}
 
-	public void nothing(boolean nothing) {
+	public void setnothing(boolean nothing) {
 		setStateField(0, nothing);
 	}
 
-	public void follow(boolean follow) {
+	public void setfollow(boolean follow) {
 		setStateField(1, follow);
 	}
 
-	public void circle(boolean circle) {
+	public void setcircle(boolean circle) {
 		setStateField(2, circle);
 	}
 
-	public void come(boolean come) {
+	public void setcome(boolean come) {
 		setStateField(3, come);
 	}
 
@@ -828,7 +831,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 		
 		if(this.getControllingWhistle() == null) {
-			this.nothing();
+			this.setnothing(true);
 		}
 
 		if (ticksSinceLastAttack >= 0) { // used for jaw animation
@@ -946,7 +949,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		float dist = this.getDistanceToEntity(owner);
 		if(dist <= 8) {
 			this.inAirTicks = 0;
-			this.nothing(true);
+			this.setnothing(true);
 		}
 		
 		if(this.getControllingPlayer() != null) {

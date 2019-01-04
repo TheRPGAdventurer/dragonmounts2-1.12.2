@@ -570,9 +570,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void setStateField(int i, boolean newState) {
 		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
 		if (newState) {
-			dataManager.set(WHISTLE_STATE, (byte) (prevState | (1 << i)));			
+			dataManager.set(WHISTLE_STATE, (byte) i);			
 		} else {
-			dataManager.set(WHISTLE_STATE, (byte) (prevState & ~(1 << i)));
+			dataManager.set(WHISTLE_STATE, (byte) prevState);
 		}
 	}
 
@@ -935,7 +935,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     	double offset = 16D;
     	double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset: offset;
     	x = midPoint.getX() + 0.5 - 12;
-    	y = midPoint.getY() + 0.5 + 12;
+    	y = midPoint.getY() + 0.5 + 24;
     	z = midPoint.getZ() + 0.5 - offset;
     	return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
@@ -951,12 +951,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			return false;
 		}
 		
-		if(!isFlying()) {
+		if(!isFlying() && dist >= 4) {
 		   this.liftOff();
 		}
 		
 		if(isFlying()) {
-			return this.getNavigator().tryMoveToXYZ(point.getX() + 4, point.getY() + 1, point.getZ(), 2);
+			return this.getNavigator().tryMoveToXYZ(point.getX() + 4, point.getY() - 1, point.getZ(), 1);
 		} else {
 		    return false;
 		}
@@ -986,8 +986,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
         double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight + 0.5; 
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
-        DMUtils.getLogger().info("dragon circle is being called");
-    	
        
     	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
 	}

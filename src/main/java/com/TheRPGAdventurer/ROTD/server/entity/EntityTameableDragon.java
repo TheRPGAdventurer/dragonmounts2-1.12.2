@@ -531,7 +531,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean nothing() {
-		return (dataManager.get(WHISTLE_STATE)) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 0;
 	}
 
 	public boolean follow() {
@@ -539,11 +539,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 
 	public boolean circle() {
-		return (dataManager.get(WHISTLE_STATE)) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 2;
 	}
 
 	public boolean come() {
-		return (dataManager.get(WHISTLE_STATE)) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 3;
 	}
 
 	public void nothing(boolean nothing) {

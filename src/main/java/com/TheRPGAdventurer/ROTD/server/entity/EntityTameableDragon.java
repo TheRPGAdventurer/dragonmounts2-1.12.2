@@ -570,9 +570,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void setStateField(int i, boolean newState) {
 		byte prevState = dataManager.get(WHISTLE_STATE).byteValue();
 		if (newState) {
-			dataManager.set(WHISTLE_STATE, (byte) i);			
+			setWhistleState((byte) i);			
 		} else {
-			dataManager.set(WHISTLE_STATE, (byte) prevState);
+			setWhistleState(prevState);
 		}
 	}
 

@@ -31,6 +31,7 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton followFlying;
 	GuiButton come;
 	GuiButton sit;
+	GuiButton homePos;
 
 	boolean newState;
 
@@ -60,6 +61,9 @@ public class GuiDragonWhistle extends GuiScreen {
 		
 		come =   new GuiButton(0, width / 2 - 50, height / 2 - 15, 
 	                   98, 20, I18n.format("gui.goToPlayer", new Object[0]));
+		
+		homePos =   new GuiButton(0, width / 2 - 50, height / 2 - 20, 
+                98, 20, I18n.format("gui.homePos", new Object[0]));
 		
 		buttonList.add(nothing);
 		buttonList.add(circle);
@@ -100,6 +104,10 @@ public class GuiDragonWhistle extends GuiScreen {
     public void come(boolean come) {
         setStateField(3, come);
     }
+    
+    public void homepos(boolean come) {
+        setStateField(4, come);
+    }
 
 	@Override
 	protected void actionPerformed(GuiButton button) {
@@ -109,6 +117,7 @@ public class GuiDragonWhistle extends GuiScreen {
 		   follow(button == followFlying);
 		   come(button == come);
 		   circle(button == circle);
+		   homepos(button == homePos);
 		   this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
 		   byte controlState = getState();
 		   if (controlState != previousState) {

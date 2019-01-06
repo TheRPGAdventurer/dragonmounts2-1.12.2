@@ -32,6 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.config.ConfigElement;
@@ -54,7 +55,7 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		tooltip.add("item.whistle.info");
+		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.whistle.info"));
 	}
 	
 	@Override

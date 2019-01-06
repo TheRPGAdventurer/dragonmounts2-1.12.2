@@ -373,8 +373,7 @@ public class DragonAnimator {
                 lookYaw, lookPitch, breath);
         final float BITE_ANGLE = 0.75F;
         final float BREATH_ANGLE = 0.75F;
-        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE);
-        jawRotateAngleX = (roar * BITE_ANGLE);
+        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE + roar * BITE_ANGLE);
         jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
     }
 

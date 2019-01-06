@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.interact;
 
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
@@ -29,7 +30,7 @@ public class DragonInteractSit extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        if (dragon.isServer() && dragon.isTamed() && (ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE)) 
+        if (dragon.isServer() && dragon.isTamed() && (ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE) || ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) 
         		&& dragon.onGround) {
             dragon.getAISit().setSitting(!dragon.isSitting());
             dragon.getNavigator().clearPathEntity();

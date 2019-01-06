@@ -5,6 +5,10 @@ import java.security.acl.Owner;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+
 public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
 	public EntityAIDragonWhistle(EntityTameableDragon dragon) {
@@ -43,6 +47,12 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 				dragon.followPlayerFlying(dragon.getOwner());
 			} else if(dragon.come() && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner()) && dragon.getOwner() != null) {
 				dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner());
+			} else if(dragon.homepos()) {
+				BlockPos pos = new BlockPos(dragon);
+				dragon.homePos = pos;
+				dragon.hasHomePosition = true;
+				((EntityPlayer) dragon.getOwner()).sendStatusMessage(new TextComponentTranslation("dragon.command.new_home",
+						dragon.homePos.getX(), dragon.homePos.getY(), dragon.homePos.getZ()), true);
 			} else if(dragon.nothing()) {
 				return;
 			}

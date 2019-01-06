@@ -545,6 +545,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public boolean come() {
 		return (dataManager.get(WHISTLE_STATE)) == 3;
 	}
+	
+	public boolean homepos() {
+		return (dataManager.get(WHISTLE_STATE)) == 4;
+	}
 
 	public void setnothing(boolean nothing) {
 		setStateField(0, nothing);
@@ -560,6 +564,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	public void setcome(boolean come) {
 		setStateField(3, come);
+	}
+	
+	public void sethomepos(boolean homepos) {
+		setStateField(4, homepos);
 	}
 
 	/**
@@ -823,15 +831,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 			
 			if(getRNG().nextInt(500) == 1) {
-				   roar();
+				roar();
+				DMUtils.getLogger().info("roar is called");
+			}
+			
+			ItemStack whistle = this.getControllingWhistle();
+			if(whistle != null && whistle.getTagCompound() != null && 
+					!whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(this.getUniqueID())
+					&& whistle.hasTagCompound()) {
+				this.setnothing(true);
 			}
 			
 		} else {
 			animator.tickingUpdate();
-		}
-		
-		if(this.getControllingWhistle() == null) {
-			this.setnothing(true);
 		}
 
 		if (ticksSinceLastAttack >= 0) { // used for jaw animation
@@ -947,21 +959,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
 		float dist = this.getDistanceToEntity(owner);
-		if(dist <= 8) {
+		if(dist <= 5) {
 			this.inAirTicks = 0;
-			this.setnothing(true);
+			this.setFlying(false);
+			if(!isFlying()) {
+			    this.setnothing(true);
+			}
 		}
 		
 		if(this.getControllingPlayer() != null) {
 			return false;
 		}
 		
-		if(!isFlying() && dist >= 8) {
+		if(!isFlying() && dist >= 5) {
 		   this.liftOff();
 		}
 		
 		if(isFlying()) {
-			return this.getNavigator().tryMoveToXYZ(point.getX() + 4, point.getY() - 1, point.getZ(), 1);
+			return this.getNavigator().tryMoveToXYZ(point.getX() + 2, point.getY() - 1, point.getZ(), 1);
 		} else {
 		    return false;
 		}
@@ -1000,8 +1015,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		   this.roarTicks = 0;
 		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
 		}
-		
-		DMUtils.getLogger().info("roar is called");
 	}
 
 	/**
@@ -1143,17 +1156,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             tamedFor(player, getRNG().nextInt(5) == 0);
             return true;
         }
-        
-        if (item.getItem() == ModItems.dragon_whistle) {
-			if (player.isSneaking() && this.isTamedFor(player)) {
-				BlockPos pos = new BlockPos(this);
-				this.homePos = pos;
-				this.hasHomePosition = true;
-				player.sendStatusMessage(new TextComponentTranslation("dragon.command.new_home",
-						homePos.getX(), homePos.getY(), homePos.getZ()), true);
-				return true;
-			}
-		}
         
         // inherited interaction
         if (super.processInteract(player, hand)) {

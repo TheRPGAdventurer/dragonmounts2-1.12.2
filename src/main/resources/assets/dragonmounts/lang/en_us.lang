@@ -305,6 +305,7 @@ gui.nothing=Nothing
 gui.circle=Circle Player
 gui.followFlying=Follow Flying
 gui.goToPlayer=Come To Player
+gui.homePos=Wander
 
 item.dragon_whistle.name=Dragon Whistle [WIP]
 

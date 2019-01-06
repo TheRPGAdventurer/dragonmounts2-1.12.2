@@ -179,14 +179,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
 	private static final DataParameter<String> DATA_BREATH_WEAPON = EntityDataManager
 			.<String>createKey(EntityTameableDragon.class, DataSerializers.STRING);
-	private static final DataParameter<Boolean> BANNERED1 = EntityDataManager
-			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> BANNERED2 = EntityDataManager
-			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> BANNERED3 = EntityDataManager
-			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> BANNERED4 = EntityDataManager
-			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<ItemStack> BANNER1 = EntityDataManager
+			.<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<ItemStack> BANNER2 = EntityDataManager
+			.<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<ItemStack> BANNER3 = EntityDataManager
+			.<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<ItemStack> BANNER4 = EntityDataManager
+			.<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
 	private static final DataParameter<Boolean> HAS_ADJUCATOR_STONE = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> HAS_ELDER_STONE = EntityDataManager
@@ -327,10 +327,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.register(IS_MALE, getRNG().nextBoolean());
 		dataManager.register(DRAGON_SCALES, Byte.valueOf((byte) 0));
 		dataManager.register(ARMOR, 0);
-		dataManager.register(BANNERED1, false);
-		dataManager.register(BANNERED2, false);
-		dataManager.register(BANNERED3, false);
-		dataManager.register(BANNERED4, false);
+		dataManager.register(BANNER1, ItemStack.EMPTY);
+		dataManager.register(BANNER2, ItemStack.EMPTY);
+		dataManager.register(BANNER3, ItemStack.EMPTY);
+		dataManager.register(BANNER4, ItemStack.EMPTY);
 		dataManager.register(HAS_ELDER_STONE, false);
 		dataManager.register(HAS_ADJUCATOR_STONE, false);
 		dataManager.register(ALLOW_OTHERPLAYERS, false);
@@ -365,10 +365,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		nbt.setBoolean(NBT_SHEARED, this.isSheared());
 		nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
 		nbt.setBoolean(NBT_ISMALE, this.isMale());
-		nbt.setBoolean(NBT_BANNERED1, this.isBannered1());
-		nbt.setBoolean(NBT_BANNERED2, this.isBannered2());
-		nbt.setBoolean(NBT_BANNERED3, this.isBannered3());
-		nbt.setBoolean(NBT_BANNERED4, this.isBannered4());
+	//	nbt.setBoolean(NBT_BANNERED1, this.isBannered1());
+	//	nbt.setBoolean(NBT_BANNERED2, this.isBannered2());
+	//	nbt.setBoolean(NBT_BANNERED3, this.isBannered3());
+	//	nbt.setBoolean(NBT_BANNERED4, this.isBannered4());
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
@@ -395,10 +395,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		this.setUsingBreathWeapon(nbt.getBoolean(NBT_BREATHING));
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
 		this.setMale(nbt.getBoolean(NBT_ISMALE));
-		this.setBannered1(nbt.getBoolean(NBT_BANNERED1));
-		this.setBannered2(nbt.getBoolean(NBT_BANNERED2));
-		this.setBannered3(nbt.getBoolean(NBT_BANNERED3));
-		this.setBannered4(nbt.getBoolean(NBT_BANNERED4));
+	//	this.setBannered1(nbt.getBoolean(NBT_BANNERED1));
+	//	this.setBannered2(nbt.getBoolean(NBT_BANNERED2));
+	//	this.setBannered3(nbt.getBoolean(NBT_BANNERED3));
+	//	this.setBannered4(nbt.getBoolean(NBT_BANNERED4));
 		this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
 		this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
 		this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
@@ -482,14 +482,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.set(HOVER_CANCELLED, unhover);
 	}
 	
-	public boolean isBannered1() {
-		return dataManager.get(BANNERED1);
-	}
-
-	public void setBannered1(boolean bannered) {
-		dataManager.set(BANNERED1, bannered);
-	}
-	
 	public boolean canBeAdjucator() {
 		return dataManager.get(HAS_ADJUCATOR_STONE);
 	}
@@ -506,28 +498,36 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.set(HAS_ELDER_STONE, male);
 	}
 	
-	public boolean isBannered2() {
-		return dataManager.get(BANNERED2);
+	public ItemStack getBanner1() {
+		return dataManager.get(BANNER1);
 	}
 
-	public void setBannered2(boolean male) {
-		dataManager.set(BANNERED2, male);
+	public void setBanner1(ItemStack bannered) {
+		dataManager.set(BANNER1, bannered);
 	}
 	
-	public boolean isBannered3() {
-		return dataManager.get(BANNERED2);
+	public ItemStack getBanner2() {
+		return dataManager.get(BANNER2);
 	}
 
-	public void setBannered3(boolean male) {
-		dataManager.set(BANNERED2, male);
+	public void setBanner2(ItemStack male) {
+		dataManager.set(BANNER2, male);
 	}
 	
-	public boolean isBannered4() {
-		return dataManager.get(BANNERED4);
+	public ItemStack getBanner3() {
+		return dataManager.get(BANNER3);
 	}
 
-	public void setBannered4(boolean male) {
-		dataManager.set(BANNERED4, male);
+	public void setBanner3(ItemStack male) {
+		dataManager.set(BANNER3, male);
+	}
+	
+	public ItemStack getBanner4() {
+		return dataManager.get(BANNER4);
+	}
+
+	public void setBanner4(ItemStack male) {
+		dataManager.set(BANNER4, male);
 	}
 	
 	public boolean nothing() {
@@ -2111,11 +2111,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		ItemStack banner4 = this.dragonInv.getStackInSlot(34);
 		this.setSaddled  (saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
 		this.setChested  (leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
-		this.setBannered1(banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty());
-		this.setBannered2(banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty());
-		this.setBannered3(banner3 != null && banner3.getItem() == Items.BANNER && !banner3.isEmpty());
-		this.setBannered4(banner4 != null && banner4.getItem() == Items.BANNER && !banner4.isEmpty());
-		this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));
+		//this.setBanner1(banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty());
+		//this.setBanner2(banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty());
+		//this.setBanner3(banner3 != null && banner3.getItem() == Items.BANNER && !banner3.isEmpty());
+		//this.setBanner4(banner4 != null && banner4.getItem() == Items.BANNER && !banner4.isEmpty());
+		//this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));
 		
 		if (this.world.isRemote) {
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,

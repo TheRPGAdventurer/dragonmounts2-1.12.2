@@ -62,13 +62,14 @@ public class GuiDragonWhistle extends GuiScreen {
 		come =   new GuiButton(0, width / 2 - 50, height / 2 - 15, 
 	                   98, 20, I18n.format("gui.goToPlayer", new Object[0]));
 		
-		homePos =   new GuiButton(0, width / 2 - 50, height / 2 - 20, 
+		homePos =   new GuiButton(0, width / 2 - 50, height / 2 + 35, 
                 98, 20, I18n.format("gui.homePos", new Object[0]));
 		
 		buttonList.add(nothing);
 		buttonList.add(circle);
 		buttonList.add(followFlying);
 		buttonList.add(come);
+		buttonList.add(homePos);
 	}
 
 	private byte getState() {

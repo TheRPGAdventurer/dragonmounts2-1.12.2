@@ -959,7 +959,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
 		float dist = this.getDistanceToEntity(owner);
-		if(dist <= 5) {
+		if(dist <= 12) {
 			this.inAirTicks = 0;
 			this.setFlying(false);
 			if(!isFlying()) {
@@ -971,7 +971,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			return false;
 		}
 		
-		if(!isFlying() && dist >= 5) {
+		if(!isFlying() && dist >= 12) {
 		   this.liftOff();
 		}
 		

@@ -281,7 +281,7 @@ public class DragonAnimator {
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided
-                || dragon.motionY > -0.1 || speedEnt < speedMax);
+                || dragon.motionY > -0.1 || speedEnt < speedMax || dragon.isUnHovered());
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
         // update walking transition
@@ -373,7 +373,8 @@ public class DragonAnimator {
                 lookYaw, lookPitch, breath);
         final float BITE_ANGLE = 0.75F;
         final float BREATH_ANGLE = 0.75F;
-        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE + roar * BITE_ANGLE);
+        final float ROAR_ANGLE = 0.75F;
+        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE + roar * ROAR_ANGLE);
         jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
     }
 

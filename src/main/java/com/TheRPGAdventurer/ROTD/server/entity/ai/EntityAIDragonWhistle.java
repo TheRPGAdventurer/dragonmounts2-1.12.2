@@ -20,15 +20,13 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 	public boolean shouldExecute() {
 		if(dragon.getOwner() == null) {
 			return false;
-		} else if(dragon.getControllingPlayer() != null) {
-			return false;
 		}
 		return !dragon.nothing();
 	}
 	
 	@Override
 	public boolean shouldContinueExecuting() {
-		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && !dragon.nothing();
+		return dragon.isFlying() && !dragon.getNavigator().noPath() && !dragon.nothing();
 	}
 	
 	@Override
@@ -40,14 +38,17 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 		}
 
 		if(dragon.isFlying()) {
-			if(dragon.circle() && !dragon.circleTarget1(dragon.getOwner().getPosition()) && dragon.getOwner() != null) {
+			if(dragon.circle() && !dragon.circleTarget1(dragon.getOwner().getPosition()) && dragon.getOwner() != null
+					&& dragon.getControllingPlayer() == null) {
 				dragon.circleTarget1(dragon.getOwner().getPosition());
 				DMUtils.getLogger().info("dragon circle is being called");
-			} else if(dragon.follow() && !dragon.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
+			} else if(dragon.follow() && !dragon.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null
+					&& dragon.getControllingPlayer() == null) {
 				dragon.followPlayerFlying(dragon.getOwner());
 			} else if(dragon.come() && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner()) && dragon.getOwner() != null) {
 				dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner());
-			} else if(dragon.homepos() && dragon.getOwner() != null && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner()) && dragon.getOwner() != null) {
+			} else if(dragon.homepos() && dragon.getOwner() != null && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner())
+					&& dragon.getOwner() != null && dragon.getControllingPlayer() == null) {
 				BlockPos pos = new BlockPos(dragon);
 				dragon.homePos = pos;
 				dragon.hasHomePosition = true;

@@ -51,6 +51,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonControl;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -743,6 +744,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (hasControllingPlayer(mc.player)) {
 			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing));
+		}
+		
+		if (hasControllingPlayer(mc.player)) {
+			boolean isHoverCancelled = ModKeys.KEY_HOVERCANCEL.isKeyDown();
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(isHoverCancelled));
 		}
 	}
 

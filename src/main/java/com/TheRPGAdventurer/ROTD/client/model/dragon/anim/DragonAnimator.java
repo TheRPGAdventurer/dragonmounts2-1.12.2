@@ -74,7 +74,7 @@ public class DragonAnimator {
 
     // trails
     private boolean initTrails = true;
-    private CircularBuffer yTrail = new CircularBuffer(8);
+    public CircularBuffer yTrail = new CircularBuffer(8);
     private CircularBuffer yawTrail = new CircularBuffer(16);
     private CircularBuffer pitchTrail = new CircularBuffer(16);
 

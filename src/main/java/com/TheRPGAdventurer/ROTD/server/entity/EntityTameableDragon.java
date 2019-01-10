@@ -841,8 +841,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 			if(getRNG().nextInt(500) == 1) {
 				roar();
-				DMUtils.getLogger().info("roar is called");
+				DMUtils.getLogger().info("roar is called " + roarTicks);
 			}
+			
+	//		DMUtils.getLogger().info(roarTicks);
 
 			ItemStack whistle = this.getControllingWhistle();
 			if(whistle != null && whistle.getTagCompound() != null &&
@@ -1024,6 +1026,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			this.roarTicks = 0;
 			world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
 		}
+	}
+	
+	public int getRoarTicks() {
+		return roarTicks;
 	}
 
 	/**

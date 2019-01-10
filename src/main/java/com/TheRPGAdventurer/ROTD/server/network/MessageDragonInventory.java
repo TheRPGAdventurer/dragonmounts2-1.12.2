@@ -47,7 +47,25 @@ public class MessageDragonInventory extends AbstractMessage<MessageDragonInvento
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onClientReceived(Minecraft client, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
-		
+		Entity entity = player.world.getEntityByID(message.dragonId);
+		if (entity instanceof EntityTameableDragon) {
+			EntityTameableDragon dragon = (EntityTameableDragon) entity;		
+			if (message.slot_index == 31) {
+				dragon.setBanner1(dragon.dragonInv.getStackInSlot(31));
+			}
+			
+			if(message.slot_index == 32) {
+				dragon.setBanner2(dragon.dragonInv.getStackInSlot(32));
+			}
+			
+			if (message.slot_index == 33) {
+				dragon.setBanner3(dragon.dragonInv.getStackInSlot(33));
+			}
+			
+			if(message.slot_index == 34) {
+				dragon.setBanner4(dragon.dragonInv.getStackInSlot(34));
+			}
+		}
 	}
 
 	@Override

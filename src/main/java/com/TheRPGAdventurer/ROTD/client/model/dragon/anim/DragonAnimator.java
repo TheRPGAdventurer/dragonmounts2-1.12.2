@@ -250,6 +250,7 @@ public class DragonAnimator {
             groundTimer.sync();
             FlutterTimer.sync();
             biteTimer.sync();
+            roarTimer.sync();
             walkTimer.sync();
             sitTimer.sync();
             return;
@@ -281,7 +282,8 @@ public class DragonAnimator {
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided
-                || dragon.motionY > -0.1 || speedEnt < speedMax || dragon.isUnHovered());
+                || dragon.motionY > -0.1 || speedEnt < speedMax || dragon.isUnHovered())
+        		|| dragon.getBanner1() != null || dragon.getBanner2() != null || dragon.getBanner3() != null || dragon.getBanner4() != null;
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
         // update walking transition
@@ -312,6 +314,7 @@ public class DragonAnimator {
                 break;
             }
             case STARTING: {
+            	roarTimer.set(0.0F);
                 biteTimer.set(0.0F);
                 breathTimer.set(dragon.getBreathHelper().getBreathStateFractionComplete());
                 break;
@@ -586,11 +589,12 @@ public class DragonAnimator {
         return getBodyPitch(partialTicks);
     }
 
-    public float getBodyPitch(float partialTicks) {
+    public float getBodyPitch(float pt) {
         float pitchMovingMax = 90;
-        float pitchMoving = MathX.clamp(yTrail.get(partialTicks, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
-        float pitchHoverMax = 60;
-        return Interpolation.smoothStep(pitchHoverMax, pitchMoving, speed);
+        float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
+        float pitchHoverMax = 60; 
+        boolean dontAlterPitch = dragon.getBanner1() != null || dragon.getBanner2() != null || dragon.getBanner3() != null || dragon.getBanner4() != null || dragon.getPassengers().size() >= 2;
+        return Interpolation.smoothStep(pitchHoverMax, dontAlterPitch ? 0 : pitchMoving, speed);
     }
 
     public float getModelOffsetX() {

@@ -59,6 +59,8 @@ public class DragonAnimator {
     private float bite;
     private float breath;
     private float speed;
+    private float roar;
+    private float snarl;
     
     // timing interp vars
     private TickFloat animTimer = new TickFloat();
@@ -69,6 +71,8 @@ public class DragonAnimator {
     private TickFloat biteTimer = new TickFloat().setLimit(0, 1);
     private TickFloat breathTimer = new TickFloat().setLimit(0, 1);
     private TickFloat speedTimer = new TickFloat(1).setLimit(0, 1);
+    private TickFloat roarTimer = new TickFloat().setLimit(0, 1);
+    private TickFloat snarlTimer = new TickFloat().setLimit(0, 1);
     
     // trails
     private boolean initTrails = true;
@@ -199,6 +203,8 @@ public class DragonAnimator {
         walk = walkTimer.get(partialTicks);
         sit = sitTimer.get(partialTicks);
         bite = biteTimer.get(partialTicks);
+        roar = roarTimer.get(partialTicks);
+        snarl = snarlTimer.get(partialTicks);
         breath = breathTimer.get(partialTicks);
         speed = speedTimer.get(partialTicks);
 
@@ -246,6 +252,7 @@ public class DragonAnimator {
             groundTimer.sync();
             FlutterTimer.sync();
             biteTimer.sync();
+            roarTimer.sync();
             walkTimer.sync();
             sitTimer.sync();
             return;
@@ -297,8 +304,14 @@ public class DragonAnimator {
         switch (breathState) {
             case IDLE: {  // breath is idle, handle bite attack
                 int ticksSinceLastAttack = dragon.getTicksSinceLastAttack();
+                int roarTicks = dragon.getRoarTicks();
+                int snarlTicks = dragon.getSnarlTicks();
                 final int JAW_OPENING_TIME_FOR_ATTACK = 5;
                 boolean jawFlag = (ticksSinceLastAttack >= 0 && ticksSinceLastAttack < JAW_OPENING_TIME_FOR_ATTACK);
+                boolean jawFlag1 = (roarTicks >= 0 && roarTicks < 20);
+                boolean jawFlag2 = (snarlTicks >= 0 && snarlTicks < 20);
+                snarlTimer.add(jawFlag ? 0.2f : -0.2f);
+                roarTimer.add(jawFlag1 ? 0.2f : -0.2f);
                 biteTimer.add(jawFlag ? 0.2f : -0.2f);
                 breathTimer.set(0.0F);
                 break;
@@ -365,7 +378,9 @@ public class DragonAnimator {
                 lookYaw, lookPitch, breath);
         final float BITE_ANGLE = 0.75F;
         final float BREATH_ANGLE = 0.75F;
-        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE);
+        final float ROAR_ANGLE = 0.45F;
+        final float SNARL_ANGLE = 0.10F;
+        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE + roar * ROAR_ANGLE + snarl * SNARL_ANGLE);
         jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
     }
 

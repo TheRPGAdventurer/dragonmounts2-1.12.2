@@ -238,6 +238,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	private double airSpeedVertical = 0;
 	public boolean hasHomePosition = false;
 	public int roarTicks;
+	public int snarlTicks;
 	public BlockPos homePos;
 
 	public EntityPartDragon dragonPartHead;
@@ -773,12 +774,25 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	public boolean onSolidGround() {
 		IBlockState state = world.getBlockState(onGroundAir());
-		return !state.getMaterial().isSolid();
+		return state.getMaterial().isSolid();
 
 	}
+	
+    /**
+     * Gets called every tick from main Entity class
+     */
+    public void onEntityUpdate() {
+        super.onEntityUpdate();
+		if(this.isEntityAlive() && this.getRNG().nextInt(300) == 0) {
+		    this.roar();
+		    DMUtils.getLogger().info("roar is called " + roarTicks);
+		}
+
+    }
 
 	@Override
 	public void onLivingUpdate() {
+		super.onLivingUpdate();
 		helpers.values().forEach(DragonHelper::onLivingUpdate);
 		getBreed().onLivingUpdate(this);
 
@@ -802,9 +816,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 			// delay flying state for 10 ticks (0.5s)			
 			if (onSolidGround()) {
-				inAirTicks++;
-			} else {
 				inAirTicks = 0;
+			} else {
+				inAirTicks++;
 			}
 
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null
@@ -839,13 +853,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 			}
 
-			if(getRNG().nextInt(500) == 1) {
-				roar();
-				DMUtils.getLogger().info("roar is called " + roarTicks);
-			}
-			
-	//		DMUtils.getLogger().info(roarTicks);
-
 			ItemStack whistle = this.getControllingWhistle();
 			if(whistle != null && whistle.getTagCompound() != null &&
 					!whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(this.getUniqueID())
@@ -863,11 +870,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				ticksSinceLastAttack = -1; // reset at arbitrary large value
 			}
 		}
-
+		
 		if (roarTicks >= 0) { // used for jaw animation
 			++roarTicks;
-			if (roarTicks > 1000) {
+			if (roarTicks > 20000) {
 				roarTicks = -1; // reset at arbitrary large value
+			}
+		}
+		
+		if (snarlTicks >= 0) { // used for jaw animation
+			++snarlTicks;
+			if (snarlTicks > 20000) {
+				snarlTicks = -1; // reset at arbitrary large value
 			}
 		}
 
@@ -888,8 +902,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		regenerateHealth();
 		updateForRiding();
 		ACHOOOOO();
-
-		super.onLivingUpdate();
 	}
 
 	/**
@@ -1022,14 +1034,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 
 	public void roar() {
-		if(!isDead) {
-			this.roarTicks = 0;
-			world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
-		}
+		DMUtils.getLogger().info("called roar directly");
+	    this.roarTicks = 0;
+		world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);	
 	}
 	
 	public int getRoarTicks() {
 		return roarTicks;
+	}
+	
+	public int getSnarlTicks() {
+		return snarlTicks;
 	}
 
 	/**
@@ -1076,6 +1091,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	@Override
 	public void playSound(SoundEvent soundIn, float volume, float pitch) {
+		this.snarlTicks = 0;
 		getSoundManager().playSound(soundIn, volume, pitch);
 	}
 
@@ -2262,6 +2278,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (!world.isRemote && source.getTrueSource() != null && this.getRNG().nextInt(4) == 0) {
 			this.roar();
 		}
+		
+	//	world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);	
+	//	this.roarTicks = 0;
+		this.roar();
 
 		if(isHatchling() && isJumping) {
 			return false;

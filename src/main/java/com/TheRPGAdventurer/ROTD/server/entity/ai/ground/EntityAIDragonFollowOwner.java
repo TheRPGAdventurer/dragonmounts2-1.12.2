@@ -73,6 +73,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist * minDist) {
             return false;
         }
+        
+        if(!dragon.nothing()) {
+        	return false;
+        }
 
         owner = ownerCurrent;
         return true;
@@ -89,6 +93,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
 
         if (dragon.isSitting()) {
             return false;
+        }
+        
+        if(!dragon.nothing()) {
+        	return false;
         }
 
         return true;

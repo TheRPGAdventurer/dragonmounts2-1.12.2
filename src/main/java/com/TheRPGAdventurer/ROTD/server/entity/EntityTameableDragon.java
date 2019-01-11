@@ -554,6 +554,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public boolean homepos() {
 		return (dataManager.get(WHISTLE_STATE)) == 4;
 	}
+	
+	public boolean followg() {
+		return (dataManager.get(WHISTLE_STATE)) == 5;
+	}
 
 	public void setnothing(boolean nothing) {
 		setStateField(0, nothing);
@@ -783,7 +787,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public void onEntityUpdate() {
         super.onEntityUpdate();
-		if(this.isEntityAlive() && this.getRNG().nextInt(300) == 0) {
+		if(this.isEntityAlive() && this.getRNG().nextInt(350) == 0) {
 		    this.roar();
 		    DMUtils.getLogger().info("roar is called " + roarTicks);
 		}
@@ -1034,9 +1038,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 
 	public void roar() {
-		DMUtils.getLogger().info("called roar directly");
-	    this.roarTicks = 0;
-		world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);	
+		if(getBreed().getRoarSound() != null) {
+	       DMUtils.getLogger().info("called roar directly");
+	       this.roarTicks = 0;
+		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
+		}
 	}
 	
 	public int getRoarTicks() {
@@ -1086,12 +1092,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	 */
 	@Override
 	public void playLivingSound() {
+		this.snarlTicks = 0;
 		getSoundManager().playLivingSound();
 	}
 
 	@Override
 	public void playSound(SoundEvent soundIn, float volume, float pitch) {
-		this.snarlTicks = 0;
 		getSoundManager().playSound(soundIn, volume, pitch);
 	}
 
@@ -2280,8 +2286,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 		
 	//	world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);	
-	//	this.roarTicks = 0;
-		this.roar();
+		this.snarlTicks = 0;
 
 		if(isHatchling() && isJumping) {
 			return false;

@@ -63,6 +63,11 @@ public class DragonBreedZombie extends DragonBreed {
 	}
 	
 	@Override
+    public SoundEvent getRoarSound() {
+     	return null;
+    }
+	   
+	@Override
 	public SoundEvent getLivingSound() {
 		return ModSounds.ZOMBIE_DRAGON_GROWL;
 	}

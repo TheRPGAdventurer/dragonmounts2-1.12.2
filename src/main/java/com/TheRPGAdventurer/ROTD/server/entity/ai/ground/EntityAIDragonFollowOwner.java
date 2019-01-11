@@ -65,6 +65,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
                return false;
            }
        }
+        
+        if(!dragon.followg()) {
+        	return false;
+        }
 
         if (dragon.isSitting()) {
             return false;
@@ -96,6 +100,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         }
         
         if(!dragon.nothing()) {
+        	return false;
+        }
+        
+        if(!dragon.followg()) {
         	return false;
         }
 

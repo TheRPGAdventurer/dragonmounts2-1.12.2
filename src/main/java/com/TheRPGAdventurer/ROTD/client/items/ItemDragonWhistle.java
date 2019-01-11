@@ -17,6 +17,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -70,7 +71,7 @@ public class ItemDragonWhistle extends Item {
 	    }
 	       				
         stack.setTagCompound(nbt);
-        if (!player.isSneaking() && stack.hasTagCompound()) {
+        if (!player.isSneaking() && stack.hasTagCompound() && !itemInteractionForEntity(stack, player, (EntityTameableDragon) Minecraft.getMinecraft().objectMouseOver.entityHit, hand)) {
       		  if (worldIn.isRemote) {
 				  this.openDragonWhistleGui(nbt.getUniqueId(DragonMounts.MODID + "dragon"), new ItemStack(this), worldIn);
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);

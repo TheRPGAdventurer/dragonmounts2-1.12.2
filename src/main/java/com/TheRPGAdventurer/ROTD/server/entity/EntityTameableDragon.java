@@ -240,10 +240,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public int roarTicks;
 	public int snarlTicks;
 	public BlockPos homePos;
+	public BlockPos airTarget;
 
 	public EntityPartDragon dragonPartHead;
 	public EntityPartDragon dragonPartNeck;
-	public EntityPartDragon dragonPartTail[];
+	public EntityPartDragon dragonPartTail[]; 
 
 	public EntityTameableDragon(World world) {
 		super(world);
@@ -729,8 +730,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (canFly()) {
 			boolean ridden = isBeingRidden();
 			// stronger jump for an easier lift-off
-			motionY += ridden || (isInWater() && isInLava()) ? 0.7 :50;
-			inAirTicks += ridden || (isInWater() && isInLava()) ? 2.0 : 400;
+			motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 5;
+			inAirTicks += ridden || (isInWater() && isInLava()) ? 2.0 : 5;
 			jump();
 			DMUtils.getLogger().info("tried to call dragon liftoff");
 		}
@@ -766,18 +767,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 	}
 
-	public BlockPos onGroundAir() {
+	public BlockPos posBelow() {
 		BlockPos pos = this.getPosition();
 		//	for(int width = 1; width <= this.width / 2; width++) {
-		for(int y = 1; y <= 3.4; y++) {
-			pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
+		for(int y = 1; y <= 3.6; y++) {
+			pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1.0), posZ - width + width);
 		}
 		//	}
 		return pos;
 	}
 
 	public boolean onSolidGround() {
-		IBlockState state = world.getBlockState(onGroundAir());
+		IBlockState state = world.getBlockState(posBelow());
 		return state.getMaterial().isSolid();
 
 	}
@@ -826,7 +827,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null
-					&& !this.isHatchling() && this.getRNG().nextInt(1000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
+					&& !this.isHatchling() && this.getRNG().nextInt(2500) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
 				this.liftOff();
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
@@ -1033,15 +1034,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
 		double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight + 0.5;
 		double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //()
+		DMUtils.getLogger().info("Circle");
 
 		return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
 	}
 
 	public void roar() {
-		if(getBreed().getRoarSound() != null) {
+		if(getBreed().getRoarSound() != null && getAttackTarget() == null && !isUsingBreathWeapon()) {
 	       DMUtils.getLogger().info("called roar directly");
 	       this.roarTicks = 0;
-		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
+		   world.playSound(posX, posY, posZ, getBreed().getRoarSound(), SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
 		}
 	}
 	

@@ -5,7 +5,8 @@
   "name": "Dragon Mounts",
   
   "description": "1. Don't forget to right click the egg to make it hatch, 
-                  2. also water dragon needs strength effect to be a storm dragon",
+                  2. Water dragon needs to be struck by lightning to turn into a storm dragon,
+				  3. Dragons need to be tamed to be bred, and should be male ot female",
   "version": "${version}",
   
   "mcversion": "${mcversion}",

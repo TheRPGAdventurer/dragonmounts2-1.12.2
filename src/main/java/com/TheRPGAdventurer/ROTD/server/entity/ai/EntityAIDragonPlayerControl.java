@@ -83,9 +83,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 wp = wp.rotateYaw(MathX.PI_F * -0.5f);
             } 
             
-            x += wp.x * 4.5;
-            y += dragon.isUnHovered() ? wp.y : wp.y * 4.5;
-            z += wp.z * 4.5;         
+            x += wp.x * 4.0;
+            y += dragon.isUnHovered() ? 0 : wp.y * 4.0;
+            z += wp.z * 4.0;         
      }
       
      // lift off from a jump

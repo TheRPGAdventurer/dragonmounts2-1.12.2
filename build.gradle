@@ -34,15 +34,17 @@ minecraft {
      makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
-//repositories {
-//    maven {
-//        url = "http://maven.ilexiconn.net"
-//    }
-//}
+repositories {
+  //  maven {
+   //     url = "http://maven.ilexiconn.net"
+   // }
+   maven { url 'https://jitpack.io' }
+}
 
 //dependencies {
 //    compile "net.ilexiconn:llibrary:1.7.9-1.12:dev"
 //}
+
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
@@ -64,6 +66,7 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+	    deobfCompile "com.github.azanor:Baubles:${baubles_version}"
 
 }
 

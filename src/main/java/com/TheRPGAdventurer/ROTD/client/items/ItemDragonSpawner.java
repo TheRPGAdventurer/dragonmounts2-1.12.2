@@ -105,7 +105,7 @@ public class ItemDragonSpawner extends Item {
                 }
 
                 world.spawnEntity(EntityTameableDragon);
-                EntityTameableDragon.playLivingSound();
+                EntityTameableDragon.roar();
             }
         }        return EnumActionResult.SUCCESS;     
     }

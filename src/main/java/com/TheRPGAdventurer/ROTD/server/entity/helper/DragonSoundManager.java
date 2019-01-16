@@ -107,7 +107,7 @@ public class DragonSoundManager extends DragonHelper {
         if (!dragon.isInWater() && dragon.isFlying()) {
             // play wing sounds
             float pitch = (1 - speed);
-            float volume = 0.7f + (1 - speed) * 1.2f;
+            float volume = 0.5f + (1 - speed) * 1.1f;
             playSound(getWingsSound(), volume, pitch, false);
         }
     }
@@ -150,7 +150,7 @@ public class DragonSoundManager extends DragonHelper {
         }
         
         volume *= getVolume(sound);
-        pitch *= getPitch(sound);
+        pitch  *= getPitch(sound);
 
         if (local) {
             dragon.world.playSound(dragon.posX, dragon.posY, dragon.posZ,

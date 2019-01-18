@@ -13,7 +13,10 @@ import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
-import com.TheRPGAdventurer.ROTD.server.network.*;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonHitboxInteract;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWand;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
 import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
@@ -46,13 +49,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 )
 public class DragonMounts {
     
-	@NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class, MessageDragonWhistle.class, 
-		MessageDragonHitboxInteract.class, MessageDragonControl.class, MessageDragonRide.class})
+	@NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonHitboxInteract.class})
 	public static SimpleNetworkWrapper NETWORK_WRAPPER;
 	
     public static final String NAME = "Dragon Mounts";
     public static final String MODID = "dragonmounts";
-    public static final String VERSION = "1.12.2-1.5.2";
+    public static final String VERSION = "1.12.2-1.5.0";
     public static final String LLIBRARY_VERSION = "1.7.9";
     public static final String GUI_FACTORY = "com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
     

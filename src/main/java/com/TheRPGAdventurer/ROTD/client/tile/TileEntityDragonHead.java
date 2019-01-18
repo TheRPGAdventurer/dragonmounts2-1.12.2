@@ -6,9 +6,9 @@ import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonSkull;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.block.BlockSkull;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
@@ -26,7 +26,7 @@ public class TileEntityDragonHead extends TileEntity {
     private int skullRotation;
     public EnumDragonBreed breed; 
     
-    public TileEntityDragonHead() {
+    public TileEntityDragonHead() { 
 		super();
 	}
 	

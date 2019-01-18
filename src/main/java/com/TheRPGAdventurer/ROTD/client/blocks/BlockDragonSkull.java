@@ -6,7 +6,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -17,7 +17,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -31,9 +30,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDragonSkull extends Block {
+public class BlockDragonSkull extends BlockContainer {
 	
 	EnumDragonBreed breed;
+	Item item;
 	
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
     public static final PropertyBool NODROP = PropertyBool.create("nodrop");
@@ -44,9 +44,10 @@ public class BlockDragonSkull extends Block {
     protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
     protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
 
-    public BlockDragonSkull(EnumDragonBreed breed) {
+    public BlockDragonSkull(EnumDragonBreed breed, Item item) {
         super(Material.CIRCUITS);
         this.breed = breed;
+        this.item = item;
         this.setCreativeTab(DragonMounts.TAB);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.valueOf(false)));
         this.setRegistryName(DragonMounts.MODID, this.breed + "_dragon_skull");
@@ -97,6 +98,7 @@ public class BlockDragonSkull extends Block {
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
+    @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityDragonHead();
     }
@@ -116,8 +118,9 @@ public class BlockDragonSkull extends Block {
     	return true;
     }
 
+    @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-    	return new ItemStack(this);
+    	return new ItemStack(item);
     }
 
     /**
@@ -194,7 +197,7 @@ public class BlockDragonSkull extends Block {
      * blockstate.
      */
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING))); 
     }
 
     protected BlockStateContainer createBlockState() {

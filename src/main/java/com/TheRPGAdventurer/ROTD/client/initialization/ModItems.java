@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.client.initialization;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.items.ItemCarriage;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonHeads;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonShield;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;
@@ -47,6 +48,21 @@ public class ModItems {
 	public static final Item SpawnStorm;
 	public static final Item SpawnZombie;
 	public static final Item SpawnTerra;
+	
+	public static final Item SkullForest;
+	public static final Item SkullAether;
+	public static final Item SkullFire;
+	public static final Item SkullIce;
+	public static final Item SkullWater;
+	public static final Item SkullSkeleton;
+	public static final Item SkullWither;
+	public static final Item SkullEnd;
+	public static final Item SkullNether;
+	public static final Item SkullEnchant;
+	public static final Item SkullSunlight;
+	public static final Item SkullStorm;
+	public static final Item SkullZombie;
+	public static final Item SkullTerra;
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
@@ -109,6 +125,21 @@ public class ModItems {
 		SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.TAB),
 		SpawnTerra = new ItemDragonSpawner(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA, DragonMounts.TAB),
 		
+		SkullAether = new ItemDragonHeads(EnumDragonBreed.AETHER),
+		SkullEnd = new ItemDragonHeads(EnumDragonBreed.END),	
+		SkullFire = new ItemDragonHeads(EnumDragonBreed.FIRE),	
+		SkullForest = new ItemDragonHeads(EnumDragonBreed.FOREST),	
+		SkullWither = new ItemDragonHeads(EnumDragonBreed.WITHER),	
+		SkullSkeleton = new ItemDragonHeads(EnumDragonBreed.SKELETON),	
+		SkullSunlight = new ItemDragonHeads(EnumDragonBreed.SUNLIGHT),	
+    	SkullTerra = new ItemDragonHeads(EnumDragonBreed.TERRA),	
+		SkullZombie = new ItemDragonHeads(EnumDragonBreed.ZOMBIE),	
+		SkullIce = new ItemDragonHeads(EnumDragonBreed.ICE),	
+		SkullEnchant = new ItemDragonHeads(EnumDragonBreed.ENCHANT),	
+		SkullWater = new ItemDragonHeads(EnumDragonBreed.SYLPHID),	
+		SkullNether = new ItemDragonHeads(EnumDragonBreed.NETHER),
+		SkullStorm = new ItemDragonHeads(EnumDragonBreed.STORM),
+
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),
 		dragon_whistle = new ItemDragonWhistle(),

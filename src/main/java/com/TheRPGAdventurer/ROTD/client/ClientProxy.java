@@ -19,6 +19,7 @@ import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
+import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderEnderBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderFlameBreathFX;
@@ -27,6 +28,7 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderIceBr
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderNetherBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderPoisonBreathFX;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderWitherBreathFX;
+import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -43,6 +45,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -73,6 +76,8 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonHead.class, new TileEntityDragonRenderer());
       
     }
 

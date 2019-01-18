@@ -7,9 +7,7 @@ import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -19,6 +17,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -57,18 +56,18 @@ public class BlockDragonSkull extends Block {
     /**
      * Used to determine ambient occlusion and culling when rebuilding chunks for render
      */
- //   public boolean isOpaqueCube(IBlockState state) {
-  //      return false;
-  //  }
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-    //public boolean isFullCube(IBlockState state) {
-     //   return false;
-   // }
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-  //  @SideOnly(Side.CLIENT)
-  //  public boolean hasCustomBreakingProgress(IBlockState state) {
-  //      return true;
-  //  }
+    @SideOnly(Side.CLIENT)
+    public boolean hasCustomBreakingProgress(IBlockState state) {
+        return true;
+    }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)  {
         switch ((EnumFacing)state.getValue(FACING))
@@ -91,66 +90,66 @@ public class BlockDragonSkull extends Block {
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
      * IBlockstate
      */
- //   public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-  //      return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.valueOf(false));
-  //  }
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(NODROP, Boolean.valueOf(false));
+    }
 
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-   // public TileEntity createNewTileEntity(World worldIn, int meta) {
-   //     return new TileEntityDragonHead();
-  //  }
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityDragonHead();
+    }
     
-  //  @Override
-  //  public TileEntity createTileEntity(World world, IBlockState state) {
-   // 	return new TileEntityDragonHead();
-   // }
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+    	return new TileEntityDragonHead();
+    }
     
- //   @Override
-  //  public boolean hasTileEntity() {
- //   	return true;
- ////   }
+    @Override
+    public boolean hasTileEntity() {
+    	return true;
+    }
     
- //    @Override
- //   public boolean hasTileEntity(IBlockState state) {
- //   	return true;
-//    }
+     @Override
+    public boolean hasTileEntity(IBlockState state) {
+    	return true;
+    }
 
- //   public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-//    	return new ItemStack(this);
- //   }
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    	return new ItemStack(this);
+    }
 
     /**
      * Called before the Block is set to air in the world. Called regardless of if the player's tool can actually
      * collect this block
      */
-//    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
- ///       if (player.capabilities.isCreativeMode) {
- ///           state = state.withProperty(NODROP, Boolean.valueOf(true));
- //           worldIn.setBlockState(pos, state, 4);
- //       }
- //       this.dropBlockAsItem(worldIn, pos, state, 0);
-//
- //       super.onBlockHarvested(worldIn, pos, state, player);
-//    }
+    public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (player.capabilities.isCreativeMode) {
+            state = state.withProperty(NODROP, Boolean.valueOf(true));
+            worldIn.setBlockState(pos, state, 4);
+        }
+        this.dropBlockAsItem(worldIn, pos, state, 0);
 
-  //  public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess worldIn, BlockPos pos, IBlockState state, int fortune)
+        super.onBlockHarvested(worldIn, pos, state, player);
+    }
+
+ //   public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess worldIn, BlockPos pos, IBlockState state, int fortune)
   //  {
     //    {
-    //        if (!((Boolean)state.getValue(NODROP)).booleanValue())
-      //      {
-       //         TileEntity tileentity = worldIn.getTileEntity(pos);
+      //      if (!((Boolean)state.getValue(NODROP)).booleanValue())
+        //    {
+          //      TileEntity tileentity = worldIn.getTileEntity(pos);
 
-             //   if (tileentity instanceof TileEntityDragonSkull)
+            //    if (tileentity instanceof TileEntityDragonSkull)
               //  {
-               // 	TileEntityDragonSkull tileentityskull = (TileEntityDragonSkull)tileentity;
-                //    ItemStack itemstack = new ItemStack(Items.SKULL, 1, tileentityskull.getSkullType());
+                //	TileEntityDragonSkull tileentityskull = (TileEntityDragonSkull)tileentity;
+                  //  ItemStack itemstack = new ItemStack(Items.SKULL, 1, tileentityskull.getSkullType());
 
-              //      drops.add(itemstack);
-              //  }
-      //  ///    }
-      //  }
+        //            drops.add(itemstack);
+         //       }
+          //  }
+       // }
    // }
 
     /**

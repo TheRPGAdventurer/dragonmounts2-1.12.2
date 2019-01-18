@@ -9,43 +9,29 @@ import net.minecraft.block.material.Material;
 
 public class ModBlocks {
 	
-	public static final Block pileofsticks;
-	public static final Block pileofstickssnow;
+	public static Block pileofsticks = new BlockDragonNest("pileofsticks", Material.WOOD);
+	public static Block pileofstickssnow = new BlockDragonNest("pileofstickssnow", Material.WOOD);
 	
-	public static final Block aetherSkull;
-	public static final Block enchantSkull;
-	public static final Block endSkull;
-	public static final Block fireSkull;
-	public static final Block forestSkull;
-	public static final Block iceSkull;
-	public static final Block netherSkull;
-	public static final Block skeletonSkull;
-	public static final Block stormSkull;
-	public static final Block sunlightSkull;
-	public static final Block terraSkull;
-	public static final Block waterSkull;
-	public static final Block witherSkull;
-	public static final Block zombieSkull;
-//	public static Block aetherSkull;
+	public static final Block aetherSkull = new BlockDragonSkull(EnumDragonBreed.AETHER);
+	public static final Block enchantSkull = new BlockDragonSkull(EnumDragonBreed.ENCHANT);
+	public static final Block endSkull = new BlockDragonSkull(EnumDragonBreed.END);
+	public static final Block fireSkull = new BlockDragonSkull(EnumDragonBreed.FIRE);
+	public static final Block forestSkull = new BlockDragonSkull(EnumDragonBreed.FOREST);
+	public static final Block iceSkull = new BlockDragonSkull(EnumDragonBreed.ICE);
+	public static final Block netherSkull = new BlockDragonSkull(EnumDragonBreed.NETHER);
+	public static final Block skeletonSkull = new BlockDragonSkull(EnumDragonBreed.SKELETON);
+	public static final Block stormSkull = new BlockDragonSkull(EnumDragonBreed.STORM);
+	public static final Block sunlightSkull = new BlockDragonSkull(EnumDragonBreed.SUNLIGHT);
+	public static final Block terraSkull = new BlockDragonSkull(EnumDragonBreed.TERRA);
+	public static final Block waterSkull = new BlockDragonSkull(EnumDragonBreed.SYLPHID);
+	public static final Block witherSkull = new BlockDragonSkull(EnumDragonBreed.WITHER);
+	public static final Block zombieSkull = new BlockDragonSkull(EnumDragonBreed.ZOMBIE);
 	
 	public static final Block[] BLOCKS = {
-		pileofstickssnow = new BlockDragonNest("pileofstickssnow", Material.WOOD),
-		pileofsticks = new BlockDragonNest("pileofsticks", Material.WOOD),
+		pileofstickssnow, pileofsticks,
+		aetherSkull, enchantSkull, endSkull, fireSkull, forestSkull, iceSkull, netherSkull, skeletonSkull,
+		stormSkull, sunlightSkull, terraSkull, waterSkull, witherSkull, zombieSkull
 				
-		aetherSkull = new BlockDragonSkull(EnumDragonBreed.AETHER),
-		enchantSkull = new BlockDragonSkull(EnumDragonBreed.ENCHANT),
-		endSkull = new BlockDragonSkull(EnumDragonBreed.END),
-		fireSkull = new BlockDragonSkull(EnumDragonBreed.FIRE),
-		forestSkull = new BlockDragonSkull(EnumDragonBreed.FOREST),
-		iceSkull = new BlockDragonSkull(EnumDragonBreed.ICE),
-		netherSkull = new BlockDragonSkull(EnumDragonBreed.NETHER),
-		skeletonSkull = new BlockDragonSkull(EnumDragonBreed.SKELETON),
-		stormSkull = new BlockDragonSkull(EnumDragonBreed.STORM),
-		sunlightSkull = new BlockDragonSkull(EnumDragonBreed.SUNLIGHT),
-		terraSkull = new BlockDragonSkull(EnumDragonBreed.TERRA),
-		waterSkull = new BlockDragonSkull(EnumDragonBreed.SYLPHID),
-		witherSkull = new BlockDragonSkull(EnumDragonBreed.WITHER),
-		zombieSkull = new BlockDragonSkull(EnumDragonBreed.ZOMBIE),
 
 	};
 	

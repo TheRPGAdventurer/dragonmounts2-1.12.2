@@ -8,17 +8,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockDragonNest extends BlockBase {
+public class BlockDragonNest extends Block {
 
 	public BlockDragonNest(String unlocalizedName, Material material) {
-		super(unlocalizedName, material);
+		super(material);
+		this.setRegistryName(DragonMounts.MODID, unlocalizedName);
+		this.setUnlocalizedName(unlocalizedName);
 		this.setResistance(1);
 		this.setHardness(1);
 		this.setSoundType(SoundType.WOOD);

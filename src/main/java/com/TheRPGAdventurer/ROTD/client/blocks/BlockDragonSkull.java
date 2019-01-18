@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDragonSkull extends BlockContainer {
+public class BlockDragonSkull extends Block {
 	
 	EnumDragonBreed breed;
 	
@@ -97,36 +97,35 @@ public class BlockDragonSkull extends BlockContainer {
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityDragonHead();
-    }
+   // public TileEntity createNewTileEntity(World worldIn, int meta) {
+   //     return new TileEntityDragonHead();
+  //  }
     
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-    	return new TileEntityDragonHead();
-    }
+  //  @Override
+  //  public TileEntity createTileEntity(World world, IBlockState state) {
+   // 	return new TileEntityDragonHead();
+   // }
     
-    @Override
-    public boolean hasTileEntity() {
-    	return true;
-    }
+ //   @Override
+  //  public boolean hasTileEntity() {
+ //   	return true;
+ ////   }
     
-     @Override
-    public boolean hasTileEntity(IBlockState state) {
-    	return true;
-    }
+ //    @Override
+ //   public boolean hasTileEntity(IBlockState state) {
+ //   	return true;
+//    }
 
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-    	return new ItemStack(this);
-    }
+ //   public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+//    	return new ItemStack(this);
+ //   }
 
     /**
      * Called before the Block is set to air in the world. Called regardless of if the player's tool can actually
      * collect this block
      */
     public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
-        if (player.capabilities.isCreativeMode)
-        {
+        if (player.capabilities.isCreativeMode) {
             state = state.withProperty(NODROP, Boolean.valueOf(true));
             worldIn.setBlockState(pos, state, 4);
         }
@@ -172,21 +171,18 @@ public class BlockDragonSkull extends BlockContainer {
     /**
      * Convert the given metadata into a BlockState for this Block
      */
-    public IBlockState getStateFromMeta(int meta)
-    {
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(NODROP, Boolean.valueOf((meta & 8) > 0));
     }
 
     /**
      * Convert the BlockState into the correct metadata value
      */
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
         i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
 
-        if (((Boolean)state.getValue(NODROP)).booleanValue())
-        {
+        if (((Boolean)state.getValue(NODROP)).booleanValue()) {
             i |= 8;
         }
 
@@ -197,8 +193,7 @@ public class BlockDragonSkull extends BlockContainer {
      * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
      * blockstate.
      */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
         return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
     }
 
@@ -206,18 +201,15 @@ public class BlockDragonSkull extends BlockContainer {
      * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
      * blockstate.
      */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
         return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
     }
 
-    protected BlockStateContainer createBlockState()
-    {
+    protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, new IProperty[] {FACING, NODROP});
     }
 
-    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
-    {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
         return BlockFaceShape.UNDEFINED;
     }
 

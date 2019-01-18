@@ -15,8 +15,8 @@ import net.minecraft.world.IBlockAccess;
 
 public class BlockDragonNest extends Block {
 
-	public BlockDragonNest(String unlocalizedName, Material material) {
-		super(material);
+	public BlockDragonNest(String unlocalizedName) {
+		super(Material.WOOD);
 		this.setRegistryName(DragonMounts.MODID, unlocalizedName);
 		this.setUnlocalizedName(unlocalizedName);
 		this.setResistance(1);

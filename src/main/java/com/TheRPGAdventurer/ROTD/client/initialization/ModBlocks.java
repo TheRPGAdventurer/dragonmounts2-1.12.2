@@ -9,8 +9,8 @@ import net.minecraft.block.material.Material;
 
 public class ModBlocks {
 	
-	public static Block pileofsticks = new BlockDragonNest("pileofsticks", Material.WOOD);
-	public static Block pileofstickssnow = new BlockDragonNest("pileofstickssnow", Material.WOOD);
+	public static Block pileofsticks = new BlockDragonNest("pileofsticks");
+	public static Block pileofstickssnow = new BlockDragonNest("pileofstickssnow");
 	
 	public static final Block aetherSkull = new BlockDragonSkull(EnumDragonBreed.AETHER);
 	public static final Block enchantSkull = new BlockDragonSkull(EnumDragonBreed.ENCHANT);
@@ -28,10 +28,9 @@ public class ModBlocks {
 	public static final Block zombieSkull = new BlockDragonSkull(EnumDragonBreed.ZOMBIE);
 	
 	public static final Block[] BLOCKS = {
-		pileofstickssnow, pileofsticks,
+		pileofsticks, pileofstickssnow, 
 		aetherSkull, enchantSkull, endSkull, fireSkull, forestSkull, iceSkull, netherSkull, skeletonSkull,
-		stormSkull, sunlightSkull, terraSkull, waterSkull, witherSkull, zombieSkull
-				
+		stormSkull, sunlightSkull, terraSkull, waterSkull, witherSkull, zombieSkull			
 
 	};
 	

@@ -48,6 +48,7 @@ public class BlockDragonSkull extends Block {
     public BlockDragonSkull(EnumDragonBreed breed) {
         super(Material.CIRCUITS);
         this.breed = breed;
+        this.setCreativeTab(DragonMounts.TAB);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.valueOf(false)));
         this.setRegistryName(DragonMounts.MODID, this.breed + "_dragon_skull");
         this.setUnlocalizedName(this.getRegistryName().toString());

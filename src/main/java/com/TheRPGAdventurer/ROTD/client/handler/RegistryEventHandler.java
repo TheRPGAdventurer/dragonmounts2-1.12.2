@@ -58,8 +58,9 @@ public class RegistryEventHandler {
 
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event) {
-		for (Block block: ModBlocks.BLOCKS) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+	     	for (Block block: ModBlocks.BLOCKS) {
+		    	ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+	    	}
 
 			for (Item item: ModItems.ITEMS) {
 				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName().toString(), "inventory"));
@@ -96,7 +97,6 @@ public class RegistryEventHandler {
 			ModTools.InitializaRepairs();
 			ModArmour.InitializaRepairs();
 
-			DMUtils.getLogger().info("Models Sucessfully Registered");
-		}
+			DMUtils.getLogger().info("Models Sucessfully Registered");		
 	}
 }

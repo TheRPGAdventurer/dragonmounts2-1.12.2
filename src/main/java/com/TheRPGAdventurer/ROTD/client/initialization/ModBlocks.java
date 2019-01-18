@@ -47,7 +47,6 @@ public class ModBlocks {
 		witherSkull = new BlockDragonSkull(EnumDragonBreed.WITHER),
 		zombieSkull = new BlockDragonSkull(EnumDragonBreed.ZOMBIE),
 
-		
 	};
 	
 }

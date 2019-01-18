@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -33,27 +32,25 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDragonSkull extends BlockBase {
+public class BlockDragonSkull extends Block {
 	
 	EnumDragonBreed breed;
 	
-	//public static final PropertyDirection FACING = BlockDirectional.FACING;
-  //  public static final PropertyBool NODROP = PropertyBool.create("nodrop");
+	public static final PropertyDirection FACING = BlockDirectional.FACING;
+    public static final PropertyBool NODROP = PropertyBool.create("nodrop");
 
-//    protected static final AxisAlignedBB DEFAULT_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.5D, 0.75D);
- //   protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.5D, 0.75D, 0.75D, 1.0D);
- //   protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 0.5D);
- //   protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
- //   protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
+    protected static final AxisAlignedBB DEFAULT_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.75D, 0.5D, 0.75D);
+    protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.5D, 0.75D, 0.75D, 1.0D);
+    protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.25D, 0.25D, 0.0D, 0.75D, 0.75D, 0.5D);
+    protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.5D, 0.25D, 0.25D, 1.0D, 0.75D, 0.75D);
+    protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
 
     public BlockDragonSkull(EnumDragonBreed breed) {
-        super(breed.toString().toLowerCase() + "_dragon_skull", Material.CIRCUITS);
+        super(Material.CIRCUITS);
         this.breed = breed;
-  //    this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.valueOf(false)));
-        this.setRegistryName(DragonMounts.MODID, this.breed.toString().toLowerCase() + "_dragon_skull");
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(NODROP, Boolean.valueOf(false)));
+        this.setRegistryName(DragonMounts.MODID, this.breed + "_dragon_skull");
         this.setUnlocalizedName(this.getRegistryName().toString());
-        this.setSoundType(SoundType.WOOD);
-        this.setCreativeTab(DragonMounts.TAB);
     }
 
     /**
@@ -72,23 +69,22 @@ public class BlockDragonSkull extends BlockBase {
   //      return true;
   //  }
 
- //   @Override
-//    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)  {
- //       switch ((EnumFacing)state.getValue(FACING))
- //       {
- //           case UP:
-  //          default:
-  //              return DEFAULT_AABB;
-  //          case NORTH:
-  //              return NORTH_AABB;
-  //          case SOUTH:
-  ///              return SOUTH_AABB;
-   //         case WEST:
-   //             return WEST_AABB;
-  //          case EAST:
-  //              return EAST_AABB;
-  //      }
-//    }
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)  {
+        switch ((EnumFacing)state.getValue(FACING))
+        {
+            case UP:
+            default:
+                return DEFAULT_AABB;
+            case NORTH:
+                return NORTH_AABB;
+            case SOUTH:
+                return SOUTH_AABB;
+            case WEST:
+                return WEST_AABB;
+            case EAST:
+                return EAST_AABB;
+        }
+    }
 
     /**
      * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
@@ -167,47 +163,46 @@ public class BlockDragonSkull extends BlockBase {
     /**
      * Convert the given metadata into a BlockState for this Block
      */
- //   public IBlockState getStateFromMeta(int meta) {
- //       return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(NODROP, Boolean.valueOf((meta & 8) > 0));
- //   }
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(NODROP, Boolean.valueOf((meta & 8) > 0));
+    }
 
     /**
      * Convert the BlockState into the correct metadata value
      */
-  //  public int getMetaFromState(IBlockState state) {
-  //      int i = 0;
- //       i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+    public int getMetaFromState(IBlockState state) {
+        int i = 0;
+        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
 
- //       if (((Boolean)state.getValue(NODROP)).booleanValue()) {
- //           i |= 8;
-  //      }
+        if (((Boolean)state.getValue(NODROP)).booleanValue()) {
+            i |= 8;
+        }
 
- //       return i;
-  //  }
+        return i;
+    }
 
     /**
      * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
      * blockstate.
      */
- //   public IBlockState withRotation(IBlockState state, Rotation rot) {
- //       return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-  //  }
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+    }
 
     /**
      * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
      * blockstate.
      */
- //   public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
- //       return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
- //   }
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+    }
 
- //   @Override
-//    protected BlockStateContainer createBlockState() {
-    //    return new BlockStateContainer(this, new IProperty[] {FACING, NODROP});
- //   }
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] {FACING, NODROP});
+    }
 
-  //  public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
- //       return BlockFaceShape.UNDEFINED;
-//    }
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
+        return BlockFaceShape.UNDEFINED;
+    }
 
 }

@@ -42,12 +42,9 @@ public class ItemDragonHeads extends Item {
      * Called when a Block is right-clicked with this Item
      */
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (facing == EnumFacing.DOWN)
-        {
+        if (facing == EnumFacing.DOWN) {
             return EnumActionResult.FAIL;
-        }
-        else
-        {
+        } else  {
             if (worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos))
             {
                 facing = EnumFacing.UP;

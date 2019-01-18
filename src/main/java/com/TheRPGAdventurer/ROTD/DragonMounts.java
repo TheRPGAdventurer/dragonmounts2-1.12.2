@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
+import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonHitboxInteract;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
@@ -21,6 +22,7 @@ import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -82,6 +84,7 @@ public class DragonMounts {
     @EventHandler
     public void PreInitialization(FMLPreInitializationEvent event) {    	
     	DragonMountsLootTables.registerLootTables();
+        GameRegistry.registerTileEntity(TileEntityDragonHead.class, new ResourceLocation(DragonMounts.MODID, "tileDragonHead"));
     	TAB = new CreativeTab(MODID);
         metadata = event.getModMetadata();
         proxy.PreInitialization(event); 

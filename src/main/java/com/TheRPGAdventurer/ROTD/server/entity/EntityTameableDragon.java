@@ -130,7 +130,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	private static final Logger L = LogManager.getLogger();
 
-	public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 1.5, 0.0, Double.MAX_VALUE)
+	public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
 			.setDescription("Movement Speed Air").setShouldWatch(true);
 
 	// base attributes

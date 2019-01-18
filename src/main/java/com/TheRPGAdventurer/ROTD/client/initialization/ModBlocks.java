@@ -29,23 +29,24 @@ public class ModBlocks {
 //	public static Block aetherSkull;
 	
 	public static final Block[] BLOCKS = {
-		pileofstickssnow = new BlockDragonNest("pileofstickssnow", Material.WOOD),
+	//	pileofstickssnow = new BlockDragonNest("pileofstickssnow", Material.WOOD),
 		pileofsticks = new BlockDragonNest("pileofsticks", Material.WOOD),
 				
 		aetherSkull = new BlockDragonSkull(EnumDragonBreed.AETHER),
-		enchantSkull = new BlockDragonSkull(EnumDragonBreed.ENCHANT),
-		endSkull = new BlockDragonSkull(EnumDragonBreed.END),
-		fireSkull = new BlockDragonSkull(EnumDragonBreed.FIRE),
-		forestSkull = new BlockDragonSkull(EnumDragonBreed.FOREST),
-		iceSkull = new BlockDragonSkull(EnumDragonBreed.ICE),
-		netherSkull = new BlockDragonSkull(EnumDragonBreed.NETHER),
-		skeletonSkull = new BlockDragonSkull(EnumDragonBreed.SKELETON),
-		stormSkull = new BlockDragonSkull(EnumDragonBreed.STORM),
-		sunlightSkull = new BlockDragonSkull(EnumDragonBreed.SUNLIGHT),
-		terraSkull = new BlockDragonSkull(EnumDragonBreed.TERRA),
-		waterSkull = new BlockDragonSkull(EnumDragonBreed.SYLPHID),
-		witherSkull = new BlockDragonSkull(EnumDragonBreed.WITHER),
-		zombieSkull = new BlockDragonSkull(EnumDragonBreed.ZOMBIE),
+	//	enchantSkull = new BlockDragonSkull(EnumDragonBreed.ENCHANT),
+	//	endSkull = new BlockDragonSkull(EnumDragonBreed.END),
+	//	fireSkull = new BlockDragonSkull(EnumDragonBreed.FIRE),
+	//	forestSkull = new BlockDragonSkull(EnumDragonBreed.FOREST),
+	//	iceSkull = new BlockDragonSkull(EnumDragonBreed.ICE),
+	//	netherSkull = new BlockDragonSkull(EnumDragonBreed.NETHER),
+	//	skeletonSkull = new BlockDragonSkull(EnumDragonBreed.SKELETON),
+	//	stormSkull = new BlockDragonSkull(EnumDragonBreed.STORM),
+	//	sunlightSkull = new BlockDragonSkull(EnumDragonBreed.SUNLIGHT),
+	//	terraSkull = new BlockDragonSkull(EnumDragonBreed.TERRA),
+	//	waterSkull = new BlockDragonSkull(EnumDragonBreed.SYLPHID),
+	//	witherSkull = new BlockDragonSkull(EnumDragonBreed.WITHER),
+	//	zombieSkull = new BlockDragonSkull(EnumDragonBreed.ZOMBIE),
+
 		
 	};
 	

@@ -20,11 +20,11 @@ public class ItemDragonScales extends Item {
 	
 	public EnumItemBreedTypes type;
 
-	public ItemDragonScales(String unlocalizedName, EnumItemBreedTypes type, int maxStackSize) {
+	public ItemDragonScales(String unlocalizedName, EnumItemBreedTypes type) {
 	    this.setUnlocalizedName(unlocalizedName);
 	    this.setRegistryName(unlocalizedName);
 	    this.setCreativeTab(DragonMounts.TAB);
-	    this.maxStackSize = maxStackSize;
+	    this.maxStackSize = 16;
 	    this.type = type;
 	}
 	

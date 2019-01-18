@@ -198,10 +198,6 @@ public abstract class DragonBreed {
         }
     }
     
-    public SoundEvent getRoarSound() {
-        return ModSounds.DRAGON_ROAR;
-    }
-    
     public SoundEvent getHurtSound() {
         return SoundEvents.ENTITY_ENDERDRAGON_HURT;
     }

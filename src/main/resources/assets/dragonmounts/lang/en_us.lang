@@ -41,8 +41,7 @@ item.whistle.empty=No Dragons To Control
 item.whistle.noDragon=Dragon Whistle is empty, Left Click an owned and tamed dragon first
 item.whistle.limit=One Whistle can only carry 3 Dragons
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (HomePos is WIP)
-item.command.new_home=New HomePos 
-dragon.command.new_home=New homePos at
+item.command.new_home=New HomePos at
 
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
@@ -307,7 +306,6 @@ gui.circle=Circle Player
 gui.followFlying=Follow Flying
 gui.goToPlayer=Come To Player
 gui.homePos=Wander
-gui.dismount=Dismount Controller
 
 item.dragon_whistle.name=Dragon Whistle [WIP]
 

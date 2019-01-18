@@ -6,14 +6,13 @@
       "dragonmounts:mob/dragon/growl1"
     ]
   },
-  
-  "mob.dragon.roar": {
+    "mob.dragon.roar": {
   "category": "dragon_roar",
     "sounds": [
       "dragonmounts:mob/dragon/roar",
       "dragonmounts:mob/dragon/roar1",
-	  "dragonmounts:mob/dragon/roar2",
-	  "dragonmounts:mob/dragon/roar3"
+	   "dragonmounts:mob/dragon/roar2",
+	   "dragonmounts:mob/dragon/roar3"
     ]
   },
   
@@ -32,8 +31,7 @@
     "sounds": [
       "dragonmounts:mob/dragon/zombiegrowl",
       "dragonmounts:mob/dragon/zombiegrowl1",
-      "dragonmounts:mob/dragon/zombiegrowl2",
-      "dragonmounts:mob/dragon/zombiegrowl3"
+      "dragonmounts:mob/dragon/zombiegrowl2"
     ]
   },
   

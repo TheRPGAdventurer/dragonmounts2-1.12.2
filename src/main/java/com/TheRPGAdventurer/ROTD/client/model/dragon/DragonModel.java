@@ -599,7 +599,7 @@ public class DragonModel extends ModelBase {
         float sit = DragonAnimator.getSitTime();
         float cycleOfs = DragonAnimator.getCycleOfs();
         if (ground < 1) {
-            float footAirOfs = cycleOfs * 0.1f; // 0.1f
+            float footAirOfs = cycleOfs * 0.1f;
             float footAirX = 0.75f + cycleOfs * 0.1f;
 
             xAirAll[0][0] = 1.3f + footAirOfs;

@@ -1,9 +1,5 @@
 package com.TheRPGAdventurer.ROTD.client.initialization;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonControl;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.settings.KeyBinding;
@@ -29,18 +25,18 @@ public class ModKeys {
         
     	  
     }
-    @SubscribeEvent
-    public void onTick(TickEvent.ClientTickEvent evt) {
-        boolean hoverCancel = KEY_HOVERCANCEL.isPressed();
-        DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(hoverCancel));
-     //   BitSet flags = dcm.getFlags();
-     //   flags.set(0, KEY_FLY_UP.isKeyDown());
-    //    flags.set(1, KEY_FLY_DOWN.isKeyDown());
-     //   flags.set(2, KEY_HOVERCANCEL.isPressed());
+    
+/*    @SubscribeEvent
+    public void onTick(ClientTickEvent evt) {
+        BitSet flags = dcm.getFlags();
+        flags.set(0, KEY_FLY_UP.isKeyDown());
+        flags.set(1, KEY_FLY_DOWN.isKeyDown());
+        flags.set(2, KEY_HOVERCANCEL.isPressed());
         
         // send message to server if it has changed
-     //   if (dcm.hasChanged()) {
-    //        DragonMounts.NETWORK_WRAPPER.sendToServer(dcm);
-     //   }
+        if (dcm.hasChanged()) {
+            DragonMounts.NETWORK_WRAPPER.sendToServer(dcm);
+        }
     }
+    */
 }

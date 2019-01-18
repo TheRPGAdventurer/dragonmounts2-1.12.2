@@ -37,17 +37,12 @@ public class DragonBreedEnd extends DragonBreed {
     public void onDeath(EntityTameableDragon dragon) {}
     
     @Override
-    public SoundEvent getRoarSound() {
-    	return SoundEvents.ENTITY_ENDERDRAGON_GROWL;
-    }
-    
-    @Override
     public SoundEvent getLivingSound() {
-       // if (rand.nextInt(3) == 0) {
-     //       return SoundEvents.ENTITY_ENDERDRAGON_GROWL;
-     //   } else {
+        if (rand.nextInt(3) == 0) {
+            return SoundEvents.ENTITY_ENDERDRAGON_GROWL;
+        } else {
         	return ModSounds.ENTITY_DRAGON_BREATHE;
-     //   }
+        }
     }
     
 	@Override

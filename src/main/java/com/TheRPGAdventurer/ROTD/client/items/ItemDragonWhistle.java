@@ -17,7 +17,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -56,7 +55,7 @@ public class ItemDragonWhistle extends Item {
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		tooltip.add(TextFormatting.DARK_GREEN + StatCollector.translateToLocal("item.whistle.info"));
+		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.whistle.info"));
 	}
 	
 	@Override
@@ -71,7 +70,7 @@ public class ItemDragonWhistle extends Item {
 	    }
 	       				
         stack.setTagCompound(nbt);
-        if (!player.isSneaking() && stack.hasTagCompound() && !itemInteractionForEntity(stack, player, (EntityTameableDragon) Minecraft.getMinecraft().objectMouseOver.entityHit, hand)) {
+        if (!player.isSneaking() && stack.hasTagCompound()) {
       		  if (worldIn.isRemote) {
 				  this.openDragonWhistleGui(nbt.getUniqueId(DragonMounts.MODID + "dragon"), new ItemStack(this), worldIn);
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);

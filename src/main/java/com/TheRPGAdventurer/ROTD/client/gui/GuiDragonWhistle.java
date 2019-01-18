@@ -32,8 +32,6 @@ public class GuiDragonWhistle extends GuiScreen {
 	GuiButton come;
 	GuiButton sit;
 	GuiButton homePos;
-	GuiButton followg;
-//	GuiButton dismount;
 
 	boolean newState;
 
@@ -66,7 +64,6 @@ public class GuiDragonWhistle extends GuiScreen {
 		
 		homePos =   new GuiButton(0, width / 2 - 50, height / 2 + 35, 
                 98, 20, I18n.format("gui.homePos", new Object[0]));
-		
 		
 		buttonList.add(nothing);
 		buttonList.add(circle);
@@ -112,11 +109,6 @@ public class GuiDragonWhistle extends GuiScreen {
     public void homepos(boolean come) {
         setStateField(4, come);
     }
-    
-    public void followg(boolean come) {
-        setStateField(5, come);
-    }
-
 
 	@Override
 	protected void actionPerformed(GuiButton button) {

@@ -24,7 +24,7 @@ public class ItemDragonEssence extends Item {
 	    this.setUnlocalizedName(type.toString().toLowerCase() + "_dragon_essence");
 	    this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
 	    this.setCreativeTab(DragonMounts.TAB);
-	    this.maxStackSize = 16;
+	    this.maxStackSize = 1;
 	    this.type = type;
 	}
 	

@@ -119,10 +119,10 @@ public class BlockDragonSkull extends BlockSkull {
     	return true;
     }
 
-    @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-    	return new ItemStack(ModItems.SkullEnd);
-    }
+ //   @Override
+ //   public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+ //   	return new ItemStack(ModItems.SkullEnd);
+ //   }
 
     /**
      * Called before the Block is set to air in the world. Called regardless of if the player's tool can actually

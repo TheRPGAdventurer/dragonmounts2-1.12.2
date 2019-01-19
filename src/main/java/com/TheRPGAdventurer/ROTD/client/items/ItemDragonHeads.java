@@ -34,7 +34,7 @@ public class ItemDragonHeads extends Item {
 
     public ItemDragonHeads(EnumDragonBreed breed) {
         this.setRegistryName(breed + "_dragon_head");
-        this.setUnlocalizedName(breed + "_dragon_head");
+        this.setUnlocalizedName(breed + "_dragon_head"); 
         
     }
     

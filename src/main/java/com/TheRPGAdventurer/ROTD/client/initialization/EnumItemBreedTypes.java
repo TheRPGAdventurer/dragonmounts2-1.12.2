@@ -14,6 +14,7 @@ public enum EnumItemBreedTypes {
 	WITHER(TextFormatting.WHITE),
 	NETHER(TextFormatting.GOLD),
 	END(TextFormatting.LIGHT_PURPLE),
+	ENDER(TextFormatting.LIGHT_PURPLE),
 	ENCHANT(TextFormatting.LIGHT_PURPLE),
 	SUNLIGHT(TextFormatting.YELLOW),
 	SUNLIGHT2(TextFormatting.LIGHT_PURPLE),

@@ -35,9 +35,9 @@ public class ItemCarriage extends Item {
 	
 	EntityCarriage.Type type;
 	
-	public ItemCarriage(String name, EntityCarriage.Type type) {
-		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name + type.getName()));
-		this.setUnlocalizedName(name + type.getName());
+	public ItemCarriage(EntityCarriage.Type type) {
+		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "carriage_" + type.getName()));
+		this.setUnlocalizedName("carriage_"  + type.getName());
 		this.type = type;
 		this.setMaxDamage(1);
 		this.setMaxStackSize(1);

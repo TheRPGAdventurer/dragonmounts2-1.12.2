@@ -16,13 +16,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemDragonScales extends Item {
+public class ItemDragonEssence extends Item {
 	
 	public EnumItemBreedTypes type;
 
-	public ItemDragonScales(EnumItemBreedTypes type) {
-	    this.setUnlocalizedName(type.toString().toLowerCase() + "_dragonscales");
-	    this.setRegistryName(type.toString().toLowerCase() + "_dragonscales");
+	public ItemDragonEssence(EnumItemBreedTypes type) {
+	    this.setUnlocalizedName(type.toString().toLowerCase() + "_dragon_essence");
+	    this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
 	    this.setCreativeTab(DragonMounts.TAB);
 	    this.maxStackSize = 16;
 	    this.type = type;

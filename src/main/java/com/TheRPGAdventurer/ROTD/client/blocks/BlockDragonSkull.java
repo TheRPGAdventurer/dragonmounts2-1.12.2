@@ -3,11 +3,12 @@ package com.TheRPGAdventurer.ROTD.client.blocks;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDragonSkull extends BlockContainer {
+public class BlockDragonSkull extends BlockSkull {
 	
 	EnumDragonBreed breed;
 	Item item;
@@ -45,7 +46,7 @@ public class BlockDragonSkull extends BlockContainer {
     protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.0D, 0.25D, 0.25D, 0.5D, 0.75D, 0.75D);
 
     public BlockDragonSkull(EnumDragonBreed breed, Item item) {
-        super(Material.CIRCUITS);
+        super();
         this.breed = breed;
         this.item = item;
         this.setCreativeTab(DragonMounts.TAB);
@@ -100,12 +101,12 @@ public class BlockDragonSkull extends BlockContainer {
      */
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityDragonHead();
+        return new TileEntityDragonHead(breed);
     }
     
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-    	return new TileEntityDragonHead();
+    	return new TileEntityDragonHead(breed);
     }
     
     @Override
@@ -120,7 +121,7 @@ public class BlockDragonSkull extends BlockContainer {
 
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-    	return new ItemStack(item);
+    	return new ItemStack(ModItems.SkullEnd);
     }
 
     /**

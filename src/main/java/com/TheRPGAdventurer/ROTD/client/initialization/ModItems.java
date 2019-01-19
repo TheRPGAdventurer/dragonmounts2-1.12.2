@@ -2,7 +2,7 @@ package com.TheRPGAdventurer.ROTD.client.initialization;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.items.ItemCarriage;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonHeads;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonShield;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;
@@ -49,20 +49,20 @@ public class ModItems {
 	public static final Item SpawnZombie;
 	public static final Item SpawnTerra;
 	
-	public static final Item SkullForest;
-	public static final Item SkullAether;
-	public static final Item SkullFire;
-	public static final Item SkullIce;
-	public static final Item SkullWater;
-	public static final Item SkullSkeleton;
-	public static final Item SkullWither;
-	public static final Item SkullEnd;
-	public static final Item SkullNether;
-	public static final Item SkullEnchant;
-	public static final Item SkullSunlight;
-	public static final Item SkullStorm;
-	public static final Item SkullZombie;
-	public static final Item SkullTerra;
+	public static final Item EssenceForest;
+	public static final Item EssenceAether;
+	public static final Item EssenceFire;
+	public static final Item EssenceIce;
+	public static final Item EssenceWater;
+	public static final Item EssenceSkeleton;
+	public static final Item EssenceWither;
+	public static final Item EssenceEnd;
+	public static final Item EssenceNether;
+	public static final Item EssenceEnchant;
+	public static final Item EssenceSunlight;
+	public static final Item EssenceStorm;
+	public static final Item EssenceZombie;
+	public static final Item EssenceTerra;
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
@@ -92,23 +92,38 @@ public class ModItems {
 	
 	
 	public static final Item[] ITEMS = {
-		ForestDragonScales = new ItemDragonScales("forest_dragonscales", EnumItemBreedTypes.FOREST),
-		FireDragonScales = new ItemDragonScales("fire_dragonscales", EnumItemBreedTypes.FIRE),
-		FireDragonScales2 = new ItemDragonScales("fire2_dragonscales", EnumItemBreedTypes.FIRE),
-		IceDragonScales = new ItemDragonScales("ice_dragonscales", EnumItemBreedTypes.ICE),
-		WaterDragonScales = new ItemDragonScales("water_dragonscales", EnumItemBreedTypes.WATER),
-		AetherDragonScales = new ItemDragonScales("aether_dragonscales", EnumItemBreedTypes.AETHER),
-		NetherDragonScales = new ItemDragonScales("nether_dragonscales", EnumItemBreedTypes.NETHER),
-		NetherDragonScales2 = new ItemDragonScales("nether2_dragonscales", EnumItemBreedTypes.NETHER),
-		EnderDragonScales = new ItemDragonScales("ender_dragonscales", EnumItemBreedTypes.END),
-		SunlightDragonScales = new ItemDragonScales("sunlight_dragonscales", EnumItemBreedTypes.SUNLIGHT),
-		SunlightDragonScales2 = new ItemDragonScales("sunlight2_dragonscales", EnumItemBreedTypes.SUNLIGHT),
-		EnchantDragonScales = new ItemDragonScales("enchant_dragonscales", EnumItemBreedTypes.ENCHANT),
-		StormDragonScales = new ItemDragonScales("storm_dragonscales", EnumItemBreedTypes.STORM),
-		StormDragonScales2 = new ItemDragonScales("storm2_dragonscales", EnumItemBreedTypes.STORM),
-		TerraDragonScales = new ItemDragonScales("terra_dragonscales", EnumItemBreedTypes.TERRA),
-		TerraDragonScales2 = new ItemDragonScales("terra2_dragonscales", EnumItemBreedTypes.TERRA2),
-		ZombieDragonScales = new ItemDragonScales("zombie_dragonscales", EnumItemBreedTypes.ZOMBIE),
+		ForestDragonScales = new ItemDragonScales(EnumItemBreedTypes.FOREST),
+		FireDragonScales = new ItemDragonScales(EnumItemBreedTypes.FIRE),
+		FireDragonScales2 = new ItemDragonScales(EnumItemBreedTypes.FIRE),
+		IceDragonScales = new ItemDragonScales(EnumItemBreedTypes.ICE),
+		WaterDragonScales = new ItemDragonScales(EnumItemBreedTypes.WATER),
+		AetherDragonScales = new ItemDragonScales(EnumItemBreedTypes.AETHER),
+		NetherDragonScales = new ItemDragonScales(EnumItemBreedTypes.NETHER),
+		NetherDragonScales2 = new ItemDragonScales(EnumItemBreedTypes.NETHER),
+		EnderDragonScales = new ItemDragonScales(EnumItemBreedTypes.ENDER),
+		SunlightDragonScales = new ItemDragonScales(EnumItemBreedTypes.SUNLIGHT),
+		SunlightDragonScales2 = new ItemDragonScales(EnumItemBreedTypes.SUNLIGHT),
+		EnchantDragonScales = new ItemDragonScales(EnumItemBreedTypes.ENCHANT),
+		StormDragonScales = new ItemDragonScales(EnumItemBreedTypes.STORM),
+		StormDragonScales2 = new ItemDragonScales(EnumItemBreedTypes.STORM),
+		TerraDragonScales = new ItemDragonScales(EnumItemBreedTypes.TERRA),
+		TerraDragonScales2 = new ItemDragonScales(EnumItemBreedTypes.TERRA2),
+		ZombieDragonScales = new ItemDragonScales(EnumItemBreedTypes.ZOMBIE),
+		
+		EssenceForest = new ItemDragonEssence(EnumItemBreedTypes.FOREST),
+		EssenceFire = new ItemDragonEssence(EnumItemBreedTypes.FIRE),
+		EssenceIce = new ItemDragonEssence(EnumItemBreedTypes.ICE),
+		EssenceWater = new ItemDragonEssence(EnumItemBreedTypes.WATER),
+		EssenceAether = new ItemDragonEssence(EnumItemBreedTypes.AETHER),
+		EssenceNether = new ItemDragonEssence(EnumItemBreedTypes.NETHER),
+		EssenceEnd = new ItemDragonEssence(EnumItemBreedTypes.ENDER),
+	 EssenceSunlight = new ItemDragonEssence(EnumItemBreedTypes.SUNLIGHT),
+		EssenceEnchant = new ItemDragonEssence(EnumItemBreedTypes.ENCHANT),
+		EssenceStorm = new ItemDragonEssence(EnumItemBreedTypes.STORM),
+		EssenceTerra = new ItemDragonEssence(EnumItemBreedTypes.TERRA),
+		EssenceZombie = new ItemDragonEssence(EnumItemBreedTypes.ZOMBIE),
+		EssenceSkeleton = new ItemDragonEssence(EnumItemBreedTypes.SKELETON),
+		EssenceWither = new ItemDragonEssence(EnumItemBreedTypes.WITHER),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
 		SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.TAB),
@@ -117,39 +132,24 @@ public class ModItems {
 		SpawnWater = new ItemDragonSpawner(EnumItemBreedTypes.WATER, EnumDragonBreed.SYLPHID, DragonMounts.TAB),
 		SpawnSkeleton = new ItemDragonSpawner(EnumItemBreedTypes.SKELETON, EnumDragonBreed.SKELETON, DragonMounts.TAB),
 		SpawnWither = new ItemDragonSpawner(EnumItemBreedTypes.WITHER, EnumDragonBreed.WITHER, DragonMounts.TAB),
-		SpawnEnd = new ItemDragonSpawner(EnumItemBreedTypes.END, EnumDragonBreed.END, DragonMounts.TAB),
+		SpawnEnd = new ItemDragonSpawner(EnumItemBreedTypes.ENDER, EnumDragonBreed.END, DragonMounts.TAB),
 		SpawnNether = new ItemDragonSpawner(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER, DragonMounts.TAB),
 		SpawnEnchant = new ItemDragonSpawner(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT, DragonMounts.TAB),
 		SpawnSunlight = new ItemDragonSpawner(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT, DragonMounts.TAB),
 		SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
 		SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.TAB),
 		SpawnTerra = new ItemDragonSpawner(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA, DragonMounts.TAB),
-		
-		SkullAether = new ItemDragonHeads(EnumDragonBreed.AETHER),
-		SkullEnd = new ItemDragonHeads(EnumDragonBreed.END),	
-		SkullFire = new ItemDragonHeads(EnumDragonBreed.FIRE),	
-		SkullForest = new ItemDragonHeads(EnumDragonBreed.FOREST),	
-		SkullWither = new ItemDragonHeads(EnumDragonBreed.WITHER),	
-		SkullSkeleton = new ItemDragonHeads(EnumDragonBreed.SKELETON),	
-		SkullSunlight = new ItemDragonHeads(EnumDragonBreed.SUNLIGHT),	
-    	SkullTerra = new ItemDragonHeads(EnumDragonBreed.TERRA),	
-		SkullZombie = new ItemDragonHeads(EnumDragonBreed.ZOMBIE),	
-		SkullIce = new ItemDragonHeads(EnumDragonBreed.ICE),	
-		SkullEnchant = new ItemDragonHeads(EnumDragonBreed.ENCHANT),	
-		SkullWater = new ItemDragonHeads(EnumDragonBreed.SYLPHID),	
-		SkullNether = new ItemDragonHeads(EnumDragonBreed.NETHER),
-		SkullStorm = new ItemDragonHeads(EnumDragonBreed.STORM),
 
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),
 		dragon_whistle = new ItemDragonWhistle(),
 		
-		carriage_oak   = new ItemCarriage("carriage_", EntityCarriage.Type.OAK),
-		carriage_spruce = new ItemCarriage("carriage_", EntityCarriage.Type.SPRUCE),
-		carriage_birch = new ItemCarriage("carriage_", EntityCarriage.Type.BIRCH),
-		carriage_jungle = new ItemCarriage("carriage_", EntityCarriage.Type.JUNGLE),
-		carriage_acacia = new ItemCarriage("carriage_", EntityCarriage.Type.ACACIA),
-		carriage_darkoak = new ItemCarriage("carriage_", EntityCarriage.Type.DARK_OAK),
+		carriage_oak   = new ItemCarriage(EntityCarriage.Type.OAK),
+		carriage_spruce = new ItemCarriage(EntityCarriage.Type.SPRUCE),
+		carriage_birch = new ItemCarriage(EntityCarriage.Type.BIRCH),
+		carriage_jungle = new ItemCarriage(EntityCarriage.Type.JUNGLE),
+		carriage_acacia = new ItemCarriage(EntityCarriage.Type.ACACIA),
+		carriage_darkoak = new ItemCarriage(EntityCarriage.Type.DARK_OAK),
 		
 		aether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.AETHER, ModItems.AetherDragonScales),
 		forest_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FOREST, ModItems.ForestDragonScales),

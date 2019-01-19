@@ -5,16 +5,19 @@ import com.TheRPGAdventurer.ROTD.client.model.DragonModelHead;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelSkeletonHead;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityBannerRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntityBanner;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -26,9 +29,15 @@ public class TileEntityDragonRenderer extends TileEntitySpecialRenderer<TileEnti
 
     private final DragonModelHead dragonHead = new DragonModelHead();
     public static TileEntityDragonRenderer instance;
-    private final Map<EnumDragonBreed, DefaultBreedRendererTileEntity> breedRenderers = new EnumMap<>(EnumDragonBreed.class);     
+    private final Map<EnumDragonBreed, DefaultBreedRendererTileEntity> breedRenderers = new EnumMap<>(EnumDragonBreed.class);    
+    private final ModelSkeletonHead skeletonHead = new ModelSkeletonHead(0, 0, 64, 32);
     
-    public TileEntityDragonRenderer() {
+    public ResourceLocation maleBodyTexture;
+    public ResourceLocation femaleBodyTexture;
+    public ResourceLocation maleGlowTexture;
+    public ResourceLocation femaleGlowTexture;
+    
+    public TileEntityDragonRenderer() { 
     	super();
      
         // create default breed renderers
@@ -43,19 +52,27 @@ public class TileEntityDragonRenderer extends TileEntitySpecialRenderer<TileEnti
         EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
         //float f = te.getAnimationProgress(partialTicks);
        // float f = te.getAnimationProgress(partialTicks);
-        this.renderSkull((float)x, (float)y, (float)z, enumfacing, (float)(te.getSkullRotation() * 360) / 16.0F, destroyStage, partialTicks, te.breed); //, f
+        this.renderSkull((float)x, (float)y, (float)z, enumfacing, (float)(te.getSkullRotation() * 360) / 16.0F, destroyStage, partialTicks, te.breed, te); //, f
     }
 
     public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn) {
         super.setRendererDispatcher(rendererDispatcherIn);
         instance = this;
     }
+    
+    public DefaultBreedRendererTileEntity getBreedRenderer(TileEntityDragonHead te) {
+        return breedRenderers.get(te.breed); 
+    }
 
-    public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int destroyStage, float animateTicks, EnumDragonBreed breed) {
-        ModelBase modelbase = this.dragonHead;
+    public void renderSkull(float x, float y, float z, EnumFacing facing, float rotationIn, int destroyStage, float animateTicks, EnumDragonBreed breed, TileEntityDragonHead te) {
+
         String skin = breed.getBreed().getSkin();
-        ResourceLocation maleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodym.png");
-
+        maleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "ender" + "/bodym.png");
+        femaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodyfm.png");
+        maleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowm.png");
+        femaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowfm.png");
+        ModelBase modelBase = this.skeletonHead;
+        
         if (destroyStage >= 0) {
             this.bindTexture(DESTROY_STAGES[destroyStage]);
             GlStateManager.matrixMode(5890);
@@ -64,16 +81,20 @@ public class TileEntityDragonRenderer extends TileEntitySpecialRenderer<TileEnti
             GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
             GlStateManager.matrixMode(5888);
         } else {
-           this.bindTexture(maleBodyTexture);
+        	this.bindTexture(maleBodyTexture); 
+        	modelBase = this.dragonHead;
             
         }
 
-      //  GlStateManager.pushMatrix();
-     //   GlStateManager.disableCull();
+        GlStateManager.pushMatrix();
+        GlStateManager.disableCull();
 
-        if (facing == EnumFacing.UP) {
+        if (facing == EnumFacing.UP) 
+        {
             GlStateManager.translate(x + 0.5F, y, z + 0.5F);
-        } else {
+        }
+        else
+        {
             switch (facing)
             {
                 case NORTH:
@@ -100,7 +121,7 @@ public class TileEntityDragonRenderer extends TileEntitySpecialRenderer<TileEnti
         GlStateManager.enableAlpha();
 
 
-        modelbase.render((Entity)null, animateTicks, 0.0F, 0.0F, rotationIn, 0.0F, 0.0625F);
+        dragonHead.render((Entity)null, animateTicks, 0.0F, 0.0F, rotationIn, 0.0F, 0.0625F);
         GlStateManager.popMatrix();
 
         if (destroyStage >= 0)

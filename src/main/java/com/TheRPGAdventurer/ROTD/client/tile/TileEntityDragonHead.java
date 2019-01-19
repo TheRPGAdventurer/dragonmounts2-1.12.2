@@ -26,18 +26,10 @@ public class TileEntityDragonHead extends TileEntity {
     private int skullRotation;
     public EnumDragonBreed breed; 
     
-    public TileEntityDragonHead() { 
-		super();
-	}
-	
-	public void setBreed(EnumDragonBreed breed) {
-		this.breed = breed;
-	}
-	
-	public EnumDragonBreed getBreed() {
-		return breed;
-	}
-	
+    public TileEntityDragonHead(EnumDragonBreed breed) { 
+		     super();
+		     this.breed = breed;
+	   }
 	
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);

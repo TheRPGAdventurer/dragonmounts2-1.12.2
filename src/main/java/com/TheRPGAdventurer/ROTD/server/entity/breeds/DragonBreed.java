@@ -317,6 +317,11 @@ public abstract class DragonBreed {
 	public EnumParticleTypes getSneezeParticle() {
 		return EnumParticleTypes.SMOKE_LARGE;
 	}
+	
+	@Nullable
+	public Item dragonEssence() {
+		return null;
+	}
 
 }
 

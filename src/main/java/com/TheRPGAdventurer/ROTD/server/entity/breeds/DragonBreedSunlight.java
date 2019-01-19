@@ -43,4 +43,9 @@ public class DragonBreedSunlight extends DragonBreed {
 	public Item getShearDropitem(EntityTameableDragon dragon) {		
 		return dragon.isMale() ? ModItems.SunlightDragonScales : ModItems.SunlightDragonScales2;
 	}
+	
+	@Override
+	public Item dragonEssence() {
+    return ModItems.EssenceSunlight;
+ }
 }

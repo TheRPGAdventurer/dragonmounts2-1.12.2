@@ -124,5 +124,10 @@ public class DragonBreedZombie extends DragonBreed {
 	public boolean canChangeBreed() {
 		return false;
 	}
+	
+	@Override
+	public Item dragonEssence() {
+    return ModItems.EssenceZombie;
+ }
 
 }

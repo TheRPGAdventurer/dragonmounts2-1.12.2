@@ -54,5 +54,10 @@ public class DragonBreedForest extends DragonBreed {
     	return ModItems.ForestDragonScales;
     }
     
+   	@Override
+   	public Item dragonEssence() {
+ 	     return ModItems.EssenceForest;
+ 	  }
+    
 }
 	

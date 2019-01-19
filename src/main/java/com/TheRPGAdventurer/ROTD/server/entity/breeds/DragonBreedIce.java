@@ -198,4 +198,9 @@ public class DragonBreedIce extends DragonBreed {
 	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
+	
+	@Override
+	public Item dragonEssence() {
+    return ModItems.EssenceIce;
+ }
 }

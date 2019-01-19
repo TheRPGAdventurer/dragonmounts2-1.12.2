@@ -62,4 +62,9 @@ public class DragonBreedEnchant extends DragonBreed {
     public Item getShearDropitem(EntityTameableDragon dragon) {    	
     	return ModItems.EnchantDragonScales;
     }
+    
+   	@Override
+   	public Item dragonEssence() {
+ 	     return ModItems.EssenceEnchant;
+ 	  }
 }

@@ -120,5 +120,9 @@ public class DragonBreedAir extends DragonBreed {
 		return soundEffectNames;
     }   
     
+  	@Override
+  	public Item dragonEssence() {
+	     return ModItems.EssenceAether;
+	  }
 }
 	

@@ -66,5 +66,10 @@ public class DragonBreedFire extends DragonBreed {
     public Item getShearDropitem(EntityTameableDragon dragon) {    	
     	return dragon.isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
     }
+    
+   	@Override
+   	public Item dragonEssence() {
+ 	     return ModItems.EssenceFire;
+ 	  }
 	
 }

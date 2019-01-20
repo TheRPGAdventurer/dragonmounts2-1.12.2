@@ -88,7 +88,7 @@ public class DragonSoundManager extends DragonHelper {
             return;
         }
         
-        playSound(sound, 1, 1);
+        playSound(sound, 0.7f, 1);
     }
     
     /**
@@ -107,7 +107,7 @@ public class DragonSoundManager extends DragonHelper {
         if (!dragon.isInWater() && dragon.isFlying()) {
             // play wing sounds
             float pitch = (1 - speed);
-            float volume = 2.8f + (1 - speed) * 1.2f;
+            float volume = 2.2f + (1 - speed) * 1.2f;
             playSound(getWingsSound(), volume, pitch, false);
         }
     }
@@ -169,7 +169,7 @@ public class DragonSoundManager extends DragonHelper {
      * Returns the volume for a sound to play.
      */
     public float getVolume(SoundEvent sound) {   	
-        return dragon.getScale() * dragon.getBreed().getSoundVolume(sound);
+        return MathX.clamp(dragon.getScale(), 0, 1) * dragon.getBreed().getSoundVolume(sound);
     }
     
     /**

@@ -597,6 +597,7 @@ public class DragonModel extends ModelBase {
         float speed = DragonAnimator.getSpeed();
         float walk = DragonAnimator.getWalkTime();
         float sit = DragonAnimator.getSitTime();
+        float sleep = DragonAnimator.getSleepTime();
         float cycleOfs = DragonAnimator.getCycleOfs();
         if (ground < 1) {
             float footAirOfs = cycleOfs * 0.1f;
@@ -638,9 +639,12 @@ public class DragonModel extends ModelBase {
 
             xAir = xAirAll[i % 2];
 
-            // interpolate between sitting and standing
+            // interpolate between sleeping and standing
             DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sit);
-
+            
+            // interpolate between sitting and standing
+            DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sleep);
+            
             // align the toes so they're always horizontal on the ground
             xGround[3] = -(xGround[0] + xGround[1] + xGround[2]);
 

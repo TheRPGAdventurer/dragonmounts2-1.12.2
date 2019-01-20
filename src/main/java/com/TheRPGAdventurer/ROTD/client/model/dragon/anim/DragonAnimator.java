@@ -55,6 +55,7 @@ public class DragonAnimator {
     private float walk;
     private float sprint;
     private float sit;
+    private float sleep;
     private float bite;
     private float breath;
     private float speed;
@@ -67,6 +68,7 @@ public class DragonAnimator {
     private TickFloat walkTimer = new TickFloat().setLimit(0, 1);
     private TickFloat sprintTimer = new TickFloat().setLimit(0, 1);
     private TickFloat sitTimer = new TickFloat().setLimit(0, 1);
+    private TickFloat sleepTimer = new TickFloat().setLimit(0, 1);
     private TickFloat biteTimer = new TickFloat().setLimit(0, 1);
     private TickFloat breathTimer = new TickFloat().setLimit(0, 1);
     private TickFloat roarTimer = new TickFloat().setLimit(0, 1);
@@ -201,6 +203,7 @@ public class DragonAnimator {
         walk = walkTimer.get(partialTicks);
         sprint = sprintTimer.get(partialTicks);
         sit = sitTimer.get(partialTicks);
+        sleep = sleepTimer.get(partialTicks);
         bite = biteTimer.get(partialTicks);
         breath = breathTimer.get(partialTicks);
         roar = roarTimer.get(partialTicks);
@@ -379,7 +382,7 @@ public class DragonAnimator {
 
     protected void animWings() {
         // move wings slower while sitting
-        float aSpeed = sit > 0 ? 0.6f : 1;
+        float aSpeed = sit > 0 || sleep > 0 ? 0.6f : 1;
 
         // animation speeds
         float a1 = animBase * aSpeed * 0.35f;
@@ -488,7 +491,7 @@ public class DragonAnimator {
             float amp = 0.1f + i / (TAIL_SEGMENTS * 2f);
 
             rotXStand = (i - TAIL_SEGMENTS * 0.6f) * -amp * 0.4f;
-            rotXStand += (MathX.sin(animBase * 0.2f) * MathX.sin(animBase * 0.37f) * 0.4f * amp - 0.1f) * (1 - sit);
+            rotXStand += (MathX.sin(animBase * 0.2f) * MathX.sin(animBase * 0.37f) * 0.4f * amp - 0.1f) * (1 - sit); // TODO  * (1 - sleep)
             rotXSit = rotXStand * 0.8f;
 
             rotYStand = (rotYStand + MathX.sin(i * 0.45f + animBase * 0.5f)) * amp * 0.4f;
@@ -499,6 +502,10 @@ public class DragonAnimator {
             // interpolate between sitting and standing
             tail.rotateAngleX = MathX.lerp(rotXStand, rotXSit, sit);
             tail.rotateAngleY = MathX.lerp(rotYStand, rotYSit, sit);
+            
+            // interpolate between sitting and standing
+            tail.rotateAngleX = MathX.lerp(rotXStand, rotXSit, sleep);
+            tail.rotateAngleY = MathX.lerp(rotYStand, rotYSit, sleep);
 
             // interpolate between flying and grounded
             tail.rotateAngleX = MathX.lerp(rotXAir, tail.rotateAngleX, ground);
@@ -597,7 +604,7 @@ public class DragonAnimator {
     }
 
     public float getModelOffsetY() {
-        return -1.5f + (sit * 0.6f);
+        return -1.5f + (sit * 0.6f) + (sleep * 0.6f);
     }
 
     public float getModelOffsetZ() {
@@ -643,6 +650,10 @@ public class DragonAnimator {
     public float getSitTime() {
         return sit;
     }
+    
+    public float getSleepTime() {
+     return sleep;
+ }
 
     public float getCycleOfs() {
         return cycleOfs;

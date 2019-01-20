@@ -195,6 +195,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
 	public  static final DataParameter<ItemStack> WHISTLE = EntityDataManager
 			.<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<Boolean> SLEEP = EntityDataManager
+			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+ 
 
 	// data NBT IDs
 	public static final String NBT_ARMOR = "Armor";
@@ -336,6 +339,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.register(ALLOW_OTHERPLAYERS, false);
 		dataManager.register(WHISTLE_STATE, Byte.valueOf((byte) 0));
 		dataManager.register(WHISTLE, ItemStack.EMPTY);
+		dataManager.register(SLEEP, false);
 	}
 
 	@Override
@@ -372,6 +376,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
+		nbt.setBoolean("sleeping", this.isSleeping());
 		nbt.setBoolean("HasHomePosition", this.hasHomePosition);
 		if (homePos != null && this.hasHomePosition) {
 			nbt.setInteger("HomeAreaX", homePos.getX());
@@ -395,6 +400,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		this.setUsingBreathWeapon(nbt.getBoolean(NBT_BREATHING));
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
 		this.setMale(nbt.getBoolean(NBT_ISMALE));
+		this.setSleeping(nbt.getBoolean("sleeping"));
 	//	this.setBannered1(nbt.getBoolean(NBT_BANNERED1));
 	//	this.setBannered2(nbt.getBoolean(NBT_BANNERED2));
 	//	this.setBannered3(nbt.getBoolean(NBT_BANNERED3));
@@ -645,6 +651,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		L.trace("setFlying({})", flying);
 		dataManager.set(DATA_FLYING, flying);
 	}
+	
+ public boolean isSleeping() {
+   return dataManager.get(SLEEP);
+ }
+
+ public void setSleeping(boolean sleeping) {
+   dataManager.set(SLEEP, sleeping);
+ }
 
 	/**
 	 * Returns true if the entity is breathing.
@@ -750,6 +764,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (world.isRemote) {
 			this.updateBreathing();
 		}
+  if (!world.isRemote && !this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying()
+  		&& this.getAttackTarget() == null && !world.isDaytime() && this.getRNG().nextInt(250) == 0 && 
+  		this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
+   this.setSleeping(true);
+  }
 	}
 	
 	public BlockPos onGroundAir() {

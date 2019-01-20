@@ -21,7 +21,7 @@ public class DragonBreedZombie extends DragonBreed {
 	DragonBreedZombie() {
 		super("zombie", 0X5e5602);
        
-		setImmunity(DamageSource.MAGIC);
+		      setImmunity(DamageSource.MAGIC);
         setImmunity(DamageSource.HOT_FLOOR);
         setImmunity(DamageSource.LIGHTNING_BOLT);
         setImmunity(DamageSource.WITHER);

@@ -50,20 +50,20 @@ public class ModItems {
 	public static final Item SpawnZombie;
 	public static final Item SpawnTerra;
 	
-	public static final Item EssenceForest;
-	public static final Item EssenceAether;
-	public static final Item EssenceFire;
-	public static final Item EssenceIce;
-	public static final Item EssenceWater;
-	public static final Item EssenceSkeleton;
-	public static final Item EssenceWither;
-	public static final Item EssenceEnd;
-	public static final Item EssenceNether;
-	public static final Item EssenceEnchant;
-	public static final Item EssenceSunlight;
-	public static final Item EssenceStorm;
-	public static final Item EssenceZombie;
-	public static final Item EssenceTerra;
+	public static final ItemDragonEssence EssenceForest;
+	public static final ItemDragonEssence EssenceAether;
+	public static final ItemDragonEssence EssenceFire;
+	public static final ItemDragonEssence EssenceIce;
+	public static final ItemDragonEssence EssenceWater;
+	public static final ItemDragonEssence EssenceSkeleton;
+	public static final ItemDragonEssence EssenceWither;
+	public static final ItemDragonEssence EssenceEnd;
+	public static final ItemDragonEssence EssenceNether;
+	public static final ItemDragonEssence EssenceEnchant;
+	public static final ItemDragonEssence EssenceSunlight;
+	public static final ItemDragonEssence EssenceStorm;
+	public static final ItemDragonEssence EssenceZombie;
+	public static final ItemDragonEssence EssenceTerra;
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
@@ -126,20 +126,20 @@ public class ModItems {
 		SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.TAB),
 		SpawnTerra = new ItemDragonSpawner(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA, DragonMounts.TAB),
 		
-		EssenceForest = new ItemDragonEssence(EnumItemBreedTypes.FOREST),
-		EssenceFire = new ItemDragonEssence(EnumItemBreedTypes.FIRE),
-		EssenceIce = new ItemDragonEssence(EnumItemBreedTypes.ICE),
-		EssenceWater = new ItemDragonEssence(EnumItemBreedTypes.WATER),
-		EssenceAether = new ItemDragonEssence(EnumItemBreedTypes.AETHER),
-		EssenceNether = new ItemDragonEssence(EnumItemBreedTypes.NETHER),
-		EssenceEnd = new ItemDragonEssence(EnumItemBreedTypes.END),
-	 EssenceSunlight = new ItemDragonEssence(EnumItemBreedTypes.SUNLIGHT),
-		EssenceEnchant = new ItemDragonEssence(EnumItemBreedTypes.ENCHANT),
-		EssenceStorm = new ItemDragonEssence(EnumItemBreedTypes.STORM),
-		EssenceTerra = new ItemDragonEssence(EnumItemBreedTypes.TERRA),
-		EssenceZombie = new ItemDragonEssence(EnumItemBreedTypes.ZOMBIE),
-		EssenceSkeleton = new ItemDragonEssence(EnumItemBreedTypes.SKELETON),
-		EssenceWither = new ItemDragonEssence(EnumItemBreedTypes.WITHER),
+		EssenceForest = new ItemDragonEssence(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST),
+		EssenceFire = new ItemDragonEssence(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE),
+		EssenceIce = new ItemDragonEssence(EnumItemBreedTypes.ICE, EnumDragonBreed.ICE),
+		EssenceWater = new ItemDragonEssence(EnumItemBreedTypes.WATER, EnumDragonBreed.SYLPHID),
+		EssenceAether = new ItemDragonEssence(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER),
+		EssenceNether = new ItemDragonEssence(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER),
+		EssenceEnd = new ItemDragonEssence(EnumItemBreedTypes.END, EnumDragonBreed.END),
+	 EssenceSunlight = new ItemDragonEssence(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT),
+		EssenceEnchant = new ItemDragonEssence(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT),
+		EssenceStorm = new ItemDragonEssence(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM),
+		EssenceTerra = new ItemDragonEssence(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA),
+		EssenceZombie = new ItemDragonEssence(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE),
+		EssenceSkeleton = new ItemDragonEssence(EnumItemBreedTypes.SKELETON, EnumDragonBreed.SKELETON),
+		EssenceWither = new ItemDragonEssence(EnumItemBreedTypes.WITHER, EnumDragonBreed.WITHER),
 
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),

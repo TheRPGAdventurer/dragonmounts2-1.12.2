@@ -111,7 +111,7 @@ public class ItemDragonWhistle extends Item {
 					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
 				    	nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
 				    	player.sendStatusMessage(new TextComponentTranslation(
-				    	        "item.whistle.hasDragon", new Object[0]),
+				    	        "item.whistle.hasDragon", "name:" + dragonName + "owner:" + ownerName),
                                 true);
 				    }
 			    }

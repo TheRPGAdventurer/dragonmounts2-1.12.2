@@ -2,13 +2,11 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -64,7 +62,7 @@ public class DragonBreedEnchant extends DragonBreed {
     }
     
    	@Override
-   	public Item dragonEssence() {
+   	public ItemDragonEssence dragonEssence() {
  	     return ModItems.EssenceEnchant;
  	  }
 }

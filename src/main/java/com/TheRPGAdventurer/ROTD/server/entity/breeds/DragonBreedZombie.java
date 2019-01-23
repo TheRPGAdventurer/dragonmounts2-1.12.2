@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -126,7 +127,7 @@ public class DragonBreedZombie extends DragonBreed {
 	}
 	
 	@Override
-	public Item dragonEssence() {
+	public ItemDragonEssence dragonEssence() {
     return ModItems.EssenceZombie;
  }
 

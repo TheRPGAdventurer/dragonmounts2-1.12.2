@@ -215,6 +215,22 @@ public class DragonLifeStageHelper extends DragonHelper {
     }
     
     /**
+     * Sets a new life stage for the dragon.
+     * 
+     * @param lifeStage
+     */
+    public final void setLifeStageInt(int lifeStage) {
+        L.trace("setLifeStage({})", lifeStage);
+        if (dragon.isServer()) {
+            ticksSinceCreationServer = lifeStage; // lifeStage.startTicks()
+            dataWatcher.set(dataParam, ticksSinceCreationServer);
+        } else {
+            L.error("setLifeStage called on Client");
+        }
+        updateLifeStage();
+    }
+    
+    /**
      * Called when the dragon enters a new life stage.
      */ 
     private void onNewLifeStage(EnumDragonLifeStage lifeStage, EnumDragonLifeStage prevLifeStage) {

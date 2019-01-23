@@ -372,11 +372,12 @@ public class DragonAnimator {
     }
 
     protected void animHeadAndNeck() {
-        dragonHeadPositionHelper.calculateHeadAndNeck(animBase, flutter, sit, walk, speed, ground,
+        dragonHeadPositionHelper.calculateHeadAndNeck(animBase, flutter, sit, sleep, walk, speed, ground,
                 lookYaw, lookPitch, breath);
         final float BITE_ANGLE = 0.75F;
+        final float ROAR_ANGLE = 0.70F;
         final float BREATH_ANGLE = 0.75F;
-        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE + roar * BITE_ANGLE);
+        jawRotateAngleX = (bite * BITE_ANGLE + breath * BREATH_ANGLE + roar * ROAR_ANGLE);
         jawRotateAngleX += (1 - MathX.sin(animBase)) * 0.1f * flutter;
     }
 
@@ -592,11 +593,13 @@ public class DragonAnimator {
         return getBodyPitch(partialTicks);
     }
 
-    public float getBodyPitch(float partialTicks) {
-        float pitchMovingMax = 90;
-        float pitchMoving = MathX.clamp(yTrail.get(partialTicks, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
-        float pitchHoverMax = 60;
-        return Interpolation.smoothStep(pitchHoverMax, pitchMoving, speed);
+    public float getBodyPitch(float pt) {
+     float pitchMovingMax = 90;
+     float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
+     float pitchHoverMax = 60; 
+     boolean shouldChange = dragon.getBanner1() != null || dragon.getBanner2() != null || dragon.getBanner3() != null || dragon.getBanner4() != null 
+     		|| dragon.getPassengers().size() > 2 || dragon.isUnHovered();
+     return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }
 
     public float getModelOffsetX() {

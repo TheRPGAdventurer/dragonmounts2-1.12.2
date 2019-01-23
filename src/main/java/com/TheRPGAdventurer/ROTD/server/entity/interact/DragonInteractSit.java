@@ -32,9 +32,16 @@ public class DragonInteractSit extends DragonInteract {
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer() && dragon.isTamed() && (ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE) || ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) 
         		&& dragon.onGround) {
+       // 	if(!dragon.isSleeping()) {
             dragon.getAISit().setSitting(!dragon.isSitting());
+       //     dragon.setSleeping(false);
             dragon.getNavigator().clearPathEntity();
             return true;
+    //    	}
+        	
+      //  	if(dragon.isSleeping()) {
+      //     dragon.setSleeping(false);
+      //  	}
         }
         
         return false;

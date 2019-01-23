@@ -86,9 +86,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand()) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-		}  else if(!dragon.doesWantToLand() && !dragon.circleTarget1(getMidPoint()) && dragon.nothing()) {
-			 dragon.circleTarget1(getMidPoint());
-		 }
+		}  
 	}
 	
 	private BlockPos getMidPoint() {

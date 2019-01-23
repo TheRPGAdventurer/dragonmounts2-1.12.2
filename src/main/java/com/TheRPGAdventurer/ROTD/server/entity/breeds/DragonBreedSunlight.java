@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.init.Blocks;
@@ -45,7 +46,7 @@ public class DragonBreedSunlight extends DragonBreed {
 	}
 	
 	@Override
-	public Item dragonEssence() {
+	public ItemDragonEssence dragonEssence() {
     return ModItems.EssenceSunlight;
  }
 }

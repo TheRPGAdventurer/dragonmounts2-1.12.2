@@ -44,7 +44,7 @@ public class DragonHeadPositionHelper {
    * @param lookPitch
    * @param breath
    */
-  public void calculateHeadAndNeck(float animBase, float flutter, float sit, float walk, float speed, float ground,
+  public void calculateHeadAndNeck(float animBase, float flutter, float sit, float sleep, float walk, float speed, float ground,
                                    float netLookYaw, float lookPitch, float breath) {
     neckSegments = new SegmentSizePositionRotation[NUMBER_OF_NECK_SEGMENTS];
     head = new SegmentSizePositionRotation();

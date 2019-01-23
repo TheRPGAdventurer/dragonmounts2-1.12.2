@@ -291,20 +291,20 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         text.println();
     }
     
-    private void renderBreedPoints() {
-        if (dragonServer == null) {
-            return;
-        }
+  private void renderBreedPoints() {
+     if (dragonServer == null) {
+         return;
+     }
         
-        text.setColor(YELLOW);
-        text.println("Breed points");
-        text.setColor(WHITE);
+     text.setColor(YELLOW);
+     text.println("Breed points");
+     text.setColor(WHITE);
         
-        DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
-        breedHelper.getBreedPoints().forEach((breedType, points) -> {
-            text.setColor(breedType.getBreed().getColor());
-            text.printf("%s: %d\n", breedType, points.get());
-        });
+      DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
+      breedHelper.getBreedPoints().forEach((breedType, points) -> {
+        text.setColor(breedType.getBreed().getColor());
+        text.printf("%s: %d\n", breedType, points.get());
+      });
     }
 
     private void renderNavigation() {

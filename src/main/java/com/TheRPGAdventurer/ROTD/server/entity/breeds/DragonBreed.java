@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -319,7 +320,7 @@ public abstract class DragonBreed {
 	}
 	
 	@Nullable
-	public Item dragonEssence() {
+	public ItemDragonEssence dragonEssence() {
 		return null;
 	}
 

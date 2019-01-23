@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.event;
+package com.TheRPGAdventurer.ROTD.client.handler;
 
 import org.lwjgl.opengl.GL11;
 

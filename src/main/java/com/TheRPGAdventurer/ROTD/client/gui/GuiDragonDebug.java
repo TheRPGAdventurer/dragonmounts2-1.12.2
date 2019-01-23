@@ -215,6 +215,9 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String healthMax = dfShort.format(dragon.getMaxHealth());
         String healthRel = dfShort.format(dragon.getHealthRelative() * 100);
         String airTicks = dfShort.format(dragon.inAirTicks);
+    //    String airTargetX = dfShort.format(dragon.airTarget.getX());
+    //    String airTargetY = dfShort.format(dragon.airTarget.getY());
+    //    String airTargetZ = dfShort.format(dragon.airTarget.getZ());
         text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel, airTicks);
         
         // breed

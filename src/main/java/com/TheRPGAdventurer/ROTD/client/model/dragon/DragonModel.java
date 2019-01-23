@@ -643,7 +643,7 @@ public class DragonModel extends ModelBase {
             DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sit);
             
             // interpolate between sitting and standing
-            DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sleep);
+        //    DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sleep);
             
             // align the toes so they're always horizontal on the ground
             xGround[3] = -(xGround[0] + xGround[1] + xGround[2]);

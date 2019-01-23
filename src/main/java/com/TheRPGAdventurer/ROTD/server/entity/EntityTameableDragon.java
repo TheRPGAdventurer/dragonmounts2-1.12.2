@@ -777,7 +777,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
 	//	for(int width = 1; width <= this.width / 2; width++) {
-		    for(int y = 1; y <= 3.4; y++) { 
+		    for(int y = 1; y <= 3.0; y++) { 
 		      pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
 		    }
 	//	}
@@ -2386,9 +2386,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
          double targetX = airTarget.getX() + 0.5D - posX;
          double targetY = Math.min(y, 256) + 1D - posY;
          double targetZ = airTarget.getZ() + 0.5D - posZ;
-         motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * flySpeed;
-         motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * flySpeed;
-         motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * flySpeed;
+         double motionX = 0,  motionY = 0,  motionZ = 0;
+         motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 5;
+         motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 5;
+         motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * 5;
+         tryMoveToBlockPos(new BlockPos(motionX, motionY, motionZ), 1);
          float angle = (float) (Math.atan2(motionZ, motionX) * 180.0D / Math.PI) - 90.0F;
          moveForward = 0.5F;
          double d0 = airTarget.getX() + 0.5D - this.posX;
@@ -2405,7 +2407,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
              this.liftOff();
          }
      } else {
-         this.airTarget = null;
+         this.airTarget = null; 
      }
      if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) < 3 && this.doesWantToLand()) {
   //       this.setFlying(false);

@@ -86,11 +86,4 @@ public class DragonMoveHelper extends EntityMoveHelper {
         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
         }
     } 
-    
-    public void boostUp(boolean should, double factor) {
-    	if(should) {
-    		double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue();
-    		 flySpeed *= factor;
-    	}
-    }
 }

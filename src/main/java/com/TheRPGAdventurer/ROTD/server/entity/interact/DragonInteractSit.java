@@ -25,7 +25,7 @@ import net.minecraft.item.ItemStack;
 public class DragonInteractSit extends DragonInteract {
 
     public DragonInteractSit(EntityTameableDragon dragon) {
-        super(dragon);
+        super(dragon); 
     }
 
     @Override

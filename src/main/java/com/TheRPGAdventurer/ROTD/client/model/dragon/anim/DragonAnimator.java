@@ -505,8 +505,8 @@ public class DragonAnimator {
             tail.rotateAngleY = MathX.lerp(rotYStand, rotYSit, sit);
             
             // interpolate between sitting and standing
-            tail.rotateAngleX = MathX.lerp(rotXStand, rotXSit, sleep);
-            tail.rotateAngleY = MathX.lerp(rotYStand, rotYSit, sleep);
+      //      tail.rotateAngleX = MathX.lerp(rotXStand, rotXSit, sleep);
+     //       tail.rotateAngleY = MathX.lerp(rotYStand, rotYSit, sleep);
 
             // interpolate between flying and grounded
             tail.rotateAngleX = MathX.lerp(rotXAir, tail.rotateAngleX, ground);

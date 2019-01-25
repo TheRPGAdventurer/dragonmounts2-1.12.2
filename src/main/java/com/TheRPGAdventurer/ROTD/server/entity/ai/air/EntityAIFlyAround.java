@@ -24,6 +24,13 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 			return false;
 		}
 		
+		if(dragon.isTamed() && dragon.hasHomePosition) {
+			return true;
+		} else if(!dragon.isTamed()) {
+			return true;
+		}
+		
+		
 		EntityMoveHelper entitymovehelper = dragon.getMoveHelper();
 		
   double d0 = entitymovehelper.getX() - dragon.posX;
@@ -37,11 +44,9 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
  public void startExecuting() {
    Random random = dragon.getRNG();
    double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 24.0F;
-   double d1 = dragon.posY + (random.nextFloat() * 2.0F - 1.0F) * 18.0F;
+   double d1 = dragon.posY + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
    double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 24.0F;
    dragon.getMoveHelper().setMoveTo(d0, d1, d2, dragon.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
  }
 	
-	
-
 }

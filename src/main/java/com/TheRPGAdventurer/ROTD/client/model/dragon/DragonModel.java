@@ -406,97 +406,98 @@ public class DragonModel extends ModelBase {
     }
     
     private void buildLeg(boolean hind) {
-        // thinner legs for skeletons
-        
-        float baseLength = 26;
-        String baseName = hind ? "hind" : "fore";
-        
-        // thigh variables
-        float thighPosX = -11;
-        float thighPosY = 18;
-        float thighPosZ = 4;
-        
-        int thighThick = 9;
-        int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
-        
-        if (hind) {
-            thighThick++;
-            thighPosY -= 5;
-        }
+     // thinner legs for skeletons
+     boolean skeleton = breed == EnumDragonBreed.SKELETON || breed == EnumDragonBreed.WITHER;
 
-        float thighOfs = -(thighThick / 2f);
-        
-        ModelPart thigh = new ModelPart(this, baseName + "thigh");
-        thigh.setRotationPoint(thighPosX, thighPosY, thighPosZ);
-        thigh.addBox("main", thighOfs, thighOfs, thighOfs, thighThick, thighLength, thighThick);
-        
-        // crus variables
-        float crusPosX = 0;
-        float crusPosY = thighLength + thighOfs;
-        float crusPosZ = 0;
-        
-        int crusThick = thighThick - 2;
-        int crusLength = (int) (baseLength * (hind ? 0.7f : 0.8f));
-        
-        if (hind) {
-            crusThick--;
-            crusLength -= 2;
-        }
-        
-        float crusOfs = -(crusThick / 2f);
-        
-        ModelPart crus = new ModelPart(this, baseName + "crus");
-        crus.setRotationPoint(crusPosX, crusPosY, crusPosZ);
-        crus.addBox("main", crusOfs, crusOfs, crusOfs, crusThick, crusLength, crusThick);
-        thigh.addChild(crus);
-        
-        // foot variables
-        float footPosX = 0;
-        float footPosY = crusLength + (crusOfs / 2f);
-        float footPosZ = 0;
-        
-        int footWidth = crusThick + 2;
-        int footHeight = 4;
-        int footLength = (int) (baseLength * (hind ? 0.67f : 0.34f));
-        
-        float footOfsX = -(footWidth / 2f);
-        float footOfsY = -(footHeight / 2f);
-        float footOfsZ = footLength * -0.75f;
-        
-        ModelPart foot = new ModelPart(this, baseName + "foot");
-        foot.setRotationPoint(footPosX, footPosY, footPosZ);
-        foot.addBox("main", footOfsX, footOfsY, footOfsZ, footWidth, footHeight, footLength);
-        crus.addChild(foot);
-        
-        // toe variables
-        int toeWidth = footWidth;
-        int toeHeight = footHeight;
-        int toeLength = (int) (baseLength * (hind ? 0.27f : 0.33f));
+     float baseLength = 26;
+     String baseName = hind ? "hind" : "fore";
 
-        float toePosX = 0;
-        float toePosY = 0;
-        float toePosZ = footOfsZ - (footOfsY / 2f);
+     // thigh variables
+     float thighPosX = -11;
+     float thighPosY = 18;
+     float thighPosZ = 4;
 
-        float toeOfsX = -(toeWidth / 2f);
-        float toeOfsY = -(toeHeight / 2f);
-        float toeOfsZ = -toeLength;
+     int thighThick = 9 - (skeleton ? 2 : 0);
+     int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
 
-        ModelPart toe = new ModelPart(this, baseName + "toe");
-        toe.setRotationPoint(toePosX, toePosY, toePosZ);
-        toe.addBox("main", toeOfsX, toeOfsY, toeOfsZ, toeWidth, toeHeight, toeLength);
-        foot.addChild(toe);
-        
-        if (hind) {
-            hindthigh = thigh;
-            hindcrus = crus;
-            hindfoot = foot;
-            hindtoe = toe;
-        } else {
-            forethigh = thigh;
-            forecrus = crus;
-            forefoot = foot; this.
-            foretoe = toe;
-        }
+     if (hind) {
+         thighThick++;
+         thighPosY -= 5;
+     }
+
+     float thighOfs = -(thighThick / 2f);
+
+     ModelPart thigh = new ModelPart(this, baseName + "thigh");
+     thigh.setRotationPoint(thighPosX, thighPosY, thighPosZ);
+     thigh.addBox("main", thighOfs, thighOfs, thighOfs, thighThick, thighLength, thighThick);
+
+     // crus variables
+     float crusPosX = 0;
+     float crusPosY = thighLength + thighOfs;
+     float crusPosZ = 0;
+
+     int crusThick = thighThick - 2;
+     int crusLength = (int) (baseLength * (hind ? 0.7f : 0.8f));
+
+     if (hind) {
+         crusThick--;
+         crusLength -= 2;
+     }
+
+     float crusOfs = -(crusThick / 2f);
+
+     ModelPart crus = new ModelPart(this, baseName + "crus");
+     crus.setRotationPoint(crusPosX, crusPosY, crusPosZ);
+     crus.addBox("main", crusOfs, crusOfs, crusOfs, crusThick, crusLength, crusThick);
+     thigh.addChild(crus);
+
+     // foot variables
+     float footPosX = 0;
+     float footPosY = crusLength + (crusOfs / 2f);
+     float footPosZ = 0;
+
+     int footWidth = crusThick + 2 + (skeleton ? 2 : 0);
+     int footHeight = 4;
+     int footLength = (int) (baseLength * (hind ? 0.67f : 0.34f));
+
+     float footOfsX = -(footWidth / 2f);
+     float footOfsY = -(footHeight / 2f);
+     float footOfsZ = footLength * -0.75f;
+
+     ModelPart foot = new ModelPart(this, baseName + "foot");
+     foot.setRotationPoint(footPosX, footPosY, footPosZ);
+     foot.addBox("main", footOfsX, footOfsY, footOfsZ, footWidth, footHeight, footLength);
+     crus.addChild(foot);
+
+     // toe variables
+     int toeWidth = footWidth;
+     int toeHeight = footHeight;
+     int toeLength = (int) (baseLength * (hind ? 0.27f : 0.33f));
+
+     float toePosX = 0;
+     float toePosY = 0;
+     float toePosZ = footOfsZ - (footOfsY / 2f);
+
+     float toeOfsX = -(toeWidth / 2f);
+     float toeOfsY = -(toeHeight / 2f);
+     float toeOfsZ = -toeLength;
+
+     ModelPart toe = new ModelPart(this, baseName + "toe");
+     toe.setRotationPoint(toePosX, toePosY, toePosZ);
+     toe.addBox("main", toeOfsX, toeOfsY, toeOfsZ, toeWidth, toeHeight, toeLength);
+     foot.addChild(toe);
+
+     if (hind) {
+         hindthigh = thigh;
+         hindcrus = crus;
+         hindfoot = foot;
+         hindtoe = toe;
+     } else {
+         forethigh = thigh;
+         forecrus = crus;
+         forefoot = foot;
+         foretoe = toe;
+      }
     }
     
     /**

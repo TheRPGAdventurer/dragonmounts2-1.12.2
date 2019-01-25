@@ -126,7 +126,7 @@ public abstract class DragonBreed {
         		Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.CARROT, Items.COOKED_FISH,
         		Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP,
         		Items.COOKED_RABBIT, Items.FISH, Items.COOKED_FISH, Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS,
-        		Items.MELON_SEEDS};
+        		Items.MELON_SEEDS, Items.MUTTON, Items.RABBIT_STEW};
     }
     
     public Item getBreedingItem() {
@@ -291,7 +291,7 @@ public abstract class DragonBreed {
     	
 		return soundEffectNames;
     
-    }   
+   }   
     
     @Nullable
     public ResourceLocation getLootTable(EntityTameableDragon dragon) {
@@ -322,6 +322,10 @@ public abstract class DragonBreed {
 	@Nullable
 	public ItemDragonEssence dragonEssence() {
 		return null;
+	}
+	
+	public double getHealth() {
+		return 170;
 	}
 
 }

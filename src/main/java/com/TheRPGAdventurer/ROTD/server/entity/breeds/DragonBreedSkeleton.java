@@ -106,6 +106,11 @@ public class DragonBreedSkeleton extends DragonBreed {
 	public ItemDragonEssence dragonEssence() {
     return ModItems.EssenceSkeleton;
  }
+	
+	@Override
+	public double getHealth() {
+		return 145;
+	}
 
 }
 	

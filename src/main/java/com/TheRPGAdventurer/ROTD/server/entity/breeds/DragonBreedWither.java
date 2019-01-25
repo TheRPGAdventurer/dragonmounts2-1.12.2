@@ -97,6 +97,11 @@ public class DragonBreedWither extends DragonBreed {
 	public ItemDragonEssence dragonEssence() {
     return ModItems.EssenceWither;
  }
+	
+	@Override
+	public double getHealth() {
+		return 150;
+	}
 
     
 }

@@ -72,12 +72,12 @@ public class DragonMountsConfig {
 	
 	public static double ThirdPersonZoom = 13.8;
 	
-	public static double dragonFlightHeight = 50.0D;
+	public static double dragonFlightHeight = 40.0D;
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 32000; 
+	public static int GET_TICKS_PER_STAGE = 48000; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");

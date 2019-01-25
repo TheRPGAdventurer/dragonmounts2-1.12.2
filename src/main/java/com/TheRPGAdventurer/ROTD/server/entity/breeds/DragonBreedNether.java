@@ -104,5 +104,9 @@ public class DragonBreedNether extends DragonBreed {
 	public ItemDragonEssence dragonEssence() {
     return ModItems.EssenceNether;
  }
+	@Override
+	public double getHealth() {
+		return 190;
+	}
     
 }

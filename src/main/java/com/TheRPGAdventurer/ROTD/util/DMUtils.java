@@ -60,7 +60,7 @@ public class DMUtils {
 	    }
 	    return random;
 	}
-	
+	/*
 	public static BlockPos getBlockInView(EntityTameableDragon dragon) {
 		float radius = 0.75F * (dragon.getScale() * 0.5f) * - 7 - dragon.getRNG().nextInt(4 * 6);
 		float neg = dragon.getRNG().nextBoolean() ? 1 : -1;
@@ -70,7 +70,7 @@ public class DMUtils {
 			BlockPos ground = dragon.world.getHeight(dragonPos);
 			int distFromGround = (int) dragon.posY - ground.getY();
 			for(int i = 0; i < 10; i++){
-				BlockPos pos = new BlockPos(dragon.homePos.getX() + dragon.getRNG().nextInt(40) - 40, (distFromGround > 16 ? (int) Math.min(128, dragon.posY + dragon.getRNG().nextInt(16) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1), (dragon.homePos.getZ() + dragon.getRNG().nextInt(40 * 2) - 40));
+				BlockPos pos = new BlockPos(dragon.homePos.getX() + dragon.getRNG().nextInt(40) - 40, (distFromGround > 16 ? (int) Math.min(128, dragon.posY + 5 - 8) : (int) dragon.posY + 5 + 1), (dragon.homePos.getZ() + 5 - 40));
 				if (!dragon.isTargetBlocked(new Vec3d(pos)) && dragon.getDistanceSqToCenter(pos) > 6) {
 					return pos;
 				}
@@ -83,12 +83,13 @@ public class DMUtils {
 		BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
 		BlockPos ground = dragon.world.getHeight(radialPos);
 		int distFromGround = (int) dragon.posY - ground.getY();
-		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(128, dragon.posY + dragon.getRNG().nextInt(16) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1);
+		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(128, dragon.posY + 5 - 8) : (int) dragon.posY + 5 + 1);
 		BlockPos pos = dragon.doesWantToLand() ? ground : newPos;
 		if (!dragon.isTargetBlocked(new Vec3d(newPos)) && dragon.getDistanceSqToCenter(newPos) > 6) {
 			return newPos;
 		}
 		return null;
 	}
+	*/
 	
 }

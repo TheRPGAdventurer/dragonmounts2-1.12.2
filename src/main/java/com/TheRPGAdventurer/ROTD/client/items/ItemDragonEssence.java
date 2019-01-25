@@ -12,9 +12,14 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -101,6 +106,27 @@ public class ItemDragonEssence extends Item {
  public boolean onEntityItemUpdate(net.minecraft.entity.item.EntityItem entityItem)
  {
      return false;
+ }
+ 
+ @Override
+ public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+ 		float hitX, float hitY, float hitZ) {
+	 ItemStack stack = new ItemStack(this);
+ 	NBTTagCompound nbt = stack.getTagCompound();		
+  if (stack.hasTagCompound()) {
+    nbt = stack.getTagCompound(); 
+  } else {
+    nbt = new NBTTagCompound();
+  }
+				
+  stack.setTagCompound(nbt);
+ 	if(stack.getTagCompound().hasKey("essenceDragonId")) {
+  	EntityTameableDragon dragon = new EntityTameableDragon(world);
+  	dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceDragonId"));
+  	dragon.setOwnerId(stack.getTagCompound().getUniqueId("essenceOwnerId"));
+ 	 world.spawnEntity(dragon);
+ 	}
+ 	return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
  }
 
 }

@@ -17,6 +17,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -106,7 +107,7 @@ public class ItemDragonWhistle extends Item {
 			
 			if (dragon.isTamedFor(player)) {
 				if(stack.getTagCompound() != null) {
-				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon")) { 					        
+				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand())) { 					        
 				    	String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
 					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
 				    	nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
@@ -124,6 +125,17 @@ public class ItemDragonWhistle extends Item {
 		} else {
 			return false;
 		}
+	}
+	@Override
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target,
+			EnumHand hand) {
+		if(target instanceof EntityTameableDragon) {
+			EntityTameableDragon dragon = (EntityTameableDragon) target;
+			if(dragon.isTamedFor(playerIn)) {
+				dragon.getAISit().setSitting(!dragon.isSitting());
+			}
+		}
+		return super.itemInteractionForEntity(stack, playerIn, target, hand);
 	}
 	
 //	@Override

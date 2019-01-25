@@ -72,21 +72,21 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null && dragon.nothing();
+				&& findLandingBlock() && dragon.getRevengeTarget() == null && dragon.nothing() && !dragon.isFlyingAround();
 	}
 
 	@Override
 	public boolean shouldContinueExecuting() {
-		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && dragon.nothing();
+		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && dragon.nothing() && !dragon.isFlyingAround();
 	}
 
 	@Override
 	public void startExecuting() {
 		// try to fly to ground block position
-		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand()) {
+		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand() && !dragon.isFlyingAround()) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-		}  
+		}
 	}
 	
 	private BlockPos getMidPoint() {

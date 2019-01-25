@@ -28,7 +28,6 @@ import org.apache.logging.log4j.Logger;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
@@ -42,7 +41,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBodyHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBrain;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonLifeStageHelper;
@@ -50,7 +48,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonMoveHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
@@ -59,7 +56,6 @@ import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 
-import net.ilexiconn.llibrary.server.entity.multipart.PartEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -70,15 +66,13 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityMultiPart;
-import net.minecraft.entity.MultiPartEntityPart;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -94,7 +88,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializer;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
@@ -103,16 +96,15 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -358,6 +350,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(RESISTANCE);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(BASE_ARMOR);
 		getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(BASE_TOUGHNESS);
+	//	getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(this.getBreed().getHealth());
 	}
 
 	/**
@@ -737,8 +730,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (canFly()) {		
 			boolean ridden = isBeingRidden();
 			// stronger jump for an easier lift-off
-			motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 2;
-			inAirTicks += ridden || (isInWater() && isInLava()) ? 2.0 : 5;
+			motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 3;
+			inAirTicks += ridden || (isInWater() && isInLava()) ? 3.0 : 5;
 			jump();
 		}
 	}
@@ -756,7 +749,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (hasControllingPlayer(mc.player)) {
 			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
 			boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isKeyDown();
-			DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isHoverCancel));
+			DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing));
 		}
 	}
 
@@ -777,7 +770,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
 	//	for(int width = 1; width <= this.width / 2; width++) {
-		    for(int y = 1; y <= 3.0; y++) { 
+		    for(int y = 1; y <= 3.4; y++) { 
 		      pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
 		    }
 	//	}
@@ -788,6 +781,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		IBlockState state = world.getBlockState(onGroundAir());
 		return !state.getMaterial().isSolid();
 		
+	}
+	
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		this.setHealth(200);
+		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
 	@Override
@@ -820,15 +819,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				inAirTicks = 0;
 			}
 			
-   if (this.isFlying() && getAttackTarget() == null) {
-    flyAround();
-   } else if (getAttackTarget() != null) {
-    flyTowardsTarget();
-   }
-			
 			if(this.onGround && !isFlying() && this.getControllingPlayer() == null 
 					&& !this.isHatchling() && this.getRNG().nextInt(1000) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition))) {
 				this.liftOff();
+				this.setFlyingAround(inAirTicks < 6000 && getControllingPlayer() == null);
 				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
 
@@ -837,7 +831,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			if (flying != isFlying()) { 
 
 				// notify client
-				 setFlying((flying));
+				 setFlying(flying);
 
 				// clear tasks (needs to be done before switching the navigator!)
 				getBrain().clearTasks();
@@ -860,7 +854,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			
 			if(getRNG().nextInt(500) == 1) {
 				roar();
-				DMUtils.getLogger().info("roar is called");
 			}
 			
 			ItemStack whistle = this.getControllingWhistle();
@@ -886,6 +879,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			if (roarTicks > 1000) {
 				roarTicks = -1; // reset at arbitrary large value
 			}
+		}
+		
+		if(this.isFlyingAround()) {
+	//		this.flyAround();
 		}
 
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
@@ -1025,15 +1022,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			return false;
 		}
 		
-		Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-    	Vec3d vec2 = new Vec3d(0,0,1);
+		 Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
+   Vec3d vec2 = new Vec3d(0,0,1);
     	
-    	int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
-    	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-       	double r = 0.9 * DragonMountsConfig.dragonFlightHeight;  
-        double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
-        double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight + 0.5; 
-        double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
+   int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
+  	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+   double r = 0.9 * DragonMountsConfig.dragonFlightHeight;  
+   double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
+   double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight + 0.5; 
+   double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
        
     	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
 	}
@@ -2272,11 +2269,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 	}
 
-//	@Override
-	//public World getWorld() {
-	//	return world;
-//	}
-
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float damage) {
 		Entity sourceEntity = source.getTrueSource();
@@ -2348,88 +2340,29 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      return airTarget != null && world.getBlockState(airTarget).getMaterial() == Material.AIR;
     }
     
-    public void flyAround() {
-     if (airTarget != null) {
-         if (!isTargetInAir() || inAirTicks > 6000 || !this.isFlying()) {
-             airTarget = null;
-         }
-         flyTowardsTarget();
+   	public BlockPos findLandingArea(BlockPos pos) {
+   		for (int Y = 1; Y <= 2; Y++) {
+   			for (int Z = 1; Z <= 2; Z++) {
+   				for (int X = 1; X <= 2; X++) {
+   					    world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid(); {
+   						pos = pos.down();
+   					}				    
+   				}
+   			}
+   		}
+   		return pos;
+   	}
+   	
+    protected double getFollowRange() {
+     return this.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();
+    }
+    
+    public boolean flyAround() {
+   		if (isFlyingAround()) {
+       return circleTarget2(new BlockPos(0, 4, 0), 44, 23, 4, false, 4, 4);
      }
+					return false;
    }
-    
-    public boolean isTargetBlocked(Vec3d target) {
-     if (target != null) {
-         RayTraceResult rayTrace = world.rayTraceBlocks(new Vec3d(this.getPosition()), target, false);
-         if (rayTrace != null && rayTrace.hitVec != null) {
-             BlockPos pos = new BlockPos(rayTrace.hitVec);
-             if (!world.isAirBlock(pos)) {
-                 return true;
-             }
-             return rayTrace != null && rayTrace.typeOfHit != RayTraceResult.Type.BLOCK;
-         }
-     }
-     return false;
-    }
-    
-    protected boolean tryMoveToBlockPos(BlockPos pos, double speed) {
-     return this.getNavigator().tryMoveToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, speed);
-    }
-    
-    public void flyTowardsTarget() {
-     if(airTarget != null && airTarget.getY() > 128){
-         airTarget = new BlockPos(airTarget.getX(), 128, airTarget.getZ());
-     }
-     if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) > 3) {
-         double y = this.posY;// this.attackDecision ? airTarget.getY() : 
-
-         double flySpeed = this.getEntityAttribute(MOVEMENT_SPEED_AIR).getAttributeValue();
-         double targetX = airTarget.getX() + 0.5D - posX;
-         double targetY = Math.min(y, 256) + 1D - posY;
-         double targetZ = airTarget.getZ() + 0.5D - posZ;
-         double motionX = 0,  motionY = 0,  motionZ = 0;
-         motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 5;
-         motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 5;
-         motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * 5;
-         tryMoveToBlockPos(new BlockPos(motionX, motionY, motionZ), 1);
-         float angle = (float) (Math.atan2(motionZ, motionX) * 180.0D / Math.PI) - 90.0F;
-         moveForward = 0.5F;
-         double d0 = airTarget.getX() + 0.5D - this.posX;
-         double d2 = airTarget.getZ() + 0.5D - this.posZ;
-         double d1 = y + 0.5D - this.posY;
-         double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-         float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-         float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
-     //    this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
-     //    this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
-
-         if (!this.isFlying()) {
-             this.setFlying(true);
-             this.liftOff();
-         }
-     } else {
-         this.airTarget = null; 
-     }
-     if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) < 3 && this.doesWantToLand()) {
-  //       this.setFlying(false);
- //        this.setHovering(true);
-   //      this.flyHovering = 1;
-     }
- }
-    
-    private float updateRotation(float angle, float targetAngle, float maxIncrease) {
-     float f = MathHelper.wrapDegrees(targetAngle - angle);
-
-     if (f > maxIncrease) {
-         f = maxIncrease;
-     }
-
-     if (f < -maxIncrease) {
-         f = -maxIncrease;
-     }
-
-     return angle + f;
- }
-
 
     /**
      * Attacks all entities inside this list, dealing 5 hearts of damage.

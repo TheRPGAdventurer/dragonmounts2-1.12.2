@@ -1,10 +1,9 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
@@ -13,6 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 
 public class DragonBreedSkeleton extends DragonBreed {
@@ -75,17 +76,15 @@ public class DragonBreedSkeleton extends DragonBreed {
 		return false;
 	}
 	
-//	@Override
-//  public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
-//		dragon.getBreathHelper().getBreathAffectedAreaIce().continueBreathing(world, origin, endOfLook, power);
-//		dragon.getBreathHelper().getBreathAffectedAreaIce().updateTick(world);
-//   }
+	@Override
+  public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
+		return;
+   }
   
-//	@Override
-//   public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
-//		dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
-//		dragon.getBreathHelper().getEmitter().spawnBreathParticlesforIceDragon(world, power, tickCounter);
-//   }
+	@Override
+   public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
+		return;
+   }
 	
 	@Override
 	public ResourceLocation getLootTable(EntityTameableDragon dragon) {

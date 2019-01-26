@@ -812,7 +812,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	@Override
 	public void onEntityUpdate() {
-		if(getRNG().nextInt(700) == 1) {
+		if(getRNG().nextInt(500) == 1) {
 			roar();
 		}
 		super.onEntityUpdate();
@@ -1033,7 +1033,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         int directionInt = direction ? 1 : -1;
         return this.getNavigator().tryMoveToXYZ(
         		 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
-        		 DragonMountsConfig.dragonFlightHeight + target.getY(), 
+        		 30 + target.getY(), // DragonMountsConfig.dragonFlightHeight
         		 target.getZ() + radius * Math.sin(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
         		speed * moveSpeedMultiplier);
     }
@@ -1048,9 +1048,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     	
    int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
   	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-   double r = 0.9 * DragonMountsConfig.dragonFlightHeight;  
+   double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
    double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
-   double y = midPoint.getY() + DragonMountsConfig.dragonFlightHeight + 0.5; 
+   double y = midPoint.getY() + 30 + 0.5; // DragonMountsConfig.dragonFlightHeight
    double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
        
     	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
@@ -1349,13 +1349,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 		
 		if(this.isTamed()) {
-			ItemDragonEssence essence = dragonEssence();
-			essence.setDragonNBT(this);
+			Item essence = dragonEssence();
+		//	essence.setDragonNBT(this);
 			dropItem(essence, 1);
 		}
 	}
 	
-	public ItemDragonEssence dragonEssence() {
+	public Item dragonEssence() {
 		switch(getBreedType()) {
 		case AETHER:
 			return ModItems.EssenceAether;

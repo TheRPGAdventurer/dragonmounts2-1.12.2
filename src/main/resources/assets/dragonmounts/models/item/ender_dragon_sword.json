@@ -3,39 +3,39 @@
 	"textures": {
 	    "layer0": "dragonmounts:items/ender_dragon_sword"
 	},
-	"display": {
+  "display": {
     "thirdperson_righthand": {
       "rotation": [
         0,
         -90,
-        55
+        50
       ],
       "translation": [
         0,
-        4.0,
-        1
+        4,
+        2
       ],
       "scale": [
-        0.9,
-        0.9,
-        0.95
+        1.1,
+        1.1,
+        1.1
       ]
     },
     "thirdperson_lefthand": {
       "rotation": [
         0,
         90,
-        -55
+        -40
       ],
       "translation": [
         0,
-        4.0,
-        1
+        5,
+        2
       ],
       "scale": [
-        0.9,
-        0.9,
-        0.95
+        1.1,
+        1.1,
+        1.1
       ]
     },
     "firstperson_righthand": {
@@ -50,9 +50,9 @@
         2.26
       ],
       "scale": [
-        0.9,
-        0.9,
-        0.98
+        1.0,
+        1.0,
+        1.0
       ]
     },
     "firstperson_lefthand": {
@@ -67,9 +67,9 @@
         2.26
       ],
       "scale": [
-        0.9,
-        0.9,
-        0.98
+        1.2,
+        1.2,
+        1.2
       ]
     },
     "gui": {
@@ -79,8 +79,8 @@
         0
       ],
       "translation": [
-        -2,
-        -1.6,
+        0,
+        0,
         0
       ],
       "scale": [
@@ -90,5 +90,4 @@
       ]
     }
   }
-}
 }

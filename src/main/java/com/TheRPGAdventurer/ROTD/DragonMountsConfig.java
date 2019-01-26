@@ -72,7 +72,6 @@ public class DragonMountsConfig {
 	
 	public static double ThirdPersonZoom = 13.8;
 	
-	public static double dragonFlightHeight = 60.0D;
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	
@@ -173,11 +172,6 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", ThirdPersonZoom);
 		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
 		ThirdPersonZoom = prop.getDouble();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_CLIENTDM2, "FLIGHT HEIGHT", dragonFlightHeight);
-		prop.setComment("How high would the dragon fly without the rider");
-		dragonFlightHeight = prop.getDouble();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_CLIENTDM2, "Wander From HomeDist", dragonanderFromHomeDist);

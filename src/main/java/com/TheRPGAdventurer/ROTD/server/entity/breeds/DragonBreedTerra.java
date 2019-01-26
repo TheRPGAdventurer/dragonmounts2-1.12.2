@@ -49,9 +49,5 @@ public class DragonBreedTerra extends DragonBreed {
 		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_TERRA : DragonMountsLootTables.ENTITIES_DRAGON_TERRA2;
 	}
 	
-	@Override
-	public ItemDragonEssence dragonEssence() {
-    return ModItems.EssenceTerra;
- }
 
 }

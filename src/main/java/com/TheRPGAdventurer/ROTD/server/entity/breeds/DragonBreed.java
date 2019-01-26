@@ -320,11 +320,6 @@ public abstract class DragonBreed {
 		return EnumParticleTypes.SMOKE_LARGE;
 	}
 	
-	@Nullable
-	public ItemDragonEssence dragonEssence() {
-		return ModItems.EssenceEnd;
-	}
-	
 	public double getHealth() {
 		return 170;
 	}

@@ -78,10 +78,6 @@ public class DragonBreedEnd extends DragonBreed {
     	return ModItems.EnderDragonScales;
     }
     
-   	@Override
-   	public ItemDragonEssence dragonEssence() {
- 	     return ModItems.EssenceEnd;
- 	  }
     
 }
 	

@@ -199,8 +199,4 @@ public class DragonBreedIce extends DragonBreed {
 		return null;
 	}
 	
-	@Override
-	public ItemDragonEssence dragonEssence() {
-    return ModItems.EssenceIce;
- }
 }

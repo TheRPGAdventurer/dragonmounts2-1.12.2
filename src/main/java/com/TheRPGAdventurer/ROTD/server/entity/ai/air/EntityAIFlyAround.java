@@ -28,11 +28,11 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 		} 
 	//else
 		
-//		if(dragon.isTamed()) {
-//			if(dragon.hasHomePosition) {
-	//		  return true;
-	//		}
-//		} 
+		if(dragon.isTamed()) {
+			if(dragon.hasHomePosition) {
+			  return true;
+			}
+		} 
 		
 		
 		EntityMoveHelper entitymovehelper = dragon.getMoveHelper();

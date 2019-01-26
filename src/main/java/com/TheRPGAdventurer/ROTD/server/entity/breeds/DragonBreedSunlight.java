@@ -45,8 +45,4 @@ public class DragonBreedSunlight extends DragonBreed {
 		return dragon.isMale() ? ModItems.SunlightDragonScales : ModItems.SunlightDragonScales2;
 	}
 	
-	@Override
-	public ItemDragonEssence dragonEssence() {
-    return ModItems.EssenceSunlight;
- }
 }

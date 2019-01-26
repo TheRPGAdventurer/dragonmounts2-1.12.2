@@ -145,9 +145,5 @@ public class DragonBreedWater extends DragonBreed {
 		return null;
 	}
 	
-	@Override
-	public ItemDragonEssence dragonEssence() {
-    return ModItems.EssenceWater;
- }
 
 }

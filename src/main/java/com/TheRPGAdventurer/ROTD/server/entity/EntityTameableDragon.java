@@ -163,8 +163,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> FLY_AROUND = EntityDataManager
-			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
 			.<Optional<UUID>>createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<String> DATA_BREED = EntityDataManager
@@ -230,6 +228,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /** True if after a move this entity has collided with something on Y-axis */
     public boolean isCollidedVertically2;
 	private boolean isUsingBreathWeapon;
+	private boolean isUnhovered;
 	public boolean isSlowed;
 	public int inAirTicks;
 	public final EntityAITasks attackTasks;
@@ -340,7 +339,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.register(WHISTLE, ItemStack.EMPTY);
 		dataManager.register(SLEEP, false);
 		dataManager.register(HOVER_CANCELLED, false);
-		dataManager.register(FLY_AROUND, false);
 	}
 
 	@Override
@@ -478,32 +476,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public boolean isChested() {
 		return dataManager.get(CHESTED);
 	}
-
+			
 	public void setChested(boolean chested) {
 		dataManager.set(CHESTED, chested);
 		hasChestVarChanged = true;
 	}
 	
-	public boolean isUnHovered() {
-		return dataManager.get(HOVER_CANCELLED);
-	}
-
-	public void setUnHovered(boolean unhover) {
-		dataManager.set(HOVER_CANCELLED, unhover);
-	}
-	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 5000 && getControllingPlayer() == null) {
+		if(inAirTicks < 15000 && getControllingPlayer() == null) {
   	return true;
  	} else {
  		return false;
  	}
 	}
-	
-	public void setFlyingAround(boolean isFlyingAround) {
-		dataManager.set(FLY_AROUND, isFlyingAround);
-	}
-	
 	public boolean canBeAdjucator() {
 		return dataManager.get(HAS_ADJUCATOR_STONE);
 	}
@@ -697,6 +682,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			this.isUsingBreathWeapon = usingBreathWeapon;
 		}
 	}
+	
+	public boolean isUnHovered() {
+		if(world.isRemote) {
+	 	boolean isUnhovered =  dataManager.get(HOVER_CANCELLED);
+ 		this.isUnhovered = isUnhovered;
+		 return isUnhovered;
+		}
+		return isUnhovered;
+	}
+
+	public void setUnHovered(boolean isUnhovered) {
+		dataManager.set(HOVER_CANCELLED, isUnhovered);
+		if(!world.isRemote) {
+			this.isUnhovered = isUnhovered;
+		}
+	}
 
 	/**
 	 * Called when the mob is falling. Calculates and applies fall damage.
@@ -808,6 +809,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		this.setHealth(200);
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
+	
+	@Override
+	public void onEntityUpdate() {
+		if(getRNG().nextInt(700) == 1) {
+			roar();
+		}
+		super.onEntityUpdate();
+	}
 
 	@Override
 	public void onLivingUpdate() {
@@ -872,10 +881,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				
 			}
 			
-			if(getRNG().nextInt(500) == 1) {
-				roar();
-			}
-			
 			ItemStack whistle = this.getControllingWhistle();
 			if(whistle != null && whistle.getTagCompound() != null && 
 					!whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(this.getUniqueID())
@@ -915,7 +920,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 		updateShearing();
 		updateDragonEnderCrystal(); 
-		regenerateHealth();
+//		regenerateHealth();
 		updateForRiding();
 		ACHOOOOO();
 
@@ -1344,9 +1349,45 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		}
 		
 		if(this.isTamed()) {
-			ItemDragonEssence essence = getBreed().dragonEssence();
+			ItemDragonEssence essence = dragonEssence();
 			essence.setDragonNBT(this);
 			dropItem(essence, 1);
+		}
+	}
+	
+	public ItemDragonEssence dragonEssence() {
+		switch(getBreedType()) {
+		case AETHER:
+			return ModItems.EssenceAether;
+		case ENCHANT:
+			return ModItems.EssenceEnchant;
+		case END:
+			return ModItems.EssenceEnd;
+		case FIRE:
+			return ModItems.EssenceFire;
+		case FOREST:
+			return ModItems.EssenceForest;
+		case ICE:
+			return ModItems.EssenceIce;
+		case NETHER:
+			return ModItems.EssenceNether;
+		case SKELETON:
+			return ModItems.EssenceSkeleton;
+		case STORM:
+			return ModItems.EssenceStorm;
+		case SUNLIGHT:
+			return ModItems.EssenceSunlight;
+		case SYLPHID:
+			return ModItems.EssenceWater;
+		case TERRA:
+			return ModItems.EssenceTerra;
+		case WITHER:
+			return ModItems.EssenceWither;
+		case ZOMBIE:
+			return ModItems.EssenceZombie;
+		default:
+			return ModItems.EssenceEnd;
+		
 		}
 	}
 	

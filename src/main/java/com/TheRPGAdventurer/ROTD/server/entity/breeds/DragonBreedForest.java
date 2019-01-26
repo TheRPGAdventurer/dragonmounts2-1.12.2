@@ -53,11 +53,7 @@ public class DragonBreedForest extends DragonBreed {
     public Item getShearDropitem(EntityTameableDragon dragon) {   
     	return ModItems.ForestDragonScales;
     }
-    
-   	@Override
-   	public ItemDragonEssence dragonEssence() {
- 	     return ModItems.EssenceForest;
- 	  }
+ 
     
 }
 	

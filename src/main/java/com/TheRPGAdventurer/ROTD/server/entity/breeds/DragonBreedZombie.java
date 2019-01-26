@@ -127,11 +127,6 @@ public class DragonBreedZombie extends DragonBreed {
 	}
 	
 	@Override
-	public ItemDragonEssence dragonEssence() {
-    return ModItems.EssenceZombie;
- }
-	
-	@Override
 	public double getHealth() {
 		return 150;
 	}

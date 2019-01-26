@@ -99,11 +99,7 @@ public class DragonBreedNether extends DragonBreed {
 	public Item getShearDropitem(EntityTameableDragon dragon) {		
 		return dragon.isMale() ? ModItems.NetherDragonScales : ModItems.NetherDragonScales2;
 	}
-	
-	@Override
-	public ItemDragonEssence dragonEssence() {
-    return ModItems.EssenceNether;
- }
+
 	@Override
 	public double getHealth() {
 		return 190;

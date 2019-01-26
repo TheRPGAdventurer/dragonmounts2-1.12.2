@@ -45,14 +45,9 @@ public class ItemDragonSpawner extends Item {
         this.setMaxStackSize(1);
         this.setCreativeTab(tAB);
         this.breed = breed;
-        this.type = type;
+        this.type = type; 
     }
-
-    @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
-        return true;
-    }
-
+    
     public EntityTameableDragon spawnEntityTameableDragon(World world, EntityPlayer player, ItemStack stack, double x, double y, double z) {
     	EntityTameableDragon dragon = new EntityTameableDragon(world);
             try {               

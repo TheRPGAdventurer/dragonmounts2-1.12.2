@@ -483,7 +483,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 15000 && getControllingPlayer() == null) {
+		if(inAirTicks < 15000 && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
   	return true;
  	} else {
  		return false;
@@ -940,6 +940,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				}
 			}
 		}
+		
+		if(!this.world.isRemote) {
+				if(this.isTamed()) {
+		  	ItemDragonEssence essence = dragonEssence();
+			  essence.setDragonNBT(this);
+			  entityDropItem(new ItemStack(essence), 1);
+			}
+		}
 	}
 
 	/**
@@ -1347,15 +1355,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		  }
 			}
 		}
-		
-		if(this.isTamed()) {
-			Item essence = dragonEssence();
-		//	essence.setDragonNBT(this);
-			dropItem(essence, 1);
-		}
 	}
 	
-	public Item dragonEssence() {
+	public ItemDragonEssence dragonEssence() {
 		switch(getBreedType()) {
 		case AETHER:
 			return ModItems.EssenceAether;

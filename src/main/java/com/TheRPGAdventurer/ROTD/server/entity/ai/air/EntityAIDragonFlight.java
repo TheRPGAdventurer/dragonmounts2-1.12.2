@@ -83,7 +83,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 	@Override
 	public void startExecuting() {
 		// try to fly to ground block position
-		if (!tryMoveToBlockPos(landingPos, speed) && dragon.nothing() && dragon.doesWantToLand() && !dragon.isFlyingAround()) {
+		if (!tryMoveToBlockPos(landingPos, speed) && !dragon.isFlyingAround()) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
 		}

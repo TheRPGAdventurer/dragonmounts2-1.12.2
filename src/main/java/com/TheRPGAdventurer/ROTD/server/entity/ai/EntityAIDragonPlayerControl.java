@@ -84,7 +84,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             } 
             
             x += wp.x * 4.5;
-            y += wp.y * 4.5;         
+            y += !dragon.isUnHovered() ? wp.y * 4.5 : 0;         
             z += wp.z * 4.5;         
      }
       

@@ -72,7 +72,7 @@ public class DragonMountsConfig {
 	
 	public static double ThirdPersonZoom = 13.8;
 	
-	public static double dragonFlightHeight = 40.0D;
+	public static double dragonFlightHeight = 60.0D;
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	

@@ -119,12 +119,12 @@ public class DragonBrain extends DragonHelper {
         tasks.addTask(3, new EntityAIDragonWhistle(dragon));
         tasks.addTask(3, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex all
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(dragon, 1)); // mutex 1
-        tasks.addTask(5, new EntityAIFlyAround(dragon));
       //  tasks.addTask(6, new DragonAIAirTarget(dragon));
 
-        if (dragon.isFlying()) {
-            tasks.addTask(2, new EntityAIDragonFlight(dragon, 1)); // mutex 1
+        if (dragon.isFlying() && !dragon.isFlyingAround()) {
+            tasks.addTask(6, new EntityAIDragonFlight(dragon, 1)); // mutex 1
         } else {
+            tasks.addTask(5, new EntityAIFlyAround(dragon));
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4
             tasks.addTask(7, new  EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 15, 128)); // mutex 2+1
@@ -133,8 +133,8 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
             tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
 
-            targetTasks.addTask(5, new EntityAINearestAttackableTarget(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
-            targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
+         //   targetTasks.addTask(5, new EntityAINearestAttackableTarget(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
+         //   targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
 
             if (dragon.isHatchling()) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.7F)); // mutex 1

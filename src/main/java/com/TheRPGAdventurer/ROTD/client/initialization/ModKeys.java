@@ -15,7 +15,7 @@ public class ModKeys {
     
     public static void init() {
     	KEY_BREATH = new KeyBinding("key.dragon.breath", Keyboard.KEY_R, KEY_CATEGORY);
-    	KEY_HOVERCANCEL = new KeyBinding("key.dragon.cancelhover", Keyboard.KEY_X, KEY_CATEGORY);
+    	KEY_HOVERCANCEL = new KeyBinding("key.dragon.cancelhover", Keyboard.KEY_LCONTROL, KEY_CATEGORY);
     	KEY_FLY_UP = new KeyBinding("key.dragon.flyUp", Keyboard.KEY_SPACE, KEY_CATEGORY);
     	KEY_FLY_DOWN = new KeyBinding("key.dragon.flyDown", Keyboard.KEY_LCONTROL, KEY_CATEGORY);
         ClientRegistry.registerKeyBinding(KEY_BREATH);

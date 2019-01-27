@@ -483,7 +483,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 15000 && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
+		if(inAirTicks < 75000 && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
   	return true;
  	} else {
  		return false;
@@ -812,7 +812,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	@Override
 	public void onEntityUpdate() {
-		if(getRNG().nextInt(500) == 1) {
+		if(getRNG().nextInt(500) == 1 && !isEgg()) {
 			roar();
 		}
 		super.onEntityUpdate();
@@ -1067,7 +1067,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void roar() {
 		if(!isDead) {
 		   this.roarTicks = 0;
-		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, 4 * MathX.clamp(getScale(), 0, 1), 1 * MathX.clamp(getScale(), 0, 1), true);
+		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 1),  MathX.clamp(getScale(), 0, 1), true);
 		}
 	}
 
@@ -2342,7 +2342,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			return false;
 		}
 		
-		if (!world.isRemote && source.getTrueSource() != null && this.getRNG().nextInt(4) == 0) {
+		if (!world.isRemote && source.getTrueSource() != null && this.getRNG().nextInt(4) == 0 && !isEgg()) {
    this.roar();
   } 
 		

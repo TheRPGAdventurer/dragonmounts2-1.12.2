@@ -84,7 +84,7 @@ public class DragonSoundManager extends DragonHelper {
      */
     public void playLivingSound() {
         SoundEvent sound = getLivingSound();
-        if (sound == null) {
+        if (sound == null && !dragon.isEgg()) {
             return;
         }
         

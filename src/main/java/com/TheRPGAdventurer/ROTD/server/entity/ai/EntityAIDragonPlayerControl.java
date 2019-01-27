@@ -58,10 +58,10 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         double verticalSpeed = 0;    
               
         if(dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
-        	PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
-        	if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
-        		rider.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
-    		}
+        	 PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
+         	if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
+         		rider.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
+    		    }
         } 
 
         // if we're breathing at a target, look at it
@@ -86,11 +86,11 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             
             x += wp.x * 4.5;
            
-            if(!dragon.isUnHovered()) {
+         //   if(dragon.isUnHovered() && dragon.isFlying()) {
+      //      	y += wp.y * 1;          	
+      //      } else {
             	y += wp.y * 4.5;
-            } else {
-            	y = dragon.posY;
-            }
+      //      }
             
             z += wp.z * 4.5;         
      }

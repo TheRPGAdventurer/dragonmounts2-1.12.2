@@ -91,6 +91,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.isSitting()) {
             return false;
         }
+        
+        if (dragon.getDistanceToEntity(owner) < 15) {
+         return false;
+     }
 
         return true;
     }
@@ -148,7 +152,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         updateTicks = 10;
 
         // finish task if it can move to the owner
-        if (nav.tryMoveToEntityLiving(owner, speed)) {
+        if (nav.tryMoveToEntityLiving(owner, speed)) { 
             return;
         }
 

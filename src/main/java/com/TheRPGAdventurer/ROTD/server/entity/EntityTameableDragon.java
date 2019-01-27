@@ -1057,9 +1057,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
    int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
   	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
    double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
-   double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
-   double y = midPoint.getY() + 37 + 0.5; // DragonMountsConfig.dragonFlightHeight
-   double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
+   double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 3.5); // ()
+   double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
+   double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 3.5); //() 	
        
     	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
 	}

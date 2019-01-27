@@ -126,17 +126,6 @@ public class ItemDragonWhistle extends Item {
 			return false;
 		}
 	}
-	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target,
-			EnumHand hand) {
-		if(target instanceof EntityTameableDragon) {
-			EntityTameableDragon dragon = (EntityTameableDragon) target;
-			if(dragon.isTamedFor(playerIn)) {
-				dragon.getAISit().setSitting(!dragon.isSitting());
-			}
-		}
-		return super.itemInteractionForEntity(stack, playerIn, target, hand);
-	}
 	
 //	@Override
 //    @SideOnly(Side.CLIENT)

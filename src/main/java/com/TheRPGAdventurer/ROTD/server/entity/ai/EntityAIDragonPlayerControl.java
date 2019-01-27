@@ -50,6 +50,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     @Override
     public void updateTask() {
         Vec3d wp = rider.getLookVec();
+        Vec3d wp1 = dragon.getLookVec();
         double x = dragon.posX;
         double y = dragon.posY;
         double z = dragon.posZ;
@@ -84,7 +85,13 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             } 
             
             x += wp.x * 4.5;
-            y += !dragon.isUnHovered() ? wp.y * 4.5 : 0;         
+           
+            if(!dragon.isUnHovered()) {
+            	y += wp.y * 4.5;
+            } else {
+            	y = dragon.posY;
+            }
+            
             z += wp.z * 4.5;         
      }
       

@@ -30,7 +30,7 @@ public class DragonInteractSit extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        if (dragon.isServer() && dragon.isTamed() && (ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE) || ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) 
+        if (dragon.isServer() && dragon.isTamed() && (ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE)) 
         		&& dragon.onGround) {
        // 	if(!dragon.isSleeping()) {
             dragon.getAISit().setSitting(!dragon.isSitting());

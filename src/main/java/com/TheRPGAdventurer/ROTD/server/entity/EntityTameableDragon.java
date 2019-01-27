@@ -26,7 +26,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
@@ -103,6 +102,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -483,12 +483,26 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 75000 && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
+		if(inAirTicks < 3500 && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
   	return true;
  	} else {
  		return false;
  	}
 	}
+	
+ public boolean isTargetBlocked(Vec3d target) {
+  if (target != null) {
+      RayTraceResult rayTrace = world.rayTraceBlocks(new Vec3d(this.getPosition()), target, false);
+      if (rayTrace != null && rayTrace.hitVec != null) {
+          BlockPos pos = new BlockPos(rayTrace.hitVec);
+          if (!world.isAirBlock(pos)) {
+              return true;
+          }
+          return rayTrace != null && rayTrace.typeOfHit != RayTraceResult.Type.BLOCK;
+      }
+  }
+  return false;
+}
 	public boolean canBeAdjucator() {
 		return dataManager.get(HAS_ADJUCATOR_STONE);
 	}

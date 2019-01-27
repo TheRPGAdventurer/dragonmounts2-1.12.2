@@ -70,7 +70,7 @@ public class DragonHeadPositionHelper {
       // basic up/down movement
       currentSegment.rotateAngleX = baseRotX;
       // reduce rotation when on ground
-      currentSegment.rotateAngleX *= MathX.slerp(1, 0.5f, walk);
+      currentSegment.rotateAngleX *= MathX.slerp(0.8f, 0.5f, walk); // 1 != 0.8f
       // flex neck down when hovering
       currentSegment.rotateAngleX += (1 - speed) * vertMulti;
       // lower neck on low health

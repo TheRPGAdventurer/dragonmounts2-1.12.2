@@ -1,16 +1,13 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.layer;
 
-import static org.lwjgl.opengl.GL11.GL_ONE;
+import org.lwjgl.opengl.GL11;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
-import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.layers.LayerSpiderEyes;
+import net.minecraft.client.renderer.OpenGlHelper;
 
 /**
  * Created by EveryoneElse on 14/06/2015.
@@ -27,23 +24,20 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
             float moveSpeed, float partialTicks, float ticksExisted, float lookYaw,
             float lookPitch, float scale) {
         renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture() : breedRenderer.getFemaleGlowTexture());
+        model.renderPass = DragonModel.RenderPass.GLOW;
         
-        GlStateManager.pushMatrix();
-        GlStateManager.pushAttrib();
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL_ONE, GL_ONE); 
-        GlStateManager.color(1, 1, 1, 1);
+        try {
+         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT);
 
-        disableLighting();
-        model.setMode(DragonModelMode.FULL);
-        Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-        model.render(dragon, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);
-        Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-        enableLighting(dragon.getBrightnessForRender());
-        
-        GlStateManager.disableBlend();
-        GlStateManager.popAttrib();
-        GlStateManager.popMatrix();
+         GL11.glEnable(GL11.GL_BLEND);
+         GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+         GL11.glDisable(GL11.GL_LIGHTING);      // use full lighting
+         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 65536, 0);
+
+         model.render(dragon, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);
+       } finally {
+         GL11.glPopAttrib();
+       }
     }
 
     @Override

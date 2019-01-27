@@ -60,12 +60,12 @@ public class DMUtils {
 	    }
 	    return random;
 	}
-	/*
+	
 	public static BlockPos getBlockInView(EntityTameableDragon dragon) {
 		float radius = 0.75F * (dragon.getScale() * 0.5f) * - 7 - dragon.getRNG().nextInt(4 * 6);
 		float neg = dragon.getRNG().nextBoolean() ? 1 : -1;
 		float renderYawOffset = dragon.renderYawOffset;
-		if(dragon.hasHomePosition && dragon.homePos != null){
+		if(dragon.isFlyingAround){
 			BlockPos dragonPos = new BlockPos(dragon);
 			BlockPos ground = dragon.world.getHeight(dragonPos);
 			int distFromGround = (int) dragon.posY - ground.getY();
@@ -90,6 +90,6 @@ public class DMUtils {
 		}
 		return null;
 	}
-	*/
+	
 	
 }

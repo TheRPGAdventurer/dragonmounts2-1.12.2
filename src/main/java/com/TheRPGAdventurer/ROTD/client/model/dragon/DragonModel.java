@@ -29,6 +29,10 @@ import net.minecraft.entity.EntityLivingBase;
  * @Modifier James Miller <TheRPGAdventurer.>
  */
 public class DragonModel extends ModelBase {
+	
+   public enum RenderPass {
+    MAIN, SADDLE, GLOW
+   }
 
     // model constants
     public static final int NECK_SIZE = 10;
@@ -92,6 +96,7 @@ public class DragonModel extends ModelBase {
     public float offsetZ;
     public float pitch;
     public float size;
+    public RenderPass renderPass = RenderPass.MAIN;
     private EnumDragonBreed breed;
     private DragonModelMode mode;
     
@@ -733,30 +738,28 @@ public class DragonModel extends ModelBase {
      * Renders the model after all animations are applied.
      */
     public void renderModel(EntityTameableDragon dragon, float scale) {
-        if (mode == null) {
-            return;
-        }
-        
         GlStateManager.pushMatrix();
         GlStateManager.translate(offsetX, offsetY, offsetZ);
         GlStateManager.rotate(-pitch, 1, 0, 0);
 
-        switch (mode) {
-            case BODY_ONLY:
-                renderBody(scale);
-                break;
-            case WINGS_ONLY:
-                renderWings(scale);
-                break;
-            default:
-                renderHead(scale);
-                renderNeck(scale);
-                renderBody(scale);
-                renderLegs(scale);
-                renderTail(scale);
-                if (mode != DragonModelMode.NO_WINGS) {
-                    renderWings(scale);
-                }
+        switch (renderPass) {
+          case SADDLE: {
+            renderBody(scale);
+            break;
+          }
+          case MAIN:
+          case GLOW: {
+            renderHead(scale);
+            renderNeck(scale);
+            renderBody(scale);
+            renderLegs(scale);
+            renderTail(scale);
+            renderWings(scale);
+            break;
+          }
+          default: {
+            System.err.println("illegal renderPass in renderModel:" + renderPass);
+          }
         }
 
         GlStateManager.popMatrix();

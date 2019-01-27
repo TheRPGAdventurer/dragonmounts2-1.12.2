@@ -7,9 +7,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIWanderOld extends EntityAIDragonBase
-{
-    private EntityCreature entity;
+public class EntityAIWanderOld extends EntityAIDragonBase {
     private double xPosition;
     private double yPosition;
     private double zPosition;
@@ -20,7 +18,7 @@ public class EntityAIWanderOld extends EntityAIDragonBase
     public EntityAIWanderOld(EntityTameableDragon dragon, double p_i1648_2_)
     {
         super(dragon);
-        this.speed = p_i1648_2_;
+        this.speed = p_i1648_2_; 
         this.setMutexBits(1);
     }
 
@@ -28,18 +26,18 @@ public class EntityAIWanderOld extends EntityAIDragonBase
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-      //  if (this.dragon.getA() >= 100)
-      //  {
-      //      return false;
-     //   }
-     //   else 
-        	if (this.entity.getRNG().nextInt(120) != 0)
+        if (this.dragon.isEgg())
+        {
+            return false;
+        }
+        else 
+        	if (this.dragon.getRNG().nextInt(120) != 0)
         {
             return false;
         }
         else
         {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
+            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.dragon, 10, 7);
 
             if (vec3d == null)
             {
@@ -60,7 +58,7 @@ public class EntityAIWanderOld extends EntityAIDragonBase
      */
     public boolean continueExecuting()
     {
-        return !this.entity.getNavigator().noPath();
+        return !this.dragon.getNavigator().noPath();
     }
 
     /**
@@ -68,7 +66,7 @@ public class EntityAIWanderOld extends EntityAIDragonBase
      */
     public void startExecuting()
     {
-        this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
+        this.dragon.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
     }
     
     public void makeUpdate()

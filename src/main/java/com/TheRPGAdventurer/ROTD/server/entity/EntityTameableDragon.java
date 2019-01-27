@@ -812,7 +812,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	@Override
 	public void onEntityUpdate() {
-		if(getRNG().nextInt(500) == 1 && !isEgg()) {
+		if(getRNG().nextInt(800) == 1 && !isEgg()) {
 			roar();
 		}
 		super.onEntityUpdate();

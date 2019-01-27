@@ -297,11 +297,6 @@ public class DragonAnimator {
         sitVal += dragon.isSitting() ? 0.1f : -0.1f;
         sitVal *= 0.95f;
         sitTimer.set(sitVal);
-        
-        int roarticks = dragon.roarTicks;
-        final int JAW_OPENING_TIME_FOR_ROAR = 5;
-        boolean jawFlag1 = (roarticks >= 0 && roarticks < JAW_OPENING_TIME_FOR_ROAR);
-        roarTimer.add(jawFlag1 ? 0.2f : -0.2f);
 
         // update bite opening transition and breath transitions
         DragonBreathHelper.BreathState breathState = dragon.getBreathHelper().getCurrentBreathState();
@@ -312,6 +307,11 @@ public class DragonAnimator {
                 boolean jawFlag = (ticksSinceLastAttack >= 0 && ticksSinceLastAttack < JAW_OPENING_TIME_FOR_ATTACK);
                 biteTimer.add(jawFlag ? 0.2f : -0.2f);
                 breathTimer.set(0.0F);
+                
+                int roarticks = dragon.roarTicks;
+                final int JAW_OPENING_TIME_FOR_ROAR = 20;
+                boolean jawFlag1 = (roarticks >= 0 && roarticks < JAW_OPENING_TIME_FOR_ROAR);
+                roarTimer.add(jawFlag1 ? 0.2f : -0.2f);
                 break;
             }
             case STARTING: {

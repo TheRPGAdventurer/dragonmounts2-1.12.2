@@ -1,20 +1,20 @@
 package com.TheRPGAdventurer.ROTD.server.entity.ai.air;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EntityAIAirTarget extends EntityAIBase {
+public class EntityAIAirTarget extends EntityAIDragonBase {
 	private com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon dragon;
 	private World theWorld;
 
 	public EntityAIAirTarget(EntityTameableDragon dragon) {
-		this.dragon = dragon;
+		super(dragon);
 		this.theWorld = dragon.world;
 	}
 

@@ -18,6 +18,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonHurtByTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonPlayerControl;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonWhistle;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIWanderOld;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIAirTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIFlyAround;
@@ -111,6 +112,7 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(6, new EntityAIDragonFlight(dragon, 1)); // mutex 1
         } else {
             tasks.addTask(5, new EntityAIFlyAround(dragon));
+            tasks.addTask(6, new EntityAIAirTarget(dragon));
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4
             tasks.addTask(7, new  EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 30, 128)); // mutex 2+1

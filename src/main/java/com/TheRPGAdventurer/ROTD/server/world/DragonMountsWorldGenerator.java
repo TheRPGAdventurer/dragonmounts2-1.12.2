@@ -56,10 +56,10 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 			     dragonNest.generate(world, height, random);
-			     DMUtils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
+			//     DMUtils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
 			} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 			     dragonNestSnow.generate(world, height, random);
-			     DMUtils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
+			  //   DMUtils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
 			     
 			    }
 			}
@@ -84,7 +84,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				             if(spawn) {
 				            	if (world.getBlockState(new BlockPos(x,y-y2,z)).isNormalCube()) {
 					            dragonNest.generate(world, new BlockPos(x,y-y2,z), random);
-					            DMUtils.getLogger().info("Underground Nest here at: " + new BlockPos(x,y,z));				            				            
+					          //  DMUtils.getLogger().info("Underground Nest here at: " + new BlockPos(x,y,z));				            				            
 				              } return;
 				            }
 				          }
@@ -109,7 +109,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				
 				if(place) {
 					dragonNestNether.generate(world, new BlockPos(x,y,z), random);
-					DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
+				//	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
 				   }    				    
 			    }
 	        }
@@ -130,7 +130,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				
 				if(place) {
 					dragonNestBone.generate(world, new BlockPos(x,y,z), random);
-					DMUtils.getLogger().info("Bone Nest here at: " + new BlockPos(x,y,z));
+			//		DMUtils.getLogger().info("Bone Nest here at: " + new BlockPos(x,y,z));
 				   }
 			    }
 	        }

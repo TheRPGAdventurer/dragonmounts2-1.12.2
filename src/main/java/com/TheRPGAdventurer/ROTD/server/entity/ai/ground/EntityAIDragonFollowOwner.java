@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -73,7 +74,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist * minDist) {
             return false;
         }
-
+        
         owner = ownerCurrent;
         return true;
     }
@@ -156,9 +157,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return;
         }
 
-        // teleport only the owner is far enough
-        if (dragon.getDistanceSqToEntity(owner) < maxDist * maxDist) {
-            return;
-        }
+        if(dragon.getDistanceSqToEntity(owner) > maxDist * maxDist) dragon.comeToPlayerFlying(owner.getPosition(), (EntityLivingBase) owner);
+
     }
 }

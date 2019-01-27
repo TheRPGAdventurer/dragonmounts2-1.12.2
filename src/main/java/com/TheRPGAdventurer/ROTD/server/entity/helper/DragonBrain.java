@@ -12,43 +12,29 @@ package com.TheRPGAdventurer.ROTD.server.entity.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonCatchOwner;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonHurtByTarget;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonPlayerControl;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonWhistle;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIWanderOld;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIFlyAround;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonFollowOwner;
-import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonHunt;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonMate;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonWatchIdle;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonWatchLiving;
-import com.TheRPGAdventurer.ROTD.server.util.EntityClassPredicate;
-import com.google.common.base.Predicate;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
 import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityLlama;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
 
@@ -127,16 +113,16 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(5, new EntityAIFlyAround(dragon));
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4
             tasks.addTask(7, new  EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
-            tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 15, 128)); // mutex 2+1
+            tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 30, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
-            tasks.addTask(10, new EntityAIWander(dragon, 1)); // mutex 1
+            tasks.addTask(10, new EntityAIWanderOld(dragon, 1)); // mutex 1
             tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
             tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
 
          //   targetTasks.addTask(5, new EntityAINearestAttackableTarget(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
          //   targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
 
-            if (dragon.isHatchling()) {
+            if (dragon.isHatchling() && dragon.onGround) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.7F)); // mutex 1
                 tasks.addTask(6, new EntityAITempt(dragon, 0.75, dragon.getBreed().getBreedingItem(), false)); // mutex 2+1
             }

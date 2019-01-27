@@ -853,7 +853,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 					&& this.getAttackingEntity() == null
 					&& this.getAttackTarget() == null) {
 				this.liftOff();
-				DMUtils.getLogger().info("tried to liftoff RNG");
+//				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
 
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
@@ -1058,7 +1058,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
   	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
    double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
    double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 2.5); // ()
-   double y = midPoint.getY() + 30 + 0.5; // DragonMountsConfig.dragonFlightHeight
+   double y = midPoint.getY() + 37 + 0.5; // DragonMountsConfig.dragonFlightHeight
    double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 2.5); //() 	
        
     	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
@@ -1067,7 +1067,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void roar() {
 		if(!isDead) {
 		   this.roarTicks = 0;
-		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 1),  MathX.clamp(getScale(), 0, 1), true);
+		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 2.3f),  MathX.clamp(getScale(), 0, 1), true);
 		}
 	}
 

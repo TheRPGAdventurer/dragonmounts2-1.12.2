@@ -32,7 +32,6 @@ public class DragonBreedAir extends DragonBreed {
 	     setImmunity(DamageSource.LIGHTNING_BOLT);
 	     setImmunity(DamageSource.WITHER);
 	        
-	     setHabitatBiome(Biomes.EXTREME_HILLS);
 	     setHabitatBlock(Blocks.LAPIS_BLOCK);
 	     setHabitatBlock(Blocks.LAPIS_ORE);
 	}

@@ -5,7 +5,8 @@
   "name": "Dragon Mounts",
   
   "description": "1. Don't forget to right click the egg to make it hatch, 
-                  2. also water dragon needs strength effect to be a storm dragon",
+                  2. Also water dragon needs strength effect to be a storm dragon,
+				  3. You can't hatch eggs in the End Dimension",
   "version": "${version}",
   
   "mcversion": "${mcversion}",
@@ -15,10 +16,10 @@
   
   "credits":
   "BarracudaATA4 - The Original Owner, 
-   FlaemWing - for new nest block textures and dragonarmor item textures, 
+   FlaemWing - for new nest block textures and dragonarmor item textures, new 32 X 32 swords
    cesar_zorak - for dragon armor model textures,
    qnebra - for polish translation, 
-   Merpou/Kingdomall - more textures much help :D Thanks Man... (just found out shes a girl BTW O_O),
+   Merpou/Kingdomall/Masked_Ares - more textures much help :D Thanks Man... (just found out shes a girl BTW O_O),
    GundunUkan/Lord Ukan - for new fire texures, sunlight textures, and more....
    AlexThe666 - for open source code,",
    

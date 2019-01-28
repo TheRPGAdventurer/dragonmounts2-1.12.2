@@ -49,7 +49,7 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 		if(dragon.isFlyingAround()) {
    Random random = dragon.getRNG();
    double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 20.0F;
-   double d1 = dragon.posY + (random.nextFloat() * 2.0F - 1.0F) * 5.0F;
+   double d1 = dragon.posY + (random.nextFloat() * 2.0F - 1.0F) * 5.0F; // TODO isTargetBlocked FlyAround
    double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 20.0F;
    dragon.getMoveHelper().setMoveTo(d0, d1, d2, 5.0D);
 		}

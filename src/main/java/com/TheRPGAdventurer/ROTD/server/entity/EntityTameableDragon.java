@@ -75,6 +75,7 @@ import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -482,7 +483,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 2500 && this.isFlying() && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
+		if(inAirTicks < 2500 && this.isFlying() && getControllingPlayer() == null) {
   	return true;
  	} else {
  		return false;
@@ -526,11 +527,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.set(BANNER1, bannered);
 	}
 	
-	public ItemStack getBanner2() {
+	public ItemStack getBanner2() { 
 		return dataManager.get(BANNER2);
 	}
 
-	public void setBanner2(ItemStack male) {
+	public void setBanner2(ItemStack male) { 
 		dataManager.set(BANNER2, male);
 	}
 	
@@ -546,16 +547,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		return dataManager.get(BANNER4);
 	}
 
-	public void setBanner4(ItemStack male) {
-		dataManager.set(BANNER4, male);
-	}
-	
 	public boolean nothing() {
 		return (dataManager.get(WHISTLE_STATE)) == 0;
 	}
 
 	public boolean follow() {
-		return (dataManager.get(WHISTLE_STATE)) == 1;
+		return (dataManager.get(WHISTLE_STATE)) == 1; 
 	}
 
 	public boolean circle() {
@@ -648,7 +645,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	public boolean canFly() {
 		// eggs can't fly, hatchlings now can
-		return !isEgg();
+		return !isEgg() && !isHatchling();
 	}
 
 	/**
@@ -860,7 +857,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 			
 			if(!isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(150) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition)) 
+					&& !this.isHatchling() && this.getRNG().nextInt(150) == 1 && !isSitting()
 					&& this.getAttackingEntity() == null
 					&& this.getAttackTarget() == null) {
 				this.liftOff();

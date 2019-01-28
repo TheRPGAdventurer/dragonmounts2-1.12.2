@@ -18,6 +18,7 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -86,4 +87,49 @@ public class DragonMoveHelper extends EntityMoveHelper {
         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
         }
     } 
+    
+    /**
+     * Checks if entity bounding box is not colliding with terrain
+     */
+    public boolean isNotColliding(double x, double y, double z) {
+     double d0 = this.posX - this.dragon.posX;
+     double d1 = this.posY - this.dragon.posY;
+     double d2 = this.posZ - this.dragon.posZ;
+     double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+     d3 = (double)MathHelper.sqrt(d3);
+        double d4 = (x - this.dragon.posX) / d3;
+        double d5 = (y - this.dragon.posY) / d3;
+        double d6 = (z - this.dragon.posZ) / d3;
+        AxisAlignedBB axisalignedbb = this.dragon.getEntityBoundingBox();
+
+        for (int i = 1; (double)i < d3; ++i) {
+            axisalignedbb = axisalignedbb.offset(d4, d5, d6);
+
+            if (!this.dragon.world.getCollisionBoxes(this.dragon, axisalignedbb).isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    /**
+     * Checks if entity bounding box is not colliding with terrain
+     */
+    private boolean isNotColliding(double x, double y, double z, double p_179926_7_) {
+        double d0 = (x - this.dragon.posX) / p_179926_7_;
+        double d1 = (y - this.dragon.posY) / p_179926_7_;
+        double d2 = (z - this.dragon.posZ) / p_179926_7_;
+        AxisAlignedBB axisalignedbb = this.dragon.getEntityBoundingBox();
+
+        for (int i = 1; (double)i < p_179926_7_; ++i) {
+            axisalignedbb = axisalignedbb.offset(d0, d1, d2);
+
+            if (!this.dragon.world.getCollisionBoxes(this.dragon, axisalignedbb).isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

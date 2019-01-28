@@ -54,10 +54,11 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 	@Override
  public void startExecuting() {
   if(dragon.airTarget != null && dragon.airTarget.getY() > 128){
-  	dragon.airTarget = new BlockPos(dragon.airTarget.getX(), 128, dragon.airTarget.getZ());
+  	 dragon.airTarget = new BlockPos(dragon.airTarget.getX(), 128, dragon.airTarget.getZ());
   } 
-		if(dragon.isFlyingAround() && dragon.airTarget != null && dragon.isTargetInAir() && dragon.getDistanceSquared(new Vec3d(dragon.airTarget.getX(), 
-				dragon.posY, dragon.airTarget.getZ())) > 3) {
+  
+		if(dragon.isFlyingAround() && dragon.airTarget != null && dragon.isTargetInAir() 
+				&& dragon.getDistanceSquared(new Vec3d(dragon.airTarget.getX(), dragon.posY, dragon.airTarget.getZ())) > 3) {
 			
 			double radius = 12;
 			float neg = dragon.getRNG().nextBoolean() ? 1 : -1;

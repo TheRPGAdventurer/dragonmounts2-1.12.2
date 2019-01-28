@@ -10,12 +10,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class EntityAIAirTarget extends EntityAIDragonBase {
+	
 	private com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon dragon;
-	private World theWorld;
 
 	public EntityAIAirTarget(EntityTameableDragon dragon) {
 		super(dragon);
-		this.theWorld = dragon.world;
 	}
 
 	public boolean shouldExecute() {
@@ -26,6 +25,7 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 		//	if (dragon.isSleeping()) {
 		//		return false;
 		//	}
+			
 			if (dragon.isHatchling()) {
 				return false;
 			}
@@ -39,14 +39,19 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 			if (dragon.airTarget != null) {
 				return false;
 			} else {
-	//			Vec3d vec = this.findAirTarget();
 				BlockPos airTarget = getNearbyAirTarget();
 
-				if (airTarget != null) {
-					dragon.airTarget = airTarget;
-					return true;
+				if (dragon.airTarget != null) {
+					return false;
 				} else {
-					DMUtils.getLogger().info("bearby blocks is null");
+					Vec3d vec = this.findAirTarget();
+
+					if (vec == null) {
+						return false;
+					} else {
+						dragon.airTarget = new BlockPos(vec.x, vec.y, vec.z);
+						return true;
+					}
 				}
 			}
 		}
@@ -65,7 +70,7 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 		}
 		return dragon.airTarget != null;
 	}
-
+	
 	public Vec3d findAirTarget() {
 		return new Vec3d(getNearbyAirTarget());
 	}

@@ -482,7 +482,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 3500 && this.isFlying() && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
+		if(inAirTicks < 2500 && this.isFlying() && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
   	return true;
  	} else {
  		return false;

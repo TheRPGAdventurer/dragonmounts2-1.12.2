@@ -62,7 +62,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 		landingPos = landingPos.add(ox, 0, oz);
 
 		// get ground block
-		landingPos = dragon.world.provider.getDimensionType() == DimensionType.NETHER ? findLandingArea(landingPos) : dragon.world.getHeight(landingPos);
+		landingPos = findLandingArea(landingPos);
 
 
 		// make sure the block below is solid
@@ -86,14 +86,6 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 		if (!tryMoveToBlockPos(landingPos, speed) && !dragon.isFlyingAround()) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
-		}
-	}
-	
-	private BlockPos getMidPoint() {
-		if(dragon.isTamed() && dragon.hasHomePosition) {
-			return dragon.homePos;
-		} else {
-			return landingPos;
 		}
 	}
 }

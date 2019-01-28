@@ -29,7 +29,7 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 			if (dragon.isHatchling()) {
 				return false;
 			}
-			if (dragon.getOwner() != null && dragon.getPassengers().contains(dragon.getOwner())) {
+			if (dragon.getControllingPlayer() != null) {
 				return false;
 			}
 			if (dragon.airTarget != null && (dragon.isTargetBlocked(new Vec3d(dragon.airTarget)))) {
@@ -39,13 +39,14 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 			if (dragon.airTarget != null) {
 				return false;
 			} else {
-				Vec3d vec = this.findAirTarget();
+	//			Vec3d vec = this.findAirTarget();
+				BlockPos airTarget = getNearbyAirTarget();
 
-				if (vec == null) {
-					return false;
-				} else {
-					dragon.airTarget = new BlockPos(vec.x, vec.y, vec.z);
+				if (airTarget != null) {
+					dragon.airTarget = airTarget;
 					return true;
+				} else {
+					DMUtils.getLogger().info("bearby blocks is null");
 				}
 			}
 		}
@@ -59,7 +60,7 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 	//	if (dragon.isSleeping()) {
 ////			return false;
 	//	}
-		if (dragon.isChild()) {
+		if (!dragon.isHatchling()) {
 			return false;
 		}
 		return dragon.airTarget != null;
@@ -75,9 +76,9 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 			if (pos != null && dragon.world.getBlockState(pos).getMaterial() == Material.AIR) {
 				return pos;
 			}
-		} else {
-			return new BlockPos((int) dragon.getAttackTarget().posX, (int) dragon.getAttackTarget().posY, (int) dragon.getAttackTarget().posZ);
-		}
+		} //else {
+			//return new BlockPos((int) dragon.getAttackTarget().posX, (int) dragon.getAttackTarget().posY, (int) dragon.getAttackTarget().posZ);
+//		}
 		return dragon.getPosition();
 	}
 

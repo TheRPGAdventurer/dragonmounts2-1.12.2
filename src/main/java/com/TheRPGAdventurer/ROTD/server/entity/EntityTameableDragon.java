@@ -235,7 +235,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public DragonAnimator animator;
     private double airSpeedVertical = 0;
 	public boolean hasHomePosition = false;
-	public boolean isFlyingAround;
 	public int roarTicks;
 	public BlockPos homePos;
 	public BlockPos airTarget;
@@ -483,7 +482,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 3500 && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
+		if(inAirTicks < 3500 && this.isFlying() && getControllingPlayer() == null && (!isTamed() || (isTamed() && hasHomePosition))) {
   	return true;
  	} else {
  		return false;
@@ -744,10 +743,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		return f * f + f1 * f1 + f2 * f2;
 	}
 	
-	public boolean doesWantToLand() {
-		return this.inAirTicks > 6000;
-	}
-	
 	/**
 	 * Returns the distance to the ground while the entity is flying.
 	 */
@@ -836,6 +831,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public void onLivingUpdate() {
 		helpers.values().forEach(DragonHelper::onLivingUpdate);
 		getBreed().onLivingUpdate(this);
+		
+	// DMUtils.getLogger().info(this.airTarget);
 
 		if (isServer()) {
 			final float DUMMY_MOVETIME = 0;
@@ -863,7 +860,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			}
 			
 			if(!isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(300) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition)) 
+					&& !this.isHatchling() && this.getRNG().nextInt(150) == 1 && !isSitting() && (!this.isTamed() || (this.isTamed() && this.hasHomePosition)) 
 					&& this.getAttackingEntity() == null
 					&& this.getAttackTarget() == null) {
 				this.liftOff();
@@ -2416,7 +2413,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
     
-    protected boolean isTargetInAir() {
+    public boolean isTargetInAir() {
      return airTarget != null && world.getBlockState(airTarget).getMaterial() == Material.AIR;
     }
     
@@ -2436,13 +2433,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     protected double getFollowRange() {
      return this.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();
     }
-    
-    public boolean flyAround() {
-   		if (isFlyingAround()) {
-       return circleTarget2(new BlockPos(0, 4, 0), 44, 23, 4, false, 4, 4);
-     }
-					return false;
-   }
 
     /**
      * Attacks all entities inside this list, dealing 5 hearts of damage.

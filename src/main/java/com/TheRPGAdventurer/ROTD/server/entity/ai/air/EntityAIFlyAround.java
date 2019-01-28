@@ -8,6 +8,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 
 public class EntityAIFlyAround extends EntityAIDragonBase {
@@ -52,7 +53,12 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 	
 	@Override
  public void startExecuting() {
-		if(dragon.isFlyingAround()) {
+  if(dragon.airTarget != null && dragon.airTarget.getY() > 128){
+  	dragon.airTarget = new BlockPos(dragon.airTarget.getX(), 128, dragon.airTarget.getZ());
+  } 
+		if(dragon.isFlyingAround() && dragon.airTarget != null && dragon.isTargetInAir() && dragon.getDistanceSquared(new Vec3d(dragon.airTarget.getX(), 
+				dragon.posY, dragon.airTarget.getZ())) > 3) {
+			
 			double radius = 12;
 			float neg = dragon.getRNG().nextBoolean() ? 1 : -1;
 			float renderYawOffset = dragon.renderYawOffset;
@@ -69,5 +75,4 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
    dragon.getMoveHelper().setMoveTo(d0, d1, d2, 5.0D);
 		}
  }
-	
 }

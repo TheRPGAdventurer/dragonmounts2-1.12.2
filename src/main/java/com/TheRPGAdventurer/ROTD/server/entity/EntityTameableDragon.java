@@ -238,7 +238,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public boolean hasHomePosition = false;
 	public int roarTicks;
 	public BlockPos homePos;
-	public BlockPos airTarget;
+	public BlockPos airPoint;
 
 	public EntityPartDragon dragonPartHead;
 	public EntityPartDragon dragonPartNeck;
@@ -829,7 +829,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		helpers.values().forEach(DragonHelper::onLivingUpdate);
 		getBreed().onLivingUpdate(this);
 		
-	// DMUtils.getLogger().info(this.airTarget);
+	// DMUtils.getLogger().info(this.airPoint);
 
 		if (isServer()) {
 			final float DUMMY_MOVETIME = 0;
@@ -2411,7 +2411,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
     
     public boolean isTargetInAir() {
-     return airTarget != null && world.getBlockState(airTarget).getMaterial() == Material.AIR;
+     return airPoint != null && world.getBlockState(airPoint).getMaterial() == Material.AIR;
     }
     
    	public BlockPos findLandingArea(BlockPos pos) {

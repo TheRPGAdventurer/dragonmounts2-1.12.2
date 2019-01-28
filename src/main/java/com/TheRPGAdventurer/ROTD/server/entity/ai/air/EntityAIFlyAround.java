@@ -53,12 +53,12 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 	
 	@Override
  public void startExecuting() {
-  if(dragon.airTarget != null && dragon.airTarget.getY() > 128){
-  	 dragon.airTarget = new BlockPos(dragon.airTarget.getX(), 128, dragon.airTarget.getZ());
+  if(dragon.airPoint != null && dragon.airPoint.getY() > 128){
+  	 dragon.airPoint = new BlockPos(dragon.airPoint.getX(), 128, dragon.airPoint.getZ());
   } 
   
-		if(dragon.isFlyingAround() && dragon.airTarget != null && dragon.isTargetInAir() 
-				&& dragon.getDistanceSquared(new Vec3d(dragon.airTarget.getX(), dragon.posY, dragon.airTarget.getZ())) > 3) {
+		if(dragon.isFlyingAround() && dragon.airPoint != null && dragon.isTargetInAir() 
+				&& dragon.getDistanceSquared(new Vec3d(dragon.airPoint.getX(), dragon.posY, dragon.airPoint.getZ())) > 3) {
 			
 			double radius = 12;
 			float neg = dragon.getRNG().nextBoolean() ? 1 : -1;
@@ -70,9 +70,9 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 			BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
 			BlockPos ground = dragon.world.getHeight(radialPos);
    Random random = dragon.getRNG();
-   double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 17.0F + dragon.airTarget.getX();
+   double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 17.0F + dragon.airPoint.getX();
    double d1 = ground.getY() + 40; 
-   double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 17.0F + dragon.airTarget.getZ();
+   double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 17.0F + dragon.airPoint.getZ();
    dragon.getMoveHelper().setMoveTo(d0, d1, d2, 5.0D);
 		}
  }

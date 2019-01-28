@@ -7,13 +7,12 @@ import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
-public class EntityAIAirTarget extends EntityAIDragonBase {
+public class EntityAIAirPoint extends EntityAIDragonBase {
 	
 	private com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon dragon;
 
-	public EntityAIAirTarget(EntityTameableDragon dragon) {
+	public EntityAIAirPoint(EntityTameableDragon dragon) {
 		super(dragon);
 	}
 
@@ -32,24 +31,24 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 			if (dragon.getControllingPlayer() != null) {
 				return false;
 			}
-			if (dragon.airTarget != null && (dragon.isTargetBlocked(new Vec3d(dragon.airTarget)))) {
-				dragon.airTarget = null;
+			if (dragon.airPoint != null && (dragon.isTargetBlocked(new Vec3d(dragon.airPoint)))) {
+				dragon.airPoint = null;
 			}
 
-			if (dragon.airTarget != null) {
+			if (dragon.airPoint != null) {
 				return false;
 			} else {
-				BlockPos airTarget = getNearbyAirTarget();
+				BlockPos airPoint = getAirPoint();
 
-				if (dragon.airTarget != null) {
+				if (dragon.airPoint != null) {
 					return false;
 				} else {
-					Vec3d vec = this.findAirTarget();
+					Vec3d vec = this.findairPoint();
 
 					if (vec == null) {
 						return false;
 					} else {
-						dragon.airTarget = new BlockPos(vec.x, vec.y, vec.z);
+						dragon.airPoint = new BlockPos(vec.x, vec.y, vec.z);
 						return true;
 					}
 				}
@@ -68,14 +67,14 @@ public class EntityAIAirTarget extends EntityAIDragonBase {
 		if (!dragon.isHatchling()) {
 			return false;
 		}
-		return dragon.airTarget != null;
+		return dragon.airPoint != null;
 	}
 	
-	public Vec3d findAirTarget() {
-		return new Vec3d(getNearbyAirTarget());
+	public Vec3d findairPoint() {
+		return new Vec3d(getAirPoint());
 	}
 
-	public BlockPos getNearbyAirTarget() {
+	public BlockPos getAirPoint() {
 		if (dragon.getAttackTarget() == null) {
 			BlockPos pos = DMUtils.getBlockInView(dragon);
 			if (pos != null && dragon.world.getBlockState(pos).getMaterial() == Material.AIR) {

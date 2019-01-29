@@ -2413,19 +2413,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean isTargetInAir() {
      return airPoint != null && world.getBlockState(airPoint).getMaterial() == Material.AIR;
     }
-    
-   	public BlockPos findLandingArea(BlockPos pos) {
-   		for (int Y = 1; Y <= 2; Y++) {
-   			for (int Z = 1; Z <= 2; Z++) {
-   				for (int X = 1; X <= 2; X++) {
-   					    world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid(); {
-   						pos = pos.down();
-   					}				    
-   				}
-   			}
-   		}
-   		return pos;
-   	}
    	
     protected double getFollowRange() {
      return this.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();

@@ -69,10 +69,10 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 			double extraZ = (double) (radius * MathHelper.cos(angle));
 			BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
 			BlockPos ground = dragon.world.getHeight(radialPos);
-   Random random = dragon.getRNG();
-   double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 17.0F + dragon.airPoint.getX();
-   double d1 = ground.getY() + 40; 
-   double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 17.0F + dragon.airPoint.getZ();
+//   Random random = dragon.getRNG();
+   double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 20.0F;
+   double d1 = ground.getY() + 60; 
+   double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 20.0F;
    dragon.getMoveHelper().setMoveTo(d0, d1, d2, 5.0D);
 		}
  }

@@ -56,10 +56,10 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 	@Override
 	public void doRenderLayer(EntityTameableDragon dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		Minecraft mc = Minecraft.getMinecraft();
-		ItemStack itemstack1 = dragon.getBanner1();
-		ItemStack itemstack2 = dragon.getBanner2();
-		ItemStack itemstack3 = dragon.getBanner3();
-		ItemStack itemstack4 = dragon.getBanner4();
+		ItemStack itemstack1 = dragon.dragonInv.getStackInSlot(31);
+		ItemStack itemstack2 = dragon.dragonInv.getStackInSlot(32);
+		ItemStack itemstack3 = dragon.dragonInv.getStackInSlot(33);
+		ItemStack itemstack4 = dragon.dragonInv.getStackInSlot(34);
 
     	GlStateManager.pushMatrix();
     	

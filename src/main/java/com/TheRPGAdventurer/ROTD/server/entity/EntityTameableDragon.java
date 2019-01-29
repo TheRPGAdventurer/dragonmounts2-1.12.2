@@ -817,6 +817,22 @@ public void flyTowardsTarget() {
  // }
 }
 
+public Vec3d findAirPoint() {
+	return new Vec3d(getAirPoint());
+}
+
+public BlockPos getAirPoint() {
+	if (this.getAttackTarget() == null) {
+		BlockPos pos = new BlockPos(58, 100, 376);
+		if (pos != null && this.world.getBlockState(pos).getMaterial() == Material.AIR) {
+			return pos;
+		}
+	} //else {
+		//return new BlockPos((int) dragon.getAttackTarget().posX, (int) dragon.getAttackTarget().posY, (int) dragon.getAttackTarget().posZ);
+//	}
+	return this.getPosition();
+}
+
 private float updateRotation(float angle, float targetAngle, float maxIncrease) {
  float f = MathHelper.wrapDegrees(targetAngle - angle);
 
@@ -923,6 +939,10 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 					&& this.getAttackTarget() == null) {
 				this.liftOff();
 //				DMUtils.getLogger().info("tried to liftoff RNG");
+			}
+			
+			if(this.isFlyingAround()) {
+				airPoint = getAirPoint();
 			}
 			
    if (this.isFlying() && getAttackTarget() == null && isFlyingAround()) {

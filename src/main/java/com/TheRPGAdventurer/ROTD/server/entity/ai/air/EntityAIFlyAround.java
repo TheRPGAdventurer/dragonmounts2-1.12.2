@@ -25,10 +25,6 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
  if (!dragon.getMoveHelper().isUpdating()) {
    return true;
  }
- 
- if(dragon.world.provider.getDimensionType() == DimensionType.NETHER) {
- 	return false;
- }
 		
 		if(!dragon.isFlyingAround()) {
 			return false;
@@ -53,9 +49,9 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 	
 	@Override
  public void startExecuting() {
-  if (dragon.isFlying() && dragon.getAttackTarget() == null) {
-   dragon.flyAround();
-  }//else if (dragon.getAttackTarget() != null) {
+ // if (dragon.isFlying() && dragon.getAttackTarget() == null) {
+ //  dragon.flyAround();
+ // }//else if (dragon.getAttackTarget() != null) {
  //   dragon.flyTowardsTarget();
  // }
 	}

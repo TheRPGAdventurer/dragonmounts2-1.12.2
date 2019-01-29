@@ -742,25 +742,23 @@ public class DragonModel extends ModelBase {
         GlStateManager.translate(offsetX, offsetY, offsetZ);
         GlStateManager.rotate(-pitch, 1, 0, 0);
 
-        switch (renderPass) {
-          case SADDLE: {
+        switch (mode) {
+        case BODY_ONLY:
             renderBody(scale);
             break;
-          }
-          case MAIN:
-          case GLOW: {
+        case WINGS_ONLY:
+            renderWings(scale);
+            break;
+        default:
             renderHead(scale);
             renderNeck(scale);
             renderBody(scale);
             renderLegs(scale);
             renderTail(scale);
-            renderWings(scale);
-            break;
-          }
-          default: {
-            System.err.println("illegal renderPass in renderModel:" + renderPass);
-          }
-        }
+            if (mode != DragonModelMode.NO_WINGS) {
+                renderWings(scale);
+            }
+    }
 
         GlStateManager.popMatrix();
     }

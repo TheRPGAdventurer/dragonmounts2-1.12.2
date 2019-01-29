@@ -69,7 +69,7 @@ public class EntityAIAirPoint extends EntityAIDragonBase {
 
 	public BlockPos getAirPoint() {
 		if (dragon.getAttackTarget() == null) {
-			BlockPos pos = DMUtils.getBlockInView(dragon);
+			BlockPos pos = new BlockPos(58, 100, 376);
 			if (pos != null && dragon.world.getBlockState(pos).getMaterial() == Material.AIR) {
 				return pos;
 			}

@@ -483,7 +483,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 6000 && this.isFlying() && getControllingPlayer() == null) {
+		if(inAirTicks < 6000 && this.isFlying() && getControllingPlayer() == null && getAttackTarget() == null) {
   	return true;
  	} else {
  		return false;
@@ -757,7 +757,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		if (canFly()) {		
 			boolean ridden = isBeingRidden();
 			// stronger jump for an easier lift-off
-			motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 5;
+			motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 6;
 			inAirTicks += ridden || (isInWater() && isInLava()) ? 3.0 : 4;
 			jump();
 		}

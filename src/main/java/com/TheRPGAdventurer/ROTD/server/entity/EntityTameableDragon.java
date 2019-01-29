@@ -834,7 +834,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	@SideOnly(Side.CLIENT)
 	public void updateBreathing() {
 		Minecraft mc = Minecraft.getMinecraft();
-		if (hasControllingPlayer(mc.player)) {
+		if (hasControllingPlayer(mc.player) && getControllingPlayer() != null) {
 			boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
 			boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isKeyDown();
 			DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isHoverCancel));

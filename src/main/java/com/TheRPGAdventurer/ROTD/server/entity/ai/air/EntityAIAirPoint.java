@@ -18,9 +18,9 @@ public class EntityAIAirPoint extends EntityAIDragonBase {
 
 	public boolean shouldExecute() {
 		if (dragon != null) {
-			if (!dragon.isFlying()) {
-				return false;
-			}
+	//		if (!dragon.isFlying()) {
+	//			return false;
+	//		}
 	//		if (dragon.isSleeping()) {
 	//			return false;
 	//		}
@@ -51,9 +51,9 @@ public class EntityAIAirPoint extends EntityAIDragonBase {
 	}
 
 	public boolean continueExecuting() {
-		if (!dragon.isFlying()) {
-			return false;
-		}
+	//	if (!dragon.isFlying()) {
+	//		return false;
+//		}
 	////	if (dragon.isSleeping()) {
 	///		return false;
 	//	}

@@ -106,7 +106,7 @@ public class DragonBrain extends DragonHelper {
         tasks.addTask(3, new EntityAIDragonWhistle(dragon));
         tasks.addTask(3, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex all
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(dragon, 1)); // mutex 1
-        tasks.addTask(5, new EntityAIFlyAround(dragon));
+   //     tasks.addTask(5, new EntityAIFlyAround(dragon));
         tasks.addTask(6, new EntityAIAirPoint(dragon));
 
         if (dragon.isFlying()) {

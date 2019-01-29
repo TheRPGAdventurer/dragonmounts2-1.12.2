@@ -18,17 +18,16 @@ public class EntityAIAirPoint extends EntityAIDragonBase {
 
 	public boolean shouldExecute() {
 		if (dragon != null) {
-			if (!dragon.isFlying() && dragon.onGround) {
+			if (!dragon.isFlying()) {
 				return false;
 			}
-		//	if (dragon.isSleeping()) {
-		//		return false;
-		//	}
-			
-			if (dragon.isHatchling()) {
+	//		if (dragon.isSleeping()) {
+	//			return false;
+	//		}
+			if (dragon.isChild()) {
 				return false;
 			}
-			if (dragon.getControllingPlayer() != null) {
+			if (dragon.getOwner() != null && dragon.getPassengers().contains(dragon.getOwner())) {
 				return false;
 			}
 			if (dragon.airPoint != null && (dragon.isTargetBlocked(new Vec3d(dragon.airPoint)))) {
@@ -38,19 +37,13 @@ public class EntityAIAirPoint extends EntityAIDragonBase {
 			if (dragon.airPoint != null) {
 				return false;
 			} else {
-				BlockPos airPoint = getAirPoint();
+				Vec3d vec = this.findAirPoint();
 
-				if (dragon.airPoint != null) {
+				if (vec == null) {
 					return false;
 				} else {
-					Vec3d vec = this.findairPoint();
-
-					if (vec == null) {
-						return false;
-					} else {
-						dragon.airPoint = new BlockPos(vec.x, vec.y, vec.z);
-						return true;
-					}
+					dragon.airPoint = new BlockPos(vec.x, vec.y, vec.z);
+					return true;
 				}
 			}
 		}
@@ -61,16 +54,16 @@ public class EntityAIAirPoint extends EntityAIDragonBase {
 		if (!dragon.isFlying()) {
 			return false;
 		}
-	//	if (dragon.isSleeping()) {
-////			return false;
+	////	if (dragon.isSleeping()) {
+	///		return false;
 	//	}
-		if (!dragon.isHatchling()) {
+		if (dragon.isChild()) {
 			return false;
 		}
 		return dragon.airPoint != null;
 	}
 	
-	public Vec3d findairPoint() {
+	public Vec3d findAirPoint() {
 		return new Vec3d(getAirPoint());
 	}
 

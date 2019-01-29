@@ -53,27 +53,10 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
 	
 	@Override
  public void startExecuting() {
-  if(dragon.airPoint != null && dragon.airPoint.getY() > 128){
-  	 dragon.airPoint = new BlockPos(dragon.airPoint.getX(), 128, dragon.airPoint.getZ());
-  } 
-  
-		if(dragon.isFlyingAround() && dragon.airPoint != null && dragon.isTargetInAir() 
-				&& dragon.getDistanceSquared(new Vec3d(dragon.airPoint.getX(), dragon.posY, dragon.airPoint.getZ())) > 3) {
-			
-			double radius = 12;
-			float neg = dragon.getRNG().nextBoolean() ? 1 : -1;
-			float renderYawOffset = dragon.renderYawOffset;
-			float angle = (0.01745329251F * renderYawOffset) + 3.15F + (dragon.getRNG().nextFloat() * neg);
-			
-			double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
-			double extraZ = (double) (radius * MathHelper.cos(angle));
-			BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
-			BlockPos ground = dragon.world.getHeight(radialPos);
-//   Random random = dragon.getRNG();
-   double d0 = dragon.posX + (random.nextFloat() * 2.0F - 1.0F) * 20.0F;
-   double d1 = ground.getY() + 60; 
-   double d2 = dragon.posZ + (random.nextFloat() * 2.0F - 1.0F) * 20.0F;
-   dragon.getMoveHelper().setMoveTo(d0, d1, d2, 5.0D);
-		}
- }
+  if (dragon.isFlying() && dragon.getAttackTarget() == null) {
+   dragon.flyAround();
+  }//else if (dragon.getAttackTarget() != null) {
+ //   dragon.flyTowardsTarget();
+ // }
+	}
 }

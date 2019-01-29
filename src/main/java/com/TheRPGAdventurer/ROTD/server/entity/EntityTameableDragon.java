@@ -483,7 +483,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 2500 && this.isFlying() && getControllingPlayer() == null) {
+		if(inAirTicks < 6000 && this.isFlying() && getControllingPlayer() == null) {
   	return true;
  	} else {
  		return false;
@@ -769,6 +769,67 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		// stronger jumps for easier lift-offs
 		return canFly() ? 1 : super.getJumpUpwardsMotion();
 	}
+	
+ public void flyAround() {
+  if (airPoint != null) {
+      if (!isTargetInAir() || inAirTicks > 6000 || !this.isFlying()) {
+          airPoint = null;
+      }
+      flyTowardsTarget();
+  }
+}
+
+public void flyTowardsTarget() {
+  if(airPoint != null && airPoint.getY() > 128){
+      airPoint = new BlockPos(airPoint.getX(), 128, airPoint.getZ());
+  }
+  if (airPoint != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airPoint.getX(), this.posY, airPoint.getZ())) > 3) {
+      double y = this.posY; // this.attackDecision ? airPoint.getY() : 
+
+      double targetX = airPoint.getX() + 0.5D - posX;
+      double targetY = Math.min(y, 256) + 1D - posY;
+      double targetZ = airPoint.getZ() + 0.5D - posZ;
+      motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 5;
+      motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 5;
+      motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * 5;           
+      moveForward = 0.5F;
+      
+      
+      double d0 = airPoint.getX() + 0.5D - this.posX;
+      double d2 = airPoint.getZ() + 0.5D - this.posZ;
+      double d1 = y + 0.5D - this.posY;
+      double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
+      float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+      float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
+      this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
+      this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
+
+      if (!this.isFlying()) {
+          this.setFlying(true);
+      }
+  } else {
+      this.airPoint = null;
+  }
+ // if (airPoint != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airPoint.getX(), this.posY, airPoint.getZ())) < 3 && this.doesWantToLand()) {
+ //     this.setFlying(false);
+ ///     this.setHovering(true);
+ //     this.flyHovering = 1;
+ // }
+}
+
+private float updateRotation(float angle, float targetAngle, float maxIncrease) {
+ float f = MathHelper.wrapDegrees(targetAngle - angle);
+
+ if (f > maxIncrease) {
+     f = maxIncrease;
+ }
+
+ if (f < -maxIncrease) {
+     f = -maxIncrease;
+ }
+
+ return angle + f;
+}
 
 	@SideOnly(Side.CLIENT)
 	public void updateBreathing() {
@@ -863,6 +924,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 				this.liftOff();
 //				DMUtils.getLogger().info("tried to liftoff RNG");
 			}
+			
+   if (this.isFlying() && getAttackTarget() == null && isFlyingAround()) {
+    flyAround();
+   } else if (getAttackTarget() != null) {
+    flyTowardsTarget();
+   }
 
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
 			if (flying != isFlying()) { 

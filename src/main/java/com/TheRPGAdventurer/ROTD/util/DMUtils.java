@@ -62,7 +62,7 @@ public class DMUtils {
 	}
 	
 	public static BlockPos getBlockInView(EntityTameableDragon dragon) {
-		float radius = 0.75F * (25 * 0.5f) * - 7 - dragon.getRNG().nextInt(4 * 6);
+		float radius = 0.75F * (125 * 0.5f) * - 7 - dragon.getRNG().nextInt(4 * 6);
 		float neg = dragon.getRNG().nextBoolean() ? 1 : -1;
 		float renderYawOffset = dragon.renderYawOffset;
 		if(dragon.hasHomePosition && dragon.homePos != null){

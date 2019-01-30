@@ -100,7 +100,7 @@ public class BreathNode {
 
     // collision ages breath node faster
     if (parentEntity.isCollided) {
-      ageTicks += 5;
+      ageTicks += 4;
     }
 
     // slow breath nodes age very fast (they look silly when sitting still)
@@ -190,22 +190,22 @@ public class BreathNode {
     switch (newPower) {
       case SMALL: {
         speedPowerFactor = 1.8F;
-        lifetimePowerFactor = 0.75F;
-        sizePowerFactor = 0.85F;
+        lifetimePowerFactor = 0.55F;
+        sizePowerFactor = 0.65F;
         intensityPowerFactor = 1.0F;
         break;
       }
       case MEDIUM: {
         speedPowerFactor = 3.95F;
-        lifetimePowerFactor = 0.9F;
-        sizePowerFactor = 1.95F;
+        lifetimePowerFactor = 0.7F;
+        sizePowerFactor = 1.25F;
         intensityPowerFactor = 1.2F;
         break;
       }
       case LARGE: {
         speedPowerFactor = 4.0F;
-        lifetimePowerFactor = 1.0F;
-        sizePowerFactor = 2.35F;
+        lifetimePowerFactor = 0.8F;
+        sizePowerFactor = 3.25F;
         intensityPowerFactor = 1.4F;
         break;
       }

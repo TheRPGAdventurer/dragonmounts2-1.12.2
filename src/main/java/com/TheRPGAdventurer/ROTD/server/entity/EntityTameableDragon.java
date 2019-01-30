@@ -26,6 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
@@ -35,6 +36,7 @@ import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
@@ -225,16 +227,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public DragonInventory dragonStats;
 	private ItemStackHandler itemHandler = null;
 	private boolean hasChestVarChanged = false;
-	private boolean cancelYChanges;
-    /** True if after a move this entity has collided with something on Y-axis */
-    public boolean isCollidedVertically2;
+	/** True if after a move this entity has collided with something on Y-axis */
+	public boolean isCollidedVertically2;
 	private boolean isUsingBreathWeapon;
 	private boolean isUnhovered;
 	public boolean isSlowed;
 	public int inAirTicks;
 	public final EntityAITasks attackTasks;
 	public DragonAnimator animator;
-    private double airSpeedVertical = 0;
+ private double airSpeedVertical = 0;
 	public boolean hasHomePosition = false;
 	public int roarTicks;
 	public BlockPos homePos;
@@ -483,7 +484,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	}
 	
 	public boolean isFlyingAround() {
-		if(inAirTicks < 6000 && this.isFlying() && getControllingPlayer() == null && getAttackTarget() == null) {
+		if(inAirTicks < 2000 && this.isFlying() && getControllingPlayer() == null && getAttackTarget() == null && !isTamed()) {
   	return true;
  	} else {
  		return false;
@@ -708,6 +709,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			this.isUnhovered = isUnhovered;
 		}
 	}
+	
+	@Override
+	protected void initEntityAI() {
+  tasks.addTask(6, new EntityAIAirPoint(this));
+	}
 
 	/**
 	 * Called when the mob is falling. Calculates and applies fall damage.
@@ -772,7 +778,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
  public void flyAround() {
   if (airPoint != null) {
-      if (!isTargetInAir() || inAirTicks > 6000 || !this.isFlying()) {
+      if (!isTargetInAir() || inAirTicks > 2000 || !this.isFlying()) {
           airPoint = null;
       }
       flyTowardsTarget();
@@ -784,7 +790,7 @@ public void flyTowardsTarget() {
       airPoint = new BlockPos(airPoint.getX(), 128, airPoint.getZ());
   }
   if (airPoint != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airPoint.getX(), this.posY, airPoint.getZ())) > 3) {
-      double y = this.posY; // this.attackDecision ? airPoint.getY() : 
+      double y = posY; // this.attackDecision ? airPoint.getY() : 
 
       double targetX = airPoint.getX() + 0.5D - posX;
       double targetY = Math.min(y, 256) + 1D - posY;
@@ -823,7 +829,7 @@ public Vec3d findAirPoint() {
 
 public BlockPos getAirPoint() {
 	if (this.getAttackTarget() == null) {
-		BlockPos pos = new BlockPos(58, 100, 376);
+		BlockPos pos = DMUtils.getBlockInView(this);
 		if (pos != null && this.world.getBlockState(pos).getMaterial() == Material.AIR) {
 			return pos;
 		}
@@ -860,7 +866,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		updateParts();
+//		updateParts();
 		if (world.isRemote) {
 			this.updateBreathing();
 		}
@@ -874,7 +880,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	public BlockPos onGroundAir() {
 		BlockPos pos = this.getPosition(); 
 	//	for(int width = 1; width <= this.width / 2; width++) {
-		    for(int y = 1; y <= 3.4; y++) { 
+		    for(float y = 1; y <= 3.4; y++) { 
 		      pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
 		    }
 	//	}
@@ -883,7 +889,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	
 	public boolean onSolidGround() {
 		IBlockState state = world.getBlockState(onGroundAir());
-		return !state.getMaterial().isSolid();
+		return state.getMaterial().isSolid();
 		
 	}
 	
@@ -928,28 +934,24 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 
 			// delay flying state for 10 ticks (0.5s)			
 			if (onSolidGround()) { 
-				inAirTicks++;
-			} else {
 				inAirTicks = 0;
+			} else {
+				inAirTicks++;
 			}
 			
-			if(!isFlying() && this.getControllingPlayer() == null 
-					&& !this.isHatchling() && this.getRNG().nextInt(150) == 1 && !isSitting()
-					&& this.getAttackingEntity() == null
-					&& this.getAttackTarget() == null) {
-				this.liftOff();
-//				DMUtils.getLogger().info("tried to liftoff RNG");
-			}
+//			if(!isFlying() && this.getControllingPlayer() == null 
+	//				&& !this.isHatchling() && this.getRNG().nextInt(150) == 1 && !isSitting()
+	///				&& this.getAttackingEntity() == null
+	//				&& this.getAttackTarget() == null && !isTamed()) {
+	//			this.liftOff();
+	//			DMUtils.getLogger().info("tried to liftoff RNG");
+	//		}
 			
-			if(this.isFlyingAround()) {
-				airPoint = getAirPoint();
-			}
-			
-   if (this.isFlying() && getAttackTarget() == null && isFlyingAround()) {
-    flyAround();
-   } else if (getAttackTarget() != null) {
-    flyTowardsTarget();
-   }
+ //  if (this.isFlying() && getAttackTarget() == null && getControllingPlayer() == null) {
+  //  flyAround();
+ //  } else if (getAttackTarget() != null) {
+ //   flyTowardsTarget();
+  // }
 
 			boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
 			if (flying != isFlying()) { 
@@ -1015,7 +1017,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 
 		updateShearing();
 		updateDragonEnderCrystal(); 
-//		regenerateHealth();
+		regenerateHealth();
 		updateForRiding();
 		ACHOOOOO();
 
@@ -1039,8 +1041,9 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 		if(!this.world.isRemote) {
 				if(this.isTamed()) {
 		  	ItemDragonEssence essence = dragonEssence();
-			  essence.setDragonNBT(this);
-			  entityDropItem(new ItemStack(essence), 1);
+		  	ItemStack essence1 = new ItemStack(essence);
+			  essence.setDragonNBT(this, essence1);
+			  entityDropItem(essence1, 1);
 			}
 		}
 	}
@@ -1136,7 +1139,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
         int directionInt = direction ? 1 : -1;
         return this.getNavigator().tryMoveToXYZ(
         		 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
-        		 30 + target.getY(), // DragonMountsConfig.dragonFlightHeight
+        		 DragonMountsConfig.maxFLightHeight + target.getY(), // DragonMountsConfig.dragonFlightHeight
         		 target.getZ() + radius * Math.sin(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
         		speed * moveSpeedMultiplier);
     }

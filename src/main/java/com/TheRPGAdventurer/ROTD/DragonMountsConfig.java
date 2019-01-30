@@ -70,13 +70,15 @@ public class DragonMountsConfig {
 	public static int boneNestRarerityInX = 32;
 	public static int boneNestRarerityInZ = 32;
 	
-	public static double ThirdPersonZoom = 13.8;
+	public static double ThirdPersonZoom = 9.8;
 	
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	
+	public static double maxFLightHeight = 36;
+	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 48000; 
+	public static int GET_TICKS_PER_STAGE = 75000; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
@@ -167,6 +169,11 @@ public class DragonMountsConfig {
 		prop.setComment("how long does a dragon grow per stage higher numbers higher time growth)"
 				+ "(Note:VERY VERY DANGEROUS Can cause disappearances of dragons, only edit at the beginning of the world where there are no tameable dragons yet to be sure, Im not even sure if it even works!)");
 		GET_TICKS_PER_STAGE = prop.getInt();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_CLIENTDM2, "Max Flight Height", maxFLightHeight);
+		prop.setComment("Max flight fr dragons circling players on a whistle");
+		maxFLightHeight = prop.getDouble();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", ThirdPersonZoom);

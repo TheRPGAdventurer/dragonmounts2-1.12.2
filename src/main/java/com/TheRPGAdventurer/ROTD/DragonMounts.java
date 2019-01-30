@@ -56,7 +56,7 @@ public class DragonMounts {
 	
     public static final String NAME = "Dragon Mounts";
     public static final String MODID = "dragonmounts";
-    public static final String VERSION = "1.12.2-1.5.0";
+    public static final String VERSION = "1.12.2-1.5.6";
     public static final String LLIBRARY_VERSION = "1.7.9";
     public static final String GUI_FACTORY = "com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
     

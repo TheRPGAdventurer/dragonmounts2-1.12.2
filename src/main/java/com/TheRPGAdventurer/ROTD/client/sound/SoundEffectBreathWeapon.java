@@ -57,7 +57,7 @@ public class SoundEffectBreathWeapon {
     weaponSoundUpdateLink = i_weaponSoundUpdateLink;
   }
 
-  private final float HEAD_MIN_VOLUME = 0.02F;
+  private final float HEAD_MIN_VOLUME = 0.0001F;
 
   public void startPlaying(EntityPlayerSP entityPlayerSP, EntityTameableDragon dragon) {
     stopAllSounds();

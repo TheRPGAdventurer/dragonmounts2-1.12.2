@@ -42,8 +42,7 @@ public class ItemDragonEssence extends Item {
 	    this.type = type;
 	}
 	
-	public void setDragonNBT(EntityTameableDragon dragon) {
-		 ItemStack stack = new ItemStack(this);
+	public void setDragonNBT(EntityTameableDragon dragon, ItemStack stack) {
 	 	NBTTagCompound nbt = stack.getTagCompound();		
    if (stack.hasTagCompound()) {
      nbt = stack.getTagCompound(); 
@@ -128,7 +127,7 @@ public class ItemDragonEssence extends Item {
           stack.setTagCompound(nbt);
          	if(stack.getTagCompound().hasKey("essenceDragonId")) {
             	dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceDragonId"));
-          	  dragon.setOwnerId(stack.getTagCompound().getUniqueId("essenceOwnerId"));	
+          	  dragon.tamedFor(world.getPlayerEntityByUUID(stack.getTagCompound().getUniqueId("essenceOwnerId")), true);	
              dragon.setPosition(x, y, z);
              dragon.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
              dragon.rotationYawHead = dragon.rotationYaw;

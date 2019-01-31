@@ -101,19 +101,7 @@ public class ItemDragonEssence extends Item {
     }        return EnumActionResult.SUCCESS;     
  }
  
- /**
-  * True if the item has enchantment data
-  */
- public boolean hasDragonInside(ItemStack stack) {
-     if (stack.getTagCompound() != null && stack.getTagCompound().hasKey("essenceDragonId")) {
-         return !stack.getTagCompound().getTagList("essenceDragonId", 10).hasNoTags();
-     }
-     else
-     {
-         return false;
-     }
- }
- 
+
  public EntityTameableDragon spawnEntityTameableDragon(World world, EntityPlayer player, ItemStack stack, double x, double y, double z) {
  	EntityTameableDragon dragon = new EntityTameableDragon(world);
          try {     
@@ -125,7 +113,7 @@ public class ItemDragonEssence extends Item {
           }
         				
           stack.setTagCompound(nbt);
-         	if(stack.getTagCompound().hasKey("essenceDragonId")) {
+         	if(stack.getTagCompound().hasUniqueId("essenceDragonId")) {
             	dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceDragonId"));
           	  dragon.tamedFor(world.getPlayerEntityByUUID(stack.getTagCompound().getUniqueId("essenceOwnerId")), true);	
              dragon.setPosition(x, y, z);
@@ -146,7 +134,7 @@ public class ItemDragonEssence extends Item {
  @Override
  public boolean hasEffect(ItemStack stack) {
  	// TODO Auto-generated method stub
- 	return super.hasEffect(stack) || hasDragonInside(stack);
+ 	return super.hasEffect(stack);
  }
 
 }

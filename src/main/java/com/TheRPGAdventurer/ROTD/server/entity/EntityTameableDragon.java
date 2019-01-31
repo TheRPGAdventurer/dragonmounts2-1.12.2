@@ -1534,13 +1534,13 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	 */
 	public int getArmorResistance() {
 		if (getArmor() == 1) {
-			return (int)1.5;
+			return (int)1.0;
 		}
 		if (getArmor() == 2) {
-			return 1;
+			return (int)0.8;
 		}
 		if (getArmor() == 3) {
-			return (int)1.5;
+			return (int)1.4;
 		}
 		return 0;
 	}

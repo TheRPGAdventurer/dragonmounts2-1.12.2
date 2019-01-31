@@ -51,6 +51,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonMoveHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
@@ -77,7 +78,6 @@ import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -1534,13 +1534,13 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	 */
 	public int getArmorResistance() {
 		if (getArmor() == 1) {
-			return (int)1.0;
+			return (int)1.1;
 		}
 		if (getArmor() == 2) {
-			return (int)0.8;
+			return (int)1.0;
 		}
 		if (getArmor() == 3) {
-			return (int)1.4;
+			return (int)1.3;
 		}
 		return 0;
 	}
@@ -1877,6 +1877,41 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	public boolean shouldDismountInWater(Entity rider) {
 		return false;
 	}
+	public int getStageInt() {
+		switch(this.getLifeStageHelper().getLifeStage()) {
+		case ADULT:
+			return 3;
+		case EGG:
+			return 0;
+		case HATCHLING:
+			return 1;
+		case JUVENILE:
+			return 2;
+		default:
+			break;
+		
+		}
+		return 0;
+	}
+	
+	public void setLifeStageInt(int i) {
+		switch(i)	{
+		case 3:
+			this.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.ADULT);
+			break;
+		case 0:
+			this.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+			break;
+		case 1:
+			this.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.HATCHLING);
+			break;
+		case 2:
+			this.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.JUVENILE);
+			break;
+		default:
+			break;
+		}
+		}
 
 	/**
 	 * Returns the size multiplier for the current age.

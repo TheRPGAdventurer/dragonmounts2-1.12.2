@@ -2,7 +2,6 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -65,6 +64,11 @@ public class DragonBreedZombie extends DragonBreed {
 	
 	@Override
 	public SoundEvent getLivingSound() {
+		return ModSounds.ENTITY_DRAGON_BREATHE;
+	}
+	
+	@Override
+	public SoundEvent getRoarSoundEvent() {
 		return ModSounds.ZOMBIE_DRAGON_GROWL;
 	}
 	

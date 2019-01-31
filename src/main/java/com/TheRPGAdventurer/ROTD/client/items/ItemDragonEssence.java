@@ -9,12 +9,10 @@ import com.TheRPGAdventurer.ROTD.client.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,6 +53,7 @@ public class ItemDragonEssence extends Item {
    if(stack.getTagCompound() != null) {
    	nbt.setUniqueId("essenceDragonId", dragon.getUniqueID());
    	nbt.setUniqueId("essenceOwnerId" , dragon.getOwnerId ());
+   	nbt.setFloat("stage", dragon.getStageInt());
    	if(dragon.hasCustomName())	nbt.setString("name", dragon.getCustomNameTag());
    }
 	}
@@ -122,6 +121,8 @@ public class ItemDragonEssence extends Item {
              dragon.renderYawOffset = dragon.rotationYaw;
              dragon.setBreedType(breed);
              dragon.setHealth(dragon.getMaxHealth());
+             dragon.setScalePublic(stack.getTagCompound().getFloat("dragonTicks"));
+             dragon.setLifeStageInt(stack.getTagCompound().getInteger("stage"));
              return dragon;
           }
          } catch (Exception e) {

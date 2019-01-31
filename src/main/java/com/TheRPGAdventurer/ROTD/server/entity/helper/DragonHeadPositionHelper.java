@@ -65,7 +65,7 @@ public class DragonHeadPositionHelper {
       float baseRotX = MathX.cos((float) i * 0.45f + animBase) * 0.15f;
       baseRotX *= MathX.lerp(0.2f, 1, flutter);
       baseRotX *= MathX.lerp(1, 0.2f, sit);
-      float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.60f;
+      float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.63f;
 
       // basic up/down movement
       currentSegment.rotateAngleX = baseRotX;

@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.client.initialization;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.items.ItemCarriage;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonHeads;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonScales;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonShield;
 import com.TheRPGAdventurer.ROTD.client.items.ItemDragonSpawner;

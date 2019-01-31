@@ -1165,7 +1165,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	public void roar() {
 		if(!isDead) {
 		   this.roarTicks = 0;
-		   world.playSound(posX, posY, posZ, ModSounds.DRAGON_ROAR, SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 2.3f),  MathX.clamp(getScale(), 0, 1), true);
+		   world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 2.3f),  MathX.clamp(getScale(), 0, 1), true);
 		}
 	}
 

@@ -14,12 +14,15 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -120,7 +123,7 @@ public class ItemDragonEssence extends Item {
              dragon.rotationYawHead = dragon.rotationYaw;
              dragon.renderYawOffset = dragon.rotationYaw;
              dragon.setBreedType(breed);
-             dragon.setHealth(dragon.getMaxHealth());
+             dragon.setHealth(200.0F);
              dragon.setScalePublic(stack.getTagCompound().getFloat("dragonTicks"));
              dragon.setLifeStageInt(stack.getTagCompound().getInteger("stage"));
              return dragon;
@@ -128,6 +131,9 @@ public class ItemDragonEssence extends Item {
          } catch (Exception e) {
              e.printStackTrace();
          }       
+         
+         dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);
+         dragon.world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x + dragon.getRNG().nextInt(5), y + dragon.getRNG().nextInt(5), z + dragon.getRNG().nextInt(5), 1, 1, 1, 0);
 
      return null;
  }

@@ -12,10 +12,12 @@ public class ModKeys {
     public static KeyBinding KEY_FLY_DOWN;
     public static  KeyBinding KEY_BREATH;
     public static KeyBinding KEY_HOVERCANCEL;
+    public static KeyBinding dragon_change_view;
     
     public static void init() {
     	KEY_BREATH = new KeyBinding("key.dragon.breath", Keyboard.KEY_R, KEY_CATEGORY);
     	KEY_HOVERCANCEL = new KeyBinding("key.dragon.cancelhover", Keyboard.KEY_LCONTROL, KEY_CATEGORY);
+    	dragon_change_view = new KeyBinding("key.dragon.f7", Keyboard.KEY_F7, KEY_CATEGORY);
    // 	KEY_FLY_UP = new KeyBinding("key.dragon.flyUp", Keyboard.KEY_SPACE, KEY_CATEGORY);
         ClientRegistry.registerKeyBinding(KEY_BREATH);
         ClientRegistry.registerKeyBinding(KEY_FLY_UP);

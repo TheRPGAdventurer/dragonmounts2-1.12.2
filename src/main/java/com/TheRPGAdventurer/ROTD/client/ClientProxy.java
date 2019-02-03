@@ -59,6 +59,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * 2nd @author TheRPGAdventurer
  */
 public class ClientProxy extends ServerProxy {
+	
+	private int thirdPersonViewDragon = 0;
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -98,5 +100,13 @@ public class ClientProxy extends ServerProxy {
     @SideOnly(Side.CLIENT)
 	@Override
 	public void render() {ModKeys.init();} 
+    
+ public int getDragon3rdPersonView() {
+   return thirdPersonViewDragon;
+ }
+
+ public void setDragon3rdPersonView(int view) {
+  	thirdPersonViewDragon = view;
+	}
   
 }

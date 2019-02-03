@@ -86,5 +86,12 @@ public class ServerProxy {
     } 
     
 	public void render() {}
+	
+ public int getDragon3rdPersonView() {
+  return 0;
+}
+
+public void setDragon3rdPersonView(int view) {
+}
 
 }

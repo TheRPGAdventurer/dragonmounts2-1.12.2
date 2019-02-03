@@ -73,6 +73,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             		dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
             updateIntendedRideRotation(rider);
         }
+        
+       dragon.setBoosting(dragon.isUnHovered());
+        
                 
         // control direction with movement keys
         if (rider.moveStrafing != 0 || rider.moveForward != 0) {

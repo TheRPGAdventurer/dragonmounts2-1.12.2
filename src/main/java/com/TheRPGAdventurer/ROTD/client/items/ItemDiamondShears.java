@@ -1,20 +1,30 @@
 package com.TheRPGAdventurer.ROTD.client.items;
 
+import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDiamondShears extends ItemShears {
 	
@@ -27,6 +37,13 @@ public class ItemDiamondShears extends ItemShears {
 	    this.setMaxDamage(345);
 	    this.setMaxStackSize(1);
 	    this.setCreativeTab(DragonMounts.TAB);	    
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT) 
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		NBTTagCompound nbt = stack.getTagCompound();
+		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.diamondshears.info"));
 	}
 	
 	@Override

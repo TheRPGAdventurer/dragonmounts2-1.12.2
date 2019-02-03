@@ -133,7 +133,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.setDescription("Movement Speed Air").setShouldWatch(true);
 
 	// base attributes
-	public static final double BASE_GROUND_SPEED = 0.4;
+	public static final double BASE_GROUND_SPEED = 0.6;
 	public static final double BASE_AIR_SPEED = 0.9;
 	public static final double BASE_DAMAGE = 4.0D; 
 	public static final double BASE_ARMOR = 7.0D;
@@ -159,6 +159,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	private static final DataParameter<Boolean> CHESTED = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS = EntityDataManager
+			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> BOOSTING = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> IS_MALE = EntityDataManager
 			.<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -237,6 +239,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public DragonAnimator animator;
  private double airSpeedVertical = 0;
 	public boolean hasHomePosition = false;
+	public boolean allowOtherPlayers = false;
 	public int roarTicks;
 	public BlockPos homePos;
 	public BlockPos airPoint;
@@ -336,6 +339,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		dataManager.register(HAS_ELDER_STONE, false);
 		dataManager.register(HAS_ADJUCATOR_STONE, false);
 		dataManager.register(ALLOW_OTHERPLAYERS, false);
+		dataManager.register(BOOSTING, false);
 		dataManager.register(WHISTLE_STATE, Byte.valueOf((byte) 0));
 		dataManager.register(WHISTLE, ItemStack.EMPTY);
 		dataManager.register(SLEEP, false);
@@ -375,6 +379,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	//	nbt.setBoolean(NBT_BANNERED2, this.isBannered2());
 	//	nbt.setBoolean(NBT_BANNERED3, this.isBannered3());
 	//	nbt.setBoolean(NBT_BANNERED4, this.isBannered4());
+		nbt.setBoolean("boosting", this.boosting());
 		nbt.setBoolean(NBT_ELDER, this.canBeElder());
 		nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
 		nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
@@ -403,6 +408,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		this.setArmor(nbt.getInteger(NBT_ARMOR));
 		this.setMale(nbt.getBoolean(NBT_ISMALE));
 		this.setUnHovered(nbt.getBoolean("unhovered"));
+		this.setBoosting(nbt.getBoolean("boosting"));
 //		this.setSleeping(nbt.getBoolean("sleeping"));
 	//	this.setBannered1(nbt.getBoolean(NBT_BANNERED1));
 	//	this.setBannered2(nbt.getBoolean(NBT_BANNERED2));
@@ -422,14 +428,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 		helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 
 	}
-
-	/**
-	 * Returns true if the dragon is saddled.
-	 */
-	public boolean isSaddled() {
-		return dataManager.get(DATA_SADDLED);
-	}
-  
     /**
      * Returns relative speed multiplier for the vertical flying speed.
      * 
@@ -456,6 +454,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         L.trace("setMoveSpeedAirVert({})", airSpeedVertical);
         this.airSpeedVertical = airSpeedVertical;
     }
+    
+ 	/**
+ 	 * Returns true if the dragon is saddled.
+ 	 */
+	public boolean isSaddled() {
+ 		return dataManager.get(DATA_SADDLED);
+	}
 
 	/**
 	 * Set or remove the saddle of the dragon.
@@ -471,6 +476,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 	public void setToAllowedOtherPlayers(boolean allow) {
 		dataManager.set(ALLOW_OTHERPLAYERS, allow);
+	}
+	
+	public boolean boosting() {
+		return dataManager.get(BOOSTING);
+	}
+
+	public void setBoosting(boolean allow) {
+		dataManager.set(BOOSTING, allow);
 	}
 
 	// used to be called isChestedLeft
@@ -1106,6 +1119,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
     	x = midPoint.getX() + 0.5 - 12;
     	y = midPoint.getY() + 0.5 + 24;
     	z = midPoint.getZ() + 0.5 - offset;
+     this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
     	return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
 	}
 	
@@ -1118,6 +1132,8 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 			    this.setnothing(true);
 			}
 		}
+		
+  this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
 		
 		if(this.getControllingPlayer() != null) {
 			return false;
@@ -1137,6 +1153,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	
 	public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
         int directionInt = direction ? 1 : -1;
+        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(
         		 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
         		 DragonMountsConfig.maxFLightHeight + target.getY(), // DragonMountsConfig.dragonFlightHeight
@@ -1163,9 +1180,9 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	}
 	
 	public void roar() {
-		if(!isDead) {
+		if(!isDead && getBreed().getRoarSoundEvent() != null) {
 		   this.roarTicks = 0;
-		   world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 2.3f),  MathX.clamp(getScale(), 0, 1), true);
+		   world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 2.3f),  MathX.clamp(getScale(), 0.23f, 1), true);
 		}
 	}
 
@@ -1667,20 +1684,12 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 		}
 	}
 	
-//	@Override
-	//public void move(MoverType type, double x, double y, double z) {
-//		double d3 = nearGroundOffset;
-	//	this.isCollidedVertically2 = d3 != y;
-////		this.nearGround = this.isCollidedVertically2 && y > 0;
-//		super.move(type, x, y, z);
-//	}
-	
-    @Nullable
-    public Entity getControllingPassenger() {
-    	return this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);		
-    }
-	
-    @Nullable
+ @Nullable
+ public Entity getControllingPassenger() {
+ 	return this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);		
+ }
+ 
+ @Nullable
 	public EntityPlayer getControllingPlayer() { 
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
 		if (entity instanceof EntityPlayer) { 

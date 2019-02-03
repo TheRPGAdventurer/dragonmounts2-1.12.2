@@ -382,7 +382,7 @@ public class DragonAnimator {
 
     protected void animWings() {
      // move wings slower while sitting
-     float aSpeed = sit > 0 || sleep > 0 ? 0.6f : 1;
+     float aSpeed = sit > 0 ? 0.6f : 1;
 
      // animation speeds
      float a1 = animBase * aSpeed * 0.35f;

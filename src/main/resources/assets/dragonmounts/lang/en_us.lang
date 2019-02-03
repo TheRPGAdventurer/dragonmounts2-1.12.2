@@ -42,6 +42,8 @@ item.whistle.noDragon=Dragon Whistle is empty, Left Click an owned and tamed dra
 item.whistle.limit=One Whistle can only carry 3 Dragons
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (HomePos is WIP)
 item.command.new_home=New HomePos at
+item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
+item.carriage.info=Used to make dragons carry multiple passengers like a boat
 
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)

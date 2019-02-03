@@ -17,6 +17,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.SegmentSizePositionRotation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
+import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -28,7 +29,7 @@ import net.minecraft.entity.EntityLivingBase;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class DragonModel extends ModelBase {
+public class DragonModel extends AdvancedModelBase {
 	
    public enum RenderPass {
     MAIN, SADDLE, GLOW

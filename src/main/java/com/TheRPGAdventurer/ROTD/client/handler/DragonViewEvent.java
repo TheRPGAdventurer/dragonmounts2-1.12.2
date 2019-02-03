@@ -26,6 +26,7 @@ public class DragonViewEvent {
 
 		if(player.getRidingEntity() instanceof EntityTameableDragon) {	
 			float scale = MathX.clamp(((EntityTameableDragon) player.getRidingEntity()).getScale(), 0.1f, 1f);
+			float distToBlock = 0;
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
 				GlStateManager.translate(0F , -1.7F, -DragonMountsConfig.ThirdPersonZoom * scale); 

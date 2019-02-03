@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
+import java.io.IOException;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -68,6 +70,11 @@ public class GuiDragon extends GuiContainer {
 	//      dragon.setToAllowedOtherPlayers(true);
 	//    }
 	// }
+	
+	@Override
+	protected void actionPerformed(GuiButton button) throws IOException {
+		super.actionPerformed(button);
+	}
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {

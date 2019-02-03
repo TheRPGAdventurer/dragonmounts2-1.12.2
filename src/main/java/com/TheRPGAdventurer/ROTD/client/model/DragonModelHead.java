@@ -1,13 +1,11 @@
 package com.TheRPGAdventurer.ROTD.client.model;
 
-import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.ModelPart;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
-import net.minecraft.client.model.ModelBase;
+import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 
-public class DragonModelHead extends ModelBase {
+public class DragonModelHead extends AdvancedModelBase {
 	
     public ModelPart head;
     public ModelPart jaw;

@@ -15,8 +15,9 @@ import static org.lwjgl.opengl.GL11.glNewList;
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
+import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
+import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,7 +28,7 @@ import net.minecraft.client.renderer.Tessellator;
  * 
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class ModelPart extends ModelRenderer {
+public class ModelPart extends AdvancedModelRenderer {
     
     public static boolean renderAxes;
     
@@ -39,20 +40,20 @@ public class ModelPart extends ModelRenderer {
     public float preRotateAngleY;
     public float preRotateAngleZ;
     
-    private ModelBase base;
+    private AdvancedModelBase base;
     private boolean compiled;
     private int displayList;
     
-    public ModelPart(ModelBase base, String name) {
+    public ModelPart(AdvancedModelBase base, String name) {
         super(base, name);
         this.base = base;
     }
     
-    public ModelPart(ModelBase base) {
+    public ModelPart(AdvancedModelBase base) {
         this(base, null);
     }
 
-    public ModelPart(ModelBase modelbase, int i, int j) {
+    public ModelPart(AdvancedModelBase modelbase, int i, int j) {
         super(modelbase, i, j);
         base = modelbase;
     }

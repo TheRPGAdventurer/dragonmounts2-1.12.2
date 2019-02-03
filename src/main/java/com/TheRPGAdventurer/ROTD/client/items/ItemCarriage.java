@@ -2,12 +2,16 @@ package com.TheRPGAdventurer.ROTD.client.items;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityMinecart;
@@ -15,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -29,7 +34,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemCarriage extends Item {
 	
@@ -42,6 +50,13 @@ public class ItemCarriage extends Item {
 		this.setMaxDamage(1);
 		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.TAB);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT) 
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		NBTTagCompound nbt = stack.getTagCompound();
+		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.carriage.info"));
 	}
 	
     /**

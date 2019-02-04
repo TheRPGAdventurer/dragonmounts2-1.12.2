@@ -107,7 +107,7 @@ public class DragonBrain extends DragonHelper {
         dragon.getNavigator().clearPathEntity();
         
         // clear existing tasks
-        clearTasks();
+   //     clearTasks();
         
         // eggs don't have any tasks
         if (dragon.isEgg()) {

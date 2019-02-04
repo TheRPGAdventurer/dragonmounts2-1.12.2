@@ -2,14 +2,18 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 
 import java.io.IOException;
 
+import org.lwjgl.opengl.GL11;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,7 +28,9 @@ public class GuiDragon extends GuiContainer {
 	private EntityTameableDragon dragon;
 	private float mousePosX;
 	private float mousePosY;
-	private GuiButton AllowOthers;
+	private LockButton AllowOthers;
+	public static ResourceLocation lockOpen;
+	public static ResourceLocation lockLocked;
 
 	public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
 		super(new ContainerDragon(dragon, Minecraft.getMinecraft().player));
@@ -33,6 +39,9 @@ public class GuiDragon extends GuiContainer {
 		this.dragon = dragon;
 		this.allowUserInput = false;
 		this.ySize = 214;
+		
+		lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1");
+		lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2");
 	}
 
 	/**
@@ -60,20 +69,19 @@ public class GuiDragon extends GuiContainer {
 
 	}
 
-	// @Override
-	// public void initGui() {
-	//    this.buttonList.clear();
-	//    this.AllowOthers = this.addButton(new GuiButton(0, 100, 100 , 5, 5, "ALLOW OTHERS"));	    
-	//    if(this.AllowOthers.enabled && !dragon.allowedOtherPlayers()) {
-	//       dragon.setToAllowedOtherPlayers(false);;
-	//    } else if(!this.AllowOthers.enabled && dragon.allowedOtherPlayers()) {
-	//      dragon.setToAllowedOtherPlayers(true);
-	//    }
-	// }
+	 @Override
+	 public void initGui() {
+	    this.buttonList.clear();
+	    this.AllowOthers = this.addButton(new LockButton(0, 100, 100 , 5, 5, I18n.format("gui.allowothers", new Object[0]), dragon));
+	    buttonList.add(AllowOthers);
+	}
 	
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
-		super.actionPerformed(button);
+		if(button == AllowOthers) {
+			dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+			
+		}
 	}
 
 	@Override
@@ -84,5 +92,50 @@ public class GuiDragon extends GuiContainer {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
 	}
+	
+	static class LockButton extends GuiButton {
+		
+		private boolean isLocked;
+		private EntityTameableDragon dragon;
 
+		public LockButton(int buttonId, int x, int y, int i, int j, String buttonText, EntityTameableDragon dragon) {
+			super(buttonId, x, y, buttonText);
+			this.dragon = dragon;
+		}
+		
+		/**
+   * Draws this button to the screen.
+   */
+  @Override
+  public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
+      if (visible) {
+          boolean isButtonPressed = (parX >= x 
+                && parY >= y 
+                && parX < x + width 
+                && parY < y + height);
+          GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+          if(dragon.allowedOtherPlayers()) {
+          mc.getTextureManager().bindTexture(lockOpen);
+          } else {
+          	mc.getTextureManager().bindTexture(lockLocked);
+          }
+          int textureX = 0;
+          int textureY = 192;
+
+          if (isButtonPressed)
+          {
+              textureX += 23;
+          }
+
+      //    if (!isNextButton)
+       //   {
+        //      textureY += 13;
+        //  }
+
+          drawTexturedModalRect(x, y, 
+                textureX, textureY, 
+                23, 13);
+   }
+  }
+	}
 }

@@ -18,7 +18,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.SegmentSizePositionRotatio
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,10 +29,6 @@ import net.minecraft.entity.EntityLivingBase;
  * @Modifier James Miller <TheRPGAdventurer.>
  */
 public class DragonModel extends AdvancedModelBase {
-	
-   public enum RenderPass {
-    MAIN, SADDLE, GLOW
-   }
 
     // model constants
     public static final int NECK_SIZE = 10;
@@ -97,7 +92,6 @@ public class DragonModel extends AdvancedModelBase {
     public float offsetZ;
     public float pitch;
     public float size;
-    public RenderPass renderPass = RenderPass.MAIN;
     private EnumDragonBreed breed;
     private DragonModelMode mode;
     
@@ -206,7 +200,7 @@ public class DragonModel extends AdvancedModelBase {
     private void buildHead() {
         head = new ModelPart(this, "head");
         head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
-        head.addBox("mainhead", -8, -8,    5 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
         head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
         head.mirror = true;
         head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
@@ -312,40 +306,6 @@ public class DragonModel extends AdvancedModelBase {
         }
     }
     
-    private void buildTailClub(boolean mirror) {
-        int hornThick = 3;
-        int hornLength = 32;
-        
-        float hornOfs = -(hornThick / 2f);
-        
-        float hornPosX = 0;
-        float hornPosY = hornOfs;
-        float hornPosZ = TAIL_SIZE / 2f;
-        
-        float hornRotX = MathX.toRadians(-15);
-        float hornRotY = MathX.toRadians(-145);
-        float hornRotZ = 0;
-        
-        if (mirror) {
-            hornPosX *= -1;
-            hornRotY *= -1;
-        }
-        
-        tail.mirror = mirror;
-        ModelPart horn = tail.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
-        horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
-      //  horn.setAngles(hornRotX, hornRotY, hornRotZ);
-        horn.isHidden = true;
-        boolean showSpike = breed == EnumDragonBreed.SUNLIGHT;
-        horn.showModel = showSpike;
-        
-        if (mirror) {
-            tailHornLeft = horn;
-        } else {
-            tailHornRight = horn;
-        }
-    }
-    
     private void buildBody() {
         body = new ModelPart(this, "body");
         body.setRotationPoint(0, 4, 8);
@@ -412,98 +372,97 @@ public class DragonModel extends AdvancedModelBase {
     }
     
     private void buildLeg(boolean hind) {
-     // thinner legs for skeletons
-     boolean skeleton = breed == EnumDragonBreed.SKELETON || breed == EnumDragonBreed.WITHER;
+        // thinner legs for skeletons
+        
+        float baseLength = 26;
+        String baseName = hind ? "hind" : "fore";
+        
+        // thigh variables
+        float thighPosX = -11;
+        float thighPosY = 18;
+        float thighPosZ = 4;
+        
+        int thighThick = 9;
+        int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
+        
+        if (hind) {
+            thighThick++;
+            thighPosY -= 5;
+        }
 
-     float baseLength = 26;
-     String baseName = hind ? "hind" : "fore";
+        float thighOfs = -(thighThick / 2f);
+        
+        ModelPart thigh = new ModelPart(this, baseName + "thigh");
+        thigh.setRotationPoint(thighPosX, thighPosY, thighPosZ);
+        thigh.addBox("main", thighOfs, thighOfs, thighOfs, thighThick, thighLength, thighThick);
+        
+        // crus variables
+        float crusPosX = 0;
+        float crusPosY = thighLength + thighOfs;
+        float crusPosZ = 0;
+        
+        int crusThick = thighThick - 2;
+        int crusLength = (int) (baseLength * (hind ? 0.7f : 0.8f));
+        
+        if (hind) {
+            crusThick--;
+            crusLength -= 2;
+        }
+        
+        float crusOfs = -(crusThick / 2f);
+        
+        ModelPart crus = new ModelPart(this, baseName + "crus");
+        crus.setRotationPoint(crusPosX, crusPosY, crusPosZ);
+        crus.addBox("main", crusOfs, crusOfs, crusOfs, crusThick, crusLength, crusThick);
+        thigh.addChild(crus);
+        
+        // foot variables
+        float footPosX = 0;
+        float footPosY = crusLength + (crusOfs / 2f);
+        float footPosZ = 0;
+        
+        int footWidth = crusThick + 2;
+        int footHeight = 4;
+        int footLength = (int) (baseLength * (hind ? 0.67f : 0.34f));
+        
+        float footOfsX = -(footWidth / 2f);
+        float footOfsY = -(footHeight / 2f);
+        float footOfsZ = footLength * -0.75f;
+        
+        ModelPart foot = new ModelPart(this, baseName + "foot");
+        foot.setRotationPoint(footPosX, footPosY, footPosZ);
+        foot.addBox("main", footOfsX, footOfsY, footOfsZ, footWidth, footHeight, footLength);
+        crus.addChild(foot);
+        
+        // toe variables
+        int toeWidth = footWidth;
+        int toeHeight = footHeight;
+        int toeLength = (int) (baseLength * (hind ? 0.27f : 0.33f));
 
-     // thigh variables
-     float thighPosX = -11;
-     float thighPosY = 18;
-     float thighPosZ = 4;
+        float toePosX = 0;
+        float toePosY = 0;
+        float toePosZ = footOfsZ - (footOfsY / 2f);
 
-     int thighThick = 9 - (skeleton ? 2 : 0);
-     int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
+        float toeOfsX = -(toeWidth / 2f);
+        float toeOfsY = -(toeHeight / 2f);
+        float toeOfsZ = -toeLength;
 
-     if (hind) {
-         thighThick++;
-         thighPosY -= 5;
-     }
-
-     float thighOfs = -(thighThick / 2f);
-
-     ModelPart thigh = new ModelPart(this, baseName + "thigh");
-     thigh.setRotationPoint(thighPosX, thighPosY, thighPosZ);
-     thigh.addBox("main", thighOfs, thighOfs, thighOfs, thighThick, thighLength, thighThick);
-
-     // crus variables
-     float crusPosX = 0;
-     float crusPosY = thighLength + thighOfs;
-     float crusPosZ = 0;
-
-     int crusThick = thighThick - 2;
-     int crusLength = (int) (baseLength * (hind ? 0.7f : 0.8f));
-
-     if (hind) {
-         crusThick--;
-         crusLength -= 2;
-     }
-
-     float crusOfs = -(crusThick / 2f);
-
-     ModelPart crus = new ModelPart(this, baseName + "crus");
-     crus.setRotationPoint(crusPosX, crusPosY, crusPosZ);
-     crus.addBox("main", crusOfs, crusOfs, crusOfs, crusThick, crusLength, crusThick);
-     thigh.addChild(crus);
-
-     // foot variables
-     float footPosX = 0;
-     float footPosY = crusLength + (crusOfs / 2f);
-     float footPosZ = 0;
-
-     int footWidth = crusThick + 2 + (skeleton ? 2 : 0);
-     int footHeight = 4;
-     int footLength = (int) (baseLength * (hind ? 0.67f : 0.34f));
-
-     float footOfsX = -(footWidth / 2f);
-     float footOfsY = -(footHeight / 2f);
-     float footOfsZ = footLength * -0.75f;
-
-     ModelPart foot = new ModelPart(this, baseName + "foot");
-     foot.setRotationPoint(footPosX, footPosY, footPosZ);
-     foot.addBox("main", footOfsX, footOfsY, footOfsZ, footWidth, footHeight, footLength);
-     crus.addChild(foot);
-
-     // toe variables
-     int toeWidth = footWidth;
-     int toeHeight = footHeight;
-     int toeLength = (int) (baseLength * (hind ? 0.27f : 0.33f));
-
-     float toePosX = 0;
-     float toePosY = 0;
-     float toePosZ = footOfsZ - (footOfsY / 2f);
-
-     float toeOfsX = -(toeWidth / 2f);
-     float toeOfsY = -(toeHeight / 2f);
-     float toeOfsZ = -toeLength;
-
-     ModelPart toe = new ModelPart(this, baseName + "toe");
-     toe.setRotationPoint(toePosX, toePosY, toePosZ);
-     toe.addBox("main", toeOfsX, toeOfsY, toeOfsZ, toeWidth, toeHeight, toeLength);
-     foot.addChild(toe);
-
-     if (hind) {
-         hindthigh = thigh;
-         hindcrus = crus;
-         hindfoot = foot;
-         hindtoe = toe;
-     } else {
-         forethigh = thigh;
-         forecrus = crus;
-         forefoot = foot;
-         foretoe = toe;
-      }
+        ModelPart toe = new ModelPart(this, baseName + "toe");
+        toe.setRotationPoint(toePosX, toePosY, toePosZ);
+        toe.addBox("main", toeOfsX, toeOfsY, toeOfsZ, toeWidth, toeHeight, toeLength);
+        foot.addChild(toe);
+        
+        if (hind) {
+            hindthigh = thigh;
+            hindcrus = crus;
+            hindfoot = foot;
+            hindtoe = toe;
+        } else {
+            forethigh = thigh;
+            forecrus = crus;
+            forefoot = foot; this.
+            foretoe = toe;
+        }
     }
     
     /**
@@ -604,7 +563,6 @@ public class DragonModel extends AdvancedModelBase {
         float speed = DragonAnimator.getSpeed();
         float walk = DragonAnimator.getWalkTime();
         float sit = DragonAnimator.getSitTime();
-        float sleep = DragonAnimator.getSleepTime();
         float cycleOfs = DragonAnimator.getCycleOfs();
         if (ground < 1) {
             float footAirOfs = cycleOfs * 0.1f;
@@ -646,12 +604,9 @@ public class DragonModel extends AdvancedModelBase {
 
             xAir = xAirAll[i % 2];
 
-            // interpolate between sleeping and standing
-            DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sit);
-            
             // interpolate between sitting and standing
-        //    DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sleep);
-            
+            DragonAnimator.slerpArrays(xGroundStand[i % 2], xGroundSit[i % 2], xGround, sit);
+
             // align the toes so they're always horizontal on the ground
             xGround[3] = -(xGround[0] + xGround[1] + xGround[2]);
 
@@ -724,8 +679,7 @@ public class DragonModel extends AdvancedModelBase {
     
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         DragonAnimator animator = dragon.getAnimator();
-        float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.88f, 1f) : 1;
-        animator.setMovement(moveTime, moveSpeed * speed);
+        animator.setMovement(moveTime, moveSpeed * dragon.getScale());
         animator.setLook(lookYaw, lookPitch);
         animator.animate();
         updateFromAnimator(dragon);
@@ -739,27 +693,31 @@ public class DragonModel extends AdvancedModelBase {
      * Renders the model after all animations are applied.
      */
     public void renderModel(EntityTameableDragon dragon, float scale) {
+        if (mode == null) {
+            return;
+        }
+        
         GlStateManager.pushMatrix();
         GlStateManager.translate(offsetX, offsetY, offsetZ);
         GlStateManager.rotate(-pitch, 1, 0, 0);
 
         switch (mode) {
-        case BODY_ONLY:
-            renderBody(scale);
-            break;
-        case WINGS_ONLY:
-            renderWings(scale);
-            break;
-        default:
-            renderHead(scale);
-            renderNeck(scale);
-            renderBody(scale);
-            renderLegs(scale);
-            renderTail(scale);
-            if (mode != DragonModelMode.NO_WINGS) {
+            case BODY_ONLY:
+                renderBody(scale);
+                break;
+            case WINGS_ONLY:
                 renderWings(scale);
-            }
-    }
+                break;
+            default:
+                renderHead(scale);
+                renderNeck(scale);
+                renderBody(scale);
+                renderLegs(scale);
+                renderTail(scale);
+                if (mode != DragonModelMode.NO_WINGS) {
+                    renderWings(scale);
+                }
+        }
 
         GlStateManager.popMatrix();
     }
@@ -769,8 +727,15 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     protected void renderHead(float scale) {
-        float headScale = scale * 0.94f;
-        head.render((float) (headScale));     
+        float headScale = 1.4f / (size + 0.4f);
+        
+     // smaller heads for baby dragons unlike other animals
+        if (this.isChild) {       	
+            head.render(scale);
+        } else {
+            head.setRenderScale(headScale); 
+            head.render(scale);
+        }
     }
     
     protected void renderNeck(float scale) {

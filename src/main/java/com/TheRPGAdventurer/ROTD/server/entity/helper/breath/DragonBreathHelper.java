@@ -138,7 +138,6 @@ public class DragonBreathHelper extends DragonHelper {
     if (dragon.isUsingBreathWeapon()) {
         Vec3d origin = dragon.getAnimator().getThroatPosition();
         Vec3d lookDirection = dragon.getLook(1.0f);
-        Vec3d mouseOver = RayTraceServer.getMouseOver(dragon.world, dragon.getControllingPlayer(), 10).hitVec;
         Vec3d endOfLook = origin.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
       if (endOfLook != null && currentBreathState == BreathState.SUSTAIN && dragon.getBreed().canUseBreathWeapon()) {       
         BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();

@@ -973,7 +973,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 				 setFlying(flying);
 
 				// clear tasks (needs to be done before switching the navigator!)
-				getBrain().clearTasks();
+	//			getBrain().clearTasks();
 
 				// update AI follow range (needs to be updated before creating
 				// new PathNavigate!)

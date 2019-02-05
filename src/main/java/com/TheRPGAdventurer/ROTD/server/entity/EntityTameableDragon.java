@@ -133,7 +133,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.setDescription("Movement Speed Air").setShouldWatch(true);
 
 	// base attributes
-	public static final double BASE_GROUND_SPEED = 0.6;
+	public static final double BASE_GROUND_SPEED = 0.5;
 	public static final double BASE_AIR_SPEED = 0.9;
 	public static final double BASE_DAMAGE = 4.0D; 
 	public static final double BASE_ARMOR = 7.0D;
@@ -1171,12 +1171,12 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
     	
    int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
   	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-   double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
+   double r = 30;  // DragonMountsConfig.dragonFlightHeight
    double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 3.5); // ()
    double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
    double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 3.5); //() 	
        
-    	return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);  	    
+   return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 0.8);  	    
 	}
 	
 	public void roar() {
@@ -2008,7 +2008,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	 * @return max yaw speed in degrees per tick
 	 */
 	public float getHeadYawSpeed() {
-		return this.getControllingPlayer() != null ? 13 : 40;
+		return this.getControllingPlayer() != null ? 50 : 1;
 	}
 
 	/**

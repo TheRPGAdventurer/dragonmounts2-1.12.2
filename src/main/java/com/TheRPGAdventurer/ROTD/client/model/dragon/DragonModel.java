@@ -678,15 +678,16 @@ public class DragonModel extends AdvancedModelBase {
     }
     
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
-        DragonAnimator animator = dragon.getAnimator();
-        animator.setMovement(moveTime, moveSpeed * dragon.getScale());
-        animator.setLook(lookYaw, lookPitch);
-        animator.animate();
-        updateFromAnimator(dragon);
-        
-        size = dragon.getScale();
-        
-        renderModel(dragon, scale); 
+     DragonAnimator animator = dragon.getAnimator();
+     float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.88f, 1f) : 1;
+     animator.setMovement(moveTime, moveSpeed * speed);
+     animator.setLook(lookYaw, lookPitch);
+     animator.animate();
+     updateFromAnimator(dragon);
+     
+     size = dragon.getScale();
+     
+     renderModel(dragon, scale); 
     }
 
     /**
@@ -727,15 +728,8 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     protected void renderHead(float scale) {
-        float headScale = 1.4f / (size + 0.4f);
-        
-     // smaller heads for baby dragons unlike other animals
-        if (this.isChild) {       	
-            head.render(scale);
-        } else {
-            head.setRenderScale(headScale); 
-            head.render(scale);
-        }
+     float headScale = scale * 0.94f;
+     head.render((float) (headScale));     
     }
     
     protected void renderNeck(float scale) {

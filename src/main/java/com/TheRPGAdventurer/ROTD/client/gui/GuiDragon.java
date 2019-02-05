@@ -42,6 +42,7 @@ public class GuiDragon extends GuiContainer {
 		
 		lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1");
 		lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2");
+		
 	}
 
 	/**
@@ -66,15 +67,16 @@ public class GuiDragon extends GuiContainer {
 		}
 		GuiInventory.drawEntityOnScreen(x + 80, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
 				this.dragon);
+		
+  this.buttonList.clear();
+  this.AllowOthers = this.addButton(new LockButton(45, 275, 70, 1, 3, I18n.format("gui.allowothers", new Object[0]), dragon));
+  buttonList.add(AllowOthers);
 
 	}
 
-	 @Override
-	 public void initGui() {
-	    this.buttonList.clear();
-	    this.AllowOthers = this.addButton(new LockButton(0, 100, 100 , 5, 5, I18n.format("gui.allowothers", new Object[0]), dragon));
-	    buttonList.add(AllowOthers);
-	}
+	// @Override
+//	 public void initGui() {
+	//}
 	
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
@@ -114,11 +116,12 @@ public class GuiDragon extends GuiContainer {
                 && parX < x + width 
                 && parY < y + height);
           GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-          if(dragon.allowedOtherPlayers()) {
-          mc.getTextureManager().bindTexture(lockOpen);
-          } else {
+          
+       //   if(dragon.allowedOtherPlayers()) {
+      //    mc.getTextureManager().bindTexture(lockOpen);
+      //    } else {
           	mc.getTextureManager().bindTexture(lockLocked);
-          }
+     //     }
           int textureX = 0;
           int textureY = 192;
 

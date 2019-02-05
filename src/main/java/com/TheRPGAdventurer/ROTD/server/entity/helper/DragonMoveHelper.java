@@ -28,7 +28,7 @@ import net.minecraft.util.math.Vec3d;
 public class DragonMoveHelper extends EntityMoveHelper {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 8;
+    private final float YAW_SPEED = 10;
     private Entity ent;
     
     public DragonMoveHelper(EntityTameableDragon dragon) {
@@ -81,55 +81,10 @@ public class DragonMoveHelper extends EntityMoveHelper {
             float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
             dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
             entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
-        }
+         }
         
-        // apply movement               
-        dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
+         // apply movement               
+         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
         }
     } 
-    
-    /**
-     * Checks if entity bounding box is not colliding with terrain
-     */
-    public boolean isNotColliding(double x, double y, double z) {
-     double d0 = this.posX - this.dragon.posX;
-     double d1 = this.posY - this.dragon.posY;
-     double d2 = this.posZ - this.dragon.posZ;
-     double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-     d3 = (double)MathHelper.sqrt(d3);
-        double d4 = (x - this.dragon.posX) / d3;
-        double d5 = (y - this.dragon.posY) / d3;
-        double d6 = (z - this.dragon.posZ) / d3;
-        AxisAlignedBB axisalignedbb = this.dragon.getEntityBoundingBox();
-
-        for (int i = 1; (double)i < d3; ++i) {
-            axisalignedbb = axisalignedbb.offset(d4, d5, d6);
-
-            if (!this.dragon.world.getCollisionBoxes(this.dragon, axisalignedbb).isEmpty()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-    
-    /**
-     * Checks if entity bounding box is not colliding with terrain
-     */
-    private boolean isNotColliding(double x, double y, double z, double p_179926_7_) {
-        double d0 = (x - this.dragon.posX) / p_179926_7_;
-        double d1 = (y - this.dragon.posY) / p_179926_7_;
-        double d2 = (z - this.dragon.posZ) / p_179926_7_;
-        AxisAlignedBB axisalignedbb = this.dragon.getEntityBoundingBox();
-
-        for (int i = 1; (double)i < p_179926_7_; ++i) {
-            axisalignedbb = axisalignedbb.offset(d0, d1, d2);
-
-            if (!this.dragon.world.getCollisionBoxes(this.dragon, axisalignedbb).isEmpty()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 }

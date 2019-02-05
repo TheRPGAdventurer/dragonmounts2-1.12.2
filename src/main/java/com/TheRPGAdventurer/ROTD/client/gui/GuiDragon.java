@@ -111,10 +111,10 @@ public class GuiDragon extends GuiContainer {
   @Override
   public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
       if (visible) {
-          boolean isButtonPressed = (parX >= x 
-                && parY >= y 
-                && parX < x + width 
-                && parY < y + height);
+       //   boolean isButtonPressed = (parX >= x 
+       ////         && parY >= y 
+      //          && parX < x + width 
+      //          && parY < y + height);
           GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
           
        //   if(dragon.allowedOtherPlayers()) {
@@ -125,10 +125,10 @@ public class GuiDragon extends GuiContainer {
           int textureX = 0;
           int textureY = 192;
 
-          if (isButtonPressed)
-          {
-              textureX += 23;
-          }
+        //  if (isButtonPressed)
+      //    {
+      //        textureX += 23;
+        //  }
 
       //    if (!isNextButton)
        //   {
@@ -137,7 +137,7 @@ public class GuiDragon extends GuiContainer {
 
           drawTexturedModalRect(x, y, 
                 textureX, textureY, 
-                23, 13);
+                25, 25);
    }
   }
 	}

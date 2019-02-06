@@ -1,7 +1,8 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+	   mavenCentral()
+       jcenter()
+       maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -15,59 +16,46 @@ def mod_file = getModFile()
 version = getModField("VERSION", mod_file)
 group = "com.TheRPGAdventurer.ROTD" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "DragonMounts"
-
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
 
 minecraft {
     version = "1.12.2-14.23.5.2809"
     runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20170624"
-     makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    makeObfSourceJar = false 
 }
 
 repositories {
+    mavenCentral()
+ //   maven {
+  //      url "http://maven.mcmoddev.com/"
+ //   }
+	
+//	maven {
+  //    name = "Mobius Repo"
+  //    url = "http://tehnut.info/maven"
+  //  }
+   
+   // maven {
+   //   name = "JEI"
+   //   url = "http://dvs1.progwml6.com/files/maven"
+ //   }
+ 
   //  maven {
-   //     url = "http://maven.ilexiconn.net"
-   // }
-   maven { url 'https://jitpack.io' }
+ //     name = "gegy1000"
+ //     url = "https://maven.gegy1000.net"
+ //   }
+	
+	maven {
+		url 'https://jitpack.io'
+    }
 }
 
-//dependencies {
-//    compile "net.ilexiconn:llibrary:1.7.9-1.12:dev"
-//}
-
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
-    // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-	    deobfCompile "com.github.azanor:Baubles:${baubles_version}"
-
+  // deobfCompile "net.ilexiconn:llibrary:1.7.17-1.12.2:dev"
+ //  compile "com.azanor:thaumcraft-api:6.1-beta23"
+   deobfCompile "com.github.azanor:Baubles:${baubles_version}"
+ //  runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
 }
 
 processResources {

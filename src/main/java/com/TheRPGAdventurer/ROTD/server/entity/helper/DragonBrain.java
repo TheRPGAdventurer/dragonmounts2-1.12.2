@@ -84,15 +84,15 @@ public class DragonBrain extends DragonHelper {
         }
     }
     
-    public void clearTasks() {
-        clearTasks(tasks);
-        clearTasks(targetTasks);
-    }
+   // public void clearTasks() {
+   //     clearTasks(tasks);
+   //     clearTasks(targetTasks);
+   // }
     
-    public void clearTasks(EntityAITasks tasks) {
-        List<EntityAITaskEntry> taskEntries = new ArrayList<>(tasks.taskEntries);
-        taskEntries.forEach(entry -> tasks.removeTask(entry.action));
-    }
+  //  public void clearTasks(EntityAITasks tasks) {
+  //      List<EntityAITaskEntry> taskEntries = new ArrayList<>(tasks.taskEntries);
+  //      taskEntries.forEach(entry -> tasks.removeTask(entry.action));
+  //  }
     
     public void updateAITasks() {
         // only hatchlings are small enough for doors

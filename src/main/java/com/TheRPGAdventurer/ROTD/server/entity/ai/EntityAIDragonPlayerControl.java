@@ -28,7 +28,6 @@ import net.minecraft.util.math.Vec3d;
  */
 public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements PrivateAccessor {
 
-    protected EntityPlayer rider;
     private Vec3d inates;
 
     public EntityAIDragonPlayerControl(EntityTameableDragon dragon) {

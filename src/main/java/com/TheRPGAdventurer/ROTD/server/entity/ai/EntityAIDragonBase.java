@@ -17,6 +17,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -29,11 +30,14 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     protected EntityTameableDragon dragon;
     protected World world;
     protected Random random;
+    
+    protected EntityPlayer rider;
 
     public EntityAIDragonBase(EntityTameableDragon dragon) {
         this.dragon = dragon;
         this.world = dragon.world;
         this.random = dragon.getRNG(); 
+        rider = dragon.getControllingPlayer();
     }
     
     protected boolean tryMoveToBlockPos(BlockPos pos, double speed) {

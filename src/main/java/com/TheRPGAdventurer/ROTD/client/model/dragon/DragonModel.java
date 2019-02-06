@@ -728,7 +728,7 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     protected void renderHead(float scale) {
-     float headScale = scale * 0.94f;
+     float headScale = scale * 0.92f;
      head.render((float) (headScale));     
     }
     

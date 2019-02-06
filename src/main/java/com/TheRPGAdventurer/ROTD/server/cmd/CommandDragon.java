@@ -35,6 +35,7 @@ public class CommandDragon extends CommandBaseNested implements IDragonModifier 
         
         addCommand(new CommandDragonTame());
         addCommand(new CommandDragonGender());
+        addCommand(new CommandDragonUnlock());
 
         if (DragonMountsConfig.isDebug()) {
             addCommand(new CommandDragonDebug());

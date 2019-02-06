@@ -382,7 +382,7 @@ public class DragonAnimator {
         float a3 = animBase * aSpeed * 0.75f;
 
         if (ground < 1) {
-            // Hovering
+         // fluttering
             wingArmFlutter[0] = 0.125f - MathX.cos(animBase) * 0.2f;
             wingArmFlutter[1] = 0.25f;
             wingArmFlutter[2] = (MathX.sin(animBase) + 0.125f) * 0.8f;

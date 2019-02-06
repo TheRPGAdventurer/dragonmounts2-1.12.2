@@ -8,8 +8,8 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 public class ModKeys {
 	
     public static final String KEY_CATEGORY = "key.categories.gameplay";
-    public static KeyBinding KEY_FLY_UP;
-    public static KeyBinding KEY_FLY_DOWN;
+   // public static KeyBinding KEY_FLY_UP;
+  //  public static KeyBinding KEY_FLY_DOWN;
     public static  KeyBinding KEY_BREATH;
     public static KeyBinding KEY_HOVERCANCEL;
     public static KeyBinding dragon_change_view;
@@ -20,9 +20,10 @@ public class ModKeys {
     	dragon_change_view = new KeyBinding("key.dragon.f7", Keyboard.KEY_F7, KEY_CATEGORY);
    // 	KEY_FLY_UP = new KeyBinding("key.dragon.flyUp", Keyboard.KEY_SPACE, KEY_CATEGORY);
         ClientRegistry.registerKeyBinding(KEY_BREATH);
-        ClientRegistry.registerKeyBinding(KEY_FLY_UP);
-        ClientRegistry.registerKeyBinding(KEY_FLY_DOWN);
+      //  ClientRegistry.registerKeyBinding(KEY_FLY_UP);
+       // ClientRegistry.registerKeyBinding(KEY_FLY_DOWN);
         ClientRegistry.registerKeyBinding(KEY_HOVERCANCEL);
+        ClientRegistry.registerKeyBinding(dragon_change_view);
         
     	  
     }

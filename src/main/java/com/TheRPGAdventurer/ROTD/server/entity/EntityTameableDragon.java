@@ -64,6 +64,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ElytraSound;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityList;
@@ -133,7 +135,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 			.setDescription("Movement Speed Air").setShouldWatch(true);
 
 	// base attributes
-	public static final double BASE_GROUND_SPEED = 0.5;
+	public static final double BASE_GROUND_SPEED = 0.4;
 	public static final double BASE_AIR_SPEED = 0.9;
 	public static final double BASE_DAMAGE = 4.0D; 
 	public static final double BASE_ARMOR = 7.0D;
@@ -894,7 +896,10 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 		BlockPos pos = this.getPosition(); 
 	//	for(int width = 1; width <= this.width / 2; width++) {
 		    for(float y = 1; y <= 3.4; y++) { 
-		      pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
+		      pos = new BlockPos(posX - width + width, posY - 1 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
+		      pos = new BlockPos(posX - width + width, posY - 2 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
+		      pos = new BlockPos(posX - width + width, posY - 3 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
+		      pos = new BlockPos(posX - width + width, posY - 3.4 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
 		    }
 	//	}
 		return pos;
@@ -1015,7 +1020,10 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 				roarTicks = -1; // reset at arbitrary large value
 			}
 		}
-
+		
+		if(this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
+			Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP)this.getControllingPlayer()));
+		}
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
 			for (int i = ContainerDragon.chestStartIndex; i < 30; i++) {
 				if (!dragonInv.getStackInSlot(i).isEmpty()) {
@@ -1164,7 +1172,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	public boolean circleTarget1(BlockPos midPoint) {   
 		if(this.getControllingPlayer() != null) {
 			return false;
-		}
+   }
 		
 		 Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
    Vec3d vec2 = new Vec3d(0,0,1);

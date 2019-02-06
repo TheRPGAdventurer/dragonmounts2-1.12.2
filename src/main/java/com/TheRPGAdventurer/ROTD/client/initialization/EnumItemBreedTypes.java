@@ -17,6 +17,7 @@ public enum EnumItemBreedTypes {
 	ENCHANT(TextFormatting.LIGHT_PURPLE),
 	SUNLIGHT(TextFormatting.YELLOW),
 	SUNLIGHT2(TextFormatting.LIGHT_PURPLE),
+	MOONLIGHT(TextFormatting.DARK_BLUE),
 	STORM(TextFormatting.BLUE),
 	TERRA(TextFormatting.YELLOW),
 	TERRA2(TextFormatting.YELLOW),

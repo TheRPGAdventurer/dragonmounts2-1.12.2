@@ -33,6 +33,7 @@ public class ModItems {
 	public static final Item TerraDragonScales;
 	public static final Item TerraDragonScales2;
 	public static final Item ZombieDragonScales;
+	public static final Item MoonlightDragonScales;
 	
 	public static final Item SpawnForest;
 	public static final Item SpawnAether;
@@ -48,6 +49,7 @@ public class ModItems {
 	public static final Item SpawnStorm;
 	public static final Item SpawnZombie;
 	public static final Item SpawnTerra;
+	public static final Item SpawnMoonlight;
 	
 	public static final ItemDragonEssence EssenceForest;
 	public static final ItemDragonEssence EssenceAether;
@@ -63,6 +65,7 @@ public class ModItems {
 	public static final ItemDragonEssence EssenceStorm;
 	public static final ItemDragonEssence EssenceZombie;
 	public static final ItemDragonEssence EssenceTerra;
+	public static final ItemDragonEssence EssenceMoonlight;
 	
 	public static final Item structure_spawner;
 	public static final Item dragon_wand;
@@ -89,6 +92,7 @@ public class ModItems {
 	public static final Item ender_dragon_shield;
 	public static final Item terra_dragon_shield;
 	public static final Item terra2_dragon_shield;
+	public static final Item moonlight_dragon_shield;
 	
 	
 	public static final Item[] ITEMS = {
@@ -109,6 +113,7 @@ public class ModItems {
 		TerraDragonScales = new ItemDragonScales("terra_dragonscales", EnumItemBreedTypes.TERRA),
 		TerraDragonScales2 = new ItemDragonScales("terra2_dragonscales", EnumItemBreedTypes.TERRA2),
 		ZombieDragonScales = new ItemDragonScales("zombie_dragonscales", EnumItemBreedTypes.ZOMBIE),
+		MoonlightDragonScales = new ItemDragonScales("moonlight_dragonscales", EnumItemBreedTypes.MOONLIGHT),
 		
 		SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.TAB),
 		SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.TAB),
@@ -124,6 +129,7 @@ public class ModItems {
 		SpawnStorm = new ItemDragonSpawner(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM, DragonMounts.TAB),
 		SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.TAB),
 		SpawnTerra = new ItemDragonSpawner(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA, DragonMounts.TAB),
+		SpawnMoonlight = new ItemDragonSpawner(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT,  DragonMounts.TAB),
 		
 		EssenceForest = new ItemDragonEssence(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST),
 		EssenceFire = new ItemDragonEssence(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE),
@@ -139,6 +145,7 @@ public class ModItems {
 		EssenceZombie = new ItemDragonEssence(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE),
 		EssenceSkeleton = new ItemDragonEssence(EnumItemBreedTypes.SKELETON, EnumDragonBreed.SKELETON),
 		EssenceWither = new ItemDragonEssence(EnumItemBreedTypes.WITHER, EnumDragonBreed.WITHER),
+		EssenceMoonlight = new ItemDragonEssence(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT),
 
 		structure_spawner = new ItemStructureSpawner("structure_spawner"),
 		dragon_wand = new ItemDragonWand("dragon_wand"),
@@ -164,7 +171,8 @@ public class ModItems {
 		nether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales),
 		ender_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.END, ModItems.EnderDragonScales),
 		terra_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales),
-		terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2)
+		terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2),
+		moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales)
 		
 	};
 }

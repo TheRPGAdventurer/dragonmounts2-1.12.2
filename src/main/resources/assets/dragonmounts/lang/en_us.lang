@@ -14,6 +14,7 @@ entity.DragonMount.sunlight.name=Meridian Dragon
 entity.DragonMount.storm.name=Storm Dragon
 entity.DragonMount.zombie.name=Zombie Dragon
 entity.DragonMount.terra.name=Terra Dragon
+entity.DragonMount.moonlight.name=Moonlight Dragon
 
 entity.DragonMounts.dragon.ice.name=Ice Dragon
 entity.DragonMounts.dragon.ender.name=Ender Dragon
@@ -29,6 +30,7 @@ entity.DragonMounts.dragon.sunlight.name=Meridian Dragon
 entity.DragonMounts.dragon.storm.name=Storm Dragon
 entity.DragonMounts.dragon.zombie.name=Zombie Dragon
 entity.DragonMounts.dragon.terra.name=Terra Dragon
+entity.DragonMounts.dragon.moonlight.name=Terra Dragon
 
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
@@ -201,6 +203,17 @@ item.sunlight2_dragonscale_leggings.name=Dragon Leggings
 item.sunlight2_dragon_hoe.name=Dragon Hoe
 item.sunlight2_dragonscale_boots.name=Dragon Boots
 
+item.moonlight_dragonscales.name=Dragon Scales
+item.moonlight_dragon_pickaxe.name=Dragon Pickaxe
+item.moonlight_dragon_axe.name=Dragon Axe
+item.moonlight_dragon_shovel.name=Dragon Spade
+item.moonlight_dragon_sword.name=Dragon Sword
+item.moonlight_dragonscale_cap.name=Dragon Cap
+item.moonlight_dragonscale_tunic.name=Dragon Tunic
+item.moonlight_dragonscale_leggings.name=Dragon Leggings
+item.moonlight_dragon_hoe.name=Dragon Hoe
+item.moonlight_dragonscale_boots.name=Dragon Boots
+
 item.storm2_dragonscales.name=Dragon Scales
 item.storm2_dragon_pickaxe.name=Dragon Pickaxe
 item.storm2_dragon_axe.name=Dragon Axe
@@ -269,6 +282,7 @@ item.summon_enchant.name=Summon Dragon
 item.summon_storm.name=Summon Dragon
 item.summon_zombie.name=Summon Dragon
 item.summon_terra.name=Summon Dragon
+item.summon_moonlight.name=Summon Dragon
 
 item.dragon_shield_forest.name=Dragon Shield
 item.dragon_shield_aether.name=Dragon Shield
@@ -284,6 +298,7 @@ item.dragon_shield_forest.name=Dragon Shield
 item.dragon_shield_storm.name=Dragon Shield
 item.dragon_shield_terra.name=Dragon Shield
 item.dragon_shield_terra2.name=Dragon Shield
+item.dragon_shield_moonlight.name=Dragon Shield
 
 item.end_dragon_essence.name=Dragon Essence
 item.aether_dragon_essence.name=Dragon Essence
@@ -299,6 +314,7 @@ item.sunlight_dragon_essence.name=Dragon Essence
 item.storm_dragon_essence.name=Dragon Essence
 item.zombie_dragon_essence.name=Dragon Essence
 item.terra_dragon_essence.name=Dragon Essence
+item.moonlight_dragon_essence.name=Dragon Essence
 
 dragon.forest=Forest
 dragon.aether=Aether
@@ -313,7 +329,8 @@ dragon.end=Ender
 dragon.ender=Ender
 dragon.enchant=Enchant
 dragon.sunlight=Sunlight
-dragon.sunlight2=Moonlight
+dragon.sunlight2=Sunlight
+dragon.moonlight=Moonlight
 dragon.storm=Storm
 dragon.zombie=Zombie
 dragon.terra=Terra

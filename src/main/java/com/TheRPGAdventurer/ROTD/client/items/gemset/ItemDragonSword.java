@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDragonSword extends ItemSword {
 	
-    public EnumItemBreedTypes type;
+ public EnumItemBreedTypes type;
 
 	public ItemDragonSword(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
 		super(material);

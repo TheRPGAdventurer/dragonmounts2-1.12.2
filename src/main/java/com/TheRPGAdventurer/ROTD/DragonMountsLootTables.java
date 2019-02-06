@@ -27,6 +27,7 @@ public class DragonMountsLootTables {
 	public static final ResourceLocation ENTITIES_DRAGON_ZOMBIE = create("zombie");
 	public static final ResourceLocation ENTITIES_DRAGON_TERRA = create("terra");
 	public static final ResourceLocation ENTITIES_DRAGON_TERRA2 = create("terra2");
+	public static final ResourceLocation ENTITIES_DRAGON_MOONLIGHT = create("moonlight");
 	
 	/**
 	 * Register this mod's {@link LootTable}s.

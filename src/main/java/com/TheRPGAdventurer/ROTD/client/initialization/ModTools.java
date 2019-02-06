@@ -33,6 +33,7 @@ public class ModTools {
 	public static final ToolMaterial SunlightDragonScaleMaterial2       = EnumHelper.addToolMaterial(DragonMounts.MODID + ":sunlightdragonscales2", 4, 1700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial TerraDragonScaleMaterial           = EnumHelper.addToolMaterial(DragonMounts.MODID + ":terradragonscales", 4, 1700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial TerraDragonScaleMaterial2          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":terra2dragonscales", 4, 1700, 8.0F, 5.0F, 11);
+	public static final ToolMaterial MoonlightDragonScaleMaterial       = EnumHelper.addToolMaterial(DragonMounts.MODID + ":moonlightdragonscales", 4, 1700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial ZombieDragonScaleMaterial          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":zombiedragonscales", 4, 1500, 8.0F, 5.0F, 11);
 
 	
@@ -138,6 +139,12 @@ public class ModTools {
 	public static ItemDragonShovel terraDragonShovel2 = new ItemDragonShovel(TerraDragonScaleMaterial2, "terra2_dragon_shovel", EnumItemBreedTypes.TERRA2);
 	public static ItemDragonHoe terraDragonHoe2 = new ItemDragonHoe(TerraDragonScaleMaterial2, "terra2_dragon_hoe", EnumItemBreedTypes.TERRA2);
 
+	public static ItemDragonSword moonlightDragonSword = new ItemDragonSword(MoonlightDragonScaleMaterial, "moonlight_dragon_sword", EnumItemBreedTypes.MOONLIGHT);
+	public static ItemDragonPickAxe moonlightDragonPickaxe = new ItemDragonPickAxe(MoonlightDragonScaleMaterial, "moonlight_dragon_pickaxe", EnumItemBreedTypes.MOONLIGHT);
+	public static ItemDragonAxe moonlightDragonAxe = new ItemDragonAxe(MoonlightDragonScaleMaterial, "moonlight_dragon_axe", damage, damage, EnumItemBreedTypes.MOONLIGHT);
+	public static ItemDragonShovel moonlightDragonShovel = new ItemDragonShovel(MoonlightDragonScaleMaterial, "moonlight_dragon_shovel", EnumItemBreedTypes.MOONLIGHT);
+	public static ItemDragonHoe moonlightDragonHoe = new ItemDragonHoe(MoonlightDragonScaleMaterial, "moonlight_dragon_hoe", EnumItemBreedTypes.MOONLIGHT);
+	
 	public static ItemDiamondShears diamond_shears = new ItemDiamondShears(ToolMaterial.DIAMOND, "diamond_shears");
 	
 	public static final Item[] TOOLS = {
@@ -159,6 +166,7 @@ public class ModTools {
 		sunlightDragonSword2, sunlightDragonPickaxe2, sunlightDragonAxe2, sunlightDragonShovel2, sunlightDragonHoe2,
 		netherDragonSword2, netherDragonPickaxe2, netherDragonAxe2, netherDragonShovel2, netherDragonHoe2,
 		terraDragonSword2, terraDragonPickaxe2, terraDragonAxe2, terraDragonShovel2, terraDragonHoe2,
+		moonlightDragonSword, moonlightDragonPickaxe, moonlightDragonAxe, moonlightDragonShovel, moonlightDragonHoe,
 		
 		diamond_shears,
 		
@@ -182,5 +190,6 @@ public class ModTools {
 		ZombieDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ZombieDragonScales));
 		TerraDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.TerraDragonScales));
 		TerraDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.TerraDragonScales2));
+		MoonlightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.MoonlightDragonScales));
 	}
 }

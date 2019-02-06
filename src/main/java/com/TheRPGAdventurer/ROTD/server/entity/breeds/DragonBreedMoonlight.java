@@ -8,14 +8,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
-public class DragonBreedSunlight extends DragonBreed {
+public class DragonBreedMoonlight extends DragonBreed {
 
-	DragonBreedSunlight() {
-		super("sunlight", 0xbf8425);
+	DragonBreedMoonlight() {
+		super("moonlight", 0xbf8425);
 		
-		setHabitatBlock(Blocks.DAYLIGHT_DETECTOR);
-		setHabitatBlock(Blocks.GLOWSTONE);
-		setHabitatBlock(Blocks.YELLOW_GLAZED_TERRACOTTA);
+		setHabitatBlock(Blocks.DAYLIGHT_DETECTOR_INVERTED);
+		setHabitatBlock(Blocks.BLUE_GLAZED_TERRACOTTA);
 	}
 
 	@Override
@@ -33,15 +32,14 @@ public class DragonBreedSunlight extends DragonBreed {
 		
 	}
 
-	
 	@Override
 	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_SUNLIGHT : DragonMountsLootTables.ENTITIES_DRAGON_SUNLIGHT2;
+		return DragonMountsLootTables.ENTITIES_DRAGON_MOONLIGHT;
 	}
 
 	@Override
 	public Item getShearDropitem(EntityTameableDragon dragon) {		
-		return dragon.isMale() ? ModItems.SunlightDragonScales : ModItems.SunlightDragonScales2;
+		return ModItems.MoonlightDragonScales;
 	}
 	
 }

@@ -2,17 +2,26 @@ package com.TheRPGAdventurer.ROTD.server.world;
 
 import java.util.Random;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
-import net.minecraft.init.Biomes;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeHills;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeStoneBeach;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.structure.template.PlacementSettings;
+import net.minecraft.world.gen.structure.template.Template;
+import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -25,6 +34,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	StructureDragonNestSnow dragonNestSnow = new StructureDragonNestSnow();
 	StructureDragonNestNether dragonNestNether = new StructureDragonNestNether();
 	StructureDragonNestBone dragonNestBone = new StructureDragonNestBone();
+
 	
 	//@formatter:on
 	@Override
@@ -89,32 +99,48 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				            }
 				          }
 				      }
-			       } break;
+			      } break;
 			    }
-	        }
-		}
-    }
+	     }
+		  }
+  }
 	
 	public void generateNestAtNether(World world, Random random, int chunkX, int chunkZ) {
-		if (DragonMountsConfig.canSpawnNetherNest) {
-		int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
-		int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
-		for (int y = 85; y >= 5; y--) {
+		if (DragonMountsConfig.canSpawnNetherNest && !world.isRemote) {
+			WorldServer worldserver = (WorldServer) world;
+			MinecraftServer minecraftserver = world.getMinecraftServer();
+			TemplateManager templatemanager = worldserver.getStructureTemplateManager();
+			ResourceLocation loc = new ResourceLocation(DragonMounts.MODID, "nether");
+			Template netherNest = templatemanager.getTemplate(minecraftserver, loc); 
+			
+	 	if (netherNest != null) {
+     int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
+		   int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
+		   
+		
+	 	for (int y = 85; y >= 5; y--) {
 	    	boolean solidGround = world.getBlockState(new BlockPos(x,y,z)).isBlockNormalCube();
 	    	if (solidGround && random.nextInt(DragonMountsConfig.netherNestRarity) == 1) {
-					boolean place = true;
+				  	boolean place = true;
 				
-		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
-		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
+	 	for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
+	 	for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
 				
 				if(place) {
-					dragonNestNether.generate(world, new BlockPos(x,y,z), random);
-				//	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
-				   }    				    
-			    }
-	        }
+				  int mirror = world.rand.nextInt(Mirror.values().length);
+			 	 int rotation = world.rand.nextInt(Rotation.values().length);
+			 		world.notifyBlockUpdate(new BlockPos(x, y, z), world.getBlockState(new BlockPos(x, y, z)), world.getBlockState(new BlockPos(x, y, z)), 3);
+				    	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
+        .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
+        .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
+				    	netherNest.addBlocksToWorld(world, new BlockPos(x, y, z), placementsettings);
+		   			DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
+			  	}
+				 }    				    
+			 }
+	  }
 		}
-    }
+ }
 	
 	public void generateBoneNestAtNether(World world, Random random, int chunkX, int chunkZ) {
 		if (DragonMountsConfig.canSpawnNetherNest) {
@@ -131,9 +157,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				if(place) {
 					dragonNestBone.generate(world, new BlockPos(x,y,z), random);
 			//		DMUtils.getLogger().info("Bone Nest here at: " + new BlockPos(x,y,z));
-				   }
-			    }
-	        }
-		}
-    }
+				     }
+			     }
+	     }
+		  }
+  }
 }

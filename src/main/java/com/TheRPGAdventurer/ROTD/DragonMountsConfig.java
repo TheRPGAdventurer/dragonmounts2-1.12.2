@@ -58,7 +58,7 @@ public class DragonMountsConfig {
 	public static int MainSnowNestRarerityInX = 18;
 	public static int MainSnowNestRarerityInZ = 18;
 	
-	public static int netherNestRarity = 780;
+	public static int netherNestRarity = 800;
 	public static int netherNestRarerityInX = 32;
 	public static int netherNestRarerityInZ = 32;
 	

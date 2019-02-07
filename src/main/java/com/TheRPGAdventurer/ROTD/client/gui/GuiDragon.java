@@ -78,7 +78,7 @@ public class GuiDragon extends GuiContainer {
 	  this.buttonList.clear();
 	  Keyboard.enableRepeatEvents(true);
 	  
-	  buttonList.add(this.AllowOthers = new LockButton(0, 385, 125, 3, 3,  // x = 480 y = 140
+	  buttonList.add(this.AllowOthers = new LockButton(0, 387, 123, 3, 3,  // x = 480 y = 140
 	  		I18n.format("gui.allowothers", new Object[0]), dragon));
 	  
 	  super.initGui();

@@ -30,7 +30,7 @@ public abstract class DragonInteract {
     public abstract boolean interact(EntityPlayer player, ItemStack item);
     
     protected boolean lockingProcedures(EntityPlayer player) {
-    	if(!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player)) {
+    	if(!dragon.isTamedFor(player) && !dragon.allowedOtherPlayers()) {
     	 	player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);	
      		return false;
     	} else {

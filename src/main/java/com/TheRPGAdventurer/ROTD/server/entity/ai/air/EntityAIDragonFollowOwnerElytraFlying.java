@@ -63,7 +63,7 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     @Override
     public void updateTask() {
         dragon.getNavigator().tryMoveToXYZ(owner.posX, owner.posY, owner.posZ - 25, 1);
-        dragon.setBoosting(dragon.getDistanceToEntity(owner) > 50);
+        dragon.setBoosting(dragon.getDistanceToEntity(owner) > 28);
        
     }
 }

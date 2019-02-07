@@ -61,15 +61,41 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int x = (chunkX * 16) + random.nextInt(16);
 		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
-		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
+		
+		WorldServer worldserver = (WorldServer) world;
+		MinecraftServer minecraftserver = world.getMinecraftServer();
+		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
+		ResourceLocation loc = new ResourceLocation(DragonMounts.MODID, "aether");
+		Template aetherNest = templatemanager.getTemplate(minecraftserver, loc); 
+		ResourceLocation snow = new ResourceLocation(DragonMounts.MODID, "ice");
+		Template snowNest = templatemanager.getTemplate(minecraftserver, snow); 
+		
+		if (DragonMountsConfig.canSpawnSurfaceDragonNest && aetherNest != null) {
 			boolean isHills = (BiomeDictionary.hasType(world.getBiome(height), Type.HILLS) || (world.getBiomeForCoordsBody(height).getBiomeClass().equals(BiomeStoneBeach.class)));
 			boolean isSnowy = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
-			     dragonNest.generate(world, height, random);
-			//     DMUtils.getLogger().info("Surface Nest here at: " + new BlockPos(x,height.getY(),z));	
+				int mirror = world.rand.nextInt(Mirror.values().length);
+	 	 int rotation = world.rand.nextInt(Rotation.values().length);
+	 		
+	 	 world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
+		    	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
+      .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
+      .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
+		    
+		    	aetherNest.addBlocksToWorld(world, height, placementsettings);
+		     DMUtils.getLogger().info("Surface Nest here at: " + height);	
+			
 			} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
-			     dragonNestSnow.generate(world, height, random);
-			  //   DMUtils.getLogger().info("Surface Nest Snow here at: " + new BlockPos(x,height.getY(),z));					
+				int mirror = world.rand.nextInt(Mirror.values().length);
+	 	 int rotation = world.rand.nextInt(Rotation.values().length);
+	 	 
+				world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
+   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
+   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
+   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
+   
+   	snowNest.addBlocksToWorld(world, height, placementsettings);
+    DMUtils.getLogger().info("Ice Nest here at: " + height);			
 			     
 			    }
 			}

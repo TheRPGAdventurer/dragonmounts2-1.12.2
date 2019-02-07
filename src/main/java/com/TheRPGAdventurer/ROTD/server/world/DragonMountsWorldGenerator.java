@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.world;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
@@ -7,7 +9,6 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mirror;
@@ -18,7 +19,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.biome.BiomeStoneBeach;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
@@ -56,6 +56,10 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		
 		if(world.provider.getDimensionType() == DimensionType.NETHER) {
 			this.generateNestAtNether(world, random, x, z);
+		} else if(!isDimensionBlacklisted(world.provider.getDimension())) {
+			this.generateNestAtSurface(world, random, x, z);
+		} else if(world.provider.getDimensionType() == DimensionType.THE_END) {
+			this.generateNestAtEnd(world, random, x, z);
 		}
 	}
 	
@@ -237,10 +241,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		}
  }
 	
-	public void generateEnchantNest(World world, Random random, int chunkX, int chunkZ) {
-		
-	}
-	
 	public void generateBoneNestAtNether(World world, Random random, int chunkX, int chunkZ) {
 		if (DragonMountsConfig.canSpawnNetherNest) {
 		int x = (chunkX * DragonMountsConfig.boneNestRarerityInX) + random.nextInt(DragonMountsConfig.boneNestRarerityInX);
@@ -261,6 +261,33 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	     }
 		  }
   }
+	
+	public void generateNestAtEnd(World world, Random random, int chunkX, int chunkZ) {
+		WorldServer worldserver = (WorldServer) world;
+		MinecraftServer minecraftserver = world.getMinecraftServer();
+		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
+		
+		ResourceLocation enchant = new ResourceLocation(DragonMounts.MODID, "enchant");
+		Template enchantNest = templatemanager.getTemplate(minecraftserver, enchant); 
+		if(DragonMountsConfig.canSpawnEndNest &&  enchantNest != null) {
+			int x = (chunkX * 16) + random.nextInt(16);
+			int z = (chunkZ * 16) + random.nextInt(16);
+			BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
+			
+			int mirror = world.rand.nextInt(Mirror.values().length);
+ 	 int rotation = world.rand.nextInt(Rotation.values().length);
+ 	 
+			world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
+  	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
+  .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
+  .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
+  
+  	enchantNest.addBlocksToWorld(world, height, placementsettings);
+   DMUtils.getLogger().info("Water Plains Nest here at: " + height);
+			
+		}
+		
+	}
 	
  public void generateNestUnderground(World world, Random random, int chunkX, int chunkZ) {
 if (DragonMountsConfig.canSpawnUnderGroundNest) {
@@ -291,4 +318,20 @@ for (int y2 = 0; y2 <= 30; ++y2) {
    }
  }
 }
+ 
+	private boolean isDimensionBlacklisted(int id) {
+		boolean useBlackOrWhiteLists = DragonMountsConfig.useDimensionBlackList;
+		int[] blacklistedArray =  DragonMountsConfig.dragonBlacklistedDimensions;
+		int[] whitelistedArray =  DragonMountsConfig.dragonWhitelistedDimensions;
+		int[] array = useBlackOrWhiteLists ? blacklistedArray : whitelistedArray;
+		List<Integer> dimList = new ArrayList<Integer>();
+		for (int dimension : array) {
+			dimList.add(dimension);
+		}
+
+		if (dimList.contains(id)) {
+			return useBlackOrWhiteLists;
+		}
+		return !useBlackOrWhiteLists;
+	}
 }

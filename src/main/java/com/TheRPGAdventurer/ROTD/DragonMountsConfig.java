@@ -48,6 +48,7 @@ public class DragonMountsConfig {
 	public static boolean canSpawnUnderGroundNest = false;
 	public static boolean canSpawnNetherNest = true;
 	public static boolean canSpawnNetherBoneNest = true;
+	public static boolean canSpawnEndNest = true;
     
 	// chances
 	public static int MainNestRarity  = 1200;
@@ -76,6 +77,11 @@ public class DragonMountsConfig {
 	public static int dragonanderFromHomeDist = 50;
 	
 	public static double maxFLightHeight = 36;
+	
+	public static int[] dragonBlacklistedDimensions = new int[]{1, -1};
+	public static int[] dragonWhitelistedDimensions = new int[]{0};
+	
+	public static boolean useDimensionBlackList = true;
 	
 	// dragon
 	public static int GET_TICKS_PER_STAGE = 75000; 
@@ -189,6 +195,12 @@ public class DragonMountsConfig {
 		/*
 		 *  WORLDGEN
 		 */
+		
+		dragonBlacklistedDimensions = config.get("all", "Blacklisted Dragon Dimensions", new int[]{-1, 1}, "Dragons cannot spawn in these dimensions' IDs").getIntList();
+		
+		dragonWhitelistedDimensions = config.get("all", "Whitelisted Dragon Dimensions", new int[]{0}, "Dragons can only spawn in these dimensions' IDs").getIntList();
+		useDimensionBlackList = config.getBoolean("use Dimension Blacklist", "all", true, "true to use dimensional blacklist, false to use the whitelist.");
+		
         prop = config.get(CATEGORY_WORLDGEN, "canSpawnSurfaceDragonNest", canSpawnSurfaceDragonNest);
 		prop.setComment("Enables spawning of nests in extreme hills");
 		canSpawnSurfaceDragonNest = prop.getBoolean();
@@ -202,6 +214,11 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_WORLDGEN, "canSpawnNetherNest", canSpawnNetherNest);
 		prop.setComment("Enables spawning of nether dragon nests in the nether");
 		canSpawnNetherNest = prop.getBoolean();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_WORLDGEN, "canSpawnEndNest", canSpawnEndNest);
+		prop.setComment("Enables spawning of enchant dragon nests in end cities");
+		canSpawnEndNest = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_WORLDGEN, "canSpawnNetherBoneNest", canSpawnNetherBoneNest);

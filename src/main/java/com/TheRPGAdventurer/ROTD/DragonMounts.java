@@ -85,7 +85,7 @@ public class DragonMounts {
     public void PreInitialization(FMLPreInitializationEvent event) {    	
     	DragonMountsLootTables.registerLootTables();
         GameRegistry.registerTileEntity(TileEntityDragonHead.class, new ResourceLocation(DragonMounts.MODID, "tileDragonHead"));
-    	TAB = new CreativeTab(MODID);
+    	   TAB = new CreativeTab(MODID);
         metadata = event.getModMetadata();
         proxy.PreInitialization(event); 
         

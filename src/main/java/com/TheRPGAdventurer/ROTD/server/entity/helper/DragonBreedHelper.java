@@ -166,6 +166,7 @@ public class DragonBreedHelper extends DragonHelper {
         if (currentType == EnumDragonBreed.STORM) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
         if (currentType == EnumDragonBreed.ZOMBIE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
         if (currentType == EnumDragonBreed.TERRA) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
+        if (currentType == EnumDragonBreed.MOONLIGHT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
         
     }
     

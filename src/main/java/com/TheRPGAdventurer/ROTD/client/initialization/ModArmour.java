@@ -37,6 +37,7 @@ public class ModArmour {
 	public static final ArmorMaterial ZombieDragonScaleMaterial           = EnumHelper.addArmorMaterial("zombie", DragonMounts.MODID + ":zombie", 45, new int [] {3,5,7,3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial TerraDragonScaleMaterial            = EnumHelper.addArmorMaterial("terra", DragonMounts.MODID + ":terra", 45, new int [] {3,5,7,3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	public static final ArmorMaterial TerraDragonScaleMaterial2           = EnumHelper.addArmorMaterial("terra2", DragonMounts.MODID + ":terra2", 45, new int [] {3,5,7,3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
+	public static final ArmorMaterial MoonlightDragonScaleMaterial        = EnumHelper.addArmorMaterial("moonlight", DragonMounts.MODID + ":moonlight", 45, new int [] {3,5,7,3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 5.0F);
 	
 	public static ItemDragonArmour forestDragonScaleCap;
 	public static ItemDragonArmour forestDragonScaleTunic;
@@ -122,6 +123,11 @@ public class ModArmour {
 	public static ItemDragonArmour terra2DragonScaleTunic;
 	public static ItemDragonArmour terra2DragonScaleLeggings;
 	public static ItemDragonArmour terra2DragonScaleBoots;
+	
+	public static ItemDragonArmour moonlightDragonScaleCap;
+	public static ItemDragonArmour moonlightDragonScaleTunic;
+	public static ItemDragonArmour moonlightDragonScaleLeggings;
+	public static ItemDragonArmour moonlightDragonScaleBoots;
 	
 	// for dragon
 	public static ItemDragonArmor dragonarmor_diamond;
@@ -213,6 +219,11 @@ public class ModArmour {
 		terra2DragonScaleTunic = new ItemDragonArmour(TerraDragonScaleMaterial2,  1, EntityEquipmentSlot.CHEST, "terra2_dragonscale_tunic", EnumItemBreedTypes.TERRA2),
 		terra2DragonScaleLeggings = new ItemDragonArmour(TerraDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "terra2_dragonscale_leggings", EnumItemBreedTypes.TERRA2),
 		terra2DragonScaleBoots = new ItemDragonArmour(TerraDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "terra2_dragonscale_boots", EnumItemBreedTypes.TERRA2),
+				
+		moonlightDragonScaleCap = new ItemDragonArmour(MoonlightDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "moonlight_dragonscale_cap", EnumItemBreedTypes.MOONLIGHT),
+		moonlightDragonScaleTunic = new ItemDragonArmour(MoonlightDragonScaleMaterial,  1, EntityEquipmentSlot.CHEST, "moonlight_dragonscale_tunic", EnumItemBreedTypes.MOONLIGHT),
+	 moonlightDragonScaleLeggings = new ItemDragonArmour(MoonlightDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "moonlight_dragonscale_leggings", EnumItemBreedTypes.MOONLIGHT),			
+		moonlightDragonScaleBoots = new ItemDragonArmour(MoonlightDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "moonlight_dragonscale_boots", EnumItemBreedTypes.MOONLIGHT),
 
 		dragonarmor_iron = new ItemDragonArmor( "dragonarmor_iron"),
 		dragonarmor_gold = new ItemDragonArmor("dragonarmor_gold"),
@@ -231,5 +242,6 @@ public class ModArmour {
 		ZombieDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ZombieDragonScales));
 		TerraDragonScaleMaterial. setRepairItem(new ItemStack(ModItems.TerraDragonScales));
 		TerraDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.TerraDragonScales2));
+		MoonlightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.MoonlightDragonScales));
 	}	
 }

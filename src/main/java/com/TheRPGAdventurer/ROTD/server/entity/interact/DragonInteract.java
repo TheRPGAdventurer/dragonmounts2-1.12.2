@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 
 /**
  *
@@ -27,4 +28,14 @@ public abstract class DragonInteract {
     }
     
     public abstract boolean interact(EntityPlayer player, ItemStack item);
+    
+    protected boolean lockingProcedures(EntityPlayer player) {
+    	if(!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player)) {
+    	 	player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);	
+     		return false;
+    	} else {
+			  		return true;
+    	}
+    }
+    
 }

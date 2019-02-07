@@ -19,7 +19,8 @@
 			"sunlight":         { "textures":{ "all": "dragonmounts:entities/dragon/sunlight/egg"             } },
 			"storm":            { "textures":{ "all": "dragonmounts:entities/dragon/storm/egg"                } },
 			"zombie":           { "textures":{ "all": "dragonmounts:entities/dragon/zombie/egg"               } },
-			"terra":            { "textures":{ "all": "dragonmounts:entities/dragon/terra/egg"               } }
+			"terra":            { "textures":{ "all": "dragonmounts:entities/dragon/terra/egg"                } },
+			"moonlight":        { "textures":{ "all": "dragonmounts:entities/dragon/moonlight/egg"            } }
         }
     }
 }

@@ -18,15 +18,18 @@ public class DragonInteractOpenGUI extends DragonInteract {
 	
 	@Override
 	public boolean interact(EntityPlayer player, ItemStack item) {
-		if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed()) {
+		if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed() && this.lockingProcedures(player)) {
 			dragon.openGUI(player, GuiHandler.GUI_DRAGON);
 			return true;
 		} else if(dragon.isHatchling() && dragon.isTamed() && player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
-			player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung", new Object[0]), true);
-		} else if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
-			dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
+			
+  	player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung", new Object[0]), true);
+		
+  } else if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
+		
+  	dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
 			return true;
-		}
+		} 
 		return false;
 	}
 

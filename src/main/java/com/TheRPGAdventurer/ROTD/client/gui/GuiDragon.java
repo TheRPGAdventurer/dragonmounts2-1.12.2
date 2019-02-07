@@ -18,6 +18,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -33,6 +34,7 @@ public class GuiDragon extends GuiContainer {
 	private LockButton AllowOthers;
 	public static ResourceLocation lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");;
 	public static ResourceLocation lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
+	public static ResourceLocation lockDisabled = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_3.png");
 	private EntityPlayer player;
 
 	public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
@@ -76,7 +78,7 @@ public class GuiDragon extends GuiContainer {
 	  this.buttonList.clear();
 	  Keyboard.enableRepeatEvents(true);
 	  
-	  buttonList.add(this.AllowOthers = new LockButton(0, height/2 + 212, 123, 3, 3,  // x = 480 y = 140
+	  buttonList.add(this.AllowOthers = new LockButton(0, 385, 125, 3, 3,  // x = 480 y = 140
 	  		I18n.format("gui.allowothers", new Object[0]), dragon));
 	  
 	  super.initGui();
@@ -84,14 +86,15 @@ public class GuiDragon extends GuiContainer {
 	
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
-		if(button == AllowOthers) {
-			dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
-			
+		if(dragon.isTamedFor(this.mc.player)) {
+	 	if(button == AllowOthers) {
+		 	dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+	 	}
 		}
 	}
 	
 	public void updateScreen() {
-		AllowOthers.visible = (player == dragon.getOwner());
+		AllowOthers.enabled = (player == dragon.getOwner());
 	}
 
 	@Override
@@ -138,23 +141,16 @@ public class GuiDragon extends GuiContainer {
           
           if(dragon.allowedOtherPlayers()) {
           mc.getTextureManager().bindTexture(lockOpen);
+          }  else if(!this.enabled){
+          	mc.getTextureManager().bindTexture(lockDisabled);
           } else {
           	mc.getTextureManager().bindTexture(lockLocked);
           }
-
-        //  if (isButtonPressed)
-      //    {
-      //        textureX += 23;
-        //  }
-
-      //    if (!isNextButton)
-       //   {
-        //      textureY += 13;
-        //  }        
-
-        //  drawTexturedModalRect(x, y, 
-        //        this., 
-        //        16, 16);
+          
+          if(dragon.isTamedFor(mc.player)) {
+          	mc.player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);
+          }
+    
           	drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
    }
   }

@@ -71,7 +71,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 	@Override
 	public boolean shouldExecute() {
 		return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-				&& findLandingBlock() && dragon.getRevengeTarget() == null && dragon.nothing() && !dragon.isFlyingAround();
+				&& findLandingBlock() && dragon.getRevengeTarget() == null && dragon.nothing();
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 	@Override
 	public void startExecuting() {
 		// try to fly to ground block position
-		if (!tryMoveToBlockPos(landingPos, speed) && !dragon.isFlyingAround()) {
+		if (!tryMoveToBlockPos(landingPos, speed)) {
 			// probably too high, so simply descend vertically
 			tryMoveToBlockPos(dragon.getPosition().down(4), speed);
 		}

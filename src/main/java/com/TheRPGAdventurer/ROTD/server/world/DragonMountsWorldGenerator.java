@@ -9,6 +9,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mirror;
@@ -82,34 +83,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 		
-		WorldServer worldserver = (WorldServer) world;
-		MinecraftServer minecraftserver = world.getMinecraftServer();
-		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
-		
-		ResourceLocation aether = new ResourceLocation(DragonMounts.MODID, "aether");
-		Template aetherNest = templatemanager.getTemplate(minecraftserver, aether); 
-		
-		ResourceLocation snow = new ResourceLocation(DragonMounts.MODID, "ice");
-		Template snowNest = templatemanager.getTemplate(minecraftserver, snow); 
-		
-		ResourceLocation jungle = new ResourceLocation(DragonMounts.MODID, "jungle");
-		Template jungleNest = templatemanager.getTemplate(minecraftserver, jungle); 
-		
-		ResourceLocation fire = new ResourceLocation(DragonMounts.MODID, "fire");
-		Template fireNest = templatemanager.getTemplate(minecraftserver, fire); 
-		
-		ResourceLocation water1 = new ResourceLocation(DragonMounts.MODID, "water1");
-		Template water1Nest = templatemanager.getTemplate(minecraftserver, water1);
-		
-		ResourceLocation water2 = new ResourceLocation(DragonMounts.MODID, "water2");
-		Template water2Nest = templatemanager.getTemplate(minecraftserver, water2);
-		
-		ResourceLocation sunlight = new ResourceLocation(DragonMounts.MODID, "sunlight");
-		Template sunlightNest = templatemanager.getTemplate(minecraftserver, sunlight);
-		
-		ResourceLocation terra = new ResourceLocation(DragonMounts.MODID, "terra");
-		Template terraNest = templatemanager.getTemplate(minecraftserver, terra);
-		
 		boolean isHills  = BiomeDictionary.hasType(world.getBiome(height), Type.MOUNTAIN);
 		boolean isSnowy  = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 		boolean isJungle = BiomeDictionary.hasType(world.getBiome(height), Type.JUNGLE);
@@ -119,89 +92,44 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		boolean isMesa   = BiomeDictionary.hasType(world.getBiome(height), Type.MESA);
 		
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
-			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && aetherNest != null) {
-			 	int mirror = world.rand.nextInt(Mirror.values().length);
-	 	  int rotation = world.rand.nextInt(Rotation.values().length);
+			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
-	 	 world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-		    	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-      .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-      .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-		    
-		    	aetherNest.addBlocksToWorld(world, height, placementsettings);
-		     DMUtils.getLogger().info("Surface Nest here at: " + height);	
+	 	 loadStructure(height, world, "aether");
+	 	 DMUtils.getLogger().info("Surface Nest here at: " + height);	
 			
-			} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && snowNest != null) {
-				int mirror = world.rand.nextInt(Mirror.values().length);
-	 	 int rotation = world.rand.nextInt(Rotation.values().length);
+	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 	 
-				world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-   
-   	snowNest.addBlocksToWorld(world, height, placementsettings);
+	 		loadStructure(height, world, "ice");
     DMUtils.getLogger().info("Ice Nest here at: " + height);			
 			     
-			 } else if(isJungle && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && jungleNest != null) {
-					int mirror = world.rand.nextInt(Mirror.values().length);
-		 	 int rotation = world.rand.nextInt(Rotation.values().length);
-		 	 
-					world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-	   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-	   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-	   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-	   
-	   	jungleNest.addBlocksToWorld(world, height, placementsettings);
-	    DMUtils.getLogger().info("Jungle Nest here at: " + height);
-			 }
+		 } else if(isJungle && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
+				
+				loadStructure(height, world, "forest1");
+	   DMUtils.getLogger().info("Jungle Nest here at: " + height);
+			 
+		 } else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
 			
-		} else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && sunlightNest != null) {
-				int mirror = world.rand.nextInt(Mirror.values().length);
-	 	 int rotation = world.rand.nextInt(Rotation.values().length);
-	 	 
-				world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-   
-   	sunlightNest.addBlocksToWorld(world, height, placementsettings);
-    DMUtils.getLogger().info("Sunlight Nest here at: " + height);
+			loadStructure(height, world, "sunlight");
+   DMUtils.getLogger().info("Sunlight Nest here at: " + height);
 		 
-			} else if(isMesa && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && terraNest != null) {
-				int mirror = world.rand.nextInt(Mirror.values().length);
-	 	 int rotation = world.rand.nextInt(Rotation.values().length);
-	 	 
-				world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-   
-   	terraNest.addBlocksToWorld(world, height, placementsettings);
+			} else if(isMesa && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) { 	 
+				loadStructure(height, world, "terra");
     DMUtils.getLogger().info("Terra Nest here at: " + height);
-		 } else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && water1Nest != null) {
-				int mirror = world.rand.nextInt(Mirror.values().length);
-	 	 int rotation = world.rand.nextInt(Rotation.values().length);
-	 	 
-				world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-   
-   	water1Nest.addBlocksToWorld(world, height, placementsettings);
+		
+			} else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {  
+   	loadStructure(height, world, "water1");
     DMUtils.getLogger().info("Water Desert Nest here at: " + height);
-		 } else if(isPlains && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && water2Nest != null) {
-				int mirror = world.rand.nextInt(Mirror.values().length);
-	 	 int rotation = world.rand.nextInt(Rotation.values().length);
-	 	 
-				world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-   	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-   .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-   .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-   
-   	water2Nest.addBlocksToWorld(world, height, placementsettings);
+		
+		 } else if(isPlains && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
+				loadStructure(height, world, "water2");
     DMUtils.getLogger().info("Water Plains Nest here at: " + height);
-		 }
+		 
+		 } else if(isForest && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
+				loadStructure(height, world, "forest2");
+    DMUtils.getLogger().info("Jungle Nest here at: " + height);
+    
+		  }
+ 		}
 		}
 	
 	public void generateNestAtNether(World world, Random random, int chunkX, int chunkZ) {
@@ -228,11 +156,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				if(place) {
 				  int mirror = world.rand.nextInt(Mirror.values().length);
 			 	 int rotation = world.rand.nextInt(Rotation.values().length);
-			 		world.notifyBlockUpdate(new BlockPos(x, y, z), world.getBlockState(new BlockPos(x, y, z)), world.getBlockState(new BlockPos(x, y, z)), 3);
-				    	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-        .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-        .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-				    	netherNest.addBlocksToWorld(world, new BlockPos(x, y, z), placementsettings);
+			 		loadStructure(new BlockPos(x, y, z), worldserver, "nether");
 		   			DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
 			  	}
 				 }    				    
@@ -262,6 +186,28 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		  }
   }
 	
+	public void loadStructure(BlockPos pos, World world, String name) {
+		WorldServer worldserver = (WorldServer) world;
+		MinecraftServer minecraftserver = world.getMinecraftServer();
+		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
+		ResourceLocation loc = new ResourceLocation(DragonMounts.MODID, name);
+		Template template = templatemanager.getTemplate(minecraftserver, loc);
+ 	int mirror = world.rand.nextInt(Mirror.values().length);
+  int rotation = world.rand.nextInt(Rotation.values().length);
+
+		if (template != null) {
+			IBlockState iblockstate = world.getBlockState(pos);
+			world.notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
+			PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
+     .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
+     .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
+
+			template.addBlocksToWorldChunk(world, pos.add(0, 1, 0), placementsettings);
+		} else if(template == null) {
+			System.out.println("NO STRUCTURE");
+		}
+	}
+	
 	public void generateNestAtEnd(World world, Random random, int chunkX, int chunkZ) {
 		WorldServer worldserver = (WorldServer) world;
 		MinecraftServer minecraftserver = world.getMinecraftServer();
@@ -274,15 +220,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			int z = (chunkZ * 16) + random.nextInt(16);
 			BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 			
-			int mirror = world.rand.nextInt(Mirror.values().length);
- 	 int rotation = world.rand.nextInt(Rotation.values().length);
- 	 
-			world.notifyBlockUpdate(height, world.getBlockState(height), world.getBlockState(height), 3);
-  	PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
-  .setRotation(Rotation.values()[rotation]).setIgnoreEntities(false).setChunk((ChunkPos) null)
-  .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
-  
-  	enchantNest.addBlocksToWorld(world, height, placementsettings);
+			loadStructure(height, worldserver, "enchant");
    DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 			
 		}

@@ -1021,9 +1021,9 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 			}
 		}
 		
-		if(this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
-			Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP)this.getControllingPlayer()));
-		}
+	//	if(this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
+		//	Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP)this.getControllingPlayer()));
+	//	}
 		if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
 			for (int i = ContainerDragon.chestStartIndex; i < 30; i++) {
 				if (!dragonInv.getStackInSlot(i).isEmpty()) {

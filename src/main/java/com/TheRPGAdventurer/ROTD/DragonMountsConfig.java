@@ -51,7 +51,7 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int MainNestRarity  = 500;
+	public static int MainNestRarity  = 300;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	
@@ -248,8 +248,8 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		// surface extreme hills nest
-		prop = config.get(CATEGORY_WORLDGEN, "1 Main Nest Rarity", MainNestRarity);
-		prop.setComment("Determines how rare extreme hill nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+		prop = config.get(CATEGORY_WORLDGEN, "Main Nest Rarity", MainNestRarity);
+		prop.setComment("Determines how rare all dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		MainNestRarity = prop.getInt();
 		propOrder.add(prop.getName());

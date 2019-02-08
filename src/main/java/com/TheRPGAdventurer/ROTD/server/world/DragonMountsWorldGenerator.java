@@ -87,7 +87,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		boolean isSnowy  = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 		boolean isJungle = BiomeDictionary.hasType(world.getBiome(height), Type.JUNGLE);
 		boolean isForest = BiomeDictionary.hasType(world.getBiome(height), Type.FOREST);
-		boolean isSwamp = BiomeDictionary.hasType(world.getBiome(height), Type.SWAMP);
+		boolean isSwamp  = BiomeDictionary.hasType(world.getBiome(height), Type.SWAMP);
 		boolean isDesert = BiomeDictionary.hasType(world.getBiome(height), Type.SANDY);
 		boolean isPlains = BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS);
 		boolean isMesa   = BiomeDictionary.hasType(world.getBiome(height), Type.MESA);
@@ -98,7 +98,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 80, height.getZ()), world, "aether");
 		   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 80, height.getZ()));	
 			
-	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {
+	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1
+	 			&& world.getBlockState(height).getBlock() != Blocks.LOG && world.getBlockState(height).getBlock() != Blocks.LOG2
+	 			&& world.getBlockState(height).getBlock() != Blocks.LEAVES  && world.getBlockState(height).getBlock() != Blocks.LEAVES2) {
 	 	 
 	 		loadStructure(height, world, "ice");
     DMUtils.getLogger().info("Ice Nest here at: " + height);			
@@ -121,7 +123,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
    	loadStructure(height, world, "water1");
     DMUtils.getLogger().info("Water Desert Nest here at: " + height);
 		
-		 } else if(isSwamp && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
+		 } else if((isSwamp || isPlains) && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
 				loadStructure(height, world, "water2");
     DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 		 
@@ -152,8 +154,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	 	for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
 				
 				if(place) {
-				  int mirror = world.rand.nextInt(Mirror.values().length);
-			 	 int rotation = world.rand.nextInt(Rotation.values().length);
 			 		loadStructure(new BlockPos(x, y, z), worldserver, "nether");
 		   	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
 			  	

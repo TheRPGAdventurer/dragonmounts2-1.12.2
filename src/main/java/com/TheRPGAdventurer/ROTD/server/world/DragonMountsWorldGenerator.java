@@ -96,19 +96,19 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
 			if (isOcean && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
-	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 80, height.getZ()), world, "aether");
+	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 55, height.getZ()), world, "aether");
 		   DMUtils.getLogger().info("Aether Nest here at: " + height);	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1
 	 			&& world.getBlockState(height).getBlock() != Blocks.LOG && world.getBlockState(height).getBlock() != Blocks.LOG2
 	 			&& world.getBlockState(height).getBlock() != Blocks.LEAVES  && world.getBlockState(height).getBlock() != Blocks.LEAVES2) {
 	 	 
-	 		loadStructure(height, world, "ice");
+	 		loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice");
     DMUtils.getLogger().info("Ice Nest here at: " + height);			
 			     
 		 } else if(isJungle && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
 				
-				loadStructure(height, world, "forest1");
+				loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest1");
 	   DMUtils.getLogger().info("Jungle Nest here at: " + height);
 			 
 		 } else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) {	 	 
@@ -121,15 +121,15 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
     DMUtils.getLogger().info("Terra Nest here at: " + height);
 		
 			} else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) {  
-   	loadStructure(height, world, "water1");
+   	loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water1");
     DMUtils.getLogger().info("Water Desert Nest here at: " + height);
 		
 		 } else if((isSwamp || isPlains) && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
-				loadStructure(height, world, "water2");
+				loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water2");
     DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 		 
 		 } else if(isForest && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
-				loadStructure(height, world, "forest2");
+				loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest2");
     DMUtils.getLogger().info("Forest Nest here at: " + height);
     
 		  }

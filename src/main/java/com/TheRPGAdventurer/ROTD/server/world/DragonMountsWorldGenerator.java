@@ -222,9 +222,9 @@ for (int y2 = 0; y2 <= 30; ++y2) {
   if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.MOSSY_COBBLESTONE) {spawn = false;}
         							                                 	         
 	             if(spawn) {
-	            	if (world.getBlockState(new BlockPos(x,y-y2,z)).isNormalCube()) {
-		            dragonNest.generate(world, new BlockPos(x,y-y2,z), random);
-		          //  DMUtils.getLogger().info("Underground Nest here at: " + new BlockPos(x,y,z));				            				            
+	            	if (world.getBlockState(new BlockPos(x,y-y2,z)).getBlock() == Blocks.LAVA) {
+		            loadStructure(new BlockPos(x,y-y2,z), world, "fire");
+		            DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(x,y,z));				            				            
 	              } return;
 	            }
 	          }

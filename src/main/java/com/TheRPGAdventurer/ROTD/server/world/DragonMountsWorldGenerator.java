@@ -101,40 +101,40 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
 			if (isOcean && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
-	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 55, height.getZ()), world, "aether", 0);
+	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 55, height.getZ()), world, "aether", 0, true);
 		   DMUtils.getLogger().info("Aether Nest here at: " + height);	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1
 	 			&& world.getBlockState(height).getBlock() != Blocks.LOG && world.getBlockState(height).getBlock() != Blocks.LOG2
 	 			&& world.getBlockState(height).getBlock() != Blocks.LEAVES  && world.getBlockState(height).getBlock() != Blocks.LEAVES2) {
 	 	 
-	 		loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice", 0);
+	 		loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice", 0, true);
     DMUtils.getLogger().info("Ice Nest here at: " + height);			
 			     
 		 } else if(isJungle && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
 				
-				loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest1", 0);
+				loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest1", 0, true);
 	   DMUtils.getLogger().info("Jungle Nest here at: " + height);
 			 
 		 } else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) {	 	 
 			
-			loadStructure(height, world, "sunlight", 0);
+			loadStructure(height, world, "sunlight", 0, true);
    DMUtils.getLogger().info("Sunlight Nest here at: " + height);
 		 
 			} else if(isMesa && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) { 	 
-				loadStructure(height, world, "terra", 0);
+				loadStructure(height, world, "terra", 0, true);
     DMUtils.getLogger().info("Terra Nest here at: " + height);
 		
 			} else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) {  
-   	loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water1", 0);
+   	loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water1", 0, true);
     DMUtils.getLogger().info("Water Desert Nest here at: " + height);
 		
 		 } else if((isSwamp || isPlains) && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
-				loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water2", 0);
+				loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water2", 0, true);
     DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 		 
 		 } else if(isForest && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
-				loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest2", 0);
+				loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest2", 0, true);
     DMUtils.getLogger().info("Forest Nest here at: " + height);
     
 		  }
@@ -160,7 +160,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	 	for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
 				
 				if(place) {
-			 		loadStructure(new BlockPos(x, y, z), worldserver, "nether", 2);
+			 		loadStructure(new BlockPos(x, y, z), worldserver, "nether", 2, true);
 		   	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
 			  	
 				 }    				    
@@ -183,7 +183,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		return null;
 	}
 	
-	public void loadStructure(BlockPos pos, World world, String name, int i) {
+	public void loadStructure(BlockPos pos, World world, String name, int i, boolean hasChest) {
 		WorldServer worldserver = (WorldServer) world;
 		MinecraftServer minecraftserver = world.getMinecraftServer();
 		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
@@ -200,7 +200,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
      .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
 
 			template.addBlocksToWorldChunk(world, pos.add(0, 1, 0), placementsettings);
-			putResources(worldserver, getLooTableChoice(i), pos, template);
+			putResources(worldserver, getLooTableChoice(i), pos, template, hasChest);
 		} else if(template == null) {
 			System.out.println("NO Nest");
 		}
@@ -219,7 +219,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 			
 			if(world.getBlockState(height).isSideSolid(worldserver, height, EnumFacing.UP)) {
-			loadStructure(height, worldserver, "enchant", 2);
+			loadStructure(height, worldserver, "enchant", 2, true);
 			}
    DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 			
@@ -232,7 +232,7 @@ if (DragonMountsConfig.canSpawnUnderGroundNest) {
  	boolean spawn = true;
 int x = (chunkX * DragonMountsConfig.undergroundnestX) + random.nextInt(DragonMountsConfig.undergroundnestX); 
 int z = (chunkZ * DragonMountsConfig.undergroundnestZ) + random.nextInt(DragonMountsConfig.undergroundnestZ); 
-  for (int y = 45; y >= 5; --y) {
+  for (int y = 35; y >= 5; --y) {
   if (world.getBlockState(new BlockPos(x,y,z)).getBlock().isAir(world.getBlockState(new BlockPos(x,y,z)), world, new BlockPos(x,y,z))) {
   if((random.nextInt() * DragonMountsConfig.undergroundrarityMain) <= 1) {
 for (int y2 = 0; y2 <= 30; ++y2) {
@@ -245,7 +245,7 @@ for (int y2 = 0; y2 <= 30; ++y2) {
         							                                 	         
 	             if(spawn) {
 	            	if (world.getBlockState(new BlockPos(x,y-y2,z)).getBlock() == Blocks.LAVA) {
-		            loadStructure(new BlockPos(x,y-y2,z), world, "fire", 1);
+		            loadStructure(new BlockPos(x,y-y2,z), world, "fire", 1, false);
 		            DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(x,y,z));				            				            
 	              } return;
 	            }
@@ -257,7 +257,8 @@ for (int y2 = 0; y2 <= 30; ++y2) {
  }
 }
  
- public void putResources(World world, ResourceLocation lootTable, BlockPos structurePosIn, Template structure) {
+ public void putResources(World world, ResourceLocation lootTable, BlockPos structurePosIn, Template structure, boolean hasChest) {
+ 	if(hasChest) {
  	for(int x=0;x<=structure.getSize().getX();x++){
  		for(int y=0;y<=structure.getSize().getY();y++){
  			for(int z=0;z<=structure.getSize().getZ();z++){
@@ -266,6 +267,7 @@ for (int y2 = 0; y2 <= 30; ++y2) {
  						if(world.getTileEntity(tmp) instanceof TileEntityChest){
  							TileEntityChest chest = (TileEntityChest)world.getTileEntity(tmp);
  							chest.setLootTable(lootTable, world.getSeed());
+ 						}
  						}
  					}
  				}

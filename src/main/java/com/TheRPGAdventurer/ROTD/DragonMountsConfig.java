@@ -51,7 +51,7 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int MainNestRarity  = 300;
+	public static int MainNestRarity  = 450;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	

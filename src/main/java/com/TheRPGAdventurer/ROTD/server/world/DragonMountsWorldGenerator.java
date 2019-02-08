@@ -94,8 +94,8 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
 			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
-	 	 loadStructure(height, world, "aether");
-		   DMUtils.getLogger().info("Surface Nest here at: " + height);	
+	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 20, height.getZ()), world, "aether");
+		   DMUtils.getLogger().info("Aether Nest here at: " + height);	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 	 

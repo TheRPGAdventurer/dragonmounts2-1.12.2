@@ -84,7 +84,7 @@ public class DragonMountsConfig {
 	public static boolean useDimensionBlackList = true;
 	
 	// dragon
-	public static int GET_TICKS_PER_STAGE = 75000; 
+	public static int GET_TICKS_PER_STAGE = 40000; 
     
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");

@@ -95,7 +95,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
 	 	 loadStructure(height, world, "aether");
-	 	 DMUtils.getLogger().info("Surface Nest here at: " + height);	
+		   DMUtils.getLogger().info("Surface Nest here at: " + height);	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 	 
@@ -138,9 +138,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			MinecraftServer minecraftserver = world.getMinecraftServer();
 			TemplateManager templatemanager = worldserver.getStructureTemplateManager();
 			ResourceLocation loc = new ResourceLocation(DragonMounts.MODID, "nether");
-			Template netherNest = templatemanager.getTemplate(minecraftserver, loc); 
-			
-	 	if (netherNest != null) {
      int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
 		   int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
 		   
@@ -157,34 +154,13 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				  int mirror = world.rand.nextInt(Mirror.values().length);
 			 	 int rotation = world.rand.nextInt(Rotation.values().length);
 			 		loadStructure(new BlockPos(x, y, z), worldserver, "nether");
-		   			DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
-			  	}
+		   	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
+			  	
 				 }    				    
 			 }
 	  }
 		}
  }
-	
-	public void generateBoneNestAtNether(World world, Random random, int chunkX, int chunkZ) {
-		if (DragonMountsConfig.canSpawnNetherNest) {
-		int x = (chunkX * DragonMountsConfig.boneNestRarerityInX) + random.nextInt(DragonMountsConfig.boneNestRarerityInX);
-		int z = (chunkZ * DragonMountsConfig.boneNestRarerityInZ) + random.nextInt(DragonMountsConfig.boneNestRarerityInZ);
-		for (int y = 85; y >= 5; y--) {
-	    	boolean solidGround = world.getBlockState(new BlockPos(x,y,z)).isBlockNormalCube();
-	    	if (solidGround && random.nextInt(DragonMountsConfig.boneNestMainRarity) == 1) {
-					boolean place = true;
-				
-		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
-		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
-				
-				if(place) {
-					dragonNestBone.generate(world, new BlockPos(x,y,z), random);
-			//		DMUtils.getLogger().info("Bone Nest here at: " + new BlockPos(x,y,z));
-				     }
-			     }
-	     }
-		  }
-  }
 	
 	public void loadStructure(BlockPos pos, World world, String name) {
 		WorldServer worldserver = (WorldServer) world;
@@ -204,7 +180,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 
 			template.addBlocksToWorldChunk(world, pos.add(0, 1, 0), placementsettings);
 		} else if(template == null) {
-			System.out.println("NO STRUCTURE");
+			System.out.println("NO Nest");
 		}
 	}
 	

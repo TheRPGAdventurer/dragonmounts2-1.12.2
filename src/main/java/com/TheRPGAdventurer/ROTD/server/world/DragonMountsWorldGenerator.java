@@ -91,12 +91,13 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		boolean isDesert = BiomeDictionary.hasType(world.getBiome(height), Type.SANDY);
 		boolean isPlains = BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS);
 		boolean isMesa   = BiomeDictionary.hasType(world.getBiome(height), Type.MESA);
+		boolean isOcean  = BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN);
 		
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
-			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
+			if (isOcean && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
 	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 80, height.getZ()), world, "aether");
-		   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 80, height.getZ()));	
+		   DMUtils.getLogger().info("Aether Nest here at: " + height);	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1
 	 			&& world.getBlockState(height).getBlock() != Blocks.LOG && world.getBlockState(height).getBlock() != Blocks.LOG2

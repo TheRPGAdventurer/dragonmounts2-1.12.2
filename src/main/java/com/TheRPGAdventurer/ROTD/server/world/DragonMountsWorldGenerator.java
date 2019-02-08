@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -59,6 +60,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			this.generateNestAtNether(world, random, x, z);
 		} else if(!isDimensionBlacklisted(world.provider.getDimension())) {
 			this.generateNestAtSurface(world, random, x, z);
+			this.generateNestUnderground(world, random, x, z);
 		} else if(world.provider.getDimensionType() == DimensionType.THE_END) {
 			this.generateNestAtEnd(world, random, x, z);
 		}
@@ -193,12 +195,14 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		
 		ResourceLocation enchant = new ResourceLocation(DragonMounts.MODID, "enchant");
 		Template enchantNest = templatemanager.getTemplate(minecraftserver, enchant); 
-		if(DragonMountsConfig.canSpawnEndNest &&  enchantNest != null) {
+		if(DragonMountsConfig.canSpawnEndNest) {
 			int x = (chunkX * 16) + random.nextInt(16);
 			int z = (chunkZ * 16) + random.nextInt(16);
 			BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 			
+			if(world.getBlockState(height).isSideSolid(worldserver, height, EnumFacing.UP)) {
 			loadStructure(height, worldserver, "enchant");
+			}
    DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 			
 		}
@@ -216,9 +220,9 @@ int z = (chunkZ * DragonMountsConfig.undergroundnestZ) + random.nextInt(DragonMo
 for (int y2 = 0; y2 <= 30; ++y2) {
   if (world.getBlockState(new BlockPos(x,y-y2,z)).isBlockNormalCube()) {
                   	 	                    	 
-  if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock() == Blocks.LAVA) {spawn = false;}
-  if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.OBSIDIAN) {spawn = false;}
-  if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.COBBLESTONE) {spawn = false;}
+  if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock() == Blocks.LAVA) {spawn = true;}
+  if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.OBSIDIAN) {spawn = true;}
+  if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.COBBLESTONE) {spawn = true;}
   if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.MOSSY_COBBLESTONE) {spawn = false;}
         							                                 	         
 	             if(spawn) {

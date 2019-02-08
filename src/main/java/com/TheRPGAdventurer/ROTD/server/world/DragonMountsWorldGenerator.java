@@ -87,6 +87,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		boolean isSnowy  = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 		boolean isJungle = BiomeDictionary.hasType(world.getBiome(height), Type.JUNGLE);
 		boolean isForest = BiomeDictionary.hasType(world.getBiome(height), Type.FOREST);
+		boolean isSwamp = BiomeDictionary.hasType(world.getBiome(height), Type.SWAMP);
 		boolean isDesert = BiomeDictionary.hasType(world.getBiome(height), Type.SANDY);
 		boolean isPlains = BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS);
 		boolean isMesa   = BiomeDictionary.hasType(world.getBiome(height), Type.MESA);
@@ -94,10 +95,10 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest) {
 			if (isHills && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
-	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 20, height.getZ()), world, "aether");
-		   DMUtils.getLogger().info("Aether Nest here at: " + height);	
+	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 80, height.getZ()), world, "aether");
+		   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 80, height.getZ()));	
 			
-	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
+	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {
 	 	 
 	 		loadStructure(height, world, "ice");
     DMUtils.getLogger().info("Ice Nest here at: " + height);			
@@ -107,26 +108,26 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 				loadStructure(height, world, "forest1");
 	   DMUtils.getLogger().info("Jungle Nest here at: " + height);
 			 
-		 } else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
+		 } else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) {	 	 
 			
 			loadStructure(height, world, "sunlight");
    DMUtils.getLogger().info("Sunlight Nest here at: " + height);
 		 
-			} else if(isMesa && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) { 	 
+			} else if(isMesa && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) { 	 
 				loadStructure(height, world, "terra");
     DMUtils.getLogger().info("Terra Nest here at: " + height);
 		
-			} else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {  
+			} else if(isDesert && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.SAND) {  
    	loadStructure(height, world, "water1");
     DMUtils.getLogger().info("Water Desert Nest here at: " + height);
 		
-		 } else if(isPlains && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
+		 } else if(isSwamp && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
 				loadStructure(height, world, "water2");
     DMUtils.getLogger().info("Water Plains Nest here at: " + height);
 		 
-		 } else if(isForest && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {	 	 
+		 } else if(isForest && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1 && world.getBlockState(height).getBlock() == Blocks.GRASS) {	 	 
 				loadStructure(height, world, "forest2");
-    DMUtils.getLogger().info("Jungle Nest here at: " + height);
+    DMUtils.getLogger().info("Forest Nest here at: " + height);
     
 		  }
  		}

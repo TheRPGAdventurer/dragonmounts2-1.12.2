@@ -85,7 +85,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     
     @Override 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.checkFall(worldIn, pos);
+        this.checkFall(worldIn, pos, state);
     }
     
     @Override
@@ -101,7 +101,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
         return true;
     }
     
-    private void checkFall(World worldIn, BlockPos pos) {
+    private void checkFall(World worldIn, BlockPos pos, IBlockState state) {
         if (worldIn.isAirBlock(pos.down()) && BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
             int i = 32;
 
@@ -114,7 +114,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
                 for (blockpos = pos; worldIn.isAirBlock(blockpos) && BlockFalling.canFallThrough(worldIn.getBlockState(blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {}
 
                 if (blockpos.getY() > 0) {
-                    worldIn.setBlockState(blockpos, this.getStateFromMeta(meta), 2);
+                    worldIn.setBlockState(blockpos, state, 2);
                 }
             }
         }

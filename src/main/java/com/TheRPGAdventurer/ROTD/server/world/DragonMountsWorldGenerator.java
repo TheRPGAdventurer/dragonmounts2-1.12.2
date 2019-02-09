@@ -127,37 +127,37 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	public void generateNestAtNether(World world, Random random, int chunkX, int chunkZ) {
 		if (DragonMountsConfig.canSpawnNetherNest && !world.isRemote) {
 			WorldServer worldserver = (WorldServer) world;
-     int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
-		   int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
-		 		BlockPos height = getNetherHeight(world, new BlockPos(x, 0, z));	
-		   
 		
-	 	if (height != null) {
-	    	boolean solidGround = world.getBlockState(height.up()).isBlockNormalCube();
+		int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
+		int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
+		for (int y = 85; y >= 5; y--) {
+	    
+			boolean solidGround = world.getBlockState(new BlockPos(x,y,z)).isBlockNormalCube();
 	    	if (solidGround && random.nextInt(DragonMountsConfig.netherNestRarity) == 1) {
-				  	boolean place = true;
+					boolean place = true;
 				
-	 	
-				if(place) {
-			 		loadStructure(height.up(), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true);
-		   	DMUtils.getLogger().info("Nether Nest here at: " + height.up());
-			  	
-				 }    				 
+		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
+		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
 				
 				if(place) {
-					if(random.nextInt(2) == 0) {
-		 	 	loadStructure(new BlockPos(height.up().getX(), height.up().getY() - 10, height.up().getZ()), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true);
-		 	 	DMUtils.getLogger().info("Zombie Nest here at: " + new BlockPos(height.up().getX(), height.up().getY() - 10, height.up().getZ()));				
-					} else {
-						loadStructure(new BlockPos(height.up().getX(), height.up().getY() - 10, height.up().getZ()), worldserver, "skeleton", LootTableList.CHESTS_NETHER_BRIDGE, true);
-						DMUtils.getLogger().info("Skeleton Nest here at: " + new BlockPos(height.up().getX(), height.up().getY() - 10, height.up().getZ()));				
-					 }
-			  }
+					loadStructure(new BlockPos(x,y,z), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true);
+	   	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
+		  	
+			   				 
+			
+				if(random.nextInt(2) == 0) {
+	 	 	loadStructure(new BlockPos(x, y, z), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true);
+	 	 	DMUtils.getLogger().info("Zombie Nest here at: " + new BlockPos(x, y, z));				
+				} else {
+					loadStructure(new BlockPos(x, y, z), worldserver, "skeleton", LootTableList.CHESTS_NETHER_BRIDGE, true);
+					DMUtils.getLogger().info("Skeleton Nest here at: " + new BlockPos(x, y, z));				
+				 
+		    }
+				 }    				    
 			 }
 	  }
 		}
  }
-	
 	
 	public void loadStructure(BlockPos pos, World world, String name, ResourceLocation lootTable, boolean hasChest) {
 		WorldServer worldserver = (WorldServer) world;

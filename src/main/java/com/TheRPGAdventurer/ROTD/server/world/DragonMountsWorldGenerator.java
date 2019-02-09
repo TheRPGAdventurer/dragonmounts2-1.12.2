@@ -94,7 +94,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		boolean isMesa   = BiomeDictionary.hasType(world.getBiome(height), Type.MESA);
 		boolean isOcean  = BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN);
 		
-		if (DragonMountsConfig.canSpawnSurfaceDragonNest && !world.isRemote) {
+		if (DragonMountsConfig.canSpawnSurfaceDragonNest && !world.isRemote && world.isChunkGeneratedAt(x, z)) {
 			if (isOcean && random.nextInt((DragonMountsConfig.MainNestRarity)) == 1) {
 	 		
 	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 55, height.getZ()), world, "aether", LootTableList.CHESTS_VILLAGE_BLACKSMITH, true);
@@ -161,7 +161,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			  	
 				 }    				 
 				
-				if(place) {
+				if(place && world.isChunkGeneratedAt(x, z)) {
 					if(random.nextInt(2) == 0) {
 		 	 	loadStructure(new BlockPos(x, y - 10, z), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true);
 		 	 	DMUtils.getLogger().info("Zombie Nest here at: " + new BlockPos(x,y,z));				
@@ -213,7 +213,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			int z = (chunkZ * 16) + random.nextInt(16);
 			BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 			
-			if(world.getBlockState(height).isSideSolid(worldserver, height, EnumFacing.UP)) {
+			if(world.getBlockState(height).isSideSolid(worldserver, height, EnumFacing.UP) && world.isChunkGeneratedAt(x, z)) {
 			loadStructure(height, worldserver, "enchant", LootTableList.CHESTS_END_CITY_TREASURE, true);
 			}
    DMUtils.getLogger().info("Enchant Plains Nest here at: " + height);
@@ -231,7 +231,7 @@ int z = (chunkZ * DragonMountsConfig.undergroundnestZ) + random.nextInt(DragonMo
   if (world.getBlockState(new BlockPos(x,y,z)).getBlock().isAir(world.getBlockState(new BlockPos(x,y,z)), world, new BlockPos(x,y,z))) {
   if((random.nextInt() * DragonMountsConfig.undergroundrarityMain) <= 1) {
 for (int y2 = 5; y2 <= 30; ++y2) {
-  if (world.getBlockState(new BlockPos(x,y-y2,z)).isBlockNormalCube()) {
+  if (world.getBlockState(new BlockPos(x,y-y2,z)).isBlockNormalCube() && world.isChunkGeneratedAt(x, z)) {
                   	 	                    	 
   if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock() == Blocks.LAVA) {spawn = true;}
   if(world.getBlockState(new BlockPos(x, y + 1, z)).getBlock()  == Blocks.OBSIDIAN) {spawn = true;}

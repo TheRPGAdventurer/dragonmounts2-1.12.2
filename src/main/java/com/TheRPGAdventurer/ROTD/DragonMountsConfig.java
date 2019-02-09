@@ -51,7 +51,7 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int MainNestRarity  = 450;
+	public static int MainNestRarity  = 500;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	
@@ -59,9 +59,9 @@ public class DragonMountsConfig {
 	public static int MainSnowNestRarerityInX = 18;
 	public static int MainSnowNestRarerityInZ = 18;
 	
-	public static int netherNestRarity = 800;
-	public static int netherNestRarerityInX = 32;
-	public static int netherNestRarerityInZ = 32;
+	public static int netherNestRarity = 780;
+	public static int netherNestRarerityInX = 16;
+	public static int netherNestRarerityInZ = 16;
 	
 	public static int undergroundrarityMain = 50;
 	public static int undergroundnestX = 64;

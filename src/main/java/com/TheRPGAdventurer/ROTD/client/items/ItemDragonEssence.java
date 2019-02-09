@@ -57,6 +57,7 @@ public class ItemDragonEssence extends Item {
    	nbt.setUniqueId("DMessenceDragonId", dragon.getUniqueID());
    	nbt.setUniqueId("DMessenceOwnerId" , dragon.getOwnerId ());
    	nbt.setFloat("DMstage", dragon.getStageInt());
+   	nbt.setBoolean("DMGender", dragon.isMale());
    	if(dragon.hasCustomName())	nbt.setString("DMname", dragon.getCustomNameTag());
    }
 	}
@@ -125,6 +126,7 @@ public class ItemDragonEssence extends Item {
              dragon.setScalePublic(stack.getTagCompound().getFloat("DMdragonTicks"));
              dragon.setLifeStageInt(stack.getTagCompound().getInteger("DMstage"));
              dragon.setCustomNameTag(stack.getTagCompound().getString("DMname"));
+             dragon.setMale(stack.getTagCompound().getBoolean("DMGender"));
              dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);
              dragon.world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x + dragon.getRNG().nextInt(5), y + dragon.getRNG().nextInt(5), z + dragon.getRNG().nextInt(5), 1, 1, 1, 0);
 

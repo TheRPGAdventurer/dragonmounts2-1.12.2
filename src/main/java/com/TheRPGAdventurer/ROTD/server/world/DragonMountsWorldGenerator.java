@@ -80,8 +80,8 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	}
 	
 	public void generateNestAtSurface(World world, Random random, int chunkX, int chunkZ) {	
-		int x = (chunkX * 12) + random.nextInt(12);
-		int z = (chunkZ * 12) + random.nextInt(12);
+		int x = (chunkX * 16) + random.nextInt(16);
+		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 		
 	//	boolean isHills  = BiomeDictionary.hasType(world.getBiome(height), Type.HILLS);

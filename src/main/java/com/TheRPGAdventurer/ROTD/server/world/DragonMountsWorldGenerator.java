@@ -160,11 +160,10 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	public void generateNestAtEnd(World world, Random random, int chunkX, int chunkZ) {
 		WorldServer worldserver = (WorldServer) world;
 		MinecraftServer minecraftserver = world.getMinecraftServer();
-		TemplateManager templatemanager = worldserver.getStructureTemplateManager();
 
-		if(DragonMountsConfig.canSpawnEndNest && random.nextInt(1000) == 1 && chunkX > 1200 && chunkZ > 1200) {
-			int x = (chunkX * 25) + random.nextInt(25);
-			int z = (chunkZ * 25) + random.nextInt(25);
+		if(DragonMountsConfig.canSpawnEndNest && random.nextInt(580) == 1) {
+			int x = (chunkX * 16) + random.nextInt(16);
+			int z = (chunkZ * 16) + random.nextInt(16);
 			BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 			
 			loadStructure(height, worldserver, "enchant", LootTableList.CHESTS_END_CITY_TREASURE, true, random);

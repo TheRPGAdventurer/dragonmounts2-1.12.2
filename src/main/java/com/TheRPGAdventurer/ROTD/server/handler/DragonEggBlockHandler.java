@@ -20,6 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -39,6 +40,10 @@ public class DragonEggBlockHandler {
         World world = evt.getWorld();
         IBlockState state = world.getBlockState(pos);
         Block block = world.getBlockState(pos).getBlock();
+        
+        if(block == Blocks.DRAGON_EGG && world.provider.getDimensionType().getId() == 1) {
+        	evt.getEntityPlayer().sendStatusMessage(new TextComponentTranslation("egg.cantHatchEnd.DragonMounts", new Object[0]), true);
+        }
         
         if (world.provider.getDimensionType().getId() != 1) {
     	
@@ -72,6 +77,6 @@ public class DragonEggBlockHandler {
                 
                 } world.spawnEntity(dragon);       
             }
-        }       
+        } 
     }
 }

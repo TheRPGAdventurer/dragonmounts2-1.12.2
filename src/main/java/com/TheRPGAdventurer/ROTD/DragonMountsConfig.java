@@ -51,13 +51,9 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int AllNestRarity  = 680;
+	public static int AllNestRarity  = 690;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
-	
-	public static int MainSnowNestRarity  = 1200;
-	public static int MainSnowNestRarerityInX = 18;
-	public static int MainSnowNestRarerityInZ = 18;
 	
 	public static int netherNestRarity = 100;
 	public static int netherNestRarerityInX = 16;
@@ -66,11 +62,7 @@ public class DragonMountsConfig {
 	public static int undergroundrarityMain = 50;
 	public static int undergroundnestX = 64;
 	public static int undergroundnestZ = 64;
-	
-	public static int boneNestMainRarity = 780;
-	public static int boneNestRarerityInX = 32;
-	public static int boneNestRarerityInZ = 32;
-	
+		
 	public static double ThirdPersonZoom = 15.2;
 	
 	public static int dragonFolloOwnerFlyingHeight = 50;
@@ -178,7 +170,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_CLIENTDM2, "Max Flight Height", maxFLightHeight);
-		prop.setComment("Max flight fr dragons circling players on a whistle");
+		prop.setComment("Max flight for dragons circling players on a whistle");
 		maxFLightHeight = prop.getDouble();
 		propOrder.add(prop.getName());
 		
@@ -273,24 +265,6 @@ public class DragonMountsConfig {
 		netherNestRarerityInZ = prop.getInt();
 		propOrder.add(prop.getName());
 		
-		// bone nests
-		prop = config.get(CATEGORY_WORLDGEN, "3 Bone Nest Rarity", boneNestMainRarity);
-		prop.setComment("Determines how rare bone nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn)"
-				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		boneNestMainRarity = prop.getInt();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_WORLDGEN, "3 Bone nest Rarity X", boneNestRarerityInX);
-		prop.setComment("Determines how rare bone nests will spawn in the X Axis. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn)"
-				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		boneNestRarerityInX = prop.getInt();
-		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_WORLDGEN, "3 Bone nest Rarity Z", boneNestRarerityInZ);
-		prop.setComment("Determines how rare bone nests will spawn Z Axis. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn)"
-				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		boneNestRarerityInZ = prop.getInt();
-		propOrder.add(prop.getName());
 		
 		config.setCategoryPropertyOrder(CATEGORY_WORLDGEN, propOrder);
 		config.save();

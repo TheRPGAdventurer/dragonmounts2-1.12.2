@@ -136,14 +136,12 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 	    	if (solidGround && random.nextInt(DragonMountsConfig.netherNestRarity) == 1) {
 					boolean place = true;
 				
-		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
-		for(int Y = 0; Y < 7; Y++) {for(int Z = 0; Z < 7; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
+		for(int Y = 0; Y < 3; Y++) {for(int Z = 0; Z < 3; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() != Blocks.AIR) {place = false;}}}}
+		for(int Y = 0; Y < 3; Y++) {for(int Z = 0; Z < 3; Z++) {for(int X = 0; X < 3; X++) {if(world.getBlockState(new BlockPos(X + x, Y + y + 1, Z + z)).getBlock() == Blocks.LAVA) {place = false;}}}}
 				
 				if(place) {
 					loadStructure(new BlockPos(x,y,z), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true);
-	   	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));
-		  	
-			   				 
+	   	DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x,y,z));	  				   				 
 			
 				if(random.nextInt(2) == 0) {
 	 	 	loadStructure(new BlockPos(x, y, z), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true);
@@ -176,10 +174,11 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
      .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
 
 			template.addBlocksToWorldChunk(world, pos.add(0, 1, 0), placementsettings);
-			putResources(worldserver, lootTable, pos, template, hasChest);
+			
 		} else if(template == null) {
 			System.out.println("NO Nest");
 		}
+		putResources(worldserver, lootTable, pos, template, hasChest);
 	}
 	
 	public void generateNestAtEnd(World world, Random random, int chunkX, int chunkZ) {

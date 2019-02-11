@@ -59,7 +59,7 @@ public class DragonMountsConfig {
 	public static int MainSnowNestRarerityInX = 18;
 	public static int MainSnowNestRarerityInZ = 18;
 	
-	public static int netherNestRarity = 780;
+	public static int netherNestRarity = 100;
 	public static int netherNestRarerityInX = 16;
 	public static int netherNestRarerityInZ = 16;
 	
@@ -255,7 +255,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		// nether nest
-		prop = config.get(CATEGORY_WORLDGEN, "2 Nether Nest Chance", netherNestRarity);
+		prop = config.get(CATEGORY_WORLDGEN, "Nether Nest Chance", netherNestRarity);
 		prop.setComment("Determines how rare nether nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn)"
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		netherNestRarity = prop.getInt();

@@ -9,6 +9,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
@@ -66,6 +67,25 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		return null;
 	}
 	
+ private boolean canReplace(World world, BlockPos pos)	{
+		Block at = world.getBlockState(pos).getBlock();
+		Material material = world.getBlockState(pos).getMaterial();
+		// we think it's replaceable if it's air / liquid / snow, plants, or leaves 
+		return material.isReplaceable() || material == Material.PLANTS || material == Material.LEAVES;
+	}
+	
+	private boolean canSpawnHere(World world, BlockPos posAboveGround)
+	{
+		// check all the corners to see which ones are replaceable
+		boolean corner1Air = canReplace(world, posAboveGround);
+		boolean corner2Air = canReplace(world, posAboveGround.add(8, 0, 0));
+		boolean corner4Air = canReplace(world, posAboveGround.add(0, 0, 8));
+		boolean corner3Air = canReplace(world, posAboveGround.add(8, 0, 8));
+		
+		// if Y > 20 and all corners pass the test, it's okay to spawn the structure
+		return posAboveGround.getY() > 20 && corner1Air && corner2Air && corner3Air && corner4Air;
+	}
+	
 	public void generateNestAtSurface(World world, Random random, int chunkX, int chunkZ) {	
 		int x = (chunkX * 16) + random.nextInt(16);
 		int z = (chunkZ * 16) + random.nextInt(16);
@@ -82,46 +102,58 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		boolean isOcean  = BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN);
 		
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest && !world.isRemote) {
+//			boolean place = true;
+////			for(int Z = 0; Z < 12; Z++) {
+//				for(int X = 0; X < 12; X++) {
+//					for(int Y = 0; Y < 2; Y++) {
+			
+		//		if(world.getBlockState(new BlockPos(X + height.getX(), height.getY() + Y, Z + height.getZ())).getBlock() == Blocks.LAVA) place = false;
+	//			if(world.getBlockState(new BlockPos(X + height.getX(), height.getY() + Y, Z + height.getZ())).getBlock() != Blocks.AIR) place = false;
+		//		if(world.getBlockState(new BlockPos(X + height.getX(), height.getY() - Y, Z + height.getZ())).getMaterial().isSolid()) place = false;
+	//				  }
+//				  }
+//				}
+			
+		//	if(cans) {
+
 			if (isOcean && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) {
 	 		
 	 	 loadStructure(new BlockPos(height.getX(), height.getY() + 55, height.getZ()), world, "aether", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
 		   DMUtils.getLogger().info("Aether Nest here at: " + height);	
 			
-	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
-	 			&& world.getBlockState(height).getBlock() != Blocks.LOG && world.getBlockState(height).getBlock() != Blocks.LOG2
-	 			&& world.getBlockState(height).getBlock() != Blocks.LEAVES  && world.getBlockState(height).getBlock() != Blocks.LEAVES2) {
+	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) {
 	 	 
 	 		loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-    DMUtils.getLogger().info("Ice Nest here at: " + height);			
+    DMUtils.getLogger().info("Ice Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));			
 			     
-		 } else if(isJungle && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) {	 	 
+		 } else if(isJungle && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) {	 	 
 				
-				loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest1", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+				loadStructure(height, world, "forest1", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
 	   DMUtils.getLogger().info("Jungle Nest here at: " + height);
 			 
-		 } else if(isDesert && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) {	 	 
+		 } else if(isDesert && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) {	 	 
 			
-			loadStructure(height, world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-   DMUtils.getLogger().info("Sunlight Nest here at: " + height);
+			loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+   DMUtils.getLogger().info("Sunlight Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 		 
-			} else if(isMesa && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) { 	 
-				loadStructure(height, world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-    DMUtils.getLogger().info("Terra Nest here at: " + height);
+			} else if(isMesa && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) { 	 
+				loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
+    DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 		
-			} else if(isDesert && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) {  
+			} else if(isDesert && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) {  
    	loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "water1", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
     DMUtils.getLogger().info("Water Desert Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 		
-		 } else if((isSwamp || isPlains) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) {	 	 
+		 } else if((isSwamp || isPlains) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) {	 	 
 				loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "water2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
     DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 		 
-		 } else if(isPlains && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1) {	 	 
+		 } else if(isPlains && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, new BlockPos(height.getX(), height.getY(), height.getZ()))) {	 	 
 				loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
     DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
-    
+		   }
 		  }
- 		}
+// 		}
 		}
 	
 	public void generateNestAtNether(World world, Random random, int chunkX, int chunkZ) {

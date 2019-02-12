@@ -127,11 +127,4 @@ public class ItemDragonWhistle extends Item {
 		}
 	}
 	
-//	@Override
-//    @SideOnly(Side.CLIENT)
-//	public boolean hasEffect(ItemStack stack) {
-//       return stack.getTagCompound().hasKey(DragonMounts.MODID + "dragon") && stack.hasTagCompound() && stack.getTagCompound() != null
-//			   || super.hasEffect(stack);
-
-//	}
 }

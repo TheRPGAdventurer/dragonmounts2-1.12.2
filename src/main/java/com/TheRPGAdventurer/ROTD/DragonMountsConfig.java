@@ -33,7 +33,7 @@ public class DragonMountsConfig {
     // config properties
     private static boolean disableBlockOverride = false;
     private static boolean debug = false;
-	public static boolean shouldChangeBreedViaHabitatOrBlock = true;
+	   public static boolean shouldChangeBreedViaHabitatOrBlock = true;
     public static boolean canDragonDespawn = true;
     
     public static boolean canIceBreathBePermanent = false;
@@ -47,7 +47,6 @@ public class DragonMountsConfig {
     public static boolean canSpawnSurfaceDragonNest = true;
 	public static boolean canSpawnUnderGroundNest = false;
 	public static boolean canSpawnNetherNest = true;
-	public static boolean canSpawnNetherBoneNest = true;
 	public static boolean canSpawnEndNest = true;
     
 	// chances
@@ -74,10 +73,7 @@ public class DragonMountsConfig {
 	public static int[] dragonWhitelistedDimensions = new int[]{0};
 	
 	public static boolean useDimensionBlackList = true;
-	
-	// dragon
-	public static int GET_TICKS_PER_STAGE = 40000; 
-    
+	    
     public static void PreInit() {
     	File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
     	config = new Configuration(configFile);
@@ -163,12 +159,6 @@ public class DragonMountsConfig {
 		allowBreeding = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_MAIN, "Ticks Per Stage", GET_TICKS_PER_STAGE);
-		prop.setComment("how long does a dragon grow per stage higher numbers higher time growth)"
-				+ "(Note:VERY VERY DANGEROUS Can cause disappearances of dragons, only edit at the beginning of the world where there are no tameable dragons yet to be sure, Im not even sure if it even works!)");
-		GET_TICKS_PER_STAGE = prop.getInt();
-		propOrder.add(prop.getName());
-		
 		prop = config.get(CATEGORY_CLIENTDM2, "Max Flight Height", maxFLightHeight);
 		prop.setComment("Max flight for dragons circling players on a whistle");
 		maxFLightHeight = prop.getDouble();
@@ -212,13 +202,6 @@ public class DragonMountsConfig {
 		prop.setComment("Enables spawning of enchant dragon nests in end cities");
 		canSpawnEndNest = prop.getBoolean();
 		propOrder.add(prop.getName());
-		
-		prop = config.get(CATEGORY_WORLDGEN, "canSpawnNetherBoneNest", canSpawnNetherBoneNest);
-		prop.setComment("Enables spawning of bone dragon nests in the nether");
-		canSpawnNetherBoneNest = prop.getBoolean();
-		propOrder.add(prop.getName());
-		
-		// chances
 		
 		// underground nest
 		prop = config.get(CATEGORY_WORLDGEN, "0 underground nest main rarity", undergroundrarityMain);

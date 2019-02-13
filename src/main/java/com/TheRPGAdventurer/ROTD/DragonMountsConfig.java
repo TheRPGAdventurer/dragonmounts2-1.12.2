@@ -45,12 +45,12 @@ public class DragonMountsConfig {
     
 	
     public static boolean canSpawnSurfaceDragonNest = true;
-	public static boolean canSpawnUnderGroundNest = false;
+	public static boolean canSpawnUnderGroundNest = true;
 	public static boolean canSpawnNetherNest = true;
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int AllNestRarity  = 690;
+	public static int AllNestRarity  = 700;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	
@@ -58,7 +58,7 @@ public class DragonMountsConfig {
 	public static int netherNestRarerityInX = 16;
 	public static int netherNestRarerityInZ = 16;
 	
-	public static int undergroundrarityMain = 50;
+	public static int undergroundrarityMain = 250;
 	public static int undergroundnestX = 64;
 	public static int undergroundnestZ = 64;
 		
@@ -188,7 +188,7 @@ public class DragonMountsConfig {
 		canSpawnSurfaceDragonNest = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_WORLDGEN, "canSpawnUnderGroundNest", canSpawnUnderGroundNest);
+		prop = config.get(CATEGORY_WORLDGEN, "can Spawn Fire Nests underground", canSpawnUnderGroundNest);
 		prop.setComment("Enables spawning of dragon nests in underground caves (Buggy consumes a lot of memory :()");
 		canSpawnUnderGroundNest = prop.getBoolean();
 		propOrder.add(prop.getName());
@@ -222,8 +222,8 @@ public class DragonMountsConfig {
 		undergroundnestZ = prop.getInt();
 		propOrder.add(prop.getName());
 		
-		// surface extreme hills nest
-		prop = config.get(CATEGORY_WORLDGEN, "Main Nest Rarity", AllNestRarity);
+		// surface world nest
+		prop = config.get(CATEGORY_WORLDGEN, "All Nest Rarity", AllNestRarity);
 		prop.setComment("Determines how rare all dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity = prop.getInt();

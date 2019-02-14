@@ -134,7 +134,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 			if (isOcean && random.nextInt((760)) == 1) {
 	 		
 	  	 loadStructure(new BlockPos(height.getX(), height.getY() + 40, height.getZ()), world, "aether", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
-		   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 55, height.getZ()));	
+		   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 40, height.getZ()));	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, height, 12)) {
 	 	 

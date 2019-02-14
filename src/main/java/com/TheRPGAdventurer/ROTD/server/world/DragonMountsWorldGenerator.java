@@ -103,10 +103,10 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		
 		boolean below2Solid = isSolid(world, posAboveGround.add(size, -1, 0));
 		boolean below3Solid = isSolid(world, posAboveGround.add(0, -1, size));
-		boolean below4Solid = canReplace(world, posAboveGround.add(size, 0, size));
+		boolean below4Solid = isSolid(world, posAboveGround.add(size, 0, size));
 		boolean below5Solid = isSolid(world, posAboveGround.add(-size, -1, 0));
 		boolean below6Solid = isSolid(world, posAboveGround.add(0, -1, -size));
-		boolean below7Solid = canReplace(world, posAboveGround.add(-size, 0, -size));
+		boolean below7Solid = isSolid(world, posAboveGround.add(-size, 0, -size));
 		
 		
 		

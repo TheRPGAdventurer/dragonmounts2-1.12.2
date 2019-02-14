@@ -32,9 +32,9 @@ public class DragonViewEvent {
 				if(currentView == 0) {
 				  GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
 				} else if(currentView == 1) {
-					GlStateManager.translate(-4.7F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
-				} else if(currentView == 2) {
 					GlStateManager.translate(4.7F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
+				} else if(currentView == 2) {
+					GlStateManager.translate(-4.7F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
 				}
 			}
 			
@@ -42,9 +42,9 @@ public class DragonViewEvent {
 				if(currentView == 0) {
 				GlStateManager.translate(0F , -2.6F , DragonMountsConfig.ThirdPersonZoom);
 				} else if(currentView == 1) {
-					GlStateManager.translate(-4.7F , -2.6F , DragonMountsConfig.ThirdPersonZoom);
-				}else if(currentView == 2) {
 					GlStateManager.translate(4.7F , -2.6F , DragonMountsConfig.ThirdPersonZoom);
+				}else if(currentView == 2) {
+					GlStateManager.translate(-4.7F , -2.6F , DragonMountsConfig.ThirdPersonZoom);
 				}
 			}
 		} else if(player.getRidingEntity() instanceof EntityCarriage) {			
@@ -52,9 +52,9 @@ public class DragonViewEvent {
 				if(currentView == 0) {
 				  GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
 				} else if(currentView == 1) {
-					GlStateManager.translate(-4.7F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
-				} else if(currentView == 2) {
 					GlStateManager.translate(4.7F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
+				} else if(currentView == 2) {
+					GlStateManager.translate(-4.7F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				
 				}
 			}
 			
@@ -62,9 +62,9 @@ public class DragonViewEvent {
 				if(currentView == 0) {
 				GlStateManager.translate(0F , -2.6F, DragonMountsConfig.ThirdPersonZoom);
 				} else if(currentView == 1) {
-					GlStateManager.translate(-4.7F, -2.6F, DragonMountsConfig.ThirdPersonZoom);
-				}else if(currentView == 2) {
 					GlStateManager.translate(4.7F, -2.6F, DragonMountsConfig.ThirdPersonZoom);
+				}else if(currentView == 2) {
+					GlStateManager.translate(-4.7F, -2.6F, DragonMountsConfig.ThirdPersonZoom);
 				}
 			}
 		}

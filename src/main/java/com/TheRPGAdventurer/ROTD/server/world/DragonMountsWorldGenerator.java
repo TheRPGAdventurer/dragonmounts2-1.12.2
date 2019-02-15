@@ -88,7 +88,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		Block at = world.getBlockState(pos).getBlock();
 		Material material = world.getBlockState(pos).getMaterial();
 		// we think it's replaceable if it's air / liquid / snow, plants, or leaves 
-		return material.isSolid();
+		return !world.getBlockState(pos).getBlock().isAir(world.getBlockState(pos), world, pos);
 	}
 	
 	private boolean canSpawnHere(World world, BlockPos posAboveGround, int size){
@@ -110,21 +110,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		return posAboveGround.getY() > 20 && corner1Air && corner2Air && corner3Air && corner4Air && corner5Air && corner6Air && corner7Air 
 				&& below2Solid	&& below3Solid && below5Solid && below6Solid;
 	}
-	
- protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ, World world) {
-     int i = chunkX >> 4;
-     int j = chunkZ >> 4;
-     this.rand.setSeed((long)(i ^ j << 4) ^ world.getSeed());
-     this.rand.nextInt();
-
-     if (this.rand.nextInt(3) != 0) {
-         return false;
-     } else if (chunkX != (i << 4) + 4 + this.rand.nextInt(8)) {
-         return false;
-     } else {
-         return chunkZ == (j << 4) + 4 + this.rand.nextInt(8);
-     }
- }
 	
 	public void generateNestAtSurface(World world, Random random, int chunkX, int chunkZ) {	
 		int x = (chunkX * 16) + random.nextInt(16);

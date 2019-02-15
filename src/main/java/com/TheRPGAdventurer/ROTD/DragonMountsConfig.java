@@ -51,7 +51,7 @@ public class DragonMountsConfig {
     
 	// chances
 	public static int AllNestRarity  = 110;
-	public static int JungleNestRarity  = 1300;
+	public static int JungleNestRarity  = 2300;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	
@@ -224,7 +224,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		// surface world nest
-		prop = config.get(CATEGORY_WORLDGEN, "Most Nest Rarity", AllNestRarity);
+		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity", AllNestRarity);
 		prop.setComment("Determines how rare some dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity = prop.getInt();

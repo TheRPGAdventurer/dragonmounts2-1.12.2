@@ -50,13 +50,14 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int AllNestRarity  = 100;
+	public static int AllNestRarity  = 110;
+	public static int JungleNestRarity  = 1200;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
 	
-	public static int netherNestRarity = 100;
-	public static int netherNestRarerityInX = 16;
-	public static int netherNestRarerityInZ = 16;
+	public static int netherNestRarity = 300;
+	public static int netherNestRarerityInX = 32;
+	public static int netherNestRarerityInZ = 32;
 	
 	public static int undergroundrarityMain = 250;
 	public static int undergroundnestX = 64;
@@ -223,8 +224,14 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 		
 		// surface world nest
-		prop = config.get(CATEGORY_WORLDGEN, "All Nest Rarity", AllNestRarity);
-		prop.setComment("Determines how rare all dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+		prop = config.get(CATEGORY_WORLDGEN, "Most Nest Rarity", AllNestRarity);
+		prop.setComment("Determines how rare some dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
+		AllNestRarity = prop.getInt();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_WORLDGEN, "Jungle Nest Rarity", JungleNestRarity);
+		prop.setComment("Determines how rare forest jugnle dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity = prop.getInt();
 		propOrder.add(prop.getName());

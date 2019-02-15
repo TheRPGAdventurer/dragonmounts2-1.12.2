@@ -373,6 +373,7 @@ public class DragonModel extends AdvancedModelBase {
     
     private void buildLeg(boolean hind) {
         // thinner legs for skeletons
+    	boolean skeleton = breed == EnumDragonBreed.SKELETON || breed == EnumDragonBreed.WITHER;
         
         float baseLength = 26;
         String baseName = hind ? "hind" : "fore";
@@ -382,7 +383,7 @@ public class DragonModel extends AdvancedModelBase {
         float thighPosY = 18;
         float thighPosZ = 4;
         
-        int thighThick = 9;
+        int thighThick = 9 - (skeleton ? 2 : 0);
         int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
         
         if (hind) {

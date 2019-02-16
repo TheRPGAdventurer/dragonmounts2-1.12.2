@@ -137,8 +137,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.4;
 	public static final double BASE_AIR_SPEED = 0.9;
-	public static final double BASE_DAMAGE = 4.0D; 
-	public static final double BASE_ARMOR = 7.0D;
+	public static final double BASE_DAMAGE = 3.0D; 
+	public static final double BASE_ARMOR = DragonMountsConfig.BASE_ARMOR;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.55f;
 	public static final float BASE_HEIGHT = 2.0f;
@@ -561,6 +561,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	public ItemStack getBanner4() {
 		return dataManager.get(BANNER4);
+	}
+	
+	public void setBanner4(ItemStack male) {
+		dataManager.set(BANNER4, male);
 	}
 
 	public boolean nothing() {
@@ -1035,6 +1039,13 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 			}
 			hasChestVarChanged = false;
 		}		
+		
+		if(dragonInv != null) {
+			this.setBanner1(dragonInv.getStackInSlot(31));
+			this.setBanner2(dragonInv.getStackInSlot(32));
+			this.setBanner3(dragonInv.getStackInSlot(33));
+			this.setBanner4(dragonInv.getStackInSlot(34));
+		}
 
 		updateShearing();
 		updateDragonEnderCrystal(); 
@@ -1133,7 +1144,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	
 	public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
 		float dist = this.getDistanceToEntity(owner);
-		if(dist <= 5) {
+		if(dist <= 12) {
 			this.inAirTicks = 0;
 			this.setFlying(false);
 			if(!isFlying()) {
@@ -1175,7 +1186,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
    }
 		
 		 Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-   Vec3d vec2 = new Vec3d(0,0,1);
+   Vec3d vec2 = this.getForward();
     	
   	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
    double r = 50;  // DragonMountsConfig.dragonFlightHeight
@@ -1183,8 +1194,8 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
    double y = midPoint.getY() + DragonMountsConfig.maxFLightHeight + 0.5; // DragonMountsConfig.dragonFlightHeight
    double z = midPoint.getZ() + r * Math.sin(a * this.ticksExisted * 3.5); //() 	
    //this.rotationYawHead = 0f; 
- //  this.getLookHelper().setLookPosition(getForward().x, 0, getForward().z, rotationYaw, rotationPitch);
-   MathX.clamp(rotationYawHead, -105, 105);
+   this.getLookHelper().setLookPosition(getForward().x, 0, getForward().z, rotationYaw, rotationPitch);
+   this.rotationYawHead = rotationYaw;
        
    return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 0.8);  	    
 	}
@@ -1561,13 +1572,13 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	 */
 	public int getArmorResistance() {
 		if (getArmor() == 1) {
-			return (int)1.1;
+			return (int)0.8;
 		}
 		if (getArmor() == 2) {
-			return (int)1.0;
+			return (int)0.5;
 		}
 		if (getArmor() == 3) {
-			return (int)1.3;
+			return (int)1.1;
 		}
 		return 0;
 	}
@@ -2018,7 +2029,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	 * @return max yaw speed in degrees per tick
 	 */
 	public float getHeadYawSpeed() {
-		return this.getControllingPlayer() != null ? 50 : 1;
+		return this.getControllingPlayer() != null ? 300 : 1;
 	}
 
 	/**
@@ -2082,7 +2093,8 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	}
 
 	private void regenerateHealth() {
-		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 70 == 0 && !isDead) {
+		int factor = DragonMountsConfig.FACTOR;
+		if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor == 0 && !isDead) {
 			int[] exclude = {0};
 			int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 5, exclude);
 			this.heal(health);

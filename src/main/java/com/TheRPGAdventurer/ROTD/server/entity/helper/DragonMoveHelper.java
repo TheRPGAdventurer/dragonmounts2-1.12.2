@@ -47,7 +47,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
         if (!dragon.isFlying()) {
             super.onUpdateMoveHelper();
             return; 
-        } 
+        } else {
         
         Vec3d dragonPos = dragon.getPositionVector();
         Vec3d movePos = new Vec3d(posX, posY, posZ);
@@ -81,7 +81,8 @@ public class DragonMoveHelper extends EntityMoveHelper {
             float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
             dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
             entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
-         }                     
+         }                  
+       }
         
         // apply movement               
         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);

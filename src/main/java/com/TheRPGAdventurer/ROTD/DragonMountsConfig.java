@@ -48,12 +48,14 @@ public class DragonMountsConfig {
 	public static boolean canSpawnUnderGroundNest = true;
 	public static boolean canSpawnNetherNest = true;
 	public static boolean canSpawnEndNest = true;
+	
+
+	public static double BASE_ARMOR  = 7.0F;
+	public static int FACTOR  = 75;
     
 	// chances
 	public static int AllNestRarity  = 110;
-	public static int JungleNestRarity  = 2000;
-	public static int MainNestRarerityInX = 36;
-	public static int MainNestRarerityInZ = 36;
+	public static int JungleNestRarity  = 1700;
 	
 	public static int netherNestRarity = 300;
 	public static int netherNestRarerityInX = 32;
@@ -128,6 +130,16 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "disable block override", disableBlockOverride);
 		prop.setComment("Disables right-click override on the vanilla dragon egg block. May help to fix issues with other mods.");
 		disableBlockOverride = prop.getBoolean();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Armor", BASE_ARMOR);
+		prop.setComment("Makes Dragons Tougher or Not");
+		BASE_ARMOR = prop.getDouble();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", FACTOR);
+		prop.setComment("Lesser numbers slower regen for dragons");
+		FACTOR = prop.getInt();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_MAIN, "can dragons despawn", canDragonDespawn);

@@ -78,7 +78,7 @@ public class GuiDragon extends GuiContainer {
 	  this.buttonList.clear();
 	  Keyboard.enableRepeatEvents(true);
 	  
-	  buttonList.add(this.AllowOthers = new LockButton(0, 260, 65, 3, 3,  // x = 480 y = 140
+	  buttonList.add(this.AllowOthers = new LockButton(0, 260, 68, 3, 3,  // x = 480 y = 140
 	  		I18n.format("gui.allowothers", new Object[0]), dragon));
 	  
 	  super.initGui();
@@ -143,12 +143,8 @@ public class GuiDragon extends GuiContainer {
           mc.getTextureManager().bindTexture(lockOpen);
           }  else if(!this.enabled){
           	mc.getTextureManager().bindTexture(lockDisabled);
-          } else {
+          } else if(!dragon.allowedOtherPlayers()) {
           	mc.getTextureManager().bindTexture(lockLocked);
-          }
-          
-          if(dragon.isTamedFor(mc.player)) {
-          	mc.player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);
           }
     
           	drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);

@@ -8,6 +8,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -27,6 +28,10 @@ public class DragonViewEvent {
 
 		if(player.getRidingEntity() instanceof EntityTameableDragon) {	
 			float scale = MathX.clamp(((EntityTameableDragon) player.getRidingEntity()).getScale(), 0.1f, 1f);
+			
+			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) { 
+				GlStateManager.translate(0, 0, 1.0);
+			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
 				if(currentView == 0) {

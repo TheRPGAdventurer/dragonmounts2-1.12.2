@@ -231,7 +231,7 @@ public abstract class DragonBreed {
     }
 
     public float getSoundVolume(SoundEvent sound) {
-        return 2.5f;
+        return 1.5f;
     }
     
     public boolean canChangeBreed() {

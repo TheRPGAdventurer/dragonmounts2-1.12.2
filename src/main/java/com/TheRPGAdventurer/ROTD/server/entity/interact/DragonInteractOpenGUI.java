@@ -29,7 +29,9 @@ public class DragonInteractOpenGUI extends DragonInteract {
 		
   	dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
 			return true;
-		} 
+		}  else {
+  	lockingProcedures(player);
+  }
 		return false;
 	}
 

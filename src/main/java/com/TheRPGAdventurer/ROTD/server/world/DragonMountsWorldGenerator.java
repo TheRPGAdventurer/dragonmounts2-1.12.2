@@ -113,7 +113,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		int z = (chunkZ * 16) + random.nextInt(16);
 		BlockPos height = getHeight(world, new BlockPos(x, 0, z));	
 		
-		boolean isHills  = BiomeDictionary.hasType(world.getBiome(height), Type.HILLS);
+		boolean isHills  = BiomeDictionary.hasType(world.getBiome(height), Type.MOUNTAIN);
 		boolean isSnowy  = BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
 		boolean isJungle = BiomeDictionary.hasType(world.getBiome(height), Type.JUNGLE);
 		boolean isForest = BiomeDictionary.hasType(world.getBiome(height), Type.FOREST);
@@ -126,7 +126,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		if (DragonMountsConfig.canSpawnSurfaceDragonNest && !world.isRemote) {
 			if (isOcean && random.nextInt((1080)) == 1) {
 	 		
-	  	 loadStructure(new BlockPos(height.getX(), height.getY() + 10, height.getZ()), world, "aether", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
+	  	 loadStructure(new BlockPos(height.getX(), height.getY() + 10, height.getZ()), world, random.nextBoolean() ? "aether" : "moonlight", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
 		   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 10, height.getZ()));	
 			
 	 	} else if(isSnowy && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, height, 4)) {
@@ -156,9 +156,11 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 		 
 		 } else if((isPlains || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
 		 		&& canSpawnHere(world, height, 4)) {	 	 
-				loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, new Random().nextBoolean() ? "forest2" : "fire2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+				loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
     DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 		   }
+		  } else if(isHills && random.nextInt(DragonMountsConfig.AllNestRarity) == 1) {
+		  	loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "fire", LootTableList.CHESTS_SIMPLE_DUNGEON, true, random);
 		  }
 // 		}
 		}

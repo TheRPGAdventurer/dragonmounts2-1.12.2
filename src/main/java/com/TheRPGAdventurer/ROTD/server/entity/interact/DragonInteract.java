@@ -31,7 +31,9 @@ public abstract class DragonInteract {
     
     protected boolean lockingProcedures(EntityPlayer player) {
     	if(!dragon.isTamedFor(player) && !dragon.allowedOtherPlayers()) {
-    	 	player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);	
+    	 	if(dragon.getOwner() != player) {
+    	 	 player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);	
+    	 	}
      		return false;
     	} else {
 			  		return true;

@@ -50,7 +50,7 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
     
 	// chances
-	public static int AllNestRarity  = 100;
+	public static int AllNestRarity  = 110;
 	public static int JungleNestRarity  = 2000;
 	public static int MainNestRarerityInX = 36;
 	public static int MainNestRarerityInZ = 36;
@@ -63,12 +63,12 @@ public class DragonMountsConfig {
 	public static int undergroundnestX = 64;
 	public static int undergroundnestZ = 64;
 		
-	public static double ThirdPersonZoom = 15.2;
+	public static double ThirdPersonZoom = 20;
 	
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 	
-	public static double maxFLightHeight = 36;
+	public static double maxFLightHeight = 40;
 	
 	public static int[] dragonBlacklistedDimensions = new int[]{1, -1};
 	public static int[] dragonWhitelistedDimensions = new int[]{0};

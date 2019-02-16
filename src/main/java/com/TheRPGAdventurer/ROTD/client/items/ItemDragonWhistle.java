@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.google.common.collect.Maps;
 
+import net.minecraft.block.BlockAnvil.Anvil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -114,6 +115,10 @@ public class ItemDragonWhistle extends Item {
 				    	player.sendStatusMessage(new TextComponentTranslation(
 				    	        "item.whistle.hasDragon", "name:" + dragonName + "owner:" + ownerName),
                                 true);
+				    	if(dragon.hasCustomName()) {
+				    		stack.setStackDisplayName(dragonName);
+				    	}
+				    	
 				    }
 			    }
 				dragon.setControllingWhistle(stack);

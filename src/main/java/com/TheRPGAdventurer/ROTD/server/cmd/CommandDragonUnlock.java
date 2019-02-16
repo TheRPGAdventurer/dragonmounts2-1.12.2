@@ -41,7 +41,7 @@ public class CommandDragonUnlock extends CommandBase implements IDragonModifier 
                 player = (EntityPlayerMP) sender;    
             }
 
-            applyModifier(server, sender, dragon -> dragon.setToAllowedOtherPlayers(false));
+            applyModifier(server, sender, dragon -> dragon.setToAllowedOtherPlayers(true));
         } else {
             // console can't tame dragons
             throw new CommandException("commands.dragon.unlock");

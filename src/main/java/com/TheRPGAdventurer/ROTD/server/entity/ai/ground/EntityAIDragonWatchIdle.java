@@ -18,8 +18,19 @@ import net.minecraft.entity.ai.EntityAILookIdle;
  */
 public class EntityAIDragonWatchIdle extends EntityAILookIdle {
 
+    private EntityTameableDragon dragon;
+
     public EntityAIDragonWatchIdle(EntityTameableDragon par1EntityLiving) {
         super(par1EntityLiving);
+        this.dragon = par1EntityLiving;
         this.setMutexBits(2);
+    }
+
+    @Override
+    public boolean shouldExecute() {
+        if(dragon.circle()) {
+            return false;
+        }
+        return super.shouldExecute();
     }
 }

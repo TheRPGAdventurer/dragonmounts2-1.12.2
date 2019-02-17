@@ -24,7 +24,7 @@ import net.minecraft.entity.EntityLivingBase;
 
 /**
  * Generic model for all winged tetrapod dragons.
- * 
+ *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
@@ -36,7 +36,7 @@ public class DragonModel extends AdvancedModelBase {
     public static final int VERTS_NECK = 7;
     public static final int VERTS_TAIL = 12;
     public static final int HEAD_OFS = -16;
-    
+
     // model parts
     public ModelPart head;
     public ModelPart neck;
@@ -71,12 +71,12 @@ public class DragonModel extends AdvancedModelBase {
     public ModelPart wingArm;
     public ModelPart wingForearm;
     public ModelPart[] wingFinger = new ModelPart[4];
-    
+
     // model attributes
     public ModelPartProxy[] neckProxy = new ModelPartProxy[VERTS_NECK];
     public ModelPartProxy[] tailProxy = new ModelPartProxy[VERTS_TAIL];
     public ModelPartProxy[] thighProxy = new ModelPartProxy[4];
-    
+
     // animation parameters
     private float[] wingArmf = new float[3];
     private float[] wingForearmf = new float[3];
@@ -86,7 +86,7 @@ public class DragonModel extends AdvancedModelBase {
     private float[] wingForearmGlidef = new float[3];
     private float[] wingArmGroundf = new float[3];
     private float[] wingForearmGroundf = new float[3];
-    
+
     public float offsetX;
     public float offsetY;
     public float offsetZ;
@@ -94,7 +94,7 @@ public class DragonModel extends AdvancedModelBase {
     public float size;
     private EnumDragonBreed breed;
     private DragonModelMode mode;
-    
+
     // final X rotation angles for ground
     private float[] xGround = {0, 0, 0, 0};
 
@@ -141,11 +141,11 @@ public class DragonModel extends AdvancedModelBase {
 
     // Y rotation angles for air, thigh only
     private float[] yAirAll = {-0.1f, 0.1f};
-    
+
     public DragonModel(EnumDragonBreed breed) {
         textureWidth = 256;
         textureHeight = 256;
-        
+
         this.breed = breed;
 
         setTextureOffset("body.body", 0, 0);
@@ -184,7 +184,7 @@ public class DragonModel extends AdvancedModelBase {
         setTextureOffset("wingfinger.shortskin", -32, 224);
         setTextureOffset("wingfinger.skin", -49, 176);
         setTextureOffset("wingforearm.bone", 0, 164);
-        
+
         buildBody();
         buildNeck();
         buildHead();
@@ -192,63 +192,63 @@ public class DragonModel extends AdvancedModelBase {
         buildWing();
         buildLegs();
     }
-    
+
     public void setMode(DragonModelMode mode) {
         this.mode = mode;
     }
-    
+
     private void buildHead() {
      head = new ModelPart(this, "head");
      head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
-     head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
-     head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
+     head.addBox("mainhead", -8, -8,    5 + HEAD_OFS, 16, 16, 16); // 6
+     head.addBox("nostril",   -5, -3,   -7 + HEAD_OFS,  2,  2,  4);
      head.mirror = true;
-     head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
-     
-     buildHorn(false); 
+     head.addBox("nostril",    3,  -3,  -7 + HEAD_OFS,  2,  2,  4);
+
+     buildHorn(false);
      buildHorn(true);
 
      jaw = head.addChildBox("lowerjaw", -6, 0, -16, 12, 4, 16);
      jaw.setRotationPoint(0, 4, 8 + HEAD_OFS);
  }
-    
+
     private void buildHorn(boolean mirror) {
         int hornThick = 3;
         int hornLength = 12;
-        
+
         float hornOfs = -(hornThick / 2f);
-        
+
         float hornPosX = -5;
         float hornPosY = -8;
         float hornPosZ = 0;
-        
+
         float hornRotX = MathX.toRadians(30);
         float hornRotY = MathX.toRadians(-30);
         float hornRotZ = 0;
-        
+
         if (mirror) {
             hornPosX *= -1;
             hornRotY *= -1;
         }
-        
+
         head.mirror = mirror;
         ModelPart horn = head.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
         horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
         horn.setAngles(hornRotX, hornRotY, hornRotZ);
-        
+
     }
-    
+
     private void buildNeck() {
         neck = new ModelPart(this, "neck");
         neck.addBox("box",   -5,  -5,  -5, NECK_SIZE, NECK_SIZE, NECK_SIZE);
         neckScale = neck.addChildBox("scale", -1,  -7,  -3, 2, 4, 6);
-        
+
         // initialize model proxies
         for (int i = 0; i < neckProxy.length; i++) {
             neckProxy[i] = new ModelPartProxy(neck);
         }
     }
-    
+
     private void buildTail() {
         tail = new ModelPart(this, "tail");
         tail.addBox("box",   -5,  -5,  -5, TAIL_SIZE, TAIL_SIZE, TAIL_SIZE);
@@ -256,41 +256,41 @@ public class DragonModel extends AdvancedModelBase {
         tailScaleLeft = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, scaleRotZ);
         tailScaleMiddle = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, 0);
         tailScaleRight = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, -scaleRotZ);
-        
+
         boolean ice = breed == EnumDragonBreed.ICE;
-        
+
         tailScaleMiddle.showModel = !ice;
         tailScaleLeft.showModel = ice;
         tailScaleRight.showModel = ice;
-        
+
         buildTailHorn(false);
         buildTailHorn(true);
-        
+
         // initialize model proxies
         for (int i = 0; i < tailProxy.length; i++) {
             tailProxy[i] = new ModelPartProxy(tail);
         }
     }
-    
+
     private void buildTailHorn(boolean mirror) {
         int hornThick = 3;
         int hornLength = 32;
-        
+
         float hornOfs = -(hornThick / 2f);
-        
+
         float hornPosX = 0;
         float hornPosY = hornOfs;
         float hornPosZ = TAIL_SIZE / 2f;
-        
+
         float hornRotX = MathX.toRadians(-15);
         float hornRotY = MathX.toRadians(-145);
         float hornRotZ = 0;
-        
+
         if (mirror) {
             hornPosX *= -1;
             hornRotY *= -1;
         }
-        
+
         tail.mirror = mirror;
         ModelPart horn = tail.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
         horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
@@ -298,14 +298,14 @@ public class DragonModel extends AdvancedModelBase {
         horn.isHidden = true;
         boolean showSpike = breed == EnumDragonBreed.NETHER || breed ==EnumDragonBreed.SYLPHID || breed == EnumDragonBreed.STORM;
         horn.showModel = showSpike;
-        
+
         if (mirror) {
             tailHornLeft = horn;
         } else {
             tailHornRight = horn;
         }
     }
-    
+
     private void buildBody() {
         body = new ModelPart(this, "body");
         body.setRotationPoint(0, 4, 8);
@@ -316,33 +316,33 @@ public class DragonModel extends AdvancedModelBase {
         back         = body.addChildBox("scale",        -1,  -6,  -10,  2,  6, 12);
         chestL       = body.addChildBox("chestL",        12, 0, 21, 4, 12, 12);
         chestR       = body.addChildBox("chestR",       -16, 0, 21, 4, 12, 12);
-        saddle       = body.addChildBox("saddle",       -7, -2, -15, 15, 3, 20); 
-        saddleFront  = body.addChildBox("saddleFront",  -3, -3, -14, 6, 1, 2); 
-        saddleBack   = body.addChildBox("saddleBack",   -6, -4, 2, 13, 2, 2); 
+        saddle       = body.addChildBox("saddle",       -7, -2, -15, 15, 3, 20);
+        saddleFront  = body.addChildBox("saddleFront",  -3, -3, -14, 6, 1, 2);
+        saddleBack   = body.addChildBox("saddleBack",   -6, -4, 2, 13, 2, 2);
         saddleTieL   = body.addChildBox("saddleTieL",    12, 0, -14, 1, 14, 2);
         saddleMetalL = body.addChildBox("saddleMetalL",  12, 14, -15, 1, 5, 4);
         saddleTieR   = body.addChildBox("saddleTieR",   -13, 0, -14, 1, 10, 2);
         saddleMetalR = body.addChildBox("saddleMetalR", -13, 10, -15, 1, 5, 4);
     }
-    
+
     private void buildWing() {
         wingArm = new ModelPart(this, "wingarm");
         wingArm.setRotationPoint(-10, 5, 4);
         wingArm.setRenderScale(1.1f);
         wingArm.addBox("bone",  -28,  -3,   -3, 28,  6,  6);
         wingArm.addBox("skin",  -28,   0,    2, 28,  0, 24);
-        
+
         wingForearm = new ModelPart(this, "wingforearm");
         wingForearm.setRotationPoint(-28, 0, 0);
         wingForearm.addBox("bone", -48,  -2,  -2, 48,  4,  4);
         wingArm.addChild(wingForearm);
-        
+
         wingFinger[0] = buildWingFinger(false);
         wingFinger[1] = buildWingFinger(false);
         wingFinger[2] = buildWingFinger(false);
         wingFinger[3] = buildWingFinger(true);
     }
-    
+
     private ModelPart buildWingFinger(boolean small) {
         ModelPart finger = new ModelPart(this, "wingfinger");
         finger.setRotationPoint(-47, 0, 0);
@@ -353,14 +353,14 @@ public class DragonModel extends AdvancedModelBase {
             finger.addBox("skin", -70, 0, 1, 70, 0, 48);
         }
         wingForearm.addChild(finger);
-        
+
         return finger;
     }
-    
+
     private void buildLegs() {
         buildLeg(false);
         buildLeg(true);
-        
+
         // initialize model proxies
         for (int i = 0; i < 4; i++) {
             if (i % 2 == 0) {
@@ -370,71 +370,71 @@ public class DragonModel extends AdvancedModelBase {
             }
         }
     }
-    
+
     private void buildLeg(boolean hind) {
         // thinner legs for skeletons
     	boolean skeleton = breed == EnumDragonBreed.SKELETON || breed == EnumDragonBreed.WITHER;
-        
+
         float baseLength = 26;
         String baseName = hind ? "hind" : "fore";
-        
+
         // thigh variables
         float thighPosX = -11;
         float thighPosY = 18;
         float thighPosZ = 4;
-        
+
         int thighThick = 9 - (skeleton ? 2 : 0);
         int thighLength = (int) (baseLength * (hind ? 0.9f : 0.77f));
-        
+
         if (hind) {
             thighThick++;
             thighPosY -= 5;
         }
 
         float thighOfs = -(thighThick / 2f);
-        
+
         ModelPart thigh = new ModelPart(this, baseName + "thigh");
         thigh.setRotationPoint(thighPosX, thighPosY, thighPosZ);
         thigh.addBox("main", thighOfs, thighOfs, thighOfs, thighThick, thighLength, thighThick);
-        
+
         // crus variables
         float crusPosX = 0;
         float crusPosY = thighLength + thighOfs;
         float crusPosZ = 0;
-        
+
         int crusThick = thighThick - 2;
         int crusLength = (int) (baseLength * (hind ? 0.7f : 0.8f));
-        
+
         if (hind) {
             crusThick--;
             crusLength -= 2;
         }
-        
+
         float crusOfs = -(crusThick / 2f);
-        
+
         ModelPart crus = new ModelPart(this, baseName + "crus");
         crus.setRotationPoint(crusPosX, crusPosY, crusPosZ);
         crus.addBox("main", crusOfs, crusOfs, crusOfs, crusThick, crusLength, crusThick);
         thigh.addChild(crus);
-        
+
         // foot variables
         float footPosX = 0;
         float footPosY = crusLength + (crusOfs / 2f);
         float footPosZ = 0;
-        
+
         int footWidth = crusThick + 2;
         int footHeight = 4;
         int footLength = (int) (baseLength * (hind ? 0.67f : 0.34f));
-        
+
         float footOfsX = -(footWidth / 2f);
         float footOfsY = -(footHeight / 2f);
         float footOfsZ = footLength * -0.75f;
-        
+
         ModelPart foot = new ModelPart(this, baseName + "foot");
         foot.setRotationPoint(footPosX, footPosY, footPosZ);
         foot.addBox("main", footOfsX, footOfsY, footOfsZ, footWidth, footHeight, footLength);
         crus.addChild(foot);
-        
+
         // toe variables
         int toeWidth = footWidth;
         int toeHeight = footHeight;
@@ -452,7 +452,7 @@ public class DragonModel extends AdvancedModelBase {
         toe.setRotationPoint(toePosX, toePosY, toePosZ);
         toe.addBox("main", toeOfsX, toeOfsY, toeOfsZ, toeWidth, toeHeight, toeLength);
         foot.addChild(toe);
-        
+
         if (hind) {
             hindthigh = thigh;
             hindcrus = crus;
@@ -465,7 +465,7 @@ public class DragonModel extends AdvancedModelBase {
             foretoe = toe;
         }
     }
-    
+
     /**
      * Applies the animations on the model. Called every frame before the model
      * is rendered.
@@ -501,7 +501,7 @@ public class DragonModel extends AdvancedModelBase {
         if (neckProxy.length != segmentData.length) {
             throw new IllegalArgumentException("Mismatch of neck segment count");
         }
-        
+
         for (int i = 0; i < neckProxy.length; i++) {
             copyPositionRotationLocation(neck, segmentData[i]);
             // hide the first and every second scale
@@ -655,7 +655,7 @@ public class DragonModel extends AdvancedModelBase {
         modelPart.rotationPointZ = segmentData.copyIfValid(segmentData.rotationPointZ, modelPart.rotationPointZ);
     }
 
-    
+
     /**
      * Used for easily adding entity-dependent animations. The second and third float params here are the same second
      * and third as in the setRotationAngles method.
@@ -664,12 +664,12 @@ public class DragonModel extends AdvancedModelBase {
     public void setLivingAnimations(EntityLivingBase entity, float moveTime, float moveSpeed, float partialTicks) {
         setLivingAnimations((EntityTameableDragon) entity, moveTime, moveSpeed, partialTicks);
     }
-    
+
     public void setLivingAnimations(EntityTameableDragon dragon, float moveTime, float moveSpeed, float partialTicks) {
         DragonAnimator animator = dragon.getAnimator();
         animator.setPartialTicks(partialTicks);
     }
-    
+
     /**
      * Sets the models various rotation angles then renders the model.
      */
@@ -677,7 +677,7 @@ public class DragonModel extends AdvancedModelBase {
     public void render(Entity entity, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         render((EntityTameableDragon) entity, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);
     }
-    
+
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
      DragonAnimator animator = dragon.getAnimator();
      float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.88f, 1f) : 1;
@@ -685,10 +685,10 @@ public class DragonModel extends AdvancedModelBase {
      animator.setLook(lookYaw, lookPitch);
      animator.animate();
      updateFromAnimator(dragon);
-     
+
      size = dragon.getScale();
-     
-     renderModel(dragon, scale); 
+
+     renderModel(dragon, scale);
     }
 
     /**
@@ -698,7 +698,7 @@ public class DragonModel extends AdvancedModelBase {
         if (mode == null) {
             return;
         }
-        
+
         GlStateManager.pushMatrix();
         GlStateManager.translate(offsetX, offsetY, offsetZ);
         GlStateManager.rotate(-pitch, 1, 0, 0);
@@ -723,16 +723,16 @@ public class DragonModel extends AdvancedModelBase {
 
         GlStateManager.popMatrix();
     }
-    
+
     protected void renderBody(float scale) {
         body.render(scale);
     }
 
     protected void renderHead(float scale) {
      float headScale = scale * 0.85f;
-     head.render((float) (headScale));     
+     head.render((float) (headScale));
     }
-    
+
     protected void renderNeck(float scale) {
         for (ModelPartProxy proxy : neckProxy) {
             proxy.render(scale);
@@ -744,8 +744,8 @@ public class DragonModel extends AdvancedModelBase {
             proxy.render(scale);
         }
     }
-    
-    protected void renderWings(float scale) {     
+
+    protected void renderWings(float scale) {
         GlStateManager.pushMatrix();
         GlStateManager.enableCull();
         GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
@@ -764,14 +764,14 @@ public class DragonModel extends AdvancedModelBase {
         GlStateManager.disableCull();
         GlStateManager.popMatrix();
     }
-    
+
     protected void renderLegs(float scale) {
         GlStateManager.enableCull();
         GlStateManager.cullFace(GlStateManager.CullFace.BACK);
-        
+
         for (int i = 0; i < thighProxy.length; i++) {
             thighProxy[i].render(scale);
-            
+
             if (i == 1) {
                 // mirror next legs
                 GlStateManager.scale(-1, 1, 1);
@@ -779,7 +779,7 @@ public class DragonModel extends AdvancedModelBase {
                 GlStateManager.cullFace(GlStateManager.CullFace.FRONT);
             }
         }
-        
+
         GlStateManager.cullFace(GlStateManager.CullFace.BACK);
         GlStateManager.disableCull();
     }

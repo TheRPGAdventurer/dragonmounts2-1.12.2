@@ -28,7 +28,7 @@ import net.minecraft.util.math.Vec3d;
 public class DragonMoveHelper extends EntityMoveHelper {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 25;
+    private final float YAW_SPEED = 12;
     private Entity ent;
     
     public DragonMoveHelper(EntityTameableDragon dragon) {

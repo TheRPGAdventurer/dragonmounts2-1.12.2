@@ -5,6 +5,7 @@ import java.security.acl.Owner;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
+import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -25,12 +26,22 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 		}
 		return !dragon.nothing();
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && !dragon.nothing();
 	}
-	
+
+	private boolean circleFlag() {
+		EntityMoveHelper entitymovehelper = dragon.getMoveHelper();
+
+		double d0 = entitymovehelper.getX() - dragon.posX;
+		double d1 = entitymovehelper.getY() - dragon.posY;
+		double d2 = entitymovehelper.getZ() - dragon.posZ;
+		double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+		return (d3 < 1.0D) || (d3 > 3600.0D);
+	}
+
 	@Override
 	public void startExecuting() {
 		if(dragon.circle() || dragon.follow() || dragon.come()) {
@@ -40,7 +51,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 		}
 
 		if(dragon.isFlying()) {
-			if(dragon.circle() && !dragon.circleTarget1(dragon.getOwner().getPosition()) && dragon.getOwner() != null) {
+			if(dragon.circle() &&  dragon.getOwner() != null && !dragon.circleTarget1(dragon.getOwner().getPosition())) {
 				dragon.circleTarget1(dragon.getOwner().getPosition());
 			} else if(dragon.follow() && !dragon.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
 				dragon.followPlayerFlying(dragon.getOwner());

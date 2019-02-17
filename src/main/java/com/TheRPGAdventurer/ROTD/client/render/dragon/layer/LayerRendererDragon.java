@@ -1,11 +1,11 @@
 /*
-** 2016 February 23
-**
-** The author disclaims copyright to this source code. In place of
-** a legal notice, here is a blessing:
-**    May you do good and not evil.
-**    May you find forgiveness for yourself and forgive others.
-**    May you share freely, never taking more than you give.
+ ** 2016 February 23
+ **
+ ** The author disclaims copyright to this source code. In place of
+ ** a legal notice, here is a blessing:
+ **    May you do good and not evil.
+ **    May you find forgiveness for yourself and forgive others.
+ **    May you share freely, never taking more than you give.
  */
 package com.TheRPGAdventurer.ROTD.client.render.dragon.layer;
 
@@ -28,9 +28,9 @@ import net.minecraft.util.ResourceLocation;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public abstract class LayerRendererDragon implements LayerRenderer<EntityTameableDragon> {
-	
- protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation("textures/misc/enchanted_item_glint.png");
-    
+
+    protected static final ResourceLocation ENCHANTED_ITEM_GLINT_RES = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+
     protected final DragonRenderer renderer;
     protected final DefaultDragonBreedRenderer breedRenderer;
     protected final DragonModel model;
@@ -40,21 +40,20 @@ public abstract class LayerRendererDragon implements LayerRenderer<EntityTameabl
         this.breedRenderer = breedRenderer;
         this.model = model;
     }
-    
+
     protected void disableLighting() {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
         GlStateManager.disableLighting();
     }
-    
+
     protected void enableLighting(int b) {
         int u = b % 65536;
         int v = b / 65536;
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, u, v);
         GlStateManager.enableLighting();
     }
-    
-    public static void renderEnchantedGlint(RenderLivingBase<?> p_188364_0_, EntityLivingBase p_188364_1_, ModelBase model, float p_188364_3_, float p_188364_4_, float p_188364_5_, float p_188364_6_, float p_188364_7_, float p_188364_8_, float p_188364_9_)
-    {
+
+    public static void renderEnchantedGlint(RenderLivingBase<?> p_188364_0_, EntityLivingBase p_188364_1_, ModelBase model, float p_188364_3_, float p_188364_4_, float p_188364_5_, float p_188364_6_, float p_188364_7_, float p_188364_8_, float p_188364_9_) {
         float f = (float)p_188364_1_.ticksExisted + p_188364_5_;
         p_188364_0_.bindTexture(ENCHANTED_ITEM_GLINT_RES);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);

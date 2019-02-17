@@ -65,12 +65,12 @@ public class DragonHeadPositionHelper {
       float baseRotX = MathX.cos((float) i * 0.45f + animBase) * 0.15f;
       baseRotX *= MathX.lerp(0.2f, 1, flutter);
       baseRotX *= MathX.lerp(1, 0.2f, sit);
-      float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.65f;
+      float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.75f;
 
       // basic up/down movement
       currentSegment.rotateAngleX = baseRotX;
       // reduce rotation when on ground
-      currentSegment.rotateAngleX *= MathX.slerp(0.8f, 0.5f, walk); // 1 != 0.8f
+      currentSegment.rotateAngleX *= MathX.slerp(1f, 0.5f, walk); // 1 != 0.8f
       // flex neck down when hovering
       currentSegment.rotateAngleX += (1 - speed) * vertMulti;
       // lower neck on low health

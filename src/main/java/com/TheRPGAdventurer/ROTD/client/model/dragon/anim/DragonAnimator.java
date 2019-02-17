@@ -583,8 +583,8 @@ public class DragonAnimator {
     public float getBodyPitch(float pt) {
      float pitchMovingMax = 90;
      float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
-     float pitchHoverMax = 57; 
-     boolean shouldChange = dragon.getBanner1() != null || dragon.getBanner2() != null || dragon.getBanner3() != null || dragon.getBanner4() != null 
+     float pitchHoverMax = 60; 
+     boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null 
      		|| dragon.getPassengers().size() > 1 || dragon.isUnHovered();
      return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }

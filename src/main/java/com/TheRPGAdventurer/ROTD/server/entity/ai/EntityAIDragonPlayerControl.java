@@ -37,7 +37,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     
     @Override
     public boolean shouldExecute() {   
-        rider = dragon.getControllingPlayer();
+    	   rider = dragon.getControllingPlayer();
         return rider != null;
     }
 
@@ -96,10 +96,8 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         if (entityIsJumping(rider)) {
              dragon.liftOff();
         }
-     } 
-        
-        dragon.getMoveHelper().setMoveTo(x,y,z,1.2);
-    }
+     } dragon.getMoveHelper().setMoveTo(x,y,z,1.2);
+ }
     
 	private void updateIntendedRideRotation(EntityPlayer rider) {
 		boolean hasRider = dragon.hasControllingPlayer(rider);

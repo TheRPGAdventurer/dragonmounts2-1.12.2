@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonGui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -88,7 +89,7 @@ public class GuiDragon extends GuiContainer {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		if(dragon.isTamedFor(this.mc.player)) {
 	 	if(button == AllowOthers) {
-		 	dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+		 	DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
 	 	}
 		}
 	}

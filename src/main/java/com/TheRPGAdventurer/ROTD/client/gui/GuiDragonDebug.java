@@ -254,6 +254,15 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         }
         text.println("Tamed: " + tamedString);
         
+        String allowOthersString;
+        if (dragon.allowedOtherPlayers()) {
+        	allowOthersString = "yes"; 
+        } else {
+        	allowOthersString = "no";
+        }
+        text.println("AllowedOthers: " + allowOthersString);
+
+        
         // breeder name
         DragonReproductionHelper reproduction = dragon.getReproductionHelper();
         EntityPlayer breeder = reproduction.getBreeder();

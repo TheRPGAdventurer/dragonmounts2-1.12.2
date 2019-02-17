@@ -61,7 +61,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 	      Entity entity = server.getEntityFromUuid(dragonId);
 		  if (entity != null && entity instanceof EntityTameableDragon) {
 			  EntityTameableDragon dragon = (EntityTameableDragon) entity;
-			  this.setDragon(dragon);
 			  if (dragon.isOwner(player)) {
 				  dragon.setWhistleState(message.controlState);
 			  }
@@ -69,11 +68,4 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 	//	} 
 	}
 
-	public EntityTameableDragon getDragon() {
-	    return dragon;
-    }
-
-    public void setDragon(EntityTameableDragon dragon) {
-	    this.dragon = dragon;
-    }
 }

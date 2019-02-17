@@ -30,13 +30,13 @@ public abstract class DragonInteract {
     public abstract boolean interact(EntityPlayer player, ItemStack item);
     
     protected boolean lockingProcedures(EntityPlayer player) {
-    	if(!dragon.allowedOtherPlayers()) {
-    		if(!dragon.isTamedFor(player)) {
-    	 	 player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);	
-        		}
-    	 	 return dragon.isTamedFor(player);
+    	if(dragon.allowedOtherPlayers()) {
+    	 	 return dragon.isTamedFor(player) || !dragon.isTamedFor(player);
     	 	}  else {
-    	 		return true;
+    	 		if(!dragon.isTamedFor(player)) {
+    	 			player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);	
+    	 		}
+    	 		return dragon.isTamedFor(player);
     	 	} 
     } 
 }

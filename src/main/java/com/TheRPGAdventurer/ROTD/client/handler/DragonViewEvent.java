@@ -22,7 +22,7 @@ public class DragonViewEvent {
 	 * @param event
 	 */
 	@SubscribeEvent
-	public void thirdPersonCameraFix(EntityViewRenderEvent.CameraSetup event) {
+	public void thirdPersonCameraFix(EntityViewRenderEvent.CameraSetup event) { 
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		int currentView = DragonMounts.proxy.getDragon3rdPersonView();
 
@@ -30,7 +30,7 @@ public class DragonViewEvent {
 			float scale = MathX.clamp(((EntityTameableDragon) player.getRidingEntity()).getScale(), 0.1f, 1f);
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) { 
-				GlStateManager.translate(0, 0, 1.0);
+				GlStateManager.translate(0, -1, 0);
 			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {

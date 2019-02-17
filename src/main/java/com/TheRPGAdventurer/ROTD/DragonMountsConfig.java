@@ -51,6 +51,7 @@ public class DragonMountsConfig {
 	
 
 	public static double BASE_ARMOR  = 7.0F;
+	public static double BASE_DAMAGE  = 5.0F;
 	public static int FACTOR  = 75;
     
 	// chances
@@ -135,6 +136,11 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "Armor", BASE_ARMOR);
 		prop.setComment("Makes Dragons Tougher or Not");
 		BASE_ARMOR = prop.getDouble();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Damage", BASE_DAMAGE);
+		prop.setComment("Damage for dragon attack");
+		BASE_DAMAGE = prop.getDouble();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", FACTOR);

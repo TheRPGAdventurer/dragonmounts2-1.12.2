@@ -137,7 +137,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	// base attributes
 	public static final double BASE_GROUND_SPEED = 0.4;
 	public static final double BASE_AIR_SPEED = 0.9;
-	public static final double BASE_DAMAGE = 3.0D; 
+	public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE; 
 	public static final double BASE_ARMOR = DragonMountsConfig.BASE_ARMOR;
 	public static final double BASE_TOUGHNESS = 30.0D;
 	public static final float BASE_WIDTH = 2.55f;
@@ -241,7 +241,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public DragonAnimator animator;
  private double airSpeedVertical = 0;
 	public boolean hasHomePosition = false;
-	public boolean allowOtherPlayers = false;
 	public int roarTicks;
 	public BlockPos homePos;
 	public BlockPos airPoint;
@@ -933,8 +932,6 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	public void onLivingUpdate() {
 		helpers.values().forEach(DragonHelper::onLivingUpdate);
 		getBreed().onLivingUpdate(this);
-		
-	// DMUtils.getLogger().info(this.airPoint);
 
 		if (isServer()) {
 			final float DUMMY_MOVETIME = 0;
@@ -1328,13 +1325,26 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	protected float getWaterSlowDown() {
 		return 0.9F;
 	}
+	
+ protected boolean lockingProcedures(EntityPlayer player) {
+ 	if(!this.allowedOtherPlayers()) {
+ 		if(!this.isTamedFor(player)) {
+ 	 	 player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);
+ 	 	 return false;
+     		}
+ 	 	 return this.isTamedFor(player);
+ 	 	}  else if(allowedOtherPlayers()) {
+ 	 		return true;
+ 	 	}
+		return false; 
+ }
 
     /**
      * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
      */
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
-    	ItemStack item = player.getHeldItem(hand);    
+    	ItemStack item = player.getHeldItem(hand);        	       	
         // don't interact with eggs!
         if (isEgg()) { 
             return !this.canBeLeashedTo(player);
@@ -1691,7 +1701,7 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	@Override
 	public boolean canBeSteered() {
 		// must always return false or the vanilla movement code interferes
-		// with DragonMoveHelper a custom move coe that supports tameable flying entities like a dragonarmor_diamond
+		// with DragonMoveHelper
 		return false;
 	}
 
@@ -1721,18 +1731,18 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	}
     
     @Nullable
-    public Entity getRidingCarriage() {
-    	List<Entity> entity = this.getPassengers().isEmpty() ? null : this.getPassengers();
+ public Entity getRidingCarriage() {
+  List<Entity> entity = this.getPassengers().isEmpty() ? null : this.getPassengers();
 		if (entity instanceof EntityCarriage) { 
 			return (EntityCarriage) entity;
 		} else {
 			return null;
 		}
-    }
+ }
     
-    public boolean hasControllingPlayer(EntityPlayer player) {
-        return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
-    }
+ public boolean hasControllingPlayer(EntityPlayer player) {
+     return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
+ }
 
 	public void setRidingPlayer(EntityPlayer player) {
 		L.trace("setRidingPlayer({})", player.getName());

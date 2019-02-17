@@ -30,7 +30,7 @@ public class DragonViewEvent {
 			float scale = MathX.clamp(((EntityTameableDragon) player.getRidingEntity()).getScale(), 0.1f, 1f);
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) { 
-				GlStateManager.translate(0, -1, 0);
+				GlStateManager.translate(0, -0.7, 0);
 			}
 			
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
@@ -52,7 +52,10 @@ public class DragonViewEvent {
 					GlStateManager.translate(-4.7F , -2.6F , DragonMountsConfig.ThirdPersonZoom);
 				}
 			}
-		} else if(player.getRidingEntity() instanceof EntityCarriage) {			
+		} else if(player.getRidingEntity() instanceof EntityCarriage) {		
+			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) { 
+				GlStateManager.translate(0, -0.8, 0);
+			}
 			if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
 				if(currentView == 0) {
 				  GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom); 				

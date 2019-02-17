@@ -48,9 +48,9 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         }
         
         // no point in catching players in creative mode
-    //    if (owner.capabilities.isCreativeMode) {
-     //       return false;
-    //    }
+        if (owner.capabilities.isCreativeMode) {
+            return false;
+        }
         
         // don't catch if already being ridden
         if (dragon.isPassenger(owner)) {
@@ -61,6 +61,8 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         if (dragon.isSitting()) {
         	return false;
         }
+        
+        dragon.setBoosting(dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale());
         
         // don't catch if owner has a working Elytra equipped
         // note: isBroken() is misleading, it actually checks if the items is usable
@@ -89,8 +91,9 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         double followRange = getFollowRange();
         if (dragon.getDistanceToEntity(owner) < followRange) {
           // mount owner if close enough, otherwise move to owner
-           if (dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale() * 25) {
+           if (dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale()) {
               owner.startRiding(dragon);
+              dragon.setBoosting(dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale());
            } else {
               dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
            }

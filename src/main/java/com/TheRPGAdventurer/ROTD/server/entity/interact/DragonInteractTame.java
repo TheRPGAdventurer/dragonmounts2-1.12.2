@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -28,7 +29,16 @@ public class DragonInteractTame extends DragonInteract {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer() && !dragon.isTamed() && !dragon.isChild() &&
-                ItemUtils.consumeEquipped(player, dragon.getBreed().getBreedingItem())) {
+                ItemUtils.consumeEquipped(player, Items.FISH) || 
+                ItemUtils.consumeEquipped(player, Items.PORKCHOP) || 
+                ItemUtils.consumeEquipped(player, Items.COOKED_PORKCHOP) || 
+                ItemUtils.consumeEquipped(player, Items.BEEF) || 
+                ItemUtils.consumeEquipped(player, Items.COOKED_BEEF) || 
+                ItemUtils.consumeEquipped(player, Items.RABBIT) || 
+                ItemUtils.consumeEquipped(player, Items.COOKED_RABBIT) || 
+                ItemUtils.consumeEquipped(player, Items.MUTTON) || 
+                ItemUtils.consumeEquipped(player, Items.COOKED_MUTTON) || 
+                ItemUtils.consumeEquipped(player, Items.COOKED_FISH)) {
             dragon.tamedFor(player, dragon.getRNG().nextInt(5) == 0);
             return true;
         }

@@ -140,6 +140,8 @@ public class DragonReproductionHelper extends DragonHelper  {
             return false;
         } else if (!canReproduce()) {
             return false;
+        } else if(!dragon.isTamed()) {
+           	return false;
         }
         
         EntityTameableDragon dragonMate = (EntityTameableDragon) mate;

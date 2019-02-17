@@ -237,7 +237,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	private boolean isUnhovered;
 	public boolean isSlowed;
 	public int inAirTicks;
-	public final EntityAITasks attackTasks;
 	public DragonAnimator animator;
  private double airSpeedVertical = 0;
 	public boolean hasHomePosition = false;
@@ -250,20 +249,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	public EntityPartDragon dragonPartTail[];
 
 	public EntityTameableDragon(World world) {
-		super(world);
-
-		// override EntityBodyHelper field, which is private and has no setter
-		// required to fixate body while sitting. also slows down rotation while
-		// standing.
-		try {
-			ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
-					PrivateFields.ENTITYLIVING_BODYHELPER);
-		} catch (Exception ex) {
-			L.warn("Can't override EntityBodyHelper", ex);
-		}
-
-		attackTasks = new EntityAITasks(world != null ? world.profiler : null);
-
+		super(world);		
+		
 		// set base size
 		setSize(BASE_WIDTH, BASE_HEIGHT);
 
@@ -311,7 +298,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 	
 	@Override
 	protected void updateAITasks() {
-		attackTasks.onUpdateTasks();
 	}
 
 	@Override
@@ -1171,8 +1157,8 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
         int directionInt = direction ? 1 : -1;
         this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(
-        		 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
-        		 DragonMountsConfig.maxFLightHeight + target.getY(), // DragonMountsConfig.dragonFlightHeight
+        		 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset),       		 
+        		 DragonMountsConfig.maxFLightHeight + target.getY(),       		 
         		 target.getZ() + radius * Math.sin(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), 
         		speed * moveSpeedMultiplier);
     }
@@ -1185,16 +1171,15 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 		 Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
    Vec3d vec2 = this.getForward();
     	
-  	double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-   double r = 50;  // DragonMountsConfig.dragonFlightHeight
-   double x = midPoint.getX() + r * Math.cos(a * this.ticksExisted * 3.5); // ()
-   double y = midPoint.getY() + DragonMountsConfig.maxFLightHeight + 0.5; // DragonMountsConfig.dragonFlightHeight
-   double z = midPoint.getZ() + r * Math.sin(a * this.ticksExisted * 3.5); //() 	
-   //this.rotationYawHead = 0f; 
-   this.getLookHelper().setLookPosition(getForward().x, 0, getForward().z, rotationYaw, rotationPitch);
-   this.rotationYawHead = rotationYaw;
+  	double a = Math.atan((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+   double r = 40;  
+   double x = midPoint.getX() + r * Math.cos(this.ticksExisted * 3.5); 
+   double y = midPoint.getY() + DragonMountsConfig.maxFLightHeight; 
+   double z = midPoint.getZ() + r * Math.sin(this.ticksExisted * 3.5); 
+  this.rotationYawHead = rotationYaw;
+  this.prevRotationYawHead = prevRotationYaw;
        
-   return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 0.8);  	    
+   return this.getNavigator().tryMoveToXYZ(x, y, z, 0.8);  	    
 	}
 	
 	public void roar() {
@@ -1325,19 +1310,6 @@ private float updateRotation(float angle, float targetAngle, float maxIncrease) 
 	protected float getWaterSlowDown() {
 		return 0.9F;
 	}
-	
- protected boolean lockingProcedures(EntityPlayer player) {
- 	if(!this.allowedOtherPlayers()) {
- 		if(!this.isTamedFor(player)) {
- 	 	 player.sendStatusMessage(new TextComponentTranslation("dragon.locked",new Object[0]), true);
- 	 	 return false;
-     		}
- 	 	 return this.isTamedFor(player);
- 	 	}  else if(allowedOtherPlayers()) {
- 	 		return true;
- 	 	}
-		return false; 
- }
 
     /**
      * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.

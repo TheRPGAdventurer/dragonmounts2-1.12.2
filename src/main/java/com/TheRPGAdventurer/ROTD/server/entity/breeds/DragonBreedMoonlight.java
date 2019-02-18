@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 public class DragonBreedMoonlight extends DragonBreed {
 
 	DragonBreedMoonlight() {
-		super("moonlight", 0xbf8425);
+		super("moonlight", 0x2c427c);
 		
 		setHabitatBlock(Blocks.DAYLIGHT_DETECTOR_INVERTED);
 		setHabitatBlock(Blocks.BLUE_GLAZED_TERRACOTTA);

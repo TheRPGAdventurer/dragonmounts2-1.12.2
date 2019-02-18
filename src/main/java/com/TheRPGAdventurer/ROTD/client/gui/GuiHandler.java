@@ -1,7 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonWand;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.Entity;
@@ -27,13 +26,6 @@ public class GuiHandler implements IGuiHandler {
 						return new ContainerDragon((EntityTameableDragon) entity, player);
 					}
 				}
-				break;		
-				case GUI_DRAGON_WAND:
-					if (entity != null) {
-						if (entity instanceof EntityTameableDragon) {
-							return new ContainerDragonWand((EntityTameableDragon) entity, player);
-					}
-				}
 				break;	
 		}
 		return null;
@@ -52,14 +44,6 @@ public class GuiHandler implements IGuiHandler {
 					}
 				}
 			break;
-			case GUI_DRAGON_WAND:
-				if(entity != null) {
-					if (entity instanceof EntityTameableDragon) {
-						return new GuiDragonWand(player.inventory, (EntityTameableDragon) entity);
-					}
-				}
-			break;
-			
 		}
 		return entity;
 	}

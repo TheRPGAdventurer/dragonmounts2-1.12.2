@@ -228,7 +228,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public EntityEnderCrystal healingEnderCrystal;
     public DragonInventory dragonInv;
-    public DragonInventory dragonStats;
     private ItemStackHandler itemHandler = null;
     private boolean hasChestVarChanged = false;
     /**
@@ -268,7 +267,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonInteractHelper(this));
 
         InitializeDragonInventory();
-        InitializeDragonStats();
 
         if (isClient()) {
             addHelper(new DragonParticleHelper(this));
@@ -380,7 +378,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             nbt.setInteger("HomeAreaZ", homePos.getZ());
         }
         writeDragonInventory(nbt);
-        writeDragonStats(nbt);
         helpers.values().forEach(helper -> helper.writeToNBT(nbt));
     }
 
@@ -413,7 +410,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                     nbt.getInteger("HomeAreaZ"));
         }
         readDragonInventory(nbt);
-        readDragonStats(nbt);
         helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 
     }
@@ -743,7 +739,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * returns the pitch of the dragon's body
      *
-     * @return
      */
     public float getBodyPitch() {
         return getAnimator().getBodyPitch();
@@ -1178,7 +1173,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Vec3d vec2 = new Vec3d(0,0,1);
 
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 55;
+        double r = 70;
         double x = midPoint.getX() + r * Math.cos(a * this.ticksExisted * 2.5);
         double y = midPoint.getY() + DragonMountsConfig.dragonFolloOwnerFlyingHeight;
         double z = midPoint.getZ() + r * Math.sin(a * this.ticksExisted * 2.5);
@@ -1454,8 +1449,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Drop 0-2 items of this living's type.
      *
-     * @param par1 - Whether this entity has recently been hit by a player.
-     * @param par2 - Level of Looting used to kill this mob.
+     * @param wasRecentlyHit - Whether this entity has recently been hit by a player.
+     * @param lootingModifier - Level of Looting used to kill this mob.
      */
     @Override
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
@@ -2016,7 +2011,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return max yaw speed in degrees per tick
      */
     public float getHeadYawSpeed() {
-        return this.getControllingPlayer() != null ? 300 : 1;
+        return this.getControllingPlayer() != null ? 400 : 1;
     }
 
     /**
@@ -2231,21 +2226,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
-    @Override
-    public <T> T getCapability(net.minecraftforge.common.capabilities.Capability<T> capability,
-                               net.minecraft.util.EnumFacing facing) {
-        if (capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-            return (T) itemHandler;
-        return super.getCapability(capability, facing);
-    }
-
-    @Override
-    public boolean hasCapability(net.minecraftforge.common.capabilities.Capability<?> capability,
-                                 net.minecraft.util.EnumFacing facing) {
-        return capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-                || super.hasCapability(capability, facing);
-    }
-
     /**
      * Credits: AlexThe 666 Ice and Fire
      */
@@ -2410,54 +2390,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
         if (this.getCustomNameTag() != null && !this.getCustomNameTag().isEmpty()) {
             nbt.setString("CustomName", this.getCustomNameTag());
-        }
-    }
-
-    public void InitializeDragonStats() {
-        DragonInventory dragonStats = this.dragonStats;
-        this.dragonStats = new DragonInventory("dragonStats", 27 + 6, this);
-        if (world.isRemote) {
-
-        }
-    }
-
-    public void readDragonStats(NBTTagCompound nbt) {
-        if (dragonStats != null) {
-            NBTTagList nbttaglist = nbt.getTagList("stones", 10);
-            InitializeDragonStats();
-            for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-                NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                int j = nbttagcompound.getByte("StoneSlot") & 255;
-                this.dragonStats.setInventorySlotContents(j, new ItemStack(nbttagcompound));
-            }
-        } else {
-            NBTTagList nbttaglist = nbt.getTagList("stones", 10);
-            InitializeDragonStats();
-            for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-                NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                int j = nbttagcompound.getByte("StoneSlot") & 255;
-                this.InitializeDragonStats();
-                this.dragonStats.setInventorySlotContents(j, new ItemStack(nbttagcompound));
-            }
-        }
-    }
-
-    /**
-     * Credits: AlexThe 666 Ice and Fire
-     */
-    public void writeDragonStats(NBTTagCompound nbt) {
-        if (dragonStats != null) {
-            NBTTagList nbttaglist = new NBTTagList();
-            for (int i = 0; i < this.dragonStats.getSizeInventory(); ++i) {
-                ItemStack itemstack = this.dragonStats.getStackInSlot(i);
-                if (!itemstack.isEmpty()) {
-                    NBTTagCompound nbttagcompound = new NBTTagCompound();
-                    nbttagcompound.setByte("StoneSlot", (byte) i);
-                    itemstack.writeToNBT(nbttagcompound);
-                    nbttaglist.appendTag(nbttagcompound);
-                }
-            }
-            nbt.setTag("stones", nbttaglist);
         }
     }
 

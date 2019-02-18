@@ -1,7 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.network;
 
-import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWand;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWand;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import io.netty.buffer.ByteBuf;

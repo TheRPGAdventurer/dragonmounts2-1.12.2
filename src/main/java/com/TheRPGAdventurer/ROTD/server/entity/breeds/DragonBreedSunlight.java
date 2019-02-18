@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 public class DragonBreedSunlight extends DragonBreed {
 
 	DragonBreedSunlight() {
-		super("sunlight", 0xbf8425);
+		super("sunlight", 0Xffde00);
 		
 		setHabitatBlock(Blocks.DAYLIGHT_DETECTOR);
 		setHabitatBlock(Blocks.GLOWSTONE);

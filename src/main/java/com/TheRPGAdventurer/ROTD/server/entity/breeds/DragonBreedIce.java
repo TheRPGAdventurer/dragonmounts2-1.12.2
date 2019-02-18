@@ -44,7 +44,7 @@ public class DragonBreedIce extends DragonBreed {
     private static final float FOOTPRINT_CHANCE = 0.2f;
 
     public DragonBreedIce() {
-        super("ice", 0x006470);
+        super("ice", 0Xffffff);
 
         setImmunity(DamageSource.MAGIC);
         setImmunity(DamageSource.HOT_FLOOR);

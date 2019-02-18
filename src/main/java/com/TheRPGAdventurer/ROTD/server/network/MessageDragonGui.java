@@ -11,42 +11,56 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
-	
-	private int dragonId;
-	
-	public MessageDragonGui(int dragonId) {
-		this.dragonId = dragonId;
-	}
-	
-	public MessageDragonGui() {
-	}
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		dragonId = buf.readInt();
-		
-	}
+    private int dragonId;
+    private boolean sit;
+    private boolean lock;
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeInt(dragonId);
-		
-	}
+    public MessageDragonGui(int dragonId) {
 
-	@Override
-	public void onClientReceived(Minecraft arg0, MessageDragonGui arg1, EntityPlayer arg2, MessageContext arg3) {
-		
-		
-	}
+    }
 
-	@Override
-	public void onServerReceived(MinecraftServer arg0, MessageDragonGui arg1, EntityPlayer player, MessageContext arg3) {
-		Entity entity = player.world.getEntityByID(dragonId);
-		if(entity instanceof EntityTameableDragon) {
-			EntityTameableDragon dragon = (EntityTameableDragon) entity;
-			dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
-		}
-		
-	}
+    public MessageDragonGui(int dragonId, boolean sit, boolean lock) {
+        this.dragonId = dragonId;
+        this.sit = sit;
+        this.lock = lock;
+    }
 
+    public MessageDragonGui() {
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        dragonId = buf.readInt();
+        sit = buf.readBoolean();
+        lock = buf.readBoolean();
+
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        buf.writeInt(dragonId);
+        buf.writeBoolean(sit);
+        buf.writeBoolean(lock);
+
+    }
+
+    @Override
+    public void onClientReceived(Minecraft arg0, MessageDragonGui arg1, EntityPlayer arg2, MessageContext arg3) {
+
+
+    }
+
+    @Override
+    public void onServerReceived(MinecraftServer arg0, MessageDragonGui arg1, EntityPlayer player, MessageContext arg3) {
+        Entity entity = player.world.getEntityByID(dragonId);
+        if (entity instanceof EntityTameableDragon) {
+            EntityTameableDragon dragon = (EntityTameableDragon) entity;
+            if (arg1.lock) {
+                dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+            } else if (arg1.sit) {
+                dragon.setSitting(!dragon.isSitting());
+            }
+        }
+    }
 }

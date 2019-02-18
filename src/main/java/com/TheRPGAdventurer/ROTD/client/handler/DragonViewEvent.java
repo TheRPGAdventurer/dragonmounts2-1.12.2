@@ -21,81 +21,40 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class DragonViewEvent {
 
     Minecraft mc = Minecraft.getMinecraft();
-    private float thirdPersonDistancePrev = 4.0F;
 
     /**
      * Credit to AlexThe666 : iceandfire
-     *
      * @param event
      */
     @SubscribeEvent
     public void thirdPersonCameraFix(EntityViewRenderEvent.CameraSetup event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
         int currentView = DragonMounts.proxy.getDragon3rdPersonView();
-        if (player.getRidingEntity() instanceof EntityTameableDragon || player.getRidingEntity() instanceof EntityCarriage) {
+
+        if(player.getRidingEntity() instanceof EntityTameableDragon || player.getRidingEntity() instanceof EntityCarriage) {
             float scale = MathX.clamp(((EntityTameableDragon) player.getRidingEntity()).getScale(), 0.1f, 1f);
-            double partialTicks = event.getRenderPartialTicks();
 
-            //   double d3 = DragonMountsConfig.ThirdPersonZoom;
-            double d3 = (double) (this.thirdPersonDistancePrev + (DragonMountsConfig.ThirdPersonZoom - this.thirdPersonDistancePrev) * partialTicks);
-
-            float f = player.getEyeHeight();
-            double d0 = player.prevPosX + (player.posX - player.prevPosX) * (double) partialTicks;
-            double d1 = player.prevPosY + (player.posY - player.prevPosY) * (double) partialTicks + (double) f;
-            double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) partialTicks;
-
-            float f1 = player.rotationYaw;
-            float f2 = player.rotationPitch;
-
-            if (this.mc.gameSettings.thirdPersonView == 2) {
-                f2 += 180.0F;
+            if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+                GlStateManager.translate(0F, -0.9F, 0);
             }
 
-            double d4 = (double) (-MathHelper.sin(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F)) * d3;
-            double d5 = (double) (MathHelper.cos(f1 * 0.017453292F) * MathHelper.cos(f2 * 0.017453292F)) * d3;
-            double d6 = (double) (-MathHelper.sin(f2 * 0.017453292F)) * d3;
-
-            for (int i = 0; i < 8; ++i) {
-                float f3 = (float) ((i & 1) * 2 - 1);
-                float f4 = (float) ((i >> 1 & 1) * 2 - 1);
-                float f5 = (float) ((i >> 2 & 1) * 2 - 1);
-                f3 = f3 * 0.1F;
-                f4 = f4 * 0.1F;
-                f5 = f5 * 0.1F;
-                RayTraceResult raytraceresult = this.mc.world.rayTraceBlocks(
-                        new Vec3d(d0 + (double) f3, d1 + (double) f4, d2 + (double) f5),
-                        new Vec3d(d0 - d4 + (double) f3 + (double) f5, d1 - d6 + (double) f4, d2 - d5 + (double) f5),
-                        true);
-
-                if (raytraceresult != null) {
-                    double d7 = raytraceresult.hitVec.distanceTo(new Vec3d(d0, d1, d2));
-
-                    if (d7 < d3) {
-                        d3 = d7;
-                    }
+            if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
+                if(currentView == 0) {
+                    GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom);
+                } else if(currentView == 1) {
+                    GlStateManager.translate(-4.7F, -3.6F, -DragonMountsConfig.ThirdPersonZoom);
+                } else if(currentView == 2) {
+                    GlStateManager.translate(4.7F, -3.6F, -DragonMountsConfig.ThirdPersonZoom);
                 }
             }
 
-
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) { //
-                GlStateManager.translate(0, -0.8, 0);
-            } else
-
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {//x = 4.7F
-                if (currentView == 0) {
-                    GlStateManager.translate(0F, -2.6F, -d3);
-                } else if (currentView == 1) {
-                    GlStateManager.translate(4.7F, -3.6F, -d3);
-                } else if (currentView == 2) {
-                    GlStateManager.translate(-4.7F, -3.6F, -d3);
-                }
-            } else if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {//x = 4.7F
-                if (currentView == 0) {
-                    GlStateManager.translate(0F, -2.6F, d3);
-                } else if (currentView == 1) {
-                    GlStateManager.translate(4.7F, -3.6F, d3);
-                } else if (currentView == 2) {
-                    GlStateManager.translate(-4.7F, -3.6F, d3);
+            if(Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+                if(currentView == 0) {
+                    GlStateManager.translate(0F , -2.6F , DragonMountsConfig.ThirdPersonZoom);
+                } else if(currentView == 1) {
+                    GlStateManager.translate(-4.7F , -3.6F , DragonMountsConfig.ThirdPersonZoom);
+                }else if(currentView == 2) {
+                    GlStateManager.translate(4.7F , -3.6F , DragonMountsConfig.ThirdPersonZoom);
                 }
             }
         }
@@ -107,9 +66,9 @@ public class DragonViewEvent {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             if (player.world.isRemote && ModKeys.dragon_change_view.isPressed()) {
                 int currentView = DragonMounts.proxy.getDragon3rdPersonView();
-                if (currentView + 1 > 2) {
+                if(currentView + 1 > 2){
                     currentView = 0;
-                } else {
+                } else{
                     currentView++;
                 }
                 DragonMounts.proxy.setDragon3rdPersonView(currentView);

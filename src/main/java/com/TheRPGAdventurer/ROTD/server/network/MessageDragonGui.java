@@ -58,7 +58,9 @@ public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
             if (arg1.lock) {
                 dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
-            } else if (arg1.sit) {
+            }
+
+            if (arg1.sit) {
                 dragon.setSitting(!dragon.isSitting());
             }
         }

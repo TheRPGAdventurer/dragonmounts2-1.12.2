@@ -56,7 +56,9 @@ public class DragonMountsConfig {
     
 	// chances
 	public static int AllNestRarity  = 110;
+	public static int SunlightNestRarity  = 20;
 	public static int JungleNestRarity  = 1700;
+	public static int OceanNestRarity  = 1800;
 	
 	public static int netherNestRarity = 300;
 	public static int netherNestRarerityInX = 32;
@@ -241,6 +243,20 @@ public class DragonMountsConfig {
 		prop.setComment("Determines how rare some dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity = prop.getInt();
+		propOrder.add(prop.getName());
+
+		// sunlight world nest
+		prop = config.get(CATEGORY_WORLDGEN, "Sunlight Nest Rarity", SunlightNestRarity);
+		prop.setComment("Determines how rare sunlight dragon temples will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
+		SunlightNestRarity = prop.getInt();
+		propOrder.add(prop.getName());
+
+		// sunlight world nest
+		prop = config.get(CATEGORY_WORLDGEN, "Ocean Nest Rarity", OceanNestRarity);
+		prop.setComment("Determines how rare moonlight or aether dragon temples will spawn above the ocean. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
+		OceanNestRarity = prop.getInt();
 		propOrder.add(prop.getName());
 		
 		prop = config.get(CATEGORY_WORLDGEN, "Jungle Nest Rarity", JungleNestRarity);

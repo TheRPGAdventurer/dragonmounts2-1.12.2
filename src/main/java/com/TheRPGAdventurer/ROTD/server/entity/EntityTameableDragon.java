@@ -886,12 +886,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         BlockPos pos = this.getPosition();
         //	for(int width = 1; width <= this.width / 2; width++) {
         for (float y = 1; y <= 3.4; y++) {
-            pos = new BlockPos(posX - width + width, posY - 1 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
-            pos = new BlockPos(posX - width + width, posY - 2 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
-            pos = new BlockPos(posX - width + width, posY - 3 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
-            pos = new BlockPos(posX - width + width, posY - 3.4 * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
-        }
-        //	}
+            pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
+
+        	}
         return pos;
     }
 

@@ -143,7 +143,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
             } else if (isDesert && random.nextInt((10)) == 1
                     && canSpawnHere(world, height, 14)) {
 
-                loadStructure(new BlockPos(height.getX(), height.getY() - 9, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+                loadStructure(new BlockPos(height.getX(), height.getY() - 10, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 DMUtils.getLogger().info("Sunlight Nest here at: " + new BlockPos(height.getX(), height.getY(), height.getZ()));
 
             } else if (isMesa && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, height, 4)) {

@@ -70,7 +70,7 @@ public class DragonMountsConfig {
 	
 	public static int dragonFolloOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
-	
+
 	public static double maxFLightHeight = 40;
 	
 	public static int[] dragonBlacklistedDimensions = new int[]{1, -1};
@@ -207,17 +207,12 @@ public class DragonMountsConfig {
 		canSpawnSurfaceDragonNest = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_WORLDGEN, "can Spawn Fire Nests underground", canSpawnUnderGroundNest);
-		prop.setComment("Enables spawning of dragon nests in underground caves (Buggy consumes a lot of memory :()");
-		canSpawnUnderGroundNest = prop.getBoolean();
-		propOrder.add(prop.getName());
-		
 		prop = config.get(CATEGORY_WORLDGEN, "canSpawnNetherNest", canSpawnNetherNest);
 		prop.setComment("Enables spawning of nether dragon nests in the nether");
 		canSpawnNetherNest = prop.getBoolean();
 		propOrder.add(prop.getName());
 		
-		prop = config.get(CATEGORY_WORLDGEN, "canSpawnEndNest", canSpawnEndNest);
+		prop = config.get(CATEGORY_WORLDGEN, "canSpawnEnchantNest", canSpawnEndNest);
 		prop.setComment("Enables spawning of enchant dragon nests in end cities");
 		canSpawnEndNest = prop.getBoolean();
 		propOrder.add(prop.getName());

@@ -140,15 +140,15 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(height, world, "forest1", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
             //    DMUtils.getLogger().info("Jungle Nest here at: " + height);
 
-            } else if (isDesert && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
-                    && canSpawnHere(world, height, 4)) {
+            } else if (isDesert && random.nextInt((10)) == 1
+                    && canSpawnHere(world, height, 14)) {
 
-                loadStructure(new BlockPos(height.getX(), height.getY(), height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-             //   DMUtils.getLogger().info("Sunlight Nest here at: " + new BlockPos(height.getX(), height.getY(), height.getZ()));
+                loadStructure(new BlockPos(height.getX(), height.getY() - 9, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+                DMUtils.getLogger().info("Sunlight Nest here at: " + new BlockPos(height.getX(), height.getY(), height.getZ()));
 
             } else if (isMesa && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
+             //   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 
             } else if ((isSwamp || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
                     && canSpawnHere(world, height, 4)) {

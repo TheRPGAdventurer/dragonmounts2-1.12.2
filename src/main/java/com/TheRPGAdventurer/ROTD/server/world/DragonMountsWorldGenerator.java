@@ -202,7 +202,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                         }
                     }
 
-                    if (place && world.isChunkGeneratedAt(x, z)) {
+                    if (place) {
                         loadStructure(new BlockPos(x, y, z), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
                         DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x, y, z));
 

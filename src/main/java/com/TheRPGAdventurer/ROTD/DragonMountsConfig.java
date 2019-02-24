@@ -217,17 +217,17 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		// surface world nest
-		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity", AllNestRarity1);
-		prop.setComment("Determines how rare Terra, Ice dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
-				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		AllNestRarity1 = prop.getInt();
-		propOrder.add(prop.getName());
-
-		// surface world nest
-		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity 2", AllNestRarity);
+		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity", AllNestRarity);
 		prop.setComment("Determines how rare Forest Plains, Water, Fire dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity = prop.getInt();
+		propOrder.add(prop.getName());
+
+		// surface world nest
+		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity 2", AllNestRarity1);
+		prop.setComment("Determines how rare Terra, Ice dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
+		AllNestRarity1 = prop.getInt();
 		propOrder.add(prop.getName());
 
 		// sunlight world nest

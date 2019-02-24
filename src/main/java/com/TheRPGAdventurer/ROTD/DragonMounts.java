@@ -14,11 +14,7 @@ import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonGui;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonHitboxInteract;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWand;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
+import com.TheRPGAdventurer.ROTD.server.network.*;
 import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
@@ -52,7 +48,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 )
 public class DragonMounts {
     
-	@NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonGui.class})
+	@NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class,
+            MessageDragonWhistle.class, MessageDragonGui.class, MessageDragonLock.class})
 	public static SimpleNetworkWrapper NETWORK_WRAPPER;
 	
     public static final String NAME = "Dragon Mounts";

@@ -108,12 +108,24 @@ public class BreathWeaponNether extends BreathWeapon {
       }
     }
 
-    BlockBurnProperties burnProperties = getBurnProperties(state);
-    if (burnProperties.burnResult == null
-        || currentHitDensity.getMaxHitDensity() < burnProperties.threshold) {
-      return currentHitDensity;
+    Block block1 = state.getBlock();
+    Item itemFromBlock = Item.getItemFromBlock(block1);
+    ItemStack itemStack;
+    if (itemFromBlock != null && itemFromBlock.getHasSubtypes()) {
+      int metadata = block1.getMetaFromState(state);
+      itemStack = new ItemStack(itemFromBlock, 1, metadata);
+    } else {
+      itemStack = new ItemStack(itemFromBlock);
     }
-    world.setBlockState(pos, burnProperties.burnResult);
+
+    ItemStack smeltingResult = FurnaceRecipes.instance().getSmeltingResult(itemStack);
+    if (smeltingResult != null) {
+      Block smeltedResultBlock = Block.getBlockFromItem(smeltingResult.getItem());
+      if (smeltedResultBlock != null) {
+        IBlockState iBlockStateSmelted = world.getBlockState(pos);
+        iBlockStateSmelted = smeltedResultBlock.getStateFromMeta(smeltingResult.getMetadata());
+      }
+    }
     return new BreathAffectedBlock();  // reset to zero
   }
 
@@ -183,9 +195,7 @@ public class BreathWeaponNether extends BreathWeapon {
     Block block = sourceBlock.getBlock();
     Material material = block.getDefaultState().getMaterial();
 
-    if (material == Material.WATER) {
-      return Blocks.AIR.getDefaultState();
-    } else if (material == Material.SNOW || material == Material.ICE) {
+    if (material == Material.SNOW || material == Material.ICE) {
       final int SMALL_LIQUID_AMOUNT = 4;
       return Blocks.FLOWING_WATER.getDefaultState().withProperty(BlockLiquid.LEVEL, SMALL_LIQUID_AMOUNT);
     } else if (material == Material.PACKED_ICE || material == Material.CRAFTED_SNOW) {

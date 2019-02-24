@@ -62,20 +62,11 @@ public class MessageDragonInventory extends AbstractMessage<MessageDragonInvento
 			if (message.slot_index == 2) {
 				dragon.setArmor(message.armor_type);
 			}
-			
-			if (message.slot_index == 31) {
+
+			if (dragon.dragonInv != null) {
 				dragon.setBanner1(dragon.dragonInv.getStackInSlot(31));
-			}
-			
-			if(message.slot_index == 32) {
 				dragon.setBanner2(dragon.dragonInv.getStackInSlot(32));
-			}
-			
-			if (message.slot_index == 33) {
 				dragon.setBanner3(dragon.dragonInv.getStackInSlot(33));
-			}
-			
-			if (message.slot_index == 34) {
 				dragon.setBanner4(dragon.dragonInv.getStackInSlot(34));
 			}
 		}

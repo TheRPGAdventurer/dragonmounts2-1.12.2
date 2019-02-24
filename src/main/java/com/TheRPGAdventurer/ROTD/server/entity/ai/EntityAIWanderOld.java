@@ -15,10 +15,9 @@ public class EntityAIWanderOld extends EntityAIDragonBase {
     private static final String __OBFID = "CL_00001608";
     private boolean mustUpdate;
 
-    public EntityAIWanderOld(EntityTameableDragon dragon, double p_i1648_2_)
-    {
+    public EntityAIWanderOld(EntityTameableDragon dragon, double p_i1648_2_) {
         super(dragon);
-        this.speed = p_i1648_2_; 
+        this.speed = p_i1648_2_;
         this.setMutexBits(1);
     }
 
@@ -26,25 +25,16 @@ public class EntityAIWanderOld extends EntityAIDragonBase {
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-        if (this.dragon.isEgg())
-        {
+        if (this.dragon.isEgg()) {
             return false;
-        }
-        else 
-        	if (this.dragon.getRNG().nextInt(120) != 0)
-        {
+        } else if (this.dragon.getRNG().nextInt(120) != 0) {
             return false;
-        }
-        else
-        {
+        } else {
             Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.dragon, 10, 7);
 
-            if (vec3d == null)
-            {
+            if (vec3d == null) {
                 return false;
-            }
-            else
-            {
+            } else {
                 this.xPosition = vec3d.x;
                 this.yPosition = vec3d.y;
                 this.zPosition = vec3d.z;
@@ -56,21 +46,18 @@ public class EntityAIWanderOld extends EntityAIDragonBase {
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
-    public boolean continueExecuting()
-    {
+    public boolean continueExecuting() {
         return !this.dragon.getNavigator().noPath();
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting()
-    {
+    public void startExecuting() {
         this.dragon.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
     }
-    
-    public void makeUpdate()
-    {
+
+    public void makeUpdate() {
         this.mustUpdate = true;
     }
 }

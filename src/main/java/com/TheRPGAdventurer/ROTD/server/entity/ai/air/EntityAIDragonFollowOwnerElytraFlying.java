@@ -44,7 +44,7 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
            return false;
         }
         
-        owner = (EntityPlayer) dragon.getOwner2();
+        owner = (EntityPlayer) dragon.getOwner();
         
         // don't follow if ownerless 
         if (owner == null) {
@@ -64,6 +64,5 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     public void updateTask() {
         dragon.getNavigator().tryMoveToXYZ(owner.posX, owner.posY, owner.posZ - 25, 1);
         dragon.setBoosting(dragon.getDistanceToEntity(owner) > 28);
-       
     }
 }

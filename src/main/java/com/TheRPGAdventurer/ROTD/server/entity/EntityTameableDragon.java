@@ -235,6 +235,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public boolean isCollidedVertically2;
     private boolean isUsingBreathWeapon;
+    private boolean allowOthers;
     private boolean isUnhovered;
     public boolean isSlowed;
     public int inAirTicks;
@@ -454,14 +455,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void setSaddled(boolean saddled) {
         L.trace("setSaddled({})", saddled);
         dataManager.set(DATA_SADDLED, saddled);
-    }
-
-    public boolean allowedOtherPlayers() {
-        return dataManager.get(ALLOW_OTHERPLAYERS);
-    }
-
-    public void setToAllowedOtherPlayers(boolean allow) {
-        dataManager.set(ALLOW_OTHERPLAYERS, allow);
     }
 
     public boolean boosting() {
@@ -688,6 +681,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return usingBreathWeapon;
         }
         return isUsingBreathWeapon;
+    }
+
+
+    public boolean allowedOtherPlayers() {
+        boolean allowOthers = this.dataManager.get(ALLOW_OTHERPLAYERS);
+        this.allowOthers = allowOthers;
+        return allowOthers;
+    }
+
+    public void setToAllowedOtherPlayers(boolean allow) {
+        dataManager.set(ALLOW_OTHERPLAYERS, allow);
+        this.allowOthers = allow;
     }
 
     /**
@@ -1019,13 +1024,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 }
             }
             hasChestVarChanged = false;
-        }
-
-        if (dragonInv != null) {
-            this.setBanner1(dragonInv.getStackInSlot(31));
-            this.setBanner2(dragonInv.getStackInSlot(32));
-            this.setBanner3(dragonInv.getStackInSlot(33));
-            this.setBanner4(dragonInv.getStackInSlot(34));
         }
 
         updateShearing();

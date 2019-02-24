@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.client.items;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.world.StructureDragonNests;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,9 +23,9 @@ public class ItemStructureSpawner extends Item {
 	
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		Random rand = new Random();
-		StructureDragonNests.generate(world, pos, rand);
+	//	Random rand = new Random();
+	//	StructureDragonNests.generate(world, pos, rand);
 		    return EnumActionResult.SUCCESS;
-		}
-	    
 	}
+	    
+}

@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.structure.MapGenEndCity;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
@@ -130,20 +131,18 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
             if (isOcean && random.nextInt((DragonMountsConfig.OceanNestRarity)) == 1) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() + 10, height.getZ()), world, random.nextBoolean() ? "aether" : "moonlight", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
-             //   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 10, height.getZ()));
+                //   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 10, height.getZ()));
 
             } else if (isSnowy && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, height, 4)) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
-             //   DMUtils.getLogger().info("Ice Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
+                //   DMUtils.getLogger().info("Ice Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if (isJungle && random.nextInt((DragonMountsConfig.JungleNestRarity)) == 1) {
-
                 loadStructure(height, world, "forest1", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
-            //    DMUtils.getLogger().info("Jungle Nest here at: " + height);
+                DMUtils.getLogger().info("Jungle Nest here at: " + height);
 
-
-            } else if (isDesert && random.nextInt((DragonMountsConfig.AllNestRarity * (int)percent)) == 1
+            } else if (isDesert && random.nextInt((DragonMountsConfig.SunlightNestRarity)) == 1
                     && canSpawnHere(world, height, 14)) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() - 10, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
@@ -151,22 +150,22 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 
             } else if (isMesa && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-             //   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
+                //   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 
             } else if ((isSwamp || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-              //  DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
+                //  DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
                     && canSpawnHere(world, height, 4)) {
-                loadStructure(new BlockPos(height.getX(), height.getY() - 3, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-              //  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
+                loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+                //  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if (isHills && random.nextInt(DragonMountsConfig.AllNestRarity) == 1
-                    && canSpawnHere(world, height, 4)) {
+                    && canSpawnHere(world, height, 3)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "fire", LootTableList.CHESTS_SIMPLE_DUNGEON, true, random);
-              //  DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
+                //  DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
             }
         }
 // 		}
@@ -225,7 +224,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         WorldServer worldserver = (WorldServer) world;
         MinecraftServer minecraftserver = world.getMinecraftServer();
 
-        if (DragonMountsConfig.canSpawnEndNest && random.nextInt(580) == 1) {
+        if (DragonMountsConfig.canSpawnEndNest && random.nextInt(DragonMountsConfig.EnchantNestRarity) == 1) {
             int x = (chunkX * 16) + random.nextInt(16);
             int z = (chunkZ * 16) + random.nextInt(16);
             BlockPos height = getHeight(world, new BlockPos(x, 0, z));
@@ -243,12 +242,11 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         TemplateManager templatemanager = worldserver.getStructureTemplateManager();
         ResourceLocation loc = new ResourceLocation(DragonMounts.MODID, name);
         Template template = templatemanager.getTemplate(minecraftserver, loc);
-        int mirror = world.rand.nextInt(Mirror.values().length);
 
         if (template != null) {
             IBlockState iblockstate = world.getBlockState(pos);
             world.notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
-            PlacementSettings placementsettings = (new PlacementSettings()).setMirror(Mirror.values()[mirror])
+            PlacementSettings placementsettings = (new PlacementSettings())
                     .setIgnoreEntities(false).setChunk((ChunkPos) null)
                     .setReplacedBlock((Block) null).setIgnoreStructureBlock(true);
 

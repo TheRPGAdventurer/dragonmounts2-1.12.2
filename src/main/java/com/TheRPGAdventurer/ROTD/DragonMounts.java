@@ -49,7 +49,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class DragonMounts {
     
 	@NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class,
-            MessageDragonWhistle.class, MessageDragonGui.class, MessageDragonLock.class})
+            MessageDragonWhistle.class})
 	public static SimpleNetworkWrapper NETWORK_WRAPPER;
 	
     public static final String NAME = "Dragon Mounts";

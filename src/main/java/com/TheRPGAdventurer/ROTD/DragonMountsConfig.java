@@ -58,11 +58,11 @@ public class DragonMountsConfig {
 	public static int AllNestRarity  = 100;
 	public static int AllNestRarity1  = 180;
 	public static int SunlightNestRarity  = 20;
-	public static int OceanNestRarity  = 1500;
+	public static int OceanNestRarity  = 1800;
 	public static int EnchantNestRarity  = 100;
 	public static int JungleNestRarity  = 555;
 
-	public static int netherNestRarity = 300;
+	public static int netherNestRarity = 200;
 	public static int netherNestRarerityInX = 32;
 	public static int netherNestRarerityInZ = 32;
 
@@ -207,7 +207,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_WORLDGEN, "canSpawnNetherNest", canSpawnNetherNest);
-		prop.setComment("Enables spawning of nether dragon nests in the nether");
+		prop.setComment("Enables spawning of nether, zombie, and skeleton dragon nests in the nether");
 		canSpawnNetherNest = prop.getBoolean();
 		propOrder.add(prop.getName());
 
@@ -250,7 +250,7 @@ public class DragonMountsConfig {
 		JungleNestRarity = prop.getInt();
 		propOrder.add(prop.getName());
 
-		prop = config.get(CATEGORY_WORLDGEN, "Jungle Nest Rarity", EnchantNestRarity);
+		prop = config.get(CATEGORY_WORLDGEN, "Enchant Nest Rarity", EnchantNestRarity);
 		prop.setComment("Determines how rare forest enchant dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		EnchantNestRarity = prop.getInt();

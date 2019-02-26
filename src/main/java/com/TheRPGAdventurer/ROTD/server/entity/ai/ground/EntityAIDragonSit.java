@@ -6,7 +6,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAISit;
 
 public class EntityAIDragonSit extends EntityAISit {
-    /** If the Entitydragon is sitting. */
+    /**
+     * If the Entitydragon is sitting.
+     */
     private boolean isSitting;
     public EntityTameableDragon dragon;
 
@@ -18,16 +20,21 @@ public class EntityAIDragonSit extends EntityAISit {
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
-    @Override
     public boolean shouldExecute() {
         if (!this.dragon.isTamed()) {
             return false;
-        } else if (dragon.isFlying()) {
+        } else if (this.dragon.isInWater()) {
             return false;
-        } else if (dragon.isInWater()) {
+        } else if (!this.dragon.onGround) {
             return false;
-        } else {          
-            return this.isSitting;       
+        } else {
+            EntityLivingBase entitylivingbase = this.dragon.getOwner();
+
+            if (entitylivingbase == null) {
+                return true;
+            } else {
+                return this.dragon.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getRevengeTarget() != null ? false : this.isSitting;
+            }
         }
     }
 

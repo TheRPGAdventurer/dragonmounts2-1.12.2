@@ -45,10 +45,11 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
     public void generate(Random random, int x, int z, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.getDimensionType() == DimensionType.NETHER) {
             this.generateNestAtNether(world, random, x, z);
+            this.generateZombieAtNether(world, random, x, z);
         } else if (!isDimensionBlacklisted(world.provider.getDimension())) {
             this.generateNestAtSurface(world, random, x, z);
 //			this.generateNestUnderground(world, random, x, z);
-        } else if (world.provider.getDimensionType() == DimensionType.THE_END && x > 1200 && z > 1200) {
+        } else if (world.provider.getDimensionType() == DimensionType.THE_END && (x > 1000 || z > 1000 || x < -1000 || z < 1000)) {
             this.generateNestAtEnd(world, random, x, z);
         }
     }
@@ -57,10 +58,20 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         return world.getHeight(pos);
     }
 
+    private BlockPos getEndHeight(World world, BlockPos pos) {
+        for (int i = 0; i < 255; i++) {
+            BlockPos ground = pos.up(i);
+            if (world.getBlockState(ground).getMaterial().isSolid() && world.isAirBlock(ground.up())) {
+                return ground;
+            }
+        }
+        return null;
+    }
+
     private BlockPos getNetherHeight(World world, BlockPos pos) {
         for (int i = 0; i < 255; i++) {
             BlockPos ground = pos.up(i);
-            if (world.getBlockState(ground).getBlock() == Blocks.NETHERRACK && world.isAirBlock(ground.up())) {
+            if (world.getBlockState(ground).getBlock() == Blocks.LAVA && world.isAirBlock(ground.up())) {
                 return ground;
             }
         }
@@ -78,10 +89,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
     }
 
     private boolean canReplace(World world, BlockPos pos) {
-        Block at = world.getBlockState(pos).getBlock();
         Material material = world.getBlockState(pos).getMaterial();
         // we think it's replaceable if it's air / liquid / snow, plants, or leaves
-        return material.isReplaceable() || material == Material.PLANTS && material != Material.LEAVES && material != Material.WOOD;
+        return material.isReplaceable() || material == Material.PLANTS;
     }
 
     private boolean isSolid(World world, BlockPos pos) {
@@ -90,24 +100,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         return material.isSolid();
     }
 
-    private boolean canSpawnHere(World world, BlockPos posAboveGround, int size) {
-        // check all the corners to see which ones are replaceable
-        boolean corner1Air = canReplace(world, posAboveGround);
-        boolean corner2Air = canReplace(world, posAboveGround.add(size, 0, 0));
-        boolean corner4Air = canReplace(world, posAboveGround.add(0, 0, size));
-        boolean corner3Air = canReplace(world, posAboveGround.add(size, 0, size));
-        boolean corner5Air = canReplace(world, posAboveGround.add(-size, 0, 0));
-        boolean corner6Air = canReplace(world, posAboveGround.add(0, 0, -size));
-        boolean corner7Air = canReplace(world, posAboveGround.add(-size, 0, -size));
-
-        boolean below2Solid = isSolid(world, posAboveGround.add(size, -1, 0));
-        boolean below3Solid = isSolid(world, posAboveGround.add(0, -1, size));
-        boolean below5Solid = isSolid(world, posAboveGround.add(-size, -1, 0));
-        boolean below6Solid = isSolid(world, posAboveGround.add(0, -1, -size));
-
-        // if Y > 20 and all corners pass the test, it's okay to spawn the structure && below7Solid && below4Solid
-        return posAboveGround.getY() > 20 && corner1Air && corner2Air && corner3Air && corner4Air && corner5Air && corner6Air && corner7Air
-                && below2Solid && below3Solid && below5Solid && below6Solid;
+    private boolean isLava(World world, BlockPos pos) {
+        Block at = world.getBlockState(pos).getBlock();
+        return at == Blocks.LAVA;
     }
 
     public void generateNestAtSurface(World world, Random random, int chunkX, int chunkZ) {
@@ -124,8 +119,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         boolean isPlains = BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS);
         boolean isMesa = BiomeDictionary.hasType(world.getBiome(height), Type.MESA);
         boolean isOcean = BiomeDictionary.hasType(world.getBiome(height), Type.OCEAN);
-
-        double percent = 0.20;
 
         if (DragonMountsConfig.canSpawnSurfaceDragonNest && !world.isRemote) {
             if (isOcean && random.nextInt((DragonMountsConfig.OceanNestRarity)) == 1) {
@@ -152,14 +145,14 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
                 //   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 
-            } else if ((isSwamp || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
+            } else if ((isSwamp) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 //  DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
                     && canSpawnHere(world, height, 4)) {
-                loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
+                loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 //  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if (isHills && random.nextInt(DragonMountsConfig.AllNestRarity) == 1
@@ -171,7 +164,56 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 // 		}
     }
 
+    private boolean canSpawnHere(World world, BlockPos posAboveGround, int size) {
+        // check all the corners to see which ones are replaceable
+        boolean corner1Air = canReplace(world, posAboveGround);
+        boolean corner2Air = canReplace(world, posAboveGround.add(size, 0, 0));
+        boolean corner4Air = canReplace(world, posAboveGround.add(0, 0, size));
+        boolean corner3Air = canReplace(world, posAboveGround.add(size, 0, size));
+        boolean corner5Air = canReplace(world, posAboveGround.add(-size, 0, 0));
+        boolean corner6Air = canReplace(world, posAboveGround.add(0, 0, -size));
+        boolean corner7Air = canReplace(world, posAboveGround.add(-size, 0, -size));
+
+        boolean below2Solid = isSolid(world, posAboveGround.add(size, -1, 0));
+        boolean below3Solid = isSolid(world, posAboveGround.add(0, -1, size));
+        boolean below5Solid = isSolid(world, posAboveGround.add(-size, -1, 0));
+        boolean below6Solid = isSolid(world, posAboveGround.add(0, -1, -size));
+
+        // if Y > 20 and all corners pass the test, it's okay to spawn the structure && below7Solid && below4Solid
+        return posAboveGround.getY() > 20 && corner1Air && corner2Air && corner3Air && corner4Air && corner5Air && corner6Air && corner7Air
+                && below2Solid && below3Solid && below5Solid && below6Solid;
+    }
+
+    private boolean canSpawnNetherHere(World world, BlockPos posAboveGround, int size) {
+        boolean below2Solid = isLava(world, posAboveGround.add(size, -1, 0));
+        boolean below3Solid = isLava(world, posAboveGround.add(0, -1, size));
+        boolean below5Solid = isLava(world, posAboveGround.add(-size, -1, 0));
+        boolean below6Solid = isLava(world, posAboveGround.add(0, -1, -size));
+
+        // if Y > 20 and all corners pass the test, it's okay to spawn the structure && below7Solid && below4Solid
+        return posAboveGround.getY() > 20
+                && below2Solid && below3Solid && below5Solid && below6Solid;
+    }
+
     public void generateNestAtNether(World world, Random random, int chunkX, int chunkZ) {
+        if (DragonMountsConfig.canSpawnNetherNest && !world.isRemote) {
+            WorldServer worldserver = (WorldServer) world;
+
+            int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
+            int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
+
+            if (random.nextInt(DragonMountsConfig.netherNestRarity) == 1) {
+                BlockPos pos = getNetherHeight(world, new BlockPos(x, 0, z));
+
+                if (pos != null && canSpawnNetherHere(world, pos, 6)) {
+                    loadStructure(new BlockPos(x, pos.getY(), z), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
+                    DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x, pos.getY(), z));
+                }
+            }
+        }
+    }
+
+    public void generateZombieAtNether(World world, Random random, int chunkX, int chunkZ) {
         if (DragonMountsConfig.canSpawnNetherNest && !world.isRemote) {
             WorldServer worldserver = (WorldServer) world;
 
@@ -192,6 +234,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                             }
                         }
                     }
+
                     for (int Y = 0; Y < 3; Y++) {
                         for (int Z = 0; Z < 3; Z++) {
                             for (int X = 0; X < 3; X++) {
@@ -203,15 +246,11 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                     }
 
                     if (place) {
-                        int neg = random.nextBoolean() ? -1: 1;
-                        loadStructure(new BlockPos(x, y, z), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                        DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x, y, z));
-
                         if (random.nextBoolean()) {
-                            loadStructure(new BlockPos(x + 7 * neg, y - 13, z + 7 * neg), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
+                            loadStructure(new BlockPos(x, y - 10, z), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
                             DMUtils.getLogger().info("Zombie Nest here at: " + new BlockPos(x, y, z));
                         } else {
-                            loadStructure(new BlockPos(x + 7 * neg, y - 13, z + 7 * neg), worldserver, "skeleton", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
+                            loadStructure(new BlockPos(x, y - 10, z), worldserver, "skeleton", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
                             DMUtils.getLogger().info("Skeleton Nest here at: " + new BlockPos(x, y, z));
 
                         }
@@ -230,8 +269,8 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
             int z = (chunkZ * 16) + random.nextInt(16);
             BlockPos height = getHeight(world, new BlockPos(x, 0, z));
 
-            if(canSpawnHere(world, height, 5)) {
-                loadStructure(height, worldserver, "enchant", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
+            if (canSpawnHere(world, height, 5)) {
+                loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), worldserver, "enchant", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
                 DMUtils.getLogger().info("Enchant Nest here at: " + height);
             }
 

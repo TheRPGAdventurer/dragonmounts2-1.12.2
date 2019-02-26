@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -188,7 +189,7 @@ public class DragonBreedHelper extends DragonHelper {
             }
 
          // update egg breed every second on the server
-            if (dragon.getBreed().canChangeBreed() && dragon.isServer() && dragon.ticksExisted % TICK_RATE_BLOCK == 0) {
+            if (dragon.getBreed().canChangeBreed() && dragon.isServer() && dragon.ticksExisted % TICK_RATE_BLOCK == 0 && DragonMountsConfig.shouldChangeBreedViaHabitatOrBlock) {
                 BlockPos eggPos = dragon.getPosition();
                 
                 // scan surrounding for breed-loving blocks

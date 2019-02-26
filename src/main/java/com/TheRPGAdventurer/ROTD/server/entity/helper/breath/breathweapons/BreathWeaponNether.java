@@ -93,12 +93,7 @@ public class BreathWeaponNether extends BreathWeapon {
         float thresholdForDestruction = thresholdForIgnition * 70;
         float densityOfThisFace = currentHitDensity.getHitDensity(facing);
         if (densityOfThisFace >= thresholdForIgnition && world.isAirBlock(sideToIgnite) && DragonMountsConfig.canFireBreathAffectBlocks) {
-          final float MIN_PITCH = 0.8F;
-          final float MAX_PITCH = 1.2F;
-          final float VOLUME = 1.0F;
-          world.playSound(null, new BlockPos(sideToIgnite.getX() + 0.5, sideToIgnite.getY() + 0.5, sideToIgnite.getZ() + 0.5),
-                  SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, VOLUME, MIN_PITCH + rand.nextFloat() * (MAX_PITCH - MIN_PITCH));
-          
+
           burnBlocks(sideToIgnite, rand, 77, world);
         }
         

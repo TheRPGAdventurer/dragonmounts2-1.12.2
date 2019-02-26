@@ -57,12 +57,13 @@ public class DragonMountsConfig {
 	// chances
 	public static int AllNestRarity  = 100;
 	public static int AllNestRarity1  = 180;
+	public static int ForestNestRarity1  = 555;
 	public static int SunlightNestRarity  = 20;
 	public static int OceanNestRarity  = 1800;
 	public static int EnchantNestRarity  = 100;
 	public static int JungleNestRarity  = 555;
 
-	public static int netherNestRarity = 200;
+	public static int netherNestRarity = 300;
 	public static int netherNestRarerityInX = 32;
 	public static int netherNestRarerityInZ = 32;
 
@@ -218,7 +219,7 @@ public class DragonMountsConfig {
 
 		// surface world nest
 		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity", AllNestRarity);
-		prop.setComment("Determines how rare Forest Plains, Water, Fire dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+		prop.setComment("Determines how rare Water, Fire dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity = prop.getInt();
 		propOrder.add(prop.getName());
@@ -226,6 +227,12 @@ public class DragonMountsConfig {
 		// surface world nest
 		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity 2", AllNestRarity1);
 		prop.setComment("Determines how rare Terra, Ice dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
+		AllNestRarity1 = prop.getInt();
+		propOrder.add(prop.getName());
+
+		prop = config.get(CATEGORY_WORLDGEN, "Forest Nest Rarity", AllNestRarity1);
+		prop.setComment("Determines how rare Forest Plains dragon nests will mainly spawn. I did this because the forest biome is too common thus making the forest breed to common. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		AllNestRarity1 = prop.getInt();
 		propOrder.add(prop.getName());

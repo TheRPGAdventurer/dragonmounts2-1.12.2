@@ -150,7 +150,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 //  DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
-            } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
+            } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.ForestNestRarity1)) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 //  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));

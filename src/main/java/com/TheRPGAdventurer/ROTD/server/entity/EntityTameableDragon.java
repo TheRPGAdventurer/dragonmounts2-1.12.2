@@ -213,7 +213,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private final Map<Class, DragonHelper> helpers = new HashMap<>();
 
     // client-only delegates
-    private final DragonBodyHelper bodyHelper = new DragonBodyHelper(this);
+    private final DragonBodyHelper dragonBodyHelper = new DragonBodyHelper(this);
 
     // server-only flags
     private BitSet controlFlags;
@@ -234,9 +234,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
-    private int turnTicks;
-    private int turnTicksLimit = 20;
-    private float lastRotationYawHead;
 
     public EntityPartDragon dragonPartHead;
     public EntityPartDragon dragonPartNeck;
@@ -299,7 +296,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-        bodyHelper.updateRenderAngles();
+        dragonBodyHelper.updateRenderAngles();
         return  p_110146_2_;
     }
 

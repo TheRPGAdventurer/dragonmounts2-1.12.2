@@ -22,7 +22,9 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.EntityLookHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,17 +44,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBodyHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBrain;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonInteractHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonLifeStageHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonMoveHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonSoundManager;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
@@ -251,6 +242,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             L.warn("Can't override EntityBodyHelper", ex);
         }
 
+        // override EntityLookHelper field, which is private and has no setter
+        try {
+            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this), PrivateFields.ENTITYLIVING_LOOKHELPER);
+        } catch (Exception ex) {
+            L.warn("Can't override EntityLookHelper", ex);
+        }
+
         // set base size
         setSize(BASE_WIDTH, BASE_HEIGHT);
 
@@ -295,9 +293,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     @Override
-    protected float updateDistance(float p_110146_1_, float p_110146_2_) {
+    protected float updateDistance(float f1, float f2) {
         dragonBodyHelper.updateRenderAngles();
-        return  p_110146_2_;
+        return f2;
+    }
+
+    @Override
+    protected EntityBodyHelper createBodyHelper() {
+        return new DragonBodyHelper(this);
+    }
+
+    @Override
+    public EntityLookHelper getLookHelper() {
+        return new DragonLookHelper(this);
     }
 
     @Override
@@ -807,8 +815,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
             float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
-            this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
-            this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
+       //     this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
+       //     this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
 
             if (!this.isFlying()) {
                 this.setFlying(true);
@@ -1161,7 +1169,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x = midPoint.getX() + r * Math.cos(a * this.ticksExisted * 2.5);
         double y = midPoint.getY() + DragonMountsConfig.dragonFolloOwnerFlyingHeight;
         double z = midPoint.getZ() + r * Math.sin(a * this.ticksExisted * 2.5);
-
 
         return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
     }

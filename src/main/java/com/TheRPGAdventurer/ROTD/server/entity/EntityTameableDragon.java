@@ -22,6 +22,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -66,14 +67,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ElytraSound;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -230,10 +223,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public DragonInventory dragonInv;
     private ItemStackHandler itemHandler = null;
     private boolean hasChestVarChanged = false;
-    /**
-     * True if after a move this entity has collided with something on Y-axis
-     */
-    public boolean isCollidedVertically2;
     private boolean isUsingBreathWeapon;
     private boolean allowOthers;
     private boolean isUnhovered;
@@ -245,6 +234,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
+    private int turnTicks;
+    private int turnTicksLimit = 20;
+    private float lastRotationYawHead;
 
     public EntityPartDragon dragonPartHead;
     public EntityPartDragon dragonPartNeck;
@@ -252,6 +244,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public EntityTameableDragon(World world) {
         super(world);
+        // override EntityBodyHelper field, which is private and has no setter
+        // required to fixate body while sitting. also slows down rotation while
+        // standing.
+        try {
+            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
+                    PrivateFields.ENTITYLIVING_BODYHELPER);
+        } catch (Exception ex) {
+            L.warn("Can't override EntityBodyHelper", ex);
+        }
 
         // set base size
         setSize(BASE_WIDTH, BASE_HEIGHT);
@@ -282,7 +283,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         helpers.values().forEach(DragonHelper::applyEntityAttributes);
         animator = new DragonAnimator(this);
         resetParts(1);
-
     }
 
     public void resetParts(float scale) {
@@ -298,15 +298,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     @Override
-    protected void updateAITasks() {
-    }
-
-    @Override
     protected float updateDistance(float p_110146_1_, float p_110146_2_) {
-        // required to fixate body while sitting. also slows down rotation while
-        // standing.
         bodyHelper.updateRenderAngles();
-        return p_110146_2_;
+        return  p_110146_2_;
     }
 
     @Override
@@ -743,7 +737,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     /**
      * returns the pitch of the dragon's body
-     *
      */
     public float getBodyPitch() {
         return getAnimator().getBodyPitch();
@@ -890,10 +883,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
         //	for(int width = 1; width <= this.width / 2; width++) {
-        for (float y = 1; y <= 3.4; y++) {
-            pos = new BlockPos(posX - width + width, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ - width + width);
-
-        	}
+        for (float y = 1; y <= 3.0; y++) {
+            pos = new BlockPos(posX, posY - (y * MathX.clamp(this.getScale(), 0.1, 1)), posZ);
+        }
         return pos;
     }
 
@@ -1160,12 +1152,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean circleTarget1(BlockPos midPoint) {
-        if(this.getControllingPlayer() != null) {
+        if (this.getControllingPlayer() != null) {
             return false;
         }
 
         Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-        Vec3d vec2 = new Vec3d(0,0,1);
+        Vec3d vec2 = new Vec3d(0, 0, 1);
 
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
         double r = 70;
@@ -1444,7 +1436,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Drop 0-2 items of this living's type.
      *
-     * @param wasRecentlyHit - Whether this entity has recently been hit by a player.
+     * @param wasRecentlyHit  - Whether this entity has recently been hit by a player.
      * @param lootingModifier - Level of Looting used to kill this mob.
      */
     @Override
@@ -1501,6 +1493,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 return ModItems.EssenceWither;
             case ZOMBIE:
                 return ModItems.EssenceZombie;
+            case MOONLIGHT:
+                return ModItems.EssenceMoonlight;
             default:
                 return ModItems.EssenceEnd;
 

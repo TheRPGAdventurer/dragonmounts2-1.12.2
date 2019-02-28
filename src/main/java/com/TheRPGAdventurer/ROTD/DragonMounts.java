@@ -12,14 +12,12 @@ package com.TheRPGAdventurer.ROTD;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
-import com.TheRPGAdventurer.ROTD.client.tile.TileEntityDragonHead;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.network.*;
 import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -36,78 +34,76 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Main control class for Forge.
- * 
  */
 @Mod(
-    dependencies = "required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)",
-    modid = DragonMounts.MODID,
-    name = DragonMounts.NAME,
-    version = DragonMounts.VERSION,
-    useMetadata = true,
-    guiFactory = DragonMounts.GUI_FACTORY
+        dependencies = "required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)",
+        modid = DragonMounts.MODID,
+        name = DragonMounts.NAME,
+        version = DragonMounts.VERSION,
+        useMetadata = true,
+        guiFactory = DragonMounts.GUI_FACTORY
 )
 public class DragonMounts {
-    
-	@NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class,
+
+    @NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class,
             MessageDragonWhistle.class})
-	public static SimpleNetworkWrapper NETWORK_WRAPPER;
-	
+    public static SimpleNetworkWrapper NETWORK_WRAPPER;
+
     public static final String NAME = "Dragon Mounts";
     public static final String MODID = "dragonmounts";
     public static final String VERSION = "1.12.2-1.5.4";
     public static final String LLIBRARY_VERSION = "1.7.9";
     public static final String GUI_FACTORY = "com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
-    
+
     @SidedProxy(
-        serverSide = "com.TheRPGAdventurer.ROTD.server.ServerProxy",
-        clientSide = "com.TheRPGAdventurer.ROTD.client.ClientProxy"
+            serverSide = "com.TheRPGAdventurer.ROTD.server.ServerProxy",
+            clientSide = "com.TheRPGAdventurer.ROTD.client.ClientProxy"
     )
     public static ServerProxy proxy;
-    
+
     @Instance(value = MODID)
     public static DragonMounts instance;
-    
+
     private ModMetadata metadata;
     private DragonMountsConfig config;
-    public static CreativeTabs TAB;    
-    
+    public static CreativeTabs TAB;
+
     public DragonMountsConfig getConfig() {
         return config;
     }
-    
+
     public ModMetadata getMetadata() {
         return metadata;
     }
-    
+
     @EventHandler
-    public void PreInitialization(FMLPreInitializationEvent event) {    	
-    	DragonMountsLootTables.registerLootTables();
-        GameRegistry.registerTileEntity(TileEntityDragonHead.class, new ResourceLocation(DragonMounts.MODID, "tileDragonHead"));
-    	   TAB = new CreativeTab(MODID);
+    public void PreInitialization(FMLPreInitializationEvent event) {
+        DragonMountsLootTables.registerLootTables();
+        TAB = new CreativeTab(MODID);
         metadata = event.getModMetadata();
-        proxy.PreInitialization(event); 
-        
+        proxy.PreInitialization(event);
+
     }
 
     @EventHandler
     public void Initialization(FMLInitializationEvent event) {
-        proxy.Initialization(event); 
-        proxy.render(); 
+        proxy.Initialization(event);
+        proxy.render();
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-     
+
     }
 
     @EventHandler
     public void PostInitialization(FMLPostInitializationEvent event) {
         proxy.PostInitialization(event);
     }
-    
+
     @EventHandler
     public void ServerStarting(FMLServerStartingEvent event) {
         proxy.ServerStarting(event);
     }
-    
+
     @EventHandler
     public void ServerStopped(FMLServerStoppedEvent event) {
         proxy.ServerStopped(event);

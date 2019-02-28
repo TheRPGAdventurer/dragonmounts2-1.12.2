@@ -88,19 +88,19 @@ public class ItemDragonSpawner extends Item {
                 yOffset = 0.5D;
             }
 
-            EntityTameableDragon EntityTameableDragon = this.spawnEntityTameableDragon(world, player, stack, pos.getX() + 0.5D, pos.getY() + yOffset, pos.getZ() + 0.5D);
+            EntityTameableDragon dragon = this.spawnEntityTameableDragon(world, player, stack, pos.getX() + 0.5D, pos.getY() + yOffset, pos.getZ() + 0.5D);
 
-            if (EntityTameableDragon != null) {
+            if (dragon != null) {
                 if (stack.hasDisplayName()) {
-                    EntityTameableDragon.setCustomNameTag(stack.getDisplayName());
+                    dragon.setCustomNameTag(stack.getDisplayName());
                 }
                  //    no just no!
                 if (!player.capabilities.isCreativeMode) {
                     stack.shrink(1);
                 }
 
-                world.spawnEntity(EntityTameableDragon);
-                EntityTameableDragon.playLivingSound();
+                world.spawnEntity(dragon);
+                dragon.playLivingSound();
             }
         }        return EnumActionResult.SUCCESS;     
     }

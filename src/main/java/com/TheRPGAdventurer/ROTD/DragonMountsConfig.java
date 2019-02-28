@@ -55,7 +55,7 @@ public class DragonMountsConfig {
 	public static int FACTOR  = 75;
 
 	// chances
-	public static int AllNestRarity  = 100;
+	public static int AllNestRarity  = 110;
 	public static int AllNestRarity1  = 180;
 	public static int ForestNestRarity1  = 555;
 	public static int SunlightNestRarity  = 20;
@@ -185,7 +185,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_CLIENTDM2, "Third Person Zoom BACK", ThirdPersonZoom);
-		prop.setComment("Zoom out for third person 2 while riding the the dragon DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
+		prop.setComment("Zoom out for third person 2 while riding the the dragon and dragon carriages DO NOT EXXAGERATE IF YOU DONT WANT CORRUPTED WORLDS");
 		ThirdPersonZoom = prop.getDouble();
 		propOrder.add(prop.getName());
 

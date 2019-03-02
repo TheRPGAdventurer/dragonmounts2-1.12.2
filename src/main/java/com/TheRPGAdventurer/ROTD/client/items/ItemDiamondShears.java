@@ -11,6 +11,7 @@ import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -54,10 +55,10 @@ public class ItemDiamondShears extends ItemShears {
 	            EntityTameableDragon target = (EntityTameableDragon)entity;
 	            BlockPos pos = new BlockPos(target.posX, target.posY, target.posZ);
 	            if (target.isShearable(itemstack, target.world, pos)) {
-	                java.util.List<ItemStack> drops = target.onSheared(itemstack, target.world, pos,
-	                        net.minecraft.enchantment.EnchantmentHelper.getEnchantmentLevel(net.minecraft.init.Enchantments.FORTUNE, itemstack));
+	                List<ItemStack> drops = target.onSheared(itemstack, target.world, pos,
+	                        EnchantmentHelper.getEnchantmentLevel(net.minecraft.init.Enchantments.FORTUNE, itemstack));
 
-	                java.util.Random rand = new java.util.Random();
+	                Random rand = new Random();
 	                for(ItemStack stack : drops) {
 	                    net.minecraft.entity.item.EntityItem ent = target.entityDropItem(stack, 1.0F);
 	                    ent.motionY += rand.nextFloat() * 0.05F;

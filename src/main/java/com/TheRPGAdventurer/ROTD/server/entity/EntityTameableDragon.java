@@ -298,14 +298,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return f2;
     }
 
-  //  @Override
-  //  protected EntityBodyHelper createBodyHelper() {
-//  //  }
+    @Override
+    protected EntityBodyHelper createBodyHelper() {
+        return new DragonBodyHelper(this);
+    }
 
-   // @Override
-   // public EntityLookHelper getLookHelper() {
-   //     return new DragonLookHelper(this);
-   // }
+    @Override
+    public EntityLookHelper getLookHelper() {
+        return new DragonLookHelper(this);
+    }
 
     @Override
     protected void entityInit() {

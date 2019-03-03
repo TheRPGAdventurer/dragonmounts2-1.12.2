@@ -145,7 +145,7 @@ public class DragonBrain extends DragonHelper {
         }
             targetTasks.addTask(2, new EntityAIOwnerHurtByTarget(dragon)); // mutex 1
             targetTasks.addTask(3, new EntityAIOwnerHurtTarget(dragon)); // mutex 1
-            targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, false, new Class[] {})); // mutex 1
+            targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, false)); // mutex 1
 
         if (dragon.isAdult()) {
             tasks.addTask(5, new EntityAIDragonMate(dragon, 0.6)); // mutex 2+1

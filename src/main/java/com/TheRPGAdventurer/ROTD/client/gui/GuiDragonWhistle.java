@@ -51,19 +51,19 @@ public class GuiDragonWhistle extends GuiScreen {
 		Keyboard.enableRepeatEvents(true);
 		
 		nothing =      new GuiButton(0, width / 2 - 50, height / 2 + 10, 
-	                   98, 20, I18n.format("gui.nothing", new Object[0]));
+	                   98, 20, I18n.format("gui.nothing"));
 		
 		circle =       new GuiButton(0, width / 2 + 100 - 50, height / 2 + 10, 
-	                   98, 20, I18n.format("gui.circle", new Object[0]));
+	                   98, 20, I18n.format("gui.circle"));
 		
 		followFlying = new GuiButton(0, width / 2 - 100 - 50, height / 2 + 10, 
-	                   98, 20, I18n.format("gui.followFlying", new Object[0]));
+	                   98, 20, I18n.format("gui.followFlying"));
 		
 		come =   new GuiButton(0, width / 2 - 50, height / 2 - 15, 
-	                   98, 20, I18n.format("gui.goToPlayer", new Object[0]));
+	                   98, 20, I18n.format("gui.goToPlayer"));
 		
 		homePos =   new GuiButton(0, width / 2 - 50, height / 2 + 35, 
-                98, 20, I18n.format("gui.homePos", new Object[0]));
+                98, 20, I18n.format("gui.homePos"));
 		
 		buttonList.add(nothing);
 		buttonList.add(circle);
@@ -86,7 +86,7 @@ public class GuiDragonWhistle extends GuiScreen {
 	    if(newState) {
 	        this.state = (byte) state;
         } else {
-	        this.state = (byte) prevState;
+	        this.state = prevState;
         }
 	}
 

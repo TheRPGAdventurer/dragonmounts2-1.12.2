@@ -66,7 +66,7 @@ public class DragonInteractEat extends DragonInteract {
     		
     		if (dragon.world.isRemote) {
 				dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY,
-						motionZ, new int[] { Item.getIdFromItem(item) });
+						motionZ, Item.getIdFromItem(item));
 			}
 		}
 	}

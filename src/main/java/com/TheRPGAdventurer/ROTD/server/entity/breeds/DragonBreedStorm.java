@@ -128,8 +128,8 @@ public class DragonBreedStorm extends DragonBreed {
 		World world = dragon.world;
 		
 		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_WATER, (double) dragon.posX,
-					(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_WATER, dragon.posX,
+					dragon.posY + dragon.getEyeHeight(), dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
     	
     //	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {

@@ -58,7 +58,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{ BREED });
+        return new BlockStateContainer(this, BREED);
     }
     
     @Override
@@ -69,7 +69,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        EnumDragonBreed type = (EnumDragonBreed) state.getValue(BREED);
+        EnumDragonBreed type = state.getValue(BREED);
         return EnumDragonBreed.META_MAPPING.get(type);
     }
     

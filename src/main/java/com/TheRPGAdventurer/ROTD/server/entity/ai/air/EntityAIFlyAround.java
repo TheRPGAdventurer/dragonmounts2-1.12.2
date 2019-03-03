@@ -55,8 +55,8 @@ public class EntityAIFlyAround extends EntityAIDragonBase {
             float renderYawOffset = dragon.renderYawOffset;
             float angle = (0.01745329251F * renderYawOffset) + 3.15F + (dragon.getRNG().nextFloat() * neg);
 
-            double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
-            double extraZ = (double) (radius * MathHelper.cos(angle));
+            double extraX = (radius * MathHelper.sin((float) (Math.PI + angle)));
+            double extraZ = (radius * MathHelper.cos(angle));
             BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
             BlockPos ground = dragon.world.getHeight(radialPos);
             Random random = dragon.getRNG();

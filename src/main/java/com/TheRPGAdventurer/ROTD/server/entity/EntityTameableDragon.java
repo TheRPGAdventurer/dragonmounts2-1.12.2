@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.entity.passive.EntityHorse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -137,53 +138,53 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     // data value IDs
     private static final DataParameter<Boolean> DATA_FLYING = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_SADDLED = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_BREATHING = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CHESTED = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> BOOSTING = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_MALE = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> ARMOR = EntityDataManager
-            .<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
-            .<Optional<UUID>>createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+            .createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<String> DATA_BREED = EntityDataManager
-            .<String>createKey(EntityTameableDragon.class, DataSerializers.STRING);
+            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_REPRO_COUNT = EntityDataManager
-            .<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION = EntityDataManager
-            .<Integer>createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES = EntityDataManager
-            .<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
+            .createKey(EntityTameableDragon.class, DataSerializers.BYTE);
     private static final DataParameter<String> DATA_BREATH_WEAPON = EntityDataManager
-            .<String>createKey(EntityTameableDragon.class, DataSerializers.STRING);
+            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<ItemStack> BANNER1 = EntityDataManager
-            .<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER2 = EntityDataManager
-            .<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER3 = EntityDataManager
-            .<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER4 = EntityDataManager
-            .<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<Boolean> HAS_ADJUCATOR_STONE = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAS_ELDER_STONE = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager
-            .<Byte>createKey(EntityTameableDragon.class, DataSerializers.BYTE);
+            .createKey(EntityTameableDragon.class, DataSerializers.BYTE);
     public static final DataParameter<ItemStack> WHISTLE = EntityDataManager
-            .<ItemStack>createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<Boolean> SLEEP = EntityDataManager
-            .<Boolean>createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
 
     // data NBT IDs
     public static final String NBT_ARMOR = "Armor";
@@ -230,6 +231,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public EntityPartDragon dragonPartNeck;
     public EntityPartDragon dragonPartTail[];
 
+    private DragonLookHelper lookHelper;
+
     public EntityTameableDragon(World world) {
         super(world);
         // override EntityBodyHelper field, which is private and has no setter
@@ -272,6 +275,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         moveHelper = new DragonMoveHelper(this);
+        lookHelper = new DragonLookHelper(this);
         aiSit = new EntityAIDragonSit(this);
 
         // init helpers
@@ -585,8 +589,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * @param
-     * @param
      * @TheRPGAdventurer thanks AlexThe666
      */
     public void setStateField(int i, boolean newState) {
@@ -815,8 +817,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
             float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
-       //     this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
-       //     this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
+            //     this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
+            //     this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
 
             if (!this.isFlying()) {
                 this.setFlying(true);
@@ -1023,6 +1025,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             hasChestVarChanged = false;
         }
 
+//        if (dragonInv != null) {
+ //           setBanner1(dragonInv.getStackInSlot(31));
+ //           setBanner2(dragonInv.getStackInSlot(32));
+ //           setBanner3(dragonInv.getStackInSlot(33));
+  //          setBanner4(dragonInv.getStackInSlot(34));
+ //       }
+
         updateShearing();
         updateDragonEnderCrystal();
         regenerateHealth();
@@ -1092,13 +1101,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public ITextComponent getDisplayName() {
         // return custom name if set
         if (hasCustomName()) {
-            return new TextComponentTranslation(getCustomNameTag(), new Object[0]);
+            return new TextComponentTranslation(getCustomNameTag());
         }
 
         // return default breed name otherwise
         String entName = EntityList.getEntityString(this);
         String breedName = getBreed().getSkin().toLowerCase();
-        ITextComponent name = new TextComponentTranslation("entity." + entName + "." + breedName + ".name", new Object[0]);
+        ITextComponent name = new TextComponentTranslation("entity." + entName + "." + breedName + ".name");
         return name;
     }
 
@@ -1681,12 +1690,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Nullable
     public Entity getControllingPassenger() {
-        return this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
+        return this.getPassengers().isEmpty() ? null : getPassengers().get(0);
     }
 
     @Nullable
     public EntityPlayer getControllingPlayer() {
-        Entity entity = this.getPassengers().isEmpty() ? null : (Entity) getPassengers().get(0);
+        Entity entity = this.getPassengers().isEmpty() ? null : getPassengers().get(0);
         if (entity instanceof EntityPlayer) {
             return (EntityPlayer) entity;
         } else {
@@ -1975,14 +1984,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean isSheared() {
-        return (((Byte) this.dataManager.get(DRAGON_SCALES)).byteValue() & 16) != 0;
+        return (this.dataManager.get(DRAGON_SCALES).byteValue() & 16) != 0;
     }
 
     /**
      * make a dragon sheared if set to true
      */
     public void setSheared(boolean sheared) {
-        byte b0 = ((Byte) this.dataManager.get(DRAGON_SCALES)).byteValue();
+        byte b0 = this.dataManager.get(DRAGON_SCALES).byteValue();
 
         if (sheared) {
             dataManager.set(DRAGON_SCALES, Byte.valueOf((byte) (b0 | 16)));
@@ -2161,7 +2170,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
 
             if (this.rand.nextInt(10) == 0) {
-                List<EntityEnderCrystal> list = this.world.<EntityEnderCrystal>getEntitiesWithinAABB(
+                List<EntityEnderCrystal> list = this.world.getEntitiesWithinAABB(
                         EntityEnderCrystal.class, this.getEntityBoundingBox().grow(32.0D));
                 EntityEnderCrystal entityendercrystal = null;
                 double d0 = Double.MAX_VALUE;
@@ -2338,11 +2347,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         ItemStack banner4 = this.dragonInv.getStackInSlot(34);
         this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
         this.setChested(leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
-        //this.setBanner1(banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty());
-        //this.setBanner2(banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty());
-        //this.setBanner3(banner3 != null && banner3.getItem() == Items.BANNER && !banner3.isEmpty());
-        //this.setBanner4(banner4 != null && banner4.getItem() == Items.BANNER && !banner4.isEmpty());
-        //this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));
+        this.setBanner1(banner1);
+        this.setBanner2(banner2);
+        this.setBanner3(banner3);
+        this.setBanner4(banner4);
+        this.setArmor(getIntFromArmor(this.dragonInv.getStackInSlot(2)));
 
         if (this.world.isRemote) {
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0,

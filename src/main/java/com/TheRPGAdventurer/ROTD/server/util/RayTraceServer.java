@@ -46,7 +46,7 @@ public class RayTraceServer {
     Vec3d endOfLookDelta = endOfLook.subtract(positionEyes);
     searchBox = searchBox.grow(endOfLookDelta.x, endOfLookDelta.y, endOfLookDelta.z); //add
     searchBox = searchBox.expand(EXPAND_SEARCH_BOX_BY, EXPAND_SEARCH_BOX_BY, EXPAND_SEARCH_BOX_BY);
-    List<Entity> nearbyEntities = (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(
+    List<Entity> nearbyEntities = world.getEntitiesWithinAABBExcludingEntity(
             entityPlayerSP, searchBox);
     Entity closestEntityHit = null;
     double closestEntityDistanceSQ = Double.MAX_VALUE;

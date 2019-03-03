@@ -123,7 +123,7 @@ public class ItemDragonWhistle extends Item {
 			    }
 				dragon.setControllingWhistle(stack);
 			} else {
-	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned", new Object[0]), true);
+	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
 			}
 			
 			return true;

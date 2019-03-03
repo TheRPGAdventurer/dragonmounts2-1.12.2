@@ -144,7 +144,7 @@ public class ItemDragonEssence extends Item {
                         stack.shrink(1);
                     }
                 } else {
-                    player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned", new Object[0]), true);
+                    player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
                 }
 
                 world.spawnEntity(dragon);

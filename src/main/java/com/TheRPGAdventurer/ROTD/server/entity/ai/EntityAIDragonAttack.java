@@ -118,7 +118,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     public void resetTask() {
         EntityLivingBase entitylivingbase = this.dragon.getAttackTarget();
         if (entitylivingbase instanceof EntityPlayer && (((EntityPlayer)entitylivingbase).isSpectator() || ((EntityPlayer)entitylivingbase).isCreative())) {
-            this.dragon.setAttackTarget((EntityLivingBase)null);
+            this.dragon.setAttackTarget(null);
             dragon.setUsingBreathWeapon(false);
         }
         this.dragon.getNavigator().clearPathEntity(); 

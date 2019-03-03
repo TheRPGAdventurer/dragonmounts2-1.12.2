@@ -42,7 +42,7 @@ public class DragonEggBlockHandler {
         Block block = world.getBlockState(pos).getBlock();
         
         if(block == Blocks.DRAGON_EGG && world.provider.getDimensionType().getId() == 1) {
-        	evt.getEntityPlayer().sendStatusMessage(new TextComponentTranslation("egg.cantHatchEnd.DragonMounts", new Object[0]), true);
+        	evt.getEntityPlayer().sendStatusMessage(new TextComponentTranslation("egg.cantHatchEnd.DragonMounts"), true);
         }
         
         if (world.provider.getDimensionType().getId() != 1) {

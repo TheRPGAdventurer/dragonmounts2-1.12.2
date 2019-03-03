@@ -37,10 +37,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCarriage extends Entity {
 	
-    private static final DataParameter<Float> DAMAGE = EntityDataManager.<Float>createKey(EntityCarriage.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.<Integer>createKey(EntityCarriage.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityCarriage.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer>createKey(EntityCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(EntityCarriage.class, DataSerializers.FLOAT);
+    private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.createKey(EntityCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.createKey(EntityCarriage.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityCarriage.class, DataSerializers.VARINT);
     private static ICollisionHandler collisionHandler = null;
     public static float defaultMaxSpeedAirLateral = 0.4f;
     public static float defaultMaxSpeedAirVertical = -1f;
@@ -60,7 +60,7 @@ public class EntityCarriage extends Entity {
     public EntityCarriage(World worldIn) { 
         super(worldIn);
         this.preventEntitySpawning = true;
-        this.setSize(0.7F, 0.7F);
+        this.setSize(0.7F, 1F);
     }
     
     public EntityCarriage(World worldIn, double x, double y, double z)  {
@@ -99,7 +99,7 @@ public class EntityCarriage extends Entity {
     @Nullable
     public Entity getControllingPassenger() {
         List<Entity> list = this.getPassengers();
-        return list.isEmpty() ? null : (Entity)list.get(0);
+        return list.isEmpty() ? null : list.get(0);
     }
     
     /**
@@ -551,7 +551,7 @@ public class EntityCarriage extends Entity {
      * 40.
      */
     public float getDamage() {
-        return ((Float)this.dataManager.get(DAMAGE)).floatValue();
+        return this.dataManager.get(DAMAGE).floatValue();
     }
     
     /**
@@ -572,14 +572,14 @@ public class EntityCarriage extends Entity {
      * Gets the time since the last hit.
      */
     public int getTimeSinceHit() {
-        return ((Integer)this.dataManager.get(TIME_SINCE_HIT)).intValue();
+        return this.dataManager.get(TIME_SINCE_HIT).intValue();
     }
 
     /**
      * Gets the forward direction of the entity.
      */
     public int getForwardDirection() {
-        return ((Integer)this.dataManager.get(FORWARD_DIRECTION)).intValue();
+        return this.dataManager.get(FORWARD_DIRECTION).intValue();
     }
     
     public void setType(EntityCarriage.Type boatType) {
@@ -587,7 +587,7 @@ public class EntityCarriage extends Entity {
     }
 
     public EntityCarriage.Type getType() {
-        return EntityCarriage.Type.byId(((Integer)this.dataManager.get(TYPE)).intValue());
+        return EntityCarriage.Type.byId(this.dataManager.get(TYPE).intValue());
     }
     
 	@Override

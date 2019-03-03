@@ -57,7 +57,7 @@ public class EntityAIDragonHurtByTarget extends EntityAITarget
 
         for (EntityCreature entitycreature : this.dragon.world.getEntitiesWithinAABB(this.dragon.getClass(), (new AxisAlignedBB(this.dragon.posX, this.dragon.posY, this.dragon.posZ, this.dragon.posX + 1.0D, this.dragon.posY + 1.0D, this.dragon.posZ + 1.0D)).grow(d0, 10.0D, d0)))
         {
-            if (this.dragon != entitycreature && entitycreature.getAttackTarget() == null && (!(this.dragon instanceof EntityTameable) || ((EntityTameable)this.dragon).getOwner() == ((EntityTameable)entitycreature).getOwner()) && !entitycreature.isOnSameTeam(this.dragon.getRevengeTarget()))
+            if (this.dragon != entitycreature && entitycreature.getAttackTarget() == null && (!(this.dragon instanceof EntityTameable) || this.dragon.getOwner() == ((EntityTameable)entitycreature).getOwner()) && !entitycreature.isOnSameTeam(this.dragon.getRevengeTarget()))
             {
                 boolean flag = false;
 

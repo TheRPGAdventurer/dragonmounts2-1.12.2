@@ -287,7 +287,7 @@ public class BreathWeapon {
   protected BreathAffectedEntity triggerDamageExceptionsForFire(Entity entity, Integer entityID, float DAMAGE_PER_HIT_DENSITY, BreathAffectedEntity currentHitDensity) {
 	   triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
 	    if(dragon.getControllingPlayer() != null && entity != dragon.getControllingPlayer()) {
-	    	entity.setFire((int)(10 * 2));
+	    	entity.setFire((10 * 2));
 	    } else if(entity instanceof EntityTameable) {
 	    	EntityTameable entityTameable = (EntityTameable) entity;
 	    	if(entityTameable.isTamed()) {

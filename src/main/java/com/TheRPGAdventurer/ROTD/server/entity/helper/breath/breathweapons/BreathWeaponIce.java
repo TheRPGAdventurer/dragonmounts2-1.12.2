@@ -64,9 +64,9 @@ public class BreathWeaponIce extends BreathWeapon {
    //     world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else 
     if (world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER) {
     	if(DragonMountsConfig.canIceBreathBePermanent) {  
-            world.mayPlace(Blocks.ICE, blockPos, false, EnumFacing.DOWN, (Entity)null);
+            world.mayPlace(Blocks.ICE, blockPos, false, EnumFacing.DOWN, null);
     	} else if(!DragonMountsConfig.canIceBreathBePermanent) {
-    		world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, (Entity)null);
+    		world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, null);
     	}
     }
     

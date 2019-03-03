@@ -34,7 +34,7 @@ public abstract class DragonInteract {
                 return true;
             } else if (!dragon.allowedOtherPlayers()) {
                 if (!dragon.isTamedFor(player)) {
-                    player.sendStatusMessage(new TextComponentTranslation("dragon.locked", new Object[0]), true);
+                    player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
                 }
                 return dragon.isTamedFor(player);
             }

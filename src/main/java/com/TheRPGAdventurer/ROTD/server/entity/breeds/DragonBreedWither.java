@@ -76,8 +76,8 @@ public class DragonBreedWither extends DragonBreed {
 		World world = dragon.world;
 		if(dragon.isUsingBreathWeapon()) {
 			if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-				((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) dragon.posX,
-						(double) dragon.posY + dragon.getEyeHeight(), (double) dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+				((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, dragon.posX,
+						dragon.posY + dragon.getEyeHeight(), dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
 			}
 		}
 	}

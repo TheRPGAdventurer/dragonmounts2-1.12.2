@@ -231,8 +231,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public EntityPartDragon dragonPartNeck;
     public EntityPartDragon dragonPartTail[];
 
-    private DragonLookHelper lookHelper;
-
     public EntityTameableDragon(World world) {
         super(world);
         // override EntityBodyHelper field, which is private and has no setter
@@ -305,11 +303,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     protected EntityBodyHelper createBodyHelper() {
         return new DragonBodyHelper(this);
-    }
-
-    @Override
-    public EntityLookHelper getLookHelper() {
-        return new DragonLookHelper(this);
     }
 
     @Override

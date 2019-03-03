@@ -294,11 +294,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         //	dragonPartHead.onUpdate();
     }
 
-    @Override
-    protected float updateDistance(float f1, float f2) {
-        dragonBodyHelper.updateRenderAngles();
-        return f2;
-    }
+   // @Override
+   // protected float updateDistance(float f1, float f2) {
+   //     dragonBodyHelper.updateRenderAngles();
+   //     return f2;
+   // }
 
     @Override
     protected EntityBodyHelper createBodyHelper() {

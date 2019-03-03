@@ -84,11 +84,11 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 wp = wp.rotateYaw(MathX.PI_F * 0.5f);
             } else if (rider.moveStrafing < 0) {
                 wp = wp.rotateYaw(MathX.PI_F * -0.5f);
-            } 
-            
-            x += wp.x * 4.5;
-           	y += wp.y * 4.5;
-            z += wp.z * 4.5;         
+            }
+
+            x += wp.x * 100;
+           	y += wp.y * 100;
+            z += wp.z * 100;
      }
       
      // lift off from a jump

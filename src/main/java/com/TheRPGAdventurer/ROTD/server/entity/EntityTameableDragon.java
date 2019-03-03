@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.passive.EntityHorse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -273,7 +274,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         moveHelper = new DragonMoveHelper(this);
-        lookHelper = new DragonLookHelper(this);
         aiSit = new EntityAIDragonSit(this);
 
         // init helpers
@@ -880,19 +880,27 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         // }
     }
 
+    public boolean isSolid(BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
+        return !state.getMaterial().isSolid();
+    }
+
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
-        //	for(int width = 1; width <= this.width / 2; width++) {
-        for (float y = 1; y <= 3.0; y++) {
-            pos = new BlockPos(posX, posY - (y * MathX.clamp(this.getScale(), 0.1, 1)), posZ);
+        for (int y = 1; y <= 3.4; y++) {
+            pos = new BlockPos(posX, posY - y * MathX.clamp(this.getScale(), 0.1, 1), posZ);
         }
         return pos;
     }
 
     public boolean onSolidGround() {
-        IBlockState state = world.getBlockState(onGroundAir());
-        return state.getMaterial().isSolid();
+        int[] y1 = {1,2,3};
+        for(int y : y1) {
+            IBlockState state1 = world.getBlockState(new BlockPos(posX, posY - y, posZ));
+            return state1.getMaterial().isSolid();
+        }
 
+        return false;
     }
 
     @Override
@@ -1019,11 +1027,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
 //        if (dragonInv != null) {
- //           setBanner1(dragonInv.getStackInSlot(31));
- //           setBanner2(dragonInv.getStackInSlot(32));
- //           setBanner3(dragonInv.getStackInSlot(33));
-  //          setBanner4(dragonInv.getStackInSlot(34));
- //       }
+        //           setBanner1(dragonInv.getStackInSlot(31));
+        //           setBanner2(dragonInv.getStackInSlot(32));
+        //           setBanner3(dragonInv.getStackInSlot(33));
+        //          setBanner4(dragonInv.getStackInSlot(34));
+        //       }
 
         updateShearing();
         updateDragonEnderCrystal();
@@ -2165,15 +2173,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             if (this.rand.nextInt(10) == 0) {
                 List<EntityEnderCrystal> list = this.world.getEntitiesWithinAABB(
                         EntityEnderCrystal.class, this.getEntityBoundingBox().grow(32.0D));
+                List<EntityTameableDragon> dragons =
+                        this.world.<EntityTameableDragon>getEntitiesWithinAABB(EntityTameableDragon.class, this.getEntityBoundingBox().grow(32.0D));
+
                 EntityEnderCrystal entityendercrystal = null;
+                EntityTameableDragon dragon = null;
                 double d0 = Double.MAX_VALUE;
 
                 for (EntityEnderCrystal entityendercrystal1 : list) {
-                    double d1 = entityendercrystal1.getDistanceSqToEntity(this);
+                    for (EntityTameableDragon dragon1 : dragons) {
+                        double d1 = entityendercrystal1.getDistanceSqToEntity(this);
 
-                    if (d1 < d0) {
-                        d0 = d1;
-                        entityendercrystal = entityendercrystal1;
+                        if (d1 < d0 && dragon.healingEnderCrystal == null) {
+                            d0 = d1;
+                            entityendercrystal = entityendercrystal1;
+                        }
+
                     }
                 }
 

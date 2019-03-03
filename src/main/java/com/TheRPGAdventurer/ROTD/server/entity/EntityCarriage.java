@@ -60,7 +60,7 @@ public class EntityCarriage extends Entity {
     public EntityCarriage(World worldIn) { 
         super(worldIn);
         this.preventEntitySpawning = true;
-        this.setSize(0.7F, 0.4F); 
+        this.setSize(0.7F, 0.7F);
     }
     
     public EntityCarriage(World worldIn, double x, double y, double z)  {

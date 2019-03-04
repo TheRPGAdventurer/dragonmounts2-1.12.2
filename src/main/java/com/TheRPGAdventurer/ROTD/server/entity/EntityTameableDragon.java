@@ -24,9 +24,6 @@ import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.EntityLookHelper;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.passive.EntityHorse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -291,11 +288,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         //	dragonPartHead.onUpdate();
     }
 
-   // @Override
-   // protected float updateDistance(float f1, float f2) {
-   //     dragonBodyHelper.updateRenderAngles();
-   //     return f2;
-   // }
+    @Override
+    protected float updateDistance(float f1, float f2) {
+        dragonBodyHelper.updateRenderAngles();
+        return f2;
+    }
 
     @Override
     protected EntityBodyHelper createBodyHelper() {
@@ -883,10 +880,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean onSolidGround() {
-        int[] y1 = {1,2,3};
-        for(int y : y1) {
-            IBlockState state1 = world.getBlockState(new BlockPos(posX, posY - y, posZ));
-            return state1.getMaterial().isSolid();
+        int[] y1 = {1,2,3,4};
+        for (int y : y1) {
+            for (double z = posZ - width / 2; z < posZ + width / 2; z++) {
+                for (double x = posX - width / 2; x < posX + width / 2; x++) {
+                    IBlockState state1 = world.getBlockState(new BlockPos(x, posY - y * this.getScale(), z));
+                    return state1.getMaterial().isSolid();
+                }
+            }
         }
 
         return false;

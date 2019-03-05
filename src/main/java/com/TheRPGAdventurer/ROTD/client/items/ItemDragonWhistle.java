@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import baubles.api.IBauble;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
@@ -39,11 +40,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import scala.reflect.internal.Trees.Modifiers;
 
-public class ItemDragonWhistle extends Item {
+@Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles", striprefs = true)
+public class ItemDragonWhistle extends Item implements IBauble {
 
 	public ItemDragonWhistle() {
 		this.setUnlocalizedName("dragon_whistle");
@@ -131,5 +134,38 @@ public class ItemDragonWhistle extends Item {
 			return false;
 		}
 	}
+
+	@Override
+	@Optional.Method(modid = "baubles")
+	public boolean canUnequip(ItemStack arg0, EntityLivingBase arg1) {
+		return true;
+	}
+
+	@Override
+	@Optional.Method(modid = "baubles")
+	public baubles.api.BaubleType getBaubleType(ItemStack arg0) {
+		try {
+			if (baubles.api.BaubleType.values().length >= 4) { //length is 4 if trinket
+				return baubles.api.BaubleType.TRINKET;
+			}
+			else {
+				return baubles.api.BaubleType.RING;
+			}
+		}
+		catch (Exception e) {
+			return baubles.api.BaubleType.RING;
+		}
+	}
+
+
+	@Override
+	@Optional.Method(modid = "baubles")
+	public void onEquipped(ItemStack arg0, EntityLivingBase arg1) {}
+
+	@Override
+	@Optional.Method(modid = "baubles")
+	public void onUnequipped(ItemStack arg0, EntityLivingBase arg1) {}
+
+
 	
 }

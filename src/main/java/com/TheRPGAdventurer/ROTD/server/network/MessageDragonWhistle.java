@@ -67,5 +67,4 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 			}			
 	//	} 
 	}
-
 }

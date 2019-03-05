@@ -92,7 +92,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return false;
         }
         
-        if (dragon.getDistanceToEntity(owner) < 10) {
+        if (dragon.getDistanceToEntity(owner) < 10 * dragon.getScale()) {
          return false;
      }
 

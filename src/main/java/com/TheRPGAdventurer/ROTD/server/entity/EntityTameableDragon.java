@@ -228,6 +228,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public EntityTameableDragon(World world) {
         super(world);
+
         // override EntityBodyHelper field, which is private and has no setter
         // required to fixate body while sitting. also slows down rotation while
         // standing.
@@ -1016,13 +1017,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             hasChestVarChanged = false;
         }
 
-//        if (dragonInv != null) {
-        //           setBanner1(dragonInv.getStackInSlot(31));
-        //           setBanner2(dragonInv.getStackInSlot(32));
-        //           setBanner3(dragonInv.getStackInSlot(33));
-        //          setBanner4(dragonInv.getStackInSlot(34));
-        //       }
-
         updateShearing();
         updateDragonEnderCrystal();
         regenerateHealth();
@@ -1325,6 +1319,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         // inherited interaction
         if (super.processInteract(player, hand)) {
             return true;
+        }
+
+        if(this.getScale() < 0.20 && !player.isSneaking()) {
+            this.startRiding(player);
         }
 
         return getInteractHelper().interact(player, item);
@@ -2044,22 +2042,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Random random = new Random();
         if (currentType == EnumDragonBreed.SKELETON) {
             this.setBreedType(EnumDragonBreed.WITHER);
-
-            //	if (world.getWorldInfo().isThundering() && currentType == EnumDragonBreed.SKELETON && isSitting()
-            //			|| isEgg()) {
-            //		world.addWeatherEffect(new EntityLightningBolt(this.world, this.posX, this.posY, this.posZ, true));
-            //	}
             this.playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 2, 1);
             this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 2, 1);
+        }
+
+        if(getBreedType() == EnumDragonBreed.STORM) {
+            return;
         }
 
         if (currentType == EnumDragonBreed.SYLPHID) {
             this.setBreedType(EnumDragonBreed.STORM);
 
-            //	if (world.getWorldInfo().isThundering() && currentType == EnumDragonBreed.SYLPHID && isSitting()
-            //			|| isEgg()) {
-            //		world.addWeatherEffect(new EntityLightningBolt(this.world, this.posX, this.posY, this.posZ, true));
-            //	}
             this.playSound(SoundEvents.BLOCK_PORTAL_TRIGGER, 2, 1);
             this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 2, 1);
         }

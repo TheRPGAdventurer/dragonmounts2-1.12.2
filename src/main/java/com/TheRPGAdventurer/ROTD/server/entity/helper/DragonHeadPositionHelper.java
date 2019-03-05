@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
+import baubles.api.cap.BaubleItem;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -80,6 +81,7 @@ public class DragonHeadPositionHelper {
 
       // update size (scale)
       currentSegment.scaleX = currentSegment.scaleY = MathX.lerp(1.6f, 1, vertMulti);
+
       currentSegment.scaleZ = 0.6f;
 
        neckSegments[i] = currentSegment.getCopy();

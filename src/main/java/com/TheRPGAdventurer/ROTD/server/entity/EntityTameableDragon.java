@@ -1321,7 +1321,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return true;
         }
 
-        if(this.getScale() < 0.20 && !player.isSneaking() && isTamedFor(player)) {
+        if(this.getScale() < 0.20 && !player.isSneaking() && isTamedFor(player) && this.getPassengers().size() <= 3) {
             this.startRiding(player);
         }
 

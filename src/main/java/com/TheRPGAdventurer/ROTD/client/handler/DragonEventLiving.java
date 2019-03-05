@@ -13,11 +13,16 @@ public class DragonEventLiving {
             EntityTameableDragon dragon = (EntityTameableDragon) evt.getEntityBeingMounted();
             if (evt.isDismounting() && evt.getEntityMounting() instanceof EntityPlayer && !evt.getEntityMounting().world.isRemote) {
                 EntityPlayer player = (EntityPlayer) evt.getEntityMounting();
+                if (player.isSneaking()) {
+                    player.removePassengers();
+                }
+
                 if (dragon.isOwner((EntityPlayer) evt.getEntityMounting())) {
                     dragon.setPositionAndRotation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
                     player.fallDistance = -dragon.height;
                 }
             }
+
         }
     }
 }

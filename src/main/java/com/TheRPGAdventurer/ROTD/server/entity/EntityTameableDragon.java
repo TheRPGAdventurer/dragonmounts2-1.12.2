@@ -883,8 +883,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean onSolidGround() {
         int[] y1 = {1,2,3,4};
         for (int y : y1) {
-            for (double z = posZ - width / 2; z < posZ + width / 2; z++) {
-                for (double x = posX - width / 2; x < posX + width / 2; x++) {
+            for (double z = posZ - width / 2 + (2 * getScale()); z < posZ + width / 2 + (2 * getScale()); z++) {
+                for (double x = posX - width / 2 + (2 * getScale()); x < posX + width / 2 + (2 * getScale()); x++) {
                     IBlockState state1 = world.getBlockState(new BlockPos(x, posY - y * this.getScale(), z));
                     return state1.getMaterial().isSolid();
                 }
@@ -1321,7 +1321,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return true;
         }
 
-        if(this.getScale() < 0.20 && !player.isSneaking()) {
+        if(this.getScale() < 0.20 && !player.isSneaking() && isTamedFor(player)) {
             this.startRiding(player);
         }
 

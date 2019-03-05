@@ -82,6 +82,10 @@ public class DragonViewEvent {
         }
     }
 
+    /**
+     * Thanks for the code AlexThe666
+     * @param event
+     */
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {

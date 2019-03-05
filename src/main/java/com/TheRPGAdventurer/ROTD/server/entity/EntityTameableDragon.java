@@ -881,7 +881,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean onSolidGround() {
-        int[] y1 = {1,2,3,4};
+        int[] y1 = {1, 2, 3, 4};
         for (int y : y1) {
             for (double z = posZ - width / 2 + (2 * getScale()); z < posZ + width / 2 + (2 * getScale()); z++) {
                 for (double x = posX - width / 2 + (2 * getScale()); x < posX + width / 2 + (2 * getScale()); x++) {
@@ -1321,8 +1321,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return true;
         }
 
-        if(this.getScale() < 0.20 && !player.isSneaking() && isTamedFor(player) && this.getPassengers().size() <= 3) {
+        if (this.getScale() < 0.20 && !player.isSneaking() && isTamedFor(player) && this.getPassengers().size() <= 3) {
             this.startRiding(player);
+        } else {
+            player.dismountRidingEntity();
         }
 
         return getInteractHelper().interact(player, item);
@@ -1756,6 +1758,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    public void updateRiding(Entity riding) {
+        if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
+            int i = riding.getPassengers().indexOf(this);
+            float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
+            float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
+            double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
+            double extraZ = (double) (radius * MathHelper.cos(angle));
+            double extraY = (riding.isSneaking() ? 1.2D : 1.4D) + (i == 2 ? 0.4D : 0D);
+            this.rotationYaw = ((EntityPlayer) riding).rotationYawHead;
+            this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
+            this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
+            this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
+            if (riding.isSneaking()) { // || riding.isElytraFlying()
+                this.dismountRidingEntity();
+            }
+        }
+    }
+
     /**
      * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
      */
@@ -2046,7 +2066,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.playSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, 2, 1);
         }
 
-        if(getBreedType() == EnumDragonBreed.STORM) {
+        if (getBreedType() == EnumDragonBreed.STORM) {
             return;
         }
 

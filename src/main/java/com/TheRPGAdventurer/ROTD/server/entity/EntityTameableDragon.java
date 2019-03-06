@@ -1786,7 +1786,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() ||this.getScale() > 0.25) { // || riding.isElytraFlying()
+            if (riding.isSneaking() ||this.getScale() > 0.25) {
                 this.dismountRidingEntity();
             }
         }

@@ -1758,6 +1758,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    @Override
+    public void updateRidden() {
+        Entity entity = this.getRidingEntity();
+        if (this.isRiding() && entity.isDead) {
+            this.dismountRidingEntity();
+        } else {
+            this.motionX = 0.0D;
+            this.motionY = 0.0D;
+            this.motionZ = 0.0D;
+            this.onUpdate();
+            if (this.isRiding()) {
+                this.updateRiding(entity);
+            }
+        }
+    }
+
     public void updateRiding(Entity riding) {
         if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
             int i = riding.getPassengers().indexOf(this);
@@ -1770,7 +1786,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking()) { // || riding.isElytraFlying()
+            if (riding.isSneaking() ||this.getScale() > 0.25) { // || riding.isElytraFlying()
                 this.dismountRidingEntity();
             }
         }

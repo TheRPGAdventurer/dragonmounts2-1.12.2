@@ -1,0 +1,6 @@
+{
+    "parent": "dragonmounts:item/shield/shield",
+	"textures": {
+	    "base": "dragonmounts:entities/dragon_shield/enchant"
+	}
+}

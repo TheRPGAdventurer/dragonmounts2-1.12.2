@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.passive.EntityParrot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -1321,11 +1322,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return true;
         }
 
-        if (this.getScale() < 0.20 && !player.isSneaking() && isTamedFor(player) && this.getPassengers().size() <= 3) {
+        if (!player.isSneaking() && isTamedFor(player) && this.getPassengers().size() <= 3) {
             this.startRiding(player);
-        } else {
-            player.dismountRidingEntity();
         }
+
 
         return getInteractHelper().interact(player, item);
     }
@@ -1777,7 +1777,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void updateRiding(Entity riding) {
         if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
             int i = riding.getPassengers().indexOf(this);
-            float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
+            float radius = (i == 2 ? 0F : 0.3F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
             float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
             double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ = (double) (radius * MathHelper.cos(angle));
@@ -1786,7 +1786,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() ||this.getScale() > 0.25) {
+            if (riding.isSneaking() || this.getScale() >= 0.25) {
                 this.dismountRidingEntity();
             }
         }

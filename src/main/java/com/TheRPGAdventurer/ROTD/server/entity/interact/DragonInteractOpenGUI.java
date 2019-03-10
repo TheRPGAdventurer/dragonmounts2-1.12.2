@@ -1,11 +1,9 @@
 package com.TheRPGAdventurer.ROTD.server.entity.interact;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -18,9 +16,9 @@ public class DragonInteractOpenGUI extends DragonInteract {
 	
 	@Override
 	public boolean interact(EntityPlayer player, ItemStack item) {
-	//	if(!isAllowed(player)) {
-	//		return false;
-	//	}
+		if(!isAllowed(player)) {
+			return false;
+		}
 		
 		if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed()) {
 			dragon.openGUI(player, GuiHandler.GUI_DRAGON);

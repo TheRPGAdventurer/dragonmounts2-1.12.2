@@ -9,15 +9,13 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
-import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
+
+import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 
 /**
  *
@@ -77,8 +75,8 @@ public class DragonMoveHelper extends EntityMoveHelper {
             dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
             entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
         }
+
         // apply movement
         dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
-       // dragon.setPosition(dragon.posX + dragon.motionX,dragon.posY + dragon.motionY,dragon.posZ + dragon.motionZ); tried to reduce lag
     }
 }

@@ -9,15 +9,10 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.ai;
 
-import java.util.BitSet;
-
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonControl;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -99,9 +94,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 dragon.liftOff();
             }
         }
-
-        dragon.getMoveHelper().setMoveTo(x,y,z,1.2);
-     //   DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(dragon.getEntityId(),x,y,z));
+        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
 
     private void updateIntendedRideRotation(EntityPlayer rider) {
@@ -111,5 +104,4 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.rotationPitch = rider.rotationPitch;
         }
     }
-
 }

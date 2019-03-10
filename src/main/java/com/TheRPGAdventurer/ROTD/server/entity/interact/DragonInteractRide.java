@@ -13,10 +13,8 @@ import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
 
 /**
  *
@@ -30,9 +28,9 @@ public class DragonInteractRide extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-    //	if(!isAllowed(player)) {
-   	//		return false;
-   	//	}
+    	if(!isAllowed(player)) {
+   			return false;
+   		}
         if (dragon.isServer() && dragon.isTamed() && dragon.isSaddled() && !ItemUtils.hasEquippedUsable(player) && 
         	!ItemUtils.hasEquipped(player, ModTools.diamond_shears) && !player.isSneaking() && 
         	!ItemUtils.hasEquipped(player, ModItems.dragon_wand) && (!ItemUtils.hasEquipped(player, ModItems.dragon_whistle) && !player.isSneaking())) { // isInAppropriateAgeForInteraction()

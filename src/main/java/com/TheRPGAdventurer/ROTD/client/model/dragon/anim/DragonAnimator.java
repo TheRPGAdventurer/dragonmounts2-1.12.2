@@ -62,7 +62,6 @@ public class DragonAnimator {
     private float breath;
     private float speed;
     private float roar;
-    private float swim;
 
     // timing interp vars
     private TickFloat animTimer = new TickFloat();
@@ -74,7 +73,6 @@ public class DragonAnimator {
     private TickFloat breathTimer = new TickFloat().setLimit(0, 1);
     private TickFloat speedTimer = new TickFloat(1).setLimit(0, 1);
     private TickFloat roarTimer = new TickFloat().setLimit(0, 1);
-    private TickFloat swimTimer = new TickFloat().setLimit(0, 1);
 
     // trails
     private boolean initTrails = true;
@@ -120,12 +118,12 @@ public class DragonAnimator {
     // 1st dim - front, hind
     // 2nd dim - thigh, crus, foot, toe
     private float[][] xGroundStand = {
-            {0.8f, -1.5f, 1.3f, 0},
-            {-0.3f, 1.5f, -0.2f, 0},
+        {0.8f, -1.5f, 1.3f, 0},
+        {-0.3f, 1.5f, -0.2f, 0},
     };
     private float[][] xGroundSit = {
-            {0.3f, -1.8f, 1.8f, 0},
-            {-0.8f, 1.8f, -0.9f, 0},
+        {0.3f, -1.8f, 1.8f, 0},
+        {-0.8f, 1.8f, -0.9f, 0},
     };
 
     // X rotation angles for walking
@@ -133,14 +131,14 @@ public class DragonAnimator {
     // 2nd dim - front, hind
     // 3rd dim - thigh, crus, foot, toe
     private float[][][] xGroundWalk = {{
-            {0.4f, -1.4f, 1.3f, 0},    // move down and forward
-            {0.1f, 1.2f, -0.5f, 0}     // move back
+        {0.4f, -1.4f, 1.3f, 0},    // move down and forward
+        {0.1f, 1.2f, -0.5f, 0}     // move back
     }, {
-            {1.2f, -1.6f, 1.3f, 0},    // move back
-            {-0.3f, 2.1f, -0.9f, 0.6f} // move up and forward
+        {1.2f, -1.6f, 1.3f, 0},    // move back
+        {-0.3f, 2.1f, -0.9f, 0.6f} // move up and forward
     }, {
-            {0.9f, -2.1f, 1.8f, 0.6f}, // move up and forward
-            {-0.7f, 1.4f, -0.2f, 0}    // move down and forward
+        {0.9f, -2.1f, 1.8f, 0.6f}, // move up and forward
+        {-0.7f, 1.4f, -0.2f, 0}    // move down and forward
     }};
 
     // final X rotation angles for walking
@@ -216,8 +214,7 @@ public class DragonAnimator {
         boolean newWingsDown = cycleOfs > 1;
         if (newWingsDown && !wingsDown && flutter != 0) {
             dragon.getSoundManager().onWingsDown(speed);
-        }
-        wingsDown = newWingsDown;
+        }        wingsDown = newWingsDown;
 
         cycleOfs = (cycleOfs * cycleOfs + cycleOfs * 2) * 0.05f;
 
@@ -286,7 +283,7 @@ public class DragonAnimator {
 
         // update Hover transition
         boolean HoverFlag = !onGround && (dragon.isCollided
-                || dragon.motionY > -0.1 || speedEnt < speedMax);
+        		|| dragon.motionY > -0.1 || speedEnt < speedMax);
         isHovering = HoverFlag;
         FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
 
@@ -300,6 +297,7 @@ public class DragonAnimator {
         sitVal += dragon.isSitting() ? 0.1f : -0.1f;
         sitVal *= 0.95f;
         sitTimer.set(sitVal);
+
 
 
         // update bite opening transition and breath transitions
@@ -395,7 +393,7 @@ public class DragonAnimator {
         float a3 = animBase * aSpeed * 0.75f;
 
         if (ground < 1) {
-            // fluttering
+         // fluttering
             wingArmFlutter[0] = 0.125f - MathX.cos(animBase) * 0.2f;
             wingArmFlutter[1] = 0.25f;
             wingArmFlutter[2] = (MathX.sin(animBase) + 0.125f) * 0.8f;
@@ -594,12 +592,12 @@ public class DragonAnimator {
     }
 
     public float getBodyPitch(float pt) {
-        float pitchMovingMax = 90;
-        float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
-        float pitchHoverMax = 60;
-        boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
-                || dragon.getPassengers().size() > 1 || dragon.isUnHovered();
-        return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
+     float pitchMovingMax = 90;
+     float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
+     float pitchHoverMax = 60;
+     boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
+     		|| dragon.getPassengers().size() > 1 || dragon.isUnHovered();
+     return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }
 
     public float getModelOffsetX() {
@@ -634,11 +632,11 @@ public class DragonAnimator {
         return jawRotateAngleX;
     }
 
-    public float getMoveTime() {
-        return moveTime;
-    }
+	public float getMoveTime() {
+		return moveTime;
+	}
 
-    public float getSpeed() {
+	public float getSpeed() {
         return speed;
     }
 
@@ -695,7 +693,7 @@ public class DragonAnimator {
     }
 
     public float getLookYaw() {
-        return lookYaw;
+    	return lookYaw;
     }
 
 

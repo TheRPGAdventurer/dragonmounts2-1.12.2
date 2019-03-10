@@ -50,7 +50,7 @@ public class MessageDragonLock extends AbstractMessage<MessageDragonLock> {
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
             if (arg1.lock) {
-                dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+                dragon.setToAllowedOtherPlayers(true);
             }
         }
     }

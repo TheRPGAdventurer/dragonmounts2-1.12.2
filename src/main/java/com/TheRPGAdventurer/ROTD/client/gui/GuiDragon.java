@@ -1,16 +1,10 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import java.io.IOException;
-
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonLock;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonGui;
-
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonLock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -20,9 +14,12 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+
+import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {
@@ -78,24 +75,27 @@ public class GuiDragon extends GuiContainer {
 
     @Override
     public void initGui() {
-     //   this.buttonList.clear();
-     //   Keyboard.enableRepeatEvents(true);
+        this.buttonList.clear();
+        Keyboard.enableRepeatEvents(true);
 
-     //   buttonList.add(this.lock = new LockButton(0, 260, 68, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon));
-      //  buttonList.add(this.sit = this.addButton(new GuiButton(1, 285, 75, 2, 2, "SIT")));
+        buttonList.add(this.lock = new LockButton(0, 260, 68, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon));
+        buttonList.add(this.sit = this.addButton(new GuiButton(1, 285, 75, 2, 2, "SIT")));
         super.initGui();
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-      //  DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId(), button == this.sit));
-      //  DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId(), button == this.lock));
+        if (button == this.sit) {
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId(), !dragon.isSitting()));
+        } else if (button == this.lock) {
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId(), !dragon.allowedOtherPlayers()));
+        }
 
     }
 
-  //  public void updateScreen() {
-  //      lock.enabled = (player == dragon.getOwner());
- //   }
+    public void updateScreen() {
+        lock.enabled = (player == dragon.getOwner());
+    }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {

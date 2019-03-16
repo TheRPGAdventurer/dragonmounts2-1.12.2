@@ -82,10 +82,10 @@ public class DragonBreedWither extends DragonBreed {
 		}
 	}
 	
-	@Override
-	public boolean isInfertile() {
-		return true;
-	}
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public EnumParticleTypes getSneezeParticle() {

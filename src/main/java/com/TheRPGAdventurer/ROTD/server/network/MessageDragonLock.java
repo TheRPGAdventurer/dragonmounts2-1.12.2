@@ -13,28 +13,28 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageDragonLock extends AbstractMessage<MessageDragonLock> {
 
     private int dragonId;
-    private boolean lock;
+//    private boolean lock;
 
-    public MessageDragonLock(int dragonId) {
+    public MessageDragonLock() {
 
     }
 
-    public MessageDragonLock(int dragonId, boolean lock) {
+    public MessageDragonLock(int dragonId) {
         this.dragonId = dragonId;
-        this.lock = lock;
+//        this.lock = lock;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         dragonId = buf.readInt();
-        lock = buf.readBoolean();
+//        lock = buf.readBoolean();
 
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(dragonId);
-        buf.writeBoolean(lock);
+//        buf.writeBoolean(lock);
 
     }
 
@@ -49,9 +49,9 @@ public class MessageDragonLock extends AbstractMessage<MessageDragonLock> {
         Entity entity = player.world.getEntityByID(arg1.dragonId);
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
-            if (arg1.lock) {
-                dragon.setToAllowedOtherPlayers(true);
-            }
+//            if (arg1.lock) {
+                dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+//            }
         }
     }
 }

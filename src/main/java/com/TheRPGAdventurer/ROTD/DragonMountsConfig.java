@@ -9,11 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD;
 
-import java.io.File;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -21,6 +17,9 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.io.File;
+import java.util.List;
 
 public class DragonMountsConfig {
 
@@ -50,20 +49,20 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
 
 
-	public static double BASE_ARMOR  = 7.0F;
-	public static double BASE_DAMAGE  = 5.0F;
+	public static double BASE_ARMOR  = 5.0F;
+	public static double BASE_DAMAGE  = 3.0F;
 	public static int FACTOR  = 75;
 
 	// chances
 	public static int AllNestRarity  = 110;
 	public static int AllNestRarity1  = 180;
 	public static int ForestNestRarity1  = 555;
-	public static int SunlightNestRarity  = 20;
+	public static int SunlightNestRarity  = 40;
 	public static int OceanNestRarity  = 1800;
 	public static int EnchantNestRarity  = 100;
 	public static int JungleNestRarity  = 555;
 
-	public static int netherNestRarity = 300;
+	public static int netherNestRarity = 500;
 	public static int netherNestRarerityInX = 32;
 	public static int netherNestRarerityInZ = 32;
 
@@ -76,6 +75,8 @@ public class DragonMountsConfig {
 
 	public static int[] dragonBlacklistedDimensions = new int[]{1, -1};
 	public static int[] dragonWhitelistedDimensions = new int[]{0};
+
+	public static int minimumDistance = 16;
 
 	public static boolean useDimensionBlackList = true;
 

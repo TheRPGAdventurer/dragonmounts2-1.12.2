@@ -1,35 +1,23 @@
 package com.TheRPGAdventurer.ROTD.server.world;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityLockableLoot;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.structure.MapGenEndCity;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraft.world.gen.structure.template.TemplateManager;
@@ -37,6 +25,10 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class DragonMountsWorldGenerator implements IWorldGenerator {

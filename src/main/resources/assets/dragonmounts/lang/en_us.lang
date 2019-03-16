@@ -54,6 +54,8 @@ item.structure_spawner.name=Structure Spawner (Debug)
 
 tile.pileofsticks.name=Nest Block
 item.dragonEgg.name=%s Egg
+item.dragon_gender.name=Dragon Gender Switcher
+item.gui.dragon_gender=Changes the dragon's gender
 
 item.carriage_oak.name=Oak Carriage
 item.carriage_birch.name=Birch Carriage
@@ -318,6 +320,22 @@ item.zombie_dragon_essence.name=Dragon Essence
 item.terra_dragon_essence.name=Dragon Essence
 item.moonlight_dragon_essence.name=Dragon Essence
 
+item.end_dragon_amulet.name=Dragon Amulet
+item.aether_dragon_amulet.name=Dragon Amulet
+item.ice_dragon_amulet.name=Dragon Amulet
+item.water_dragon_amulet.name=Dragon Amulet
+item.fire_dragon_amulet.name=Dragon Amulet
+item.forest_dragon_amulet.name=Dragon Amulet
+item.skeleton_dragon_amulet.name=Dragon Amulet
+item.wither_dragon_amulet.name=Dragon Amulet
+item.nether_dragon_amulet.name=Dragon Amulet
+item.enchant_dragon_amulet.name=Dragon Amulet
+item.sunlight_dragon_amulet.name=Dragon Amulet
+item.storm_dragon_amulet.name=Dragon Amulet
+item.zombie_dragon_amulet.name=Dragon Amulet
+item.terra_dragon_amulet.name=Dragon Amulet
+item.moonlight_dragon_amulet.name=Dragon Amulet
+
 dragon.forest=Forest
 dragon.aether=Aether
 dragon.ice=Ice
@@ -344,8 +362,6 @@ gui.followFlying=Follow Flying
 gui.goToPlayer=Come To Player
 gui.homePos=Wander
 
+dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
+
 item.dragon_whistle.name=Dragon Whistle [WIP]
-
-
-
-

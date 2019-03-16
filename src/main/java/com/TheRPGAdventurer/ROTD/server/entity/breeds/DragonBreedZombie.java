@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -77,10 +77,10 @@ public class DragonBreedZombie extends DragonBreed {
 		return ModSounds.ENTITY_DRAGON_DEATH;
 	}
 	
-	@Override
-	public boolean isInfertile() {
-		return true;
-	}
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public Item getShearDropitem(EntityTameableDragon dragon) {
@@ -124,11 +124,11 @@ public class DragonBreedZombie extends DragonBreed {
 	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
-	
-	@Override
-	public boolean canChangeBreed() {
-		return false;
-	}
+
+//	@Override
+//	public boolean canChangeBreed() {
+//		return false;
+//	}
 	
 	@Override
 	public double getHealth() {

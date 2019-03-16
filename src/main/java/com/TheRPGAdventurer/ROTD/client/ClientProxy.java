@@ -9,15 +9,12 @@
  */
 package com.TheRPGAdventurer.ROTD.client;
 
-import java.util.UUID;
-
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
-import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonWhistle;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderEnderBreathFX;
@@ -40,10 +37,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -52,30 +46,29 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * 2nd @author TheRPGAdventurer
  */
 public class ClientProxy extends ServerProxy {
-	
-	private int thirdPersonViewDragon = 0;
+
+    private int thirdPersonViewDragon = 0;
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {
-        super.PreInitialization(event);        
+        super.PreInitialization(event);
         // register dragon entity renderer
         DragonMountsConfig.clientPreInit();
-        MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());      
+        MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());
         RenderingRegistry.registerEntityRenderingHandler(EntityTameableDragon.class, DragonRenderer::new);
-        
+
         RenderingRegistry.registerEntityRenderingHandler(HydroBreathFX.class, RenderHydroBreathFX::new);
-	      	RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(EnderBreathFX.class, RenderEnderBreathFX::new);
-	     	 RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
-	      	RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
-	      	RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
-	      	RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
-	      	RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);    
+        RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
     }
 
     @Override
@@ -86,25 +79,29 @@ public class ClientProxy extends ServerProxy {
     @Override
     public void PostInitialization(FMLPostInitializationEvent event) {
         super.PostInitialization(event);
-        
-        if (DragonMountsConfig.isDebug()) { MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());}            
+
+        if (DragonMountsConfig.isDebug()) {
+            MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+        }
         RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
         MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new ItemDragonWhistle());
-        MinecraftForge.EVENT_BUS.register(new DragonViewEvent()); 
+        MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
 
     }
-    
-    @SideOnly(Side.CLIENT)
-	@Override
-	public void render() {ModKeys.init();} 
-    
- public int getDragon3rdPersonView() {
-   return thirdPersonViewDragon;
- }
 
- public void setDragon3rdPersonView(int view) {
-  	thirdPersonViewDragon = view;
-	}
-  
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void render() {
+        ModKeys.init();
+    }
+
+    public int getDragon3rdPersonView() {
+        return thirdPersonViewDragon;
+    }
+
+    public void setDragon3rdPersonView(int view) {
+        thirdPersonViewDragon = view;
+    }
+
 }

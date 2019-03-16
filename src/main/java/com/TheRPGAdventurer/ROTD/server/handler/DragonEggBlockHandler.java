@@ -11,7 +11,7 @@
 package com.TheRPGAdventurer.ROTD.server.handler;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;

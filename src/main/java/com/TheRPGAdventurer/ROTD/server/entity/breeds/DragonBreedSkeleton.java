@@ -92,10 +92,10 @@ public class DragonBreedSkeleton extends DragonBreed {
 		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
 	}
     
-	@Override
-	public boolean isInfertile() {
-		return true;
-	}
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public EnumParticleTypes getSneezeParticle() {

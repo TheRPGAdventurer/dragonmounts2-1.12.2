@@ -1,17 +1,16 @@
 package com.TheRPGAdventurer.ROTD.client.handler;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModBlocks;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -19,10 +18,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 @Mod.EventBusSubscriber
 public class RegistryEventHandler {

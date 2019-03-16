@@ -45,6 +45,7 @@ public class GuiDragon extends GuiContainer {
         this.dragon = dragon;
         this.allowUserInput = false;
         this.ySize = 214;
+        this.xSize = 176;
 
     }
 
@@ -85,11 +86,12 @@ public class GuiDragon extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        if (button == this.sit) {
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId(), !dragon.isSitting()));
-        } else if (button == this.lock) {
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId(), !dragon.allowedOtherPlayers()));
-        }
+        boolean sit = button == this.sit;
+        if(sit)
+        DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
+        boolean lock = (button == this.lock);
+        if(lock)
+        DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId()));
 
     }
 

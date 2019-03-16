@@ -1,34 +1,30 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.HashMap;
-import java.util.Random;
-
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
-
+import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+
+import java.util.HashMap;
+import java.util.Random;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by TGG on 5/08/2015.
@@ -41,7 +37,7 @@ import net.minecraft.world.World;
  *
  * Currently does fire only.  Intended to be subclassed later on for different weapon types.
  */
-public class BreathWeaponNether extends BreathWeapon {
+public class BreathWeaponNether extends BreathWeapon implements PrivateAccessor {
 	
   public BreathWeaponNether(EntityTameableDragon dragon) {
     super(dragon);
@@ -262,8 +258,10 @@ public class BreathWeaponNether extends BreathWeapon {
     final float DAMAGE_PER_HIT_DENSITY = 4.0F * hitDensity;
     
     triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
-    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-    
+    entity.attackEntityFrom(DragonMounts.dragons_fire, DAMAGE_PER_HIT_DENSITY);
+
+    this.xp(entity);
+
     return currentHitDensity;
   }
 

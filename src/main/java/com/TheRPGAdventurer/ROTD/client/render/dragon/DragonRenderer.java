@@ -21,7 +21,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;

@@ -1,14 +1,11 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
-
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +17,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+
+import java.util.Random;
 
 public class DragonBreedStorm extends DragonBreed {
 
@@ -63,10 +62,10 @@ public class DragonBreedStorm extends DragonBreed {
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWaterDragon(world, power, tickCounter);
     }
 	
-	@Override
-	public boolean isInfertile() {
-		return true;
-	}
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {

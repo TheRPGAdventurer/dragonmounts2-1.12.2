@@ -53,7 +53,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
         // move towards target if it's far away enough
         if (dist > dragon.width) {
             // get euclidean distance to target;
-            double boost = dragon.boosting() ? 3 : 1;
+            double boost = dragon.boosting() ? 5 : 1;
             double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost;
 
             // update velocity to approach target

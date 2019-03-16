@@ -9,32 +9,14 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
-import static com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage.ADULT;
-import static com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage.EGG;
-import static com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage.HATCHLING;
-import static com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage.JUVENILE;
-import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
-import static net.minecraft.entity.SharedMonsterAttributes.MAX_HEALTH;
-
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.server.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -46,6 +28,16 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage.*;
+import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
+import static net.minecraft.entity.SharedMonsterAttributes.MAX_HEALTH;
 
 /**
  *
@@ -170,7 +162,7 @@ public class DragonLifeStageHelper extends DragonHelper {
      * @return size
      */
     public float getScale() {
-        return EnumDragonLifeStage.scaleFromTickCount(getTicksSinceCreation());
+        return EnumDragonLifeStage.scaleFromTickCount(dragon.isGrowthPaused() ? 0 : getTicksSinceCreation());
     }
     
     /**

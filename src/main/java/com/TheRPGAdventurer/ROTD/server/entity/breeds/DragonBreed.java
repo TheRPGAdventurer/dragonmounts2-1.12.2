@@ -1,18 +1,11 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -27,6 +20,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
+import javax.annotation.Nullable;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Base class for dragon breeds.
@@ -121,10 +119,18 @@ public abstract class DragonBreed {
    
     public Item[] getFoodItems() {
         return new Item[] { Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH, 
-        		Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.CARROT, Items.COOKED_FISH,
+        		Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.COOKED_FISH,
         		Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP,
         		Items.COOKED_RABBIT, Items.FISH, Items.COOKED_FISH, Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS,
         		Items.MELON_SEEDS, Items.MUTTON, Items.RABBIT_STEW};
+    }
+
+    public Item[] getShrinkingFood() {
+        return new Item[] {Items.POISONOUS_POTATO};
+    }
+
+    public Item[] getGrowingFood() {
+        return new Item[] {Items.CARROT};
     }
     
     public Item getBreedingItem() {

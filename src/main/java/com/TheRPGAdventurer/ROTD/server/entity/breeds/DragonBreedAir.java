@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 import java.util.UUID;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
 import net.minecraft.entity.ai.attributes.AttributeModifier;

@@ -11,12 +11,7 @@ package com.TheRPGAdventurer.ROTD.server.entity;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModArmour;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.client.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
@@ -27,10 +22,16 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractHelper;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-import com.TheRPGAdventurer.ROTD.util.PrivateFields;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import com.google.common.base.Optional;
@@ -63,12 +64,15 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
@@ -102,8 +106,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             .setDescription("Movement Speed Air").setShouldWatch(true);
 
     // base attributes
-    public static final double BASE_GROUND_SPEED = 0.4;
-    public static final double BASE_AIR_SPEED = 0.9;
+    public static final double BASE_GROUND_SPEED = 0.5;
+    public static final double BASE_AIR_SPEED = 0.8;
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.BASE_ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
@@ -220,14 +224,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // standing.
         try {
             ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
-                    PrivateFields.ENTITYLIVING_BODYHELPER);
+                    "bodyHelper", "field_70762_j");
         } catch (Exception ex) {
             L.warn("Can't override EntityBodyHelper", ex);
         }
 
         // override EntityLookHelper field, which is private and has no setter
         try {
-            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this), PrivateFields.ENTITYLIVING_LOOKHELPER);
+            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this),
+                    "lookHelper", "field_70749_g");
         } catch (Exception ex) {
             L.warn("Can't override EntityLookHelper", ex);
         }
@@ -606,7 +611,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     /**
-     * 1 equals iron 2 equals gold 3 equals diamond
+     * 1 equals iron 2 equals gold 3 equals diamond 4 equals emerald
      *
      * @return 0 no armor
      */
@@ -864,8 +869,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
         //	for(int width = 1; width <= this.width / 2; width++) {
-        for (float y = 1; y <= 3.0; y++) {
-            pos = new BlockPos(posX, posY - (y * MathX.clamp(this.getScale(), 0.1, 1)), posZ);
+        double[] y1 = {0, 1, 2, 3};
+        double[] x1 = {-3, -2, -1, 0, 1, 2, 3};
+        double[] z1 = {-3, -2, -1, 0, 1, 2, 3};
+
+        for (double y : y1) {
+            for (double x : x1) {
+                for (double z : z1) {
+                    pos = new BlockPos(posX - x, posY - (y * MathX.clamp(this.getScale(), 0.1, 1)), posZ - z);
+                }
+            }
         }
         return pos;
     }
@@ -1074,9 +1087,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public ITextComponent getDisplayName() {
         // return custom name if set
-        if (hasCustomName()) {
-            return new TextComponentTranslation(getCustomNameTag());
+        Team team = this.getTeam();
+        String s = this.getCustomNameTag();
+
+        if (s != null && !s.isEmpty()) {
+            TextComponentString textcomponentstring = new TextComponentString(ScorePlayerTeam.formatPlayerName(team, s));
+            textcomponentstring.getStyle().setHoverEvent(this.getHoverEvent());
+            textcomponentstring.getStyle().setInsertion(this.getCachedUniqueIdString());
+            return textcomponentstring;
         }
+
 
         // return default breed name otherwise
         String entName = EntityList.getEntityString(this);
@@ -1488,6 +1508,44 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
     }
 
+    public ItemDragonAmulet dragonAmulet() {
+        switch (getBreedType()) {
+            case AETHER:
+                return ModItems.AmuletAether;
+            case ENCHANT:
+                return ModItems.AmuletEnchant;
+            case END:
+                return ModItems.AmuletEnd;
+            case FIRE:
+                return ModItems.AmuletFire;
+            case FOREST:
+                return ModItems.AmuletForest;
+            case ICE:
+                return ModItems.AmuletIce;
+            case NETHER:
+                return ModItems.AmuletNether;
+            case SKELETON:
+                return ModItems.AmuletSkeleton;
+            case STORM:
+                return ModItems.AmuletStorm;
+            case SUNLIGHT:
+                return ModItems.AmuletSunlight;
+            case SYLPHID:
+                return ModItems.AmuletWater;
+            case TERRA:
+                return ModItems.AmuletTerra;
+            case WITHER:
+                return ModItems.AmuletWither;
+            case ZOMBIE:
+                return ModItems.AmuletZombie;
+            case MOONLIGHT:
+                return ModItems.AmuletMoonlight;
+            default:
+                return ModItems.AmuletEnd;
+
+        }
+    }
+
     /**
      * Called when an entity attacks
      */
@@ -1538,6 +1596,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (getArmor() == 3) {
             return (int) 1.1;
         }
+
+        if(getArmor() == 4) {
+            return (int) 0.7;
+        }
         return 0;
     }
 
@@ -1548,6 +1610,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean canRenderOnFire() {
         return super.canRenderOnFire() && !getBreed().isImmuneToDamage(DamageSource.IN_FIRE);
     }
+
+    public boolean isGrowthPaused;
+
+    public boolean isGrowthPaused() {
+        return isGrowthPaused;
+    }
+
+    public void setGrowthPaused(boolean paused) {
+        isGrowthPaused = paused;
+    }
+
 
     /**
      * Returns true if the mob is currently able to mate with the specified mob.
@@ -1680,7 +1753,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 //                        this.liftOff();
 //                    }
 //                }
-
+//
 //        if(this.isFlying()) {
 //            this.fallDistance = 0;
 //        }
@@ -1791,7 +1864,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking()) {
+            if (riding.isSneaking() && !this.boosting()) {
                 this.dismountRidingEntity();
             }
 
@@ -2105,7 +2178,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public List<ItemStack> onSheared(ItemStack item, net.minecraft.world.IBlockAccess world, BlockPos pos,
                                      int fortune) {
         this.setSheared(true);
-        int i = 1 + this.rand.nextInt(2);
+        int i = 2 + this.rand.nextInt(3);
 
         List<ItemStack> ret = new ArrayList<ItemStack>();
         for (int j = 0; j < i; ++j)
@@ -2277,6 +2350,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
         if (!stack.isEmpty() && stack.getItem() != null && stack.getItem() == ModArmour.dragonarmor_diamond) {
             return 3;
+        }
+
+        if (!stack.isEmpty() && stack.getItem() != null && stack.getItem() == ModArmour.dragonarmor_emerald) {
+            return 4;
         }
 
         return 0;

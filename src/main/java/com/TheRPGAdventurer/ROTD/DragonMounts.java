@@ -15,19 +15,15 @@ import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.network.*;
 import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
-
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -46,7 +42,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class DragonMounts {
 
     @NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class,
-            MessageDragonWhistle.class})
+            MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME = "Dragon Mounts";
@@ -76,6 +72,8 @@ public class DragonMounts {
         return metadata;
     }
 
+    public static DamageSource dragons_fire;
+
     @EventHandler
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsLootTables.registerLootTables();
@@ -91,6 +89,7 @@ public class DragonMounts {
         proxy.render();
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        initDamageSources();
 
     }
 
@@ -107,5 +106,19 @@ public class DragonMounts {
     @EventHandler
     public void ServerStopped(FMLServerStoppedEvent event) {
         proxy.ServerStopped(event);
+    }
+
+    private void initDamageSources() {
+        dragons_fire = new DamageSource("dragons_fire") {
+
+//            @Override
+//            public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
+//                String s = "death.dragonsfire";
+//                String s1 = s + ".player_" + new Random().nextInt(2);
+//                return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ")
+//                        .appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
+//
+//            }
+        };
     }
 }

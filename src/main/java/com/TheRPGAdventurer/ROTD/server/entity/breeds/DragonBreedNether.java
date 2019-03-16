@@ -2,11 +2,12 @@ package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -21,6 +22,7 @@ public class DragonBreedNether extends DragonBreed {
 
     DragonBreedNether() {
         super("nether", 0xe5b81b);
+        setHabitatBiome(Biomes.HELL);
         
         setImmunity(DamageSource.MAGIC);
         setImmunity(DamageSource.HOT_FLOOR);
@@ -53,10 +55,10 @@ public class DragonBreedNether extends DragonBreed {
         }
     }
     
-	@Override
-	public boolean canChangeBreed() {
-		return false;
-	}
+//	@Override
+//	public boolean canChangeBreed() {
+//		return false;
+//	}
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
@@ -89,10 +91,10 @@ public class DragonBreedNether extends DragonBreed {
 		}
 	}
 	
-	@Override
-	public boolean isInfertile() {
-		return true;
-	}
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public Item getShearDropitem(EntityTameableDragon dragon) {		

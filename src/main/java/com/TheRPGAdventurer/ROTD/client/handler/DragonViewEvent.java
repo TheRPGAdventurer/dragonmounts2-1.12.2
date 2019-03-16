@@ -100,7 +100,7 @@ public class DragonViewEvent {
             EntityTameableDragon dragon = (EntityTameableDragon) event.getEntityBeingMounted();
             if (event.isDismounting() && event.getEntityMounting() instanceof EntityPlayer && !event.getEntityMounting().world.isRemote) {
                 EntityPlayer player = (EntityPlayer) event.getEntityMounting();
-                if (dragon.getScale() > 1.5)
+                if (dragon.getScale() > 1.3)
                     player.setPosition(dragon.posX, dragon.posY - (0.3 - dragon.getScale()), dragon.posZ);
             }
         }

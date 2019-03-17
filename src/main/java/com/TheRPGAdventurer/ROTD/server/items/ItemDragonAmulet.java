@@ -23,6 +23,7 @@ public class ItemDragonAmulet extends Item {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.setUnlocalizedName(name);
         this.setMaxDamage(1);
+        this.setCreativeTab(DragonMounts.TAB);
     }
 
     @Override

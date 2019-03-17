@@ -733,6 +733,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         float f1 = (float) (this.posY - vec3d.y);
         float f2 = (float) (this.posZ - vec3d.z);
         return f * f + f1 * f1 + f2 * f2;
+
     }
 
     /**
@@ -1018,6 +1019,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         //           setBanner3(dragonInv.getStackInSlot(33));
         //          setBanner4(dragonInv.getStackInSlot(34));
         //       }
+
+        if(this.boosting()) {
+            collideDragon();
+        }
 
         updateShearing();
         updateDragonEnderCrystal();
@@ -2646,6 +2651,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     protected double getFollowRange() {
         return this.getAttributeMap().getAttributeInstance(FOLLOW_RANGE).getAttributeValue();
+    }
+
+    public void collideDragon() {
+
+        this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()), 4);
+        this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()), 4);
+        this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
+        this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
     }
 
     /**

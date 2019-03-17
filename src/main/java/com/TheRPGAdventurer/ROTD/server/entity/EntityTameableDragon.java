@@ -345,10 +345,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
         nbt.setBoolean("unhovered", this.isUnHovered());
-        //	nbt.setBoolean(NBT_BANNERED1, this.isBannered1());
-        //	nbt.setBoolean(NBT_BANNERED2, this.isBannered2());
-        //	nbt.setBoolean(NBT_BANNERED3, this.isBannered3());
-        //	nbt.setBoolean(NBT_BANNERED4, this.isBannered4());
         nbt.setBoolean("boosting", this.boosting());
         nbt.setBoolean(NBT_ELDER, this.canBeElder());
         nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
@@ -379,10 +375,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setBoosting(nbt.getBoolean("boosting"));
 //		this.setSleeping(nbt.getBoolean("sleeping"));
-        //	this.setBannered1(nbt.getBoolean(NBT_BANNERED1));
-        //	this.setBannered2(nbt.getBoolean(NBT_BANNERED2));
-        //	this.setBannered3(nbt.getBoolean(NBT_BANNERED3));
-        //	this.setBannered4(nbt.getBoolean(NBT_BANNERED4));
         this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
         this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
         this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));

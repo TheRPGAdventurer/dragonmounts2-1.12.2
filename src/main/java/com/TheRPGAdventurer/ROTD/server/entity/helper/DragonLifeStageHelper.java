@@ -25,6 +25,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -162,7 +163,7 @@ public class DragonLifeStageHelper extends DragonHelper {
      * @return size
      */
     public float getScale() {
-        return EnumDragonLifeStage.scaleFromTickCount(dragon.isGrowthPaused() ? 0 : getTicksSinceCreation());
+        return EnumDragonLifeStage.scaleFromTickCount(getTicksSinceCreation());
     }
     
     /**
@@ -250,10 +251,11 @@ public class DragonLifeStageHelper extends DragonHelper {
     public void onLivingUpdate() {
         // if the dragon is not an adult, update its growth ticks
         if (dragon.isServer()) {
-            if (!isAdult()) {
+            if (!isAdult() || !dragon.isGrowthPaused()) {
                 ticksSinceCreationServer++;
                 if (ticksSinceCreationServer % TICKS_SINCE_CREATION_UPDATE_INTERVAL == 0){
                     dataWatcher.set(dataParam, ticksSinceCreationServer);
+//                    dragon.setAgeInTicks(ticksSinceCreationServer);
                 }
             }
         } else {
@@ -266,6 +268,10 @@ public class DragonLifeStageHelper extends DragonHelper {
         updateLifeStage();
         updateEgg();
         updateScale();
+    }
+
+    public EntityDataManager getDataWatcher() {
+        return  dataWatcher;
     }
     
     private void updateLifeStage() {

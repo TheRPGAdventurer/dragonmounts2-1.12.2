@@ -102,7 +102,7 @@ public class BreathWeaponEnder extends BreathWeapon implements PrivateAccessor {
         this.xp(entity);
 
         float hitDensity = currentHitDensity.getHitDensity();
-        final float DAMAGE_PER_HIT_DENSITY = 5.0F * hitDensity;
+        final float DAMAGE_PER_HIT_DENSITY = 5F * hitDensity;
 
         triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
 

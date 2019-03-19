@@ -110,15 +110,6 @@ public class DragonMounts {
 
     private void initDamageSources() {
         dragons_fire = new DamageSource("dragons_fire") {
-
-//            @Override
-//            public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-//                String s = "death.dragonsfire";
-//                String s1 = s + ".player_" + new Random().nextInt(2);
-//                return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ")
-//                        .appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
-//
-//            }
         };
     }
 }

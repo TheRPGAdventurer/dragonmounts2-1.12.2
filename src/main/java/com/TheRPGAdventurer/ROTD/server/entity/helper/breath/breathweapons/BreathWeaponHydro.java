@@ -76,7 +76,7 @@ public class BreathWeaponHydro extends BreathWeapon implements PrivateAccessor {
         if (block == Blocks.FLOWING_LAVA) {
             world.playSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH,
                     SoundCategory.BLOCKS, 0.7f, 1.0f, false);
-            world.setBlockState(blockPos, Blocks.COBBLESTONE.getDefaultState());
+            world.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState());
         }
 
         if (block == Blocks.FIRE) {

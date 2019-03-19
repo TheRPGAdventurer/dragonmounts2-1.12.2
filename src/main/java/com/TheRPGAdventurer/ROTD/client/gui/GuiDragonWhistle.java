@@ -1,21 +1,16 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import java.util.UUID;
-
-import net.minecraft.client.gui.GuiRepair;
-import org.lwjgl.input.Keyboard;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
+
+import java.util.UUID;
 
 public class GuiDragonWhistle extends GuiScreen {
 
@@ -119,7 +114,6 @@ public class GuiDragonWhistle extends GuiScreen {
 		   come(button == come);
 		   circle(button == circle);
 		   homepos(button == homePos);
-		   this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
 		   byte controlState = getState();
 		   if (controlState != previousState) {
                DMUtils.getLogger().info("Current State casted by gui is " + controlState);

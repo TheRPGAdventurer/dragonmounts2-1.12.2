@@ -335,7 +335,7 @@ public class BreathWeapon implements PrivateAccessor {
         final float CATCH_FIRE_THRESHOLD = 1.4F;
         final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
         float hitDensity = currentHitDensity.getHitDensity();
-        final float DAMAGE_PER_HIT_DENSITY = 0.5F * hitDensity;
+        final float DAMAGE_PER_HIT_DENSITY = 2F * hitDensity;
         MathX.clamp(hitDensity, 0, 2);
 
         Entity entity = world.getEntityByID(entityID);

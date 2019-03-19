@@ -74,7 +74,7 @@ public class ModItems {
     public static final ItemDragonAmulet AmuletZombie;
     public static final ItemDragonAmulet AmuletTerra;
     public static final ItemDragonAmulet AmuletMoonlight;
-    public static final ItemDragonAmulet AmuletEmpty;
+    public static final ItemDragonAmuletEmpty AmuletEmpty;
 
     public static final Item structure_spawner;
     public static final Item dragon_wand;
@@ -172,7 +172,7 @@ public class ModItems {
             AmuletSkeleton = new ItemDragonAmulet(EnumItemBreedTypes.SKELETON, EnumDragonBreed.SKELETON),
             AmuletWither = new ItemDragonAmulet(EnumItemBreedTypes.WITHER, EnumDragonBreed.WITHER),
             AmuletMoonlight = new ItemDragonAmulet(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT),
-            AmuletEmpty = new ItemDragonAmulet(null, null),
+            AmuletEmpty = new ItemDragonAmuletEmpty(),
 
             structure_spawner = new ItemStructureSpawner("structure_spawner"),
             dragon_wand = new ItemDragonWand("dragon_wand"),

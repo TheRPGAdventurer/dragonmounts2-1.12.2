@@ -1,10 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.network;
 
-import java.util.UUID;
-
+import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -12,17 +9,21 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.UUID;
+
 public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> {
 
 	public UUID dragonId;
 	public byte controlState;
 	EntityTameableDragon dragon;
+	Minecraft mc = Minecraft.getMinecraft();
 
 	public MessageDragonWhistle(UUID dragonId, byte controlState) {
 		this.dragonId = dragonId;
@@ -57,6 +58,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 	public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
 		World world = player.world; 
 	//	if(world instanceof WorldServer) {
+
 		  WorldServer worldServer = (WorldServer) world;
 	      Entity entity = server.getEntityFromUuid(dragonId);
 		  if (entity != null && entity instanceof EntityTameableDragon) {
@@ -64,7 +66,10 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 			  if (dragon.isOwner(player)) {
 				  dragon.setWhistleState(message.controlState);
 			  }
-			}			
+
+			  this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
+
+		  }
 	//	} 
 	}
 

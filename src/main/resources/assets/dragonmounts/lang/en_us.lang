@@ -269,6 +269,7 @@ key.dragon.flyDown=Fly Down
 item.dragonarmor_diamond.name=Diamond Dragon Armor
 item.dragonarmor_iron.name=Iron Dragon Armor
 item.dragonarmor_gold.name=Gold Dragon Armor
+item.dragonarmor_emerald.name=Emerald Dragon Armor
 
 entity.dragon.tooYounng=The dragon is too young to be saddled, let it grow.
 
@@ -320,21 +321,22 @@ item.zombie_dragon_essence.name=Dragon Essence
 item.terra_dragon_essence.name=Dragon Essence
 item.moonlight_dragon_essence.name=Dragon Essence
 
-item.end_dragon_amulet.name=Dragon Amulet
-item.aether_dragon_amulet.name=Dragon Amulet
-item.ice_dragon_amulet.name=Dragon Amulet
-item.water_dragon_amulet.name=Dragon Amulet
-item.fire_dragon_amulet.name=Dragon Amulet
-item.forest_dragon_amulet.name=Dragon Amulet
-item.skeleton_dragon_amulet.name=Dragon Amulet
-item.wither_dragon_amulet.name=Dragon Amulet
-item.nether_dragon_amulet.name=Dragon Amulet
-item.enchant_dragon_amulet.name=Dragon Amulet
-item.sunlight_dragon_amulet.name=Dragon Amulet
-item.storm_dragon_amulet.name=Dragon Amulet
-item.zombie_dragon_amulet.name=Dragon Amulet
-item.terra_dragon_amulet.name=Dragon Amulet
-item.moonlight_dragon_amulet.name=Dragon Amulet
+item.end_dragon_amulet.name=Dragon Amulet End
+item.aether_dragon_amulet.name=Dragon Amulet Aether
+item.ice_dragon_amulet.name=Dragon Amulet Ice
+item.water_dragon_amulet.name=Dragon Amulet Water
+item.fire_dragon_amulet.name=Dragon Amulet Fire
+item.forest_dragon_amulet.name=Dragon Amulet Forest
+item.skeleton_dragon_amulet.name=Dragon Amulet Skeleton
+item.wither_dragon_amulet.name=Dragon Amulet Wither
+item.nether_dragon_amulet.name=Dragon Amulet Nether
+item.enchant_dragon_amulet.name=Dragon Amulet Enchant
+item.sunlight_dragon_amulet.name=Dragon Amulet Sunlight
+item.storm_dragon_amulet.name=Dragon Amulet Storm
+item.zombie_dragon_amulet.name=Dragon Amulet Zombie
+item.terra_dragon_amulet.name=Dragon Amulet Terra
+item.moonlight_dragon_amulet.name=Dragon Amulet Moonlight
+item.dragon_amulet.name=Dragon Amulet
 
 dragon.forest=Forest
 dragon.aether=Aether
@@ -355,6 +357,11 @@ dragon.storm=Storm
 dragon.zombie=Zombie
 dragon.terra=Terra
 dragon.terra2=Terra
+
+dragon.egg=Egg
+dragon.hatchling=Hatchling
+dragon.juvenile=Juvenile
+dragon.adult=Adult
 
 gui.nothing=Nothing
 gui.circle=Circle Player

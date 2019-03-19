@@ -95,7 +95,7 @@ public class BreathWeaponWither extends BreathWeapon implements PrivateAccessor 
         }
 
         float hitDensity = currentHitDensity.getHitDensity();
-        final float DAMAGE_PER_HIT_DENSITY = 1.3F * hitDensity;
+        final float DAMAGE_PER_HIT_DENSITY = 2F * hitDensity;
 
         triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
         entity.attackEntityFrom(DragonMounts.dragons_fire, DAMAGE_PER_HIT_DENSITY);

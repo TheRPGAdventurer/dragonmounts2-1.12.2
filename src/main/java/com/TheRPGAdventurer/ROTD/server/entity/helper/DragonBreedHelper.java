@@ -9,31 +9,26 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import org.apache.commons.lang3.EnumUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import org.apache.commons.lang3.EnumUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Helper class for breed properties.
@@ -150,27 +145,6 @@ public class DragonBreedHelper extends DragonHelper {
         }
     }
     
-    public void getBreedHealth() {
-        EnumDragonBreed currentType = getBreedType();
-        SharedMonsterAttributes att = new SharedMonsterAttributes();
-        if (currentType == EnumDragonBreed.NETHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);}
-        if (currentType == EnumDragonBreed.END) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);}
-        if (currentType == EnumDragonBreed.FIRE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.FOREST) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.ICE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SYLPHID) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.AETHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SKELETON) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);}
-        if (currentType == EnumDragonBreed.WITHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);}
-        if (currentType == EnumDragonBreed.ENCHANT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SUNLIGHT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.STORM) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.ZOMBIE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.TERRA) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.MOONLIGHT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        
-    }
-    
     @Override
     public void onLivingUpdate() {
         EnumDragonBreed currentType = getBreedType();
@@ -233,10 +207,7 @@ public class DragonBreedHelper extends DragonHelper {
         }
         
         currentType.getBreed().onUpdate(dragon);
-        getBreedHealth();
     }
-    
-
 
     @Override
     public void onDeath() {

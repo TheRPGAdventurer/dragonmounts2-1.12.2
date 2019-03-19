@@ -9,12 +9,9 @@
  */
 package com.TheRPGAdventurer.ROTD.server.blocks;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
@@ -30,6 +27,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  *
@@ -81,7 +80,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     
     @Override 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        this.checkFall(worldIn, pos, state);
+        this.checkFall(worldIn, pos);
     }
     
     @Override
@@ -97,7 +96,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
         return true;
     }
     
-    private void checkFall(World worldIn, BlockPos pos, IBlockState state) {
+    private void checkFall(World worldIn, BlockPos pos) {
         if (worldIn.isAirBlock(pos.down()) && BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
             int i = 32;
 
@@ -110,7 +109,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
                 for (blockpos = pos; worldIn.isAirBlock(blockpos) && BlockFalling.canFallThrough(worldIn.getBlockState(blockpos)) && blockpos.getY() > 0; blockpos = blockpos.down()) {}
 
                 if (blockpos.getY() > 0) {
-                    worldIn.setBlockState(blockpos, state, 2);
+                    worldIn.setBlockState(blockpos, this.getStateFromMeta(meta), 2);
                 }
             }
         }

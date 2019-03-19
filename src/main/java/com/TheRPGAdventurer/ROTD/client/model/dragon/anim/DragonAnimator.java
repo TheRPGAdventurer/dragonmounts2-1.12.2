@@ -9,8 +9,6 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
-import java.util.BitSet;
-
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
@@ -19,7 +17,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.util.breath.Spline;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -259,7 +256,7 @@ public class DragonAnimator {
 
         float speedMax = 0.05f;
         float speedEnt = (float) (dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ);
-        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 1);
+        float speedMulti = MathX.clamp(speedEnt / speedMax, 0,  0.4f);
 
         // update main animation timer
         float animAdd = 0.035f;

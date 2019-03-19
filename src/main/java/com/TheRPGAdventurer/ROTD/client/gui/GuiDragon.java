@@ -79,19 +79,22 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        buttonList.add(this.lock = new LockButton(0, 260, 68, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon));
-        buttonList.add(this.sit = this.addButton(new GuiButton(1, 285, 75, 2, 2, "SIT")));
+        this.lock = new LockButton(0, width / 2 + 260, height / 2 + 68, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon);
+        this.sit = this.addButton(new GuiButton(1, width / 2 + 285, height / 2 + 75, 2, 2, "SIT"));
+
+        buttonList.add(lock);
+        buttonList.add(sit);
         super.initGui();
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         boolean sit = button == this.sit;
-        if(sit)
-        DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
+        if (sit)
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
         boolean lock = (button == this.lock);
-        if(lock)
-        DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId()));
+        if (lock)
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId()));
 
     }
 

@@ -10,30 +10,30 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class DragonInteractOpenGUI extends DragonInteract {
 
-	public DragonInteractOpenGUI(EntityTameableDragon dragon) {
-		super(dragon);
-	}
-	
-	@Override
-	public boolean interact(EntityPlayer player, ItemStack item) {
-		if(!isAllowed(player)) {
-			return false;
-		}
-		
-		if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed()) {
-			dragon.openGUI(player, GuiHandler.GUI_DRAGON);
-			return true;
-		} else if(dragon.isHatchling() && dragon.isTamed() && player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
-			
-  	player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
-		
-  } else if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
-		
-  	dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
-			return true;
-		}  
-  
-		return false;
-	}
+    public DragonInteractOpenGUI(EntityTameableDragon dragon) {
+        super(dragon);
+    }
+
+    @Override
+    public boolean interact(EntityPlayer player, ItemStack item) {
+        if (!isAllowed(player)) {
+            return false;
+        }
+
+        if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed()) {
+            dragon.openGUI(player, GuiHandler.GUI_DRAGON);
+            return true;
+        } else if (dragon.isHatchling() && dragon.isTamed() && player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
+
+            player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
+
+        } else if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
+
+            dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
+            return true;
+        }
+
+        return false;
+    }
 
 }

@@ -94,6 +94,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 dragon.liftOff();
             }
         }
+        updateIntendedRideRotation(rider);
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
 

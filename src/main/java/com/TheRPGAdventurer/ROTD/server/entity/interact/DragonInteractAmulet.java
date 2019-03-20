@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class DragonInteractAmulet extends DragonInteract {
 
@@ -16,19 +17,23 @@ public class DragonInteractAmulet extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        if (ItemUtils.hasEquipped(player, ModItems.AmuletEmpty) && dragon.isServer() && dragon.isTamedFor(player)) {
-
-            ItemStack amulet = new ItemStack(dragon.dragonAmulet());
-            if (dragon.hasCustomName()) {
-                amulet.setStackDisplayName(dragon.getCustomNameTag());
-            }
-            amulet.setTagCompound(new NBTTagCompound());
-            player.setHeldItem(player.getActiveHand(), amulet);
-            dragon.setDead();
-            dragon.writeEntityToNBT(amulet.getTagCompound());
+        if (ItemUtils.hasEquipped(player, ModItems.AmuletEmpty) && dragon.isServer()) {
+            if (dragon.isTamedFor(player)) {
+                ItemStack amulet = new ItemStack(dragon.dragonAmulet());
+                if (dragon.hasCustomName()) {
+                    amulet.setStackDisplayName(dragon.getCustomNameTag());
+                }
+                amulet.setTagCompound(new NBTTagCompound());
+                player.setHeldItem(player.getActiveHand(), amulet);
+                dragon.setDead();
+                dragon.writeEntityToNBT(amulet.getTagCompound());
 //            amulet.getTagCompound().setUniqueId("dragonUUID", dragon.getUniqueID());
-            player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1, 0.77f);
-            return true;
+                player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1, 0.77f);
+                return true;
+            } else {
+                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+            }
+
         }
         return false;
     }

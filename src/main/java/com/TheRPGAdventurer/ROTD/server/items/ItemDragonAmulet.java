@@ -102,8 +102,11 @@ public class ItemDragonAmulet extends Item {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }
 
+        if (dragon.hasCustomName()) {
+            stack.setStackDisplayName(dragon.getCustomNameTag());
+        }
+
         dragon.setBreedType(breed);
-//        dragon.setUniqueId(stack.getTagCompound().getUniqueId("dragonUUID"));
         stack.getTagCompound().setBoolean("Released", true);
         if (!worldIn.isRemote) {
             worldIn.spawnEntity(dragon);

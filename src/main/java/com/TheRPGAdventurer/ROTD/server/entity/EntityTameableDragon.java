@@ -660,14 +660,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
 
     public boolean allowedOtherPlayers() {
-        boolean allowOthers = this.dataManager.get(ALLOW_OTHERPLAYERS);
-        this.allowOthers = allowOthers;
-        return allowOthers;
+        return this.dataManager.get(ALLOW_OTHERPLAYERS);
     }
 
     public void setToAllowedOtherPlayers(boolean allow) {
         dataManager.set(ALLOW_OTHERPLAYERS, allow);
-        this.allowOthers = allow;
     }
 
     /**
@@ -1002,7 +999,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
 
 
-
         //	if(this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
         //	Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP)this.getControllingPlayer()));
         //	}
@@ -1019,8 +1015,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
 
         EntityLivingBase target = null;
-        if(this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
-        && getAttackTarget() == target) {
+        if (this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
+                && getAttackTarget() == target) {
             Vec3d throat = animator.getThroatPosition();
             target.setPosition(throat.x, throat.y + (3 * getScale()), throat.z);
         }
@@ -1333,28 +1329,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // baby dragons are tameable now! :D
         if (this.isChild() && !isTamed() && this.isBreedingItem(item)) {
             ItemUtils.consumeEquipped(player, this.getBreed().getBreedingItem());
-            tamedFor(player, getRNG().nextInt(5) == 0);
+            tamedFor(player, getRNG().nextInt(4) == 0);
             return true;
+        }
+
+        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking()) {
+//            if (this.getScale() < 0.45) {
+//                this.startRiding(player, true);
+//                return true;
+//            }
         }
 
         // inherited interaction
         if (super.processInteract(player, hand)) {
-            return true;
-        }
-
-        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !this.isDead) {
-            if (this.getScale() < 0.45) {
-                this.startRiding(player, true);
-            }
-//            if (this.getDragonStage() > 2 && !player.isRiding()) { && dragon.isTamedFor(player)
-//                player.setSneaking(false);
-//                player.startRiding(this, true);
-//                this.setSleeping(false);
-//            }
-
-            if (this.getScale() < 0.45) {
-                this.startRiding(player, true);
-            }
             return true;
         }
 
@@ -1750,21 +1737,51 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void getBreedHealth() {
         EnumDragonBreed currentType = getBreedType();
         SharedMonsterAttributes att = new SharedMonsterAttributes();
-        if (currentType == EnumDragonBreed.NETHER) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);}
-        if (currentType == EnumDragonBreed.END) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);}
-        if (currentType == EnumDragonBreed.FIRE) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.FOREST) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.ICE) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SYLPHID) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.AETHER) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SKELETON) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);}
-        if (currentType == EnumDragonBreed.WITHER) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);}
-        if (currentType == EnumDragonBreed.ENCHANT) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.SUNLIGHT) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.STORM) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.ZOMBIE) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.TERRA) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
-        if (currentType == EnumDragonBreed.MOONLIGHT) {this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);}
+        if (currentType == EnumDragonBreed.NETHER) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);
+        }
+        if (currentType == EnumDragonBreed.END) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+        }
+        if (currentType == EnumDragonBreed.FIRE) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.FOREST) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.ICE) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.SYLPHID) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.AETHER) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.SKELETON) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);
+        }
+        if (currentType == EnumDragonBreed.WITHER) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+        }
+        if (currentType == EnumDragonBreed.ENCHANT) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.SUNLIGHT) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.STORM) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.ZOMBIE) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.TERRA) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.MOONLIGHT) {
+            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
 
     }
 
@@ -2119,7 +2136,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 return "dragon.adult";
         }
 
-        return  null;
+        return null;
     }
 
 

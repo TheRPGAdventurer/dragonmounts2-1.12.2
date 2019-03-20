@@ -1,15 +1,10 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
-
+import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -26,35 +21,38 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class ItemDragonSpawner extends Item {
-	
+
     /** Base color of the egg */
     public int primaryColor;
     /** Color of the egg spots */
     public int secondaryColor;
     private EnumDragonBreed breed;
     private EnumItemBreedTypes type;
-	
+
     public ItemDragonSpawner(EnumItemBreedTypes type, EnumDragonBreed breed, CreativeTabs tAB) {
     	String unlocalizedName = type.toString().toLowerCase();
         this.setUnlocalizedName("summon_" + unlocalizedName); //  ItemMonsterPlacer
-        this.setRegistryName("summon_" + unlocalizedName); 
+        this.setRegistryName("summon_" + unlocalizedName);
         this.setMaxStackSize(1);
         this.setCreativeTab(tAB);
         this.breed = breed;
-        this.type = type; 
+        this.type = type;
     }
-    
+
     public EntityTameableDragon spawnEntityTameableDragon(World world, EntityPlayer player, ItemStack stack, double x, double y, double z) {
     	EntityTameableDragon dragon = new EntityTameableDragon(world);
-            try {               
+            try {
                 if (player.isSneaking()) {
                     dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.HATCHLING);
                 } else {
                 	dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.ADULT);
                 }
-                
-                dragon.setPosition(x, y, z);
+
+                dragon.setPosition(x + 0.5, y + 0.5, z + 0.5);
                 dragon.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
                 dragon.rotationYawHead = dragon.rotationYaw;
                 dragon.renderYawOffset = dragon.rotationYaw;
@@ -63,7 +61,7 @@ public class ItemDragonSpawner extends Item {
                 return dragon;
             } catch (Exception e) {
                 e.printStackTrace();
-            }       
+            }
 
         return null;
     }
@@ -99,7 +97,7 @@ public class ItemDragonSpawner extends Item {
                 world.spawnEntity(dragon);
                 dragon.playLivingSound();
             }
-        }        return EnumActionResult.SUCCESS;     
+        }        return EnumActionResult.SUCCESS;
     }
 
 	@Override

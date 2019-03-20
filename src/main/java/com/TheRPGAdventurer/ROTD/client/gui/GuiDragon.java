@@ -57,6 +57,8 @@ public class GuiDragon extends GuiContainer {
         float scale = dragon.getScale();
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
+
+
     }
 
     @Override
@@ -79,8 +81,8 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        this.lock = new LockButton(0, width / 2 + 260, height / 2 + 68, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon);
-        this.sit = this.addButton(new GuiButton(1, width / 2 + 285, height / 2 + 75, 2, 2, "SIT"));
+        this.lock = new LockButton(0, width / 2 + 260, height / 2 + 2, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon);
+        this.sit = this.addButton(new GuiButton(1, width / 2 + 2, height / 2 + 2, 2, 2, "SIT"));
 
         buttonList.add(lock);
         buttonList.add(sit);

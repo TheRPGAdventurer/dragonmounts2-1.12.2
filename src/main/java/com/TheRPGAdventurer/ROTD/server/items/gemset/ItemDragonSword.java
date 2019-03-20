@@ -3,14 +3,20 @@ package com.TheRPGAdventurer.ROTD.server.items.gemset;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,5 +57,33 @@ public class ItemDragonSword extends ItemSword {
         return multimap;
     }
 
+    protected boolean isAmulet(ItemStack stack) {
+        return stack.getItem() instanceof ItemDragonAmulet;
+    }
 
+    private ItemStack findAmmo(EntityPlayer player) {
+//        if (this.isAmulet(player.getHeldItem(EnumHand.OFF_HAND))) {
+//            return player.getHeldItem(EnumHand.OFF_HAND);
+//        } else
+
+//        if (this.isAmulet(player.getHeldItem(EnumHand.MAIN_HAND))) {
+//            return player.getHeldItem(EnumHand.MAIN_HAND);
+//        } else {
+        for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+            ItemStack itemstack = player.inventory.getStackInSlot(i);
+
+            if (this.isAmulet(itemstack)) {
+                return itemstack;
+            }
+        }
+
+        return ItemStack.EMPTY;
+
+    }
+
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack itemstack = this.findAmmo(player);
+        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    }
 }

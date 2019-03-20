@@ -249,13 +249,12 @@ public class DragonLifeStageHelper extends DragonHelper {
 
     @Override
     public void onLivingUpdate() {
-        // if the dragon is not an adult, update its growth ticks
+        // if the dragon is not an adult pr paused, update its growth ticks
         if (dragon.isServer()) {
             if (!isAdult() || !dragon.isGrowthPaused()) {
                 ticksSinceCreationServer++;
                 if (ticksSinceCreationServer % TICKS_SINCE_CREATION_UPDATE_INTERVAL == 0){
                     dataWatcher.set(dataParam, ticksSinceCreationServer);
-//                    dragon.setAgeInTicks(ticksSinceCreationServer);
                 }
             }
         } else {

@@ -932,7 +932,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             animator.tickingUpdate();
             animator.animate();
 
-
             // set home position near owner when tamed
             if (isTamed()) {
                 Entity owner = getOwner();

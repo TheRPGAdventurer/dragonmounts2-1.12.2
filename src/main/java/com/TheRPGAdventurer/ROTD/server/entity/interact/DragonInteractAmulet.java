@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class DragonInteractAmulet extends DragonInteract {
@@ -27,8 +28,8 @@ public class DragonInteractAmulet extends DragonInteract {
                 player.setHeldItem(player.getActiveHand(), amulet);
                 dragon.setDead();
                 dragon.writeEntityToNBT(amulet.getTagCompound());
-//            amulet.getTagCompound().setUniqueId("dragonUUID", dragon.getUniqueID());
-                player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1, 0.77f);
+                player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
+
                 return true;
             } else {
                 player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);

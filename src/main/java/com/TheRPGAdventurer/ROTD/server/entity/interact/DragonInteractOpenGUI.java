@@ -16,11 +16,7 @@ public class DragonInteractOpenGUI extends DragonInteract {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        if (!isAllowed(player)) {
-            return false;
-        }
-
-        if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed()) {
+        if (player.isSneaking() && dragon.getScale() >= 0.77 && dragon.isTamed() && isAllowed(player)) {
             dragon.openGUI(player, GuiHandler.GUI_DRAGON);
             return true;
         } else if (dragon.isHatchling() && dragon.isTamed() && player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {

@@ -81,8 +81,8 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        lock = new LockButton(0, width / 2 + 46, height / 2 - 52, 1, 1, I18n.format("gui.allowothers", new Object[0]), dragon);
-        sit = new GuiButton(1, width / 2 + 70, height / 2 - 46, 1, 1, "SIT");
+        lock = new LockButton(0, width / 2 + 69, height / 2 - 54, 16, 16, I18n.format("gui.allowothers", new Object[0]), dragon);
+        sit = new GuiButton(1, width / 2 + 47, height / 2 - 53, 18, 14, "SIT");
 
         buttonList.add(lock);
         buttonList.add(sit);
@@ -103,7 +103,7 @@ public class GuiDragon extends GuiContainer {
     }
 
     public void updateScreen() {
-        lock.enabled = (player == dragon.getOwner());
+        lock.enable = (player == dragon.getOwner());
     }
 
     @Override
@@ -117,12 +117,17 @@ public class GuiDragon extends GuiContainer {
 
     static class LockButton extends GuiButton {
 
-        private boolean isLocked;
+        private boolean enable;
         private EntityTameableDragon dragon;
 
         public LockButton(int buttonId, int x, int y, int i, int j, String buttonText, EntityTameableDragon dragon) {
-            super(buttonId, x, y, buttonText);
+            super(buttonId, x, y, i, j, buttonText);
             this.dragon = dragon;
+        }
+
+        @Override
+        public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+            return enable && super.mousePressed(mc, mouseX, mouseY);
         }
 
         /**
@@ -130,21 +135,15 @@ public class GuiDragon extends GuiContainer {
          */
         @Override
         public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
-
             if (visible) {
-                boolean isButtonPressed = (parX >= x
-                        && parY >= y
-                        && parX < x + width
-                        && parY < y + height);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
 
                 if (dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockOpen);
                 } else if (!dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockLocked);
                 }
-
-                drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
             }
         }
     }

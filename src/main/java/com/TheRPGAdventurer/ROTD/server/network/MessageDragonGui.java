@@ -49,7 +49,7 @@ public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
 //            if (arg1.sit) {
-                dragon.setSitting(!dragon.isSitting());
+                dragon.getAISit().setSitting(!dragon.isSitting());
 //            }
         }
     }

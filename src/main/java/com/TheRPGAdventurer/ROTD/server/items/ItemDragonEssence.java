@@ -7,15 +7,15 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -36,6 +36,42 @@ public class ItemDragonEssence extends Item {
         this.setCreativeTab(DragonMounts.TAB);
         this.maxStackSize = 1;
         this.type = type;
+        this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+                if (entityIn == null) {
+                    return 0.0F;
+                } else {
+                    ItemStack itemstack = entityIn.getActiveItemStack();
+                    return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemDragonAmulet ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
+                }
+            }
+        });
+        this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
+                return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+            }
+        });
+    }
+
+    @Override
+    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+        stack.setTagCompound(new NBTTagCompound());
+    }
+
+    @Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected) {
+        if (stack.getTagCompound() == null) {
+            stack.setTagCompound(new NBTTagCompound());
+        } else if (stack.getTagCompound().getBoolean("Released")) {
+            stack.shrink(1);
+//            if (entity instanceof EntityPlayer) {
+//                ((EntityPlayer) entity).inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
+//            }
+        }
     }
 
     @Override
@@ -52,9 +88,13 @@ public class ItemDragonEssence extends Item {
             nbt = new NBTTagCompound();
         }
 
-        stack.setTagCompound(nbt);
-        nbt.setUniqueId("DMessenceDragonId", dragon.getUniqueID());
-        dragon.writeEntityToNBT(stack.getTagCompound());
+        ItemStack amulet = new ItemStack(dragon.dragonAmulet());
+        if (dragon.hasCustomName()) {
+            amulet.setStackDisplayName(dragon.getCustomNameTag());
+        }
+        amulet.setTagCompound(new NBTTagCompound());
+        dragon.setDead();
+        dragon.writeEntityToNBT(amulet.getTagCompound());
 
         if (dragon.hasCustomName()) {
             stack.setStackDisplayName(dragon.getCustomNameTag());

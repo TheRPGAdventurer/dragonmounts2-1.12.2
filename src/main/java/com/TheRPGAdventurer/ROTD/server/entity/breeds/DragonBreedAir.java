@@ -1,16 +1,15 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
-import java.util.UUID;
-
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.UUID;
 
 public class DragonBreedAir extends DragonBreed {
 
@@ -37,12 +36,12 @@ public class DragonBreedAir extends DragonBreed {
 
 	@Override
 	public void onEnable(EntityTameableDragon dragon) {
-	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).applyModifier(MODIFIER);
+//	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).applyModifier(MODIFIER);
 	}
 
     @Override
 	public void onDisable(EntityTameableDragon dragon) {
-	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).removeModifier(MODIFIER);
+//	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).removeModifier(MODIFIER);
 	}
 
     @Override

@@ -363,6 +363,8 @@ dragon.hatchling=Hatchling
 dragon.juvenile=Juvenile
 dragon.adult=Adult
 
+dragon.amulet=Right click to store a dragon
+
 gui.nothing=Nothing
 gui.circle=Circle Player
 gui.followFlying=Follow Flying

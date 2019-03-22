@@ -81,8 +81,8 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        this.lock = new LockButton(0, width / 2 + 260, height / 2 + 2, 2, 2, I18n.format("gui.allowothers", new Object[0]), dragon);
-        this.sit = this.addButton(new GuiButton(1, width / 2 + 2, height / 2 + 2, 2, 2, "SIT"));
+        lock = new LockButton(0, width / 2 + 46, height / 2 - 52, 1, 1, I18n.format("gui.allowothers", new Object[0]), dragon);
+        sit = new GuiButton(1, width / 2 + 70, height / 2 - 46, 1, 1, "SIT");
 
         buttonList.add(lock);
         buttonList.add(sit);
@@ -91,12 +91,14 @@ public class GuiDragon extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        boolean sit = button == this.sit;
-        if (sit)
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
+        boolean sit = (button == this.sit);
         boolean lock = (button == this.lock);
-        if (lock)
+
+        if (sit) {
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
+        } else if (lock) {
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId()));
+        }
 
     }
 
@@ -123,14 +125,6 @@ public class GuiDragon extends GuiContainer {
             this.dragon = dragon;
         }
 
-        public boolean isLocked() {
-            return isLocked;
-        }
-
-        public void setLocked(boolean isLocked) {
-            this.isLocked = isLocked;
-        }
-
         /**
          * Draws this button to the screen.
          */
@@ -143,13 +137,9 @@ public class GuiDragon extends GuiContainer {
                         && parX < x + width
                         && parY < y + height);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                int textureX = 0;
-                int textureY = 0;
 
                 if (dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockOpen);
-                } else if (!this.enabled) {
-                    mc.getTextureManager().bindTexture(lockDisabled);
                 } else if (!dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockLocked);
                 }

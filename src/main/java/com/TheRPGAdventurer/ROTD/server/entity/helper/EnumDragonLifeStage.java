@@ -48,7 +48,6 @@ public enum EnumDragonLifeStage {
         // interpolated size between current and next stage
         return Interpolation.linear(lifeStage.scale, lifeStage.next().scale,
                 progressFromTickCount(ticksSinceCreation));
-
     }
 
     public static int clampTickCount(int ticksSinceCreation) {

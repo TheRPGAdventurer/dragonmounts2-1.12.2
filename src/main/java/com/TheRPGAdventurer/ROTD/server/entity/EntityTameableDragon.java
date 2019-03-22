@@ -40,8 +40,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -79,7 +77,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
@@ -102,12 +99,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     private static final Logger L = LogManager.getLogger();
 
-    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
-            .setDescription("Movement Speed Air").setShouldWatch(true);
+//    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
+//            .setDescription("Movement Speed Air").setShouldWatch(true);
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
-    public static final double BASE_AIR_SPEED = 0.9;
+//    public static final double BASE_AIR_SPEED = 0.9;
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.BASE_ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
@@ -220,20 +217,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // override EntityBodyHelper field, which is private and has no setter
         // required to fixate body while sitting. also slows down rotation while
         // standing.
-        try {
-            ObfuscationReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
-                    "field_70762_j");
-        } catch (Exception ex) {
-            L.warn("Can't override EntityBodyHelper", ex);
-        }
-
-        // override EntityLookHelper field, which is private and has no setter
-        try {
-            ObfuscationReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this),
-                    "field_70749_g");
-        } catch (Exception ex) {
-            L.warn("Can't override EntityLookHelper", ex);
-        }
+//        try {
+//            ObfuscationReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
+//                    "field_70762_j");
+//        } catch (Exception ex) {
+//            L.warn("Can't override EntityBodyHelper", ex);
+//        }
+//
+//         override EntityLookHelper field, which is private and has no setter
+//        try {
+//            ObfuscationReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this),
+//                    "field_70749_g");
+//        } catch (Exception ex) {
+//            L.warn("Can't override EntityLookHelper", ex);
+//        }
 
         // set base size
         setSize(BASE_WIDTH, BASE_HEIGHT);
@@ -318,9 +315,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
 
-        getAttributeMap().registerAttribute(MOVEMENT_SPEED_AIR);
+//        getAttributeMap().registerAttribute(MOVEMENT_SPEED_AIR);
         getAttributeMap().registerAttribute(ATTACK_DAMAGE);
-        getEntityAttribute(MOVEMENT_SPEED_AIR).setBaseValue(BASE_AIR_SPEED);
+//        getEntityAttribute(MOVEMENT_SPEED_AIR).setBaseValue(BASE_AIR_SPEED);
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(BASE_GROUND_SPEED);
         getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(BASE_DAMAGE);
         getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(BASE_FOLLOW_RANGE);
@@ -1187,7 +1184,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void roar() {
         if (!isDead && getBreed().getRoarSoundEvent() != null) {
             this.roarTicks = 0;
-            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.AMBIENT, MathX.clamp(getScale(), 0, 2.3f), MathX.clamp(getScale(), 0.23f, 1), true);
+            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 0, 2.3f), MathX.clamp(getScale(), 0f, 1), true);
         }
     }
 
@@ -1333,10 +1330,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
 
         if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking()) {
-//            if (this.getScale() < 0.45) {
-//                this.startRiding(player, true);
-//                return true;
-//            }
+            if (this.getScale() < 0.45) {
+                this.startRiding(player, true);
+                return true;
+            }
         }
 
         // inherited interaction
@@ -1808,13 +1805,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.rotationPitch = rider.rotationPitch;
         }
     }
-
-    public double getFlySpeed() {
-        double boost = this.boosting() ? 3 : 1;
-        double flySpeed = this.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost;
-        return flySpeed;
-    }
-
 
     @Nullable
     public Entity getControllingPassenger() {

@@ -71,14 +71,11 @@ public class ItemDragonAmulet extends Item {
         } else if (stack.getTagCompound().getBoolean("Released")) {
             stack.shrink(1);
             if (entity instanceof EntityPlayer) {
-                ((EntityPlayer) entity).inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
+                EntityPlayer player = (EntityPlayer) entity;
+                player.inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
             }
         }
     }
-
-//    public EnumAction getItemUseAction(ItemStack stack) {
-//        return EnumAction.BLOCK;
-//    }
 
     /**
      * Thanks again Lex!
@@ -100,7 +97,7 @@ public class ItemDragonAmulet extends Item {
 
         dragon.setBreedType(breed);
         stack.getTagCompound().setBoolean("Released", true);
-        if (!worldIn.isRemote && dragon.isTamedFor(player)) {
+        if (!worldIn.isRemote) {
             worldIn.spawnEntity(dragon);
         }
 

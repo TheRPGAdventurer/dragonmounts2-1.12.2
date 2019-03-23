@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
@@ -33,6 +32,7 @@ public class GuiDragon extends GuiContainer {
     private GuiButton sit;
     public static ResourceLocation lockOpen;
     public static ResourceLocation lockLocked;
+    public static ResourceLocation lockDisabled;
     private EntityPlayer player;
 
     public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
@@ -46,7 +46,7 @@ public class GuiDragon extends GuiContainer {
         this.xSize = 176;
         lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");
         lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
-
+        lockDisabled = new ResourceLocation(DragonMounts.MODID, "textures/lock_3.png");
     }
 
     /**
@@ -77,7 +77,7 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        lock = new LockButton(0, width / 2 + 68, height / 2 - 54, 16, 16, I18n.format("gui.allowothers", new Object[0]), dragon);
+        lock = new LockButton(0, width / 2 + 66, height / 2 - 53, 18, 14, dragon); // I18n.format("gui.allowothers", new Object[0])
         sit = new GuiButton(1, width / 2 + 47, height / 2 - 53, 18, 14, "SIT");
 
         buttonList.add(lock);
@@ -99,14 +99,14 @@ public class GuiDragon extends GuiContainer {
     }
 
     public void updateScreen() {
-        lock.enable = (player == dragon.getOwner());
+        lock.enabled = (player == dragon.getOwner());
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-//        this.mousePosX = mouseX;
-//        this.mousePosY = mouseY;
+        this.mousePosX = mouseX;
+        this.mousePosY = mouseY;
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
     }
@@ -116,8 +116,8 @@ public class GuiDragon extends GuiContainer {
         private boolean enable;
         private EntityTameableDragon dragon;
 
-        public LockButton(int buttonId, int x, int y, int i, int j, String buttonText, EntityTameableDragon dragon) {
-            super(buttonId, x, y, i, j, buttonText);
+        public LockButton(int buttonId, int x, int y, int i, int j, EntityTameableDragon dragon) {
+            super(buttonId, x, y, i, j, "");
             this.dragon = dragon;
         }
 
@@ -130,15 +130,20 @@ public class GuiDragon extends GuiContainer {
          * Draws this button to the screen.
          */
         @Override
-        public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
+        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
             if (visible) {
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-
                 if (dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockOpen);
                 } else if (!dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockLocked);
+                } else if(!enabled) {
+                    mc.getTextureManager().bindTexture(lockDisabled);
                 }
+
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+                GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
                 drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
             }
         }

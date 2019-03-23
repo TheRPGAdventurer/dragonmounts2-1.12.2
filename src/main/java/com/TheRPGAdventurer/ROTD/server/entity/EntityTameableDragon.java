@@ -303,7 +303,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(BANNER4, ItemStack.EMPTY);
         dataManager.register(HAS_ELDER_STONE, false);
         dataManager.register(HAS_ADJUCATOR_STONE, false);
-        dataManager.register(ALLOW_OTHERPLAYERS, true);
+        dataManager.register(ALLOW_OTHERPLAYERS, false);
         dataManager.register(BOOSTING, false);
         dataManager.register(WHISTLE_STATE, Byte.valueOf((byte) 0));
         dataManager.register(WHISTLE, ItemStack.EMPTY);

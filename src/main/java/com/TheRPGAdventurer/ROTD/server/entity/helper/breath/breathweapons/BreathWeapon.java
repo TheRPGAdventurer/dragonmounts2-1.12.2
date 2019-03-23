@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.block.Block;
@@ -27,7 +26,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -352,12 +350,12 @@ public class BreathWeapon implements PrivateAccessor {
     }
 
     protected void xp(Entity entity) {
-        try {
-            ReflectionHelper.setPrivateValue(EntityLivingBase.class, (EntityLivingBase) entity, 100,
-                    "recentlyHit", "field_70718_bc");
-        } catch (Exception ex) {
-            DMUtils.getLogger().warn("Can't override XP", ex);
-        }
+//        try {
+//            ReflectionHelper.setPrivateValue(EntityLivingBase.class, (EntityLivingBase) entity, 100,
+//                    "recentlyHit", "field_70718_bc");
+//        } catch (Exception ex) {
+//            DMUtils.getLogger().warn("Can't override XP", ex);
+//        }
     }
 
     /**

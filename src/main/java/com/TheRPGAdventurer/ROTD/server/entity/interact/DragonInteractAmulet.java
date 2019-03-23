@@ -28,7 +28,7 @@ public class DragonInteractAmulet extends DragonInteract {
                 player.setHeldItem(player.getActiveHand(), amulet);
                 dragon.setDead();
                 dragon.writeEntityToNBT(amulet.getTagCompound());
-                player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
+                dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
 
                 return true;
             } else {

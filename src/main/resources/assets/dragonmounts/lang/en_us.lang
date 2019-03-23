@@ -370,6 +370,8 @@ gui.circle=Circle Player
 gui.followFlying=Follow Flying
 gui.goToPlayer=Come To Player
 gui.homePos=Wander
+gui.locked.dragon=LOCK
+gui.unlocked.dragon=UNLOCK
 
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
 

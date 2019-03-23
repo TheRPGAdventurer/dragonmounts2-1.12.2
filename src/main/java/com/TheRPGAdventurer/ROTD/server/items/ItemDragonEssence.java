@@ -76,8 +76,8 @@ public class ItemDragonEssence extends Item {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }
 
-        if (dragon.hasCustomName()) {
-            stack.setStackDisplayName(dragon.getCustomNameTag());
+        if (stack.hasDisplayName()) {
+            dragon.setCustomNameTag(stack.getDisplayName());
         }
 
         dragon.setBreedType(breed);

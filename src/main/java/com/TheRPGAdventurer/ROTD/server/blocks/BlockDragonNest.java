@@ -1,9 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.blocks;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+
+import java.util.Random;
 
 public class BlockDragonNest extends Block {
 

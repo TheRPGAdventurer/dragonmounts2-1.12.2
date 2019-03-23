@@ -1,9 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.entity.ai;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
@@ -121,7 +119,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
             this.dragon.setAttackTarget(null);
             dragon.setUsingBreathWeapon(false);
         }
-        this.dragon.getNavigator().clearPathEntity(); 
+        this.dragon.getNavigator().clearPathEntity();
         dragon.setUsingBreathWeapon(false);
     }
 

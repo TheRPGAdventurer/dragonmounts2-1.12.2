@@ -13,28 +13,14 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.server.items.ItemDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderEnderBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderFlameBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderHydroBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderIceBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderNetherBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderPoisonBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.RenderWitherBreathFX;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.EnderBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.PoisonBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
-
+import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.*;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -85,7 +71,6 @@ public class ClientProxy extends ServerProxy {
         }
         RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
         MinecraftForge.EVENT_BUS.register(new ModKeys());
-        MinecraftForge.EVENT_BUS.register(new ItemDragonWhistle());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
 
     }

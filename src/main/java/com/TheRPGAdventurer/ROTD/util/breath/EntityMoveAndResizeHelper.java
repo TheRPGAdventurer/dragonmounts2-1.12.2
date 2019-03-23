@@ -1,14 +1,13 @@
 package com.TheRPGAdventurer.ROTD.util.breath;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by TGG on 16/08/2015.
@@ -110,7 +109,7 @@ public class EntityMoveAndResizeHelper {
     entity.posZ = (entityAABB.minZ + entityAABB.maxZ) / 2.0;
 
     entity.isCollidedHorizontally = desiredDX != dx || desiredDZ != dz;
-    entity.isCollidedVertically = desiredDY != dy;
+    entity.isCollidedHorizontally = desiredDY != dy;
     entity.onGround = entity.isCollidedVertically && desiredDY < 0.0;
     entity.isCollided = entity.isCollidedHorizontally || entity.isCollidedVertically;
 

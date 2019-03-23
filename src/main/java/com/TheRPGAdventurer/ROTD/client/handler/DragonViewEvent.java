@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -90,18 +89,6 @@ public class DragonViewEvent {
                     currentView++;
                 }
                 DragonMounts.proxy.setDragon3rdPersonView(currentView);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onDismount(EntityMountEvent event) {
-        if (event.getEntityBeingMounted() instanceof EntityTameableDragon) {
-            EntityTameableDragon dragon = (EntityTameableDragon) event.getEntityBeingMounted();
-            if (event.isDismounting() && event.getEntityMounting() instanceof EntityPlayer && !event.getEntityMounting().world.isRemote) {
-                EntityPlayer player = (EntityPlayer) event.getEntityMounting();
-                if (dragon.getScale() > 1.5)
-                    player.setPosition(dragon.posX, dragon.posY - (0.3 - dragon.getScale()), dragon.posZ);
             }
         }
     }

@@ -9,8 +9,6 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.ai.path;
 
-import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;

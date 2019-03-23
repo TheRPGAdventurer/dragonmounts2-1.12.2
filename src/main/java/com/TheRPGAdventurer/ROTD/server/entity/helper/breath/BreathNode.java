@@ -1,13 +1,11 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
-import java.util.Random;
-
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Random;
 
 /**
  * Created by TGG on 30/07/2015.

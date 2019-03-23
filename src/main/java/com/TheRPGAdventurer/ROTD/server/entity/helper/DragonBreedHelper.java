@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import net.minecraft.block.Block;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.DamageSource;
@@ -207,6 +208,7 @@ public class DragonBreedHelper extends DragonHelper {
         }
         
         currentType.getBreed().onUpdate(dragon);
+        getBreedHealth();
     }
 
     @Override
@@ -218,5 +220,56 @@ public class DragonBreedHelper extends DragonHelper {
         breedPoints.get(parent1.getBreedType()).addAndGet(POINTS_INHERIT + rand.nextInt(POINTS_INHERIT));
         breedPoints.get(parent2.getBreedType()).addAndGet(POINTS_INHERIT + rand.nextInt(POINTS_INHERIT));
     }
-    
+
+    public void getBreedHealth() {
+        EnumDragonBreed currentType = getBreedType();
+        SharedMonsterAttributes att = new SharedMonsterAttributes();
+        if (currentType == EnumDragonBreed.NETHER) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);
+        }
+        if (currentType == EnumDragonBreed.END) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+        }
+        if (currentType == EnumDragonBreed.FIRE) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.FOREST) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.ICE) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.SYLPHID) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.AETHER) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.SKELETON) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);
+        }
+        if (currentType == EnumDragonBreed.WITHER) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+        }
+        if (currentType == EnumDragonBreed.ENCHANT) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.SUNLIGHT) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.STORM) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.ZOMBIE) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.TERRA) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+        if (currentType == EnumDragonBreed.MOONLIGHT) {
+            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        }
+    }
+
+
 }

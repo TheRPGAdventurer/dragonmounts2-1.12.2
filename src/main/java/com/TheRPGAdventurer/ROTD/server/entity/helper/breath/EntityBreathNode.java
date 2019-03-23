@@ -1,19 +1,17 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.util.breath.EntityMoveAndResizeHelper;
 import com.TheRPGAdventurer.ROTD.util.breath.Pair;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 /**
  * Created by TGG on 31/07/2015.

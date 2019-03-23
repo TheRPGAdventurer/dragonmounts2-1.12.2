@@ -1,26 +1,17 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.TheRPGAdventurer.ROTD.client.render.BreathWeaponEmitter;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponEnder;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponHydro;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponIce;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponNether;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponPoison;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeaponWither;
-import com.TheRPGAdventurer.ROTD.server.util.RayTraceServer;
-
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by TGG on 8/07/2015.

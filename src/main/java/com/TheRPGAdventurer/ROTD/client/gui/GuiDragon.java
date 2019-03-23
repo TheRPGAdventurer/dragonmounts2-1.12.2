@@ -31,8 +31,8 @@ public class GuiDragon extends GuiContainer {
     private float mousePosY;
     private LockButton lock;
     private GuiButton sit;
-    public static ResourceLocation lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");
-    public static ResourceLocation lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
+    public static ResourceLocation lockOpen;
+    public static ResourceLocation lockLocked;
     private EntityPlayer player;
 
     public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
@@ -44,6 +44,8 @@ public class GuiDragon extends GuiContainer {
         this.allowUserInput = false;
         this.ySize = 214;
         this.xSize = 176;
+        lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");
+        lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
 
     }
 
@@ -75,7 +77,7 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        lock = new LockButton(0, width / 2 + 69, height / 2 - 54, 16, 16, I18n.format("gui.allowothers", new Object[0]), dragon);
+        lock = new LockButton(0, width / 2 + 68, height / 2 - 54, 16, 16, I18n.format("gui.allowothers", new Object[0]), dragon);
         sit = new GuiButton(1, width / 2 + 47, height / 2 - 53, 18, 14, "SIT");
 
         buttonList.add(lock);
@@ -103,11 +105,10 @@ public class GuiDragon extends GuiContainer {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.mousePosX = mouseX;
-        this.mousePosY = mouseY;
-        this.renderHoveredToolTip(mouseX, mouseY);
+//        this.mousePosX = mouseX;
+//        this.mousePosY = mouseY;
         super.drawScreen(mouseX, mouseY, partialTicks);
-
+        this.renderHoveredToolTip(mouseX, mouseY);
     }
 
     static class LockButton extends GuiButton {
@@ -132,7 +133,6 @@ public class GuiDragon extends GuiContainer {
         public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
             if (visible) {
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-
 
                 if (dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockOpen);

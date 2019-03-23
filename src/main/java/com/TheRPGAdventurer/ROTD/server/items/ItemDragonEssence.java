@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -14,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -42,6 +40,11 @@ public class ItemDragonEssence extends Item {
         tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
     }
 
+    @Override
+    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+        stack.setTagCompound(new NBTTagCompound());
+    }
+
     public void setDragonNBT(EntityTameableDragon dragon, ItemStack stack) {
         NBTTagCompound nbt;
         if (stack.hasTagCompound()) {
@@ -57,48 +60,6 @@ public class ItemDragonEssence extends Item {
         }
 
         dragon.writeEntityToNBT(nbt);
-    }
-
-    public EntityTameableDragon spawnEntityTameableDragon(World world, EntityPlayer player, ItemStack stack, double x, double y, double z) {
-        NBTTagCompound nbt;
-        if (stack.hasTagCompound()) {
-            nbt = stack.getTagCompound();
-        } else {
-            nbt = new NBTTagCompound();
-        }
-
-        stack.setTagCompound(nbt);
-
-        EntityTameableDragon dragon = new EntityTameableDragon(world);
-
-        try {
-
-            if (nbt.hasUniqueId("DMessenceDragonId")) {
-                dragon.setUniqueId(nbt.getUniqueId("DMessenceDragonId"));
-                if (nbt.hasUniqueId("DMessenceOwnerId"))
-                    dragon.tamedFor(world.getPlayerEntityByUUID(nbt.getUniqueId("DMessenceOwnerId")), true);
-                dragon.setBreedType(breed);
-                dragon.setMale(nbt.getBoolean("DMgender"));
-                dragon.setLifeStageInt(nbt.getInteger("DMstage"));
-
-                dragon.rotationYawHead = dragon.rotationYaw;
-                dragon.renderYawOffset = dragon.rotationYaw;
-
-                dragon.setPosition(x, y, z);
-                dragon.setLocationAndAngles(x, y, z, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
-
-                world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);
-                world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x + dragon.getRNG().nextInt(5), y + dragon.getRNG().nextInt(5), z + dragon.getRNG().nextInt(5), 1, 1, 1, 0);
-
-                return dragon;
-            } else {
-                DMUtils.getLogger().error("no NBT");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     /**

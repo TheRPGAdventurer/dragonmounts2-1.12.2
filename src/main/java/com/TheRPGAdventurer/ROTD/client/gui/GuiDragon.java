@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 
@@ -136,7 +135,7 @@ public class GuiDragon extends GuiContainer {
         @Override
         public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
             if (visible) {
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+//                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
 
                 if (dragon.allowedOtherPlayers()) {

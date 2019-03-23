@@ -1036,7 +1036,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      */
     public void onDeath(DamageSource src) {
         super.onDeath(src);
-        if (dragonInv != null && !this.world.isRemote && !isEgg()) {
+        if (dragonInv != null && !this.world.isRemote && !isEgg() && !isTamed()) {
             for (int i = 0; i < dragonInv.getSizeInventory(); ++i) {
                 ItemStack itemstack = dragonInv.getStackInSlot(i);
                 if (!itemstack.isEmpty()) {
@@ -1462,11 +1462,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         super.dropFewItems(wasRecentlyHit, lootingModifier);
 
         // drop saddle if equipped
-        if (isSaddled()) {
+        if (isSaddled() && !isTamed()) {
             dropItem(Items.SADDLE, 1);
         }
 
-        if (getArmor() != 0) {
+        if (getArmor() != 0 && !isTamed()) {
             switch (getArmor()) {
                 case (1): {
                     dropItem(ModArmour.dragonarmor_iron, 1);
@@ -1778,7 +1778,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (currentType == EnumDragonBreed.MOONLIGHT) {
             this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
         }
-
     }
 
     @Override

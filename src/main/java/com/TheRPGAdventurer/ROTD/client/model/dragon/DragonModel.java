@@ -199,16 +199,16 @@ public class DragonModel extends AdvancedModelBase {
 
     private void buildHead() {
         head = new ModelPart(this, "head");
-        head.addBox("upperjaw",  -6, -2,   -11 + HEAD_OFS, 12,  5, 16);
+        head.addBox("upperjaw",  -6, -2,   -10 + HEAD_OFS, 12,  5, 16);
         head.addBox("mainhead", -8, -9,    4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril",   -5, -4,   -9 + HEAD_OFS,  2,  2,  4);
+        head.addBox("nostril",   -5, -4,   -8 + HEAD_OFS,  2,  2,  4);
         head.mirror = true;
-        head.addBox("nostril",    3,  -4,  -9 + HEAD_OFS,  2,  2,  4);
+        head.addBox("nostril",    3,  -4,  -8 + HEAD_OFS,  2,  2,  4);
 
         buildHorn(false);
         buildHorn(true);
 
-        jaw = head.addChildBox("lowerjaw", -6, -1, -19, 12, 4, 16);
+        jaw = head.addChildBox("lowerjaw", -6, -1, -18, 12, 4, 16);
         jaw.setRotationPoint(0, 4, 8 + HEAD_OFS);
     }
 

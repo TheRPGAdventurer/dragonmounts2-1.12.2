@@ -33,7 +33,6 @@ public class GuiDragon extends GuiContainer {
     private GuiButton sit;
     public static ResourceLocation lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");
     public static ResourceLocation lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
-    public static ResourceLocation lockDisabled = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_3.png");
     private EntityPlayer player;
 
     public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
@@ -53,11 +52,8 @@ public class GuiDragon extends GuiContainer {
      * items)
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        float scale = dragon.getScale();
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
-
-
     }
 
     @Override
@@ -72,7 +68,6 @@ public class GuiDragon extends GuiContainer {
         }
         GuiInventory.drawEntityOnScreen(x + 80, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
                 this.dragon);
-
     }
 
     @Override
@@ -110,8 +105,9 @@ public class GuiDragon extends GuiContainer {
         this.drawDefaultBackground();
         this.mousePosX = mouseX;
         this.mousePosY = mouseY;
-        super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
+        super.drawScreen(mouseX, mouseY, partialTicks);
+
     }
 
     static class LockButton extends GuiButton {
@@ -135,14 +131,15 @@ public class GuiDragon extends GuiContainer {
         @Override
         public void drawButton(Minecraft mc, int parX, int parY, float partialTicks) {
             if (visible) {
-//                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
 
                 if (dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockOpen);
                 } else if (!dragon.allowedOtherPlayers()) {
                     mc.getTextureManager().bindTexture(lockLocked);
                 }
+                drawModalRectWithCustomSizedTexture(x, y, 0.0F, 0.0F, 16, 16, 16, 16);
             }
         }
     }

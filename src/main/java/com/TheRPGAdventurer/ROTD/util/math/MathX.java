@@ -9,10 +9,10 @@
  */
 package com.TheRPGAdventurer.ROTD.util.math;
 
-import java.util.Random;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Random;
 
 /**
  * Math helper class.
@@ -95,11 +95,6 @@ public class MathX {
             a += PI_F * 2;
         }
         return a;
-    }
-    
-    public static float quart(float a) {
-		return a / a;
-    	
     }
     
     // normalizes a double radians angle to between +π and -π

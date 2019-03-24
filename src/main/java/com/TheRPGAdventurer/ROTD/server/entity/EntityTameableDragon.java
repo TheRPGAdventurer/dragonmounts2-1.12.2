@@ -32,11 +32,9 @@ import com.TheRPGAdventurer.ROTD.server.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import com.google.common.base.Optional;
-import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -67,10 +65,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -106,7 +101,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
-//    public static final double BASE_AIR_SPEED = 0.9;
+    //    public static final double BASE_AIR_SPEED = 0.9;
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.BASE_ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
@@ -119,6 +114,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public static final double IN_AIR_THRESH = 10;
 
     protected int ticksSinceLastAttack;
+    protected int dismountTicks;
     public static int ticksShear;
 
     // data value IDs
@@ -849,23 +845,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void onUpdate() {
         super.onUpdate();
-//		updateParts();
         if (world.isRemote) {
             this.updateBreathing();
         }
 
-        if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-            MiscPlayerProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(this.getControllingPassenger(), MiscPlayerProperties.class);
-            if(properties != null) {
-                properties.hasDismountedDragon = true;
-            }
-            this.getControllingPassenger().dismountRidingEntity();
-        }
-        // if (!world.isRemote && !this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying()
-        /// 		&& this.getAttackTarget() == null && !world.isDaytime() && this.getRNG().nextInt(250) == 0 &&
-        // 		this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
-        //  this.setSleeping(true);
-        // }
+//        if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
+//            MiscPlayerProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(this.getControllingPassenger(), MiscPlayerProperties.class);
+//            if(properties != null && this.dismountTicks != -1) {
+//                properties.hasDismountedDragon = true;
+//            }
+//
+//            this.dismountTicks = 0;
+//            this.getControllingPassenger().dismountRidingEntity();
+//        }
+
     }
 
     public BlockPos onGroundAir() {
@@ -997,6 +990,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
 
+//        if (dismountTicks >= 0) {
+//            ++dismountTicks;
+//            if (dismountTicks > 1000) {
+//                dismountTicks = -1;
+//            }
+//        }
+
         if (roarTicks >= 0) { // used for jaw animation
             ++roarTicks;
             if (roarTicks > 1000) {
@@ -1020,12 +1020,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             hasChestVarChanged = false;
         }
 
-        EntityLivingBase target = null;
-        if (this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
-                && getAttackTarget() == target) {
-            Vec3d throat = animator.getThroatPosition();
-            target.setPosition(throat.x, throat.y + (3 * getScale()), throat.z);
-        }
+//        EntityLivingBase target = null;
+//        if (this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
+//                && getAttackTarget() == target) {
+//            Vec3d throat = animator.getThroatPosition();
+//            target.setPosition(throat.x, throat.y + (3 * getScale()), throat.z);
+//        }
 
 //        if (this.boosting()) {
 //            collideDragon();
@@ -1836,6 +1836,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         }
     }
+
 
     @Override
     public void updatePassenger(Entity passenger) {

@@ -121,11 +121,6 @@ public class GuiDragon extends GuiContainer {
             this.dragon = dragon;
         }
 
-        @Override
-        public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
-            return enable && super.mousePressed(mc, mouseX, mouseY);
-        }
-
         /**
          * Draws this button to the screen.
          */

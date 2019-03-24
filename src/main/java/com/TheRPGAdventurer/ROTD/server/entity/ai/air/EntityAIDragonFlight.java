@@ -55,12 +55,12 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         int oz = followRange - random.nextInt(followRange) * 2;
         landingPos = landingPos.add(ox, 0, oz);
 
-        if (dragon.isTamed() && dragon.getOwner() != null) {
-            landingPos = dragon.getOwner().getPosition();
-        } else {
+//        if (dragon.isTamed() && dragon.getOwner() != null) {
+//            landingPos = dragon.getOwner().getPosition();
+//        } else {
             // get ground block
             landingPos = dragon.world.provider.getDimensionType() == DimensionType.NETHER ? findLandingArea(landingPos) : dragon.world.getHeight(landingPos);
-        }
+//        }
 
         // make sure the block below is solid
         return world.getBlockState(landingPos.down()).getMaterial().isSolid();

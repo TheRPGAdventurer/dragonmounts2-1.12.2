@@ -38,6 +38,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends ServerProxy {
 
     private int thirdPersonViewDragon = 0;
+    private int followYaw = 0;
+    private int hover = 0;
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -89,4 +91,21 @@ public class ClientProxy extends ServerProxy {
         thirdPersonViewDragon = view;
     }
 
+    public int getFollowYaw() {
+        return followYaw;
+    }
+
+    public void setFollowYaw(int followYaw) {
+        this.followYaw = followYaw;
+    }
+
+    @Override
+    public int getDragonHover() {
+        return hover;
+    }
+
+    @Override
+    public void setDragonHover(int hover) {
+        this.hover = hover;
+    }
 }

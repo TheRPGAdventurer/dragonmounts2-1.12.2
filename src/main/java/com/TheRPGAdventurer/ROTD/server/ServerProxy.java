@@ -86,4 +86,18 @@ public class ServerProxy {
     public void setDragon3rdPersonView(int view) {
     }
 
+    public int getDragonFollowYaw() {
+        return 0;
+    }
+
+    public void setDragonFollowYaw(int yaw) {
+    }
+
+    public int getDragonHover() {
+        return 0;
+    }
+
+    public void setDragonHover(int hover) {
+    }
+
 }

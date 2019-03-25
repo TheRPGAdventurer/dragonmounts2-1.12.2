@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -73,7 +74,6 @@ public class ItemDragonEssence extends Item {
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
 
-
         if (stack.hasDisplayName()) {
             dragon.setCustomNameTag(stack.getDisplayName());
         }
@@ -82,8 +82,12 @@ public class ItemDragonEssence extends Item {
             dragon.readEntityFromNBT(stack.getTagCompound());
             dragon.setBreedType(breed);
             stack.getTagCompound().setBoolean("Released", true);
-            if (!worldIn.isRemote && dragon.isTamedFor(player)) {
-                worldIn.spawnEntity(dragon);
+            if (dragon.isTamedFor(player)) {
+                if (!worldIn.isRemote) {
+                    worldIn.spawnEntity(dragon);
+                }
+            } else {
+                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
             }
         }
 

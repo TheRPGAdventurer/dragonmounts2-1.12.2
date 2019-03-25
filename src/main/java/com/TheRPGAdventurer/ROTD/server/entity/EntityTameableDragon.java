@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
-import com.TheRPGAdventurer.ROTD.client.message.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIAirPoint;
@@ -864,6 +863,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             boolean isBoosting = ModKeys.KEY_HOVERCANCEL.isKeyDown();
             boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isPressed();
             boolean isFollowYaw = ModKeys.FOLLOW_YAW.isPressed();
+            int followYaw = DragonMounts.proxy.getDragonFollowYaw();
+            int unHover = DragonMounts.proxy.getDragonHover();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isBoosting));
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), isHoverCancel, isFollowYaw));
 

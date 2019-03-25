@@ -81,14 +81,39 @@ public class DragonViewEvent {
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if (player.world.isRemote && ModKeys.dragon_change_view.isPressed()) {
-                int currentView = DragonMounts.proxy.getDragon3rdPersonView();
-                if (currentView + 1 > 2) {
-                    currentView = 0;
-                } else {
-                    currentView++;
+            if (player.world.isRemote) {
+                if (ModKeys.dragon_change_view.isPressed()) {
+                    int currentView = DragonMounts.proxy.getDragon3rdPersonView();
+                    if (currentView + 1 > 2) {
+                        currentView = 0;
+                    } else {
+                        currentView++;
+                    }
+                    
+                    DragonMounts.proxy.setDragon3rdPersonView(currentView);
+
+                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
+
+
+                    int followYaw = DragonMounts.proxy.getDragon3rdPersonView();
+                    if (followYaw + 1 > 1) {
+                        followYaw = 0;
+                    } else {
+                        followYaw++;
+                    }
+
+                    DragonMounts.proxy.setDragon3rdPersonView(followYaw);
+
+                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
+                    int hover = DragonMounts.proxy.getDragon3rdPersonView();
+                    if (hover + 1 > 1) {
+                        hover = 0;
+                    } else {
+                        hover++;
+                    }
+
+                    DragonMounts.proxy.setDragon3rdPersonView(hover);
                 }
-                DragonMounts.proxy.setDragon3rdPersonView(currentView);
             }
         }
     }

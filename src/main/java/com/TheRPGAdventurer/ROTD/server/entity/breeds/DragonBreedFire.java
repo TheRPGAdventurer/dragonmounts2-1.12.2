@@ -10,10 +10,8 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
-import net.minecraft.init.Biomes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
@@ -37,9 +35,7 @@ public class DragonBreedFire extends DragonBreed {
         setHabitatBlock(Blocks.LIT_FURNACE);
         setHabitatBlock(Blocks.LAVA);
         setHabitatBlock(Blocks.FLOWING_LAVA);
-        
-        setHabitatBiome(Biomes.DESERT);
-        setHabitatBiome(Biomes.DESERT_HILLS);
+
     }
 
     @Override

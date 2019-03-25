@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
@@ -30,7 +29,7 @@ public class ItemDragonEssence extends Item {
         this.breed = breed;
         this.setUnlocalizedName(type.toString().toLowerCase() + "_dragon_essence");
         this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
-        this.setCreativeTab(DragonMounts.TAB);
+//        this.setCreativeTab(DragonMounts.TAB);
         this.maxStackSize = 1;
         this.type = type;
     }
@@ -80,17 +79,18 @@ public class ItemDragonEssence extends Item {
 
         if (stack.getTagCompound() != null) {
             dragon.readEntityFromNBT(stack.getTagCompound());
-            dragon.setBreedType(breed);
-            stack.getTagCompound().setBoolean("Released", true);
-            if (dragon.isTamedFor(player)) {
-                if (!worldIn.isRemote) {
-                    worldIn.spawnEntity(dragon);
-                }
-            } else {
-                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-            }
         }
+        dragon.setBreedType(breed);
 
+        stack.getTagCompound().setBoolean("Released", true);
+        if (dragon.isTamedFor(player)) {
+            if (!worldIn.isRemote) {
+                worldIn.spawnEntity(dragon);
+            }
+        } else {
+            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+
+        }
 
         stack = new ItemStack(this);
         dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);

@@ -36,7 +36,7 @@ public class ItemDragonAmulet extends Item {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
-        this.setCreativeTab(DragonMounts.TAB);
+//        this.setCreativeTab(DragonMounts.TAB);
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
             @Override
             @SideOnly(Side.CLIENT)

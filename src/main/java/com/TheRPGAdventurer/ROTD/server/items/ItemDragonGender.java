@@ -29,9 +29,11 @@ public class ItemDragonGender extends Item {
         if (target.world.isRemote) return false;
         if (target instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) target;
-            dragon.setOppositeGender();
-            dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1, 1);
-            return true;
+            if (dragon.isTamedFor(player)) {
+                dragon.setOppositeGender();
+                dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1, 1);
+                return true;
+            }
         }
         return false;
     }

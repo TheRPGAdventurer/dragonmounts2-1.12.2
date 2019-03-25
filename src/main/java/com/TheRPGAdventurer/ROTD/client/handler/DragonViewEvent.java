@@ -92,27 +92,27 @@ public class DragonViewEvent {
 
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
-                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
-
-
-                    int followYaw = DragonMounts.proxy.getDragon3rdPersonView();
-                    if (followYaw + 1 > 1) {
-                        followYaw = 0;
-                    } else {
-                        followYaw++;
-                    }
-
-                    DragonMounts.proxy.setDragonFollowYaw(followYaw);
-
-                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-                    int hover = DragonMounts.proxy.getDragon3rdPersonView();
-                    if (hover + 1 > 1) {
-                        hover = 0;
-                    } else {
-                        hover++;
-                    }
-
-                    DragonMounts.proxy.setDragonHover(hover);
+//                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
+//
+//
+//                    int followYaw = DragonMounts.proxy.getDragonFollowYaw();
+//                    if (followYaw + 1 > 1) {
+//                        followYaw = 0;
+//                    } else {
+//                        followYaw++;
+//                    }
+//
+//                    DragonMounts.proxy.setDragonFollowYaw(followYaw);
+//
+//                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
+//                    int hover = DragonMounts.proxy.getDragonHover();
+//                    if (hover + 1 > 1) {
+//                        hover = 0;
+//                    } else {
+//                        hover++;
+//                    }
+//
+//                    DragonMounts.proxy.setDragonHover(hover);
                 }
             }
         }

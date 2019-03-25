@@ -15,7 +15,7 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class ModTools {
 	
-	static float damage = 10.0F; static float speed = -2.9F; static float netherDamage = 12.0F; static float netherSpeed = -3.0F; static float enderDamage = 9.0F; static float enderSpeed = -3.3F;
+	static float damage = 10.0F; static float speed = -2.9F; static float netherDamage = 12.0F; static float netherSpeed = -3.0F; static float enderDamage = 9.0F; static float enderSpeed = -3.0F;
  
 	public static final ToolMaterial ForestDragonScaleMaterial          = EnumHelper.addToolMaterial(DragonMounts.MODID + ":forestdragonscales",   4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial FireDragonScaleMaterial            = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales",      4, 2700, 8.0F, 5.0F, 11);

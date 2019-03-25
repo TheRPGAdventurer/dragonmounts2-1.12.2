@@ -592,7 +592,9 @@ public class DragonAnimator {
      float pitchMovingMax = 90;
      float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
      float pitchHoverMax = 60;
-     boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
+//        int followYaw = DragonMounts.proxy.getDragonFollowYaw();
+//        int unHover = DragonMounts.proxy.getDragonHover();
+        boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
      		|| dragon.getPassengers().size() > 1 || dragon.isUnHovered();
      return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }

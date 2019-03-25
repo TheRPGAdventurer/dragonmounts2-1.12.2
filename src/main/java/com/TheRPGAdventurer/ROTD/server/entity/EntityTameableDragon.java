@@ -29,7 +29,6 @@ import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonEssence;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -41,8 +40,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -65,6 +67,8 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -101,8 +105,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     private static final Logger L = LogManager.getLogger();
 
-//    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
-//            .setDescription("Movement Speed Air").setShouldWatch(true);
+    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
+            .setDescription("Movement Speed Air").setShouldWatch(true);
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
@@ -225,7 +229,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // standing.
         try {
             ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
-                    "bodyHelper","field_70762_j");
+                    "bodyHelper", "field_70762_j");
         } catch (Exception ex) {
             L.warn("Can't override EntityBodyHelper", ex);
         }
@@ -863,10 +867,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             boolean isBoosting = ModKeys.KEY_HOVERCANCEL.isKeyDown();
 //            boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isPressed();
 //            boolean isFollowYaw = ModKeys.FOLLOW_YAW.isPressed();
-            int followYaw = DragonMounts.proxy.getDragonFollowYaw();
-            int unHover = DragonMounts.proxy.getDragonHover();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isBoosting));
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), followYaw, unHover));
 
 
         }
@@ -1034,6 +1035,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
 
+        setUnHovered(this.boosting());
+
 
         //	if(this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
         //	Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP)this.getControllingPlayer()));
@@ -1085,12 +1088,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
 
         if (!this.world.isRemote) {
-            if (this.isTamed()) {
+            if (isTamed() && deathTime >= getMaxDeathTime()) {
                 ItemDragonEssence essence = dragonEssence();
                 ItemStack essence1 = new ItemStack(essence);
                 essence.setDragonNBT(this, essence1);
-                entityDropItem(essence1, 1);
+                generateChest(world, this.getPosition(), essence1);
             }
+        }
+    }
+
+    public void generateChest(World world, BlockPos pos, ItemStack essence) {
+        world.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof TileEntityChest) {
+            ((TileEntityChest) te).setInventorySlotContents(1, essence);
         }
     }
 
@@ -1631,6 +1642,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         ticksSinceLastAttack = 0;
     }
 
+    public void sendEssenceToPlayer(ItemStack essence, EntityPlayer player) {
+        boolean flag = player.inventory.addItemStackToInventory(essence);
+
+        if (flag) {
+            player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+            player.inventoryContainer.detectAndSendChanges();
+        }
+
+        if (flag && essence.isEmpty()) {
+            essence.setCount(1);
+            EntityItem entityitem1 = player.dropItem(essence, false);
+
+            if (entityitem1 != null) {
+                entityitem1.makeFakeItem();
+            }
+        }
+    }
+
     /**
      * 1 equals iron 2 equals gold 3 equals diamond
      *
@@ -1638,17 +1667,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      */
     public int getArmorResistance() {
         if (getArmor() == 1) {
-            return (int) 0.8;
+            return (int) 1.4;
         }
         if (getArmor() == 2) {
-            return (int) 0.5;
+            return (int) 1.2;
         }
         if (getArmor() == 3) {
-            return (int) 1.1;
+            return (int) 1.7;
         }
 
         if (getArmor() == 4) {
-            return (int) 0.7;
+            return (int) 1.4;
         }
         return 0;
     }
@@ -2232,7 +2261,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         int factor = DragonMountsConfig.FACTOR;
         if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor == 0 && !isDead) {
             int[] exclude = {0};
-            int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 5, exclude);
+            int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 7, exclude);
             this.heal(health);
         }
     }

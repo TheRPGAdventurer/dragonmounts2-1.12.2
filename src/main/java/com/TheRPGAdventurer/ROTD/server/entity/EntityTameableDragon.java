@@ -40,6 +40,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -205,6 +206,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
+    public EntityLookHelper dragonLookhelper;
 
     public EntityPartDragon dragonPartHead;
     public EntityPartDragon dragonPartNeck;
@@ -212,23 +214,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public EntityTameableDragon(World world) {
         super(world);
-        // override EntityBodyHelper field, which is private and has no setter
-        // required to fixate body while sitting. also slows down rotation while
-        // standing.
-//        try {
-//            ObfuscationReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
-//                    "field_70762_j");
-//        } catch (Exception ex) {
-//            L.warn("Can't override EntityBodyHelper", ex);
-//        }
-//
-//         override EntityLookHelper field, which is private and has no setter
-//        try {
-//            ObfuscationReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this),
-//                    "field_70749_g");
-//        } catch (Exception ex) {
-//            L.warn("Can't override EntityLookHelper", ex);
-//        }
 
         // set base size
         setSize(BASE_WIDTH, BASE_HEIGHT);
@@ -271,6 +256,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public void updateParts() {
         //	dragonPartHead.onUpdate();
+    }
+
+    public EntityLookHelper getLookHelper()
+    {
+        return this.dragonLookhelper;
+    }
+
+    protected EntityBodyHelper createBodyHelper()
+    {
+        return new DragonBodyHelper(this);
     }
 
     @Override

@@ -262,9 +262,12 @@ item.terra2_dragonscale_tunic.name=Dragon Tunic
 item.terra2_dragonscale_leggings.name=Dragon Leggings
 item.terra2_dragonscale_boots.name=Dragon Boots
 
-key.categories.dragon=Dragon Controls
+key.categories.dragon=Dragon Mounts Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
+key.dragon.breath=Dragon Breath
+key.dragon.cancelhover=Flight Boost
+key.dragon.f7=Change Mount Camera
 
 item.dragonarmor_diamond.name=Diamond Dragon Armor
 item.dragonarmor_iron.name=Iron Dragon Armor

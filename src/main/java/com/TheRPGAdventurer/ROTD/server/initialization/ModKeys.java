@@ -7,7 +7,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class ModKeys {
 	
-    public static final String KEY_CATEGORY = "key.categories.gameplay";
+    public static final String KEY_CATEGORY = "key.categories.dragon";
    // public static KeyBinding KEY_FLY_UP;
   //  public static KeyBinding KEY_FLY_DOWN;
     public static  KeyBinding KEY_BREATH;

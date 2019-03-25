@@ -9,9 +9,8 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
-import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
-import net.minecraft.util.math.MathHelper;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 /**
  * Enum for dragon life stages. Used as aliases for the age value of dragons.
@@ -27,7 +26,11 @@ public enum EnumDragonLifeStage {
     
     public static final int TICKS_PER_STAGE = 42000;
     public static final EnumDragonLifeStage[] VALUES = values(); // cached for speed
-    
+
+    public static int clampTickCount(int ticksSinceCreation) {
+        return MathX.clamps(ticksSinceCreation, 0, VALUES.length * TICKS_PER_STAGE);
+    }
+
     public static EnumDragonLifeStage fromTickCount(int ticksSinceCreation) {
         return VALUES[clampTickCount(ticksSinceCreation) / TICKS_PER_STAGE];
     }
@@ -37,7 +40,7 @@ public enum EnumDragonLifeStage {
         int lifeStageTicks = ticksSinceCreation - lifeStage.startTicks();
         return lifeStageTicks / (float) TICKS_PER_STAGE;
     }
-    
+
     public static float scaleFromTickCount(int ticksSinceCreation) {
         EnumDragonLifeStage lifeStage = fromTickCount(ticksSinceCreation);
         
@@ -49,10 +52,6 @@ public enum EnumDragonLifeStage {
         // interpolated size between current and next stage
         return Interpolation.linear(lifeStage.scale, lifeStage.next().scale,
                 progressFromTickCount(ticksSinceCreation));
-    }
-
-    public static int clampTickCount(int ticksSinceCreation) {
-        return MathHelper.clamp(ticksSinceCreation, 0, VALUES.length * TICKS_PER_STAGE);
     }
     
     public final float scale;

@@ -142,6 +142,11 @@ public class MathX {
     public static int clamp(int value, int min, int max) {
         return (value < min ? min : (value > max ? max : value));
     }
+
+    // numeric integer clamp
+    public static int clamps(int value, int min, int max) {
+        return (value < min ? min : (value >= max ? max : value));
+    }
     
     public static float updateRotation(float r1, float r2, float step) {
         return r1 + clamp(normDeg(r2 - r1), -step, step);

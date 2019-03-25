@@ -91,9 +91,6 @@ public class RegistryEventHandler {
 				});
 			}
 
-			ModTools.InitializaRepairs();
-			ModArmour.InitializaRepairs();
-
 			DMUtils.getLogger().info("Models Sucessfully Registered");		
 	}
 }

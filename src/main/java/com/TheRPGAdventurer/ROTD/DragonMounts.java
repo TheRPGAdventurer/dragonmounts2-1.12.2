@@ -14,6 +14,8 @@ import com.TheRPGAdventurer.ROTD.client.handler.EventLiving;
 import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.network.*;
 import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
@@ -92,6 +94,8 @@ public class DragonMounts {
     public void Initialization(FMLInitializationEvent event) {
         proxy.Initialization(event);
         proxy.render();
+        ModTools.InitializaRepairs();
+        ModArmour.InitializaRepairs();
         EntityPropertiesHandler.INSTANCE.registerProperties(MiscPlayerProperties.class);
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());

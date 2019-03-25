@@ -102,7 +102,7 @@ public class DragonViewEvent {
                         followYaw++;
                     }
 
-                    DragonMounts.proxy.setDragon3rdPersonView(followYaw);
+                    DragonMounts.proxy.setDragonFollowYaw(followYaw);
 
                 } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
                     int hover = DragonMounts.proxy.getDragon3rdPersonView();
@@ -112,7 +112,7 @@ public class DragonViewEvent {
                         hover++;
                     }
 
-                    DragonMounts.proxy.setDragon3rdPersonView(hover);
+                    DragonMounts.proxy.setDragonHover(hover);
                 }
             }
         }

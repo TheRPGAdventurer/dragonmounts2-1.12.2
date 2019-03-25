@@ -15,13 +15,13 @@ public class DragonBreathMessage extends AbstractMessage<DragonBreathMessage> {
 
 	private int dragonId;
 	public boolean isBreathing;
-	public boolean isHoverCancel;
+	public boolean isBoosting;
 	
 
-	public DragonBreathMessage(int dragonId, boolean isBreathing, boolean isHoverCancel) {
+	public DragonBreathMessage(int dragonId, boolean isBreathing, boolean isBoosting) {
 		this.dragonId = dragonId;
 		this.isBreathing = isBreathing;
-		this.isHoverCancel = isHoverCancel;
+		this.isBoosting = isBoosting;
 	}
 
 	public DragonBreathMessage() {}
@@ -30,7 +30,7 @@ public class DragonBreathMessage extends AbstractMessage<DragonBreathMessage> {
 	public void fromBytes(ByteBuf buf) {
 		dragonId = buf.readInt();
 		isBreathing = buf.readBoolean();
-		isHoverCancel = buf.readBoolean();
+		isBoosting = buf.readBoolean();
 
 	}
 
@@ -38,7 +38,7 @@ public class DragonBreathMessage extends AbstractMessage<DragonBreathMessage> {
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(dragonId);
 		buf.writeBoolean(isBreathing);
-		buf.writeBoolean(isHoverCancel);
+		buf.writeBoolean(isBoosting);
 
 	}
 
@@ -59,10 +59,10 @@ public class DragonBreathMessage extends AbstractMessage<DragonBreathMessage> {
 				dragon.setUsingBreathWeapon(false);
 			}
 			
-			if(message.isHoverCancel) {
-				dragon.setUnHovered(true);
+			if(message.isBoosting) {
+				dragon.setBoosting(true);
 			} else {
-				dragon.setUnHovered(false);
+				dragon.setBoosting(false);
 			}
 		} 
 	}

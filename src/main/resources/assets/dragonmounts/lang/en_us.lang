@@ -266,8 +266,10 @@ key.categories.dragon=Dragon Mounts Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
 key.dragon.breath=Dragon Breath
-key.dragon.cancelhover=Flight Boost
+key.dragon.cancelhover=Cancel Hover
 key.dragon.f7=Change Mount Camera
+key.dragon.followYaw=Follow Yaw
+key.dragon.boost=Flight Boost
 
 item.dragonarmor_diamond.name=Diamond Dragon Armor
 item.dragonarmor_iron.name=Iron Dragon Armor

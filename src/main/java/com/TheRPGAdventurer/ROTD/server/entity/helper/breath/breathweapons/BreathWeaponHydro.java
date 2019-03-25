@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedEntity;
@@ -122,7 +121,7 @@ public class BreathWeaponHydro extends BreathWeapon implements PrivateAccessor {
             if (entity1.isPotionActive(MobEffects.WATER_BREATHING)) {
                 return null;
             } else {
-                entity1.attackEntityFrom(DragonMounts.dragons_fire, DAMAGE_PER_HIT_DENSITY);
+                entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
             }
         }
         triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
@@ -138,7 +137,7 @@ public class BreathWeaponHydro extends BreathWeapon implements PrivateAccessor {
             entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 1.0f, 0.0f);
         }
 
-        entity.attackEntityFrom(DragonMounts.dragons_fire, DAMAGE_PER_HIT_DENSITY);
+        entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
         entity.isWet();
         ((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
         PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 200);

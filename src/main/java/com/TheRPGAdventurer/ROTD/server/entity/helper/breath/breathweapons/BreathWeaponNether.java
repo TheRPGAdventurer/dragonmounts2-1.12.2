@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
@@ -16,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -258,7 +258,7 @@ public class BreathWeaponNether extends BreathWeapon implements PrivateAccessor 
     final float DAMAGE_PER_HIT_DENSITY = 0.4F * hitDensity;
     
     triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
-    entity.attackEntityFrom(DragonMounts.dragons_fire, DAMAGE_PER_HIT_DENSITY);
+    entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
 
     this.xp(entity);
 

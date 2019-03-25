@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
@@ -296,14 +295,14 @@ public class BreathWeapon implements PrivateAccessor {
         } else if (entity instanceof EntityTameable) {
             EntityTameable entityTameable = (EntityTameable) entity;
             if (entityTameable.isTamed()) {
-                entityTameable.attackEntityFrom(DragonMounts.dragons_fire, 0);
+                entityTameable.attackEntityFrom(DamageSource.causeMobDamage(dragon), 0);
             }
         } else if (entity instanceof EntityLivingBase) {
             EntityLivingBase entity1 = (EntityLivingBase) entity;
             if (entity1.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
                 return null;
             } else {
-                entity1.attackEntityFrom(DragonMounts.dragons_fire, DAMAGE_PER_HIT_DENSITY);
+                entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
             }
         } else if (dragon.isBeingRidden()) {
             if (dragon.isPassenger(entity)) return null;

@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
+import com.TheRPGAdventurer.ROTD.client.message.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIAirPoint;
@@ -29,6 +30,7 @@ import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonEssence;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -40,7 +42,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -66,7 +67,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -75,6 +79,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
@@ -139,6 +144,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> FOLLOW_YAW = EntityDataManager
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<String> DATA_BREED = EntityDataManager
@@ -198,6 +205,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private boolean isUsingBreathWeapon;
     private boolean allowOthers;
     private boolean isUnhovered;
+    private boolean followYaw;
     public boolean isSlowed;
     public int inAirTicks;
     public DragonAnimator animator;
@@ -206,7 +214,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
-    public EntityLookHelper dragonLookhelper;
 
     public EntityPartDragon dragonPartHead;
     public EntityPartDragon dragonPartNeck;
@@ -214,6 +221,23 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public EntityTameableDragon(World world) {
         super(world);
+        // override EntityBodyHelper field, which is private and has no setter
+        // required to fixate body while sitting. also slows down rotation while
+        // standing.
+        try {
+            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
+                    "bodyHelper","field_70762_j");
+        } catch (Exception ex) {
+            L.warn("Can't override EntityBodyHelper", ex);
+        }
+
+//         override EntityLookHelper field, which is private and has no setter
+        try {
+            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this),
+                    "lookHelper", "field_70749_g");
+        } catch (Exception ex) {
+            L.warn("Can't override EntityLookHelper", ex);
+        }
 
         // set base size
         setSize(BASE_WIDTH, BASE_HEIGHT);
@@ -258,16 +282,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         //	dragonPartHead.onUpdate();
     }
 
-    public EntityLookHelper getLookHelper()
-    {
-        return this.dragonLookhelper;
-    }
-
-    protected EntityBodyHelper createBodyHelper()
-    {
-        return new DragonBodyHelper(this);
-    }
-
     @Override
     protected float updateDistance(float f1, float f2) {
         dragonBodyHelper.updateRenderAngles();
@@ -302,6 +316,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(WHISTLE, ItemStack.EMPTY);
         dataManager.register(SLEEP, false);
         dataManager.register(HOVER_CANCELLED, false);
+        dataManager.register(FOLLOW_YAW, true);
     }
 
     @Override
@@ -683,6 +698,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
     }
 
+    public boolean followYaw() {
+        if (world.isRemote) {
+            boolean folowYaw = dataManager.get(FOLLOW_YAW);
+            this.isUnhovered = folowYaw;
+            return folowYaw;
+        }
+        return followYaw;
+    }
+
+    public void setFollowYaw(boolean folowYaw) {
+        dataManager.set(FOLLOW_YAW, folowYaw);
+        if (!world.isRemote) {
+            this.isUnhovered = folowYaw;
+        }
+    }
+
     @Override
     protected void initEntityAI() {
         tasks.addTask(6, new EntityAIAirPoint(this));
@@ -830,9 +861,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         Minecraft mc = Minecraft.getMinecraft();
         if (hasControllingPlayer(mc.player) && getControllingPlayer() != null) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
-            boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isKeyDown();
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isHoverCancel));
-//            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(getEntityId(), posX, posY, posZ));
+            boolean isBoosting = ModKeys.KEY_HOVERCANCEL.isKeyDown();
+            boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isPressed();
+            boolean isFollowYaw = ModKeys.FOLLOW_YAW.isPressed();
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isBoosting));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), isHoverCancel, isFollowYaw));
+
 
         }
     }

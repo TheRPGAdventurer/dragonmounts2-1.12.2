@@ -72,19 +72,21 @@ public class ItemDragonEssence extends Item {
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
-        if (stack.getTagCompound() != null) {
-            dragon.readEntityFromNBT(stack.getTagCompound());
-        }
+
 
         if (stack.hasDisplayName()) {
             dragon.setCustomNameTag(stack.getDisplayName());
         }
 
-        dragon.setBreedType(breed);
-        stack.getTagCompound().setBoolean("Released", true);
-        if (!worldIn.isRemote && dragon.isTamedFor(player)) {
-            worldIn.spawnEntity(dragon);
+        if (stack.getTagCompound() != null) {
+            dragon.readEntityFromNBT(stack.getTagCompound());
+            dragon.setBreedType(breed);
+            stack.getTagCompound().setBoolean("Released", true);
+            if (!worldIn.isRemote && dragon.isTamedFor(player)) {
+                worldIn.spawnEntity(dragon);
+            }
         }
+
 
         stack = new ItemStack(this);
         dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);

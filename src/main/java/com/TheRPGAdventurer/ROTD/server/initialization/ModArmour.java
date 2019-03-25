@@ -236,12 +236,19 @@ public class ModArmour {
         AetherDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.AetherDragonScales));
         ForestDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ForestDragonScales));
         FireDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.FireDragonScales));
+        FireDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.FireDragonScales2));
         IceDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.IceDragonScales));
         NetherDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.NetherDragonScales));
+        NetherDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.NetherDragonScales2));
         EnderDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.EnderDragonScales));
+        EnchantDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.EnchantDragonScales));
         ZombieDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.ZombieDragonScales));
         TerraDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.TerraDragonScales));
         TerraDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.TerraDragonScales2));
+        SunlightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.SunlightDragonScales));
+        SunlightDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.SunlightDragonScales2));
+        StormDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.StormDragonScales));
+        StormDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.StormDragonScales2));
         MoonlightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.MoonlightDragonScales));
     }
 }

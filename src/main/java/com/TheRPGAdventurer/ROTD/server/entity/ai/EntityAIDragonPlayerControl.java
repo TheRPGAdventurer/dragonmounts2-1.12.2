@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.Vec3d;
@@ -63,11 +62,16 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         // if we're breathing at a target, look at it
         if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
-            Vec3d lookDirection = rider.getLook(1.0F);
+            Vec3d lookDirection = rider.getLook(1);
             Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -80, 80), lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-            updateIntendedRideRotation(rider);
+            if (rider.moveStrafing == 0) {
+                dragon.rotationYawHead = rider.rotationYawHead;
+                dragon.prevRotationYawHead = rider.prevRotationYawHead;
+                dragon.rotationYaw = rider.rotationYaw;
+                dragon.rotationPitch = rider.rotationPitch;
+            }
         }
 
         dragon.setBoosting(dragon.isUnHovered());
@@ -94,15 +98,12 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                 dragon.liftOff();
             }
         }
-        updateIntendedRideRotation(rider);
-        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
-    }
 
-    private void updateIntendedRideRotation(EntityPlayer rider) {
-        boolean hasRider = dragon.hasControllingPlayer(rider);
-        if (dragon.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
+        if (rider.moveStrafing == 0 && dragon.followYaw()) {
             dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
         }
+        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
+
 }

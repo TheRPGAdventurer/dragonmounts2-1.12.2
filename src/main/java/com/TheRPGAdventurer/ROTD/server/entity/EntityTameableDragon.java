@@ -861,12 +861,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (hasControllingPlayer(mc.player) && getControllingPlayer() != null) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting = ModKeys.KEY_HOVERCANCEL.isKeyDown();
-            boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isPressed();
-            boolean isFollowYaw = ModKeys.FOLLOW_YAW.isPressed();
+//            boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isPressed();
+//            boolean isFollowYaw = ModKeys.FOLLOW_YAW.isPressed();
             int followYaw = DragonMounts.proxy.getDragonFollowYaw();
             int unHover = DragonMounts.proxy.getDragonHover();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isBoosting));
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), isHoverCancel, isFollowYaw));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), followYaw, unHover));
 
 
         }

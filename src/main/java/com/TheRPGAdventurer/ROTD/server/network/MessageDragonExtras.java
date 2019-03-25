@@ -14,11 +14,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
 
     private int dragonId;
-    public boolean isHoverCancel;
-    public boolean isFollowYaw;
+    public int isHoverCancel;
+    public int isFollowYaw;
 
 
-    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw) {
+    public MessageDragonExtras(int dragonId, int isHoverCancel, int isFollowYaw) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
         this.isFollowYaw = isFollowYaw;
@@ -29,16 +29,16 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     @Override
     public void fromBytes(ByteBuf buf) {
         dragonId = buf.readInt();
-        isHoverCancel = buf.readBoolean();
-        isFollowYaw = buf.readBoolean();
+        isHoverCancel = buf.readInt();
+        isFollowYaw = buf.readInt();
 
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(dragonId);
-        buf.writeBoolean(isHoverCancel);
-        buf.writeBoolean(isFollowYaw);
+        buf.writeInt(isHoverCancel);
+        buf.writeInt(isFollowYaw);
 
     }
 
@@ -53,13 +53,13 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         Entity entity = player.world.getEntityByID(message.dragonId);
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
-            if (message.isHoverCancel) {
+            if (message.isHoverCancel == 1) {
                 dragon.setUnHovered(true);
             } else {
                 dragon.setUnHovered(false);
             }
 
-            if(message.isFollowYaw) {
+            if(message.isFollowYaw == 1) {
                 dragon.setFollowYaw(true);
             } else {
                 dragon.setFollowYaw(false);

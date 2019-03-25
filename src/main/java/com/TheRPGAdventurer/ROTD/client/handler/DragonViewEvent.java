@@ -89,7 +89,7 @@ public class DragonViewEvent {
                     } else {
                         currentView++;
                     }
-                    
+
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
                 } else if (ModKeys.FOLLOW_YAW.isPressed()) {

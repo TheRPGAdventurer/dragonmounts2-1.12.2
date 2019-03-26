@@ -1087,21 +1087,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
 
-        if (!this.world.isRemote) {
-            if (isTamed() && deathTime >= getMaxDeathTime()) {
-                ItemDragonEssence essence = dragonEssence();
-                ItemStack essence1 = new ItemStack(essence);
-                essence.setDragonNBT(this, essence1);
-                generateChest(world, this.getPosition(), essence1);
-            }
+        if (isTamed()) {
+            ItemDragonEssence essence = dragonEssence();
+            ItemStack essenceStack = new ItemStack(essence);
+            essence.setDragonNBT(this, essenceStack);
+            generateChest(world, this.getPosition(), essenceStack);
         }
+
     }
 
-    public void generateChest(World world, BlockPos pos, ItemStack essence) {
-        world.setBlockState(pos, Blocks.CHEST.getDefaultState(), 2);
+    public void generateChest(World world, BlockPos pos, ItemStack essenceStack) {
+        world.setBlockState(pos, Blocks.CHEST.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileEntityChest) {
-            ((TileEntityChest) te).setInventorySlotContents(1, essence);
+            ((TileEntityChest) te).setInventorySlotContents(1, essenceStack);
         }
     }
 
@@ -1917,6 +1916,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
             }
 
+            passenger.setEntityInvulnerable(true);
+
             if (!(passenger instanceof EntityPlayer)) {
                 passenger.rotationYaw = this.rotationYaw;
                 passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
@@ -2168,7 +2169,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     @Override
     protected ResourceLocation getLootTable() {
-        return getBreed().getLootTable(this);
+        if (!isTamed())
+            return getBreed().getLootTable(this);
 
     }
 
@@ -2627,13 +2629,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return false;
         }
 
-        if (damage >= 25 && source != DamageSource.GENERIC) {
-            return damage == 12.0f;
+        //when killed with damage greater than 18 cause the game to crask
+        if (damage >= 18 && source != DamageSource.GENERIC) {
+            return damage == 8.0f;
         }
-
-//        if(damage == DamageSource.causeExplosionDamage(null)) {
-//
-//        }
 
         // don't just sit there!
         aiSit.setSitting(false);

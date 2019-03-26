@@ -55,21 +55,21 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (ownerCurrent == null) {
             return false;
         }
-        
-        if(ownerCurrent instanceof EntityPlayer) {
-           if (((EntityPlayer) ownerCurrent).isSpectator()) {
-               return false;
-           }
-       }
+
+        if (ownerCurrent instanceof EntityPlayer) {
+            if (((EntityPlayer) ownerCurrent).isSpectator()) {
+                return false;
+            }
+        }
 
         if (dragon.isSitting()) {
             return false;
         }
 
-        if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist * minDist) {
+        if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist) {
             return false;
         }
-        
+
         owner = ownerCurrent;
         return true;
     }
@@ -86,10 +86,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.isSitting()) {
             return false;
         }
-        
-        if (dragon.getDistanceToEntity(owner) < 10) {
-         return false;
-     }
+
+        if (dragon.getDistanceToEntity(owner) < minDist) {
+            return false;
+        }
 
         return true;
     }
@@ -147,7 +147,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         updateTicks = 10;
 
         // finish task if it can move to the owner
-        if (nav.tryMoveToEntityLiving(owner, speed)) { 
+        if (nav.tryMoveToEntityLiving(owner, speed)) {
             return;
         }
 

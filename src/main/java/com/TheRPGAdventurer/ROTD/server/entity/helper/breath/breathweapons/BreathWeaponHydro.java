@@ -12,7 +12,6 @@ import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -140,8 +139,8 @@ public class BreathWeaponHydro extends BreathWeapon implements PrivateAccessor {
         entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
         entity.isWet();
         ((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
-        PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 200);
-        ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the entity
+//        PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 200);
+//        ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the entity
         entity.playSound(SoundEvents.ENTITY_GENERIC_SPLASH, 0.4f, 1.0f);
 
         this.xp(entity);

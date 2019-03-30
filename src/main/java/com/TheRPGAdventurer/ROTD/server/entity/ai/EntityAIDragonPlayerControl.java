@@ -61,23 +61,26 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
         // if we're breathing at a target, look at it
         if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
-//            if (rider.moveStrafing == 0) {
-//                dragon.rotationYawHead = rider.rotationYawHead;
-//                dragon.prevRotationYawHead = rider.prevRotationYawHead;
 
-//                dragon.rotationPitch = rider.rotationPitch;
-//            } else {
             dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
-            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight2(), 0);
-            Vec3d lookDirection = rider.getLook(1);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -80, 80), lookDirection.z);
-            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                    dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+            dragon.rotationYawHead = rider.rotationYawHead;
+
+            if(dragon.moveForward == 0) {
+                Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+                Vec3d lookDirection = rider.getLookVec();
+                Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+                dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
+                        dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+            }
+//            else {
+//                dragon.rotationYawHead = rider.rotationYawHead;
+//                dragon.rotationYaw = rider.rotationYaw;
+//                dragon.rotationPitch = rider.rotationPitch;
 //            }
         }
 
-        dragon.setBoosting(dragon.isUnHovered());
+        dragon.setUnHovered(dragon.boosting());
 
 
         // control direction with movement keys

@@ -54,8 +54,10 @@ item.structure_spawner.name=Structure Spawner (Debug)
 
 tile.pileofsticks.name=Nest Block
 item.dragonEgg.name=%s Egg
-item.dragon_gender.name=Dragon Gender Switcher Left Click an Entity To Work
-item.gui.dragon_gender=Changes the dragon's gender
+item.dragon_gender.name=Dragon Gender Switcher
+item.gui.dragon_gender=Left Click an owned dragon to work
+item.diamondshears.info=Right click on a dragon to get shears without killing it
+item.dragonamulet.info=Right Click to store dragon and carry it, shift + right click on ground to summon
 
 item.carriage_oak.name=Oak Carriage
 item.carriage_birch.name=Birch Carriage
@@ -374,7 +376,7 @@ gui.nothing=Nothing
 gui.circle=Circle Player
 gui.followFlying=Follow Flying
 gui.goToPlayer=Come To Player
-gui.homePos=Wander
+gui.homePos=Teleport
 gui.locked.dragon=LOCK
 gui.unlocked.dragon=UNLOCK
 

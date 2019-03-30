@@ -60,17 +60,15 @@ public class BreathWeaponIce extends BreathWeapon implements PrivateAccessor {
         BlockPos sideToIgnite = blockPos.offset(EnumFacing.UP);
         //  if (DragonMountsConfig.canBreathSetIce ) {
         //     world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else
-        if (world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER
-                && world.getBlockState(blockPos.up()).getBlock().isAir(world.getBlockState(blockPos.up()),world,blockPos.up())) {
+        if ((world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER)
+                && !world.getBlockState(sideToIgnite).getMaterial().isLiquid()) {
             if (DragonMountsConfig.canIceBreathBePermanent) {
-                world.mayPlace(Blocks.ICE, blockPos, false, EnumFacing.DOWN, null);
+//                world.mayPlace(Blocks.ICE, blockPos, false, EnumFacing.DOWN, null);
+                world.setBlockState(blockPos, Blocks.ICE.getDefaultState(), 3);
             } else if (!DragonMountsConfig.canIceBreathBePermanent) {
-                world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, null);
+//                world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, null);
+                world.setBlockState(blockPos, Blocks.FROSTED_ICE.getDefaultState(), 3);
             }
-        }
-
-        if (block == Blocks.WATER) {
-            world.setBlockState(blockPos, Blocks.FROSTED_ICE.getDefaultState());
         }
 
         if (block == Blocks.LAVA) {

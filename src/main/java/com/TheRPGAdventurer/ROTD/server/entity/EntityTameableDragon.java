@@ -77,7 +77,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -894,15 +893,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
-        double[] y1 = {0, 1, 2, 3};
-        double[] x1 = {-3, -2, -1, 0, 1, 2, 3};
-        double[] z1 = {-3, -2, -1, 0, 1, 2, 3};
+//        double[] y1 = {0, 1, 2, 3};
+//        double[] x1 = {-3, -2, -1, 0, 1, 2, 3};
+//        double[] z1 = {-3, -2, -1, 0, 1, 2, 3};
 
         for (double x = 0; x <= 4; ++x) {
             for (double y = 0; y <= 3; ++y) {
                 for (double z = 0; z <= 4; ++z) {
 
-                    pos = new BlockPos(posX - x, posY - (y * MathX.clamp(this.getScale(), 0.1, 1)), posZ - z);
+                    pos = new BlockPos(posX - x, posY - (y * this.getScale()), posZ - z);
                 }
             }
         }
@@ -913,32 +912,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         IBlockState state = world.getBlockState(onGroundAir());
         return state.getMaterial().isSolid();
 
-    }
-//
-//    public boolean isSolid(BlockPos pos) {
-//        IBlockState state = world.getBlockState(pos);
-//        return state.getMaterial().isSolid();
-//    }
-//
-//    public boolean onSolidGround() {
-//        double offsetStart = 3.0; // set this as how far below to start
-//        double offsetEnd = 3.0; // set this as how far above to stop
-
-//        for (double y = posY - offsetStart; y < y + height + offsetEnd; y++) {
-//            for (double z = posZ - width / 2; y < posZ + width / 2; y++) {
-//                for (double x = posX - width / 2; x < posX + width / 2; x++) {
-//                    if (isSolid(new BlockPos(x, y, z)))
-//                        return false;
-//                }
-//            }
-//        }
-//        return true;
-//}
-
-    @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-        this.setHealth(200);
-        return super.onInitialSpawn(difficulty, livingdata);
     }
 
     @Override
@@ -1916,7 +1889,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
             }
 
-            passenger.setEntityInvulnerable(true);
+//            passenger.setEntityInvulnerable(true);
 
             if (!(passenger instanceof EntityPlayer)) {
                 passenger.rotationYaw = this.rotationYaw;
@@ -2169,8 +2142,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     @Override
     protected ResourceLocation getLootTable() {
-        if (!isTamed())
+        if (!isTamed()) {
             return getBreed().getLootTable(this);
+        } else {
+            return null;
+        }
 
     }
 

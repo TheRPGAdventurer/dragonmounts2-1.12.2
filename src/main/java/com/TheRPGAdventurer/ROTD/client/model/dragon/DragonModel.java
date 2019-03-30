@@ -1,12 +1,12 @@
 /*
-** 2011 December 10
-**
-** The author disclaims copyright to this source code.  In place of
-** a legal notice, here is a blessing:
-**    May you do good and not evil.
-**    May you find forgiveness for yourself and forgive others.
-**    May you share freely, never taking more than you give.
-*/
+ ** 2011 December 10
+ **
+ ** The author disclaims copyright to this source code.  In place of
+ ** a legal notice, here is a blessing:
+ **    May you do good and not evil.
+ **    May you find forgiveness for yourself and forgive others.
+ **    May you share freely, never taking more than you give.
+ */
 
 package com.TheRPGAdventurer.ROTD.client.model.dragon;
 
@@ -102,25 +102,25 @@ public class DragonModel extends AdvancedModelBase {
     // 1st dim - front, hind
     // 2nd dim - thigh, crus, foot, toe
     private float[][] xGroundStand = {
-        {0.8f, -1.5f, 1.3f, 0},
-        {-0.3f, 1.5f, -0.2f, 0},};
+            {0.8f, -1.5f, 1.3f, 0},
+            {-0.3f, 1.5f, -0.2f, 0},};
     private float[][] xGroundSit = {
-        {0.3f, -1.8f, 1.8f, 0},
-        {-0.8f, 1.8f, -0.9f, 0},};
+            {0.3f, -1.8f, 1.8f, 0},
+            {-0.8f, 1.8f, -0.9f, 0},};
 
     // X rotation angles for walking
     // 1st dim - animation keyframe
     // 2nd dim - front, hind
     // 3rd dim - thigh, crus, foot, toe
     private float[][][] xGroundWalk = {{
-        {0.4f, -1.4f, 1.3f, 0}, // move down and forward
-        {0.1f, 1.2f, -0.5f, 0} // move back
+            {0.4f, -1.4f, 1.3f, 0}, // move down and forward
+            {0.1f, 1.2f, -0.5f, 0} // move back
     }, {
-        {1.2f, -1.6f, 1.3f, 0}, // move back
-        {-0.3f, 2.1f, -0.9f, 0.6f} // move up and forward
+            {1.2f, -1.6f, 1.3f, 0}, // move back
+            {-0.3f, 2.1f, -0.9f, 0.6f} // move up and forward
     }, {
-        {0.9f, -2.1f, 1.8f, 0.6f}, // move up and forward
-        {-0.7f, 1.4f, -0.2f, 0} // move down and forward
+            {0.9f, -2.1f, 1.8f, 0.6f}, // move up and forward
+            {-0.7f, 1.4f, -0.2f, 0} // move down and forward
     }};
 
     // final X rotation angles for walking
@@ -199,17 +199,17 @@ public class DragonModel extends AdvancedModelBase {
 
     private void buildHead() {
         head = new ModelPart(this, "head");
-        head.addBox("upperjaw",  -6, -3,   -10 + HEAD_OFS, 12,  5, 16);
-        head.addBox("mainhead", -8, -10,    4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril",   -5, -5,   -8 + HEAD_OFS,  2,  2,  4);
+        head.addBox("upperjaw", -6, -3, -9 + HEAD_OFS, 12, 5, 16);
+        head.addBox("mainhead", -8, -10, 4 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("nostril", -5, -5, -7 + HEAD_OFS, 2, 2, 4);
         head.mirror = true;
-        head.addBox("nostril",    3,  -5,  -8 + HEAD_OFS,  2,  2,  4);
+        head.addBox("nostril", 3, -5, -7 + HEAD_OFS, 2, 2, 4);
 
         buildHorn(false);
         buildHorn(true);
 
-        jaw = head.addChildBox("lowerjaw", -6, -3, -18, 12, 4, 16);
-        jaw.setRotationPoint(0, 5, 8 + HEAD_OFS); // 4 rotationPointY
+        jaw = head.addChildBox("lowerjaw", -6, -3, -17, 12, 4, 16);
+        jaw.setRotationPoint(0, 4, 8 + HEAD_OFS); // 4 rotationPointY
     }
 
     private void buildHorn(boolean mirror) {
@@ -240,8 +240,8 @@ public class DragonModel extends AdvancedModelBase {
 
     private void buildNeck() {
         neck = new ModelPart(this, "neck");
-        neck.addBox("box",   -5,  -5,  -5, NECK_SIZE, NECK_SIZE, NECK_SIZE);
-        neckScale = neck.addChildBox("scale", -1,  -7,  -3, 2, 4, 6);
+        neck.addBox("box", -5, -5, -5, NECK_SIZE, NECK_SIZE, NECK_SIZE);
+        neckScale = neck.addChildBox("scale", -1, -7, -3, 2, 4, 6);
 
         // initialize model proxies
         for (int i = 0; i < neckProxy.length; i++) {
@@ -251,7 +251,7 @@ public class DragonModel extends AdvancedModelBase {
 
     private void buildTail() {
         tail = new ModelPart(this, "tail");
-        tail.addBox("box",   -5,  -5,  -5, TAIL_SIZE, TAIL_SIZE, TAIL_SIZE);
+        tail.addBox("box", -5, -5, -5, TAIL_SIZE, TAIL_SIZE, TAIL_SIZE);
         float scaleRotZ = MathX.toRadians(45);
         tailScaleLeft = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, scaleRotZ);
         tailScaleMiddle = tail.addChildBox("scale", -1, -8, -3, 2, 4, 6).setAngles(0, 0, 0);
@@ -296,7 +296,7 @@ public class DragonModel extends AdvancedModelBase {
         horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
         horn.setAngles(hornRotX, hornRotY, hornRotZ);
         horn.isHidden = true;
-        boolean showSpike = breed == EnumDragonBreed.NETHER || breed ==EnumDragonBreed.SYLPHID || breed == EnumDragonBreed.STORM;
+        boolean showSpike = breed == EnumDragonBreed.NETHER || breed == EnumDragonBreed.SYLPHID || breed == EnumDragonBreed.STORM;
         horn.showModel = showSpike;
 
         if (mirror) {
@@ -309,19 +309,19 @@ public class DragonModel extends AdvancedModelBase {
     private void buildBody() {
         body = new ModelPart(this, "body");
         body.setRotationPoint(0, 4, 8);
-        body.addBox("body",  -12,   0,  -16, 24, 24, 64);
-        body.addBox("scale",  -1,  -6,   10,  2,  6, 12);
-        body.addBox("scale",  -1,  -6,   30,  2,  6, 12);
-        heart        = body.addChildBox("heart", -4, 12, -5, 8, 6, 15);
-        back         = body.addChildBox("scale",        -1,  -6,  -10,  2,  6, 12);
-        chestL       = body.addChildBox("chestL",        12, 0, 21, 4, 12, 12);
-        chestR       = body.addChildBox("chestR",       -16, 0, 21, 4, 12, 12);
-        saddle       = body.addChildBox("saddle",       -7, -2, -15, 15, 3, 20);
-        saddleFront  = body.addChildBox("saddleFront",  -3, -3, -14, 6, 1, 2);
-        saddleBack   = body.addChildBox("saddleBack",   -6, -4, 2, 13, 2, 2);
-        saddleTieL   = body.addChildBox("saddleTieL",    12, 0, -14, 1, 14, 2);
-        saddleMetalL = body.addChildBox("saddleMetalL",  12, 14, -15, 1, 5, 4);
-        saddleTieR   = body.addChildBox("saddleTieR",   -13, 0, -14, 1, 10, 2);
+        body.addBox("body", -12, 0, -16, 24, 24, 64);
+        body.addBox("scale", -1, -6, 10, 2, 6, 12);
+        body.addBox("scale", -1, -6, 30, 2, 6, 12);
+        heart = body.addChildBox("heart", -4, 12, -5, 8, 6, 15);
+        back = body.addChildBox("scale", -1, -6, -10, 2, 6, 12);
+        chestL = body.addChildBox("chestL", 12, 0, 21, 4, 12, 12);
+        chestR = body.addChildBox("chestR", -16, 0, 21, 4, 12, 12);
+        saddle = body.addChildBox("saddle", -7, -2, -15, 15, 3, 20);
+        saddleFront = body.addChildBox("saddleFront", -3, -3, -14, 6, 1, 2);
+        saddleBack = body.addChildBox("saddleBack", -6, -4, 2, 13, 2, 2);
+        saddleTieL = body.addChildBox("saddleTieL", 12, 0, -14, 1, 14, 2);
+        saddleMetalL = body.addChildBox("saddleMetalL", 12, 14, -15, 1, 5, 4);
+        saddleTieR = body.addChildBox("saddleTieR", -13, 0, -14, 1, 10, 2);
         saddleMetalR = body.addChildBox("saddleMetalR", -13, 10, -15, 1, 5, 4);
     }
 
@@ -329,12 +329,12 @@ public class DragonModel extends AdvancedModelBase {
         wingArm = new ModelPart(this, "wingarm");
         wingArm.setRotationPoint(-10, 5, 4);
         wingArm.setRenderScale(1.1f);
-        wingArm.addBox("bone",  -28,  -3,   -3, 28,  6,  6);
-        wingArm.addBox("skin",  -28,   0,    2, 28,  0, 24);
+        wingArm.addBox("bone", -28, -3, -3, 28, 6, 6);
+        wingArm.addBox("skin", -28, 0, 2, 28, 0, 24);
 
         wingForearm = new ModelPart(this, "wingforearm");
         wingForearm.setRotationPoint(-28, 0, 0);
-        wingForearm.addBox("bone", -48,  -2,  -2, 48,  4,  4);
+        wingForearm.addBox("bone", -48, -2, -2, 48, 4, 4);
         wingArm.addChild(wingForearm);
 
         wingFinger[0] = buildWingFinger(false);
@@ -373,7 +373,7 @@ public class DragonModel extends AdvancedModelBase {
 
     private void buildLeg(boolean hind) {
         // thinner legs for skeletons
-    	boolean skeleton = breed == EnumDragonBreed.SKELETON || breed == EnumDragonBreed.WITHER;
+        boolean skeleton = breed == EnumDragonBreed.SKELETON || breed == EnumDragonBreed.WITHER;
 
         float baseLength = 26;
         String baseName = hind ? "hind" : "fore";
@@ -461,8 +461,9 @@ public class DragonModel extends AdvancedModelBase {
         } else {
             forethigh = thigh;
             forecrus = crus;
-            forefoot = foot; this.
-            foretoe = toe;
+            forefoot = foot;
+            this.
+                    foretoe = toe;
         }
     }
 
@@ -679,16 +680,16 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
-     DragonAnimator animator = dragon.getAnimator();
-     float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.88f, 1f) : 1;
-     animator.setMovement(moveTime, moveSpeed * speed);
-     animator.setLook(lookYaw, lookPitch);
-     animator.animate();
-     updateFromAnimator(dragon);
+        DragonAnimator animator = dragon.getAnimator();
+        float speed = dragon.isHatchling() ? MathX.clamp(dragon.getScale(), 0.88f, 1f) : 1;
+        animator.setMovement(moveTime, moveSpeed * speed);
+        animator.setLook(lookYaw, lookPitch);
+        animator.animate();
+        updateFromAnimator(dragon);
 
-     size = dragon.getScale();
+        size = dragon.getScale();
 
-     renderModel(dragon, scale);
+        renderModel(dragon, scale);
     }
 
     /**
@@ -729,8 +730,8 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     protected void renderHead(float scale) {
-     float headScale = scale * 0.92f;
-     head.render((headScale));
+        float headScale = scale * 0.92f;
+        head.render((headScale));
     }
 
     protected void renderNeck(float scale) {

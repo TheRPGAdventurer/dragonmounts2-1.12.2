@@ -1,8 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.server.network.MessageDragonTeleport;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -14,76 +14,76 @@ import java.util.UUID;
 
 public class GuiDragonWhistle extends GuiScreen {
 
-	private final MessageDragonWhistle dcw = new MessageDragonWhistle();
-	private float mousePosX;
-	private float mousePosY;
-	World world;
-	
-	ItemStack whistle;
-	UUID uuid;
-	GuiButton nothing;
-	GuiButton circle;
-	GuiButton followFlying;
-	GuiButton come;
-	GuiButton sit;
-	GuiButton homePos;
+    private final MessageDragonWhistle dcw = new MessageDragonWhistle();
+    private float mousePosX;
+    private float mousePosY;
+    World world;
 
-	boolean newState;
+    ItemStack whistle;
+    UUID uuid;
+    GuiButton nothing;
+    GuiButton circle;
+    GuiButton followFlying;
+    GuiButton come;
+    GuiButton sit;
+    GuiButton homePos;
 
-	byte state;
+    boolean newState;
 
-	public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
-		super();
-		this.whistle = whistle;
-		this.world = world;
-		this.uuid = uuid;
-	}
-	
-	@Override
-	public void initGui() {
-		buttonList.clear();
-		
-		Keyboard.enableRepeatEvents(true);
-		
-		nothing =      new GuiButton(0, width / 2 - 50, height / 2 + 10, 
-	                   98, 20, I18n.format("gui.nothing"));
-		
-		circle =       new GuiButton(0, width / 2 + 100 - 50, height / 2 + 10, 
-	                   98, 20, I18n.format("gui.circle"));
-		
-		followFlying = new GuiButton(0, width / 2 - 100 - 50, height / 2 + 10, 
-	                   98, 20, I18n.format("gui.followFlying"));
-		
-		come =   new GuiButton(0, width / 2 - 50, height / 2 - 15, 
-	                   98, 20, I18n.format("gui.goToPlayer"));
-		
-		homePos =   new GuiButton(0, width / 2 - 50, height / 2 + 35, 
+    byte state;
+
+    public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
+        super();
+        this.whistle = whistle;
+        this.world = world;
+        this.uuid = uuid;
+    }
+
+    @Override
+    public void initGui() {
+        buttonList.clear();
+
+        Keyboard.enableRepeatEvents(true);
+
+        nothing = new GuiButton(0, width / 2 - 50, height / 2 + 10,
+                98, 20, I18n.format("gui.nothing"));
+
+        circle = new GuiButton(0, width / 2 + 100 - 50, height / 2 + 10,
+                98, 20, I18n.format("gui.circle"));
+
+        followFlying = new GuiButton(0, width / 2 - 100 - 50, height / 2 + 10,
+                98, 20, I18n.format("gui.followFlying"));
+
+        come = new GuiButton(0, width / 2 - 50, height / 2 - 15,
+                98, 20, I18n.format("gui.goToPlayer"));
+
+        homePos = new GuiButton(0, width / 2 - 50, height / 2 + 35,
                 98, 20, I18n.format("gui.homePos"));
-		
-		buttonList.add(nothing);
-		buttonList.add(circle);
-		buttonList.add(followFlying);
-		buttonList.add(come);
-		buttonList.add(homePos);
-	}
 
-	private byte getState() {
-		return  state;
-	}
+        buttonList.add(nothing);
+        buttonList.add(circle);
+        buttonList.add(followFlying);
+        buttonList.add(come);
+        buttonList.add(homePos);
+    }
+
+    private byte getState() {
+        return state;
+    }
 
     /* 0 nothing
        1 follow
        2 circle
        3 come
      */
-	private void setStateField(int state, boolean newState) {
-	    byte prevState = getState();
-	    if(newState) {
-	        this.state = (byte) state;
+    private void setStateField(int state, boolean newState) {
+        byte prevState = getState();
+        if (newState) {
+            this.state = (byte) state;
         } else {
-	        this.state = prevState;
+            this.state = prevState;
         }
-	}
+    }
 
     public void nothing(boolean nothing) {
         setStateField(0, nothing);
@@ -100,39 +100,41 @@ public class GuiDragonWhistle extends GuiScreen {
     public void come(boolean come) {
         setStateField(3, come);
     }
-    
+
     public void homepos(boolean come) {
         setStateField(4, come);
     }
 
-	@Override
-	protected void actionPerformed(GuiButton button) {
-		if(uuid != null) {
-		   byte previousState = getState();
-		   nothing(button == nothing);
-		   follow(button == followFlying);
-		   come(button == come);
-		   circle(button == circle);
-		   homepos(button == homePos);
-		   byte controlState = getState();
-		   if (controlState != previousState) {
-               DMUtils.getLogger().info("Current State casted by gui is " + controlState);
-               DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
-		    }
-		  //   }
-		} 
-	}
-	
-	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.mousePosX = mouseX;
-		this.mousePosY = mouseY;
-		super.drawScreen(mouseX, mouseY, partialTicks);
-	}
-	
-	@Override
-	public boolean doesGuiPauseGame() {
-		return false;
-	}
+    @Override
+    protected void actionPerformed(GuiButton button) {
+        if (uuid != null) {
+            byte previousState = getState();
+            nothing(button == nothing);
+            follow(button == followFlying);
+            come(button == come);
+            circle(button == circle);
+            byte controlState = getState();
+
+            if (controlState != previousState) {
+                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
+            }
+
+            if (button == homePos) {
+		   	    DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
+            }
+        }
+    }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.mousePosX = mouseX;
+        this.mousePosY = mouseY;
+        super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+    @Override
+    public boolean doesGuiPauseGame() {
+        return false;
+    }
 
 }

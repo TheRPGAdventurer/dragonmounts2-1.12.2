@@ -1,13 +1,17 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.IItemPropertyGetter;
@@ -16,11 +20,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ItemDragonAmulet extends Item {
 
@@ -77,35 +84,59 @@ public class ItemDragonAmulet extends Item {
         }
     }
 
+    @Nonnull
+    @Override
+    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+        EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
+        if(location instanceof EntityItem) {
+            // workaround for private access on that field >_>
+            NBTTagCompound tag = new NBTTagCompound();
+            location.writeToNBT(tag);
+            entity.setPickupDelay(tag.getShort("PickupDelay"));
+        }
+        entity.motionX = location.motionX;
+        entity.motionY = location.motionY;
+        entity.motionZ = location.motionZ;
+        return entity;
+    }
+
     /**
      * Thanks again Lex!
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack stack = player.getHeldItem(hand);
-        EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+        if (player.isSneaking()) {
+            ItemStack stack = player.getHeldItem(hand);
+            EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
-        dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
+            dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
-        if (stack.getTagCompound() != null) {
-            dragon.readEntityFromNBT(stack.getTagCompound());
+            if (stack.getTagCompound() != null) {
+                dragon.readEntityFromNBT(stack.getTagCompound());
+            }
+
+            if (stack.hasDisplayName()) {
+                dragon.setCustomNameTag(stack.getDisplayName());
+            }
+
+            dragon.setBreedType(breed);
+            stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
+            if (!worldIn.isRemote) {
+                worldIn.spawnEntity(dragon);
+            }
+
+            stack = new ItemStack(ModItems.AmuletEmpty);
+            worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 0.77f);
+            return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
+        return EnumActionResult.PASS;
+    }
 
-        if (stack.hasDisplayName()) {
-            dragon.setCustomNameTag(stack.getDisplayName());
-        }
-
-        dragon.setBreedType(breed);
-        stack.getTagCompound().setBoolean("Released", true);
-        if (!worldIn.isRemote) {
-            worldIn.spawnEntity(dragon);
-        }
-
-        stack = new ItemStack(ModItems.AmuletEmpty);
-        worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 0.77f);
-
-        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        NBTTagCompound nbt = stack.getTagCompound();
+        tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }
 
 }

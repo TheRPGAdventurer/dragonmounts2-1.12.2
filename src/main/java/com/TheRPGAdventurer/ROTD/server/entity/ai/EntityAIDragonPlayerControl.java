@@ -50,7 +50,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.rotationPitch = rider.rotationPitch;
         }
     }
-    
+
     @Override
     public void updateTask() {
         Vec3d wp = rider.getLookVec();

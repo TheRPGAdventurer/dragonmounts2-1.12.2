@@ -36,7 +36,7 @@ public class ServerProxy {
     public final byte DOT_DISCRIMINATOR_ID = 73;  // arbitrary non-zero ID (non-zero makes troubleshooting easier)
 
     private final int ENTITY_TRACKING_RANGE = 80;
-    private final int ENTITY_UPDATE_FREQ = 5; // 3
+    private final int ENTITY_UPDATE_FREQ = 3; // 3
     private final int ENTITY_ID = 1;
     private final boolean ENTITY_SEND_VELO_UPDATES = true;
 

@@ -40,8 +40,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItem;
@@ -81,7 +79,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
@@ -104,8 +101,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     private static final Logger L = LogManager.getLogger();
 
-    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
-            .setDescription("Movement Speed Air").setShouldWatch(true);
+//    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
+//            .setDescription("Movement Speed Air").setShouldWatch(true);
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
@@ -223,23 +220,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public EntityTameableDragon(World world) {
         super(world);
-        // override EntityBodyHelper field, which is private and has no setter
-        // required to fixate body while sitting. also slows down rotation while
-        // standing.
-        try {
-            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonBodyHelper(this),
-                    "bodyHelper", "field_70762_j");
-        } catch (Exception ex) {
-            L.warn("Can't override EntityBodyHelper", ex);
-        }
-
-//         override EntityLookHelper field, which is private and has no setter
-        try {
-            ReflectionHelper.setPrivateValue(EntityLiving.class, this, new DragonLookHelper(this),
-                    "lookHelper", "field_70749_g");
-        } catch (Exception ex) {
-            L.warn("Can't override EntityLookHelper", ex);
-        }
 
         // set base size
         setSize(BASE_WIDTH, BASE_HEIGHT);
@@ -626,7 +606,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public boolean canFly() {
-        // eggs can't fly, hatchlings now can
+        // eggs can't fly
         return !isEgg() && !isHatchling();
     }
 
@@ -893,14 +873,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
-//        double[] y1 = {0, 1, 2, 3};
-//        double[] x1 = {-3, -2, -1, 0, 1, 2, 3};
-//        double[] z1 = {-3, -2, -1, 0, 1, 2, 3};
 
         for (double x = 0; x <= 4; ++x) {
             for (double y = 0; y <= 3; ++y) {
                 for (double z = 0; z <= 4; ++z) {
-
                     pos = new BlockPos(posX - x, posY - (y * this.getScale()), posZ - z);
                 }
             }

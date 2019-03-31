@@ -24,8 +24,13 @@ public enum EnumDragonLifeStage {
     JUVENILE(0.88f),
     ADULT(1.7f);
     
-    public static final int TICKS_PER_STAGE = 42000;
+    public static final int TICKS_PER_STAGE = 42000 ;
     public static final EnumDragonLifeStage[] VALUES = values(); // cached for speed
+
+//    public static final int TICKS_PER_STAGE() {
+//
+//    }
+
 
     public static int clampTickCount(int ticksSinceCreation) {
         return MathX.clamps(ticksSinceCreation, 0, VALUES.length * TICKS_PER_STAGE);
@@ -57,7 +62,7 @@ public enum EnumDragonLifeStage {
     public final float scale;
     
     EnumDragonLifeStage(float scale) {
-        this.scale = scale; 
+        this.scale = scale;
     }    
     
     public int startTicks() {

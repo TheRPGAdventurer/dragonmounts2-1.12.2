@@ -44,10 +44,11 @@ public class DragonBodyHelper extends EntityBodyHelper {
 
         float maximumHeadBodyAngleDifference = 90;
         final float MOVEMENT_THRESHOLD_SQ = 0.0001F;
-        // if flying or moving:
+        // if flying, sitting or moving:
         // 1) snap the body yaw (renderYawOffset) to the movement direction (rotationYaw)
         // 2) constrain the head yaw (rotationYawHead) to be within +/- 90 of the body yaw (renderYawOffset)
-        if (dragon.isFlying() || distSQ > MOVEMENT_THRESHOLD_SQ) {
+        // (This also disables body snapping when sitting)
+        if (dragon.isFlying() || dragon.isSitting() || distSQ > MOVEMENT_THRESHOLD_SQ) {
             dragon.renderYawOffset = dragon.rotationYaw;
             float newRotationYawHead = MathX.constrainAngle(dragon.getRotationYawHead(), dragon.renderYawOffset,
                     maximumHeadBodyAngleDifference);
@@ -59,7 +60,7 @@ public class DragonBodyHelper extends EntityBodyHelper {
 
         double changeInHeadYaw = Math.abs(dragon.getRotationYawHead() - lastRotationYawHead);
 
-        if (dragon.isSitting() || changeInHeadYaw > 15) { // dragon has moved his look position
+        if (changeInHeadYaw > 15) { // dragon has moved his look position
             turnTicks = 0;
             lastRotationYawHead = dragon.getRotationYawHead();
         } else {

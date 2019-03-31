@@ -17,7 +17,6 @@ public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
 
     public MessageDragonGui(int dragonId) {
         this.dragonId = dragonId;
-//        this.sit = sit;, boolean sit
     }
 
     public MessageDragonGui() {
@@ -26,14 +25,12 @@ public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
     @Override
     public void fromBytes(ByteBuf buf) {
         dragonId = buf.readInt();
-//        sit = buf.readBoolean();
 
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(dragonId);
-//        buf.writeBoolean(sit);
 
     }
 
@@ -48,9 +45,8 @@ public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
         Entity entity = player.world.getEntityByID(arg1.dragonId);
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
-//            if (arg1.sit) {
-                dragon.getAISit().setSitting(!dragon.isSitting());
-//            }
+            dragon.getAISit().setSitting(!dragon.isSitting());
+            dragon.getNavigator().clearPathEntity();
         }
     }
 }

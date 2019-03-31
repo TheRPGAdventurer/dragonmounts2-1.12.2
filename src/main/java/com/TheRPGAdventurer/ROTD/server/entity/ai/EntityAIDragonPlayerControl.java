@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.Vec3d;
@@ -62,22 +63,12 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         // if we're breathing at a target, look at it
         if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
 
-            dragon.rotationYaw = rider.rotationYaw;
-            dragon.rotationPitch = rider.rotationPitch;
-            dragon.rotationYawHead = rider.rotationYawHead;
-
-            if(dragon.moveForward == 0) {
-                Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
-                Vec3d lookDirection = rider.getLookVec();
-                Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
-                dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                        dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
-            }
-//            else {
-//                dragon.rotationYawHead = rider.rotationYawHead;
-//                dragon.rotationYaw = rider.rotationYaw;
-//                dragon.rotationPitch = rider.rotationPitch;
-//            }
+            updateIntendedRideRotation(rider);
+            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+            Vec3d lookDirection = rider.getLookVec();
+            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
+                    dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
         }
 
         dragon.setUnHovered(dragon.boosting());
@@ -110,6 +101,14 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.rotationPitch = rider.rotationPitch;
         }
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
+    }
+
+    private void updateIntendedRideRotation(EntityPlayer rider) {
+        boolean hasRider = dragon.hasControllingPlayer(rider);
+        if(hasRider && rider.moveStrafing == 0 && rider.moveForward == 0) {
+            dragon.rotationYaw = rider.rotationYaw;
+            dragon.rotationPitch = rider.rotationPitch;
+        }
     }
 
 }

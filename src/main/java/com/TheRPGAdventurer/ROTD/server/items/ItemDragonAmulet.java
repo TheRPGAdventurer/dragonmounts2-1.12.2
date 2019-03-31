@@ -75,7 +75,7 @@ public class ItemDragonAmulet extends Item {
     public void onUpdate(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected) {
         if (stack.getTagCompound() == null) {
             stack.setTagCompound(new NBTTagCompound());
-        } else if (stack.getTagCompound().getBoolean("Released")) {
+        } else if (stack.getTagCompound().getBoolean(DragonMounts.MODID + ":Released")) {
             stack.shrink(1);
             if (entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
@@ -84,11 +84,18 @@ public class ItemDragonAmulet extends Item {
         }
     }
 
+    /* INDESTRUCTIBLE */
+
+    @Override
+    public boolean hasCustomEntity(ItemStack stack) {
+        return true;
+    }
+
     @Nonnull
     @Override
     public Entity createEntity(World world, Entity location, ItemStack itemstack) {
         EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
-        if(location instanceof EntityItem) {
+        if (location instanceof EntityItem) {
             // workaround for private access on that field >_>
             NBTTagCompound tag = new NBTTagCompound();
             location.writeToNBT(tag);
@@ -105,31 +112,28 @@ public class ItemDragonAmulet extends Item {
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (player.isSneaking()) {
-            ItemStack stack = player.getHeldItem(hand);
-            EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+        ItemStack stack = player.getHeldItem(hand);
+        EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
-            dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
+        dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
-            if (stack.getTagCompound() != null) {
-                dragon.readEntityFromNBT(stack.getTagCompound());
-            }
-
-            if (stack.hasDisplayName()) {
-                dragon.setCustomNameTag(stack.getDisplayName());
-            }
-
-            dragon.setBreedType(breed);
-            stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
-            if (!worldIn.isRemote) {
-                worldIn.spawnEntity(dragon);
-            }
-
-            stack = new ItemStack(ModItems.AmuletEmpty);
-            worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 0.77f);
-            return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        if (stack.getTagCompound() != null) {
+            dragon.readEntityFromNBT(stack.getTagCompound());
         }
-        return EnumActionResult.PASS;
+
+        if (stack.hasDisplayName()) {
+            dragon.setCustomNameTag(stack.getDisplayName());
+        }
+
+        dragon.setBreedType(breed);
+        stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
+        if (!worldIn.isRemote) {
+            worldIn.spawnEntity(dragon);
+        }
+
+        stack = new ItemStack(ModItems.AmuletEmpty);
+        worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 0.77f);
+        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override

@@ -61,9 +61,9 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
         if (entity != null && entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
 //            if (dragon.isOwner(player)) {
-                dragon.setPosition(player.getPosition().getX() + 4, player.getPosition().getY(), player.getPosition().getZ());
+            dragon.setPosition(player.getPosition().getX() + 4, player.getPosition().getY(), player.getPosition().getZ());
 //            }
-
+            dragon.nothing();
             this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 5, 1);
 
         }

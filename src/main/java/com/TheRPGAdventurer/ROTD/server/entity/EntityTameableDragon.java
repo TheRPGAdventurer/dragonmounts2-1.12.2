@@ -858,25 +858,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (world.isRemote) {
             this.updateBreathing();
         }
-
-//        if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-//            MiscPlayerProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(this.getControllingPassenger(), MiscPlayerProperties.class);
-//            if(properties != null && this.dismountTicks != -1) {
-//                properties.hasDismountedDragon = true;
-//            }
-//
-//            this.dismountTicks = 0;
-//            this.getControllingPassenger().dismountRidingEntity();
-//        }
-
     }
 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
 
-        for (double x = 0; x <= 4; ++x) {
-            for (double y = 0; y <= 3; ++y) {
-                for (double z = 0; z <= 4; ++z) {
+        for (double x = 0; x <= 2; ++x) {
+            for (double y = 0; y <= 1; ++y) {
+                for (double z = 0; z <= 2; ++z) {
                     pos = new BlockPos(posX - x, posY - (y * this.getScale()), posZ - z);
                 }
             }

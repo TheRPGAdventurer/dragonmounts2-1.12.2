@@ -43,6 +43,14 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         dragon.getNavigator().clearPathEntity();
     }
 
+    private void updateIntendedRideRotation(EntityPlayer rider) {
+        boolean hasRider = dragon.hasControllingPlayer(rider);
+        if(hasRider && rider.moveStrafing == 0 && rider.moveForward == 0) {
+            dragon.rotationYaw = rider.rotationYaw;
+            dragon.rotationPitch = rider.rotationPitch;
+        }
+    }
+    
     @Override
     public void updateTask() {
         Vec3d wp = rider.getLookVec();
@@ -102,13 +110,4 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         }
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
-
-    private void updateIntendedRideRotation(EntityPlayer rider) {
-        boolean hasRider = dragon.hasControllingPlayer(rider);
-        if(hasRider && rider.moveStrafing == 0 && rider.moveForward == 0) {
-            dragon.rotationYaw = rider.rotationYaw;
-            dragon.rotationPitch = rider.rotationPitch;
-        }
-    }
-
 }

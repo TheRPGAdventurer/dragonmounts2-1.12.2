@@ -56,7 +56,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         int oz = followRange - random.nextInt(followRange) * 2;
         landingPos = landingPos.add(ox, 0, oz);
 
-        if (dragon.isTamed() && dragon.getOwner() != null) {
+        if (dragon.isTamed() && dragon.getOwner() != null && (dragon.getOwner().onGround || dragon.getOwner().isInWater()) && dragon.getDistanceToEntity(dragon.getOwner()) > 8) {
             landingPos = dragon.getOwner().getPosition();
             return landingPos != null;
         } else {

@@ -21,11 +21,11 @@ public class DragonInteractAmulet extends DragonInteract {
         if (ItemUtils.hasEquipped(player, ModItems.AmuletEmpty) && dragon.isServer()) {
             if (dragon.isTamedFor(player)) {
                 ItemStack amulet = new ItemStack(dragon.dragonAmulet());
+                amulet.setTagCompound(new NBTTagCompound());
+                player.setHeldItem(player.getActiveHand(), amulet);
                 if (dragon.hasCustomName()) {
                     amulet.setStackDisplayName(dragon.getCustomNameTag());
                 }
-                amulet.setTagCompound(new NBTTagCompound());
-                player.setHeldItem(player.getActiveHand(), amulet);
                 dragon.setDead();
                 dragon.writeEntityToNBT(amulet.getTagCompound());
                 dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);

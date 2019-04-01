@@ -45,10 +45,8 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     private void updateIntendedRideRotation(EntityPlayer rider) {
         boolean hasRider = dragon.hasControllingPlayer(rider);
-        if (hasRider && rider.moveForward == 0) {
-            if (rider.moveStrafing == 0) {
-                dragon.rotationYaw = rider.rotationYaw;
-            }
+        if (hasRider && rider.moveStrafing == 0) {
+            dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
         }
     }
@@ -75,8 +73,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
             updateIntendedRideRotation(rider);
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
-            Vec3d lookDirection = rider.getLookVec();
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            Vec3d endOfLook = dragonEyePos.addVector(wp.x, wp.y, wp.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
         }
@@ -95,7 +92,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
 
             x += wp.x * 10;
-            y += wp.y * 10;
+            if(rider != null && !dragon.isUsingBreathWeapon())y += wp.y * 10;
             z += wp.z * 10;
         }
 

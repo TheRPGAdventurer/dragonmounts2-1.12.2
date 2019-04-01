@@ -61,13 +61,13 @@ public class BreathWeaponIce extends BreathWeapon implements PrivateAccessor {
         //  if (DragonMountsConfig.canBreathSetIce ) {
         //     world.setBlockState(sideToIgnite, Blocks.SNOW_LAYER.getDefaultState());} else
         if ((world.getBlockState(blockPos).getBlock() == Blocks.WATER || world.getBlockState(blockPos).getBlock() == Blocks.FLOWING_WATER)
-                && !world.getBlockState(sideToIgnite).getMaterial().isLiquid()) {
+                && !world.getBlockState(blockPos.up()).getMaterial().isLiquid()) {
             if (DragonMountsConfig.canIceBreathBePermanent) {
 //                world.mayPlace(Blocks.ICE, blockPos, false, EnumFacing.DOWN, null);
-                world.setBlockState(blockPos, Blocks.ICE.getDefaultState(), 3);
+                world.setBlockState(blockPos, Blocks.ICE.getDefaultState(), 1);
             } else if (!DragonMountsConfig.canIceBreathBePermanent) {
 //                world.mayPlace(Blocks.FROSTED_ICE, blockPos, false, EnumFacing.DOWN, null);
-                world.setBlockState(blockPos, Blocks.FROSTED_ICE.getDefaultState(), 3);
+                world.setBlockState(blockPos, Blocks.FROSTED_ICE.getDefaultState(), 1);
             }
         }
 

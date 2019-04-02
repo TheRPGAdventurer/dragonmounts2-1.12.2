@@ -92,7 +92,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
 
             x += wp.x * 10;
-            if(rider != null && !dragon.isUsingBreathWeapon())y += wp.y * 10;
+            y += wp.y * 10;
             z += wp.z * 10;
         }
 

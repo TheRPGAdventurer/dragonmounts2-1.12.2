@@ -112,7 +112,7 @@ public class ItemDragonAmulet extends Item {
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack stack = player.getHeldItem(hand);
+        ItemStack stack = player.getHeldItemMainhand();
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());

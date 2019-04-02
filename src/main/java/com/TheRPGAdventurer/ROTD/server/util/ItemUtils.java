@@ -10,9 +10,6 @@
 
 package com.TheRPGAdventurer.ROTD.server.util;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmuletEmpty;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,11 +17,10 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -44,8 +40,8 @@ public class ItemUtils {
      * the player is not in creative mode.
      *
      * @param player player to check
-     * @param items one or more types of items that should be consumed. Only the
-     *              first match will be consumed.
+     * @param items  one or more types of items that should be consumed. Only the
+     *               first match will be consumed.
      * @return the consumed item type or null if no matching item was equipped.
      */
     public static Item consumeEquipped(EntityPlayer player, Item... items) {
@@ -75,26 +71,29 @@ public class ItemUtils {
 
         return null;
     }
+
     public static boolean consumeEquipped(EntityPlayer player, Item item) {
         return consumeEquipped(player, new Item[]{item}) != null;
     }
 
     /**
-     * 	@WolfShotz Checks if held item is any kind of Fish (Registered under listAllfishraw in OreDict)
-     * 	This allows other mods' fishes to be used with dragon taming
+     * @WolfShotz Checks if held item is any kind of Fish (Registered under listAllfishraw in OreDict)
+     * This allows other mods' fishes to be used with dragon taming
      */
     public static boolean consumeFish(EntityPlayer player) {
         Set<Item> consumeFish = OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet());
         ItemStack itemstack = player.getHeldItemMainhand();
-        if (!itemstack.isEmpty())
-        {
-            if (consumeFish.contains(itemstack.getItem()))
-            {
+        if (!itemstack.isEmpty()) {
+            if (consumeFish.contains(itemstack.getItem())) {
                 //Found fish in player hand, remove 1 from itemStack, return true on consumeFish
                 itemstack.shrink(1);
                 return true;
-            } else {return false;}
-        } else {return false;}
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -134,7 +133,7 @@ public class ItemUtils {
      * Checks if a player has a specific item equipped.
      *
      * @param player player to check
-     * @param item required item type
+     * @param item   required item type
      * @return true if the player has the given item equipped
      */
     public static boolean hasEquipped(EntityPlayer player, Item item) {

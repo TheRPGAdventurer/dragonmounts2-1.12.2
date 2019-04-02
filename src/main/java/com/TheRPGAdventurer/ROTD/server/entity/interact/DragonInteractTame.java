@@ -29,7 +29,7 @@ public class DragonInteractTame extends DragonInteract {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer() && !dragon.isTamed() && !dragon.isChild() &&
-                ItemUtils.consumeEquipped(player, Items.FISH) || 
+                ItemUtils.consumeFish(player) ||
                 ItemUtils.consumeEquipped(player, Items.PORKCHOP) || 
                 ItemUtils.consumeEquipped(player, Items.COOKED_PORKCHOP) || 
                 ItemUtils.consumeEquipped(player, Items.BEEF) || 

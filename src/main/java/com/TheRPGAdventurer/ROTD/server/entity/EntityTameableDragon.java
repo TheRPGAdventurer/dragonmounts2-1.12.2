@@ -993,17 +993,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             hasChestVarChanged = false;
         }
 
-//        EntityLivingBase target = null;
-//        if (this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
-//                && getAttackTarget() == target) {
-//            Vec3d throat = animator.getThroatPosition();
-//            target.setPosition(throat.x, throat.y + (3 * getScale()), throat.z);
-//        }
-
-//        if (this.boosting()) {
-//            collideDragon();
-//        }
-
         updateShearing();
         updateDragonEnderCrystal();
         regenerateHealth();
@@ -1040,7 +1029,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         world.setBlockState(pos, Blocks.CHEST.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileEntityChest) {
-            ((TileEntityChest) te).setInventorySlotContents(1, essenceStack);
+            ((TileEntityChest) te).setInventorySlotContents(26, essenceStack);
         }
     }
 

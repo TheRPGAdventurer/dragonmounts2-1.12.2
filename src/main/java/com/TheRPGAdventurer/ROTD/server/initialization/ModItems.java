@@ -4,7 +4,11 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.items.*;
+
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ModItems {
 
@@ -104,6 +108,9 @@ public class ModItems {
     public static final Item terra2_dragon_shield;
     public static final Item moonlight_dragon_shield;
 
+    //Setting String for OreDict
+    public static final String listAllfishraw = "listAllfishraw";
+
 
     public static final Item[] ITEMS = {
             ForestDragonScales = new ItemDragonScales("forest_dragonscales", EnumItemBreedTypes.FOREST),
@@ -200,7 +207,15 @@ public class ModItems {
             ender_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.END, ModItems.EnderDragonScales),
             terra_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales),
             terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2),
-            moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales)
+            moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales),
 
     };
+
+    /**
+     * @WolfShotz Registering OreDictionary for vanilla Fish, since Forge doesn't do it on its own for some stupid reason...
+     */
+    public void register() {
+        OreDictionary.registerOre(listAllfishraw, new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE));
+    }
+
 }

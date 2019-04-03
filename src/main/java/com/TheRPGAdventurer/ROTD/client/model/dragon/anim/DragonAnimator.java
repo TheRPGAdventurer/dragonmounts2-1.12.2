@@ -257,7 +257,7 @@ public class DragonAnimator {
 
         float speedMax = 0.05f;
         float speedEnt = (float) (dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ);
-        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 0.4f);
+        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 1f);
 
         // update main animation timer
         float animAdd = 0.035f;
@@ -593,7 +593,8 @@ public class DragonAnimator {
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60;
         boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
-                || dragon.getPassengers().size() > 1 || dragon.isUnHovered() || dragon.boosting();
+                || dragon.getPassengers().size() > 1 || dragon.isUnHovered() || dragon.boosting() ||
+                (dragon.getRidingEntityLivingBase().isElytraFlying());
         return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }
 

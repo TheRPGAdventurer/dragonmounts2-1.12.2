@@ -20,6 +20,7 @@ public class DragonInteractAmulet extends DragonInteract {
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (ItemUtils.hasEquipped(player, ModItems.AmuletEmpty) && dragon.isServer()) {
             if (dragon.isTamedFor(player)) {
+                if (dragon.isUsingBreathWeapon()) dragon.setUsingBreathWeapon(false);
                 ItemStack amulet = new ItemStack(dragon.dragonAmulet());
                 amulet.setTagCompound(new NBTTagCompound());
                 player.setHeldItem(player.getActiveHand(), amulet);
@@ -28,12 +29,12 @@ public class DragonInteractAmulet extends DragonInteract {
                 }
                 dragon.setDead();
                 dragon.writeEntityToNBT(amulet.getTagCompound());
-                dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
-
                 return true;
             } else {
                 player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
             }
+            dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
+
 
         }
         return false;

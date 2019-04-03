@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
+import baubles.api.IBauble;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -14,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +24,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,7 +32,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonAmulet extends Item {
+public class ItemDragonAmulet extends Item implements IBauble {
 
     EnumItemBreedTypes type;
     EnumDragonBreed breed;
@@ -79,7 +82,11 @@ public class ItemDragonAmulet extends Item {
             stack.shrink(1);
             if (entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
-                player.inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
+                if(this.getEquipmentSlot(stack) == EntityEquipmentSlot.OFFHAND) {
+                    player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.AmuletEmpty));
+                } else {
+                    player.inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
+                }
             }
         }
     }
@@ -112,7 +119,7 @@ public class ItemDragonAmulet extends Item {
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(hand);
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
@@ -132,7 +139,7 @@ public class ItemDragonAmulet extends Item {
         }
 
         stack = new ItemStack(ModItems.AmuletEmpty);
-        worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 0.77f);
+        worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 
@@ -143,4 +150,39 @@ public class ItemDragonAmulet extends Item {
         tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }
 
+    @Override
+    @Optional.Method(modid = "baubles")
+    public boolean canEquip(ItemStack arg0, EntityLivingBase arg1) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public boolean canUnequip(ItemStack arg0, EntityLivingBase arg1) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public baubles.api.BaubleType getBaubleType(ItemStack arg0) {
+        try {
+            if (baubles.api.BaubleType.values().length >= 4) { //length is 4 if trinket
+                return baubles.api.BaubleType.TRINKET;
+            }
+            else {
+                return baubles.api.BaubleType.RING;
+            }
+        }
+        catch (Exception e) {
+            return baubles.api.BaubleType.RING;
+        }
+    }
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public void onEquipped(ItemStack arg0, EntityLivingBase arg1) {}
+
+    @Override
+    @Optional.Method(modid = "baubles")
+    public void onUnequipped(ItemStack arg0, EntityLivingBase arg1) {}
 }

@@ -864,12 +864,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
+        double[] y1 = {0, 1, 2, 3};
 
         for (double x = 0; x <= 2; ++x) {
-            for (double y = 0; y <= 1; ++y) {
                 for (double z = 0; z <= 2; ++z) {
-                    pos = new BlockPos(posX - x, posY - (y * this.getScale()), posZ - z);
-                }
+                    pos = new BlockPos(posX - x, posY - (2 * this.getScale()), posZ - z);
             }
         }
         return pos;
@@ -993,6 +992,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             hasChestVarChanged = false;
         }
 
+//        EntityLivingBase target = null;
+//        if (this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
+//                && getAttackTarget() == target) {
+//            Vec3d throat = animator.getThroatPosition();
+//            target.setPosition(throat.x, throat.y + (3 * getScale()), throat.z);
+//        }
+
+//        if (this.boosting()) {
+//            collideDragon();
+//        }
+
         updateShearing();
         updateDragonEnderCrystal();
         regenerateHealth();
@@ -1029,7 +1039,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         world.setBlockState(pos, Blocks.CHEST.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileEntityChest) {
-            ((TileEntityChest) te).setInventorySlotContents(26, essenceStack);
+            ((TileEntityChest) te).setInventorySlotContents(1, essenceStack);
         }
     }
 
@@ -1284,6 +1294,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return null;
     }
 
+    public EntityLivingBase getRidingEntityLivingBase() {
+        if(this.getRidingEntity() instanceof EntityLivingBase) {
+            EntityLivingBase ridingEntityLiving = (EntityLivingBase) this.getRidingEntity();
+            return ridingEntityLiving;
+        }
+
+        return  null;
+    }
+
     @Override
     protected float getWaterSlowDown() {
         return 0.9F;
@@ -1307,7 +1326,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return true;
         }
 
-        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking()) {
+        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)) {
             if (this.getScale() < 0.45) {
                 this.startRiding(player, true);
                 return true;

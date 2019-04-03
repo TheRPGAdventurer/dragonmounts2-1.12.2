@@ -1000,7 +1000,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();
-            this.setUnHovered(ridingEntity.isElytraFlying());
+            if(ridingEntity.isElytraFlying()) {
+                this.setUnHovered(true);
+                this.setUnFluttered(ridingEntity.motionY > -0.1);
+            }
         }
 
 

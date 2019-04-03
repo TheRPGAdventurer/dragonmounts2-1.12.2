@@ -279,11 +279,11 @@ public class DragonAnimator {
         }
         groundTimer.set(groundVal);
 
-        // update Hover transition
-        boolean HoverFlag = !onGround && (dragon.isCollided
+        // update Flutter transition
+        boolean FlutterFlag = !onGround && (dragon.isCollided
                 || dragon.motionY > -0.1 || speedEnt < speedMax);
-        isHovering = HoverFlag;
-        FlutterTimer.add(HoverFlag ? 0.1f : -0.1f);
+        isHovering = FlutterFlag;
+        FlutterTimer.add(FlutterFlag ? 0.1f : -0.1f);
 
         // update walking transition
         boolean walkFlag = moveSpeed > 0.1 && !dragon.isSitting();
@@ -593,8 +593,7 @@ public class DragonAnimator {
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60;
         boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
-                || dragon.getPassengers().size() > 1 || dragon.isUnHovered() || dragon.boosting() ||
-                (dragon.getRidingEntityLivingBase().isElytraFlying());
+                || dragon.getPassengers().size() > 1 || dragon.isUnHovered() || dragon.boosting();
         return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
     }
 

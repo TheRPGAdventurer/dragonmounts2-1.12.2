@@ -867,8 +867,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         double[] y1 = {0, 1, 2, 3};
 
         for (double x = 0; x <= 2; ++x) {
-                for (double z = 0; z <= 2; ++z) {
-                    pos = new BlockPos(posX - x, posY - (2 * this.getScale()), posZ - z);
+            for (double z = 0; z <= 2; ++z) {
+                pos = new BlockPos(posX - x, posY - (2 * this.getScale()), posZ - z);
             }
         }
         return pos;
@@ -975,6 +975,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
 
         setUnHovered(this.boosting());
+
+        if (this.getRidingEntity() instanceof EntityLivingBase) {
+            EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();
+            this.setUnHovered(ridingEntity.isElytraFlying());
+            ridingEntity.motionY = this.motionY;
+        }
 
 
         //	if(this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
@@ -1172,7 +1178,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void roar() {
         if (!isDead && getBreed().getRoarSoundEvent() != null) {
             this.roarTicks = 0;
-            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 0, 2.3f), MathX.clamp(getScale(), 0f, 1), true);
+            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 0, 2.3f), MathX.clamp(getScale(), 0.88f, 1), true);
         }
     }
 
@@ -1295,12 +1301,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public EntityLivingBase getRidingEntityLivingBase() {
-        if(this.getRidingEntity() instanceof EntityLivingBase) {
+        if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntityLiving = (EntityLivingBase) this.getRidingEntity();
             return ridingEntityLiving;
         }
 
-        return  null;
+        return null;
     }
 
     @Override

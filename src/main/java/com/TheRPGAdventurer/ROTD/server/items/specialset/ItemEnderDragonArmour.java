@@ -1,14 +1,8 @@
 package com.TheRPGAdventurer.ROTD.server.items.specialset;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -20,6 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Random;
 
 public class ItemEnderDragonArmour extends ItemArmor {
 	
@@ -47,12 +45,12 @@ public class ItemEnderDragonArmour extends ItemArmor {
 	public void spawnParticles(EntityPlayer player) {
         // spawn generic particles
 		Random rand = new Random();
-        double px = player.posX + (rand.nextDouble() - 0.3);
-        double py = player.posY + (rand.nextDouble() - 0.3);
-        double pz = player.posZ + (rand.nextDouble() - 0.3);
-        double ox = (rand.nextDouble() - 0.3) * 2;
-        double oy = (rand.nextDouble() - 0.3) * 2;
-        double oz = (rand.nextDouble() - 0.3) * 2;
+        double px = player.posX + (rand.nextDouble()); //  - 0.3
+        double py = player.posY + (rand.nextDouble());
+        double pz = player.posZ + (rand.nextDouble());
+        double ox = (rand.nextDouble()) * 2;
+        double oy = (rand.nextDouble()) * 2;
+        double oz = (rand.nextDouble()) * 2;
         player.world.spawnParticle(EnumParticleTypes.PORTAL, px, py, pz, ox, oy, oz); 
         
 	}

@@ -145,6 +145,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> FLUTTER_CANCELLED = EntityDataManager
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> FOLLOW_YAW = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
@@ -206,6 +208,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private boolean isUsingBreathWeapon;
     private boolean allowOthers;
     private boolean isUnhovered;
+    private boolean isUnflutter;
     private boolean followYaw;
     public boolean isSlowed;
     public int inAirTicks;
@@ -300,6 +303,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(WHISTLE, ItemStack.EMPTY);
         dataManager.register(SLEEP, false);
         dataManager.register(HOVER_CANCELLED, false);
+        dataManager.register(FLUTTER_CANCELLED, false);
         dataManager.register(FOLLOW_YAW, true);
     }
 
@@ -334,6 +338,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
         nbt.setBoolean("unhovered", this.isUnHovered());
+        nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
         nbt.setBoolean("boosting", this.boosting());
         nbt.setBoolean(NBT_ELDER, this.canBeElder());
@@ -365,6 +370,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         this.setArmor(nbt.getInteger(NBT_ARMOR));
         this.setMale(nbt.getBoolean(NBT_ISMALE));
         this.setUnHovered(nbt.getBoolean("unhovered"));
+        this.setUnFluttered(nbt.getBoolean("unFluttered"));
         this.setBoosting(nbt.getBoolean("boosting"));
 //		this.setSleeping(nbt.getBoolean("sleeping"));
         this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
@@ -675,8 +681,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return isUnhovered;
     }
 
-    public void setUnHovered(boolean isUnhovered) {
-        dataManager.set(HOVER_CANCELLED, isUnhovered);
+    public void setUnHovered(boolean isUnflutter) {
+        dataManager.set(HOVER_CANCELLED, isUnflutter);
+        if (!world.isRemote) {
+            this.isUnflutter = isUnflutter;
+        }
+    }
+
+    public boolean isUnFluttered() {
+        if (world.isRemote) {
+            boolean isUnflutter = dataManager.get(FLUTTER_CANCELLED);
+            this.isUnflutter = isUnflutter;
+            return isUnflutter;
+        }
+        return isUnflutter;
+    }
+
+    public void setUnFluttered(boolean isUnhovered) {
+        dataManager.set(FLUTTER_CANCELLED, isUnhovered);
         if (!world.isRemote) {
             this.isUnhovered = isUnhovered;
         }

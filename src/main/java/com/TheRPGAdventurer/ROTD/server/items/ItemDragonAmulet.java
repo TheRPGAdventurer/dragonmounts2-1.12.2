@@ -124,7 +124,7 @@ public class ItemDragonAmulet extends Item implements IBauble {
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
-        if(hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
+        if(hand != EnumHand.MAIN_HAND && !dragon.isTamedFor(player)) return EnumActionResult.FAIL;
 
         if (stack.getTagCompound() != null) {
             dragon.readEntityFromNBT(stack.getTagCompound());
@@ -135,7 +135,7 @@ public class ItemDragonAmulet extends Item implements IBauble {
         }
 
         dragon.setBreedType(breed);
-        stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
+        if (dragon.isTamedFor(player)) stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
         if (!worldIn.isRemote) {
             worldIn.spawnEntity(dragon);
         }

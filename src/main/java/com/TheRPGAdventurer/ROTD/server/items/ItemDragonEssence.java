@@ -109,7 +109,7 @@ public class ItemDragonEssence extends Item {
         if (stack.getTagCompound() != null) {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }
-        stack.shrink(1);
+        if (dragon.isTamedFor(player)) stack.shrink(1);
         dragon.setBreedType(breed);
 //        if (stack.getTagCompound() != null) {
 //            stack.getTagCompound().setBoolean("Released", true);

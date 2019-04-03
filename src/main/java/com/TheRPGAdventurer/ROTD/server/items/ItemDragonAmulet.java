@@ -124,6 +124,8 @@ public class ItemDragonAmulet extends Item implements IBauble {
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
+        if(hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
+
         if (stack.getTagCompound() != null) {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }

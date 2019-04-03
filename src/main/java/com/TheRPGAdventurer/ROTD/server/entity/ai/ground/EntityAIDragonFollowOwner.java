@@ -66,7 +66,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return false;
         }
 
-        if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist) {
+        if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist && dragon.isAdult()) {
             return false;
         }
 

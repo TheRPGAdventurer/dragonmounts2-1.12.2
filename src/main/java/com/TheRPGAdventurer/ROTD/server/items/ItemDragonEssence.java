@@ -42,7 +42,7 @@ public class ItemDragonEssence extends Item {
     @Override
     public Entity createEntity(World world, Entity location, ItemStack itemstack) {
         EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
-        if(location instanceof EntityItem) {
+        if (location instanceof EntityItem) {
             // workaround for private access on that field >_>
             NBTTagCompound tag = new NBTTagCompound();
             location.writeToNBT(tag);
@@ -94,8 +94,10 @@ public class ItemDragonEssence extends Item {
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float x, float y, float z) {
-        ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack stack = player.getHeldItem(hand);
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+
+        if (hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
@@ -107,17 +109,17 @@ public class ItemDragonEssence extends Item {
         if (stack.getTagCompound() != null) {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }
-        stack.setCount(0);
+        stack.shrink(1);
         dragon.setBreedType(breed);
 //        if (stack.getTagCompound() != null) {
 //            stack.getTagCompound().setBoolean("Released", true);
-            if (dragon.isTamedFor(player)) {
-                if (!worldIn.isRemote) {
-                    worldIn.spawnEntity(dragon);
-                }
-            } else {
-                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+        if (dragon.isTamedFor(player)) {
+            if (!worldIn.isRemote) {
+                worldIn.spawnEntity(dragon);
             }
+        } else {
+            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+        }
 //        }
 
         stack = new ItemStack(this);

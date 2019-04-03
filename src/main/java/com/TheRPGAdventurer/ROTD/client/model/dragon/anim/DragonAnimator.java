@@ -281,7 +281,10 @@ public class DragonAnimator {
 
         // update Flutter transition
         boolean FlutterFlag = !onGround && (dragon.isCollided
-                || dragon.motionY > -0.1 || speedEnt < speedMax);
+                || dragon.motionY > -0.1 || speedEnt < speedMax ||
+                (dragon.getRidingEntityLivingBase() != null
+                        && dragon.getRidingEntityLivingBase().isElytraFlying()
+                        && dragon.getRidingEntityLivingBase().motionY > -0.1));
         isHovering = FlutterFlag;
         FlutterTimer.add(FlutterFlag ? 0.1f : -0.1f);
 

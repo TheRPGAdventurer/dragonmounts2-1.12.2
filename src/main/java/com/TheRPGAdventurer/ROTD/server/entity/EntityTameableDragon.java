@@ -979,7 +979,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();
             this.setUnHovered(ridingEntity.isElytraFlying());
-            ridingEntity.motionY = this.motionY;
         }
 
 
@@ -1332,7 +1331,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return true;
         }
 
-        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)) {
+        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
+                && (!ItemUtils.hasEquipped(player, Items.STICK) || !ItemUtils.hasEquipped(player, Items.BONE)) && !ItemUtils.hasEquippedAmulet(player)) {
             if (this.getScale() < 0.45) {
                 this.startRiding(player, true);
                 return true;

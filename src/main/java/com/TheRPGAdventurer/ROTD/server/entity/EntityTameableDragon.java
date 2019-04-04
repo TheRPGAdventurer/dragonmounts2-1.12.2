@@ -886,13 +886,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
-        double[] y1 = {0, 1, 2, 3};
+//        double[] y1 = {0, 1, 2, 3};
 
-        for (double x = 0; x <= 2; ++x) {
-            for (double z = 0; z <= 2; ++z) {
-                pos = new BlockPos(posX - x, posY - (2 * this.getScale()), posZ - z);
-            }
-        }
+//        for (double x = 0; x <= 2; ++x) {
+//            for (double z = 0; z <= 2; ++z) {
+        pos = new BlockPos(posX, posY - 1 /*(2 * this.getScale())*/, posZ);
+//            }
+//        }
         return pos;
     }
 
@@ -1000,9 +1000,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();
-            if(ridingEntity.isElytraFlying()) {
+            if(ridingEntity.isElytraFlying() && ridingEntity != null) {
+                float speedMax = 0.05f;
+                float speedEnt = (float) (ridingEntity.motionX * ridingEntity.motionX + ridingEntity.motionZ * ridingEntity.motionZ);
+
                 this.setUnHovered(true);
-                this.setUnFluttered(ridingEntity.motionY > -0.1);
             }
         }
 
@@ -2611,8 +2613,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return false;
         }
 
-        //when killed with damage greater than 18 cause the game to crask
-        if (damage >= 18 && source != DamageSource.GENERIC) {
+        //when killed with damage greater than 17 cause the game to crask
+        if (damage >= 17 && source != DamageSource.GENERIC) {
             return damage == 8.0f;
         }
 

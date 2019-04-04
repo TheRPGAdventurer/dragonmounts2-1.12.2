@@ -45,8 +45,6 @@ public class DragonAnimator {
     private double yawAbs;
     private BlockPos pos;
 
-    public boolean isHovering;
-
     // timing vars
     private float animBase;
     private float cycleOfs;
@@ -281,9 +279,7 @@ public class DragonAnimator {
 
         // update Flutter transition
         boolean FlutterFlag = !onGround && (dragon.isCollided
-                || dragon.motionY > -0.1 || speedEnt < speedMax ||
-                dragon.isUnFluttered());
-        isHovering = FlutterFlag;
+                || dragon.motionY > -0.1 || speedEnt < speedMax);
         FlutterTimer.add(FlutterFlag ? 0.1f : -0.1f);
 
         // update walking transition

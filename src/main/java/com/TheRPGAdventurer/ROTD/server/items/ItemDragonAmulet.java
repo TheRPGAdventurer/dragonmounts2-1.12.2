@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
-import baubles.api.IBauble;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -24,7 +23,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -32,7 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonAmulet extends Item implements IBauble {
+public class ItemDragonAmulet extends Item {
 
     EnumItemBreedTypes type;
     EnumDragonBreed breed;
@@ -134,6 +132,7 @@ public class ItemDragonAmulet extends Item implements IBauble {
             dragon.setCustomNameTag(stack.getDisplayName());
         }
 
+        dragon.setUniqueId(stack.getTagCompound().getUniqueId("amuletID"));
         dragon.setBreedType(breed);
         if (dragon.isTamedFor(player)) stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
         if (!worldIn.isRemote) {
@@ -151,40 +150,4 @@ public class ItemDragonAmulet extends Item implements IBauble {
         NBTTagCompound nbt = stack.getTagCompound();
         tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }
-
-    @Override
-    @Optional.Method(modid = "baubles")
-    public boolean canEquip(ItemStack arg0, EntityLivingBase arg1) {
-        return true;
-    }
-
-    @Override
-    @Optional.Method(modid = "baubles")
-    public boolean canUnequip(ItemStack arg0, EntityLivingBase arg1) {
-        return true;
-    }
-
-    @Override
-    @Optional.Method(modid = "baubles")
-    public baubles.api.BaubleType getBaubleType(ItemStack arg0) {
-        try {
-            if (baubles.api.BaubleType.values().length >= 4) { //length is 4 if trinket
-                return baubles.api.BaubleType.TRINKET;
-            }
-            else {
-                return baubles.api.BaubleType.RING;
-            }
-        }
-        catch (Exception e) {
-            return baubles.api.BaubleType.RING;
-        }
-    }
-
-    @Override
-    @Optional.Method(modid = "baubles")
-    public void onEquipped(ItemStack arg0, EntityLivingBase arg1) {}
-
-    @Override
-    @Optional.Method(modid = "baubles")
-    public void onUnequipped(ItemStack arg0, EntityLivingBase arg1) {}
 }

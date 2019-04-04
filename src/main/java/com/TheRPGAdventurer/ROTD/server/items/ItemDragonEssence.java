@@ -82,6 +82,8 @@ public class ItemDragonEssence extends Item {
 
         stack.setTagCompound(nbt);
 
+        nbt.setUniqueId("essenceID", dragon.getUniqueID());
+
         if (dragon.hasCustomName()) {
             stack.setStackDisplayName(dragon.getCustomNameTag());
         }
@@ -110,6 +112,7 @@ public class ItemDragonEssence extends Item {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }
         if (dragon.isTamedFor(player)) stack.shrink(1);
+        dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceID"));
         dragon.setBreedType(breed);
 //        if (stack.getTagCompound() != null) {
 //            stack.getTagCompound().setBoolean("Released", true);

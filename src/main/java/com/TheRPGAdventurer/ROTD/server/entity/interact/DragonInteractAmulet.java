@@ -24,6 +24,7 @@ public class DragonInteractAmulet extends DragonInteract {
                 ItemStack amulet = new ItemStack(dragon.dragonAmulet());
                 amulet.setTagCompound(new NBTTagCompound());
                 player.setHeldItem(player.getActiveHand(), amulet);
+                amulet.getTagCompound().setUniqueId("amuletID", dragon.getUniqueID());
                 if (dragon.hasCustomName()) {
                     amulet.setStackDisplayName(dragon.getCustomNameTag());
                 }

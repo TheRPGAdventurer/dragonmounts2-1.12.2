@@ -65,7 +65,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -330,7 +329,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setUniqueId("IdAmulet", this.getUniqueID());
+//        nbt.setUniqueId("IdAmulet", this.getUniqueID());
         nbt.setBoolean(NBT_SADDLED, isSaddled());
         nbt.setInteger(NBT_ARMOR, this.getArmor());
         nbt.setBoolean(NBT_CHESTED, this.isChested());
@@ -361,7 +360,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setUniqueId(nbt.getUniqueId("IdAmulet"));
+//        this.setUniqueId(nbt.getUniqueId("IdAmulet"));
         this.setSaddled(nbt.getBoolean(NBT_SADDLED));
         this.setChested(nbt.getBoolean(NBT_CHESTED));
         this.setSheared(nbt.getBoolean(NBT_SHEARED));
@@ -886,11 +885,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
-//        double[] y1 = {0, 1, 2, 3};
+        double[] y1 = {0, 1, 2, 3};
 
 //        for (double x = 0; x <= 2; ++x) {
 //            for (double z = 0; z <= 2; ++z) {
-        pos = new BlockPos(posX, posY - 1 /*(2 * this.getScale())*/, posZ);
+        for (double y : y1) {
+            pos = new BlockPos(posX, posY - y /*(2 * this.getScale())*/, posZ);
+        }
 //            }
 //        }
         return pos;
@@ -1000,7 +1001,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();
-            if(ridingEntity.isElytraFlying() && ridingEntity != null) {
+            if (ridingEntity.isElytraFlying() && ridingEntity != null) {
                 float speedMax = 0.05f;
                 float speedEnt = (float) (ridingEntity.motionX * ridingEntity.motionX + ridingEntity.motionZ * ridingEntity.motionZ);
 
@@ -1114,12 +1115,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         String s = this.getCustomNameTag();
 
         if (s != null && !s.isEmpty()) {
-            TextComponentString textcomponentstring = new TextComponentString(ScorePlayerTeam.formatPlayerName(team, s));
-            textcomponentstring.getStyle().setHoverEvent(this.getHoverEvent());
-            textcomponentstring.getStyle().setInsertion(this.getCachedUniqueIdString());
+            TextComponentString textcomponentstring = new TextComponentString(s);
             return textcomponentstring;
         }
-
 
         // return default breed name otherwise
         String entName = EntityList.getEntityString(this);
@@ -1349,6 +1347,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // don't interact with eggs!
         if (isEgg()) {
             return !this.canBeLeashedTo(player);
+        }
+
+        if (getHealth() <= 0) {
+            return false;
         }
 
         // baby dragons are tameable now! :D
@@ -1867,7 +1869,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() && !this.boosting()) {
+            if (riding.isSneaking() && !this.boosting() && this.getScale() > 40) {
                 this.dismountRidingEntity();
             }
 
@@ -1896,8 +1898,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             } else if (passenger == getPassengers().get(2)) {
                 pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
             }
-
-//            passenger.setEntityInvulnerable(true);
 
             if (!(passenger instanceof EntityPlayer)) {
                 passenger.rotationYaw = this.rotationYaw;

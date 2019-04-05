@@ -65,7 +65,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.scoreboard.Team;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.*;
@@ -886,14 +885,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public BlockPos onGroundAir() {
         BlockPos pos = this.getPosition();
         double[] y1 = {0, 1, 2, 3};
-
-//        for (double x = 0; x <= 2; ++x) {
-//            for (double z = 0; z <= 2; ++z) {
         for (double y : y1) {
-            pos = new BlockPos(posX, posY - y /*(2 * this.getScale())*/, posZ);
+            pos = new BlockPos(posX, posY - y, posZ);
         }
-//            }
-//        }
         return pos;
     }
 
@@ -1111,9 +1105,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public ITextComponent getDisplayName() {
         // return custom name if set
-        Team team = this.getTeam();
         String s = this.getCustomNameTag();
-
         if (s != null && !s.isEmpty()) {
             TextComponentString textcomponentstring = new TextComponentString(s);
             return textcomponentstring;
@@ -1362,7 +1354,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE) && !ItemUtils.hasEquippedAmulet(player)) {
-            if (this.getScale() < 0.40) {
+            if (this.getScale() < 0.35) {
                 this.startRiding(player, true);
                 return true;
             }
@@ -1843,7 +1835,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void updateRidden() {
         Entity entity = this.getRidingEntity();
-        if (this.isRiding() && entity.isDead) {
+        if (this.isRiding() || entity.isDead) {
             this.dismountRidingEntity();
         } else {
             this.motionX = 0.0D;
@@ -1869,7 +1861,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() && !this.boosting() && this.getScale() > 40) {
+            if (riding.isSneaking() && !this.boosting() || this.getScale() > 0.35) {
                 this.dismountRidingEntity();
             }
 

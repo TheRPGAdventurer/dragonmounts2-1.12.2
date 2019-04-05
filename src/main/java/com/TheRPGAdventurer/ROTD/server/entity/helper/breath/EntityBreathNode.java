@@ -69,7 +69,7 @@ class EntityBreathNode extends Entity {
     collisions = entityMoveAndResizeHelper.moveAndResizeEntity(motionX, motionY, motionZ, newAABBDiameter, newAABBDiameter);
     intensityAtCollision = getCurrentIntensity();
 
-    if (isCollided && onGround) {
+    if (collided && onGround) {
       motionY -= 0.01F;         // ensure that we hit the ground next time too
     }
     

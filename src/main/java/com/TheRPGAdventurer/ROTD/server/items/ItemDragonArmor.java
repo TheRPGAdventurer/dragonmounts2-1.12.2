@@ -10,7 +10,7 @@ public class ItemDragonArmor extends Item {
 
 	public ItemDragonArmor(String name) {
 		this.name = name;
-		this.setUnlocalizedName(name);
+		this.setTranslationKey(name);
 		this.setCreativeTab(DragonMounts.TAB);
 		this.maxStackSize = 1;
 		this.setRegistryName(DragonMounts.MODID, name);

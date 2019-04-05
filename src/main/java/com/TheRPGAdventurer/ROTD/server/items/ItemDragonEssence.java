@@ -31,7 +31,7 @@ public class ItemDragonEssence extends Item {
 
     public ItemDragonEssence(EnumItemBreedTypes type, EnumDragonBreed breed) {
         this.breed = breed;
-        this.setUnlocalizedName(type.toString().toLowerCase() + "_dragon_essence");
+        this.setTranslationKey(type.toString().toLowerCase() + "_dragon_essence");
         this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
 //        this.setCreativeTab(DragonMounts.TAB);
         this.maxStackSize = 1;

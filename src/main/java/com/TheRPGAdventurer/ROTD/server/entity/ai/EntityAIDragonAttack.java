@@ -119,7 +119,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
             this.dragon.setAttackTarget(null);
             dragon.setUsingBreathWeapon(false);
         }
-        this.dragon.getNavigator().clearPathEntity();
+        this.dragon.getNavigator().clearPath();
         dragon.setUsingBreathWeapon(false);
     }
 
@@ -189,7 +189,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     public boolean lookingAtTarget(EntityLivingBase target) {
         Vec3d vec3d = dragon.getLook(1.0F).normalize();
         Vec3d vec3d1 = new Vec3d(target.posX - dragon.posX, target.getEntityBoundingBox().minY + (double)target.getEyeHeight() - (dragon.posY + (double)dragon.getEyeHeight()), target.posZ - dragon.posZ);
-        double d0 = vec3d1.lengthVector();
+        double d0 = vec3d1.length();
         vec3d1 = vec3d1.normalize();
         double d1 = vec3d.dotProduct(vec3d1);
         return d1 > 1.0D - 0.025D / d0 ? dragon.canEntityBeSeen(target) : false;

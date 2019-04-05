@@ -11,6 +11,6 @@ public class BlockBase extends Block {
 		super(material);
 		
 		this.setRegistryName(DragonMounts.MODID, name);
-		this.setUnlocalizedName(this.getRegistryName().toString());
+		this.setTranslationKey(this.getRegistryName().toString());
 	}
 }

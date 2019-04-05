@@ -21,7 +21,7 @@ sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse t
 minecraft {
     version = "1.12.2-14.23.5.2768"
     runDir = "run"
-    mappings = "snapshot_20170915"
+    mappings = "stable_39"
     makeObfSourceJar = false 
 }
 
@@ -52,9 +52,9 @@ repositories {
 }
 
 dependencies {
-  // deobfCompile "net.ilexiconn:llibrary:1.7.17-1.12.2:dev"
+   //deobfCompile "net.ilexiconn:llibrary:1.7.14-1.12.2:dev"
  //  compile "com.azanor:thaumcraft-api:6.1-beta23"
-   deobfCompile "com.github.azanor:Baubles:${baubles_version}"
+  // deobfCompile "com.github.azanor:Baubles:${baubles_version}"
  //  runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
 }
 

@@ -25,7 +25,7 @@ public class RayTraceServer {
     final float PARTIAL_TICK = 1.0F; 
     Vec3d positionEyes = entityPlayerSP.getPositionEyes(PARTIAL_TICK);
     Vec3d lookDirection = entityPlayerSP.getLook(PARTIAL_TICK);
-    Vec3d endOfLook = positionEyes.addVector(lookDirection.x * range,
+    Vec3d endOfLook = positionEyes.add(lookDirection.x * range,
             lookDirection.y * range, 
             lookDirection.z * range);
     final boolean STOP_ON_LIQUID = true;

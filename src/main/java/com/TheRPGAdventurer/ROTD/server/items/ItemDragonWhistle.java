@@ -30,7 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemDragonWhistle extends Item {
 
 	public ItemDragonWhistle() {
-		this.setUnlocalizedName("dragon_whistle");
+		this.setTranslationKey("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
 		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.TAB);

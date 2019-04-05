@@ -40,7 +40,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     @Override
     public void startExecuting() {
-        dragon.getNavigator().clearPathEntity();
+        dragon.getNavigator().clearPath();
     }
 
     private void updateIntendedRideRotation(EntityPlayer rider) {
@@ -72,8 +72,8 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
 
             updateIntendedRideRotation(rider);
-            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
-            Vec3d endOfLook = dragonEyePos.addVector(wp.x, wp.y, wp.z);
+            Vec3d dragonEyePos = dragon.getPositionVector().add(0, dragon.getEyeHeight(), 0);
+            Vec3d endOfLook = dragonEyePos.add(wp.x, wp.y, wp.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
         }

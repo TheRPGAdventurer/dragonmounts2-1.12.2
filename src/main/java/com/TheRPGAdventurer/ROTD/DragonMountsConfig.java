@@ -49,9 +49,9 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
 
 
-	public static double BASE_ARMOR  = 8F;
+	public static double BASE_ARMOR  = 10F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static int FACTOR  = 75;
+	public static int FACTOR  = 65;
 
 	// chances
 	public static int AllNestRarity  = 110;

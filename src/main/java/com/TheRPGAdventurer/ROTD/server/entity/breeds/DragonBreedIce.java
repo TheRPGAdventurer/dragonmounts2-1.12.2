@@ -79,7 +79,7 @@ public class DragonBreedIce extends DragonBreed {
                 IBlockState state = world.getBlockState(blockPos);
                 // from EntitySnowman.onLivingUpdate, with slight tweaks
                 if (world.getBlockState(blockPos).getMaterial() == Material.AIR
-                        && world.getBiomeForCoordsBody(blockPos).getFloatTemperature(blockPos) <= 0.8F
+                        && world.getBiomeForCoordsBody(blockPos).getTemperature(blockPos) <= 0.8F
                         && FOOTPRINT.canPlaceBlockAt(world, blockPos)) {
                     world.setBlockState(blockPos, FOOTPRINT.getDefaultState());
                 }

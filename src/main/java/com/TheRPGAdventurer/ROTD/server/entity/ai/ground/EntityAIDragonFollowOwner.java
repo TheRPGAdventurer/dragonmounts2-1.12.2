@@ -66,7 +66,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return false;
         }
 
-        if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist && dragon.isAdult()) {
+        if (dragon.getDistance(ownerCurrent) < minDist && dragon.isAdult()) {
             return false;
         }
 
@@ -87,7 +87,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return false;
         }
 
-        if (dragon.getDistanceToEntity(owner) < minDist) {
+        if (dragon.getDistance(owner) < minDist) {
             return false;
         }
 
@@ -119,7 +119,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     @Override
     public void resetTask() {
         owner = null;
-        nav.clearPathEntity();
+        nav.clearPath();
         PathNavigate pathNavigate = dragon.getNavigator();
         if (pathNavigate instanceof PathNavigateGround) {
             PathNavigateGround pathNavigateGround = (PathNavigateGround) pathNavigate;

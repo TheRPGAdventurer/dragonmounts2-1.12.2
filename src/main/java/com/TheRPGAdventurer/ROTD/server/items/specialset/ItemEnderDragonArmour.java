@@ -27,7 +27,7 @@ public class ItemEnderDragonArmour extends ItemArmor {
 	public ItemEnderDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, PotionEffect potionEffect2, EnumItemBreedTypes type) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.potionEffect = potionEffect2;
-		this.setUnlocalizedName(unlocalizedName);
+		this.setTranslationKey(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.TAB);
 		this.type = type;

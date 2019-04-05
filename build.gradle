@@ -27,24 +27,24 @@ minecraft {
 
 repositories {
     mavenCentral()
- //   maven {
-  //      url "http://maven.mcmoddev.com/"
- //   }
+    maven {
+        url "http://maven.mcmoddev.com/"
+    }
 	
 //	maven {
   //    name = "Mobius Repo"
   //    url = "http://tehnut.info/maven"
   //  }
    
-   // maven {
-   //   name = "JEI"
-   //   url = "http://dvs1.progwml6.com/files/maven"
- //   }
+    maven {
+      name = "JEI"
+      url = "http://dvs1.progwml6.com/files/maven"
+    }
  
-  //  maven {
- //     name = "gegy1000"
- //     url = "https://maven.gegy1000.net"
- //   }
+    maven {
+      name = "gegy1000"
+      url = "https://maven.gegy1000.net"
+    }
 	
 	maven {
 		url 'https://jitpack.io'
@@ -52,10 +52,10 @@ repositories {
 }
 
 dependencies {
-   //deobfCompile "net.ilexiconn:llibrary:1.7.14-1.12.2:dev"
- //  compile "com.azanor:thaumcraft-api:6.1-beta23"
+   deobfCompile "net.ilexiconn:llibrary:1.7.14-1.12.2"
+   compile "com.azanor:thaumcraft-api:6.1-beta23"
   // deobfCompile "com.github.azanor:Baubles:${baubles_version}"
- //  runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
+   runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
 }
 
 processResources {

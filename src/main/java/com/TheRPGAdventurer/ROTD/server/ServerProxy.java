@@ -16,6 +16,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.server.tile.TileEntityDragonShulker;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -77,6 +79,8 @@ public class ServerProxy {
                 ENTITY_SEND_VELO_UPDATES);
         EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "indestructible"), ImmuneEntityItem.class, "Indestructible Item",
                 3, DragonMounts.instance, 32, 5, true);
+
+        GameRegistry.registerTileEntity(TileEntityDragonShulker.class, new ResourceLocation(DragonMounts.MODID, "dragon_shulker"));
 
     }
 

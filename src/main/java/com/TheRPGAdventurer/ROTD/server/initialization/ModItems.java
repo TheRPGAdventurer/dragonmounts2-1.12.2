@@ -108,6 +108,8 @@ public class ModItems {
     public static final Item terra2_dragon_shield;
     public static final Item moonlight_dragon_shield;
 
+//    public static final Item dragon_shulker;
+
     //Setting String for OreDict
     public static final String listAllfishraw = "listAllfishraw";
 
@@ -208,6 +210,8 @@ public class ModItems {
             terra_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales),
             terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2),
             moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales),
+
+//            dragon_shulker = new ItemDragonShulker()
 
     };
 

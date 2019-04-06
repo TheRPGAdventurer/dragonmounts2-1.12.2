@@ -65,7 +65,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.scoreboard.Team;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.*;
@@ -109,7 +108,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public static final double BASE_GROUND_SPEED = 0.4;
     public static final double BASE_AIR_SPEED = 0.9;
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
-    public static final double BASE_ARMOR = DragonMountsConfig.BASE_ARMOR;
+    public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
     public static final float BASE_WIDTH = 2.55f;
     public static final float BASE_HEIGHT = 2.0f;
@@ -883,24 +882,33 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
     }
 
-    public BlockPos onGroundAir() {
-        BlockPos pos = this.getPosition();
-        double[] y1 = {0, 1, 2, 3};
+    /**
+     * Checks if the blocks below the dragons hitbox is present and solid
+     *
+     * @return True if so
+     */
+    public boolean onSolidGround() {
+        double[] xz = {-2, -1, 0, 1, 2};
 
-//        for (double x = 0; x <= 2; ++x) {
-//            for (double z = 0; z <= 2; ++z) {
-        for (double y : y1) {
-            pos = new BlockPos(posX, posY - y /*(2 * this.getScale())*/, posZ);
+        for (double x : xz) {
+            for (double z : xz) {
+                if (isBlockSolid(posX + x, posY - 1, posZ + z)
+                        || isBlockSolid(posX + x, posY - 2, posZ + z)
+                        || (isBlockSolid(posX + x, posY - 3, posZ + z) && this.getScale() > 0.70)) {
+                    return true;
+                }
+            }
         }
-//            }
-//        }
-        return pos;
+        return false;
     }
 
-    public boolean onSolidGround() {
-        IBlockState state = world.getBlockState(onGroundAir());
+    /*
+     * Called in onSolidGround()
+     */
+    private boolean isBlockSolid(double xcoord, double ycoord, double zcoord) {
+        BlockPos pos = new BlockPos(xcoord, ycoord, zcoord);
+        IBlockState state = world.getBlockState(pos);
         return state.getMaterial().isSolid();
-
     }
 
     @Override
@@ -1111,9 +1119,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public ITextComponent getDisplayName() {
         // return custom name if set
-        Team team = this.getTeam();
         String s = this.getCustomNameTag();
-
         if (s != null && !s.isEmpty()) {
             TextComponentString textcomponentstring = new TextComponentString(s);
             return textcomponentstring;
@@ -1362,7 +1368,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE) && !ItemUtils.hasEquippedAmulet(player)) {
-            if (this.getScale() < 0.40) {
+            if (this.getScale() < 0.35) {
                 this.startRiding(player, true);
                 return true;
             }
@@ -1843,7 +1849,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void updateRidden() {
         Entity entity = this.getRidingEntity();
-        if (this.isRiding() && entity.isDead) {
+        if (this.isRiding() || entity.isDead) {
             this.dismountRidingEntity();
         } else {
             this.motionX = 0.0D;
@@ -1869,7 +1875,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() && !this.boosting() && this.getScale() > 40) {
+            if (riding.isSneaking() && !this.boosting() || this.getScale() > 0.35) {
                 this.dismountRidingEntity();
             }
 
@@ -2244,10 +2250,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     private void regenerateHealth() {
-        int factor = DragonMountsConfig.FACTOR;
+        int factor = DragonMountsConfig.REG_FACTOR;
         if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor == 0 && !isDead) {
             int[] exclude = {0};
-            int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 7, exclude);
+            int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 5, exclude);
             this.heal(health);
         }
     }

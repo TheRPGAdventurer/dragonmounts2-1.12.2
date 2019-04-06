@@ -9,7 +9,7 @@ public class ContainerDragonShulker extends Container {
     private final IInventory inventory;
 
     public ContainerDragonShulker(InventoryPlayer playerInv, IInventory shulkerInv, EntityPlayer p_i47266_3_) {
-        this.inventory = shulkerInv;
+        this.inventory = new InventoryBasic("Enchant", true, 1);
         shulkerInv.openInventory(p_i47266_3_);
 
         for (int i1 = 0; i1 < 3; ++i1) {
@@ -21,9 +21,6 @@ public class ContainerDragonShulker extends Container {
         for (int j1 = 0; j1 < 9; ++j1) {
             this.addSlotToContainer(new Slot(playerInv, j1, 8 + j1 * 18, 142));
         }
-
-        this.addSlotToContainer(new SlotShulkerBox(shulkerInv, 1, 8 + 12 * 18, 18 + 2 * 18));
-
     }
 
     /**

@@ -338,11 +338,11 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         return !this.isDestroyedByCreativePlayer() || !this.isEmpty() || this.hasCustomName() || this.lootTable != null;
     }
 
-    static {
-        for (int i = 0; i < SLOTS.length; SLOTS[i] = i++) {
-            ;
-        }
-    }
+//    static {
+//        for (int i = 0; i < SLOTS.length; SLOTS[i] = i++) {
+//            ;
+//        }
+//    }
 
     public static enum AnimationStatus {
         CLOSED,

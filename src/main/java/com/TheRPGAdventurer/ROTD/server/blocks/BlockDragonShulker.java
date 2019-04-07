@@ -35,7 +35,7 @@ public class BlockDragonShulker extends BlockContainer {
         this.setCreativeTab(DragonMounts.TAB);
         this.setUnlocalizedName("dragon_shulker_box");
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_shulker_box"));
-        this.setResistance(20);
+        this.setResistance(100);
         this.setHardness(10);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
     }

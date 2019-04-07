@@ -22,12 +22,7 @@ public class ContainerDragonShulker extends Container {
             this.addSlotToContainer(new Slot(playerInv, j1, 8 + j1 * 18, 142));
         }
 
-//        this.addSlotToContainer(new SlotShulkerBox(shulkerInv, 1, 1, 142));
-//        for (int k = 0; k < 3; ++k) {
-//            for (int l = 0; l < 9; ++l) {
-        this.addSlotToContainer(new SlotShulkerBox(shulkerInv, 1, 8 * 18, 18 * 18));
-//            }
-//        }
+        this.addSlotToContainer(new SlotShulkerBox(shulkerInv, 1, 8 + 12 * 18, 18 + 2 * 18));
 
     }
 

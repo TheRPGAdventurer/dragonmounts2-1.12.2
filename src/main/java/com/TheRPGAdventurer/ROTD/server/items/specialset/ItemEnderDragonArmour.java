@@ -27,7 +27,7 @@ public class ItemEnderDragonArmour extends ItemArmor {
 	public ItemEnderDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, PotionEffect potionEffect2, EnumItemBreedTypes type) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.potionEffect = potionEffect2;
-		this.setTranslationKey(unlocalizedName);
+		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.TAB);
 		this.type = type;
@@ -45,12 +45,12 @@ public class ItemEnderDragonArmour extends ItemArmor {
 	public void spawnParticles(EntityPlayer player) {
         // spawn generic particles
 		Random rand = new Random();
-        double px = player.posX + (rand.nextDouble()); //  - 0.3
-        double py = player.posY + (rand.nextDouble());
-        double pz = player.posZ + (rand.nextDouble());
-        double ox = (rand.nextDouble()) * 2;
-        double oy = (rand.nextDouble()) * 2;
-        double oz = (rand.nextDouble()) * 2;
+        double px = player.posX + (rand.nextDouble()) - 0.3; //  - 0.3
+        double py = player.posY + (rand.nextDouble())- 0.3;
+        double pz = player.posZ + (rand.nextDouble()) - 0.3;
+        double ox = (rand.nextDouble()) * 2- 0.3;
+        double oy = (rand.nextDouble()) * 2- 0.3;
+        double oz = (rand.nextDouble()) * 2- 0.3;
         player.world.spawnParticle(EnumParticleTypes.PORTAL, px, py, pz, ox, oy, oz); 
         
 	}

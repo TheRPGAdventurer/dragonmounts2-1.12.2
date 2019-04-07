@@ -1,15 +1,9 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -27,10 +21,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.UUID;
+
 public class ItemDragonWhistle extends Item {
 
 	public ItemDragonWhistle() {
-		this.setTranslationKey("dragon_whistle");
+		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
 		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.TAB);
@@ -73,7 +71,6 @@ public class ItemDragonWhistle extends Item {
     public void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world) {
     	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid, whistle));
     }
-    
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {

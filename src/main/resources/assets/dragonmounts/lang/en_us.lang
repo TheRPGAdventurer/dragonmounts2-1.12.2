@@ -372,6 +372,8 @@ dragon.adult=Adult
 
 dragon.amulet=Right click to store a dragon
 
+tile.dragon_shulker=Dragon Shulker
+
 gui.nothing=Nothing
 gui.circle=Circle Player
 gui.followFlying=Follow Flying

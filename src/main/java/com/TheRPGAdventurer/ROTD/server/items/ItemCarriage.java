@@ -34,7 +34,7 @@ public class ItemCarriage extends Item {
 	
 	public ItemCarriage(String name, EntityCarriage.Type type) {
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name + type.getName()));
-		this.setTranslationKey(name + type.getName());
+		this.setUnlocalizedName(name + type.getName());
 		this.type = type;
 		this.setMaxDamage(1);
 		this.setMaxStackSize(16);
@@ -67,7 +67,7 @@ public class ItemCarriage extends Item {
         float f7 = f4 * f5;
         float f8 = f3 * f5;
         double d3 = 5.0D;
-        Vec3d vec3d1 = vec3d.add((double)f7 * 5.0D, (double)f6 * 5.0D, (double)f8 * 5.0D);
+        Vec3d vec3d1 = vec3d.addVector((double)f7 * 5.0D, (double)f6 * 5.0D, (double)f8 * 5.0D);
         RayTraceResult raytraceresult = worldIn.rayTraceBlocks(vec3d, vec3d1, true);
 
         if (raytraceresult == null)

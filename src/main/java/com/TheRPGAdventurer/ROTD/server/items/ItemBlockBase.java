@@ -11,7 +11,7 @@ public class ItemBlockBase extends ItemBlock {
 	public ItemBlockBase(String name, Block block) {
 		super(block);
 		this.setRegistryName(DragonMounts.MODID, name);
-		this.setTranslationKey(this.getRegistryName().toString());
+		this.setUnlocalizedName(this.getRegistryName().toString());
 		this.setCreativeTab(DragonMounts.TAB);
 	}
 

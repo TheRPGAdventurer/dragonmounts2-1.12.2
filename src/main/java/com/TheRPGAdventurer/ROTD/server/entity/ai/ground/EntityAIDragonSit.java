@@ -33,7 +33,7 @@ public class EntityAIDragonSit extends EntityAISit {
             if (entitylivingbase == null) {
                 return true;
             } else {
-                return this.dragon.getDistanceSq(entitylivingbase) < 144.0D && entitylivingbase.getRevengeTarget() != null ? false : this.isSitting;
+                return this.dragon.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getRevengeTarget() != null ? false : this.isSitting;
             }
         }
     }
@@ -43,7 +43,7 @@ public class EntityAIDragonSit extends EntityAISit {
      */
     @Override
     public void startExecuting() {
-        this.dragon.getNavigator().clearPath();
+        this.dragon.getNavigator().clearPathEntity();
         this.dragon.setSitting(true);
     }
 

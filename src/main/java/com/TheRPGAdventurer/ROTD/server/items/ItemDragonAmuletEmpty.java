@@ -24,7 +24,7 @@ public class ItemDragonAmuletEmpty extends Item {
     public ItemDragonAmuletEmpty() {
         String name = "dragon_amulet";
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
-        this.setTranslationKey(name);
+        this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.TAB);
     }

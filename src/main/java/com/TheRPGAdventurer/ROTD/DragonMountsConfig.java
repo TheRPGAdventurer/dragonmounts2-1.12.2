@@ -49,18 +49,18 @@ public class DragonMountsConfig {
 	public static boolean canSpawnEndNest = true;
 
 
-	public static double BASE_ARMOR  = 10F;
+	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static int FACTOR  = 65;
+	public static int REG_FACTOR  = 63;
 
 	// chances
 	public static int AllNestRarity  = 110;
 	public static int AllNestRarity1  = 180;
 	public static int ForestNestRarity1  = 555;
 	public static int SunlightNestRarity  = 40;
-	public static int OceanNestRarity  = 3200;
+	public static int OceanNestRarity  = 4000;
 	public static int EnchantNestRarity  = 100;
-	public static int JungleNestRarity  = 555;
+	public static int JungleNestRarity  = 700;
 
 	public static int netherNestRarity = 500;
 	public static int netherNestRarerityInX = 32;
@@ -135,9 +135,9 @@ public class DragonMountsConfig {
 		disableBlockOverride = prop.getBoolean();
 		propOrder.add(prop.getName());
 
-		prop = config.get(CATEGORY_MAIN, "Armor", BASE_ARMOR);
+		prop = config.get(CATEGORY_MAIN, "Armor", ARMOR);
 		prop.setComment("Makes Dragons Tougher or Not");
-		BASE_ARMOR = prop.getDouble();
+		ARMOR = prop.getDouble();
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "Damage", BASE_DAMAGE);
@@ -145,9 +145,9 @@ public class DragonMountsConfig {
 		BASE_DAMAGE = prop.getDouble();
 		propOrder.add(prop.getName());
 
-		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", FACTOR);
+		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", REG_FACTOR);
 		prop.setComment("Lesser numbers slower regen for dragons");
-		FACTOR = prop.getInt();
+		REG_FACTOR = prop.getInt();
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "can dragons despawn", canDragonDespawn);

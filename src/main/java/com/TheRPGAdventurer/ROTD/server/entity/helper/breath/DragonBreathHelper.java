@@ -119,7 +119,7 @@ public class DragonBreathHelper extends DragonHelper {
         if (dragon.isUsingBreathWeapon()) {
             Vec3d origin = dragon.getAnimator().getThroatPosition();
             Vec3d lookDirection = dragon.getLook(1.0f);
-            Vec3d endOfLook = origin.add(lookDirection.x,
+            Vec3d endOfLook = origin.addVector(lookDirection.x,
                     lookDirection.y,
                     lookDirection.z);
             BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();
@@ -135,7 +135,7 @@ public class DragonBreathHelper extends DragonHelper {
         if (dragon.isUsingBreathWeapon()) {
             Vec3d origin = dragon.getAnimator().getThroatPosition();
             Vec3d lookDirection = dragon.getLook(1.0f);
-            Vec3d endOfLook = origin.add(lookDirection.x, lookDirection.y, lookDirection.z);
+            Vec3d endOfLook = origin.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
             if (endOfLook != null && currentBreathState == BreathState.SUSTAIN && dragon.getBreed().canUseBreathWeapon()) {
                 BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();
                 dragon.getBreed().spawnBreathParticles(dragon.getEntityWorld(), power, tickCounter, origin, endOfLook, dragon);
@@ -206,7 +206,7 @@ public class DragonBreathHelper extends DragonHelper {
             boolean isUsingBreathweapon = false;
             if (dragon.isUsingBreathWeapon()) {
                 Vec3d lookDirection = dragon.getLook(1.0f);
-                Vec3d endOfLook = origin.add(lookDirection.x,
+                Vec3d endOfLook = origin.addVector(lookDirection.x,
                         lookDirection.y,
                         lookDirection.z);
                 if (endOfLook != null && currentBreathState == BreathState.SUSTAIN && dragon.getBreed().canUseBreathWeapon()) {

@@ -20,7 +20,7 @@ public class ItemDragonGender extends Item {
     public ItemDragonGender(String name) {
         this.setCreativeTab(DragonMounts.TAB);
         this.setRegistryName(name);
-        this.setTranslationKey(name);
+        this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
     }
 

@@ -24,7 +24,7 @@ public class ItemDragonSword extends ItemSword {
 
     public ItemDragonSword(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
         super(material);
-        this.setTranslationKey(unlocalizedName);
+        this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
         this.setCreativeTab(DragonMounts.TAB);
         this.type = type;
@@ -50,5 +50,4 @@ public class ItemDragonSword extends ItemSword {
 
         return multimap;
     }
-
 }

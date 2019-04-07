@@ -75,7 +75,7 @@ public class EntityAIDragonWatchLiving extends EntityAIDragonBase {
             return false;
         }
 
-        if (dragon.getDistanceSq(watchedEntity) > maxDist * maxDist) {
+        if (dragon.getDistanceSqToEntity(watchedEntity) > maxDist * maxDist) {
             return false;
         } else {
             return watchTicks > 2;

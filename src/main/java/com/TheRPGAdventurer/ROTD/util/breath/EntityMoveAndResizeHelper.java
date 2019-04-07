@@ -108,10 +108,10 @@ public class EntityMoveAndResizeHelper {
     entity.posY = entityAABB.minY;
     entity.posZ = (entityAABB.minZ + entityAABB.maxZ) / 2.0;
 
-    entity.collidedHorizontally = desiredDX != dx || desiredDZ != dz;
-    entity.collidedHorizontally = desiredDY != dy;
-    entity.onGround = entity.collidedVertically && desiredDY < 0.0;
-    entity.collided = entity.collidedHorizontally || entity.collidedVertically;
+    entity.isCollidedHorizontally = desiredDX != dx || desiredDZ != dz;
+    entity.isCollidedHorizontally = desiredDY != dy;
+    entity.onGround = entity.isCollidedVertically && desiredDY < 0.0;
+    entity.isCollided = entity.isCollidedHorizontally || entity.isCollidedVertically;
 
     // if we collided in any direction, stop the entity's motion in that direction, and mark the truncated zone
     //   as a collision zone - i.e if we wanted to move to dx += 0.5, but actually could only move +0.2, then the

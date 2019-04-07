@@ -76,7 +76,7 @@ public class DragonBrain extends DragonHelper {
         }
         
         // clear current navigation target
-        dragon.getNavigator().clearPath();
+        dragon.getNavigator().clearPathEntity();
         
         // clear existing tasks
    //     clearTasks();

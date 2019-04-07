@@ -27,7 +27,7 @@ public class ItemDiamondShears extends ItemShears {
 	private EntityTameableDragon dragon;
 		
 	public ItemDiamondShears(ToolMaterial material, String unlocalizedName) {
-	    this.setTranslationKey(unlocalizedName);
+	    this.setUnlocalizedName(unlocalizedName);
 	    this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 	    this.setMaxDamage(345);
 	    this.setMaxStackSize(1);

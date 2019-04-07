@@ -17,7 +17,7 @@ public class BlockDragonNest extends Block {
 	public BlockDragonNest(String unlocalizedName) {
 		super(Material.WOOD);
 		this.setRegistryName(DragonMounts.MODID, unlocalizedName);
-		this.setTranslationKey(unlocalizedName);
+		this.setUnlocalizedName(unlocalizedName);
 		this.setResistance(1);
 		this.setHardness(1);
 		this.setSoundType(SoundType.WOOD);

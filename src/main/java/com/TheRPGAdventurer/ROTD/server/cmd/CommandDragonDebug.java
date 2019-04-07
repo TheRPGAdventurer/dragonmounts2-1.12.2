@@ -33,7 +33,7 @@ public class CommandDragonDebug extends CommandBaseNested implements IDragonModi
         }));
         
         addCommand(new CommandDragonLambda("dumpNBT", dragon -> {
-            File dumpFile = new File(Minecraft.getMinecraft().gameDir,
+            File dumpFile = new File(Minecraft.getMinecraft().mcDataDir,
                     String.format("dragon_%08x.nbt", dragon.getEntityId()));
 
             try {

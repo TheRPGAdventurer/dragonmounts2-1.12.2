@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class CreativeTab extends CreativeTabs {
@@ -11,8 +11,8 @@ public class CreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public ItemStack createIcon() {
-		return new ItemStack(Blocks.DRAGON_EGG);
+	public ItemStack getTabIconItem() {
+		return new ItemStack(BlockDragonBreedEgg.DRAGON_BREED_EGG);
 	}
 
 	@Override

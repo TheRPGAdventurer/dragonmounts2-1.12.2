@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class ItemStructureSpawner extends Item {
 	
 	public ItemStructureSpawner(String unlocalizedName) {
-	    this.setTranslationKey(unlocalizedName);
+	    this.setUnlocalizedName(unlocalizedName);
 	    this.setRegistryName(unlocalizedName);
 	    this.setCreativeTab(DragonMounts.TAB);
 	    this.setMaxStackSize(1);

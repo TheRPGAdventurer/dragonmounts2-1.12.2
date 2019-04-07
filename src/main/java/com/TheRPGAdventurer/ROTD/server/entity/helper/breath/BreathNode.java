@@ -97,7 +97,7 @@ public class BreathNode {
     }
 
     // collision ages breath node faster
-    if (parentEntity.collided) {
+    if (parentEntity.isCollided) {
       ageTicks += 4;
     }
 

@@ -28,7 +28,7 @@ public class ImmuneEntityItem extends EntityItem {
 
     @Override
     public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
-        if (source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType)) {
+        if (source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType) || source.getDamageType().equals(DamageSource.LIGHTNING_BOLT.damageType)) {
             return true;
         }
         // prevent any damage besides out of world

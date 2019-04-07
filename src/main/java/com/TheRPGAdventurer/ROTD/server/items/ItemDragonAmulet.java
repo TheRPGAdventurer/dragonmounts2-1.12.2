@@ -42,7 +42,7 @@ public class ItemDragonAmulet extends Item {
         this.type = type;
         this.breed = breed;
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
-        this.setTranslationKey(name);
+        this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
 //        this.setCreativeTab(DragonMounts.TAB);
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {

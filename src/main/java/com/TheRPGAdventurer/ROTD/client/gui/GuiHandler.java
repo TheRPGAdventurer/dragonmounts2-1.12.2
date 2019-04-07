@@ -15,6 +15,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int GUI_DRAGON = 0;
 	public static final int GUI_DRAGON_WAND = 1;
 	public static final int GUI_DRAGON_WHISTLE = 2;
+	public static final int GUI_DRAGON_SHULKER = 3;
 
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {

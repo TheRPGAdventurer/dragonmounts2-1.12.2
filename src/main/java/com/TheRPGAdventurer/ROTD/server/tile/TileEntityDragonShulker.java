@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntityDragonShulker extends TileEntityLockableLoot implements ITickable, ISidedInventory {
-    private static final int[] SLOTS = new int[1];
+    private static final int[] SLOTS = new int[27];
     private NonNullList<ItemStack> items;
     private boolean hasBeenCleared;
     private int openCount;
@@ -338,11 +338,11 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         return !this.isDestroyedByCreativePlayer() || !this.isEmpty() || this.hasCustomName() || this.lootTable != null;
     }
 
-//    static {
-//        for (int i = 0; i < SLOTS.length; SLOTS[i] = i++) {
-//            ;
-//        }
-//    }
+    static {
+        for (int i = 0; i < SLOTS.length; SLOTS[i] = i++) {
+            ;
+        }
+    }
 
     public static enum AnimationStatus {
         CLOSED,

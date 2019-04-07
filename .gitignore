@@ -20,4 +20,5 @@ build
 # other
 eclipse
 run
-.txt
+*.txt
+gradlew setupdecompworkspace idea

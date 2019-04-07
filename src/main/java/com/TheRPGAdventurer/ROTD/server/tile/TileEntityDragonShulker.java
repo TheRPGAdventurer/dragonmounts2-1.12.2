@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileEntityDragonShulker extends TileEntityLockableLoot implements ITickable, ISidedInventory {
-    private static final int[] SLOTS = new int[27];
+    private static final int[] SLOTS = new int[1];
     private NonNullList<ItemStack> items;
     private boolean hasBeenCleared;
     private int openCount;

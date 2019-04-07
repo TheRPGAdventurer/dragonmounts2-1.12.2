@@ -335,7 +335,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
     }
 
     public boolean shouldDrop() {
-        return !this.isDestroyedByCreativePlayer() || !this.isEmpty() || this.hasCustomName() || this.lootTable != null;
+        return !this.isEmpty() || this.hasCustomName() || this.lootTable != null;
     }
 
     static {

@@ -9,7 +9,7 @@ public class ContainerDragonShulker extends Container {
     private final IInventory inventory;
 
     public ContainerDragonShulker(InventoryPlayer playerInv, IInventory shulkerInv, EntityPlayer p_i47266_3_) {
-        this.inventory = new InventoryBasic("Enchant", true, 1);
+        this.inventory = shulkerInv;
         shulkerInv.openInventory(p_i47266_3_);
 
         for (int i1 = 0; i1 < 3; ++i1) {
@@ -21,6 +21,23 @@ public class ContainerDragonShulker extends Container {
         for (int j1 = 0; j1 < 9; ++j1) {
             this.addSlotToContainer(new Slot(playerInv, j1, 8 + j1 * 18, 142));
         }
+
+        this.addSlotToContainer(new Slot(shulkerInv, 0, 120, 70) {
+            /**
+             * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
+             */
+            public boolean isItemValid(ItemStack stack) {
+                return true;
+            }
+
+            /**
+             * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in
+             * the case of armor slots)
+             */
+            public int getSlotStackLimit() {
+                return 1;
+            }
+        });
     }
 
     /**

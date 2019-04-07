@@ -16,7 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -41,8 +41,8 @@ public class BlockDragonShulker extends BlockContainer {
     }
 
     @SideOnly(Side.CLIENT)
-    public void openDragonShulkerGui(EntityPlayer player, IInventory inventory) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiDragonShulker(player.inventory, inventory));
+    public void openDragonShulkerGui(EntityPlayer player) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiDragonShulker(player.inventory, new InventoryBasic("dragon_shulker", true, 1)));
     }
 
     /**
@@ -68,7 +68,7 @@ public class BlockDragonShulker extends BlockContainer {
                 }
 
                 if (flag) {
-                    openDragonShulkerGui(playerIn, (IInventory) tileentity);
+                    openDragonShulkerGui(playerIn);
                 }
 
                 return true;

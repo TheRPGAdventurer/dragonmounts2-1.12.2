@@ -298,7 +298,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
      * Returns true if automation can insert the given item in the given slot from the given side.
      */
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-        return !(Block.getBlockFromItem(itemStackIn.getItem()) instanceof BlockShulkerBox);
+        return false;
     }
 
     /**

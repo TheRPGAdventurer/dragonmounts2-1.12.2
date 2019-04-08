@@ -100,6 +100,10 @@ public class ItemDragonEssence extends Item {
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
         if (hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
+        if (!dragon.isTamedFor(player)) {
+            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+            return EnumActionResult.FAIL;
+        }
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
@@ -111,18 +115,15 @@ public class ItemDragonEssence extends Item {
         if (stack.getTagCompound() != null) {
             dragon.readEntityFromNBT(stack.getTagCompound());
         }
-        if (dragon.isTamedFor(player)) stack.shrink(1);
+
         dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceID"));
         dragon.setBreedType(breed);
 //        if (stack.getTagCompound() != null) {
 //            stack.getTagCompound().setBoolean("Released", true);
-        if (dragon.isTamedFor(player)) {
-            if (!worldIn.isRemote) {
-                worldIn.spawnEntity(dragon);
-            }
-        } else {
-            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+        if (!worldIn.isRemote) {
+            worldIn.spawnEntity(dragon);
         }
+
 //        }
 
         stack = new ItemStack(this);

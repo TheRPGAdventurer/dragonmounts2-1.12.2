@@ -23,7 +23,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 	public UUID dragonId;
 	public byte controlState;
 	EntityTameableDragon dragon;
-	Minecraft mc = Minecraft.getMinecraft();
 
 	public MessageDragonWhistle(UUID dragonId, byte controlState) {
 		this.dragonId = dragonId;
@@ -66,9 +65,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 			  if (dragon.isOwner(player)) {
 				  dragon.setWhistleState(message.controlState);
 			  }
-
-			  this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
-
+			  player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
 		  }
 	//	} 
 	}

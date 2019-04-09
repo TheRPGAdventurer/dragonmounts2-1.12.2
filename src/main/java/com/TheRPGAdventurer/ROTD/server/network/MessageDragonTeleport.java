@@ -23,7 +23,6 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
     public UUID dragonId;
     public byte controlState;
     EntityTameableDragon dragon;
-    Minecraft mc = Minecraft.getMinecraft();
 
     public MessageDragonTeleport(UUID dragonId) {
         this.dragonId = dragonId;
@@ -64,7 +63,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
             dragon.setPosition(player.getPosition().getX() + 4, player.getPosition().getY(), player.getPosition().getZ());
 //            }
             dragon.nothing();
-            this.mc.player.world.playSound(this.mc.player, this.mc.player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
+            player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
 
         }
         //	}

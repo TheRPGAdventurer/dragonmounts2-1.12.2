@@ -45,7 +45,6 @@ item.whistle.limit=One Whistle can only carry 3 Dragons
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (HomePos is WIP)
 item.command.new_home=New HomePos at
 dragon.locked=Owner locked the Dragon
-item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
 egg.cantHatchEnd.DragonMounts=Dragons Eggs cant hatch in The End
 
@@ -56,7 +55,7 @@ tile.pileofsticks.name=Nest Block
 item.dragonEgg.name=%s Egg
 item.dragon_gender.name=Dragon Gender Switcher
 item.gui.dragon_gender=Left Click an owned dragon to work
-item.diamondshears.info=Right click on a dragon to get shears without killing it
+item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
 item.dragonamulet.info=Right Click to store dragon and carry it, shift + right click on ground to summon
 
 item.carriage_oak.name=Oak Carriage

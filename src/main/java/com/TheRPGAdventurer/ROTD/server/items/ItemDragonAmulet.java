@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -136,7 +137,11 @@ public class ItemDragonAmulet extends Item {
         dragon.setBreedType(breed);
         if (dragon.isTamedFor(player)) stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
         if (!worldIn.isRemote) {
-            worldIn.spawnEntity(dragon);
+            if(dragon.isTamedFor(player)) {
+                worldIn.spawnEntity(dragon);
+            } else {
+                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+            }
         }
 
         stack = new ItemStack(ModItems.AmuletEmpty);

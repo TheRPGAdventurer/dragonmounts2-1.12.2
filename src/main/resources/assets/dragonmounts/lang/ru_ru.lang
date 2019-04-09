@@ -1,0 +1,696 @@
+temGroup.dragonmounts=Dragon Mounts
+ 
+entity.DragonMount.ice.name=Морозный дракон
+entity.DragonMount.ender.name=Дракон края
+entity.DragonMount.aether.name=Небесный дракон
+entity.DragonMount.forest.name=Лесной дракон
+entity.DragonMount.sylphid.name=Водный дракон
+entity.DragonMount.nether.name=Дракон нижнего мира
+entity.DragonMount.fire.name=Огненный дракон
+entity.DragonMount.skeleton.name=Дракон скелет
+entity.DragonMount.wither.name=Иссушающий дракон
+entity.DragonMount.enchant.name=Чарующий дракон
+entity.DragonMount.sunlight.name=Солнечный дракон
+entity.DragonMount.storm.name=Штормовой дракон
+entity.DragonMount.zombie.name=Зомби дракон
+entity.DragonMount.terra.name=Земляной дракон
+entity.DragonMount.moonlight.name=Лунный дракон
+ 
+entity.DragonMounts.dragon.ice.name=Морозный дракон
+entity.DragonMounts.dragon.end.name=Дракон края
+entity.DragonMounts.dragon.aether.name=Небесный дракон
+entity.DragonMounts.dragon.forest.name=Лесной дракон
+entity.DragonMounts.dragon.sylphid.name=Водный дракон
+entity.DragonMounts.dragon.nether.name=Дракон нижнего мира
+entity.DragonMounts.dragon.fire.name=Огненный дракон
+entity.DragonMounts.dragon.skeleton.name=Дракон скелет
+entity.DragonMounts.dragon.wither.name=Иссушающий дракон
+entity.DragonMounts.dragon.enchant.name=Чарующий дракон
+entity.DragonMounts.dragon.sunlight.name=Солнечный дракон
+entity.DragonMounts.dragon.storm.name=Штормовой дракон
+entity.DragonMounts.dragon.zombie.name=Зомби дракон
+entity.DragonMounts.dragon.terra.name=Земляной дракон
+entity.DragonMounts.dragon.moonlight.name=Лунный дракон
+ 
+commands.dragon.nodragons=Поблизости нет драконов
+commands.dragon.canttame=Вы не можете приручить дракона
+ 
+entity.dragon.tooYoung=Дракон слишком маленький для этого. Подождите пока он вырастет.
+ 
+item.whistle.notOwned=Ты не хозяин этого дракона
+item.whistle.hasDragon=Дракон успешно добавлен
+item.whistle.empty=Нет драконов для контроля
+item.whistle.noDragon=Драконий свисток пуст. Щелкните левой кнопкой мыши на прирученном вами драконе
+item.whistle.limit=К одному свистку может быть привязаны только 3 дракона
+item.whistle.info=Щелкните левой кнопкой мыши по прирученному вами дракону, чтоб управлять им. Shift + левая кнопка мыши чтоб установить домашнюю точку (WIP)
+item.command.new_home=Новая домашняя точка
+dragon.locked=Хозяин заблокировал дракона
+item.diamondshears.info=Используется для получения чешуи драконов, не убивая их. Неприрученный дракон нападет
+item.carriage.info=Используется чтобы драконы могли перевозить несколько пассажиров, как лодка
+egg.cantHatchEnd.DragonMounts=Дракон не может вылупится из яйца в Крае
+ 
+item.diamond_shears.name=Алмазные ножницы
+item.structure_spawner.name=Structure Spawner (Debug)
+ 
+tile.pileofsticks.name=Блок гнезда
+item.dragonEgg.name=%s Яйцо
+ 
+item.carriage_oak.name=Дубовая каретка
+item.carriage_birch.name=Березовая каретка
+item.carriage_spruce.name=Еловая каретка
+item.carriage_acacia.name=Акациевая каретка
+item.carriage_dark_oak.name=Каретка из темного дуба
+item.carriage_jungle.name=Джунглиевая каретка
+ 
+item.ender_dragonscales.name=Драконья чешуя
+item.ender_dragon_pickaxe.name=Драконья кирка
+item.ender_dragon_axe.name=Драконий топор
+item.ender_dragon_shovel.name=Драконья лопата
+item.ender_dragon_hoe.name=Драконья мотыга
+item.ender_dragon_sword.name=Драконий меч
+item.ender_dragonscale_cap.name=Драконий шлем
+item.ender_dragonscale_tunic.name=Драконий нагрудник
+item.ender_dragonscale_leggings.name=Драконьи поножи
+item.ender_dragonscale_boots.name=Драконьи сапоги
+ 
+item.nether_dragonscales.name=Драконья чешуя
+item.nether_dragon_pickaxe.name=Драконья Кирка
+item.nether_dragon_axe.name=Драконий Топор
+item.nether_dragon_hoe.name=Драконья Мотыга
+item.nether_dragon_shovel.name=Драконья Лопата
+item.nether_dragon_sword.name=Драконий Меч
+item.nether_dragonscale_cap.name=Драконий Шлем
+item.nether_dragonscale_tunic.name=Драконий Нагрудник
+item.nether_dragonscale_leggings.name=Драконьи Поножи
+item.nether_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.nether2_dragonscales.name=Драконья чешуя
+item.nether2_dragon_pickaxe.name=Драконья Кирка
+item.nether2_dragon_axe.name=Драконий Топор
+item.nether2_dragon_hoe.name=Драконья Мотыга
+item.nether2_dragon_shovel.name=Драконья Лопата
+item.nether2_dragon_sword.name=Драконий Меч
+item.nether2_dragonscale_cap.name=Драконий Шлем
+item.nether2_dragonscale_tunic.name=Драконий Нагрудник
+item.nether2_dragonscale_leggings.name=Драконьи Поножи
+item.nether2_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.forest_dragonscales.name=Драконья чешуя
+item.forest_dragon_pickaxe.name=Драконья Кирка
+item.forest_dragon_axe.name=Драконий Топор
+item.forest_dragon_shovel.name=Драконья Лопата
+item.forest_dragon_hoe.name=Драконья Мотыга
+item.forest_dragon_sword.name=Драконий Меч
+item.forest_dragonscale_cap.name=Драконий Шлем
+item.forest_dragonscale_tunic.name=Драконий Нагрудник
+item.forest_dragonscale_leggings.name=Драконьи Поножи
+item.forest_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.fire_dragonscales.name=Драконья чешуя
+item.fire_dragon_pickaxe.name=Драконья Кирка
+item.fire_dragon_axe.name=Драконий Топор
+item.fire_dragon_shovel.name=Драконья Лопата
+item.fire_dragon_sword.name=Драконий Меч
+item.fire_dragonscale_cap.name=Драконий Шлем
+item.fire_dragonscale_tunic.name=Драконий Нагрудник
+item.fire_dragonscale_leggings.name=Драконьи Поножи
+item.fire_dragonscale_boots.name=Драконьи Сапоги
+item.fire_dragon_hoe.name=Драконья Мотыга
+ 
+item.fire2_dragonscales.name=Драконья чешуя
+item.fire2_dragon_pickaxe.name=Драконья Кирка
+item.fire2_dragon_axe.name=Драконий Топор
+item.fire2_dragon_shovel.name=Драконья Лопата
+item.fire2_dragon_sword.name=Драконий Меч
+item.fire2_dragonscale_cap.name=Драконий Шлем
+item.fire2_dragonscale_tunic.name=Драконий Нагрудник
+item.fire2_dragonscale_leggings.name=Драконьи Поножи
+item.fire2_dragonscale_boots.name=Драконьи Сапоги
+item.fire2_dragon_hoe.name=Драконья Мотыга
+ 
+item.ice_dragonscales.name=Драконья чешуя
+item.ice_dragon_pickaxe.name=Драконья Кирка
+item.ice_dragon_axe.name=Драконий Топор
+item.ice_dragon_shovel.name=Драконья Лопата
+item.ice_dragon_sword.name=Драконий Меч
+item.ice_dragonscale_cap.name=Драконий Шлем
+item.ice_dragonscale_tunic.name=Драконий Нагрудник
+item.ice_dragonscale_leggings.name=Драконьи Поножи
+item.ice_dragonscale_boots.name=Драконьи Сапоги
+item.ice_dragon_hoe.name=Драконья Мотыга
+ 
+item.aether_dragonscales.name=Драконья чешуя
+item.aether_dragon_pickaxe.name=Драконья Кирка
+item.aether_dragon_axe.name=Драконий Топор
+item.aether_dragon_hoe.name=Драконья Мотыга
+item.aether_dragon_shovel.name=Драконья Лопата
+item.aether_dragon_sword.name=Драконий Меч
+item.aether_dragonscale_cap.name=Драконий Шлем
+item.aether_dragonscale_tunic.name=Драконий Нагрудник
+item.aether_dragonscale_leggings.name=Драконьи Поножи
+item.aether_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.water_dragonscales.name=Драконья чешуя
+item.water_dragon_pickaxe.name=Драконья Кирка
+item.water_dragon_axe.name=Драконий Топор
+item.water_dragon_shovel.name=Драконья Лопата
+item.water_dragon_sword.name=Драконий Меч
+item.water_dragonscale_cap.name=Драконий Шлем
+item.water_dragonscale_tunic.name=Драконий Нагрудник
+item.water_dragonscale_leggings.name=Драконьи Поножи
+item.water_dragon_hoe.name=Драконья Мотыга
+item.water_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.sunlight_dragonscales.name=Драконья чешуя
+item.sunlight_dragon_pickaxe.name=Драконья Кирка
+item.sunlight_dragon_axe.name=Драконий Топор
+item.sunlight_dragon_shovel.name=Драконья Лопата
+item.sunlight_dragon_sword.name=Драконий Меч
+item.sunlight_dragonscale_cap.name=Драконий Шлем
+item.sunlight_dragonscale_tunic.name=Драконий Нагрудник
+item.sunlight_dragonscale_leggings.name=Драконьи Поножи
+item.sunlight_dragon_hoe.name=Драконья Мотыга
+item.sunlight_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.storm_dragonscales.name=Драконья чешуя
+item.storm_dragon_pickaxe.name=Драконья Кирка
+item.storm_dragon_axe.name=Драконий Топор
+item.storm_dragon_shovel.name=Драконья Лопата
+item.storm_dragon_sword.name=Драконий Меч
+item.storm_dragonscale_cap.name=Драконий Шлем
+item.storm_dragonscale_tunic.name=Драконий Нагрудник
+item.storm_dragonscale_leggings.name=Драконьи Поножи
+item.storm_dragon_hoe.name=Драконья Мотыга
+item.storm_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.zombie_dragonscales.name=Драконья чешуя
+item.zombie_dragon_pickaxe.name=Драконья Кирка
+item.zombie_dragon_axe.name=Драконий Топор
+item.zombie_dragon_shovel.name=Драконья Лопата
+item.zombie_dragon_sword.name=Драконий Меч
+item.zombie_dragonscale_cap.name=Драконий Шлем
+item.zombie_dragonscale_tunic.name=Драконий Нагрудник
+item.zombie_dragonscale_leggings.name=Драконьи Поножи
+item.zombie_dragon_hoe.name=Драконья Мотыга
+item.zombie_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.sunlight2_dragonscales.name=Драконья чешуя
+item.sunlight2_dragon_pickaxe.name=Драконья Кирка
+item.sunlight2_dragon_axe.name=Драконий Топор
+item.sunlight2_dragon_shovel.name=Драконья Лопата
+item.sunlight2_dragon_sword.name=Драконий Меч
+item.sunlight2_dragonscale_cap.name=Драконий Шлем
+item.sunlight2_dragonscale_tunic.name=Драконий Нагрудник
+item.sunlight2_dragonscale_leggings.name=Драконьи Поножи
+item.sunlight2_dragon_hoe.name=Драконья Мотыга
+item.sunlight2_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.moonlight_dragonscales.name=Драконья чешуя
+item.moonlight_dragon_pickaxe.name=Драконья Кирка
+item.moonlight_dragon_axe.name=Драконий Топор
+item.moonlight_dragon_shovel.name=Драконья Лопата
+item.moonlight_dragon_sword.name=Драконий Меч
+item.moonlight_dragonscale_cap.name=Драконий Шлем
+item.moonlight_dragonscale_tunic.name=Драконий Нагрудник
+item.moonlight_dragonscale_leggings.name=Драконьи Поножи
+item.moonlight_dragon_hoe.name=Драконья Мотыга
+item.moonlight_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.storm2_dragonscales.name=Драконья чешуя
+item.storm2_dragon_pickaxe.name=Драконья Кирка
+item.storm2_dragon_axe.name=Драконий Топор
+item.storm2_dragon_shovel.name=Драконья Лопата
+item.storm2_dragon_sword.name=Драконий Меч
+item.storm2_dragonscale_cap.name=Драконий Шлем
+item.storm2_dragonscale_tunic.name=Драконий Нагрудник
+item.storm2_dragonscale_leggings.name=Драконьи Поножи
+item.storm2_dragon_hoe.name=Драконья Мотыга
+item.storm2_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.enchant_dragonscales.name=Драконья чешуя
+item.enchant_dragon_pickaxe.name=Драконья Кирка
+item.enchant_dragon_axe.name=Драконий Топор
+item.enchant_dragon_shovel.name=Драконья Лопата
+item.enchant_dragon_sword.name=Драконий Меч
+item.enchant_dragonscale_cap.name=Драконий Шлем
+item.enchant_dragonscale_tunic.name=Драконий Нагрудник
+item.enchant_dragonscale_leggings.name=Драконьи Поножи
+item.enchant_dragon_hoe.name=Драконья Мотыга
+item.enchant_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.terra_dragonscales.name=Драконья чешуя
+item.terra_dragon_pickaxe.name=Драконья Кирка
+item.terra_dragon_axe.name=Драконий Топор
+item.terra_dragon_hoe.name=Драконья Мотыга
+item.terra_dragon_shovel.name=Драконья Лопата
+item.terra_dragon_sword.name=Драконий Меч
+item.terra_dragonscale_cap.name=Драконий Шлем
+item.terra_dragonscale_tunic.name=Драконий Нагрудник
+item.terra_dragonscale_leggings.name=Драконьи Поножи
+item.terra_dragonscale_boots.name=Драконьи Сапоги
+ 
+item.terra2_dragonscales.name=Драконья чешуя
+item.terra2_dragon_pickaxe.name=Драконья Кирка
+item.terra2_dragon_axe.name=Драконий Топор
+item.terra2_dragon_hoe.name=Драконья Мотыга
+item.terra2_dragon_shovel.name=Драконья Лопата
+item.terra2_dragon_sword.name=Драконий Меч
+item.terra2_dragonscale_cap.name=Драконий Шлем
+item.terra2_dragonscale_tunic.name=Драконий Нагрудник
+item.terra2_dragonscale_leggings.name=Драконьи Поножи
+item.terra2_dragonscale_boots.name=Драконьи Сапоги
+ 
+key.categories.dragon=Управление драконом
+key.dragon.flyUp=Подняться выше
+key.dragon.flyDown=Опуститься ниже
+ 
+item.dragonarmor_diamond.name=Алмазная драконья броня
+item.dragonarmor_iron.name=Железная драконья броня
+item.dragonarmor_gold.name=Золотая драконья броня
+ 
+entity.dragon.tooYounng=Дракон еще слишком молод, для того чтобы его оседлать.
+ 
+item.summon_forest.name=Призыв дракона
+item.summon_aether.name=Призыв дракона
+item.summon_ice.name=Призыв дракона
+item.summon_water.name=Призыв дракона
+item.summon_fire.name=Призыв дракона
+item.summon_nether.name=Призыв дракона
+item.summon_end.name=Призыв дракона
+item.summon_skeleton.name=Призыв дракона
+item.summon_wither.name=Призыв дракона
+item.summon_sunlight.name=Призыв дракона
+item.summon_enchant.name=Призыв дракона
+item.summon_storm.name=Призыв дракона
+item.summon_zombie.name=Призыв дракона
+item.summon_terra.name=Призыв дракона
+item.summon_moonlight.name=Призыв дракона
+ 
+item.dragon_shield_forest.name=Драконий щит
+item.dragon_shield_aether.name=Драконий щит
+item.dragon_shield_end.name=Драконий щит
+item.dragon_shield_fire.name=Драконий щит
+item.dragon_shield_fire2.name=Драконий щит
+item.dragon_shield_ice.name=Драконий щит
+item.dragon_shield_water.name=Драконий щит
+item.dragon_shield_sunlight.name=Драконий щит
+item.dragon_shield_sunlight2.name=Драконий щит
+item.dragon_shield_enchant.name=Драконий щит
+item.dragon_shield_forest.name=Драконий щит
+item.dragon_shield_storm.name=Драконий щит
+item.dragon_shield_terra.name=Драконий щит
+item.dragon_shield_terra2.name=Драконий щит
+item.dragon_shield_moonlight.name=Драконий щит
+ 
+item.end_dragon_essence.name=Драконья эссенция
+item.aether_dragon_essence.name=Драконья эссенция
+item.ice_dragon_essence.name=Драконья эссенция
+item.water_dragon_essence.name=Драконья эссенция
+item.fire_dragon_essence.name=Драконья эссенция
+item.forest_dragon_essence.name=Драконья эссенция
+item.skeleton_dragon_essence.name=Драконья эссенция
+item.wither_dragon_essence.name=Драконья эссенция
+item.nether_dragon_essence.name=Драконья эссенция
+item.enchant_dragon_essence.name=Драконья эссенция
+item.sunlight_dragon_essence.name=Драконья эссенция
+item.storm_dragon_essence.name=Драконья эссенция
+item.zombie_dragon_essence.name=Драконья эссенция
+item.terra_dragon_essence.name=Драконья эссенция
+item.moonlight_dragon_essence.name=Драконья эссенция
+ 
+dragon.forest=Лесной
+dragon.aether=Небесный
+dragon.ice=Морозный
+dragon.water=Водный
+dragon.fire=Огненный
+dragon.fire2=Огненный
+dragon.skeleton=Скелет
+dragon.wither=Иссушающий
+dragon.nether=Нижнего мира
+dragon.end=Края
+dragon.ender=Края
+dragon.enchant=Чарующий
+dragon.sunlight=Солнечный
+dragon.sunlight2=Солнечный
+dragon.moonlight=Лунный
+dragon.storm=Штормовой
+dragon.zombie=Зомби
+dragon.terra=Земляной
+dragon.terra2=Земляной
+ 
+gui.nothing=Ничего не делать
+gui.circle=Кружить рядом с игроком
+gui.followFlying=Следовать в полёте
+gui.goToPlayer=Следовать за игроком
+gui.homePos=Бродить
+ 
+item.dragon_whistle.name=Драконий свисток [WIP]
+RAW Paste Data
+
+itemGroup.dragonmounts=Dragon Mounts
+
+entity.DragonMount.ice.name=Морозный дракон
+entity.DragonMount.ender.name=Дракон края
+entity.DragonMount.aether.name=Небесный дракон
+entity.DragonMount.forest.name=Лесной дракон
+entity.DragonMount.sylphid.name=Водный дракон
+entity.DragonMount.nether.name=Дракон нижнего мира
+entity.DragonMount.fire.name=Огненный дракон
+entity.DragonMount.skeleton.name=Дракон скелет
+entity.DragonMount.wither.name=Иссушающий дракон
+entity.DragonMount.enchant.name=Чарующий дракон
+entity.DragonMount.sunlight.name=Солнечный дракон
+entity.DragonMount.storm.name=Штормовой дракон
+entity.DragonMount.zombie.name=Зомби дракон
+entity.DragonMount.terra.name=Земляной дракон
+entity.DragonMount.moonlight.name=Лунный дракон
+
+entity.DragonMounts.dragon.ice.name=Морозный дракон
+entity.DragonMounts.dragon.end.name=Дракон края
+entity.DragonMounts.dragon.aether.name=Небесный дракон
+entity.DragonMounts.dragon.forest.name=Лесной дракон
+entity.DragonMounts.dragon.sylphid.name=Водный дракон
+entity.DragonMounts.dragon.nether.name=Дракон нижнего мира
+entity.DragonMounts.dragon.fire.name=Огненный дракон
+entity.DragonMounts.dragon.skeleton.name=Дракон скелет
+entity.DragonMounts.dragon.wither.name=Иссушающий дракон
+entity.DragonMounts.dragon.enchant.name=Чарующий дракон
+entity.DragonMounts.dragon.sunlight.name=Солнечный дракон
+entity.DragonMounts.dragon.storm.name=Штормовой дракон
+entity.DragonMounts.dragon.zombie.name=Зомби дракон
+entity.DragonMounts.dragon.terra.name=Земляной дракон
+entity.DragonMounts.dragon.moonlight.name=Лунный дракон
+
+commands.dragon.nodragons=Поблизости нет драконов
+commands.dragon.canttame=Вы не можете приручить дракона
+
+entity.dragon.tooYoung=Дракон слишком маленький для этого. Подождите пока он вырастет.
+
+item.whistle.notOwned=Ты не хозяин этого дракона
+item.whistle.hasDragon=Дракон успешно добавлен
+item.whistle.empty=Нет драконов для контроля
+item.whistle.noDragon=Драконий свисток пуст. Щелкните левой кнопкой мыши на прирученном вами драконе
+item.whistle.limit=К одному свистку может быть привязаны только 3 дракона
+item.whistle.info=Щелкните левой кнопкой мыши по прирученному вами дракону, чтоб управлять им. Shift + левая кнопка мыши чтоб установить домашнюю точку (WIP)
+item.command.new_home=Новая домашняя точка
+dragon.locked=Хозяин заблокировал дракона
+item.diamondshears.info=Используется для получения чешуи драконов, не убивая их. Неприрученный дракон нападет
+item.carriage.info=Используется чтобы драконы могли перевозить несколько пассажиров, как лодка
+egg.cantHatchEnd.DragonMounts=Дракон не может вылупится из яйца в Крае
+
+item.diamond_shears.name=Алмазные ножницы
+item.structure_spawner.name=Structure Spawner (Debug)
+
+tile.pileofsticks.name=Блок гнезда
+item.dragonEgg.name=%s Яйцо
+
+item.carriage_oak.name=Дубовая каретка
+item.carriage_birch.name=Березовая каретка
+item.carriage_spruce.name=Еловая каретка
+item.carriage_acacia.name=Акациевая каретка
+item.carriage_dark_oak.name=Каретка из темного дуба
+item.carriage_jungle.name=Джунглиевая каретка
+
+item.ender_dragonscales.name=Драконья чешуя
+item.ender_dragon_pickaxe.name=Драконья кирка
+item.ender_dragon_axe.name=Драконий топор
+item.ender_dragon_shovel.name=Драконья лопата
+item.ender_dragon_hoe.name=Драконья мотыга
+item.ender_dragon_sword.name=Драконий меч
+item.ender_dragonscale_cap.name=Драконий шлем
+item.ender_dragonscale_tunic.name=Драконий нагрудник
+item.ender_dragonscale_leggings.name=Драконьи поножи
+item.ender_dragonscale_boots.name=Драконьи сапоги
+
+item.nether_dragonscales.name=Драконья чешуя
+item.nether_dragon_pickaxe.name=Драконья Кирка
+item.nether_dragon_axe.name=Драконий Топор
+item.nether_dragon_hoe.name=Драконья Мотыга
+item.nether_dragon_shovel.name=Драконья Лопата
+item.nether_dragon_sword.name=Драконий Меч
+item.nether_dragonscale_cap.name=Драконий Шлем
+item.nether_dragonscale_tunic.name=Драконий Нагрудник
+item.nether_dragonscale_leggings.name=Драконьи Поножи
+item.nether_dragonscale_boots.name=Драконьи Сапоги
+
+item.nether2_dragonscales.name=Драконья чешуя
+item.nether2_dragon_pickaxe.name=Драконья Кирка
+item.nether2_dragon_axe.name=Драконий Топор
+item.nether2_dragon_hoe.name=Драконья Мотыга
+item.nether2_dragon_shovel.name=Драконья Лопата
+item.nether2_dragon_sword.name=Драконий Меч
+item.nether2_dragonscale_cap.name=Драконий Шлем
+item.nether2_dragonscale_tunic.name=Драконий Нагрудник
+item.nether2_dragonscale_leggings.name=Драконьи Поножи
+item.nether2_dragonscale_boots.name=Драконьи Сапоги
+
+item.forest_dragonscales.name=Драконья чешуя
+item.forest_dragon_pickaxe.name=Драконья Кирка
+item.forest_dragon_axe.name=Драконий Топор
+item.forest_dragon_shovel.name=Драконья Лопата
+item.forest_dragon_hoe.name=Драконья Мотыга
+item.forest_dragon_sword.name=Драконий Меч
+item.forest_dragonscale_cap.name=Драконий Шлем
+item.forest_dragonscale_tunic.name=Драконий Нагрудник
+item.forest_dragonscale_leggings.name=Драконьи Поножи
+item.forest_dragonscale_boots.name=Драконьи Сапоги
+
+item.fire_dragonscales.name=Драконья чешуя
+item.fire_dragon_pickaxe.name=Драконья Кирка
+item.fire_dragon_axe.name=Драконий Топор
+item.fire_dragon_shovel.name=Драконья Лопата
+item.fire_dragon_sword.name=Драконий Меч
+item.fire_dragonscale_cap.name=Драконий Шлем
+item.fire_dragonscale_tunic.name=Драконий Нагрудник
+item.fire_dragonscale_leggings.name=Драконьи Поножи
+item.fire_dragonscale_boots.name=Драконьи Сапоги
+item.fire_dragon_hoe.name=Драконья Мотыга
+
+item.fire2_dragonscales.name=Драконья чешуя
+item.fire2_dragon_pickaxe.name=Драконья Кирка
+item.fire2_dragon_axe.name=Драконий Топор
+item.fire2_dragon_shovel.name=Драконья Лопата
+item.fire2_dragon_sword.name=Драконий Меч
+item.fire2_dragonscale_cap.name=Драконий Шлем
+item.fire2_dragonscale_tunic.name=Драконий Нагрудник
+item.fire2_dragonscale_leggings.name=Драконьи Поножи
+item.fire2_dragonscale_boots.name=Драконьи Сапоги
+item.fire2_dragon_hoe.name=Драконья Мотыга
+
+item.ice_dragonscales.name=Драконья чешуя
+item.ice_dragon_pickaxe.name=Драконья Кирка
+item.ice_dragon_axe.name=Драконий Топор
+item.ice_dragon_shovel.name=Драконья Лопата
+item.ice_dragon_sword.name=Драконий Меч
+item.ice_dragonscale_cap.name=Драконий Шлем
+item.ice_dragonscale_tunic.name=Драконий Нагрудник
+item.ice_dragonscale_leggings.name=Драконьи Поножи
+item.ice_dragonscale_boots.name=Драконьи Сапоги
+item.ice_dragon_hoe.name=Драконья Мотыга
+
+item.aether_dragonscales.name=Драконья чешуя
+item.aether_dragon_pickaxe.name=Драконья Кирка
+item.aether_dragon_axe.name=Драконий Топор
+item.aether_dragon_hoe.name=Драконья Мотыга
+item.aether_dragon_shovel.name=Драконья Лопата
+item.aether_dragon_sword.name=Драконий Меч
+item.aether_dragonscale_cap.name=Драконий Шлем
+item.aether_dragonscale_tunic.name=Драконий Нагрудник
+item.aether_dragonscale_leggings.name=Драконьи Поножи
+item.aether_dragonscale_boots.name=Драконьи Сапоги
+
+item.water_dragonscales.name=Драконья чешуя
+item.water_dragon_pickaxe.name=Драконья Кирка
+item.water_dragon_axe.name=Драконий Топор
+item.water_dragon_shovel.name=Драконья Лопата
+item.water_dragon_sword.name=Драконий Меч
+item.water_dragonscale_cap.name=Драконий Шлем
+item.water_dragonscale_tunic.name=Драконий Нагрудник
+item.water_dragonscale_leggings.name=Драконьи Поножи
+item.water_dragon_hoe.name=Драконья Мотыга
+item.water_dragonscale_boots.name=Драконьи Сапоги
+
+item.sunlight_dragonscales.name=Драконья чешуя
+item.sunlight_dragon_pickaxe.name=Драконья Кирка
+item.sunlight_dragon_axe.name=Драконий Топор
+item.sunlight_dragon_shovel.name=Драконья Лопата
+item.sunlight_dragon_sword.name=Драконий Меч
+item.sunlight_dragonscale_cap.name=Драконий Шлем
+item.sunlight_dragonscale_tunic.name=Драконий Нагрудник
+item.sunlight_dragonscale_leggings.name=Драконьи Поножи
+item.sunlight_dragon_hoe.name=Драконья Мотыга
+item.sunlight_dragonscale_boots.name=Драконьи Сапоги
+
+item.storm_dragonscales.name=Драконья чешуя
+item.storm_dragon_pickaxe.name=Драконья Кирка
+item.storm_dragon_axe.name=Драконий Топор
+item.storm_dragon_shovel.name=Драконья Лопата
+item.storm_dragon_sword.name=Драконий Меч
+item.storm_dragonscale_cap.name=Драконий Шлем
+item.storm_dragonscale_tunic.name=Драконий Нагрудник
+item.storm_dragonscale_leggings.name=Драконьи Поножи
+item.storm_dragon_hoe.name=Драконья Мотыга
+item.storm_dragonscale_boots.name=Драконьи Сапоги
+
+item.zombie_dragonscales.name=Драконья чешуя
+item.zombie_dragon_pickaxe.name=Драконья Кирка
+item.zombie_dragon_axe.name=Драконий Топор
+item.zombie_dragon_shovel.name=Драконья Лопата
+item.zombie_dragon_sword.name=Драконий Меч
+item.zombie_dragonscale_cap.name=Драконий Шлем
+item.zombie_dragonscale_tunic.name=Драконий Нагрудник
+item.zombie_dragonscale_leggings.name=Драконьи Поножи
+item.zombie_dragon_hoe.name=Драконья Мотыга
+item.zombie_dragonscale_boots.name=Драконьи Сапоги
+
+item.sunlight2_dragonscales.name=Драконья чешуя
+item.sunlight2_dragon_pickaxe.name=Драконья Кирка
+item.sunlight2_dragon_axe.name=Драконий Топор
+item.sunlight2_dragon_shovel.name=Драконья Лопата
+item.sunlight2_dragon_sword.name=Драконий Меч
+item.sunlight2_dragonscale_cap.name=Драконий Шлем
+item.sunlight2_dragonscale_tunic.name=Драконий Нагрудник
+item.sunlight2_dragonscale_leggings.name=Драконьи Поножи
+item.sunlight2_dragon_hoe.name=Драконья Мотыга
+item.sunlight2_dragonscale_boots.name=Драконьи Сапоги
+
+item.moonlight_dragonscales.name=Драконья чешуя
+item.moonlight_dragon_pickaxe.name=Драконья Кирка
+item.moonlight_dragon_axe.name=Драконий Топор
+item.moonlight_dragon_shovel.name=Драконья Лопата
+item.moonlight_dragon_sword.name=Драконий Меч
+item.moonlight_dragonscale_cap.name=Драконий Шлем
+item.moonlight_dragonscale_tunic.name=Драконий Нагрудник
+item.moonlight_dragonscale_leggings.name=Драконьи Поножи
+item.moonlight_dragon_hoe.name=Драконья Мотыга
+item.moonlight_dragonscale_boots.name=Драконьи Сапоги
+
+item.storm2_dragonscales.name=Драконья чешуя
+item.storm2_dragon_pickaxe.name=Драконья Кирка
+item.storm2_dragon_axe.name=Драконий Топор
+item.storm2_dragon_shovel.name=Драконья Лопата
+item.storm2_dragon_sword.name=Драконий Меч
+item.storm2_dragonscale_cap.name=Драконий Шлем
+item.storm2_dragonscale_tunic.name=Драконий Нагрудник
+item.storm2_dragonscale_leggings.name=Драконьи Поножи
+item.storm2_dragon_hoe.name=Драконья Мотыга
+item.storm2_dragonscale_boots.name=Драконьи Сапоги
+
+item.enchant_dragonscales.name=Драконья чешуя
+item.enchant_dragon_pickaxe.name=Драконья Кирка
+item.enchant_dragon_axe.name=Драконий Топор
+item.enchant_dragon_shovel.name=Драконья Лопата
+item.enchant_dragon_sword.name=Драконий Меч
+item.enchant_dragonscale_cap.name=Драконий Шлем
+item.enchant_dragonscale_tunic.name=Драконий Нагрудник
+item.enchant_dragonscale_leggings.name=Драконьи Поножи
+item.enchant_dragon_hoe.name=Драконья Мотыга
+item.enchant_dragonscale_boots.name=Драконьи Сапоги
+
+item.terra_dragonscales.name=Драконья чешуя
+item.terra_dragon_pickaxe.name=Драконья Кирка
+item.terra_dragon_axe.name=Драконий Топор
+item.terra_dragon_hoe.name=Драконья Мотыга
+item.terra_dragon_shovel.name=Драконья Лопата
+item.terra_dragon_sword.name=Драконий Меч
+item.terra_dragonscale_cap.name=Драконий Шлем
+item.terra_dragonscale_tunic.name=Драконий Нагрудник
+item.terra_dragonscale_leggings.name=Драконьи Поножи
+item.terra_dragonscale_boots.name=Драконьи Сапоги
+
+item.terra2_dragonscales.name=Драконья чешуя
+item.terra2_dragon_pickaxe.name=Драконья Кирка
+item.terra2_dragon_axe.name=Драконий Топор
+item.terra2_dragon_hoe.name=Драконья Мотыга
+item.terra2_dragon_shovel.name=Драконья Лопата
+item.terra2_dragon_sword.name=Драконий Меч
+item.terra2_dragonscale_cap.name=Драконий Шлем
+item.terra2_dragonscale_tunic.name=Драконий Нагрудник
+item.terra2_dragonscale_leggings.name=Драконьи Поножи
+item.terra2_dragonscale_boots.name=Драконьи Сапоги
+
+key.categories.dragon=Управление драконом
+key.dragon.flyUp=Подняться выше
+key.dragon.flyDown=Опуститься ниже
+
+item.dragonarmor_diamond.name=Алмазная драконья броня
+item.dragonarmor_iron.name=Железная драконья броня
+item.dragonarmor_gold.name=Золотая драконья броня
+
+entity.dragon.tooYounng=Дракон еще слишком молод, для того чтобы его оседлать.
+
+item.summon_forest.name=Призыв дракона
+item.summon_aether.name=Призыв дракона
+item.summon_ice.name=Призыв дракона
+item.summon_water.name=Призыв дракона
+item.summon_fire.name=Призыв дракона
+item.summon_nether.name=Призыв дракона
+item.summon_end.name=Призыв дракона
+item.summon_skeleton.name=Призыв дракона
+item.summon_wither.name=Призыв дракона
+item.summon_sunlight.name=Призыв дракона
+item.summon_enchant.name=Призыв дракона
+item.summon_storm.name=Призыв дракона
+item.summon_zombie.name=Призыв дракона
+item.summon_terra.name=Призыв дракона
+item.summon_moonlight.name=Призыв дракона
+
+item.dragon_shield_forest.name=Драконий щит
+item.dragon_shield_aether.name=Драконий щит
+item.dragon_shield_end.name=Драконий щит
+item.dragon_shield_fire.name=Драконий щит
+item.dragon_shield_fire2.name=Драконий щит
+item.dragon_shield_ice.name=Драконий щит
+item.dragon_shield_water.name=Драконий щит
+item.dragon_shield_sunlight.name=Драконий щит
+item.dragon_shield_sunlight2.name=Драконий щит
+item.dragon_shield_enchant.name=Драконий щит
+item.dragon_shield_forest.name=Драконий щит
+item.dragon_shield_storm.name=Драконий щит
+item.dragon_shield_terra.name=Драконий щит
+item.dragon_shield_terra2.name=Драконий щит
+item.dragon_shield_moonlight.name=Драконий щит
+
+item.end_dragon_essence.name=Драконья эссенция
+item.aether_dragon_essence.name=Драконья эссенция
+item.ice_dragon_essence.name=Драконья эссенция
+item.water_dragon_essence.name=Драконья эссенция
+item.fire_dragon_essence.name=Драконья эссенция
+item.forest_dragon_essence.name=Драконья эссенция
+item.skeleton_dragon_essence.name=Драконья эссенция
+item.wither_dragon_essence.name=Драконья эссенция
+item.nether_dragon_essence.name=Драконья эссенция
+item.enchant_dragon_essence.name=Драконья эссенция
+item.sunlight_dragon_essence.name=Драконья эссенция
+item.storm_dragon_essence.name=Драконья эссенция
+item.zombie_dragon_essence.name=Драконья эссенция
+item.terra_dragon_essence.name=Драконья эссенция
+item.moonlight_dragon_essence.name=Драконья эссенция
+
+dragon.forest=Лесной
+dragon.aether=Небесный
+dragon.ice=Морозный
+dragon.water=Водный
+dragon.fire=Огненный
+dragon.fire2=Огненный
+dragon.skeleton=Скелет
+dragon.wither=Иссушающий
+dragon.nether=Нижнего мира
+dragon.end=Края
+dragon.ender=Края
+dragon.enchant=Чарующий
+dragon.sunlight=Солнечный
+dragon.sunlight2=Солнечный
+dragon.moonlight=Лунный
+dragon.storm=Штормовой
+dragon.zombie=Зомби
+dragon.terra=Земляной
+dragon.terra2=Земляной
+
+gui.nothing=Ничего не делать
+gui.circle=Кружить рядом с игроком
+gui.followFlying=Следовать в полёте
+gui.goToPlayer=Следовать за игроком
+gui.homePos=Бродить
+
+item.dragon_whistle.name=Драконий свисток [WIP]

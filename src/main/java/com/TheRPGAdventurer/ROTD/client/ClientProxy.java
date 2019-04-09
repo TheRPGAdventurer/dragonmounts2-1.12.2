@@ -14,7 +14,6 @@ import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
-import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
@@ -23,12 +22,9 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.*;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
-import com.TheRPGAdventurer.ROTD.server.tile.TileEntityDragonShulker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelShulker;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -63,7 +59,7 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer(new ModelShulker()));
+//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer(new ModelShulker()));
     }
 
     @Override

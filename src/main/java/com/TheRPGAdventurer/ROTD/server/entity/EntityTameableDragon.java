@@ -1366,12 +1366,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return true;
         }
 
-        if (!ItemUtils.hasEquippedUsable(player) && !player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
-                && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE) && !ItemUtils.hasEquippedAmulet(player)) {
-            if (this.getScale() < 0.35) {
-                this.startRiding(player, true);
-                return true;
-            }
+        if (!player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
+                && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
+                && this.getScale() <= 0.35) {
+            this.startRiding(player, true);
+            return true;
         }
 
         // inherited interaction

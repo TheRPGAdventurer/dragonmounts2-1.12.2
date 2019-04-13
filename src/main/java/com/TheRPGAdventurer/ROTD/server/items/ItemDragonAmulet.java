@@ -33,7 +33,8 @@ import java.util.List;
 
 public class ItemDragonAmulet extends Item {
 
-    EnumItemBreedTypes type;
+    private static final boolean cursedmessage = false;
+	EnumItemBreedTypes type;
     EnumDragonBreed breed;
     ItemStack stack;
     public EntityAreaEffectCloud entityareaeffectcloud;
@@ -73,27 +74,33 @@ public class ItemDragonAmulet extends Item {
         stack.setTagCompound(new NBTTagCompound());
     }
 
+    private boolean cursedAmulet = false;
+    
     @Override
-    public void onUpdate(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected) {
-        if (stack.getTagCompound() == null) {
+    public void onUpdate(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected)
+    {
+        if (stack.getTagCompound() == null)
+        {
             stack.setTagCompound(new NBTTagCompound());
-        } else if (stack.getTagCompound().getBoolean(DragonMounts.MODID + ":Released")) {
+             cursedAmulet = true;
+        }
+        else if (stack.getTagCompound().getBoolean(DragonMounts.MODID + ":Released") && entity instanceof EntityPlayer)
+        {
             stack.shrink(1);
-            if (entity instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) entity;
-                if(this.getEquipmentSlot(stack) == EntityEquipmentSlot.OFFHAND) {
-                    player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.AmuletEmpty));
-                } else {
-                    player.inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
-                }
+        	EntityPlayer player = (EntityPlayer) entity;
+            if(this.getEquipmentSlot(stack) == EntityEquipmentSlot.OFFHAND) {
+                player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.AmuletEmpty));
+            } else {
+                player.inventory.setInventorySlotContents(itemSlot, new ItemStack(ModItems.AmuletEmpty));
             }
         }
     }
 
     /* INDESTRUCTIBLE */
 
-    @Override
-    public boolean hasCustomEntity(ItemStack stack) {
+	@Override
+    public boolean hasCustomEntity(ItemStack stack)
+    {
         return true;
     }
 
@@ -117,42 +124,59 @@ public class ItemDragonAmulet extends Item {
      * Thanks again Lex!
      */
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
         ItemStack stack = player.getHeldItem(hand);
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+        
+        dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ()); 
 
-        dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
-
-        if(hand != EnumHand.MAIN_HAND && !dragon.isTamedFor(player)) return EnumActionResult.FAIL;
-
+        if(hand != EnumHand.MAIN_HAND && !dragon.isTamedFor(player) || stack.getTagCompound() == null || worldIn.isRemote)
+        	{
+        		//checked twice for correct error messages
+        		if (stack.getTagCompound() == null || cursedAmulet) {
+        		player.sendStatusMessage(new TextComponentTranslation(TextFormatting.RED + "This Amulet has Broken or Missing NBT Data"), true); }
+        		else if (hand != EnumHand.MAIN_HAND) {
+        		player.sendStatusMessage(new TextComponentTranslation("Amulets Must be used in main hand"), true); }
+        		return EnumActionResult.FAIL;
+        	}
+        
+        //read cache nbt data
         if (stack.getTagCompound() != null) {
-            dragon.readEntityFromNBT(stack.getTagCompound());
-        }
-
-        if (stack.hasDisplayName()) {
-            dragon.setCustomNameTag(stack.getDisplayName());
-        }
-
+        	dragon.readEntityFromNBT(stack.getTagCompound()); }
+        
+        //Placing entity in world, applying NBT Data       
         dragon.setUniqueId(stack.getTagCompound().getUniqueId("amuletID"));
         dragon.setBreedType(breed);
-        if (dragon.isTamedFor(player)) stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
-        if (!worldIn.isRemote) {
-            if(dragon.isTamedFor(player)) {
-                worldIn.spawnEntity(dragon);
-            } else {
-                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-            }
-        }
-
+    	if(dragon.isTamedFor(player))
+    	{
+    		worldIn.spawnEntity(dragon);
+    		stack.getTagCompound().setBoolean(DragonMounts.MODID + ":Released", true);
+    	    worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
+            if (stack.hasDisplayName()) {
+            	dragon.setCustomNameTag(stack.getDisplayName()); }
+    	}
+    	else {
+    		player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true); }
+        
+        //Replace current amulet with empty one if above was successful
         stack = new ItemStack(ModItems.AmuletEmpty);
-        worldIn.playSound(player, pos, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
+        
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        NBTTagCompound nbt = stack.getTagCompound();
-        tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+    {
+		if (stack.getTagCompound() == null || cursedAmulet)
+        {
+        	//Broken NBT, possibly cheated in...
+        	tooltip.add(TextFormatting.RED + "ERROR: Broken or Missing NBT Data");
+        }
+        else
+        {
+        	tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
+        }
     }
 }

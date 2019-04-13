@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.UUID;
 
 public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport> {
-
+	
     public UUID dragonId;
     public byte controlState;
     EntityTameableDragon dragon;
@@ -47,7 +47,6 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
     @Override
     @SideOnly(Side.CLIENT)
     public void onClientReceived(Minecraft client, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {
-
     }
 
     @Override
@@ -63,7 +62,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
             dragon.setPosition(player.getPosition().getX() + 4, player.getPosition().getY(), player.getPosition().getZ());
 //            }
             dragon.nothing();
-            player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
+            world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
 
         }
         //	}

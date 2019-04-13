@@ -50,9 +50,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
-
 	}
-
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
 		World world = player.world; 
@@ -65,7 +63,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 			  if (dragon.isOwner(player)) {
 				  dragon.setWhistleState(message.controlState);
 			  }
-			  player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
+			  world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
 		  }
 	//	} 
 	}

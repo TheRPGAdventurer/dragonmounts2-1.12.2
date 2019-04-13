@@ -37,8 +37,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage.*;
-import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
-import static net.minecraft.entity.SharedMonsterAttributes.MAX_HEALTH;
+import static net.minecraft.entity.SharedMonsterAttributes.*;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -86,6 +85,7 @@ public class DragonLifeStageHelper extends DragonHelper {
     public void applyEntityAttributes() {
         applyScaleModifier(MAX_HEALTH);
         applyScaleModifier(ATTACK_DAMAGE);
+        applyScaleModifier(ARMOR);
     }
 
     private void applyScaleModifier(IAttribute attribute) {

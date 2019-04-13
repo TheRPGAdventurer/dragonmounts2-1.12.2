@@ -34,7 +34,7 @@ public class DragonInteractAmulet extends DragonInteract {
             } else {
                 player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
             }
-            dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
+            player.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1, 1f);
 
 
         }

@@ -1368,7 +1368,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (!player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
+                && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.STICK)
+                && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player)
                 && this.getScale() <= 0.35) {
+            this.setSitting(false);
             this.startRiding(player, true);
             return true;
         }
@@ -1848,7 +1851,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void updateRidden() {
         Entity entity = this.getRidingEntity();
-        if (this.isRiding() || entity.isDead) {
+        if (this.isRiding() && entity.isSneaking() && !getRidingEntityLivingBase().isElytraFlying() || entity.isDead && this.getScale() > 0.35) {
             this.dismountRidingEntity();
         } else {
             this.motionX = 0.0D;
@@ -1874,7 +1877,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() && !this.boosting() || this.getScale() > 0.35) {
+            if (riding.isSneaking() && !this.boosting()) {
                 this.dismountRidingEntity();
             }
 

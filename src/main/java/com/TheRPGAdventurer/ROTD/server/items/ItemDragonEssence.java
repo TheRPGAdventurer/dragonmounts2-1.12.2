@@ -1,10 +1,14 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -24,7 +28,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonEssence extends Item {
+public class ItemDragonEssence extends Item implements IHasModel
+{
 
     public EnumItemBreedTypes type;
     public EnumDragonBreed breed;
@@ -36,6 +41,8 @@ public class ItemDragonEssence extends Item {
 //        this.setCreativeTab(DragonMounts.TAB);
         this.maxStackSize = 1;
         this.type = type;
+        
+	    ModItems.ITEMS.add(this);
     }
 
     @Nonnull
@@ -129,4 +136,10 @@ public class ItemDragonEssence extends Item {
         return super.onItemUse(player, worldIn, pos, hand, facing, x, y, z);
 
     }
+
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

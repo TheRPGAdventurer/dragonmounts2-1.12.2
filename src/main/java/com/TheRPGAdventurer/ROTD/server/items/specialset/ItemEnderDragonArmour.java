@@ -29,7 +29,7 @@ public class ItemEnderDragonArmour extends ItemArmor {
 		this.potionEffect = potionEffect2;
 		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.ATAB);
 		this.type = type;
 	}
 

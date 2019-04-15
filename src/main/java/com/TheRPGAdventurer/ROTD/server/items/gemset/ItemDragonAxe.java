@@ -22,7 +22,7 @@ public class ItemDragonAxe extends ItemAxe {
 		super(material, damage, speed);
 		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.ATAB);
 		this.type = type;
 	}
 	

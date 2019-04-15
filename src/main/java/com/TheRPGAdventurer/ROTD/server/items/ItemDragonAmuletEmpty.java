@@ -3,6 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -19,7 +21,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonAmuletEmpty extends Item {
+public class ItemDragonAmuletEmpty extends Item implements IHasModel
+{
 
     public ItemDragonAmuletEmpty() {
         String name = "dragon_amulet";
@@ -69,4 +72,10 @@ public class ItemDragonAmuletEmpty extends Item {
         entity.motionZ = location.motionZ;
         return entity;
     }
+    
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

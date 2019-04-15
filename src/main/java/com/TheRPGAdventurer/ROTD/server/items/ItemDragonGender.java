@@ -3,6 +3,9 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,13 +18,17 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonGender extends Item {
+public class ItemDragonGender extends Item implements IHasModel
+{
 
-    public ItemDragonGender(String name) {
+    public ItemDragonGender(String name)
+    {
         this.setCreativeTab(DragonMounts.TAB);
         this.setRegistryName(name);
         this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
+        
+        ModItems.ITEMS.add(this);
     }
 
     @Override
@@ -42,4 +49,10 @@ public class ItemDragonGender extends Item {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(StatCollector.translateToLocal("item.gui.dragon_gender"));
     }
+    
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

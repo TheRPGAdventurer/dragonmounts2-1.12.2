@@ -1,10 +1,14 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -24,7 +28,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonSpawner extends Item {
+public class ItemDragonSpawner extends Item implements IHasModel
+{
 
     /** Base color of the egg */
     public int primaryColor;
@@ -33,7 +38,8 @@ public class ItemDragonSpawner extends Item {
     private EnumDragonBreed breed;
     private EnumItemBreedTypes type;
 
-    public ItemDragonSpawner(EnumItemBreedTypes type, EnumDragonBreed breed, CreativeTabs tAB) {
+    public ItemDragonSpawner(EnumItemBreedTypes type, EnumDragonBreed breed, CreativeTabs tAB)
+    {
     	String unlocalizedName = type.toString().toLowerCase();
         this.setUnlocalizedName("summon_" + unlocalizedName); //  ItemMonsterPlacer
         this.setRegistryName("summon_" + unlocalizedName);
@@ -41,6 +47,8 @@ public class ItemDragonSpawner extends Item {
         this.setCreativeTab(tAB);
         this.breed = breed;
         this.type = type;
+        
+        ModItems.ITEMS.add(this);
     }
 
     public EntityTameableDragon spawnEntityTameableDragon(World world, EntityPlayer player, ItemStack stack, double x, double y, double z) {
@@ -104,5 +112,11 @@ public class ItemDragonSpawner extends Item {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+	}
+	
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 }

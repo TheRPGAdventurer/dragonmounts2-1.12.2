@@ -7,6 +7,8 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAreaEffectCloud;
@@ -31,7 +33,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonAmulet extends Item {
+public class ItemDragonAmulet extends Item implements IHasModel
+{
 
     private static final boolean cursedmessage = false;
 	EnumItemBreedTypes type;
@@ -39,7 +42,8 @@ public class ItemDragonAmulet extends Item {
     ItemStack stack;
     public EntityAreaEffectCloud entityareaeffectcloud;
 
-    public ItemDragonAmulet(@Nullable EnumItemBreedTypes type, @Nullable EnumDragonBreed breed) {
+    public ItemDragonAmulet(@Nullable EnumItemBreedTypes type, @Nullable EnumDragonBreed breed)
+    {
         String name = type.toString().toLowerCase() + "_dragon_amulet";
         this.type = type;
         this.breed = breed;
@@ -66,6 +70,8 @@ public class ItemDragonAmulet extends Item {
                 return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
             }
         });
+        
+        ModItems.ITEMS.add(this);
     }
 
     @Override
@@ -179,4 +185,10 @@ public class ItemDragonAmulet extends Item {
         	tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
         }
     }
+
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

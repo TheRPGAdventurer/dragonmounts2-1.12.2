@@ -3,6 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -28,7 +30,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemCarriage extends Item {
+public class ItemCarriage extends Item implements IHasModel
+{
 	
 	EntityCarriage.Type type;
 	
@@ -133,4 +136,10 @@ public class ItemCarriage extends Item {
             }
         }
     }
+
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

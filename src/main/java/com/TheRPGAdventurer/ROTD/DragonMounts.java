@@ -11,6 +11,7 @@ package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.handler.EventLiving;
+import com.TheRPGAdventurer.ROTD.client.handler.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
@@ -71,6 +72,7 @@ public class DragonMounts {
     private ModMetadata metadata;
     private DragonMountsConfig config;
     public static CreativeTabs TAB;
+    public static CreativeTabs ATAB;
 
     public DragonMountsConfig getConfig() {
         return config;
@@ -87,13 +89,15 @@ public class DragonMounts {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         TAB = new CreativeTab(MODID);
+        ATAB = new CreativeTab(MODID + "Armory");
         metadata = event.getModMetadata();
         proxy.PreInitialization(event);
 
     }
 
     @EventHandler
-    public void Initialization(FMLInitializationEvent event) {
+    public void Initialization(FMLInitializationEvent event)
+    {
         proxy.Initialization(event);
         proxy.render();
         ModTools.InitializaRepairs();
@@ -102,7 +106,7 @@ public class DragonMounts {
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         initDamageSources();
-
+        RegistryEventHandler.initRegistries();
     }
 
     @EventHandler

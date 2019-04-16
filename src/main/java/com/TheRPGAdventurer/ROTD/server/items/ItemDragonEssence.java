@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -105,7 +106,11 @@ public class ItemDragonEssence extends Item implements IHasModel
         ItemStack stack = player.getHeldItem(hand);
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
-        if (hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
+        if (hand != EnumHand.MAIN_HAND || stack.getTagCompound() == null) 
+        {
+        	if (stack.getTagCompound() == null) player.sendStatusMessage(new TextComponentTranslation(TextFormatting.RED + "Essence has Broken or Missing NBT Data"), true);
+        	return EnumActionResult.FAIL;
+        }
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 

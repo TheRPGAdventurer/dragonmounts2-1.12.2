@@ -19,7 +19,7 @@ public class ItemStructureSpawner extends Item implements IHasModel
 	{
 	    this.setUnlocalizedName(unlocalizedName);
 	    this.setRegistryName(unlocalizedName);
-	    this.setCreativeTab(DragonMounts.TAB);
+	    this.setCreativeTab(DragonMounts.mainTab);
 	    this.setMaxStackSize(1);
 	    
 	    ModItems.ITEMS.add(this);

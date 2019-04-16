@@ -24,7 +24,7 @@ public class ItemDragonScales extends Item implements IHasModel
 	public ItemDragonScales(String name, EnumItemBreedTypes type) {
 	    this.setUnlocalizedName(name);
 	    this.setRegistryName(name);
-	    this.setCreativeTab(DragonMounts.TAB);
+	    this.setCreativeTab(DragonMounts.mainTab);
 	    this.maxStackSize = 16;
 	    this.type = type;
 	    

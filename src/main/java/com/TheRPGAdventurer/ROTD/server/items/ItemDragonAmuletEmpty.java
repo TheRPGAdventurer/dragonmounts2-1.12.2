@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
@@ -29,7 +30,9 @@ public class ItemDragonAmuletEmpty extends Item implements IHasModel
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
-        this.setCreativeTab(DragonMounts.TAB);
+        this.setCreativeTab(DragonMounts.mainTab);
+        
+        ModItems.ITEMS.add(this);
     }
 
     @Override

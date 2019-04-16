@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.blocks;
 
+import java.util.Random;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
@@ -19,8 +21,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Physical Block of the Dragon Core
@@ -35,7 +40,7 @@ public class BlockDragonShulker extends BlockContainer
 		super(Material.ROCK);
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(DragonMounts.TAB);
+		setCreativeTab(DragonMounts.mainTab);
 		
 		ModBlocks.BLOCKS.add(this);
 	}
@@ -79,6 +84,27 @@ public class BlockDragonShulker extends BlockContainer
 	{
 		return new TileEntityDragonShulker();
 	}
+	
+	
+	//Create That Particle Surrounding the Box. Similar to Ender Chest
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
+    {
+        for (int i = 0; i < 3; ++i)
+        {
+            int j = rand.nextInt(2) * 2 - 1;
+            int k = rand.nextInt(2) * 2 - 1;
+            //Coords
+            double x = (double)pos.getX() + 0.5D + 0.25D * (double)j;
+            double y = (double)((float)pos.getY() + rand.nextFloat());
+            double z = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
+            //Speed
+            double s1 = (double)(rand.nextFloat() * (float)j);
+            double s2 = ((double)rand.nextFloat() - 0.5D) * 0.125D;
+            double s3 = (double)(rand.nextFloat() * (float)k);
+            worldIn.spawnParticle(EnumParticleTypes.PORTAL, x, y, z, s1, s2, s3);
+        }
+    }
 	
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state)

@@ -23,7 +23,7 @@ public class ItemDragonGender extends Item implements IHasModel
 
     public ItemDragonGender(String name)
     {
-        this.setCreativeTab(DragonMounts.TAB);
+        this.setCreativeTab(DragonMounts.mainTab);
         this.setRegistryName(name);
         this.setUnlocalizedName(name);
         this.setMaxStackSize(1);

@@ -26,8 +26,8 @@ public class ContainerDragonShulker extends Container
 		this.numRows = tileEntityDragonShulker.getSizeInventory() / 1;
 		tileEntityDragonShulker.openInventory(player);
 		
-		//Build Dragon Core Inventory Slots				  x: Increase = Right | y: Increase = Down
-		this.addSlotToContainer(new Slot(tileEntityDragonShulker, 0, 80/*x 80*/, 36/*y 36*/));
+		//Build Dragon Core Inventory Slots
+		this.addSlotToContainer(new Slot(tileEntityDragonShulker, 0, 80, 36));
 		
 		//Build Player Inventory Slots
         for (int i1 = 0; i1 < 3; ++i1)

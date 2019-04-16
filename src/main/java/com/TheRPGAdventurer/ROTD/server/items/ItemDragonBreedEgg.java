@@ -18,7 +18,7 @@ public class ItemDragonBreedEgg extends ItemBlock {
         this.setMaxDamage(0);
         this.setMaxStackSize(1);
         this.setHasSubtypes(true);
-        this.setCreativeTab(DragonMounts.TAB);
+        this.setCreativeTab(DragonMounts.mainTab);
     }
 
     @Override

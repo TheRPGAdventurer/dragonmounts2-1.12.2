@@ -3,6 +3,9 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,7 +24,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class ItemDiamondShears extends ItemShears {
+public class ItemDiamondShears extends ItemShears implements IHasModel
+{
 	
 	private ToolMaterial material;
 	private EntityTameableDragon dragon;
@@ -31,7 +35,9 @@ public class ItemDiamondShears extends ItemShears {
 	    this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 	    this.setMaxDamage(345);
 	    this.setMaxStackSize(1);
-	    this.setCreativeTab(DragonMounts.TAB);	    
+	    this.setCreativeTab(DragonMounts.mainTab);
+	    
+	    ModItems.ITEMS.add(this);
 	}
 	
 	@Override
@@ -73,5 +79,11 @@ public class ItemDiamondShears extends ItemShears {
 	  }
 	  
    }
+
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 
 }

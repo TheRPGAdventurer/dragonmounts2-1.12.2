@@ -386,4 +386,5 @@ dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to cont
 
 item.dragon_whistle.name=Dragon Whistle [WIP]
 
-itemGroup.dragonmountsArmory=Dragon Mounts Armory
+itemGroup.armorytab=Dragon Mounts Armory
+itemGroup.maintab=Dragon Mounts

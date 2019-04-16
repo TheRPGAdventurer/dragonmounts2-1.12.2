@@ -35,7 +35,7 @@ public class ItemDragonWhistle extends Item implements IHasModel
 		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
 		this.setMaxStackSize(1);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.mainTab);
 		
 		ModItems.ITEMS.add(this);
 	}

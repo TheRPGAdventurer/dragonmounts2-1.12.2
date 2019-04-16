@@ -38,7 +38,6 @@ public class ItemDragonEssence extends Item implements IHasModel
         this.breed = breed;
         this.setUnlocalizedName(type.toString().toLowerCase() + "_dragon_essence");
         this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
-//        this.setCreativeTab(DragonMounts.TAB);
         this.maxStackSize = 1;
         this.type = type;
         

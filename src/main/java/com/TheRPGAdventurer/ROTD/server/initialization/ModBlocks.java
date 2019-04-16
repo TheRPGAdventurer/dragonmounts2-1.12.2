@@ -13,7 +13,7 @@ public class ModBlocks
 {
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
-	public static final Block pileofsticks = new BlockDragonNest("pileofsticks");
+	public static final Block pileofsticks = new BlockDragonNest("pileofsticks", Material.WOOD);
 	public static final Block dragonshulker = new BlockDragonShulker("dragon_shulker");
 //	public static final Block pileofsticks = new BlockBase("pileofstickssnow");
 	

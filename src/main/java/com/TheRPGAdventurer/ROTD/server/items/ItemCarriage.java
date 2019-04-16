@@ -3,6 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
 import net.minecraft.block.Block;
@@ -41,7 +42,9 @@ public class ItemCarriage extends Item implements IHasModel
 		this.type = type;
 		this.setMaxDamage(1);
 		this.setMaxStackSize(16);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.mainTab);
+		
+		ModItems.ITEMS.add(this);
 	}
 	
 	@Override

@@ -22,7 +22,7 @@ public class BlockDragonNest extends BlockBase
 		this.setResistance(1);
 		this.setHardness(1);
 		this.setSoundType(SoundType.WOOD);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.mainTab);
 	} 
 
     @Override

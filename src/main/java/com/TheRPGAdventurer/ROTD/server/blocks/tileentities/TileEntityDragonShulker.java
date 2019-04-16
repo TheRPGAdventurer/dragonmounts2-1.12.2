@@ -26,11 +26,8 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
 {
 	private NonNullList<ItemStack> chestContents = NonNullList.<ItemStack>withSize(72, ItemStack.EMPTY);
 	public int numPlayersUsing, ticksSinceSync;
-	public float progress;
-	public float progressOld;
-	public float lidAngle, prevLidAngle;
+    private float progress, progressOld;
 	private TileEntityDragonShulker.AnimationStatus animationStatus;
-	private int openCount;
 	
 	@Override
 	public int getSizeInventory()
@@ -44,6 +41,31 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
 		return 64;
 	}
 	
+	@Override
+    public boolean receiveClientEvent(int id, int type)
+    {
+        if (id == 1)
+        {
+            this.numPlayersUsing = type;
+
+            if (type == 0)
+            {
+                this.animationStatus = TileEntityDragonShulker.AnimationStatus.CLOSING;
+            }
+
+            if (type == 1)
+            {
+                this.animationStatus = TileEntityDragonShulker.AnimationStatus.OPENING;
+            }
+
+            return true;
+        }
+        else
+        {
+            return super.receiveClientEvent(id, type);
+        }
+    }
+    
 	@Override
 	public boolean isEmpty()
 	{
@@ -99,72 +121,6 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
 		return this.chestContents;
 	}
 	
-/*	@Override
-	public void tick()
-	{
-		if (!this.world.isRemote && this.numPlayersUsing != 0 && (this.ticksSinceSync + pos.getX() + pos.getY() + pos.getZ()) % 200 == 0)
-        {
-            this.numPlayersUsing = 0;
-            float f = 5.0F;
-
-            for (EntityPlayer entityplayer : this.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((double)((float)pos.getX() - 5.0F), (double)((float)pos.getY() - 5.0F), (double)((float)pos.getZ() - 5.0F), (double)((float)(pos.getX() + 1) + 5.0F), (double)((float)(pos.getY() + 1) + 5.0F), (double)((float)(pos.getZ() + 1) + 5.0F))))
-            {
-                if (entityplayer.openContainer instanceof ContainerDragonShulker)
-                {
-                    if (((ContainerDragonShulker)entityplayer.openContainer).getShulkerInventory() == this)
-                    {
-                        ++this.numPlayersUsing;
-                    }
-                }
-            }
-        }
-		
-        this.prevLidAngle = this.lidAngle;
-        float f1 = 0.1F;
-
-        if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F)
-        {
-            double d1 = (double)pos.getX() + 0.5D;
-            double d2 = (double)pos.getZ() + 0.5D;
-            this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.BLOCK_ENDERCHEST_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-            this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 0.5F, this.world.rand.nextFloat() * 0.04F + 0.9F);
-        }
-
-        if (this.numPlayersUsing == 0 && this.lidAngle > 0.0F || this.numPlayersUsing > 0 && this.lidAngle < 1.0F)
-        {
-            float f2 = this.lidAngle;
-
-            if (this.numPlayersUsing > 0)
-            {
-                this.lidAngle += 0.1F;
-            }
-            else
-            {
-                this.lidAngle -= 0.1F;
-            }
-
-            if (this.lidAngle > 1.0F)
-            {
-                this.lidAngle = 1.0F;
-            }
-
-            float f3 = 0.5F;
-
-            if (this.lidAngle < 0.5F && f2 >= 0.5F)
-            {
-                double d3 = (double)pos.getX() + 0.5D;
-                double d0 = (double)pos.getZ() + 0.5D;
-                this.world.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-                this.world.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.09F + 0.9F);
-            }
-
-            if (this.lidAngle < 0.0F)
-            {
-                this.lidAngle = 0.0F;
-            }
-        }		
-	} */
-	
 	@Override
 	public void tick()
 	{
@@ -207,7 +163,9 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
     public TileEntityDragonShulker.AnimationStatus getAnimationStatus()
     {
         return this.animationStatus;
-    }
+    } 
+    
+    
     
 	@Override
 	public void openInventory(EntityPlayer player)
@@ -217,10 +175,13 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
 		this.world.notifyNeighborsOfStateChange(pos, this.getBlockType(), false);
 		if (numPlayersUsing == 1)
 		{
+
 			double d1 = (double)pos.getX() + 0.5D;
 			double d2 = (double)pos.getZ() + 0.5D;
-			this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.BLOCK_ENDERCHEST_OPEN, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-			this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.ENTITY_ENDERDRAGON_GROWL, SoundCategory.HOSTILE, 0.04F, this.world.rand.nextFloat() * 0.1F + 0.8F);
+			this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.BLOCK_ENDERCHEST_OPEN, SoundCategory.BLOCKS, 0.9F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+			this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.ENTITY_ENDERDRAGON_AMBIENT, SoundCategory.HOSTILE, 0.05F, this.world.rand.nextFloat() * 0.3F + 0.9F);
+			this.world.playSound((EntityPlayer)null, d1, (double)pos.getY() + 0.5D, d2, SoundEvents.BLOCK_END_PORTAL_SPAWN, SoundCategory.BLOCKS, 0.08F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+			
 		}
 	}
 	
@@ -234,13 +195,12 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
 		{
 			double d3 = (double)pos.getX() + 0.5D;
 			double d0 = (double)pos.getZ() + 0.5D;
-			this.world.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-			this.world.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 0.3F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+			this.world.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.4F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+			this.world.playSound((EntityPlayer)null, d3, (double)pos.getY() + 0.5D, d0, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 0.3F, this.world.rand.nextFloat() * 0.1F + 0.3F);
 		}
 	}
 	
 	
-	//ANYTHING BELOW THIS LINE COULD BE TEMPORARY! Anything associated with it is unoptimized and will be re-written later
 	public static enum AnimationStatus
 	{
 		CLOSED,

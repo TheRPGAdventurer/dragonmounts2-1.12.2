@@ -31,7 +31,7 @@ public class ItemNetherDragonArmour extends ItemArmor {
 		this.potionEffect = potionEffect;
 		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-		this.setCreativeTab(DragonMounts.ATAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 
 	}

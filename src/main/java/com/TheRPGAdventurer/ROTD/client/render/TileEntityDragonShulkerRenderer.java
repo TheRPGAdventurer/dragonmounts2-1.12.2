@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class TileEntityDragonShulkerRenderer extends TileEntitySpecialRenderer<TileEntityDragonShulker> {
 
-    private static final ResourceLocation DRAGON_SHULKER = new ResourceLocation("dragonmounts", "textures/blocks/dragon_shulker.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation("dragonmounts", "textures/blocks/dragon_shulker.png");
     private final ModelDragonShulker MODEL = new ModelDragonShulker();
    
 
@@ -38,21 +38,16 @@ public class TileEntityDragonShulkerRenderer extends TileEntitySpecialRenderer<T
             GlStateManager.scale(4.0F, 4.0F, 1.0F);
             GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
             GlStateManager.matrixMode(5888);
+            GlStateManager.disableCull();
         }
         
         else
         {	
-         	ResourceLocation rs = new ResourceLocation("dragonmounts", "textures/blocks/dragon_shulker.png");
-        	this.bindTexture(rs);
+        	this.bindTexture(TEXTURE);
         }
 
         GlStateManager.pushMatrix();
         GlStateManager.enableRescaleNormal();
-
-        if (destroyStage < 0)
-        {
-            GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
-        }
 
         GlStateManager.translate((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
         GlStateManager.scale(1.0F, -1.0F, -1.0F);
@@ -61,14 +56,22 @@ public class TileEntityDragonShulkerRenderer extends TileEntitySpecialRenderer<T
         GlStateManager.scale(0.9995F, 0.9995F, 0.9995F);
         GlStateManager.translate(0.0F, -1.0F, 0.0F);
 
+        
+        
+        model.base.render(0.0625F);
+        
         GlStateManager.translate(0.0F, -te.getProgress(partialTicks) * 0.5F, 0.0F);
         GlStateManager.rotate(270.0F * te.getProgress(partialTicks), 0.0F, 1.0F, 0.0F);
+        
+        model.lid.render(0.0625F);
+        
         GlStateManager.enableCull();
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-        if (destroyStage >= 0) {
+        if (destroyStage >= 0)
+        {
             GlStateManager.matrixMode(5890);
             GlStateManager.popMatrix();
             GlStateManager.matrixMode(5888);

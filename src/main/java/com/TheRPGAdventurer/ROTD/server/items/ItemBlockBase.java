@@ -1,18 +1,26 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
-public class ItemBlockBase extends ItemBlock {
+public class ItemBlockBase extends ItemBlock implements IHasModel
+{
 	
 
 	public ItemBlockBase(String name, Block block) {
 		super(block);
 		this.setRegistryName(DragonMounts.MODID, name);
 		this.setUnlocalizedName(this.getRegistryName().toString());
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.mainTab);
+	}
+
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 
 }

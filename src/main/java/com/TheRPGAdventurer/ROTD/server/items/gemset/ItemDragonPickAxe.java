@@ -22,7 +22,7 @@ public class ItemDragonPickAxe extends ItemPickaxe {
 		super(material);
 		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-		this.setCreativeTab(DragonMounts.ATAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 		
 	}

@@ -31,7 +31,7 @@ public class ItemDragonShield extends ItemShield implements IHasModel
 		this.setUnlocalizedName("dragon_shield_" + type.toString().toLowerCase());
 		this.setMaxDamage(2500);
 		this.setMaxStackSize(1);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 		
 	}

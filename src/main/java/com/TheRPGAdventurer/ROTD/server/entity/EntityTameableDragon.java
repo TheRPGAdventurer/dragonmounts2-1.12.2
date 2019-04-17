@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.path.PathNavigateFlying;
@@ -24,6 +25,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
@@ -1077,10 +1079,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public void generateChest(World world, BlockPos pos, ItemStack essenceStack) {
-        world.setBlockState(pos, Blocks.CHEST.getDefaultState(), 1);
+        world.setBlockState(pos, ModBlocks.dragonshulker.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileEntityChest) {
-            ((TileEntityChest) te).setInventorySlotContents(1, essenceStack);
+        if (te instanceof TileEntityDragonShulker) {
+            ((TileEntityDragonShulker) te).setInventorySlotContents(0, essenceStack);
         }
     }
 

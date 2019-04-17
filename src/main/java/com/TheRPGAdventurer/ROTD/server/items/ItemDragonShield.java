@@ -3,8 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
@@ -33,6 +33,8 @@ public class ItemDragonShield extends ItemShield implements IHasModel
 		this.setMaxStackSize(1);
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
+
+		ModItems.ITEMS.add(this);
 		
 	}
 	

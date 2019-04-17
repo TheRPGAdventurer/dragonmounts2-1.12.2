@@ -219,7 +219,7 @@ public class DragonModel extends AdvancedModelBase {
         float hornOfs = -(hornThick / 2f);
 
         float hornPosX = -5;
-        float hornPosY = -14;
+        float hornPosY = -10;
         float hornPosZ = -2;
 
         float hornRotX = MathX.toRadians(30);

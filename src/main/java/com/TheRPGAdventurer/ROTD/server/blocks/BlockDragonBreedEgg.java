@@ -47,7 +47,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
         setResistance(30);
         setSoundType(SoundType.WOOD);
         setLightLevel(0.125f);
-        setCreativeTab(DragonMounts.TAB); 
+        setCreativeTab(DragonMounts.mainTab); 
 
     }
 

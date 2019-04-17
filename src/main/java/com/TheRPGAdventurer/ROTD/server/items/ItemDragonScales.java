@@ -3,6 +3,9 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,16 +16,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonScales extends Item {
+public class ItemDragonScales extends Item implements IHasModel
+{
 	
 	public EnumItemBreedTypes type;
 
 	public ItemDragonScales(String name, EnumItemBreedTypes type) {
 	    this.setUnlocalizedName(name);
 	    this.setRegistryName(name);
-	    this.setCreativeTab(DragonMounts.TAB);
+	    this.setCreativeTab(DragonMounts.mainTab);
 	    this.maxStackSize = 16;
 	    this.type = type;
+	    
+	    ModItems.ITEMS.add(this);
 	}
 	
 	@Override
@@ -31,4 +37,9 @@ public class ItemDragonScales extends Item {
 		tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
 	}
 
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

@@ -11,17 +11,23 @@ package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.handler.EventLiving;
-import com.TheRPGAdventurer.ROTD.client.inventory.CreativeTab;
+import com.TheRPGAdventurer.ROTD.client.handler.RegistryEventHandler;
+import com.TheRPGAdventurer.ROTD.client.inventory.tabs.ArmoryTab;
+import com.TheRPGAdventurer.ROTD.client.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.server.items.gemset.ItemDragonSword;
 import com.TheRPGAdventurer.ROTD.server.network.*;
 import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -70,7 +76,8 @@ public class DragonMounts {
 
     private ModMetadata metadata;
     private DragonMountsConfig config;
-    public static CreativeTabs TAB;
+    public static CreativeTabs mainTab = new CreativeTab("maintab");
+    public static CreativeTabs armoryTab = new ArmoryTab("armorytab");
 
     public DragonMountsConfig getConfig() {
         return config;
@@ -83,17 +90,18 @@ public class DragonMounts {
     public static DamageSource dragons_fire;
 
     @EventHandler
-    public void PreInitialization(FMLPreInitializationEvent event) {
+    public void PreInitialization(FMLPreInitializationEvent event)
+    {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
-        TAB = new CreativeTab(MODID);
         metadata = event.getModMetadata();
         proxy.PreInitialization(event);
 
     }
 
     @EventHandler
-    public void Initialization(FMLInitializationEvent event) {
+    public void Initialization(FMLInitializationEvent event)
+    {
         proxy.Initialization(event);
         proxy.render();
         ModTools.InitializaRepairs();
@@ -102,7 +110,7 @@ public class DragonMounts {
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         initDamageSources();
-
+        RegistryEventHandler.initRegistries();
     }
 
     @EventHandler

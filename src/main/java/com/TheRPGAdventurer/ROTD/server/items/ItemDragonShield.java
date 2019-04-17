@@ -3,6 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
@@ -16,7 +18,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonShield extends ItemShield {
+public class ItemDragonShield extends ItemShield implements IHasModel
+{
 	
 	public EnumItemBreedTypes type;
 	public ToolMaterial material;
@@ -28,7 +31,7 @@ public class ItemDragonShield extends ItemShield {
 		this.setUnlocalizedName("dragon_shield_" + type.toString().toLowerCase());
 		this.setMaxDamage(2500);
 		this.setMaxStackSize(1);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 		
 	}
@@ -50,5 +53,11 @@ public class ItemDragonShield extends ItemShield {
     public boolean getIsRepairable(ItemStack toRepair, ItemStack item) {
         return item.getItem() == repair ? true : super.getIsRepairable(toRepair, new ItemStack(repair));
     }
+
+	@Override
+	public void RegisterModels()
+	{
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 
 }

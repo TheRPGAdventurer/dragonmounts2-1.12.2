@@ -23,7 +23,10 @@ import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.*;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -111,5 +114,10 @@ public class ClientProxy extends ServerProxy {
     @Override
     public void setDragonHover(int hover) {
         this.hover = hover;
+    }
+    
+    public void registerItemRenderer(Item item, int meta, String id)
+    {
+    	ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
     }
 }

@@ -17,6 +17,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.handler.DragonEggBlockHandler;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
 import net.minecraft.command.ServerCommandManager;
+import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -104,6 +105,14 @@ public class ServerProxy {
     }
 
     public void setDragonHover(int hover) {
+    }
+    
+    public void registerModel(Item item, int metadata)
+    {
+    }
+    
+    public void registerItemRenderer(Item item, int meta, String id)
+    {
     }
 
 }

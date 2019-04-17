@@ -24,7 +24,7 @@ public class ItemDragonArmour extends ItemArmor {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.setUnlocalizedName(unlocalizedName);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 		
 	}

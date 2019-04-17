@@ -2,11 +2,10 @@ package com.TheRPGAdventurer.ROTD.server.blocks.tileentities;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonShulker;
-import net.minecraft.block.Block;
 import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonShulker;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -112,20 +112,12 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         return this.chestContents;
     }
 
-    @Override
-    public void tick() {
-        this.updateAnimation();
-    }
-
     /**
      * Like the old updateEntity(), except more generic.
      */
+    @Override
     public void update() {
         this.updateAnimation();
-
-        if (this.animationStatus == TileEntityDragonShulker.AnimationStatus.OPENING || this.animationStatus == TileEntityDragonShulker.AnimationStatus.CLOSING) {
-            this.moveCollidedEntities();
-        }
     }
 
     private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {
@@ -261,15 +253,15 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         }
     }
 
-
-    public static enum AnimationStatus {
-        CLOSED,
-        CLOSING,
-        OPENED,
-        OPENING,
-    }
-
     public float getProgress(float p_190585_1_) {
         return this.progressOld + (this.progress - this.progressOld) * p_190585_1_;
     }
+
+    public static enum AnimationStatus {
+        CLOSED,
+        OPENING,
+        OPENED,
+        CLOSING;
+    }
+
 }

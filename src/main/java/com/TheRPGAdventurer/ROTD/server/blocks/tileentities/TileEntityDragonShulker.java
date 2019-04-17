@@ -119,9 +119,17 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
     /**
      * Like the old updateEntity(), except more generic.
      */
-    @Override
-    public void update() {
+    /**
+     * Like the old updateEntity(), except more generic.
+     */
+    public void update()
+    {
         this.updateAnimation();
+
+        if (this.animationStatus == TileEntityDragonShulker.AnimationStatus.OPENING || this.animationStatus == TileEntityDragonShulker.AnimationStatus.CLOSING)
+        {
+            this.moveCollidedEntities();
+        }
     }
 
     private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {

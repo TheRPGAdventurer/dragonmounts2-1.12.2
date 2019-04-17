@@ -371,8 +371,8 @@ dragon.adult=Adult
 
 dragon.amulet=Right click to store a dragon
 
-tile.dragon_shulker_box.name=Dragon Shulker
 container.dragon_shulker=Dragon Core
+tile.dragon_shulker.name=Dragon Core
 
 gui.nothing=Nothing
 gui.circle=Circle Player
@@ -385,3 +385,6 @@ gui.unlocked.dragon=UNLOCK
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
 
 item.dragon_whistle.name=Dragon Whistle [WIP]
+
+itemGroup.armorytab=Dragon Mounts Armory
+itemGroup.maintab=Dragon Mounts

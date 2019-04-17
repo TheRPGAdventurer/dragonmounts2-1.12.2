@@ -12,16 +12,17 @@ import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockDragonNest extends Block {
+public class BlockDragonNest extends BlockBase
+{
 
-	public BlockDragonNest(String unlocalizedName) {
-		super(Material.WOOD);
-		this.setRegistryName(DragonMounts.MODID, unlocalizedName);
+	public BlockDragonNest(String unlocalizedName, Material material)
+	{
+		super(unlocalizedName, material);
 		this.setUnlocalizedName(unlocalizedName);
 		this.setResistance(1);
 		this.setHardness(1);
 		this.setSoundType(SoundType.WOOD);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.mainTab);
 	} 
 
     @Override

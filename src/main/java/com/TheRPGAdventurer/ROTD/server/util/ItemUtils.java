@@ -17,6 +17,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Set;
@@ -136,23 +137,19 @@ public class ItemUtils {
      * @param item   required item type
      * @return true if the player has the given item equipped
      */
-    public static boolean hasEquipped(EntityPlayer player, Item item) {
-        ItemStack itemStack = player.getHeldItemMainhand();
-
-        if (itemStack == null) {
-            return false;
-        }
-
-        return itemStack.getItem() == item;
+    public static boolean hasEquipped(EntityPlayer player, Item item)
+    {
+		ItemStack itemStack = player.getHeldItemMainhand();
+    	if (itemStack == null) return false;
+    	//found item in mainHand, check if its specified item
+    	return itemStack.getItem() == item;
     }
 
-    public static boolean hasEquippedAmulet(EntityPlayer player) {
-        ItemStack itemStack = player.getHeldItemMainhand();
-
-        if (itemStack == null) {
-            return false;
-        }
-
-        return itemStack.getItem() instanceof ItemDragonAmulet || itemStack.getItem() instanceof ItemDragonAmuletEmpty;
+    public static boolean hasEquippedAmulet(EntityPlayer player)
+    {
+		ItemStack itemStack = player.getHeldItemMainhand();
+    		if (itemStack == null) return false;
+    	//found amulet in mainHand
+    	return itemStack.getItem() instanceof ItemDragonAmulet || itemStack.getItem() instanceof ItemDragonAmuletEmpty;
     }
 }

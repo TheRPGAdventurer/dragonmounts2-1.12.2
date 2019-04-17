@@ -22,7 +22,7 @@ public class ItemDragonHoe extends ItemHoe {
 		super(material);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
 		this.setUnlocalizedName(name);
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 	}
 	

@@ -1359,13 +1359,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return false;
         }
 
-        // baby dragons are tameable now! :D
-        if (this.isChild() && !isTamed() && this.isBreedingItem(item)) {
-            ItemUtils.consumeEquipped(player, this.getBreed().getBreedingItem());
-            tamedFor(player, getRNG().nextInt(4) == 0);
-            return true;
-        }
-
         if (!player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.STICK)

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonSword extends ItemSword {
+public class ItemDragonSword extends ItemSword{
 
     public EnumItemBreedTypes type;
 
@@ -26,7 +26,7 @@ public class ItemDragonSword extends ItemSword {
         super(material);
         this.setUnlocalizedName(unlocalizedName);
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-        this.setCreativeTab(DragonMounts.TAB);
+        this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
     }

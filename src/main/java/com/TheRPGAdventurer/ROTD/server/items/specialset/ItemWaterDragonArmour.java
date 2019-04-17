@@ -19,7 +19,7 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 			String unlocalizedName, EnumItemBreedTypes type, @Nullable PotionEffect potionEffect) {
 		super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
 		this.potionEffect = potionEffect;
-		this.setCreativeTab(DragonMounts.TAB);
+		this.setCreativeTab(DragonMounts.armoryTab);
 		
 	}
 	

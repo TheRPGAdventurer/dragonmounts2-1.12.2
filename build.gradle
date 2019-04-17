@@ -36,10 +36,10 @@ repositories {
  //     url = "http://tehnut.info/maven"
 //    }
    
-    maven {
-      name = "JEI"
-      url = "http://dvs1.progwml6.com/files/maven"
-    }
+  //  maven {
+   //   name = "JEI"
+   //   url = "http://dvs1.progwml6.com/files/maven"
+  //  }
  
     maven {
       name = "gegy1000"
@@ -56,7 +56,7 @@ dependencies {
    compile "com.azanor:thaumcraft-api:6.1-beta23"
   // deobfCompile "com.github.azanor:Baubles:${baubles_version}"
   // deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
-   runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
+  // runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
 }
 
 processResources {

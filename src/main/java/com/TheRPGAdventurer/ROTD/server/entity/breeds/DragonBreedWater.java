@@ -124,7 +124,7 @@ public class DragonBreedWater extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10);
+		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10, 0, false,false);
     	if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,
     		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
 		}  

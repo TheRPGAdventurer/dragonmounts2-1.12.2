@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ItemStackHelper;
@@ -21,6 +22,9 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
 import java.util.List;
 
 /**
@@ -36,7 +40,8 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
     private float progress, progressOld;
     private TileEntityDragonShulker.AnimationStatus animationStatus;
 
-    public TileEntityDragonShulker() {
+    public TileEntityDragonShulker()
+    {
         this.animationStatus = TileEntityDragonShulker.AnimationStatus.CLOSED;
     }
 
@@ -68,14 +73,15 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
             return super.receiveClientEvent(id, type);
         }
     }
-
+    
+    //Why does this return the opposite lol
     @Override
     public boolean isEmpty() {
         for (ItemStack stack : this.chestContents) {
-            if (stack.isEmpty()) return false;
+            if (stack.isEmpty()) return true;
         }
 
-        return true;
+        return false;
     }
 
     @Override

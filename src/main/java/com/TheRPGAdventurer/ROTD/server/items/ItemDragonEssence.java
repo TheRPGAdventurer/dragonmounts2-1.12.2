@@ -71,7 +71,15 @@ public class ItemDragonEssence extends Item implements IHasModel
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+		if (stack.getTagCompound() == null)
+        {
+        	//Broken NBT, possibly cheated in...
+        	tooltip.add(TextFormatting.RED + "ERROR: Broken or Missing NBT Data");
+        }
+        else
+        {
+        	tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+        }
     }
 
     @Override

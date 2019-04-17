@@ -36,6 +36,10 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
     private float progress, progressOld;
     private TileEntityDragonShulker.AnimationStatus animationStatus;
 
+    public TileEntityDragonShulker() {
+        this.animationStatus = TileEntityDragonShulker.AnimationStatus.CLOSED;
+    }
+
     @Override
     public int getSizeInventory() {
         return 1;

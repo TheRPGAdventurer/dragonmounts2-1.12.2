@@ -2,8 +2,12 @@ package com.TheRPGAdventurer.ROTD.server.blocks.tileentities;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonShulker;
-
-import net.minecraft.client.renderer.texture.ITickable;
+import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonShulker;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
@@ -12,132 +16,202 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityLockableLoot;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import java.util.List;
 
 /**
  * Dragon Core TileEntity
- * 
+ *
  * @author WolfShotz
  */
 
 public class TileEntityDragonShulker extends TileEntityLockableLoot implements ITickable
 {
-	private NonNullList<ItemStack> chestContents = NonNullList.<ItemStack>withSize(72, ItemStack.EMPTY);
-	public int numPlayersUsing, ticksSinceSync;
+    private NonNullList<ItemStack> chestContents = NonNullList.<ItemStack>withSize(72, ItemStack.EMPTY);
+    public int numPlayersUsing, ticksSinceSync;
     private float progress, progressOld;
-	private TileEntityDragonShulker.AnimationStatus animationStatus;
-	
-	@Override
-	public int getSizeInventory()
-	{
-		return 1;
-	}
-	
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-	
-	@Override
-    public boolean receiveClientEvent(int id, int type)
-    {
-        if (id == 1)
-        {
+    private TileEntityDragonShulker.AnimationStatus animationStatus;
+
+    public TileEntityDragonShulker() {
+        this.animationStatus = TileEntityDragonShulker.AnimationStatus.CLOSED;
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 1;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    @Override
+    public boolean receiveClientEvent(int id, int type) {
+        if (id == 1) {
             this.numPlayersUsing = type;
 
-            if (type == 0)
-            {
+            if (type == 0) {
                 this.animationStatus = TileEntityDragonShulker.AnimationStatus.CLOSING;
             }
 
-            if (type == 1)
-            {
+            if (type == 1) {
                 this.animationStatus = TileEntityDragonShulker.AnimationStatus.OPENING;
             }
 
             return true;
-        }
-        else
-        {
+        } else {
             return super.receiveClientEvent(id, type);
         }
     }
-    
-	@Override
-	public boolean isEmpty()
-	{
-		for (ItemStack stack : this.chestContents)
-		{
-			if (stack.isEmpty()) return false;
-		}
-		
-		return true;
-	}
-	
-	@Override
-	public String getName()
-	{
-		return this.hasCustomName() ? this.customName : "container.dragon_shulker";
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		super.readFromNBT(compound);
-		this.chestContents = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
-		
-		if (!this.checkLootAndRead(compound)) ItemStackHelper.loadAllItems(compound, chestContents);
-		if (compound.hasKey("CustomName", 8)) this.customName = compound.getString("CustomName");
-	}
-	
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
-		
-		if(!this.checkLootAndWrite(compound)) ItemStackHelper.saveAllItems(compound, chestContents);
-		if(compound.hasKey("CustomName", 8)) compound.setString("CustomName", this.customName);
-		
-		return compound;
-	}
-	
-	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-	{
-		return new ContainerDragonShulker(playerInventory, this, playerIn);
-	}
-	
-	@Override
-	public String getGuiID()
-	{
-		return DragonMounts.MODID + ":dragon_shulker";
-	}
-	
-	@Override
-	protected NonNullList<ItemStack> getItems()
-	{
-		return this.chestContents;
-	}
-	
-	@Override
-	public void tick()
-	{
-        this.updateAnimation();
+
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack stack : this.chestContents) {
+            if (stack.isEmpty()) return false;
+        }
+
+        return true;
     }
 
-    protected void updateAnimation()
+    @Override
+    public String getName() {
+        return this.hasCustomName() ? this.customName : "container.dragon_shulker";
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.chestContents = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+
+        if (!this.checkLootAndRead(compound)) ItemStackHelper.loadAllItems(compound, chestContents);
+        if (compound.hasKey("CustomName", 8)) this.customName = compound.getString("CustomName");
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
+        if (!this.checkLootAndWrite(compound)) ItemStackHelper.saveAllItems(compound, chestContents);
+        if (compound.hasKey("CustomName", 8)) compound.setString("CustomName", this.customName);
+
+        return compound;
+    }
+
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
+        return new ContainerDragonShulker(playerInventory, this, playerIn);
+    }
+
+    @Override
+    public String getGuiID() {
+        return DragonMounts.MODID + ":dragon_shulker";
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return this.chestContents;
+    }
+
+    /**
+     * Like the old updateEntity(), except more generic.
+     */
+    /**
+     * Like the old updateEntity(), except more generic.
+     */
+    public void update()
     {
+        this.updateAnimation();
+
+        if (this.animationStatus == TileEntityDragonShulker.AnimationStatus.OPENING || this.animationStatus == TileEntityDragonShulker.AnimationStatus.CLOSING)
+        {
+            this.moveCollidedEntities();
+        }
+    }
+
+    private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {
+        EnumFacing enumfacing = p_190588_1_.getOpposite();
+        return this.getBoundingBox(p_190588_1_).contract((double) enumfacing.getFrontOffsetX(), (double) enumfacing.getFrontOffsetY(), (double) enumfacing.getFrontOffsetZ());
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState p_190584_1_) {
+        return this.getBoundingBox((EnumFacing) p_190584_1_.getValue(BlockDragonShulker.FACING));
+    }
+
+    public AxisAlignedBB getBoundingBox(EnumFacing p_190587_1_) {
+        return Block.FULL_BLOCK_AABB.expand((double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetX()), (double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetY()), (double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetZ()));
+    }
+
+    private void moveCollidedEntities() {
+        IBlockState iblockstate = this.world.getBlockState(this.getPos());
+
+        if (iblockstate.getBlock() instanceof BlockDragonShulker) {
+            EnumFacing enumfacing = (EnumFacing) iblockstate.getValue(BlockDragonShulker.FACING);
+            AxisAlignedBB axisalignedbb = this.getTopBoundingBox(enumfacing).offset(this.pos);
+            List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity((Entity) null, axisalignedbb);
+
+            if (!list.isEmpty()) {
+                for (int i = 0; i < list.size(); ++i) {
+                    Entity entity = list.get(i);
+
+                    if (entity.getPushReaction() != EnumPushReaction.IGNORE) {
+                        double d0 = 0.0D;
+                        double d1 = 0.0D;
+                        double d2 = 0.0D;
+                        AxisAlignedBB axisalignedbb1 = entity.getEntityBoundingBox();
+
+                        switch (enumfacing.getAxis()) {
+                            case X:
+
+                                if (enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE) {
+                                    d0 = axisalignedbb.maxX - axisalignedbb1.minX;
+                                } else {
+                                    d0 = axisalignedbb1.maxX - axisalignedbb.minX;
+                                }
+
+                                d0 = d0 + 0.01D;
+                                break;
+                            case Y:
+
+                                if (enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE) {
+                                    d1 = axisalignedbb.maxY - axisalignedbb1.minY;
+                                } else {
+                                    d1 = axisalignedbb1.maxY - axisalignedbb.minY;
+                                }
+
+                                d1 = d1 + 0.01D;
+                                break;
+                            case Z:
+
+                                if (enumfacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE) {
+                                    d2 = axisalignedbb.maxZ - axisalignedbb1.minZ;
+                                } else {
+                                    d2 = axisalignedbb1.maxZ - axisalignedbb.minZ;
+                                }
+
+                                d2 = d2 + 0.01D;
+                        }
+
+                        entity.move(MoverType.SHULKER_BOX, d0 * (double) enumfacing.getFrontOffsetX(), d1 * (double) enumfacing.getFrontOffsetY(), d2 * (double) enumfacing.getFrontOffsetZ());
+                    }
+                }
+            }
+        }
+    }
+
+    protected void updateAnimation() {
         this.progressOld = this.progress;
 
-        switch (this.animationStatus)
-        {
+        switch (this.animationStatus) {
             case CLOSED:
                 this.progress = 0.0F;
                 break;
             case OPENING:
                 this.progress += 0.1F;
+                
                 if (this.progress >= 1.0F)
                 {
                     this.animationStatus = TileEntityDragonShulker.AnimationStatus.OPENED;

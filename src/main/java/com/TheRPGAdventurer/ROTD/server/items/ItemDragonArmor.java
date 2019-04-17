@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 public class ItemDragonArmor extends Item implements IHasModel
 {
 
-	public String name;
+    public String name;
 
 	public ItemDragonArmor(String name) {
 		this.name = name;
@@ -18,15 +18,12 @@ public class ItemDragonArmor extends Item implements IHasModel
 		this.setRegistryName(DragonMounts.MODID, name);
 		this.setCreativeTab(DragonMounts.armoryTab);
 		
-		ModItems.ITEMS.add(this);
+        ModItems.ITEMS.add(this);
 
-	}
+    }
 
-	@Override
-	public void RegisterModels()
-	{
-		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
-	}
-
-
+    @Override
+    public void RegisterModels() {
+        DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 }

@@ -536,7 +536,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean homepos() {
         return (dataManager.get(WHISTLE_STATE)) == 4;
     }
-
+    
+/*    public boolean sit()
+    {
+    	return (dataManager.get(WHISTLE_STATE)) == 5;
+    }
+*/
     public void setnothing(boolean nothing) {
         setStateField(0, nothing);
     }
@@ -556,7 +561,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void sethomepos(boolean homepos) {
         setStateField(4, homepos);
     }
-
+    
+/*    public void setsit(boolean sit)
+    {
+    	setStateField(5, sit);
+    }
+*/
     /**
      * @TheRPGAdventurer thanks AlexThe666
      */
@@ -758,7 +768,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     /**
      * Returns the distance to the ground while the entity is flying.
      */
-    public double getAltitude() {
+    public double getAltitude()
+    {
         BlockPos groundPos = world.getHeight(getPosition());
         double altitude = posY - groundPos.getY();
         return altitude;
@@ -889,19 +900,24 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      *
      * @return True if so
      */
-    public boolean onSolidGround() {
+    public boolean onSolidGround()
+    {
         double[] xz = {-2, -1, 0, 1, 2};
+        double[] yArry = {-3, -2, -1};
 
-        for (double x : xz) {
-            for (double z : xz) {
-                if (isBlockSolid(posX + x, posY - 1, posZ + z)
-                        || isBlockSolid(posX + x, posY - 2, posZ + z)
-                        || (isBlockSolid(posX + x, posY - 3, posZ + z) && this.getScale() > 0.70)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    	for (double y : yArry)
+    	{
+    		for (double x : xz)
+    		{
+    			for (double z : xz)
+    			{
+    				if (isBlockSolid(posX + x, posY + y, posZ + z) && this.getScale() > 0.70)
+    				{
+    					return true;
+    				}
+    			}
+    		}
+    	} return false;
     }
 
     /*

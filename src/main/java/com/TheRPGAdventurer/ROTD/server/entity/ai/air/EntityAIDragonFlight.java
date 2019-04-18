@@ -33,9 +33,12 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
     }
 
     public BlockPos findLandingArea(BlockPos pos) {
-        for (int Y = 1; Y <= 2; Y++) {
-            for (int Z = 1; Z <= 2; Z++) {
-                for (int X = 1; X <= 2; X++) {
+        for (int Y = 1; Y <= 2; Y++)
+        {
+            for (int Z = 1; Z <= 2; Z++)
+            {
+                for (int X = 1; X <= 2; X++)
+                {
                     world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid();
                     {
                         pos = pos.down();

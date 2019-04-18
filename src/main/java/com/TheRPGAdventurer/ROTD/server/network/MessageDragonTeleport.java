@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.network;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -43,7 +44,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
         packetBuf.writeUniqueId(dragonId);
 
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
     public void onClientReceived(Minecraft client, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {
@@ -52,20 +53,13 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {
         World world = player.world;
-        //	if(world instanceof WorldServer) {
-
         WorldServer worldServer = (WorldServer) world;
         Entity entity = server.getEntityFromUuid(dragonId);
         if (entity != null && entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
-//            if (dragon.isOwner(player)) {
             dragon.setPosition(player.getPosition().getX() + 4, player.getPosition().getY(), player.getPosition().getZ());
-//            }
             dragon.nothing();
             world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
-
         }
-        //	}
     }
-
 }

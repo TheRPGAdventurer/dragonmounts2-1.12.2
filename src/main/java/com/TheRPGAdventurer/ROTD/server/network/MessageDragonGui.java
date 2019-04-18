@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageDragonGui extends AbstractMessage<MessageDragonGui> {
 
-    private int dragonId;
+    public int dragonId;
     private boolean sit;
 
     public MessageDragonGui(int dragonId) {

@@ -537,11 +537,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return (dataManager.get(WHISTLE_STATE)) == 4;
     }
     
-/*    public boolean sit()
+    public boolean sit()
     {
     	return (dataManager.get(WHISTLE_STATE)) == 5;
     }
-*/
+
     public void setnothing(boolean nothing) {
         setStateField(0, nothing);
     }
@@ -562,11 +562,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         setStateField(4, homepos);
     }
     
-/*    public void setsit(boolean sit)
+    public void setsit(boolean sit)
     {
     	setStateField(5, sit);
     }
-*/
+
     /**
      * @TheRPGAdventurer thanks AlexThe666
      */

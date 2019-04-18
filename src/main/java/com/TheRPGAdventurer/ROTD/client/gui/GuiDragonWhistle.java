@@ -33,7 +33,7 @@ public class GuiDragonWhistle extends GuiScreen {
     GuiButton circle;
     GuiButton followFlying;
     GuiButton come;
-//    GuiButton sit;
+    GuiButton sit;
     GuiButton homePos;
 
     boolean newState;
@@ -54,30 +54,30 @@ public class GuiDragonWhistle extends GuiScreen {
 
         Keyboard.enableRepeatEvents(true);
 
-        nothing = new GuiButton(0, width / 2 - 50, height / 2 + 10,
+        nothing = new GuiButton(0, width / 2 - 50, height / 2 - 60,
                 98, 20, I18n.format("gui.nothing"));
 
-        circle = new GuiButton(0, width / 2 + 100 - 50, height / 2 + 10,
+        circle = new GuiButton(0, width / 2, height / 2 + 15,
                 98, 20, I18n.format("gui.circle"));
 
-        followFlying = new GuiButton(0, width / 2 - 100 - 50, height / 2 + 10,
+        followFlying = new GuiButton(0, width / 2 - 100, height / 2 + 15,
                 98, 20, I18n.format("gui.followFlying"));
 
-        come = new GuiButton(0, width / 2 - 50, height / 2 - 15,
+        come = new GuiButton(0, width / 2 - 50, height / 2 - 10,
                 98, 20, I18n.format("gui.goToPlayer"));
 
-        homePos = new GuiButton(0, width / 2 - 50, height / 2 + 35,
+        homePos = new GuiButton(0, width / 2, height / 2 - 35,
                 98, 20, I18n.format("gui.homePos"));
         
-/*        sit = new GuiButton(0, width / 2 - 150, height / 2 - 15,
+        sit = new GuiButton(0, width / 2 - 100, height / 2 - 35,
         		98, 20, I18n.format("Sit"));
-*/
+
         buttonList.add(nothing);
         buttonList.add(circle);
         buttonList.add(followFlying);
         buttonList.add(come);
         buttonList.add(homePos);
-//        buttonList.add(sit);
+        buttonList.add(sit);
     }
 
     
@@ -120,11 +120,11 @@ public class GuiDragonWhistle extends GuiScreen {
         setStateField(4, come);
     }
     
-/*    public void sit(boolean sit)
+    public void sit(boolean sit)
     {
     	setStateField(5, sit);
     }
-*/
+
     @Override
     protected void actionPerformed(GuiButton button) {
         if (uuid != null) {
@@ -133,7 +133,7 @@ public class GuiDragonWhistle extends GuiScreen {
             follow(button == followFlying);
             come(button == come);
             circle(button == circle);
-//            sit(button == sit);
+            sit(button == sit);
             byte controlState = getState();
 
             if (controlState != previousState) {

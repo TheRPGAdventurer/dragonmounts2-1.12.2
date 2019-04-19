@@ -70,7 +70,7 @@ public class GuiDragonWhistle extends GuiScreen {
                 98, 20, I18n.format("gui.homePos"));
         
         sit = new GuiButton(0, width / 2 - 100, height / 2 - 35,
-        		98, 20, I18n.format("Sit"));
+        		98, 20, I18n.format("gui.sit"));
 
         buttonList.add(nothing);
         buttonList.add(circle);

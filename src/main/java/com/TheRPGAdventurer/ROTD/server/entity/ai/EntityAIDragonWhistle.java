@@ -20,15 +20,14 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase
 	public EntityAIDragonWhistle(EntityTameableDragon dragon)
 	{
 		super(dragon);
-		setMutexBits(1);
+		setMutexBits(0);
 	}
 
 	@Override
 	public boolean shouldExecute()
 	{
-		if(dragon.getOwner() == null) {
-			return false;
-		} else if(dragon.getControllingPlayer() != null) {
+		if(dragon.getOwner() == null || dragon.getControllingPlayer() != null)
+		{
 			return false;
 		}
 		return !dragon.nothing();
@@ -50,7 +49,8 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase
 	}
 
 	@Override
-	public void startExecuting() {
+	public void startExecuting()
+	{
 		//Commands Requiring Flight - if any is true, start flying
 		if(!dragon.isFlying() && (dragon.circle() || dragon.follow() || dragon.come()))
 		{
@@ -89,15 +89,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase
 		}
 		else if(dragon.sit())
 		{
-			dragon.setWhistleState((byte) 0);
-			dragon.setSitting(!dragon.isSitting());
-//			dragon.getAISit().setSitting(!dragon.isSitting());
+			dragon.getAISit().setSitting(!dragon.isSitting());
 			dragon.getNavigator().clearPathEntity();
-		}
-		else
-		{
-			dragon.setWhistleState((byte) 0);
-		}
-		
+			dragon.setnothing(true);
+		}	
 	}
 }

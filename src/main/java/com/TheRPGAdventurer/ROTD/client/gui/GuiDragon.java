@@ -87,12 +87,9 @@ public class GuiDragon extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        boolean sit = (button == this.sit);
-        boolean lock = (button == this.lock);
-
-        if (sit) {
+        if (button == this.sit) {
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId()));
-        } else if (lock) {
+        } else if (button == this.lock) {
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonLock(dragon.getEntityId()));
         }
 

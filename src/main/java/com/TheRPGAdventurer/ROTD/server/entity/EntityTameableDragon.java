@@ -903,9 +903,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean onSolidGround()
     {
         double[] xz = {-2, -1, 0, 1, 2};
-        double[] yArry = {-3, -2, -1};
-
-    	for (double y : yArry)
+        
+        //Array not needed for y, only used once (In fact its better this way) @Wolf
+    	for (double y = -3.0; y <= -1.0; ++y)
     	{
     		for (double x : xz)
     		{

@@ -21,11 +21,8 @@ public class EntityAIDragonSit extends EntityAISit {
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-        if (!this.dragon.isTamed()) {
-            return false;
-        } else if (this.dragon.isInWater()) {
-            return false;
-        } else if (!this.dragon.onGround) {
+        if (!this.dragon.isTamed() || this.dragon.isInWater() || !this.dragon.onGround)
+        {
             return false;
         } else {
             EntityLivingBase entitylivingbase = this.dragon.getOwner();

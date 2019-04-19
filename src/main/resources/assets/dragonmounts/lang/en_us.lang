@@ -1,6 +1,6 @@
 itemGroup.dragonmounts=Dragon Mounts
 
-entity.DragonMount.ice.name=Snow Dragon
+entity.DragonMount.ice.name=Ice Dragon
 entity.DragonMount.ender.name=Ender Dragon
 entity.DragonMount.aether.name=Sky Dragon
 entity.DragonMount.forest.name=Forest Dragon
@@ -40,13 +40,14 @@ entity.dragon.tooYoung=Dragon is too young for that let it grow
 item.whistle.notOwned=You do not own this dragon
 item.whistle.hasDragon=Dragon Succesfully Added
 item.whistle.empty=No Dragons To Control
-item.whistle.noDragon=Dragon Whistle is empty, Left Click an owned and tamed dragon first
-item.whistle.limit=One Whistle can only carry 3 Dragons
+item.whistle.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
+item.whistle.limit=One Whistle can only command 3 Dragons
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (HomePos is WIP)
 item.command.new_home=New HomePos at
-dragon.locked=Owner locked the Dragon
+dragon.locked=This Dragon has been locked by the Owner
+dragon.notTamed=This Dragon is not Tamed
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
-egg.cantHatchEnd.DragonMounts=Dragons Eggs cant hatch in The End
+egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End
 
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
@@ -54,9 +55,9 @@ item.structure_spawner.name=Structure Spawner (Debug)
 tile.pileofsticks.name=Nest Block
 item.dragonEgg.name=%s Egg
 item.dragon_gender.name=Dragon Gender Switcher
-item.gui.dragon_gender=Left Click an owned dragon to work
+item.gui.dragon_gender=Left Click an owned dragon to change the gender of it
 item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
-item.dragonamulet.info=Right Click to store dragon and carry it, shift + right click on ground to summon
+item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 
 item.carriage_oak.name=Oak Carriage
 item.carriage_birch.name=Birch Carriage
@@ -327,21 +328,21 @@ item.zombie_dragon_essence.name=Dragon Essence
 item.terra_dragon_essence.name=Dragon Essence
 item.moonlight_dragon_essence.name=Dragon Essence
 
-item.end_dragon_amulet.name=Dragon Amulet End
-item.aether_dragon_amulet.name=Dragon Amulet Aether
-item.ice_dragon_amulet.name=Dragon Amulet Ice
-item.water_dragon_amulet.name=Dragon Amulet Water
-item.fire_dragon_amulet.name=Dragon Amulet Fire
-item.forest_dragon_amulet.name=Dragon Amulet Forest
-item.skeleton_dragon_amulet.name=Dragon Amulet Skeleton
-item.wither_dragon_amulet.name=Dragon Amulet Wither
-item.nether_dragon_amulet.name=Dragon Amulet Nether
-item.enchant_dragon_amulet.name=Dragon Amulet Enchant
-item.sunlight_dragon_amulet.name=Dragon Amulet Sunlight
-item.storm_dragon_amulet.name=Dragon Amulet Storm
-item.zombie_dragon_amulet.name=Dragon Amulet Zombie
-item.terra_dragon_amulet.name=Dragon Amulet Terra
-item.moonlight_dragon_amulet.name=Dragon Amulet Moonlight
+item.end_dragon_amulet.name=End Dragon Amulet
+item.aether_dragon_amulet.name=Aether Dragon Amulet
+item.ice_dragon_amulet.name=Ice Dragon Amulet
+item.water_dragon_amulet.name=Water Dragon Amulet
+item.fire_dragon_amulet.name=Fire Dragon Amulet
+item.forest_dragon_amulet.name=Forest Dragon Amulet
+item.skeleton_dragon_amulet.name=Skeleton Dragon Amulet
+item.wither_dragon_amulet.name=Wither Dragon Amulet
+item.nether_dragon_amulet.name=Nether Dragon Amulet
+item.enchant_dragon_amulet.name=Enchant Dragon Amulet
+item.sunlight_dragon_amulet.name=Sunlight Dragon Amulet
+item.storm_dragon_amulet.name=Storm Dragon Amulet
+item.zombie_dragon_amulet.name=Zombie Dragon Amulet
+item.terra_dragon_amulet.name=Terra Dragon Amulet
+item.moonlight_dragon_amulet.name=Moonlight Dragon Amulet
 item.dragon_amulet.name=Dragon Amulet
 
 dragon.forest=Forest
@@ -369,7 +370,7 @@ dragon.hatchling=Hatchling
 dragon.juvenile=Juvenile
 dragon.adult=Adult
 
-dragon.amulet=Right click to store a dragon
+dragon.amulet=Right click a Dragon to store it
 
 container.dragon_shulker=Dragon Core
 tile.dragon_shulker.name=Dragon Core
@@ -381,6 +382,7 @@ gui.goToPlayer=Come To Player
 gui.homePos=Teleport
 gui.locked.dragon=LOCK
 gui.unlocked.dragon=UNLOCK
+gui.sit=Sit
 
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
 

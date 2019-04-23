@@ -97,6 +97,15 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         return at == Blocks.LAVA;
     }
 
+    private boolean isWater(World world, BlockPos pos) {
+        Block at = world.getBlockState(pos).getBlock();
+        return at == Blocks.WATER;
+    }
+
+    private int getRadius(int layer, int up) {
+        return layer > up ? (int) (layer * 0.25) + up : layer;
+    }
+
     public void generateNestAtSurface(World world, Random random, int chunkX, int chunkZ) {
         int x = (chunkX * 16) + random.nextInt(16);
         int z = (chunkZ * 16) + random.nextInt(16);
@@ -138,15 +147,13 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 //   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 
             } else if ((isSwamp) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
-                    && canSpawnHere(world, height, 4)) {
+                    && canSpawnWaterHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-                //  DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
-
+                DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
             } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.ForestNestRarity1)) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 //  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
-
             } else if (isHills && random.nextInt(DragonMountsConfig.AllNestRarity) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "fire", LootTableList.CHESTS_SIMPLE_DUNGEON, true, random);
@@ -174,6 +181,33 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         // if Y > 20 and all corners pass the test, it's okay to spawn the structure && below7Solid && below4Solid
         return posAboveGround.getY() > 20 && corner1Air && corner2Air && corner3Air && corner4Air && corner5Air && corner6Air && corner7Air
                 && below2Solid && below3Solid && below5Solid && below6Solid;
+    }
+
+    private boolean canSpawnWaterHere(World world, BlockPos posAboveGround, int size) {
+        // check all the corners to see which ones are replaceable
+        boolean corner1Air = canReplace(world, posAboveGround);
+        boolean corner2Air = canReplace(world, posAboveGround.add(size, 0, 0));
+        boolean corner4Air = canReplace(world, posAboveGround.add(0, 0, size));
+        boolean corner3Air = canReplace(world, posAboveGround.add(size, 0, size));
+        boolean corner5Air = canReplace(world, posAboveGround.add(-size, 0, 0));
+        boolean corner6Air = canReplace(world, posAboveGround.add(0, 0, -size));
+        boolean corner7Air = canReplace(world, posAboveGround.add(-size, 0, -size));
+
+        boolean below2Solid = isSolid(world, posAboveGround.add(size, -1, 0));
+        boolean below3Solid = isSolid(world, posAboveGround.add(0, -1, size));
+        boolean below5Solid = isSolid(world, posAboveGround.add(-size, -1, 0));
+        boolean below6Solid = isSolid(world, posAboveGround.add(0, -1, -size));
+        boolean below7Solid = !isWater(world, posAboveGround.add(0, -3, -size));
+
+        boolean below2Water = isWater(world, posAboveGround.add(size, -1, 0));
+        boolean below3Water = isWater(world, posAboveGround.add(0, -1, size));
+        boolean below5Water = isWater(world, posAboveGround.add(-size, -1, 0));
+        boolean below6Water = isWater(world, posAboveGround.add(0, -1, -size));
+
+        // if Y > 20 and all corners pass the test, it's okay to spawn the structure && below7Solid && below4Solid
+        return posAboveGround.getY() > 20 && corner1Air && corner2Air && corner3Air && corner4Air && corner5Air && corner6Air && corner7Air
+                && ((below2Solid && below3Solid && below5Solid && below6Solid) || (below2Water && below3Water && below5Water && below6Water))
+                && below7Solid;
     }
 
     private boolean canSpawnNetherHere(World world, BlockPos posAboveGround, int size) {

@@ -9,11 +9,11 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.ai.ground;
 
-import java.util.List;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
+
+import java.util.List;
 
 /**
  * Derivative EntityAIMate class to deal with some special values that can't be

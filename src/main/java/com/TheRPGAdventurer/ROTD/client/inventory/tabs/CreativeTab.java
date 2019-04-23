@@ -12,7 +12,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CreativeTab extends CreativeTabs
 {
-	
 	public CreativeTab(String label)
 	{
 		super("maintab");
@@ -24,7 +23,6 @@ public class CreativeTab extends CreativeTabs
 	{
 		return new ItemStack(Blocks.DRAGON_EGG);
 	}
-	
 	@Override
 	public boolean hasSearchBar() {
 		return false;

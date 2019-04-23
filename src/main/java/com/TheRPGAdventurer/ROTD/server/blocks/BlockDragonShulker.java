@@ -1,19 +1,16 @@
 package com.TheRPGAdventurer.ROTD.server.blocks;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,9 +25,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * Physical Block of the Dragon Core
@@ -49,6 +49,13 @@ public class BlockDragonShulker extends BlockContainer {
         setCreativeTab(DragonMounts.mainTab);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         ModBlocks.BLOCKS.add(this);
+    }
+
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
+        p_193383_2_ = this.getActualState(p_193383_2_, p_193383_1_, p_193383_3_);
+        EnumFacing enumfacing = (EnumFacing) p_193383_2_.getValue(FACING);
+        TileEntityDragonShulker.AnimationStatus tileentityshulkerbox$animationstatus = ((TileEntityDragonShulker) p_193383_1_.getTileEntity(p_193383_3_)).getAnimationStatus();
+        return tileentityshulkerbox$animationstatus != TileEntityDragonShulker.AnimationStatus.CLOSED && (tileentityshulkerbox$animationstatus != TileEntityDragonShulker.AnimationStatus.OPENED || enumfacing != p_193383_4_.getOpposite() && enumfacing != p_193383_4_) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
     }
 
 //    @Override

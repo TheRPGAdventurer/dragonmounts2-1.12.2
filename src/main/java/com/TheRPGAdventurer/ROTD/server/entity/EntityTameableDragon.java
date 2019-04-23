@@ -24,11 +24,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractHelper;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.server.initialization.*;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.server.network.MessageDragonInventory;
@@ -68,7 +64,6 @@ import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -1862,7 +1857,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public void updateRidden() {
         Entity entity = this.getRidingEntity();
-        if (this.isRiding() && entity.isSneaking() && !getRidingEntityLivingBase().isElytraFlying() || entity.isDead && this.getScale() > 0.35) {
+        if (this.isRiding() && !getRidingEntityLivingBase().isElytraFlying() && (entity.isSneaking() || entity.isDead || this.getScale() > 0.35)) {
             this.dismountRidingEntity();
         } else {
             this.motionX = 0.0D;

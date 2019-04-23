@@ -20,10 +20,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.UUID;
 
 public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport> {
-	
     public UUID dragonId;
     public byte controlState;
     EntityTameableDragon dragon;
+    Minecraft mc = Minecraft.getMinecraft();
 
     public MessageDragonTeleport(UUID dragonId) {
         this.dragonId = dragonId;

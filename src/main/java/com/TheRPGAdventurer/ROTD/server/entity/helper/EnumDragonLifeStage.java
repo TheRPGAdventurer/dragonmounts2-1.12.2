@@ -21,11 +21,12 @@ public enum EnumDragonLifeStage {
 
     EGG(0.25f),
     HATCHLING(0.10f),
-    JUVENILE(0.88f),
+    INFANCY(0.35f),
+    JUVENILE(1.00f),
     ADULT(1.8f);
 
-    //    public static final int TICKS_PER_STAGE = 42000 ;
-    public int TICKS_PER_STAGE;
+    public static final int TICKS_PER_STAGE = 42000;
+    //    public static final int TICKS_PER_STAGE;
     public static final EnumDragonLifeStage[] STAGE = values(); // cached for speed
 
     public final float scale;
@@ -36,29 +37,26 @@ public enum EnumDragonLifeStage {
     }
 
     public static final int TICKS_PER_STAGE() {
-        for (EnumDragonLifeStage stage : STAGE) {
-            switch ((stage)) {
-                case EGG:
-                    return 420;
-                case HATCHLING:
-                    return 550;
-                case JUVENILE:
-                    return 750;
-                case ADULT:
-                    return 800;
-            }
+        if (values().equals(EGG)) {
+            return 20;
+        } else if (values().equals(HATCHLING)) {
+            return 30;
+        } else if (values().equals(JUVENILE)) {
+            return 40;
+        } else if (values().equals(ADULT)) {
+            return 50;
         }
 
-        return 800;
+        return 100;
     }
 
 
     public static int clampTickCount(int ticksSinceCreation) {
-        return MathX.clamps(ticksSinceCreation, 0, STAGE.length * TICKS_PER_STAGE());
+        return MathX.clamps(ticksSinceCreation, 0, STAGE.length * TICKS_PER_STAGE);
     }
 
     public static EnumDragonLifeStage fromTickCount(int ticksSinceCreation) {
-        return STAGE[clampTickCount(ticksSinceCreation) / TICKS_PER_STAGE()];
+        return STAGE[clampTickCount(ticksSinceCreation) / TICKS_PER_STAGE];
     }
 
     public static float progressFromTickCount(int ticksSinceCreation) {

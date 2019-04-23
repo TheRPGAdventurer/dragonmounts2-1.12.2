@@ -29,8 +29,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonEssence extends Item implements IHasModel
-{
+public class ItemDragonEssence extends Item implements IHasModel {
 
     public EnumItemBreedTypes type;
     public EnumDragonBreed breed;
@@ -41,8 +40,8 @@ public class ItemDragonEssence extends Item implements IHasModel
         this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
         this.maxStackSize = 1;
         this.type = type;
-        
-	    ModItems.ITEMS.add(this);
+
+        ModItems.ITEMS.add(this);
     }
 
     @Nonnull
@@ -71,14 +70,11 @@ public class ItemDragonEssence extends Item implements IHasModel
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if (stack.getTagCompound() == null)
-        {
-        	//Broken NBT, possibly cheated in...
-        	tooltip.add(TextFormatting.RED + "ERROR: Broken or Missing NBT Data");
-        }
-        else
-        {
-        	tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+        if (stack.getTagCompound() == null) {
+            //Broken NBT, possibly cheated in...
+            tooltip.add(TextFormatting.RED + "ERROR: Broken or Missing NBT Data");
+        } else {
+            tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
         }
     }
 
@@ -114,11 +110,7 @@ public class ItemDragonEssence extends Item implements IHasModel
         ItemStack stack = player.getHeldItem(hand);
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
-        if (hand != EnumHand.MAIN_HAND || stack.getTagCompound() == null) 
-        {
-        	if (stack.getTagCompound() == null) player.sendStatusMessage(new TextComponentTranslation(TextFormatting.RED + "Essence has Broken or Missing NBT Data"), true);
-        	return EnumActionResult.FAIL;
-        }
+        if (hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 
@@ -134,7 +126,7 @@ public class ItemDragonEssence extends Item implements IHasModel
         dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceID"));
         dragon.setBreedType(breed);
         if (!worldIn.isRemote) {
-            if(dragon.isTamedFor(player)) {
+            if (dragon.isTamedFor(player)) {
                 worldIn.spawnEntity(dragon);
             } else {
                 player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
@@ -149,9 +141,8 @@ public class ItemDragonEssence extends Item implements IHasModel
 
     }
 
-	@Override
-	public void RegisterModels()
-	{
-		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+    @Override
+    public void RegisterModels() {
+        DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 }

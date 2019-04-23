@@ -6,18 +6,18 @@ import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
 import net.minecraft.item.Item;
 
-public class ItemDragonArmor extends Item implements IHasModel
-{
+
+public class ItemDragonArmor extends Item implements IHasModel {
 
     public String name;
 
-	public ItemDragonArmor(String name) {
-		this.name = name;
-		this.setUnlocalizedName(name);
-		this.maxStackSize = 1;
-		this.setRegistryName(DragonMounts.MODID, name);
-		this.setCreativeTab(DragonMounts.armoryTab);
-		
+    public ItemDragonArmor(String name) {
+        this.name = name;
+        this.setUnlocalizedName(name);
+        this.maxStackSize = 1;
+        this.setRegistryName(DragonMounts.MODID, name);
+        this.setCreativeTab(DragonMounts.armoryTab);
+
         ModItems.ITEMS.add(this);
 
     }

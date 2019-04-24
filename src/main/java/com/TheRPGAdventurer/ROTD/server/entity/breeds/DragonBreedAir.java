@@ -1,32 +1,31 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
-import java.util.UUID;
-
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+
+import java.util.UUID;
 
 public class DragonBreedAir extends DragonBreed {
 
 	 public static final UUID MODIFIER_ID = UUID.fromString("60be8770-29f2-4bbe-bb8c-7a41143c9974");
-	    public static final AttributeModifier MODIFIER = new AttributeModifier(MODIFIER_ID, "Air dragon speed bonus", 0.2, 2).setSaved(false);
+	 public static final AttributeModifier MODIFIER = new AttributeModifier(MODIFIER_ID, "Air dragon speed bonus", 0.2, 2).setSaved(false);
 
 	    public DragonBreedAir() {
-	        super("aether", 0x1dc4f3);
+	        super("aether", 0x0294bd);
 	        
-	     addImmunity(DamageSource.IN_FIRE);
-	     addImmunity(DamageSource.ON_FIRE);
-	     addImmunity(DamageSource.MAGIC);
-	     addImmunity(DamageSource.HOT_FLOOR);
-	     addImmunity(DamageSource.LIGHTNING_BOLT);
-	     addImmunity(DamageSource.WITHER);
+	     setImmunity(DamageSource.MAGIC);
+	     setImmunity(DamageSource.HOT_FLOOR);
+	     setImmunity(DamageSource.LIGHTNING_BOLT);
+	     setImmunity(DamageSource.WITHER);
 	        
-	     addHabitatBiome(Biomes.EXTREME_HILLS);
-	     addHabitatBlock(Blocks.LAPIS_BLOCK);
-	     addHabitatBlock(Blocks.LAPIS_ORE);
+	     setHabitatBlock(Blocks.LAPIS_BLOCK);
+	     setHabitatBlock(Blocks.LAPIS_ORE);
 	}
 
 	@Override
@@ -37,16 +36,31 @@ public class DragonBreedAir extends DragonBreed {
 
 	@Override
 	public void onEnable(EntityTameableDragon dragon) {
-	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).applyModifier(MODIFIER);
+//	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).applyModifier(MODIFIER);
 	}
 
     @Override
 	public void onDisable(EntityTameableDragon dragon) {
-	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).removeModifier(MODIFIER);
+//	   dragon.getAttributeMap().getAttributeInstance(EntityTameableDragon.MOVEMENT_SPEED_AIR).removeModifier(MODIFIER);
 	}
 
     @Override
     public void onDeath(EntityTameableDragon dragon) {}
+    
+    @Override
+    public void onLivingUpdate(EntityTameableDragon dragon) {
+    	super.onLivingUpdate(dragon);
+    }
+    
+    @Override
+    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
+    	return DragonMountsLootTables.ENTITIES_DRAGON_AETHER;
+    }
+    
+    @Override
+    public Item getShearDropitem(EntityTameableDragon dragon) {    	
+    	return ModItems.AetherDragonScales;
+    }
     
 }
 	

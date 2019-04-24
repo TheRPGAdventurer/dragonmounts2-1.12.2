@@ -1,5 +1,5 @@
 /*
-** 2016 MÃ¤rz 14
+** 2016 März 14
 **
 ** The author disclaims copyright to this source code. In place of
 ** a legal notice, here is a blessing:
@@ -9,12 +9,12 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
+import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 
@@ -32,7 +32,7 @@ public class DragonSoundManager extends DragonHelper {
      * Returns the sound this mob makes while it's alive.
      */
     public SoundEvent getLivingSound() {
-        if (dragon.isEgg() || dragon.isBreathing()) { // isFlying
+        if (dragon.isEgg() || dragon.isUsingBreathWeapon()) { // isFlying
             return null;
         } else {
             return dragon.getBreed().getLivingSound();
@@ -44,7 +44,7 @@ public class DragonSoundManager extends DragonHelper {
      */
     public SoundEvent getHurtSound() {
         if (dragon.isEgg()) {
-            return SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD;
+            return ModSounds.DRAGON_HATCHING;
         } else {
             return dragon.getBreed().getHurtSound();
         }
@@ -55,7 +55,7 @@ public class DragonSoundManager extends DragonHelper {
      */
     public SoundEvent getDeathSound() {
         if (dragon.isEgg()) {
-            return SoundEvents.ENTITY_ZOMBIE_BREAK_DOOR_WOOD;
+            return ModSounds.DRAGON_HATCHED;
         } else {
             return dragon.getBreed().getDeathSound();
         }
@@ -82,11 +82,11 @@ public class DragonSoundManager extends DragonHelper {
      */
     public void playLivingSound() {
         SoundEvent sound = getLivingSound();
-        if (sound == null) {
+        if (sound == null && !dragon.isEgg()) {
             return;
         }
         
-        playSound(sound, 1, 1);
+        playSound(sound, 0.7f, 1);
     }
     
     /**
@@ -102,11 +102,11 @@ public class DragonSoundManager extends DragonHelper {
      * @param speed wing animation playback speed
      */
     public void onWingsDown(float speed) {
-        if (!dragon.isInWater()) {
+        if (!dragon.isInWater() && dragon.isFlying()) {
             // play wing sounds
-            float pitch = (1 - speed);
-            float volume = 0.3f + (1 - speed) * 0.2f;
-            playSound(getWingsSound(), volume, pitch, true);
+            float pitch = (1);
+            float volume = 1.8f + (1 - speed);
+            playSound(getWingsSound(), volume, pitch, false);
         }
     }
     
@@ -117,6 +117,10 @@ public class DragonSoundManager extends DragonHelper {
         // no sounds for eggs or underwater action
         if (dragon.isEgg() || dragon.isInWater() || dragon.isOverWater()) {
             return;
+        }
+        
+        if(dragon.isFlying()) {
+        	return;
         }
         
         // override sound type if the top block is snowy
@@ -162,14 +166,15 @@ public class DragonSoundManager extends DragonHelper {
     /**
      * Returns the volume for a sound to play.
      */
-    public float getVolume(SoundEvent sound) {
-        return dragon.getScale() * dragon.getBreed().getSoundVolume(sound);
+    public float getVolume(SoundEvent sound) {   	
+        return MathX.clamp(dragon.getScale(), 0, 1) * dragon.getBreed().getSoundVolume(sound);
     }
     
     /**
      * Returns the pitch for a sound to play.
      */
     public float getPitch(SoundEvent sound) {
-        return (2.0f - dragon.getScale()) * dragon.getBreed().getSoundPitch(sound);
+    	float pitch = (2.0f - MathX.clamp(dragon.getScale(), 0.0f, 1.0f) * dragon.getBreed().getSoundPitch(sound));   	
+        return pitch;
     }
 }

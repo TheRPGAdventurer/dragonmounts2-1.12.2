@@ -28,6 +28,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +38,6 @@ import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -199,7 +199,10 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String px = dfShort.format(dragon.posX);
         String py = dfShort.format(dragon.posY);
         String pz = dfShort.format(dragon.posZ);
-        text.printf("x: %s y: %s z: %s\n", px, py, pz);
+        String mx = dfShort.format(dragon.motionX);
+        String my = dfShort.format(dragon.motionY);
+        String mz = dfShort.format(dragon.motionZ);
+        text.printf("x: %s y: %s z: %s\n", px, py, pz, mx, my, mz);
         
         // rotation
         String pitch = dfShort.format(dragon.rotationPitch);
@@ -211,7 +214,11 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String health = dfShort.format(dragon.getHealth());
         String healthMax = dfShort.format(dragon.getMaxHealth());
         String healthRel = dfShort.format(dragon.getHealthRelative() * 100);
-        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel);
+        String airTicks = dfShort.format(dragon.inAirTicks);
+    //    String airTargetX = dfShort.format(dragon.airTarget.getX());
+    //    String airTargetY = dfShort.format(dragon.airTarget.getY());
+    //    String airTargetZ = dfShort.format(dragon.airTarget.getZ());
+        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel, airTicks);
         
         // breed
         text.print("Breed: ");
@@ -247,6 +254,15 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         }
         text.println("Tamed: " + tamedString);
         
+        String allowOthersString;
+        if (dragon.allowedOtherPlayers()) {
+        	allowOthersString = "yes"; 
+        } else {
+        	allowOthersString = "no";
+        }
+        text.println("AllowedOthers: " + allowOthersString);
+
+        
         // breeder name
         DragonReproductionHelper reproduction = dragon.getReproductionHelper();
         EntityPlayer breeder = reproduction.getBreeder();
@@ -259,6 +275,8 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         text.println("Breeder: " + breederName);
         text.println("Reproduced: " + reproduction.getReproCount());
         text.println("Saddled: " + dragon.isSaddled());
+
+        text.printf("Command:" + dragon.getWhistleState());
     }
     
     private void renderAttributes() {
@@ -276,7 +294,7 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         Collection<IAttributeInstance> attribs = dragon.getAttributeMap().getAllAttributes();
         
         attribs.forEach(attrib -> {
-            String attribName = I18n.translateToLocal("attribute.name." + attrib.getAttribute().getName());
+            String attribName = net.minecraft.util.text.translation.I18n.translateToLocal("attribute.name." + attrib.getAttribute().getName());
             String attribValue = dfShort.format(attrib.getAttributeValue());
             String attribBase = dfShort.format(attrib.getBaseValue());
             text.println(attribName + " = " + attribValue + " (" + attribBase + ")");
@@ -285,20 +303,20 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         text.println();
     }
     
-    private void renderBreedPoints() {
-        if (dragonServer == null) {
-            return;
-        }
+  private void renderBreedPoints() {
+     if (dragonServer == null) {
+         return;
+     }
         
-        text.setColor(YELLOW);
-        text.println("Breed points");
-        text.setColor(WHITE);
+     text.setColor(YELLOW);
+     text.println("Breed points");
+     text.setColor(WHITE);
         
-        DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
-        breedHelper.getBreedPoints().forEach((breedType, points) -> {
-            text.setColor(breedType.getBreed().getColor());
-            text.printf("%s: %d\n", breedType, points.get());
-        });
+      DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
+      breedHelper.getBreedPoints().forEach((breedType, points) -> {
+        text.setColor(breedType.getBreed().getColor());
+        text.printf("%s: %d\n", breedType, points.get());
+      });
     }
 
     private void renderNavigation() {

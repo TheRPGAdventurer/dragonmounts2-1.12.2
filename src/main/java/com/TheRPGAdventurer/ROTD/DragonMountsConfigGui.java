@@ -30,7 +30,8 @@ public class DragonMountsConfigGui extends GuiConfig {
             parentScreen,
             Arrays.asList(
                 new ConfigElement(CONFIG.getCategory(DragonMountsConfig.CATEGORY_MAIN)),
-                new ConfigElement(CONFIG.getCategory(DragonMountsConfig.CATEGORY_WORLDGEN))
+                new ConfigElement(CONFIG.getCategory(DragonMountsConfig.CATEGORY_WORLDGEN)),
+                new ConfigElement(CONFIG.getCategory(DragonMountsConfig.CATEGORY_CLIENTDM2))
             ), DragonMounts.MODID, false, false,
                DragonMounts.NAME
         );

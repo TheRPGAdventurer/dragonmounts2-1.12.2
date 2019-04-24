@@ -1,7 +1,7 @@
 itemGroup.dragonmounts=Dragon Mounts
 
-entity.DragonMount.ice.name=Snow Dragon
-entity.DragonMount.end.name=Ender Dragon
+entity.DragonMount.ice.name=Ice Dragon
+entity.DragonMount.ender.name=Ender Dragon
 entity.DragonMount.aether.name=Sky Dragon
 entity.DragonMount.forest.name=Forest Dragon
 entity.DragonMount.sylphid.name=Water Dragon
@@ -9,20 +9,70 @@ entity.DragonMount.nether.name=Nether Dragon
 entity.DragonMount.fire.name=Fire Dragon
 entity.DragonMount.skeleton.name=Skeleton Dragon
 entity.DragonMount.wither.name=Wither Dragon
+entity.DragonMount.enchant.name=Enchantment Dragon
+entity.DragonMount.sunlight.name=Sunlight Dragon
+entity.DragonMount.storm.name=Storm Dragon
+entity.DragonMount.zombie.name=Zombie Dragon
+entity.DragonMount.terra.name=Terra Dragon
+entity.DragonMount.moonlight.name=Moonlight Dragon
+
+entity.DragonMounts.dragon.ice.name=Ice Dragon
+entity.DragonMounts.dragon.end.name=Ender Dragon
+entity.DragonMounts.dragon.aether.name=Aether Dragon
+entity.DragonMounts.dragon.forest.name=Forest Dragon
+entity.DragonMounts.dragon.sylphid.name=Water Dragon
+entity.DragonMounts.dragon.nether.name=Nether Dragon
+entity.DragonMounts.dragon.fire.name=Fire Dragon
+entity.DragonMounts.dragon.skeleton.name=Skeleton Dragon
+entity.DragonMounts.dragon.wither.name=Wither Dragon
+entity.DragonMounts.dragon.enchant.name=Enchant Dragon
+entity.DragonMounts.dragon.sunlight.name=Sunlight Dragon
+entity.DragonMounts.dragon.storm.name=Storm Dragon
+entity.DragonMounts.dragon.zombie.name=Zombie Dragon
+entity.DragonMounts.dragon.terra.name=Terra Dragon
+entity.DragonMounts.dragon.moonlight.name=Moonlight Dragon
 
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 
+entity.dragon.tooYoung=Dragon is too young for that let it grow
+
+item.whistle.notOwned=You do not own this dragon
+item.whistle.hasDragon=Dragon Succesfully Added
+item.whistle.empty=No Dragons To Control
+item.whistle.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
+item.whistle.limit=One Whistle can only command 3 Dragons
+item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (HomePos is WIP)
+item.command.new_home=New HomePos at
+dragon.locked=This Dragon has been locked by the Owner
+dragon.notTamed=This Dragon is not Tamed
+item.carriage.info=Used to make dragons carry multiple passengers like a boat
+egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End
+
 item.diamond_shears.name=Diamond Shears
 item.structure_spawner.name=Structure Spawner (Debug)
-tile.rotd:pileofsticks.name=Nest Block
+
+tile.pileofsticks.name=Nest Block
+tile.block_dragon_shulker.name=Dragon Core
 
 item.dragonEgg.name=%s Egg
+item.dragon_gender.name=Dragon Gender Switcher
+item.gui.dragon_gender=Left Click an owned dragon to change the gender of it
+item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
+item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
+
+item.carriage_oak.name=Oak Carriage
+item.carriage_birch.name=Birch Carriage
+item.carriage_spruce.name=Spruce Carriage
+item.carriage_acacia.name=Acacia Carriage
+item.carriage_dark_oak.name=Dark Oak Carriage
+item.carriage_jungle.name=Jungle Carriage
 
 item.ender_dragonscales.name=Dragon Scales
 item.ender_dragon_pickaxe.name=Dragon Pickaxe
 item.ender_dragon_axe.name=Dragon Axe
 item.ender_dragon_shovel.name=Dragon Spade
+item.ender_dragon_hoe.name=Dragon Hoe
 item.ender_dragon_sword.name=Dragon Sword
 item.ender_dragonscale_cap.name=Dragon Cap
 item.ender_dragonscale_tunic.name=Dragon Tunic
@@ -32,12 +82,24 @@ item.ender_dragonscale_boots.name=Dragon Boots
 item.nether_dragonscales.name=Dragon Scales
 item.nether_dragon_pickaxe.name=Dragon Pickaxe
 item.nether_dragon_axe.name=Dragon Axe
+item.nether_dragon_hoe.name=Dragon Hoe
 item.nether_dragon_shovel.name=Dragon Spade
 item.nether_dragon_sword.name=Dragon Sword
 item.nether_dragonscale_cap.name=Dragon Cap
 item.nether_dragonscale_tunic.name=Dragon Tunic
 item.nether_dragonscale_leggings.name=Dragon Leggings
 item.nether_dragonscale_boots.name=Dragon Boots
+
+item.nether2_dragonscales.name=Dragon Scales
+item.nether2_dragon_pickaxe.name=Dragon Pickaxe
+item.nether2_dragon_axe.name=Dragon Axe
+item.nether2_dragon_hoe.name=Dragon Hoe
+item.nether2_dragon_shovel.name=Dragon Spade
+item.nether2_dragon_sword.name=Dragon Sword
+item.nether2_dragonscale_cap.name=Dragon Cap
+item.nether2_dragonscale_tunic.name=Dragon Tunic
+item.nether2_dragonscale_leggings.name=Dragon Leggings
+item.nether2_dragonscale_boots.name=Dragon Boots
 
 item.forest_dragonscales.name=Dragon Scales
 item.forest_dragon_pickaxe.name=Dragon Pickaxe
@@ -61,6 +123,17 @@ item.fire_dragonscale_leggings.name=Dragon Leggings
 item.fire_dragonscale_boots.name=Dragon Boots
 item.fire_dragon_hoe.name=Dragon Hoe
 
+item.fire2_dragonscales.name=Dragon Scales
+item.fire2_dragon_pickaxe.name=Dragon Pickaxe
+item.fire2_dragon_axe.name=Dragon Axe
+item.fire2_dragon_shovel.name=Dragon Spade
+item.fire2_dragon_sword.name=Dragon Sword
+item.fire2_dragonscale_cap.name=Dragon Cap
+item.fire2_dragonscale_tunic.name=Dragon Tunic
+item.fire2_dragonscale_leggings.name=Dragon Leggings
+item.fire2_dragonscale_boots.name=Dragon Boots
+item.fire2_dragon_hoe.name=Dragon Hoe
+
 item.ice_dragonscales.name=Dragon Scales
 item.ice_dragon_pickaxe.name=Dragon Pickaxe
 item.ice_dragon_axe.name=Dragon Axe
@@ -75,6 +148,7 @@ item.ice_dragon_hoe.name=Dragon Hoe
 item.aether_dragonscales.name=Dragon Scales
 item.aether_dragon_pickaxe.name=Dragon Pickaxe
 item.aether_dragon_axe.name=Dragon Axe
+item.aether_dragon_hoe.name=Dragon Hoe
 item.aether_dragon_shovel.name=Dragon Spade
 item.aether_dragon_sword.name=Dragon Sword
 item.aether_dragonscale_cap.name=Dragon Cap
@@ -93,32 +167,228 @@ item.water_dragonscale_leggings.name=Dragon Leggings
 item.water_dragon_hoe.name=Dragon Hoe
 item.water_dragonscale_boots.name=Dragon Boots
 
-key.categories.dragon = Dragon Controls
+item.sunlight_dragonscales.name=Dragon Scales
+item.sunlight_dragon_pickaxe.name=Dragon Pickaxe
+item.sunlight_dragon_axe.name=Dragon Axe
+item.sunlight_dragon_shovel.name=Dragon Spade
+item.sunlight_dragon_sword.name=Dragon Sword
+item.sunlight_dragonscale_cap.name=Dragon Cap
+item.sunlight_dragonscale_tunic.name=Dragon Tunic
+item.sunlight_dragonscale_leggings.name=Dragon Leggings
+item.sunlight_dragon_hoe.name=Dragon Hoe
+item.sunlight_dragonscale_boots.name=Dragon Boots
+
+item.storm_dragonscales.name=Dragon Scales
+item.storm_dragon_pickaxe.name=Dragon Pickaxe
+item.storm_dragon_axe.name=Dragon Axe
+item.storm_dragon_shovel.name=Dragon Spade
+item.storm_dragon_sword.name=Dragon Sword
+item.storm_dragonscale_cap.name=Dragon Cap
+item.storm_dragonscale_tunic.name=Dragon Tunic
+item.storm_dragonscale_leggings.name=Dragon Leggings
+item.storm_dragon_hoe.name=Dragon Hoe
+item.storm_dragonscale_boots.name=Dragon Boots
+
+item.zombie_dragonscales.name=Dragon Scales
+item.zombie_dragon_pickaxe.name=Dragon Pickaxe
+item.zombie_dragon_axe.name=Dragon Axe
+item.zombie_dragon_shovel.name=Dragon Spade
+item.zombie_dragon_sword.name=Dragon Sword
+item.zombie_dragonscale_cap.name=Dragon Cap
+item.zombie_dragonscale_tunic.name=Dragon Tunic
+item.zombie_dragonscale_leggings.name=Dragon Leggings
+item.zombie_dragon_hoe.name=Dragon Hoe
+item.zombie_dragonscale_boots.name=Dragon Boots
+
+item.sunlight2_dragonscales.name=Dragon Scales
+item.sunlight2_dragon_pickaxe.name=Dragon Pickaxe
+item.sunlight2_dragon_axe.name=Dragon Axe
+item.sunlight2_dragon_shovel.name=Dragon Spade
+item.sunlight2_dragon_sword.name=Dragon Sword
+item.sunlight2_dragonscale_cap.name=Dragon Cap
+item.sunlight2_dragonscale_tunic.name=Dragon Tunic
+item.sunlight2_dragonscale_leggings.name=Dragon Leggings
+item.sunlight2_dragon_hoe.name=Dragon Hoe
+item.sunlight2_dragonscale_boots.name=Dragon Boots
+
+item.moonlight_dragonscales.name=Dragon Scales
+item.moonlight_dragon_pickaxe.name=Dragon Pickaxe
+item.moonlight_dragon_axe.name=Dragon Axe
+item.moonlight_dragon_shovel.name=Dragon Spade
+item.moonlight_dragon_sword.name=Dragon Sword
+item.moonlight_dragonscale_cap.name=Dragon Cap
+item.moonlight_dragonscale_tunic.name=Dragon Tunic
+item.moonlight_dragonscale_leggings.name=Dragon Leggings
+item.moonlight_dragon_hoe.name=Dragon Hoe
+item.moonlight_dragonscale_boots.name=Dragon Boots
+
+item.storm2_dragonscales.name=Dragon Scales
+item.storm2_dragon_pickaxe.name=Dragon Pickaxe
+item.storm2_dragon_axe.name=Dragon Axe
+item.storm2_dragon_shovel.name=Dragon Spade
+item.storm2_dragon_sword.name=Dragon Sword
+item.storm2_dragonscale_cap.name=Dragon Cap
+item.storm2_dragonscale_tunic.name=Dragon Tunic
+item.storm2_dragonscale_leggings.name=Dragon Leggings
+item.storm2_dragon_hoe.name=Dragon Hoe
+item.storm2_dragonscale_boots.name=Dragon Boots
+
+item.enchant_dragonscales.name=Dragon Scales
+item.enchant_dragon_pickaxe.name=Dragon Pickaxe
+item.enchant_dragon_axe.name=Dragon Axe
+item.enchant_dragon_shovel.name=Dragon Spade
+item.enchant_dragon_sword.name=Dragon Sword
+item.enchant_dragonscale_cap.name=Dragon Cap
+item.enchant_dragonscale_tunic.name=Dragon Tunic
+item.enchant_dragonscale_leggings.name=Dragon Leggings
+item.enchant_dragon_hoe.name=Dragon Hoe
+item.enchant_dragonscale_boots.name=Dragon Boots
+
+item.terra_dragonscales.name=Dragon Scales
+item.terra_dragon_pickaxe.name=Dragon Pickaxe
+item.terra_dragon_axe.name=Dragon Axe
+item.terra_dragon_hoe.name=Dragon Hoe
+item.terra_dragon_shovel.name=Dragon Spade
+item.terra_dragon_sword.name=Dragon Sword
+item.terra_dragonscale_cap.name=Dragon Cap
+item.terra_dragonscale_tunic.name=Dragon Tunic
+item.terra_dragonscale_leggings.name=Dragon Leggings
+item.terra_dragonscale_boots.name=Dragon Boots
+
+item.terra2_dragonscales.name=Dragon Scales
+item.terra2_dragon_pickaxe.name=Dragon Pickaxe
+item.terra2_dragon_axe.name=Dragon Axe
+item.terra2_dragon_hoe.name=Dragon Hoe
+item.terra2_dragon_shovel.name=Dragon Spade
+item.terra2_dragon_sword.name=Dragon Sword
+item.terra2_dragonscale_cap.name=Dragon Cap
+item.terra2_dragonscale_tunic.name=Dragon Tunic
+item.terra2_dragonscale_leggings.name=Dragon Leggings
+item.terra2_dragonscale_boots.name=Dragon Boots
+
+key.categories.dragon=Dragon Mounts Controls
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
-
-entity.DragonMounts.dragon.ice.name=Ice Dragon
-entity.DragonMounts.dragon.end.name=Ender Dragon
-entity.DragonMounts.dragon.aether.name=Aether Dragon
-entity.DragonMounts.dragon.forest.name=Forest Dragon
-entity.DragonMounts.dragon.sylphid.name=Water Dragon
-entity.DragonMounts.dragon.nether.name=Nether Dragon
-entity.DragonMounts.dragon.fire.name=Fire Dragon
-entity.DragonMounts.dragon.skeleton.name=Skeleton Dragon
-entity.DragonMounts.dragon.wither.name=Wither Dragon
+key.dragon.breath=Dragon Breath
+key.dragon.cancelhover=Cancel Hover
+key.dragon.f7=Change Mount Camera
+key.dragon.followYaw=Follow Yaw
+key.dragon.boost=Flight Boost
 
 item.dragonarmor_diamond.name=Diamond Dragon Armor
 item.dragonarmor_iron.name=Iron Dragon Armor
 item.dragonarmor_gold.name=Gold Dragon Armor
+item.dragonarmor_emerald.name=Emerald Dragon Armor
 
-entity.dragon.tooYounng=The dragon is too young let it grow.
+entity.dragon.tooYounng=The dragon is too young to be saddled, let it grow.
+
+item.summon_forest.name=Summon Dragon
+item.summon_aether.name=Summon Dragon
+item.summon_ice.name=Summon Dragon
+item.summon_water.name=Summon Dragon
+item.summon_fire.name=Summon Dragon
+item.summon_nether.name=Summon Dragon
+item.summon_end.name=Summon Dragon
+item.summon_skeleton.name=Summon Dragon
+item.summon_wither.name=Summon Dragon
+item.summon_sunlight.name=Summon Dragon
+item.summon_enchant.name=Summon Dragon
+item.summon_storm.name=Summon Dragon
+item.summon_zombie.name=Summon Dragon
+item.summon_terra.name=Summon Dragon
+item.summon_moonlight.name=Summon Dragon
+
+item.dragon_shield_forest.name=Dragon Shield
+item.dragon_shield_aether.name=Dragon Shield
+item.dragon_shield_end.name=Dragon Shield
+item.dragon_shield_fire.name=Dragon Shield
+item.dragon_shield_fire2.name=Dragon Shield
+item.dragon_shield_ice.name=Dragon Shield
+item.dragon_shield_water.name=Dragon Shield
+item.dragon_shield_sunlight.name=Dragon Shield
+item.dragon_shield_sunlight2.name=Dragon Shield
+item.dragon_shield_enchant.name=Dragon Shield
+item.dragon_shield_forest.name=Dragon Shield
+item.dragon_shield_storm.name=Dragon Shield
+item.dragon_shield_terra.name=Dragon Shield
+item.dragon_shield_terra2.name=Dragon Shield
+item.dragon_shield_moonlight.name=Dragon Shield
+
+item.end_dragon_essence.name=Dragon Essence
+item.aether_dragon_essence.name=Dragon Essence
+item.ice_dragon_essence.name=Dragon Essence
+item.water_dragon_essence.name=Dragon Essence
+item.fire_dragon_essence.name=Dragon Essence
+item.forest_dragon_essence.name=Dragon Essence
+item.skeleton_dragon_essence.name=Dragon Essence
+item.wither_dragon_essence.name=Dragon Essence
+item.nether_dragon_essence.name=Dragon Essence
+item.enchant_dragon_essence.name=Dragon Essence
+item.sunlight_dragon_essence.name=Dragon Essence
+item.storm_dragon_essence.name=Dragon Essence
+item.zombie_dragon_essence.name=Dragon Essence
+item.terra_dragon_essence.name=Dragon Essence
+item.moonlight_dragon_essence.name=Dragon Essence
+
+item.end_dragon_amulet.name=End Dragon Amulet
+item.aether_dragon_amulet.name=Aether Dragon Amulet
+item.ice_dragon_amulet.name=Ice Dragon Amulet
+item.water_dragon_amulet.name=Water Dragon Amulet
+item.fire_dragon_amulet.name=Fire Dragon Amulet
+item.forest_dragon_amulet.name=Forest Dragon Amulet
+item.skeleton_dragon_amulet.name=Skeleton Dragon Amulet
+item.wither_dragon_amulet.name=Wither Dragon Amulet
+item.nether_dragon_amulet.name=Nether Dragon Amulet
+item.enchant_dragon_amulet.name=Enchant Dragon Amulet
+item.sunlight_dragon_amulet.name=Sunlight Dragon Amulet
+item.storm_dragon_amulet.name=Storm Dragon Amulet
+item.zombie_dragon_amulet.name=Zombie Dragon Amulet
+item.terra_dragon_amulet.name=Terra Dragon Amulet
+item.moonlight_dragon_amulet.name=Moonlight Dragon Amulet
+item.dragon_amulet.name=Dragon Amulet
 
 dragon.forest=Forest
 dragon.aether=Aether
 dragon.ice=Ice
 dragon.water=Water
 dragon.fire=Fire
+dragon.fire2=Fire
+dragon.skeleton=Skeleton
+dragon.wither=Wither
 dragon.nether=Nether
 dragon.end=Ender
+dragon.ender=Ender
+dragon.enchant=Enchant
+dragon.sunlight=Sunlight
+dragon.sunlight2=Sunlight
+dragon.moonlight=Moonlight
+dragon.storm=Storm
+dragon.zombie=Zombie
+dragon.terra=Terra
+dragon.terra2=Terra
 
+dragon.egg=Egg
+dragon.hatchling=Hatchling
+dragon.juvenile=Juvenile
+dragon.adult=Adult
 
+dragon.amulet=Right click a Dragon to store it
+
+container.dragon_shulker=Dragon Core
+tile.dragon_shulker.name=Dragon Core
+
+gui.nothing=Nothing
+gui.circle=Circle Player
+gui.followFlying=Follow Flying
+gui.goToPlayer=Come To Player
+gui.homePos=Teleport
+gui.locked.dragon=LOCK
+gui.unlocked.dragon=UNLOCK
+gui.sit=Sit
+
+dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
+
+item.dragon_whistle.name=Dragon Whistle [WIP]
+
+itemGroup.armorytab=Dragon Mounts Armory
+itemGroup.maintab=Dragon Mounts

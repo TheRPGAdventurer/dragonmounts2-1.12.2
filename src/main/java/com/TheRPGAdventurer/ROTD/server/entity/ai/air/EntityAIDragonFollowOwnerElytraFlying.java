@@ -11,7 +11,6 @@ package com.TheRPGAdventurer.ROTD.server.entity.ai.air;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
-
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
@@ -38,6 +37,10 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
         	return false;
         }
         
+        if(dragon.getLeashed()) {
+           return false;
+        }
+        
         owner = (EntityPlayer) dragon.getOwner();
         
         // don't follow if ownerless 
@@ -56,6 +59,7 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     
     @Override
     public void updateTask() {
-        dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
+        dragon.getNavigator().tryMoveToXYZ(owner.posX, owner.posY, owner.posZ - 25, 1);
+        dragon.setBoosting(dragon.getDistanceToEntity(owner) > 18);
     }
 }

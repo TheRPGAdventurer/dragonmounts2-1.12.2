@@ -75,8 +75,7 @@ public class NodeLineSegment {
     return newCopy;
   }
 
-  public double getSegmentLength()
-  {
+  public double getSegmentLength() {
     double deltaX = startPoint.x - endPoint.x;
     double deltaY = startPoint.y - endPoint.y;
     double deltaZ = startPoint.z - endPoint.z;
@@ -153,7 +152,7 @@ public class NodeLineSegment {
         return totalDensity;
       }
     }
-    float stochasticHitDensity = collisionCheckAABBstochastic(aabb, totalDensity, numberOfCloudPoints);
+    float stochasticHitDensity = collisionCheckAABBstochastic(aabb, totalDensity, numberOfCloudPoints - 4);
     float aabbCornersHitDensity = collisionCheckAABBcorners(aabb, totalDensity);
     return Math.max(stochasticHitDensity, aabbCornersHitDensity);
   }
@@ -319,7 +318,6 @@ public class NodeLineSegment {
    * @param densityPerCollision the total density to be added (eg 1.0F)
    */
   public void addBlockCollisions(Map<Vec3i, BreathAffectedBlock> hitDensity, float densityPerCollision) {
-
     for (Pair<EnumFacing, AxisAlignedBB> collision : collisions) {
       final double CONTRACTION = 0.001;
       AxisAlignedBB aabb = collision.getSecond();
@@ -356,8 +354,7 @@ public class NodeLineSegment {
    * @return the face which was hit.  If none (was inside block), returns null
    */
   public static EnumFacing getIntersectedFace(double xOrigin, double yOrigin, double zOrigin,
-                                              double xHit, double yHit, double zHit)
-  {
+                                              double xHit, double yHit, double zHit) {
     AxisAlignedBB aabb = new AxisAlignedBB(Math.floor(xHit), Math.floor(yHit), Math.floor(zHit),
             Math.ceil(xHit), Math.ceil(yHit), Math.ceil(zHit));
 

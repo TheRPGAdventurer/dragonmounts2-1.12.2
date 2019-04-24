@@ -13,7 +13,7 @@ public class SegmentSizePositionRotation implements Cloneable {
   public float rotationPointY = Float.NaN;
   public float rotationPointZ = Float.NaN;
   public float rotateAngleX = Float.NaN;
-  public float rotateAngleY = Float.NaN;
+  public float rotateAngleY = Float.NaN; 
   public float rotateAngleZ = Float.NaN;
   public float scaleX = Float.NaN;
   public float scaleY = Float.NaN;

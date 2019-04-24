@@ -9,10 +9,10 @@
  */
 package com.TheRPGAdventurer.ROTD.util.math;
 
-import java.util.Random;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Random;
 
 /**
  * Math helper class.
@@ -142,6 +142,11 @@ public class MathX {
     public static int clamp(int value, int min, int max) {
         return (value < min ? min : (value > max ? max : value));
     }
+
+    // numeric integer clamp
+    public static int clamps(int value, int min, int max) {
+        return (value < min ? min : (value >= max ? max : value));
+    }
     
     public static float updateRotation(float r1, float r2, float step) {
         return r1 + clamp(normDeg(r2 - r1), -step, step);
@@ -205,8 +210,7 @@ public class MathX {
         return centreAngle + clamp(normDeg(targetAngle - centreAngle), -maximumDifference, maximumDifference);
     }
 
-    public static Vec3d multiply(Vec3d source, double multiplier)
-    {
+    public static Vec3d multiply(Vec3d source, double multiplier) {
       return new Vec3d(source.x * multiplier, source.y * multiplier, source.z * multiplier);
     }
 
@@ -217,8 +221,7 @@ public class MathX {
       return Math.abs(x1 - x2) <= MINIMUM_SIGNIFICANT_DIFFERENCE;
     }
 
-  public static boolean isSignificantlyDifferent(double x1, double x2)
-  {
+  public static boolean isSignificantlyDifferent(double x1, double x2) {
     return Math.abs(x1 - x2) > MINIMUM_SIGNIFICANT_DIFFERENCE;
   }
 
@@ -269,6 +272,15 @@ public class MathX {
       }
 
       return p_76138_0_;
+  }
+  
+  public static float invSqrt(float x) {
+	    float xhalf = 0.5f * x;
+	    int i = Float.floatToIntBits(x);
+	    i = 0x5f3759df - (i >> 1);
+	    x = Float.intBitsToFloat(i);
+	    x *= (1.5f - xhalf * x * x);
+	    return x;
   }
 
 }

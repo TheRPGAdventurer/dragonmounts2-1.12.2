@@ -57,8 +57,8 @@ public class BreathAffectedEntity {
 
   private float ENTITY_DECAY_PERCENTAGE_PER_TICK = 5.0F;
   private float ENTITY_RESET_EFFECT_THRESHOLD = 0.01F;
-  private final int TICKS_BEFORE_DECAY_STARTS = 40;
-  private final int TICKS_BETWEEN_DAMAGE_APPLICATION = 20;  // apply damage every x ticks
+  private final int TICKS_BEFORE_DECAY_STARTS = 7; // 40
+  private final int TICKS_BETWEEN_DAMAGE_APPLICATION = 50;  // apply damage every x ticks
 
   /** updates the breath weapon's effect for a given entity
    *   called every tick; used to decay the cumulative effect on the entity
@@ -67,10 +67,11 @@ public class BreathAffectedEntity {
    */
   public void decayEntityEffectTick() {
     if (timeSinceLastHit == 0 && ticksUntilDamageApplied > 0) {
-      --ticksUntilDamageApplied;
+      ticksUntilDamageApplied = 0;
     }
     if (++timeSinceLastHit < TICKS_BEFORE_DECAY_STARTS) return;
-    hitDensity *= (1.0F - ENTITY_DECAY_PERCENTAGE_PER_TICK / 100.0F);
+//    hitDensity *= (1.0F - ENTITY_DECAY_PERCENTAGE_PER_TICK / 100.0F);
+    hitDensity = 0;
     if (hitDensity < ENTITY_RESET_EFFECT_THRESHOLD){
       hitDensity = 0.0F;
     }

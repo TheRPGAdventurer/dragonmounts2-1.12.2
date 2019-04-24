@@ -10,26 +10,23 @@
 package com.TheRPGAdventurer.ROTD.client;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.client.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderEnderBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderFlameBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderIceBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderNetherBreathFX;
-import com.TheRPGAdventurer.ROTD.client.render.breathweaponFX.RenderWitherBreathFX;
+import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
+import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
+import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.EnderBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
-
+import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.*;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
+import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,26 +36,33 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * 2nd @author TheRPGAdventurer
  */
 public class ClientProxy extends ServerProxy {
-    
+
+    private int thirdPersonViewDragon = 0;
+    private int followYaw = 0;
+    private int hover = 0;
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {
-        super.PreInitialization(event);        
+        super.PreInitialization(event);
         // register dragon entity renderer
         DragonMountsConfig.clientPreInit();
         MinecraftForge.EVENT_BUS.register(new DragonEntityWatcher());
         RenderingRegistry.registerEntityRenderingHandler(EntityTameableDragon.class, DragonRenderer::new);
-		RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);
-		RenderingRegistry.registerEntityRenderingHandler(EnderBreathFX.class, RenderEnderBreathFX::new);
-		RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
-		RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
-		RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
-      
+
+        RenderingRegistry.registerEntityRenderingHandler(HydroBreathFX.class, RenderHydroBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(FlameBreathFX.class, RenderFlameBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(EnderBreathFX.class, RenderEnderBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(NetherBreathFX.class, RenderNetherBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
+
+//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer(new ModelShulker()));
     }
 
     @Override
@@ -69,14 +73,50 @@ public class ClientProxy extends ServerProxy {
     @Override
     public void PostInitialization(FMLPostInitializationEvent event) {
         super.PostInitialization(event);
-        
-        if (DragonMountsConfig.isDebug()) { MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());}            
+
+        if (DragonMountsConfig.isDebug()) {
+            MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+        }
         RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
+        MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
+        MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);
 
     }
-    
+
     @SideOnly(Side.CLIENT)
-	@Override
-	public void render() {ModKeys.init();}
+    @Override
+    public void render() {
+        ModKeys.init();
+    }
+
+    public int getDragon3rdPersonView() {
+        return thirdPersonViewDragon;
+    }
+
+    public void setDragon3rdPersonView(int view) {
+        thirdPersonViewDragon = view;
+    }
+
+    public int getFollowYaw() {
+        return followYaw;
+    }
+
+    public void setFollowYaw(int followYaw) {
+        this.followYaw = followYaw;
+    }
+
+    @Override
+    public int getDragonHover() {
+        return hover;
+    }
+
+    @Override
+    public void setDragonHover(int hover) {
+        this.hover = hover;
+    }
+
+    public void registerItemRenderer(Item item, int meta, String id) {
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
+    }
 }

@@ -57,7 +57,7 @@ public class SoundEffectBreathWeapon {
     weaponSoundUpdateLink = i_weaponSoundUpdateLink;
   }
 
-  private final float HEAD_MIN_VOLUME = 0.02F;
+  private final float HEAD_MIN_VOLUME = 0.0001F;
 
   public void startPlaying(EntityPlayerSP entityPlayerSP, EntityTameableDragon dragon) {
     stopAllSounds();
@@ -218,7 +218,7 @@ public class SoundEffectBreathWeapon {
   private class BreathWeaponSound extends PositionedSound implements ITickableSound {
     public BreathWeaponSound(ResourceLocation i_resourceLocation, float i_volume, RepeatType i_repeat,
                              ComponentSoundSettings i_soundSettings) {
-      super(i_resourceLocation, SoundCategory.VOICE);
+      super(i_resourceLocation, SoundCategory.HOSTILE);
       repeat = (i_repeat == RepeatType.REPEAT);
       volume = i_volume;
       attenuationType = AttenuationType.NONE;
@@ -311,49 +311,8 @@ public class SoundEffectBreathWeapon {
    * @param lifeStage how old is the dragon?
    * @return the resourcelocation corresponding to the desired sound
    */
-  protected ResourceLocation weaponSound(SoundPart soundPart, EnumDragonLifeStage lifeStage, EntityTameableDragon dragon) {
-    final SoundEffectNames hatchling[] = {SoundEffectNames.HATCHLING_BREATHE_FIRE_START,
-                                          SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP,
-                                          SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
-
-    final SoundEffectNames juvenile[] = {SoundEffectNames.JUVENILE_BREATHE_FIRE_START,
-                                          SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP,
-                                          SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
-
-    final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_FIRE_START,
-                                      SoundEffectNames.ADULT_BREATHE_FIRE_LOOP,
-                                      SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
-    
-    final SoundEffectNames adultice[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-                                         SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-                                         SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-
-    SoundEffectNames [] soundEffectNames;
-    boolean ice = dragon.getBreedType() == EnumDragonBreed.ICE;
-    switch (lifeStage) {
-      case HATCHLING: {
-    	if(ice) {soundEffectNames = adultice; break;} else {
-    		soundEffectNames = hatchling; break;
-    	}
-      }
-      case JUVENILE: {
-    	  if(ice) {soundEffectNames = adultice; break;} else {
-      		soundEffectNames = juvenile; break;
-      	}
-      }
-      case ADULT: {
-    	  if(ice) {soundEffectNames = adultice; break;} else {
-      		soundEffectNames = adult; break;
-      	}
-      }
-      default: {
-        System.err.println("Unknown lifestage:" + lifeStage + " in weaponSound()");
-        if(ice) {soundEffectNames = adultice; break;} else {
-    		soundEffectNames = adult; break;
-    	} // dummy
-      }
-    }
-    return new ResourceLocation(soundEffectNames[soundPart.ordinal()].getJsonName());
+  protected ResourceLocation weaponSound(SoundPart soundPart, EnumDragonLifeStage lifeStage, EntityTameableDragon dragon) {    
+    return new ResourceLocation(dragon.getBreed().getBreathWeaponSoundEffects(lifeStage)[soundPart.ordinal()].getJsonName());
   }
 
 

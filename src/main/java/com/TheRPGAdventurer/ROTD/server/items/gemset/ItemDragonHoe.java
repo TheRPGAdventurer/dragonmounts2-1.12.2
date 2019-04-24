@@ -3,6 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.items.gemset;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,8 @@ public class ItemDragonHoe extends ItemHoe {
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
+		
+		ModTools.TOOLS.add(this);
 	}
 	
 	@Override

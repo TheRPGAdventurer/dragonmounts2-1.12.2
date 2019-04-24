@@ -3,6 +3,8 @@ package com.TheRPGAdventurer.ROTD.server.items.gemset;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,7 @@ public class ItemDragonPickAxe extends ItemPickaxe {
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 		
+		ModTools.TOOLS.add(this);
 	}
 	
 	@Override

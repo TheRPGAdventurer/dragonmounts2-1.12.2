@@ -22,8 +22,8 @@ eclipse
 run
 *.txt
 gradlew setupdecompworkspace idea
-/classes/*
-/config/*
-/crash-reports/*
-/llibrary/*
-/logs/*
+classes/*
+config/*
+crash-reports/*
+llibrary/*
+logs/*

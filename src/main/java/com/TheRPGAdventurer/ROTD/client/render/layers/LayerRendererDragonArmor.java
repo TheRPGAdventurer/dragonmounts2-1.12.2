@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.render.layers;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.model.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;

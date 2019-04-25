@@ -9,7 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.anim;
 
-import com.TheRPGAdventurer.ROTD.client.model.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.SegmentSizePositionRotation;

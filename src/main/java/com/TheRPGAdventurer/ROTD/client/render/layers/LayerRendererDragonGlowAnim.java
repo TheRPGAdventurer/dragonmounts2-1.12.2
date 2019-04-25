@@ -14,8 +14,8 @@ import static org.lwjgl.opengl.GL11.GL_ONE;
 import static org.lwjgl.opengl.GL11.GL_SRC_COLOR;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE;
 
-import com.TheRPGAdventurer.ROTD.client.model.DragonModel;
-import com.TheRPGAdventurer.ROTD.client.model.DragonModelMode;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;

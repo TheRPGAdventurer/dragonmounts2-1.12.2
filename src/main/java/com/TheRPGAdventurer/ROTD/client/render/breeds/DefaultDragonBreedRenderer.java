@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.model.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.layers.LayerRendererDragonArmor;
 import com.TheRPGAdventurer.ROTD.client.render.layers.LayerRendererDragonChest;

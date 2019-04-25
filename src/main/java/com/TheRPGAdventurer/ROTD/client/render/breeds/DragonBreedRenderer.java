@@ -11,7 +11,7 @@ package com.TheRPGAdventurer.ROTD.client.render.breeds;
 
 import java.util.List;
 
-import com.TheRPGAdventurer.ROTD.client.model.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 

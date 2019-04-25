@@ -1,4 +1,0 @@
-/**
- * Made By TheRPGAdventurer
- * 
- */

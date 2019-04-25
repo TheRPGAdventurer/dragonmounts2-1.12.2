@@ -1,59 +1,64 @@
-[16:42:05] [main/INFO] [GradleStart]: Extra: []
-[16:42:05] [main/INFO] [GradleStart]: Found and added coremod: net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
-[16:42:05] [main/INFO] [GradleStart]: Found and added coremod: net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
-[16:42:05] [main/INFO] [GradleStart]: Running with arguments: [--userProperties, {}, --assetsDir, C:/Users/win7/.gradle/caches/minecraft/assets, --assetIndex, 1.12, --accessToken{REDACTED}, --version, 1.12.2, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
-[16:42:05] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[16:42:05] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[16:42:05] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
-[16:42:05] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
-[16:42:05] [main/INFO] [FML]: Forge Mod Loader version 14.23.5.2768 for Minecraft 1.12.2 loading
-[16:42:05] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_201, running on Windows 7:amd64:6.1, installed at C:\Program Files\Java\jdk1.8.0_201\jre
-[16:42:05] [main/ERROR] [FML]: Apache Maven library folder was not in the format expected. Using default libraries directory.
-[16:42:05] [main/ERROR] [FML]: Full: C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar
-[16:42:05] [main/ERROR] [FML]: Trimmed: c:/users/win7/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.5.3/
-[16:42:05] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
-[16:42:05] [main/INFO] [FML]: Detected deobfuscated environment, loading log configs for colored console logs.
-[16:42:07] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLCorePlugin (net.minecraftforge.fml.relauncher.FMLCorePlugin), we are in deobf and it's a forge core plugin
-[16:42:07] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLForgePlugin (net.minecraftforge.classloading.FMLForgePlugin), we are in deobf and it's a forge core plugin
-[16:42:07] [main/INFO] [FML]: Found a command line coremod : net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
-[16:42:08] [main/ERROR] [FML]: The coremod net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin is requesting minecraft version 1.12 and minecraft is 1.12.2. It will be ignored.
-[16:42:08] [main/INFO] [FML]: Searching C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\mods for mods
-[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
-[16:42:08] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
-[16:42:08] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
-[16:42:08] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[16:42:08] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[16:42:08] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[16:42:12] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
-[16:42:12] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[16:42:12] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[16:42:13] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[16:42:13] [main/INFO] [GradleStart]: Remapping AccessTransformer rules...
-[16:42:13] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
-[16:42:13] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
-[16:42:13] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
-[16:42:14] [main/INFO] [net.minecraft.client.Minecraft]: Setting user: Player660
-[16:42:22] [main/INFO] [net.minecraft.client.Minecraft]: LWJGL Version: 2.9.4
-[16:42:23] [main/INFO] [FML]: -- System Details --
+[00:36:59] [main/INFO] [GradleStart]: Extra: []
+[00:36:59] [main/INFO] [GradleStart]: Found and added coremod: net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
+[00:36:59] [main/INFO] [GradleStart]: Running with arguments: [--userProperties, {}, --assetsDir, C:/Users/win7/.gradle/caches/minecraft/assets, --assetIndex, 1.12, --accessToken{REDACTED}, --version, 1.12.2, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[00:37:02] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[00:37:02] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[00:37:02] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[00:37:02] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[00:37:02] [main/INFO] [FML]: Forge Mod Loader version 14.23.5.2768 for Minecraft 1.12.2 loading
+[00:37:02] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_201, running on Windows 7:amd64:6.1, installed at C:\Program Files\Java\jdk1.8.0_201\jre
+[00:37:02] [main/ERROR] [FML]: Apache Maven library folder was not in the format expected. Using default libraries directory.
+[00:37:02] [main/ERROR] [FML]: Full: C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar
+[00:37:02] [main/ERROR] [FML]: Trimmed: c:/users/win7/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.5.3/
+[00:37:03] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[00:37:03] [main/INFO] [FML]: Detected deobfuscated environment, loading log configs for colored console logs.
+[00:37:08] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLCorePlugin (net.minecraftforge.fml.relauncher.FMLCorePlugin), we are in deobf and it's a forge core plugin
+[00:37:08] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLForgePlugin (net.minecraftforge.classloading.FMLForgePlugin), we are in deobf and it's a forge core plugin
+[00:37:08] [main/INFO] [FML]: Found a command line coremod : net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
+[00:37:09] [main/INFO] [FML]: Ignoring missing certificate for coremod llibrary (net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin), as this is probably a dev workspace
+[00:37:09] [main/INFO] [FML]: Searching C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\mods for mods
+[00:37:09] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[00:37:09] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
+[00:37:09] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[00:37:09] [main/INFO] [GradleStart]: Injecting location in coremod net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
+[00:37:09] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[00:37:09] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[00:37:09] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[00:37:09] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[00:37:09] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[00:37:09] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[00:37:20] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+[00:37:20] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[00:37:20] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[00:37:21] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[00:37:21] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[00:37:21] [main/INFO] [GradleStart]: Remapping AccessTransformer rules...
+[00:37:21] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[00:37:21] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[00:37:21] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[00:37:24] [main/INFO] [net.minecraft.client.Minecraft]: Setting user: Player649
+[00:37:31] [main/INFO] [net.minecraft.client.Minecraft]: LWJGL Version: 2.9.4
+[00:37:38] [main/WARN] [LLibrary Core]: Unable to call Core API! It has not been initialized yet!
+[00:37:39] [main/INFO] [FML]: -- System Details --
 Details:
 	Minecraft Version: 1.12.2
 	Operating System: Windows 7 (amd64) version 6.1
 	Java Version: 1.8.0_201, Oracle Corporation
 	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
-	Memory: 387820880 bytes (369 MB) / 518520832 bytes (494 MB) up to 1720713216 bytes (1641 MB)
+	Memory: 181068784 bytes (172 MB) / 543162368 bytes (518 MB) up to 1720713216 bytes (1641 MB)
 	JVM Flags: 0 total; 
 	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
 	FML: 
 	Loaded coremods (and transformers): 
+llibrary (llibrary-core-1.0.6-1.12.2.jar)
+  net.ilexiconn.llibrary.server.core.plugin.LLibraryTransformer
+  net.ilexiconn.llibrary.server.core.patcher.LLibraryRuntimePatcher
 	GL info: ' Vendor: 'ATI Technologies Inc.' Version: '4.5.13399 Compatibility Profile Context 15.200.1062.1004' Renderer: 'AMD Radeon HD 8470D'
-[16:42:23] [main/INFO] [FML]: MinecraftForge v14.23.5.2768 Initialized
-[16:42:23] [main/INFO] [FML]: Starts to replace vanilla recipe ingredients with ore ingredients.
-[16:42:24] [main/INFO] [FML]: Replaced 1036 ore ingredients
-[16:42:24] [main/INFO] [FML]: Searching C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\mods for mods
-[16:42:24] [main/ERROR] [FML]: The mcmod.info file in com.TheRPGAdventurer.ROTD.dragonmounts2-1.12.2.main cannot be parsed as valid JSON. It will be ignored
+[00:37:40] [main/INFO] [FML]: MinecraftForge v14.23.5.2768 Initialized
+[00:37:40] [main/INFO] [FML]: Starts to replace vanilla recipe ingredients with ore ingredients.
+[00:37:41] [main/INFO] [FML]: Replaced 1036 ore ingredients
+[00:37:44] [main/INFO] [FML]: Searching C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\mods for mods
+[00:37:44] [main/ERROR] [FML]: The mcmod.info file in dragonmounts2-1.12.2_main cannot be parsed as valid JSON. It will be ignored
 com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 32 column 4 path $[0].credits
 	at com.google.gson.internal.Streams.parse(Streams.java:60) ~[Streams.class:?]
 	at com.google.gson.JsonParser.parse(JsonParser.java:84) ~[JsonParser.class:?]
@@ -91,19 +96,52 @@ Caused by: com.google.gson.stream.MalformedJsonException: Unterminated object at
 	at com.google.gson.internal.bind.TypeAdapters$29.read(TypeAdapters.java:714) ~[TypeAdapters$29.class:?]
 	at com.google.gson.internal.Streams.parse(Streams.java:48) ~[Streams.class:?]
 	... 26 more
-[16:42:27] [main/FATAL] [FML]: Found a duplicate mod llibrary at [C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar, C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar]
-[16:42:27] [main/ERROR] [FML]: An exception was thrown, the game will display an error screen and halt.
-net.minecraftforge.fml.common.DuplicateModsFoundException: 
-Duplicate Mods:
-	llibrary : C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar
-	llibrary : C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar
-
-
-	at net.minecraftforge.fml.common.Loader.identifyDuplicates(Loader.java:464) ~[Loader.class:?]
-	at net.minecraftforge.fml.common.Loader.identifyMods(Loader.java:426) ~[Loader.class:?]
-	at net.minecraftforge.fml.common.Loader.loadMods(Loader.java:566) ~[Loader.class:?]
-	at net.minecraftforge.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:232) [FMLClientHandler.class:?]
-	at net.minecraft.client.Minecraft.init(Minecraft.java:508) [Minecraft.class:?]
+[00:37:50] [main/INFO] [FML]: Forge Mod Loader has identified 7 mods to load
+[00:37:52] [main/INFO] [FML]: Attempting connection with missing mods [minecraft, mcp, FML, forge, dragonmounts, llibrary, jei] at CLIENT
+[00:37:52] [main/INFO] [FML]: Attempting connection with missing mods [minecraft, mcp, FML, forge, dragonmounts, llibrary, jei] at SERVER
+[00:37:54] [main/ERROR] [FML]: The mod llibrary is expecting signature b9f30a813bee3b9dd5652c460310cfcd54f6b7ec for source llibrary-1.7.14-1.12.2.jar, however there is no signature matching that description
+[00:37:55] [main/WARN] [LLibrary]: Detected invalid fingerprint for file llibrary-1.7.14-1.12.2.jar! You will not receive support with this tampered version of llibrary!
+[00:37:55] [main/INFO] [net.minecraft.client.resources.SimpleReloadableResourceManager]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Dragon Mounts, FMLFileResourcePack:LLibrary, FMLFileResourcePack:Just Enough Items
+[00:37:56] [main/INFO] [FML]: Processing ObjectHolder annotations
+[00:37:56] [main/INFO] [FML]: Found 1182 ObjectHolder annotations
+[00:37:56] [main/INFO] [FML]: Identifying ItemStackHolder annotations
+[00:37:56] [main/INFO] [FML]: Found 0 ItemStackHolder annotations
+[00:37:56] [main/INFO] [FML]: Configured a dormant chunk cache size of 0
+[00:37:56] [Forge Version Check/INFO] [forge.VersionCheck]: [llibrary] Starting version check at https://gist.githubusercontent.com/gegy1000/a6639456aeb8edd92cbf7cbfcf9d65d9/raw/llibrary_updates.json
+[00:37:58] [main/INFO] [LLibrary]: TabulaModelHandler: Domain llibrary has been added.
+[00:37:58] [Thread-3/INFO] [FML]: Using alternative sync timing : 200 frames of Display.update took 6059855687 nanos
+[00:37:59] [main/INFO] [dragonmounts]: Block Registries Successfully Registered
+[00:37:59] [main/INFO] [FML]: Applying holder lookups
+[00:37:59] [main/INFO] [FML]: Holder lookups applied
+[00:37:59] [main/INFO] [dragonmounts]: Item Registries Successfully Registered!
+[00:37:59] [main/INFO] [FML]: Applying holder lookups
+[00:37:59] [main/INFO] [FML]: Holder lookups applied
+[00:37:59] [main/INFO] [FML]: Applying holder lookups
+[00:37:59] [main/INFO] [FML]: Holder lookups applied
+[00:37:59] [main/INFO] [dragonmounts]: Models Sucessfully Registered
+[00:37:59] [main/INFO] [FML]: Applying holder lookups
+[00:37:59] [main/INFO] [FML]: Holder lookups applied
+[00:37:59] [main/INFO] [FML]: Injecting itemstacks
+[00:37:59] [main/INFO] [FML]: Itemstack injection complete
+[00:38:11] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Starting up SoundSystem...
+[00:38:11] [Thread-6/INFO] [net.minecraft.client.audio.SoundManager]: Initializing LWJGL OpenAL
+[00:38:11] [Thread-6/INFO] [net.minecraft.client.audio.SoundManager]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[00:38:12] [Thread-6/INFO] [net.minecraft.client.audio.SoundManager]: OpenAL initialized.
+[00:38:12] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Sound engine started
+[00:38:18] [Forge Version Check/INFO] [forge.VersionCheck]: [llibrary] Found status: OUTDATED Target: 1.7.18
+[00:38:18] [Forge Version Check/INFO] [forge.VersionCheck]: [forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
+[00:38:22] [main/ERROR] [FML]: Could not load override model dragonmounts:item/dragon_bow_sstorm_1 for model dragonmounts:models/item/dragon_bow_storm
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:item/dragon_bow_sstorm_1 with loader VanillaLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModelOrLogError(ModelLoaderRegistry.java:211) [ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaModelWrapper.getDependencies(ModelLoader.java:364) [ModelLoader$VanillaModelWrapper.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:182) [ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadItemModels(ModelLoader.java:302) [ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadVariantItemModels(ModelBakery.java:175) [ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:151) [ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
 	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
 	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
@@ -118,17 +156,389 @@ Duplicate Mods:
 	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
 	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
 	at GradleStart.main(GradleStart.java:25) [start/:?]
-[16:42:27] [main/WARN] [FML]: EventBus 0 shutting down - future events will not be posted.
-[16:42:27] [main/INFO] [net.minecraft.client.resources.SimpleReloadableResourceManager]: Reloading ResourceManager: Default
-[16:42:29] [main/WARN] [FML]: There were errors previously. Not beginning mod initialization phase
-[16:42:30] [Thread-3/INFO] [FML]: Using alternative sync timing : 200 frames of Display.update took 1126812793 nanos
-[16:42:37] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Starting up SoundSystem...
-[16:42:38] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: Initializing LWJGL OpenAL
-[16:42:38] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[16:42:38] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: OpenAL initialized.
-[16:42:38] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Sound engine started
-[16:42:40] [main/INFO] [com.mojang.text2speech.NarratorWindows]: Narrator library for x64 successfully loaded
-[16:42:43] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient]: Could not authorize you against Realms server: Invalid session id
-[16:43:52] [main/INFO] [net.minecraft.client.Minecraft]: Stopping!
-[16:43:52] [main/INFO] [net.minecraft.client.audio.SoundManager]: SoundSystem shutting down...
-[16:43:52] [main/WARN] [net.minecraft.client.audio.SoundManager]: Author: Paul Lamb, www.paulscode.com
+Caused by: java.io.FileNotFoundException: dragonmounts:models/item/dragon_bow_sstorm_1.json
+	at net.minecraft.client.resources.FallbackResourceManager.getResource(FallbackResourceManager.java:69) ~[FallbackResourceManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getResource(SimpleReloadableResourceManager.java:65) ~[SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadModel(ModelBakery.java:334) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.access$1400(ModelLoader.java:115) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaLoader.loadModel(ModelLoader.java:861) ~[ModelLoader$VanillaLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 23 more
+[00:38:22] [main/ERROR] [FML]: Could not load override model dragonmounts:item/dragon_bow_sstorm_2 for model dragonmounts:models/item/dragon_bow_storm
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:item/dragon_bow_sstorm_2 with loader VanillaLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModelOrLogError(ModelLoaderRegistry.java:211) [ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaModelWrapper.getDependencies(ModelLoader.java:364) [ModelLoader$VanillaModelWrapper.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:182) [ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadItemModels(ModelLoader.java:302) [ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadVariantItemModels(ModelBakery.java:175) [ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:151) [ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: java.io.FileNotFoundException: dragonmounts:models/item/dragon_bow_sstorm_2.json
+	at net.minecraft.client.resources.FallbackResourceManager.getResource(FallbackResourceManager.java:69) ~[FallbackResourceManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getResource(SimpleReloadableResourceManager.java:65) ~[SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadModel(ModelBakery.java:334) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.access$1400(ModelLoader.java:115) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaLoader.loadModel(ModelLoader.java:861) ~[ModelLoader$VanillaLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 23 more
+[00:38:22] [main/ERROR] [FML]: Could not load override model dragonmounts:item/dragon_bow_sstorm_0 for model dragonmounts:models/item/dragon_bow_storm
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:item/dragon_bow_sstorm_0 with loader VanillaLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModelOrLogError(ModelLoaderRegistry.java:211) [ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaModelWrapper.getDependencies(ModelLoader.java:364) [ModelLoader$VanillaModelWrapper.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:182) [ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadItemModels(ModelLoader.java:302) [ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadVariantItemModels(ModelBakery.java:175) [ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:151) [ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: java.io.FileNotFoundException: dragonmounts:models/item/dragon_bow_sstorm_0.json
+	at net.minecraft.client.resources.FallbackResourceManager.getResource(FallbackResourceManager.java:69) ~[FallbackResourceManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getResource(SimpleReloadableResourceManager.java:65) ~[SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadModel(ModelBakery.java:334) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.access$1400(ModelLoader.java:115) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaLoader.loadModel(ModelLoader.java:861) ~[ModelLoader$VanillaLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 23 more
+[00:38:25] [Forge Version Check/INFO] [forge.VersionCheck]: [forge] Found status: UP_TO_DATE Target: null
+[00:38:30] [main/INFO] [FML]: Max texture size: 16384
+[00:38:32] [main/INFO] [net.minecraft.client.renderer.texture.TextureMap]: Created: 1024x512 textures-atlas
+[00:38:33] [main/ERROR] [FML]: Exception loading model for variant dragonmounts:block_dragon_shulker#facing=south for blockstate "dragonmounts:block_dragon_shulker[facing=south]"
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:block_dragon_shulker#facing=south with loader VariantLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.registerVariant(ModelLoader.java:235) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadBlock(ModelBakery.java:153) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadBlocks(ModelLoader.java:223) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:150) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: net.minecraft.client.renderer.block.model.ModelBlockDefinition$MissingVariantException
+	at net.minecraft.client.renderer.block.model.ModelBlockDefinition.getVariant(ModelBlockDefinition.java:83) ~[ModelBlockDefinition.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VariantLoader.loadModel(ModelLoader.java:1175) ~[ModelLoader$VariantLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 21 more
+[00:38:33] [main/ERROR] [FML]: Exception loading blockstate for the variant dragonmounts:block_dragon_shulker#facing=south: 
+java.lang.Exception: Could not load model definition for variant dragonmounts:block_dragon_shulker
+	at net.minecraftforge.client.model.ModelLoader.getModelBlockDefinition(ModelLoader.java:269) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadBlock(ModelBakery.java:121) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadBlocks(ModelLoader.java:223) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:150) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: java.lang.RuntimeException: Encountered an exception when loading model definition of model dragonmounts:blockstates/block_dragon_shulker.json
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadMultipartMBD(ModelBakery.java:228) ~[ModelBakery.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.getModelBlockDefinition(ModelBakery.java:208) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.getModelBlockDefinition(ModelLoader.java:265) ~[ModelLoader.class:?]
+	... 20 more
+Caused by: java.io.FileNotFoundException: dragonmounts:blockstates/block_dragon_shulker.json
+	at net.minecraft.client.resources.FallbackResourceManager.getAllResources(FallbackResourceManager.java:104) ~[FallbackResourceManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getAllResources(SimpleReloadableResourceManager.java:79) ~[SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadMultipartMBD(ModelBakery.java:221) ~[ModelBakery.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.getModelBlockDefinition(ModelBakery.java:208) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.getModelBlockDefinition(ModelLoader.java:265) ~[ModelLoader.class:?]
+	... 20 more
+[00:38:33] [main/ERROR] [FML]: Exception loading model for variant dragonmounts:block_dragon_shulker#inventory for item "dragonmounts:block_dragon_shulker", normal location exception: 
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:item/block_dragon_shulker with loader VanillaLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadItemModels(ModelLoader.java:302) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadVariantItemModels(ModelBakery.java:175) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:151) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: java.io.FileNotFoundException: dragonmounts:models/item/block_dragon_shulker.json
+	at net.minecraft.client.resources.FallbackResourceManager.getResource(FallbackResourceManager.java:69) ~[FallbackResourceManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.getResource(SimpleReloadableResourceManager.java:65) ~[SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadModel(ModelBakery.java:334) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.access$1400(ModelLoader.java:115) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VanillaLoader.loadModel(ModelLoader.java:861) ~[ModelLoader$VanillaLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 20 more
+[00:38:33] [main/ERROR] [FML]: Exception loading model for variant dragonmounts:block_dragon_shulker#inventory for item "dragonmounts:block_dragon_shulker", blockstate location exception: 
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:block_dragon_shulker#inventory with loader VariantLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadItemModels(ModelLoader.java:296) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadVariantItemModels(ModelBakery.java:175) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:151) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: net.minecraft.client.renderer.block.model.ModelBlockDefinition$MissingVariantException
+	at net.minecraft.client.renderer.block.model.ModelBlockDefinition.getVariant(ModelBlockDefinition.java:83) ~[ModelBlockDefinition.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VariantLoader.loadModel(ModelLoader.java:1175) ~[ModelLoader$VariantLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 20 more
+[00:38:33] [main/ERROR] [FML]: Exception loading model for variant dragonmounts:block_dragon_shulker#facing=north for blockstate "dragonmounts:block_dragon_shulker[facing=north]"
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:block_dragon_shulker#facing=north with loader VariantLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.registerVariant(ModelLoader.java:235) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadBlock(ModelBakery.java:153) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadBlocks(ModelLoader.java:223) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:150) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: net.minecraft.client.renderer.block.model.ModelBlockDefinition$MissingVariantException
+	at net.minecraft.client.renderer.block.model.ModelBlockDefinition.getVariant(ModelBlockDefinition.java:83) ~[ModelBlockDefinition.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VariantLoader.loadModel(ModelLoader.java:1175) ~[ModelLoader$VariantLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 21 more
+[00:38:33] [main/ERROR] [FML]: Exception loading model for variant dragonmounts:block_dragon_shulker#facing=east for blockstate "dragonmounts:block_dragon_shulker[facing=east]"
+net.minecraftforge.client.model.ModelLoaderRegistry$LoaderException: Exception loading model dragonmounts:block_dragon_shulker#facing=east with loader VariantLoader.INSTANCE, skipping
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:161) ~[ModelLoaderRegistry.class:?]
+	at net.minecraftforge.client.model.ModelLoader.registerVariant(ModelLoader.java:235) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelBakery.loadBlock(ModelBakery.java:153) ~[ModelBakery.class:?]
+	at net.minecraftforge.client.model.ModelLoader.loadBlocks(ModelLoader.java:223) ~[ModelLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoader.setupModelRegistry(ModelLoader.java:150) ~[ModelLoader.class:?]
+	at net.minecraft.client.renderer.block.model.ModelManager.onResourceManagerReload(ModelManager.java:28) [ModelManager.class:?]
+	at net.minecraft.client.resources.SimpleReloadableResourceManager.registerReloadListener(SimpleReloadableResourceManager.java:121) [SimpleReloadableResourceManager.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:554) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: net.minecraft.client.renderer.block.model.ModelBlockDefinition$MissingVariantException
+	at net.minecraft.client.renderer.block.model.ModelBlockDefinition.getVariant(ModelBlockDefinition.java:83) ~[ModelBlockDefinition.class:?]
+	at net.minecraftforge.client.model.ModelLoader$VariantLoader.loadModel(ModelLoader.java:1175) ~[ModelLoader$VariantLoader.class:?]
+	at net.minecraftforge.client.model.ModelLoaderRegistry.getModel(ModelLoaderRegistry.java:157) ~[ModelLoaderRegistry.class:?]
+	... 21 more
+[00:38:33] [main/FATAL] [FML]: Suppressed additional 2 model loading errors for domain dragonmounts
+[00:38:36] [main/INFO] [FML]: Applying holder lookups
+[00:38:36] [main/INFO] [FML]: Holder lookups applied
+[00:38:36] [main/INFO] [dragonmounts]: Gui's Successfully Registered
+[00:38:36] [main/INFO] [FML]: Injecting itemstacks
+[00:38:36] [main/INFO] [FML]: Itemstack injection complete
+[00:38:36] [main/INFO] [jei]: Starting JEI...
+[00:38:37] [main/INFO] [jei]: Registering recipe categories...
+[00:38:37] [main/INFO] [jei]: Registering recipe categories took 68.91 ms
+[00:38:37] [main/INFO] [jei]: Registering mod plugins...
+[00:38:37] [main/INFO] [jei]: Registering mod plugins took 439.6 ms
+[00:38:37] [main/INFO] [jei]: Building recipe registry...
+[00:38:37] [main/INFO] [jei]: Building recipe registry took 197.0 ms
+[00:38:37] [main/INFO] [jei]: Building ingredient list...
+[00:38:37] [main/INFO] [jei]: Building ingredient list took 102.5 ms
+[00:38:37] [main/INFO] [jei]: Building ingredient filter...
+[00:38:38] [main/INFO] [jei]: Building ingredient filter took 410.2 ms
+[00:38:38] [main/INFO] [jei]: Building runtime...
+[00:38:38] [main/INFO] [jei]: Building runtime took 262.9 ms
+[00:38:38] [main/INFO] [jei]: Starting JEI took 2.066 s
+[00:38:38] [main/WARN] [FML]: Registry Item: Override did not have an associated owner object. Name: dragonmounts:dragon_bow_moonlight Value: com.TheRPGAdventurer.ROTD.server.items.bow.ItemDragonMoonlightBow@daa6654
+[00:38:38] [main/WARN] [FML]: Registry Item: Override did not have an associated owner object. Name: dragonmounts:dragon_bow_moonlight Value: com.TheRPGAdventurer.ROTD.server.items.bow.ItemDragonSkeletonBow@6fd33f5a
+[00:38:38] [main/INFO] [STDOUT]: [net.minecraft.init.Bootstrap:printToSYSOUT:629]: ---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 4/26/19 12:38 AM
+Description: Initializing game
+
+java.lang.RuntimeException: One of more entry values did not copy to the correct id. Check log for details!
+	at net.minecraftforge.registries.ForgeRegistry.sync(ForgeRegistry.java:555)
+	at net.minecraftforge.registries.GameData.loadRegistry(GameData.java:531)
+	at net.minecraftforge.registries.GameData.freezeData(GameData.java:237)
+	at net.minecraftforge.fml.common.Loader.initializeMods(Loader.java:753)
+	at net.minecraftforge.fml.client.FMLClientHandler.finishMinecraftLoading(FMLClientHandler.java:336)
+	at net.minecraft.client.Minecraft.init(Minecraft.java:576)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at net.minecraftforge.registries.ForgeRegistry.sync(ForgeRegistry.java:555)
+	at net.minecraftforge.registries.GameData.loadRegistry(GameData.java:531)
+	at net.minecraftforge.registries.GameData.freezeData(GameData.java:237)
+	at net.minecraftforge.fml.common.Loader.initializeMods(Loader.java:753)
+	at net.minecraftforge.fml.client.FMLClientHandler.finishMinecraftLoading(FMLClientHandler.java:336)
+	at net.minecraft.client.Minecraft.init(Minecraft.java:576)
+
+-- Initialization --
+Details:
+Stacktrace:
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 7 (amd64) version 6.1
+	Java Version: 1.8.0_201, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 195231744 bytes (186 MB) / 748158976 bytes (713 MB) up to 1720713216 bytes (1641 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP 9.42 Powered by Forge 14.23.5.2768 7 mods loaded, 7 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID           | Version      | Source                           | Signature |
+	|:------ |:------------ |:------------ |:-------------------------------- |:--------- |
+	| UCHIJA | minecraft    | 1.12.2       | minecraft.jar                    | None      |
+	| UCHIJA | mcp          | 9.42         | minecraft.jar                    | None      |
+	| UCHIJA | FML          | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2768.jar | None      |
+	| UCHIJA | forge        | 14.23.5.2768 | forgeSrc-1.12.2-14.23.5.2768.jar | None      |
+	| UCHIJA | llibrary     | 1.7.14       | llibrary-1.7.14-1.12.2.jar       | None      |
+	| UCHIJA | dragonmounts | 1.12.2-1.5.8 | dragonmounts2-1.12.2_main        | None      |
+	| UCHIJA | jei          | 4.13.1.225   | jei_1.12.2-4.13.1.225.jar        | None      |
+
+	Loaded coremods (and transformers): 
+llibrary (llibrary-core-1.0.6-1.12.2.jar)
+  net.ilexiconn.llibrary.server.core.plugin.LLibraryTransformer
+  net.ilexiconn.llibrary.server.core.patcher.LLibraryRuntimePatcher
+	GL info: ' Vendor: 'ATI Technologies Inc.' Version: '4.5.13399 Compatibility Profile Context 15.200.1062.1004' Renderer: 'AMD Radeon HD 8470D'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: AMD Radeon HD 8470D GL version 4.5.13399 Compatibility Profile Context 15.200.1062.1004, ATI Technologies Inc.
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 2x AMD A6-6400K APU with Radeon(tm) HD Graphics 
+[00:38:38] [main/INFO] [STDOUT]: [net.minecraft.init.Bootstrap:printToSYSOUT:629]: #@!@# Game crashed! Crash report saved to: #@!@# C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\crash-reports\crash-2019-04-26_00.38.38-client.txt

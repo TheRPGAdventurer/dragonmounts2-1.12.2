@@ -1508,23 +1508,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         super.dropFewItems(wasRecentlyHit, lootingModifier);
 
         // drop saddle if equipped
-        if (isSaddled() && !isTamed()) {
-            dropItem(Items.SADDLE, 1);
-        }
-
-        if (getArmor() != 0 && !isTamed()) {
-            switch (getArmor()) {
-                case (1): {
-                    dropItem(ModArmour.dragonarmor_iron, 1);
-                }
-                case (2): {
-                    dropItem(ModArmour.dragonarmor_gold, 1);
-                }
-                case (3): {
-                    dropItem(ModArmour.dragonarmor_diamond, 1);
-                }
-            }
-        }
+//        if (isSaddled() && !isTamed()) {
+//            dropItem(Items.SADDLE, 1);
+//        }
     }
 
     public ItemDragonEssence dragonEssence() {

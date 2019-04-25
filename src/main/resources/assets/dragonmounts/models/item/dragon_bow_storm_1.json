@@ -1,6 +1,6 @@
 {
-    "parent": "dragonmounts:item/dragon_bow_sstorm",
+    "parent": "dragonmounts:item/dragon_bow_storm",
     "textures": {
-        "layer0": "dragonmounts:items/bow/dragon_bow_sstorm_1"
+        "layer0": "dragonmounts:items/bow/dragon_bow_storm_1"
     }
 }

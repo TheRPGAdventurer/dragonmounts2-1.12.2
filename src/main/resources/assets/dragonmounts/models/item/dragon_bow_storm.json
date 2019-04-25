@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "dragonmounts:items/bow/dragon_bow_sstorm"
+        "layer0": "dragonmounts:items/bow/dragon_bow_storm"
     },
     "display": {
         "thirdperson_righthand": {
@@ -30,21 +30,21 @@
             "predicate": {
                 "pulling": 1
             },
-            "model": "dragonmounts:item/dragon_bow_sstorm_0"
+            "model": "dragonmounts:item/dragon_bow_storm_0"
         },
         {
             "predicate": {
                 "pulling": 1,
                 "pull": 0.65
             },
-            "model": "dragonmounts:item/dragon_bow_sstorm_1"
+            "model": "dragonmounts:item/dragon_bow_storm_1"
         },
         {
             "predicate": {
                 "pulling": 1,
                 "pull": 0.9
             },
-            "model": "dragonmounts:item/dragon_bow_sstorm_2"
+            "model": "dragonmounts:item/dragon_bow_storm_2"
         }
     ]
 }

@@ -187,6 +187,7 @@ public class ModTools {
 	//Shears Start
 	public static final ItemDiamondShears diamond_shears = new ItemDiamondShears(ToolMaterial.DIAMOND, "diamond_shears");
 	
+	//Bows Start
     public static final Item aether_dragon_bow = new ItemDragonAetherBow(EnumItemBreedTypes.AETHER, ModItems.AetherDragonScales);
     public static final Item forest_dragon_bow = new ItemDragonForestBow(EnumItemBreedTypes.FOREST, ModItems.ForestDragonScales);
     public static final Item fire_dragon_bow = new ItemDragonFireBow(EnumItemBreedTypes.FIRE, ModItems.FireDragonScales);

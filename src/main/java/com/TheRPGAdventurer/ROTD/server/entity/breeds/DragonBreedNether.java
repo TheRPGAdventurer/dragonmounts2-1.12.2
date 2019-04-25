@@ -1,27 +1,33 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
+import net.minecraft.init.Biomes;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 
 public class DragonBreedNether extends DragonBreed {
 
     DragonBreedNether() {
         super("nether", 0xe5b81b);
+        setHabitatBiome(Biomes.HELL);
         
-        addImmunity(DamageSource.IN_FIRE);
-        addImmunity(DamageSource.ON_FIRE);
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);          
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);          
         
     }
 
@@ -49,10 +55,10 @@ public class DragonBreedNether extends DragonBreed {
         }
     }
     
-	@Override
-	public boolean canChangeBreed() {
-		return false;
-	}
+//	@Override
+//	public boolean canChangeBreed() {
+//		return false;
+//	}
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
@@ -65,5 +71,39 @@ public class DragonBreedNether extends DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforNetherDragon(world, power, tickCounter);
     }
+	
+	@Override
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
+		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_NETHER : DragonMountsLootTables.ENTITIES_DRAGON_NETHER2;
+	}
+	
+	@Override
+	public void onLivingUpdate(EntityTameableDragon dragon) {
+		World world = dragon.world;
+		if (world instanceof WorldServer && dragon.isWet() &&  !dragon.isEgg()) {
+			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, dragon.posX + 0.5D,
+					dragon.posY + dragon.getEyeHeight(), dragon.posZ + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
+		}
+		
+		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
+			((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_LAVA, dragon.posX,
+					dragon.posY + dragon.getEyeHeight(), dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+		}
+	}
+	
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
+	
+	@Override
+	public Item getShearDropitem(EntityTameableDragon dragon) {		
+		return dragon.isMale() ? ModItems.NetherDragonScales : ModItems.NetherDragonScales2;
+	}
+
+	@Override
+	public double getHealth() {
+		return 190;
+	}
     
 }

@@ -1,6 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
-import com.TheRPGAdventurer.ROTD.client.model.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
@@ -21,9 +21,9 @@ import net.minecraft.util.math.Vec3d;
 */
 public class DragonHeadPositionHelper {
 	
-  private SegmentSizePositionRotation[] neckSegments;
-  private SegmentSizePositionRotation head;
-  private SegmentSizePositionRotation neck;  //not required?  not sure.
+  public SegmentSizePositionRotation[] neckSegments;
+  public SegmentSizePositionRotation head;
+  public SegmentSizePositionRotation neck;  //not required?  not sure.
 
   private EntityTameableDragon dragon;
   private final int NUMBER_OF_NECK_SEGMENTS;
@@ -63,14 +63,14 @@ public class DragonHeadPositionHelper {
       float vertMulti = (i + 1) / (float)NUMBER_OF_NECK_SEGMENTS;
 
       float baseRotX = MathX.cos((float) i * 0.45f + animBase) * 0.15f;
-      baseRotX *= MathX.lerp(0.2f, 1, flutter);
+      if(!dragon.isUsingBreathWeapon()) baseRotX *= MathX.lerp(0.2f, 1, flutter);
       baseRotX *= MathX.lerp(1, 0.2f, sit);
-      float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.75f;
+      float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.63f;
 
       // basic up/down movement
       currentSegment.rotateAngleX = baseRotX;
       // reduce rotation when on ground
-      currentSegment.rotateAngleX *= MathX.slerp(1, 0.5f, walk);
+      currentSegment.rotateAngleX *= MathX.slerp(1f, 0.5f, walk); // 1 != 0.8f
       // flex neck down when hovering
       currentSegment.rotateAngleX += (1 - speed) * vertMulti;
       // lower neck on low health

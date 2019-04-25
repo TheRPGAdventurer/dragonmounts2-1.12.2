@@ -3,11 +3,16 @@
   "category": "dragon_growl",
     "sounds": [
       "dragonmounts:mob/dragon/growl",
-      "dragonmounts:mob/dragon/growl1",
-      "dragonmounts:mob/dragon/growl2",
-      "dragonmounts:mob/dragon/growl3",
-	  "dragonmounts:mob/dragon/growl4",
-	  "dragonmounts:mob/dragon/growl5"
+      "dragonmounts:mob/dragon/growl1"
+    ]
+  },
+    "mob.dragon.roar": {
+  "category": "dragon_roar",
+    "sounds": [
+      "dragonmounts:mob/dragon/roar",
+      "dragonmounts:mob/dragon/roar1",
+	   "dragonmounts:mob/dragon/roar2",
+	   "dragonmounts:mob/dragon/roar3"
     ]
   },
   
@@ -18,6 +23,15 @@
       "dragonmounts:mob/dragon/nethergrowl1",
       "dragonmounts:mob/dragon/nethergrowl2",
 	  "dragonmounts:mob/dragon/nethergrowl3"
+    ]
+  },
+  
+    "mob.dragon.zombiegrowl": {
+  "category": "zombie_dragon_growl",
+    "sounds": [
+      "dragonmounts:mob/dragon/zombiegrowl",
+      "dragonmounts:mob/dragon/zombiegrowl1",
+      "dragonmounts:mob/dragon/zombiegrowl2"
     ]
   },
   
@@ -43,6 +57,12 @@
       }
     ]
   },
+    "mob.dragon.sneeze": {
+    "category": "dragon_sneeze",
+    "sounds": [
+      "dragonmounts:mob/dragon/sneeze"
+    ]
+  },
   "mob.dragon.step": {
     "category": "dragon_step",
     "sounds": [
@@ -56,6 +76,37 @@
     "category": "dragon_death",
     "sounds": [
       "dragonmounts:mob/dragon/death"
+    ]
+  },
+     "mob.dragon.zombiedeath": {
+    "category": "dragon_zombie_death",
+    "sounds": [
+      "dragonmounts:mob/dragon/zombiedeath"
+    ]
+  },
+    "mob.dragon.hatched": {
+  "category": "dragon_hatched",
+  "sounds": [
+      "dragonmounts:mob/dragon/hatched"
+    ]
+  },
+  "mob.dragon.hatching": {
+  "category": "dragon_hatching",
+  "sounds": [
+    "dragonmounts:mob/dragon/hatching1",
+    "dragonmounts:mob/dragon/hatching2"
+    ]
+  },
+  "mob.dragon.whistle": {
+  "category": "dragon_whistle",
+  "sounds": [
+      "dragonmounts:mob/dragon/whistle"
+    ]
+  },
+  "mob.dragon.whistle1": {
+  "category": "dragon_whistle1",
+  "sounds": [
+      "dragonmounts:mob/dragon/whistle1"
     ]
   },
   "mob.dragon.breathweapon.adultbreathefirestart": {

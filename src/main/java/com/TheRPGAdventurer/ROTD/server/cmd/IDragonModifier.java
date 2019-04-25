@@ -9,21 +9,20 @@
  */
 package com.TheRPGAdventurer.ROTD.server.cmd;
 
-import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.WorldServer;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+
+import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 
 /**
  *

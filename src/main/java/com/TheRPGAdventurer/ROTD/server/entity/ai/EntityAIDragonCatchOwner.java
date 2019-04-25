@@ -36,6 +36,10 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
         
+        if(!dragon.isSaddled()) {
+        	return false;
+        }
+        
         owner = (EntityPlayer) dragon.getOwner();
         
         // don't catch if ownerless 
@@ -53,20 +57,21 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
         
+        // don't follow if sitting
+        if (dragon.isSitting()) {
+        	return false;
+        }
+        
+        dragon.setBoosting(dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale());
+        
         // don't catch if owner has a working Elytra equipped
         // note: isBroken() is misleading, it actually checks if the items is usable
         ItemStack itemStack = owner.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (itemStack != null && itemStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemStack)) {
             return false;
-        }
-        
-        // don't catch if owner is too far away
-        double followRange = getFollowRange();
-        if (dragon.getDistanceToEntity(owner) > followRange) {
-            return false;
-        }
+        }    
                 
-        return owner.fallDistance > 4;
+        return false;
     }
 
     @Override
@@ -76,16 +81,22 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
     
     @Override
     public void updateTask() {
+    	
         // catch owner in flight if possible
         if (!dragon.isFlying()) {
             dragon.liftOff();
         }
         
-        // mount owner if close enough, otherwise move to owner
-        if (dragon.getDistanceToEntity(owner) < dragon.width) {
-            owner.startRiding(dragon);
-        } else {
-            dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
+        // don't catch if owner is too far away
+        double followRange = getFollowRange();
+        if (dragon.getDistanceToEntity(owner) < followRange) {
+          // mount owner if close enough, otherwise move to owner
+           if (dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale()) {
+              owner.startRiding(dragon);
+              dragon.setBoosting(dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale());
+           } else {
+              dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
+           }
         }
     }
 }

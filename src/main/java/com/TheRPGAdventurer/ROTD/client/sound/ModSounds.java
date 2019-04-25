@@ -30,6 +30,30 @@ public class ModSounds {
 	@ObjectHolder("mob.dragon.skeletongrowl")
 	public static final SoundEvent ENTITY_SKELETON_DRAGON_GROWL = createSoundEvent("mob.dragon.skeletongrowl");
 	
+	@ObjectHolder("mob.dragon.zombiedeath")
+	public static final SoundEvent ZOMBIE_DRAGON_DEATH = createSoundEvent("mob.dragon.zombiedeath");
+	
+	@ObjectHolder("mob.dragon.zombiegrowl")
+	public static final SoundEvent ZOMBIE_DRAGON_GROWL = createSoundEvent("mob.dragon.zombiegrowl");
+	
+	@ObjectHolder("mob.dragon.sneeze")
+	public static final SoundEvent DRAGON_SNEEZE = createSoundEvent("mob.dragon.sneeze");
+	
+	@ObjectHolder("mob.dragon.hatched")
+	public static final SoundEvent DRAGON_HATCHED = createSoundEvent("mob.dragon.hatched");
+	
+	@ObjectHolder("mob.dragon.hatching")
+	public static final SoundEvent DRAGON_HATCHING = createSoundEvent("mob.dragon.hatching");
+	
+	@ObjectHolder("mob.dragon.whistle")
+	public static final SoundEvent DRAGON_WHISTLE = createSoundEvent("mob.dragon.whistle");
+	
+	@ObjectHolder("mob.dragon.whistle1")
+	public static final SoundEvent DRAGON_WHISTLE1 = createSoundEvent("mob.dragon.whistle1");
+	
+	@ObjectHolder("mob.dragon.roar")
+	public static final SoundEvent DRAGON_ROAR = createSoundEvent("mob.dragon.roar");
+	
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(DragonMounts.MODID, soundName);
 		return new SoundEvent(soundID).setRegistryName(soundID);
@@ -45,8 +69,15 @@ public class ModSounds {
 					ENTITY_DRAGON_DEATH,
 					ENTITY_DRAGON_GROWL,
 					ENTITY_NETHER_DRAGON_GROWL,
-					ENTITY_SKELETON_DRAGON_GROWL
-					
+					ENTITY_SKELETON_DRAGON_GROWL,
+					ZOMBIE_DRAGON_GROWL,
+					ZOMBIE_DRAGON_DEATH,
+					DRAGON_SNEEZE,
+					DRAGON_HATCHED,
+					DRAGON_HATCHING,
+					DRAGON_WHISTLE,
+					DRAGON_WHISTLE1,
+					DRAGON_ROAR
 			);
 		}
 	}

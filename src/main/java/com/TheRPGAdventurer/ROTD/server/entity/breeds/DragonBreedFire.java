@@ -9,10 +9,13 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
-import net.minecraft.init.Biomes;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 
 /**
  *
@@ -23,15 +26,16 @@ public class DragonBreedFire extends DragonBreed {
     public DragonBreedFire() {
         super("fire",0x960b0f);
         
-        addImmunity(DamageSource.IN_FIRE);
-        addImmunity(DamageSource.ON_FIRE);
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
         
-        addHabitatBiome(Biomes.DESERT);
-        addHabitatBiome(Biomes.DESERT_HILLS);
+        setHabitatBlock(Blocks.FIRE);
+        setHabitatBlock(Blocks.LIT_FURNACE);
+        setHabitatBlock(Blocks.LAVA);
+        setHabitatBlock(Blocks.FLOWING_LAVA);
+
     }
 
     @Override
@@ -48,5 +52,16 @@ public class DragonBreedFire extends DragonBreed {
 	public void onDeath(EntityTameableDragon dragon) {		
 		
 	}
+	
+	@Override
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {		
+		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
+	}
+	
+    @Override
+    public Item getShearDropitem(EntityTameableDragon dragon) {    	
+    	return dragon.isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
+    }
+    
 	
 }

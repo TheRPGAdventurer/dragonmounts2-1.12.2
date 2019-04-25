@@ -1,14 +1,11 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
+import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -16,11 +13,18 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
+import javax.annotation.Nullable;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Base class for dragon breeds.
@@ -34,24 +38,27 @@ public abstract class DragonBreed {
     private final Set<Block> breedBlocks = new HashSet<>();
     private final Set<Biome> biomes = new HashSet<>();
     protected final Random rand = new Random();
+    public static SoundEffectNames [] soundEffectNames;
     
     DragonBreed(String skin, int color) {
         this.skin = skin;
         this.color = color;
         
         // ignore suffocation damage
-//        addImmunity(DamageSource.DROWN);
-        addImmunity(DamageSource.IN_WALL);
+        setImmunity(DamageSource.DROWN);
+        setImmunity(DamageSource.IN_WALL);
+        
+        setImmunity(DamageSource.ON_FIRE);
+        setImmunity(DamageSource.IN_FIRE);
+        setImmunity(DamageSource.LAVA);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.HOT_FLOOR);
         
         // assume that cactus needles don't do much damage to animals with horned scales
-        addImmunity(DamageSource.CACTUS);        
+        setImmunity(DamageSource.CACTUS);        
         
         // ignore damage from vanilla ender dragon
-        addImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
-    }
-    
-    public static double getBreedHealth() {
-    	return 85;
+        setImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
     }
   
     public String getSkin() {
@@ -78,7 +85,7 @@ public abstract class DragonBreed {
         return (color & 0xFF) / 255f;
     }
     
-    protected final void addImmunity(DamageSource dmg) {
+    protected final void setImmunity(DamageSource dmg) {
         immunities.add(dmg.damageType);
     }
     
@@ -90,7 +97,7 @@ public abstract class DragonBreed {
         return immunities.contains(dmg.damageType);
     }
     
-    protected final void addHabitatBlock(Block block) {
+    protected final void setHabitatBlock(Block block) {
         breedBlocks.add(block);
     }
     
@@ -98,7 +105,7 @@ public abstract class DragonBreed {
         return breedBlocks.contains(block);
     }
     
-    protected final void addHabitatBiome(Biome biome) {
+    protected final void setHabitatBiome(Biome biome) {
         biomes.add(biome);
     }
     
@@ -112,10 +119,18 @@ public abstract class DragonBreed {
    
     public Item[] getFoodItems() {
         return new Item[] { Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH, 
-        		Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.CARROT, Items.COOKED_FISH,
+        		Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.COOKED_FISH,
         		Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP,
         		Items.COOKED_RABBIT, Items.FISH, Items.COOKED_FISH, Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS,
-        		Items.MELON_SEEDS};
+        		Items.MELON_SEEDS, Items.MUTTON, Items.RABBIT_STEW};
+    }
+
+    public Item[] getShrinkingFood() {
+        return new Item[] {Items.POISONOUS_POTATO};
+    }
+
+    public Item[] getGrowingFood() {
+        return new Item[] {Items.CARROT};
     }
     
     public Item getBreedingItem() {
@@ -188,6 +203,11 @@ public abstract class DragonBreed {
         }
     }
     
+    public SoundEvent getRoarSoundEvent() {
+					return ModSounds.DRAGON_ROAR;
+    	
+    }
+    
     public SoundEvent getHurtSound() {
         return SoundEvents.ENTITY_ENDERDRAGON_HURT;
     }
@@ -217,14 +237,14 @@ public abstract class DragonBreed {
     }
 
     public float getSoundVolume(SoundEvent sound) {
-        return 2;
+        return 1.5f;
     }
     
     public boolean canChangeBreed() {
     	return true;
     }
     
-    public boolean canBreathFire() {
+    public boolean canUseBreathWeapon() {
     	return true;
     }
     
@@ -248,6 +268,69 @@ public abstract class DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticles(world, power, tickCounter); 
     }
+    
+    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+    	final SoundEffectNames hatchling[] = {SoundEffectNames.HATCHLING_BREATHE_FIRE_START,
+                SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP,
+                SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
+
+        final SoundEffectNames juvenile[] = {SoundEffectNames.JUVENILE_BREATHE_FIRE_START,
+                SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP,
+                SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
+
+        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_FIRE_START,
+            SoundEffectNames.ADULT_BREATHE_FIRE_LOOP,
+            SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
+    	
+    	switch(stage) {
+		case ADULT:
+			soundEffectNames = adult;
+			break;
+		case EGG:
+			break;
+		case HATCHLING:
+			soundEffectNames = hatchling;
+			break;
+		case JUVENILE:
+			soundEffectNames = juvenile;       
+			break;
+		default:
+			break;    	
+    	}
+    	
+		return soundEffectNames;
+    
+   }   
+    
+    @Nullable
+    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
+    	return null;
+    }
+
+	public void onLivingUpdate(EntityTameableDragon dragon) {	
+		
+	}
+	
+	public boolean isInfertile() {
+		return false;
+	}
+	
+	@Nullable
+	public Item getShearDropitem(EntityTameableDragon dragon) {
+		return null;
+	}
+	
+	public SoundEvent getSneezeSound() {
+		return ModSounds.DRAGON_SNEEZE;
+	}
+	
+	public EnumParticleTypes getSneezeParticle() {
+		return EnumParticleTypes.SMOKE_LARGE;
+	}
+	
+	public double getHealth() {
+		return 170;
+	}
 
 }
 

@@ -1,11 +1,15 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -16,12 +20,10 @@ public class DragonBreedEnd extends DragonBreed {
     DragonBreedEnd() {
         super("ender", 0xab39be);
         
-        addImmunity(DamageSource.IN_FIRE);
-        addImmunity(DamageSource.ON_FIRE);
-        addImmunity(DamageSource.MAGIC);
-        addImmunity(DamageSource.HOT_FLOOR);
-        addImmunity(DamageSource.LIGHTNING_BOLT);
-        addImmunity(DamageSource.WITHER);
+        setImmunity(DamageSource.MAGIC);
+        setImmunity(DamageSource.HOT_FLOOR);
+        setImmunity(DamageSource.LIGHTNING_BOLT);
+        setImmunity(DamageSource.WITHER);
         
     }
 
@@ -36,11 +38,12 @@ public class DragonBreedEnd extends DragonBreed {
     
     @Override
     public SoundEvent getLivingSound() {
-        if (rand.nextInt(3) == 0) {
-            return SoundEvents.ENTITY_ENDERDRAGON_GROWL;
-        } else {
-        	return ModSounds.ENTITY_DRAGON_BREATHE;
-        }
+       return ModSounds.ENTITY_DRAGON_BREATHE;   
+    }
+    
+    @Override
+    public SoundEvent getRoarSoundEvent() {
+    return SoundEvents.ENTITY_ENDERDRAGON_GROWL;
     }
     
 	@Override
@@ -59,6 +62,22 @@ public class DragonBreedEnd extends DragonBreed {
 		dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
 		dragon.getBreathHelper().getEmitter().spawnBreathParticlesforEnderDragon(world, power, tickCounter);
     }
+	
+	@Override
+	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
+		return DragonMountsLootTables.ENTITIES_DRAGON_END;
+	}
+	
+//	@Override
+//	public boolean isInfertile() {
+//		return true;
+//	}
+	
+    @Override
+    public Item getShearDropitem(EntityTameableDragon dragon) {    	
+    	return ModItems.EnderDragonScales;
+    }
+    
     
 }
 	

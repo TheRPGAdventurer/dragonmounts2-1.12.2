@@ -1,5 +1,5 @@
 /*
-** 2016 März 15
+** 2016 MÃ¤rz 15
 **
 ** The author disclaims copyright to this source code. In place of
 ** a legal notice, here is a blessing:
@@ -15,7 +15,9 @@ import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -28,20 +30,18 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     protected EntityTameableDragon dragon;
     protected World world;
     protected Random random;
+    
+    protected EntityPlayer rider;
 
     public EntityAIDragonBase(EntityTameableDragon dragon) {
         this.dragon = dragon;
         this.world = dragon.world;
-        this.random = dragon.getRNG();
+        this.random = dragon.getRNG(); 
+        rider = dragon.getControllingPlayer();
     }
     
     protected boolean tryMoveToBlockPos(BlockPos pos, double speed) {
         return dragon.getNavigator().tryMoveToXYZ(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, speed);
-    }
-    
-    protected boolean tryToCircleBlockPos(BlockPos pos, double speed) {
-		return false;
-    	
     }
     
     protected double getFollowRange() {

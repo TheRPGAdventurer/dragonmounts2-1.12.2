@@ -1,13 +1,13 @@
 package com.TheRPGAdventurer.ROTD.server.util;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 /**
  * Created by TGG on 8/07/2015.
@@ -46,7 +46,7 @@ public class RayTraceServer {
     Vec3d endOfLookDelta = endOfLook.subtract(positionEyes);
     searchBox = searchBox.grow(endOfLookDelta.x, endOfLookDelta.y, endOfLookDelta.z); //add
     searchBox = searchBox.expand(EXPAND_SEARCH_BOX_BY, EXPAND_SEARCH_BOX_BY, EXPAND_SEARCH_BOX_BY);
-    List<Entity> nearbyEntities = (List<Entity>) world.getEntitiesWithinAABBExcludingEntity(
+    List<Entity> nearbyEntities = world.getEntitiesWithinAABBExcludingEntity(
             entityPlayerSP, searchBox);
     Entity closestEntityHit = null;
     double closestEntityDistanceSQ = Double.MAX_VALUE;

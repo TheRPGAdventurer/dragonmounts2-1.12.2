@@ -9,12 +9,15 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
+import java.util.Random;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.EntityAgeable;
@@ -104,7 +107,7 @@ public class DragonReproductionHelper extends DragonHelper  {
     }
     
     public boolean canReproduce() {
-        return dragon.isTamed() && getReproCount() < REPRO_LIMIT;
+        return dragon.isTamed() && getReproCount() < REPRO_LIMIT && !dragon.getBreed().isInfertile() && DragonMountsConfig.allowBreeding;
     }
     
     public Optional<UUID> getBreederID() {
@@ -137,6 +140,8 @@ public class DragonReproductionHelper extends DragonHelper  {
             return false;
         } else if (!canReproduce()) {
             return false;
+        } else if(!dragon.isTamed()) {
+           	return false;
         }
         
         EntityTameableDragon dragonMate = (EntityTameableDragon) mate;
@@ -158,55 +163,56 @@ public class DragonReproductionHelper extends DragonHelper  {
         EntityTameableDragon parent1 = dragon;
         EntityTameableDragon parent2 = (EntityTameableDragon) mate;
         EntityTameableDragon baby = new EntityTameableDragon(dragon.world);
-
+        
         // mix the custom names in case both parents have one
-        if (parent1.hasCustomName() && parent2.hasCustomName()) {
-            String p1Name = parent1.getCustomNameTag();
-            String p2Name = parent2.getCustomNameTag();
-            String babyName;
+            if (parent1.hasCustomName() && parent2.hasCustomName()) {
+                String p1Name = parent1.getCustomNameTag();
+                String p2Name = parent2.getCustomNameTag();
+                String babyName;
 
-            if (p1Name.contains(" ") || p2Name.contains(" ")) {
-                // combine two words with space
-                // "Tempor Invidunt Dolore" + "Magna"
-                // = "Tempor Magna" or "Magna Tempor"
-                String[] p1Names = p1Name.split(" ");
-                String[] p2Names = p2Name.split(" ");
+                if (p1Name.contains(" ") || p2Name.contains(" ")) {
+                    // combine two words with space
+                    // "Tempor Invidunt Dolore" + "Magna"
+                    // = "Tempor Magna" or "Magna Tempor"
+                    String[] p1Names = p1Name.split(" ");
+                    String[] p2Names = p2Name.split(" ");
 
-                p1Name = fixChildName(p1Names[rand.nextInt(p1Names.length)]);
-                p2Name = fixChildName(p2Names[rand.nextInt(p2Names.length)]);
+                    p1Name = fixChildName(p1Names[rand.nextInt(p1Names.length)]);
+                    p2Name = fixChildName(p2Names[rand.nextInt(p2Names.length)]);
 
-                babyName = rand.nextBoolean() ? p1Name + " " + p2Name : p2Name + " " + p1Name;
-            } else {
-                // scramble two words
-                // "Eirmod" + "Voluptua"
-                // = "Eirvolu" or "Volueir" or "Modptua" or "Ptuamod" or ...
-                if (rand.nextBoolean()) {
-                    p1Name = p1Name.substring(0, (p1Name.length() - 1) / 2);
+                    babyName = rand.nextBoolean() ? p1Name + " " + p2Name : p2Name + " " + p1Name;
                 } else {
+                 // scramble two words
+                 // "Eirmod" + "Voluptua"
+                 // = "Eirvolu" or "Volueir" or "Modptua" or "Ptuamod" or ...
+                 if (rand.nextBoolean()) {
+                      p1Name = p1Name.substring(0, (p1Name.length() - 1) / 2);
+                 } else {
                     p1Name = p1Name.substring((p1Name.length() - 1) / 2);
-                }
+                 }
 
-                if (rand.nextBoolean()) {
-                    p2Name = p2Name.substring(0, (p2Name.length() - 1) / 2);
-                } else {
-                    p2Name = p2Name.substring((p2Name.length() - 1) / 2);
-                }
+                 if (rand.nextBoolean()) {
+                     p2Name = p2Name.substring(0, (p2Name.length() - 1) / 2);
+                 } else {
+                     p2Name = p2Name.substring((p2Name.length() - 1) / 2);
+                 }
 
-                p2Name = fixChildName(p2Name);
-
-                babyName = rand.nextBoolean() ? p1Name + p2Name : p2Name + p1Name;
+                 p2Name = fixChildName(p2Name);
+                 babyName = rand.nextBoolean() ? p1Name + p2Name : p2Name + p1Name;
             }
 
             baby.setCustomNameTag(babyName);
-        }
+        }       
         
         // inherit the baby's breed from its parents
-        baby.getBreedHelper().inheritBreed(parent1, parent2);
+//      dragon.getBreedHelper().inheritBreed(parent1, parent2)
+        baby.setBreedType(inheritRandombreed(parent1, parent2));
         
         // increase reproduction counter
         parent1.getReproductionHelper().addReproduced();
         parent2.getReproductionHelper().addReproduced();
-
+     
+      
         return baby;
     }
     
@@ -228,5 +234,18 @@ public class DragonReproductionHelper extends DragonHelper  {
         }
         
         return nameNew;
+    }
+    
+    public EnumDragonBreed inheritRandombreed(EntityTameableDragon parent1, EntityTameableDragon parent2) {
+        Random rand = new Random();
+        EnumDragonBreed babyBreed = null;
+        int i = rand.nextInt(10);
+        if(i < 5) {
+        	return babyBreed = parent1.getBreedType();
+        } else if(i < 10) {
+        	return babyBreed = parent2.getBreedType();
+        }
+        
+		return babyBreed;
     }
 }

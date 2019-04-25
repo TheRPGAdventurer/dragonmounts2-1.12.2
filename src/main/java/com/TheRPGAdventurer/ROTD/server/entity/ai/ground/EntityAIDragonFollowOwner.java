@@ -11,13 +11,10 @@ package com.TheRPGAdventurer.ROTD.server.entity.ai.ground;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
-
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.pathfinding.WalkNodeProcessor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 /**
@@ -59,11 +56,17 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return false;
         }
 
+        if (ownerCurrent instanceof EntityPlayer) {
+            if (((EntityPlayer) ownerCurrent).isSpectator()) {
+                return false;
+            }
+        }
+
         if (dragon.isSitting()) {
             return false;
         }
 
-        if (dragon.getDistanceSqToEntity(ownerCurrent) < minDist * minDist) {
+        if (dragon.getDistanceToEntity(ownerCurrent) < minDist && dragon.isAdult()) {
             return false;
         }
 
@@ -81,6 +84,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         }
 
         if (dragon.isSitting()) {
+            return false;
+        }
+
+        if (dragon.getDistanceToEntity(owner) < minDist) {
             return false;
         }
 
@@ -130,7 +137,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return;
         }
 
-        // face towards owner
+        // look towards owner
         dragon.getLookHelper().setLookPositionWithEntity(owner, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
 
         // update every 10 ticks only from here
@@ -149,36 +156,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return;
         }
 
-        // teleport only the owner is far enough
-        if (dragon.getDistanceSqToEntity(owner) < maxDist * maxDist) {
-            return;
-        }
+//        if(dragon.getDistanceSqToEntity(owner) > maxDist * maxDist) dragon.comeToPlayerFlying(owner.getPosition(), (EntityLivingBase) owner);
 
-        // teleport dragon near owner
- //       int minX = MathHelper.floor_double(owner.posX) - 2;
- //       int minZ = MathHelper.floor_double(owner.posZ) - 2;
- //       int minY = MathHelper.floor_double(owner.getEntityBoundingBox().minY);
-
-          // copied from vanilla EntityAIFollowOwner
-        // search for a position 2 blocks away from owner which is on a solid surface and has space above.
-        //  doesn't account for the dragon's size, but never mind
-  //      for (int bx = 0; bx <= 4; ++bx) {
-   //         for (int bz = 0; bz <= 4; ++bz) {
-   //             if (bx < 1 || bz < 1 || bx > 3 || bz > 3) {
-   //                 if (World.doesBlockHaveSolidTopSurface(world, new BlockPos(minX + bx, minY - 1, minZ + bz))) {
-   //                     BlockPos testPos = new BlockPos(minX + bx, minY, minZ + bz);
-   //                     if (world.getBlockState(testPos).getBlock().isPassable(world, testPos)) {
-   //                        testPos = new BlockPos(minX + bx, minY + 1, minZ + bz);
-    //                        if (world.getBlockState(testPos).getBlock().isPassable(world, testPos)) {
-    //                            dragon.setLocationAndAngles(minX + bx + 0.5, minY, minZ + bz + 0.5,
-     //                                   dragon.rotationYaw, dragon.rotationPitch);
-     //                           nav.clearPathEntity();
-     //                           return;
-       //                     }
-         //               }
-           //         }
-             //   }
-          //  }
-      //  }
     }
 }

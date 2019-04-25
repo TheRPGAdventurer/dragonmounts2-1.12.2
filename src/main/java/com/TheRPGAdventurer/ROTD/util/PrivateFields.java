@@ -23,6 +23,7 @@ public class PrivateFields {
     public static final String[] ENTITYLIVING_LOOKHELPER = new String[] {"lookHelper", "field_70749_g"};
     public static final String[] ENTITYRENDERER_THIRDPERSONDISTANCE = new String[] {"thirdPersonDistance", "field_78490_B"};
     public static final String[] GUIMAINMENU_SPLASHTEXT = new String[] {"splashText", "field_73975_c"};
+//    public static final String RECENTLY_HIT = "recentlyHit","field_70718_bc"};
     public static final String[] x = new String[] {"splashText", "field_73975_c"};
 
     private PrivateFields() {

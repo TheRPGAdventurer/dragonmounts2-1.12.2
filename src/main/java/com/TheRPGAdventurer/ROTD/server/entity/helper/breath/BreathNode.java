@@ -1,12 +1,11 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Random;
 
 /**
  * Created by TGG on 30/07/2015.
@@ -99,7 +98,7 @@ public class BreathNode {
 
     // collision ages breath node faster
     if (parentEntity.isCollided) {
-      ageTicks += 5;
+      ageTicks += 4;
     }
 
     // slow breath nodes age very fast (they look silly when sitting still)
@@ -188,24 +187,24 @@ public class BreathNode {
     power = newPower;
     switch (newPower) {
       case SMALL: {
-        speedPowerFactor = 0.25F;
-        lifetimePowerFactor = 0.25F;
-        sizePowerFactor = 0.25F;
-        intensityPowerFactor = 0.10F;
+        speedPowerFactor = 1.8F;
+        lifetimePowerFactor = 0.55F;
+        sizePowerFactor = 1.25F;
+        intensityPowerFactor = 1.0F;
         break;
       }
       case MEDIUM: {
-        speedPowerFactor = 0.5F;
-        lifetimePowerFactor = 0.5F;
-        sizePowerFactor = 0.5F;
-        intensityPowerFactor = 0.25F;
+        speedPowerFactor = 3.95F;
+        lifetimePowerFactor = 0.7F;
+        sizePowerFactor = 2.0F;
+        intensityPowerFactor = 1.2F;
         break;
       }
       case LARGE: {
-        speedPowerFactor = 1.0F;
-        lifetimePowerFactor = 1.0F;
-        sizePowerFactor = 1.0F;
-        intensityPowerFactor = 1.0F;
+        speedPowerFactor = 4.0F;
+        lifetimePowerFactor = 0.8F;
+        sizePowerFactor = 3.25F;
+        intensityPowerFactor = 1.4F;
         break;
       }
 

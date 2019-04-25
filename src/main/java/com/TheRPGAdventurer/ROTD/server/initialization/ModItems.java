@@ -142,6 +142,7 @@ public class ModItems {
     public static final Item terra_dragon_bow = new ItemDragonTerraBow(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
 //    public static final Item terra2_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
     public static final Item moonlight_dragon_bow = new ItemDragonMoonlightBow(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
+//    public static final Item storm_dragon_bow2 = new ItemDragonMoonlightBow(EnumItemBreedTypes.ST, ModItems.MoonlightDragonScales);
     public static final Item skelton_dragon_bow = new ItemDragonSkeletonBow(EnumItemBreedTypes.MOONLIGHT, Items.BONE);
     public static final Item zombie_dragon_bow = new ItemDragonZombieBow(EnumItemBreedTypes.MOONLIGHT, Items.BONE);
 

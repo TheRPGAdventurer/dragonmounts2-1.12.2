@@ -1,0 +1,566 @@
+[16:42:05] [main/INFO] [GradleStart]: Extra: []
+[16:42:05] [main/INFO] [GradleStart]: Found and added coremod: net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
+[16:42:05] [main/INFO] [GradleStart]: Found and added coremod: net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
+[16:42:05] [main/INFO] [GradleStart]: Running with arguments: [--userProperties, {}, --assetsDir, C:/Users/win7/.gradle/caches/minecraft/assets, --assetIndex, 1.12, --accessToken{REDACTED}, --version, 1.12.2, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[16:42:05] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[16:42:05] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[16:42:05] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[16:42:05] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[16:42:05] [main/DEBUG] [FML]: Injecting tracing printstreams for STDOUT/STDERR.
+[16:42:05] [main/INFO] [FML]: Forge Mod Loader version 14.23.5.2768 for Minecraft 1.12.2 loading
+[16:42:05] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_201, running on Windows 7:amd64:6.1, installed at C:\Program Files\Java\jdk1.8.0_201\jre
+[16:42:05] [main/DEBUG] [FML]: Java classpath at launch is:
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\charsets.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\deploy.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\access-bridge-64.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\cldrdata.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\dnsns.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\jaccess.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\jfxrt.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\localedata.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\nashorn.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunec.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunjce_provider.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunmscapi.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunpkcs11.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\zipfs.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\javaws.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\jce.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfr.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfxswt.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\jsse.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\management-agent.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\plugin.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\resources.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\jre\lib\rt.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\classes\production\com.TheRPGAdventurer.ROTD.dragonmounts2-1.12.2.main
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\jei_1.12.2-4.13.1.225.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.azanor\thaumcraft-api\6.1-beta23\21d745496333caecfd60b5923d41e413c90fce62\thaumcraft-api-6.1-beta23.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary-core\1.0.6-1.12.2\llibrary-core-1.0.6-1.12.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\minecraft\net\minecraftforge\forge\1.12.2-14.23.5.2768\snapshot\20170624\forgeSrc-1.12.2-14.23.5.2768.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.1\f7be08ec23c21485b9b5a1cf1654c2ec8c58168d\jsr305-3.0.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\patchy\1.1\aef610b34a1be37fa851825f12372b78424d8903\patchy-1.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\oshi-project\oshi-core\1.1\9ddf7b048a8d701be231c0f4f95fd986198fd2d8\oshi-core-1.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\4.4.0\cb208278274bf12ebdb56c61bd7407e6f774d65a\jna-4.4.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\platform\3.4.0\e3f70017be8100d3d6923f50b3d2ee17714e9c13\platform-3.4.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j-core-mojang\51.2\63d216a9311cca6be337c1e458e587f99d382b84\icu4j-core-mojang-51.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\5.0.3\cdd846cfc4e0f7eefafc02c0f5dce32b9303aa2a\jopt-simple-5.0.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\io.netty\netty-all\4.1.9.Final\97860965d6a0a6b98e7f569f3f966727b8db75\netty-all-4.1.9.Final.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\21.0\3a3d111be1be1b745edfa7d91678a12d7ed38709\guava-21.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.5\6c6c702c89bfff3cd9e80b04d668c5e190d588c6\commons-lang3-3.5.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.5\2852e6e05fbb95076fc091f6d1780f1f8fe35e0f\commons-io-2.5.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.10\4b95f4897fa13f2cd904aee711aeafc0c5295cd8\commons-codec-1.10.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jutils\jutils\1.0.0\e12fe1fda814bd348c1579329c86943d2cd3c6a6\jutils-1.0.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.0\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\gson-2.8.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\1.5.25\9834cdf236c22e84b946bba989e2f94ef5897c3c\authlib-1.5.25.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\realms\1.10.22\bd0dccebdf3744c75f1ca20063f16e8f7d5e663f\realms-1.10.22.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.8.1\a698750c16740fd5b3871425f4cb3bbaa87f529d\commons-compress-1.8.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.3.3\18f4247ff4572a074444572cee34647c43e7c9c7\httpclient-4.3.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.1.3\f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f\commons-logging-1.1.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.3.2\31fbbff1ddbf98f3aa7377c94d33b0447c646b6e\httpcore-4.3.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\it.unimi.dsi\fastutil\7.1.0\9835253257524c1be7ab50c057aa2d418fb72082\fastutil-7.1.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.8.1\e801d13612e22cad62a3f4f3fe7fdbe6334a8e72\log4j-api-2.8.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.8.1\4ac28ff2f1ddf05dae3043a190451e8c46b73c31\log4j-core-2.8.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\text2speech\1.10.3\48fd510879dff266c3815947de66e3d4809f8668\text2speech-1.10.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.minecraft\launchwrapper\1.12\111e7bea9c968cdb3d06ef4632bf7ff0824d0f36\launchwrapper-1.12.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.jline\jline\3.5.1\51800e9d7a13608894a5a28eed0f5c7fa2f300fb\jline-3.5.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-debug-all\5.2\3354e11e2b34215f06dab629ab88e06aca477c19\asm-debug-all-5.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.typesafe.akka\akka-actor_2.11\2.3.3\ed62e9fc709ca0f2ff1a3220daa8b70a2870078e\akka-actor_2.11-2.3.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.2.1\f771f71fdae3df231bcd54d5ca2d57f0bf93f467\config-1.2.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors-migration_2.11\1.1.0\dfa8bc42b181d5b9f1a5dd147f8ae308b893eb6f\scala-actors-migration_2.11-1.1.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-compiler\2.11.1\56ea2e6c025e0821f28d73ca271218b8dd04926a\scala-compiler-2.11.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-library_2.11\1.0.2\e517c53a7e9acd6b1668c5a35eccbaa3bab9aac\scala-continuations-library_2.11-1.0.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-plugin_2.11.1\1.0.2\f361a3283452c57fa30c1ee69448995de23c60f7\scala-continuations-plugin_2.11.1-1.0.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.1\e11da23da3eabab9f4777b9220e60d44c1aab6a\scala-library-2.11.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.11.1\6580347e61cc7f8e802941e7fde40fa83b8badeb\scala-reflect-2.11.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-swing_2.11\1.0.1\b1cdd92bd47b1e1837139c1c53020e86bb9112ae\scala-swing_2.11-1.0.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-xml_2.11\1.0.2\820fbca7e524b530fdadc594c39d49a21ea0337e\scala-xml_2.11-1.0.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\lzma\lzma\0.0.1\521616dc7487b42bef0e803bd2fa3faf668101d7\lzma-0.0.1.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.sf.trove4j\trove4j\3.0.3\42ccaf4761f0dfdfa805c9e340d99a755907e2dd\trove4j-3.0.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\codecjorbis\20101023\c73b5636faf089d9f00e8732a829577de25237ee\codecjorbis-20101023.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\codecwav\20101023\12f031cfe88fef5c1dd36c563c0a3a69bd7261da\codecwav-20101023.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\libraryjavasound\20101123\5c5e304366f75f9eaa2e8cca546a1fb6109348b3\libraryjavasound-20101123.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\librarylwjglopenal\20100824\73e80d0794c39665aec3f62eee88ca91676674ef\librarylwjglopenal-20100824.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\soundsystem\20120107\419c05fe9be71f792b2d76cfc9b67f1ed0fec7f6\soundsystem-20120107.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput\2.0.5\39c7796b469a600f72380316f6b1f11db6c2c7c4\jinput-2.0.5.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl\2.9.4-nightly-20150209\697517568c68e78ae0b4544145af031c81082dfe\lwjgl-2.9.4-nightly-20150209.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl_util\2.9.4-nightly-20150209\d51a7c040a721d13efdfbd34f8b257b2df882ad0\lwjgl_util-2.9.4-nightly-20150209.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\java3d\vecmath\1.5.2\79846ba34cbd89e2422d74d53752f993dcc2ccaf\vecmath-1.5.2.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\ca.weblite\java-objc-bridge\1.0.0\6ef160c3133a78de015830860197602ca1c855d3\java-objc-bridge-1.0.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors\2.11.0\8ccfb6541de179bb1c4d45cf414acee069b7f78b\scala-actors-2.11.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.codehaus.plexus\plexus-utils\3.1.0\60eecb6f15abdb1c653ad80abaac6fe188b3feaa\plexus-utils-3.1.0.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\7ff832a6eb9ab6a767f1ade2b548092d0fa64795\jinput-platform-2.0.5-natives-linux.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\385ee093e01f587f30ee1c8a2ee7d408fd732e16\jinput-platform-2.0.5-natives-windows.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\53f9c919f34d2ca9de8c51fc4e1e8282029a9232\jinput-platform-2.0.5-natives-osx.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.4-nightly-20150209\b84d5102b9dbfabfeb5e43c7e2828d98a7fc80e0\lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.4-nightly-20150209\931074f46c795d2f7b30ed6395df5715cfd7675b\lwjgl-platform-2.9.4-nightly-20150209-natives-linux.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.4-nightly-20150209\bcab850f8f487c3f4c4dbabde778bb82bd1a40ed\lwjgl-platform-2.9.4-nightly-20150209-natives-osx.jar
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\.gradle\caches\minecraft\net\minecraftforge\forge\1.12.2-14.23.5.2768\start
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2018.3.5\lib\idea_rt.jar
+[16:42:05] [main/DEBUG] [FML]: Java library path at launch is:
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_201\bin
+[16:42:05] [main/DEBUG] [FML]:     C:\Windows\Sun\Java\bin
+[16:42:05] [main/DEBUG] [FML]:     C:\Windows\system32
+[16:42:05] [main/DEBUG] [FML]:     C:\Windows
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files (x86)\Common Files\Oracle\Java\javapath
+[16:42:05] [main/DEBUG] [FML]:     C:\ProgramData\Oracle\Java\javapath
+[16:42:05] [main/DEBUG] [FML]:     "C:\Program Files\Java\jdk1.8.0_111\bin"
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files (x86)\AMD\ATI.ACE\Core-Static
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jdk1.8.0_161\bin
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Java\jre1.8.0_161\bin
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files (x86)\HP\Common\HPDestPlgIn\
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\Git\cmd
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files (x86)\HP\Common\HPDestPlgIn\
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2018.3.5\bin
+[16:42:05] [main/DEBUG] [FML]:     C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2018.3.5\bin
+[16:42:05] [main/DEBUG] [FML]:     C:\Users\win7\AppData\Local\GitHubDesktop\bin
+[16:42:05] [main/DEBUG] [FML]:     .
+[16:42:05] [main/DEBUG] [FML]:     C:/Users/win7/.gradle/caches/minecraft/net/minecraft/natives/1.12.2
+[16:42:05] [main/ERROR] [FML]: Apache Maven library folder was not in the format expected. Using default libraries directory.
+[16:42:05] [main/ERROR] [FML]: Full: C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar
+[16:42:05] [main/ERROR] [FML]: Trimmed: c:/users/win7/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.5.3/
+[16:42:05] [main/DEBUG] [FML]: Determined Minecraft Libraries Root: .\libraries
+[16:42:05] [main/DEBUG] [FML]: Cleaning up mods folder: .\mods
+[16:42:05] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[16:42:05] [main/INFO] [FML]: Detected deobfuscated environment, loading log configs for colored console logs.
+[16:42:07] [main/DEBUG] [FML]: Instantiating coremod class FMLCorePlugin
+[16:42:07] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLCorePlugin (net.minecraftforge.fml.relauncher.FMLCorePlugin), we are in deobf and it's a forge core plugin
+[16:42:07] [main/DEBUG] [FML]: Added access transformer class net.minecraftforge.fml.common.asm.transformers.AccessTransformer to enqueued access transformers
+[16:42:07] [main/DEBUG] [FML]: Enqueued coremod FMLCorePlugin
+[16:42:07] [main/DEBUG] [FML]: Instantiating coremod class FMLForgePlugin
+[16:42:07] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLForgePlugin (net.minecraftforge.classloading.FMLForgePlugin), we are in deobf and it's a forge core plugin
+[16:42:07] [main/DEBUG] [FML]: Enqueued coremod FMLForgePlugin
+[16:42:07] [main/DEBUG] [FML]: All fundamental core mods are successfully located
+[16:42:07] [main/INFO] [FML]: Found a command line coremod : net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin
+[16:42:07] [main/DEBUG] [FML]: Instantiating coremod class LLibraryPlugin
+[16:42:08] [main/TRACE] [FML]: coremod named llibrary is loading
+[16:42:08] [main/ERROR] [FML]: The coremod net.ilexiconn.llibrary.server.core.plugin.LLibraryPlugin is requesting minecraft version 1.12 and minecraft is 1.12.2. It will be ignored.
+[16:42:08] [main/DEBUG] [FML]: Discovering coremods
+[16:42:08] [main/INFO] [FML]: Searching C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\mods for mods
+[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[16:42:08] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
+[16:42:08] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[16:42:08] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[16:42:08] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[16:42:08] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[16:42:08] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[16:42:08] [main/DEBUG] [FML]: Injecting coremod FMLCorePlugin \{net.minecraftforge.fml.relauncher.FMLCorePlugin\} class transformers
+[16:42:08] [main/TRACE] [FML]: Registering transformer net.minecraftforge.fml.common.asm.transformers.SideTransformer
+[16:42:08] [main/TRACE] [FML]: Registering transformer net.minecraftforge.fml.common.asm.transformers.EventSubscriptionTransformer
+[16:42:08] [main/TRACE] [FML]: Registering transformer net.minecraftforge.fml.common.asm.transformers.EventSubscriberTransformer
+[16:42:08] [main/TRACE] [FML]: Registering transformer net.minecraftforge.fml.common.asm.transformers.SoundEngineFixTransformer
+[16:42:08] [main/DEBUG] [FML]: Injection complete
+[16:42:08] [main/DEBUG] [FML]: Running coremod plugin for FMLCorePlugin \{net.minecraftforge.fml.relauncher.FMLCorePlugin\}
+[16:42:08] [main/DEBUG] [FML]: Running coremod plugin FMLCorePlugin
+[16:42:08] [main/DEBUG] [FML]: Loading deobfuscation resource C:\Users\win7\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20170624\1.12.2\srgs\srg-mcp.srg with 36076 records
+[16:42:12] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+[16:42:12] [main/DEBUG] [FML]: Coremod plugin class FMLCorePlugin run successfully
+[16:42:12] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[16:42:12] [main/DEBUG] [FML]: Injecting coremod FMLForgePlugin \{net.minecraftforge.classloading.FMLForgePlugin\} class transformers
+[16:42:12] [main/DEBUG] [FML]: Injection complete
+[16:42:12] [main/DEBUG] [FML]: Running coremod plugin for FMLForgePlugin \{net.minecraftforge.classloading.FMLForgePlugin\}
+[16:42:12] [main/DEBUG] [FML]: Running coremod plugin FMLForgePlugin
+[16:42:12] [main/DEBUG] [FML]: Coremod plugin class FMLForgePlugin run successfully
+[16:42:12] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[16:42:12] [main/DEBUG] [FML]: Loaded 213 rules from AccessTransformer config file forge_at.cfg
+[16:42:12] [main/DEBUG] [FML]: Loaded 10 rules from AccessTransformer mod jar file C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar!META-INF/llibrary_at.cfg
+
+[16:42:12] [main/DEBUG] [FML]: Loaded 2 rules from AccessTransformer mod jar file C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\jei_1.12.2-4.13.1.225.jar!META-INF/jei_at.cfg
+
+[16:42:12] [main/DEBUG] [FML]: Loaded 10 rules from AccessTransformer mod jar file C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar!META-INF/llibrary_at.cfg
+
+[16:42:12] [main/DEBUG] [FML]: Validating minecraft
+[16:42:13] [main/DEBUG] [FML]: Minecraft validated, launching...
+[16:42:13] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[16:42:13] [main/DEBUG] [GradleStart]: Reading CSV file: C:\Users\win7\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20170624\fields.csv
+[16:42:13] [main/DEBUG] [GradleStart]: Reading CSV file: C:\Users\win7\.gradle\caches\minecraft\de\oceanlabs\mcp\mcp_snapshot\20170624\methods.csv
+[16:42:13] [main/INFO] [GradleStart]: Remapping AccessTransformer rules...
+[16:42:13] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[16:42:13] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[16:42:13] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[16:42:14] [main/INFO] [net.minecraft.client.Minecraft]: Setting user: Player660
+[16:42:21] [main/DEBUG] [FML]: Creating vanilla freeze snapshot
+[16:42:21] [main/DEBUG] [FML]: Vanilla freeze snapshot created
+[16:42:22] [main/INFO] [net.minecraft.client.Minecraft]: LWJGL Version: 2.9.4
+[16:42:23] [main/DEBUG] [FML]: Bar Finished: Loading Resource - LanguageManager took 0.003s
+[16:42:23] [main/INFO] [FML]: -- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 7 (amd64) version 6.1
+	Java Version: 1.8.0_201, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 387820880 bytes (369 MB) / 518520832 bytes (494 MB) up to 1720713216 bytes (1641 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: 
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'ATI Technologies Inc.' Version: '4.5.13399 Compatibility Profile Context 15.200.1062.1004' Renderer: 'AMD Radeon HD 8470D'
+[16:42:23] [main/INFO] [FML]: MinecraftForge v14.23.5.2768 Initialized
+[16:42:23] [main/INFO] [FML]: Starts to replace vanilla recipe ingredients with ore ingredients.
+[16:42:24] [main/INFO] [FML]: Replaced 1036 ore ingredients
+[16:42:24] [main/DEBUG] [FML]: File C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\config\injectedDependencies.json not found. No dependencies injected
+[16:42:24] [main/DEBUG] [FML]: Building injected Mod Containers [net.minecraftforge.fml.common.FMLContainer, net.minecraftforge.common.ForgeModContainer]
+[16:42:24] [main/DEBUG] [FML]: Attempting to load mods contained in the minecraft jar file and associated classes
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\charsets.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\deploy.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\access-bridge-64.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\cldrdata.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\dnsns.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\jaccess.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\jfxrt.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\localedata.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\nashorn.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunec.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunjce_provider.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunmscapi.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\sunpkcs11.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\ext\zipfs.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\javaws.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\jce.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfr.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\jfxswt.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\jsse.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\management-agent.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\plugin.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\resources.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Program Files\Java\jdk1.8.0_201\jre\lib\rt.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related directory at C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\classes\production\com.TheRPGAdventurer.ROTD.dragonmounts2-1.12.2.main, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\jei_1.12.2-4.13.1.225.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\compileDummy.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\providedDummy.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.azanor\thaumcraft-api\6.1-beta23\21d745496333caecfd60b5923d41e413c90fce62\thaumcraft-api-6.1-beta23.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary-core\1.0.6-1.12.2\llibrary-core-1.0.6-1.12.2.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\minecraft\net\minecraftforge\forge\1.12.2-14.23.5.2768\snapshot\20170624\forgeSrc-1.12.2-14.23.5.2768.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.1\f7be08ec23c21485b9b5a1cf1654c2ec8c58168d\jsr305-3.0.1.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\patchy\1.1\aef610b34a1be37fa851825f12372b78424d8903\patchy-1.1.jar, examining for mod candidates
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\oshi-project\oshi-core\1.1\9ddf7b048a8d701be231c0f4f95fd986198fd2d8\oshi-core-1.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\4.4.0\cb208278274bf12ebdb56c61bd7407e6f774d65a\jna-4.4.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\platform\3.4.0\e3f70017be8100d3d6923f50b3d2ee17714e9c13\platform-3.4.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j-core-mojang\51.2\63d216a9311cca6be337c1e458e587f99d382b84\icu4j-core-mojang-51.2.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\5.0.3\cdd846cfc4e0f7eefafc02c0f5dce32b9303aa2a\jopt-simple-5.0.3.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\io.netty\netty-all\4.1.9.Final\97860965d6a0a6b98e7f569f3f966727b8db75\netty-all-4.1.9.Final.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\21.0\3a3d111be1be1b745edfa7d91678a12d7ed38709\guava-21.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.5\6c6c702c89bfff3cd9e80b04d668c5e190d588c6\commons-lang3-3.5.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.5\2852e6e05fbb95076fc091f6d1780f1f8fe35e0f\commons-io-2.5.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.10\4b95f4897fa13f2cd904aee711aeafc0c5295cd8\commons-codec-1.10.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jutils\jutils\1.0.0\e12fe1fda814bd348c1579329c86943d2cd3c6a6\jutils-1.0.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.0\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\gson-2.8.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\1.5.25\9834cdf236c22e84b946bba989e2f94ef5897c3c\authlib-1.5.25.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\realms\1.10.22\bd0dccebdf3744c75f1ca20063f16e8f7d5e663f\realms-1.10.22.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.8.1\a698750c16740fd5b3871425f4cb3bbaa87f529d\commons-compress-1.8.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.3.3\18f4247ff4572a074444572cee34647c43e7c9c7\httpclient-4.3.3.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.1.3\f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f\commons-logging-1.1.3.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.3.2\31fbbff1ddbf98f3aa7377c94d33b0447c646b6e\httpcore-4.3.2.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\it.unimi.dsi\fastutil\7.1.0\9835253257524c1be7ab50c057aa2d418fb72082\fastutil-7.1.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.8.1\e801d13612e22cad62a3f4f3fe7fdbe6334a8e72\log4j-api-2.8.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.8.1\4ac28ff2f1ddf05dae3043a190451e8c46b73c31\log4j-core-2.8.1.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.mojang\text2speech\1.10.3\48fd510879dff266c3815947de66e3d4809f8668\text2speech-1.10.3.jar, examining for mod candidates
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.minecraft\launchwrapper\1.12\111e7bea9c968cdb3d06ef4632bf7ff0824d0f36\launchwrapper-1.12.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.jline\jline\3.5.1\51800e9d7a13608894a5a28eed0f5c7fa2f300fb\jline-3.5.1.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-debug-all\5.2\3354e11e2b34215f06dab629ab88e06aca477c19\asm-debug-all-5.2.jar, examining for mod candidates
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.typesafe.akka\akka-actor_2.11\2.3.3\ed62e9fc709ca0f2ff1a3220daa8b70a2870078e\akka-actor_2.11-2.3.3.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.2.1\f771f71fdae3df231bcd54d5ca2d57f0bf93f467\config-1.2.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors-migration_2.11\1.1.0\dfa8bc42b181d5b9f1a5dd147f8ae308b893eb6f\scala-actors-migration_2.11-1.1.0.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-compiler\2.11.1\56ea2e6c025e0821f28d73ca271218b8dd04926a\scala-compiler-2.11.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-library_2.11\1.0.2\e517c53a7e9acd6b1668c5a35eccbaa3bab9aac\scala-continuations-library_2.11-1.0.2.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-plugin_2.11.1\1.0.2\f361a3283452c57fa30c1ee69448995de23c60f7\scala-continuations-plugin_2.11.1-1.0.2.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.1\e11da23da3eabab9f4777b9220e60d44c1aab6a\scala-library-2.11.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.11.1\6580347e61cc7f8e802941e7fde40fa83b8badeb\scala-reflect-2.11.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-swing_2.11\1.0.1\b1cdd92bd47b1e1837139c1c53020e86bb9112ae\scala-swing_2.11-1.0.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-xml_2.11\1.0.2\820fbca7e524b530fdadc594c39d49a21ea0337e\scala-xml_2.11-1.0.2.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\lzma\lzma\0.0.1\521616dc7487b42bef0e803bd2fa3faf668101d7\lzma-0.0.1.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.sf.trove4j\trove4j\3.0.3\42ccaf4761f0dfdfa805c9e340d99a755907e2dd\trove4j-3.0.3.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar, examining for mod candidates
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\codecjorbis\20101023\c73b5636faf089d9f00e8732a829577de25237ee\codecjorbis-20101023.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\codecwav\20101023\12f031cfe88fef5c1dd36c563c0a3a69bd7261da\codecwav-20101023.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\libraryjavasound\20101123\5c5e304366f75f9eaa2e8cca546a1fb6109348b3\libraryjavasound-20101123.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\librarylwjglopenal\20100824\73e80d0794c39665aec3f62eee88ca91676674ef\librarylwjglopenal-20100824.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\com.paulscode\soundsystem\20120107\419c05fe9be71f792b2d76cfc9b67f1ed0fec7f6\soundsystem-20120107.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput\2.0.5\39c7796b469a600f72380316f6b1f11db6c2c7c4\jinput-2.0.5.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl\2.9.4-nightly-20150209\697517568c68e78ae0b4544145af031c81082dfe\lwjgl-2.9.4-nightly-20150209.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl_util\2.9.4-nightly-20150209\d51a7c040a721d13efdfbd34f8b257b2df882ad0\lwjgl_util-2.9.4-nightly-20150209.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\java3d\vecmath\1.5.2\79846ba34cbd89e2422d74d53752f993dcc2ccaf\vecmath-1.5.2.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\ca.weblite\java-objc-bridge\1.0.0\6ef160c3133a78de015830860197602ca1c855d3\java-objc-bridge-1.0.0.jar, examining for mod candidates
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors\2.11.0\8ccfb6541de179bb1c4d45cf414acee069b7f78b\scala-actors-2.11.0.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.codehaus.plexus\plexus-utils\3.1.0\60eecb6f15abdb1c653ad80abaac6fe188b3feaa\plexus-utils-3.1.0.jar, examining for mod candidates
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\7ff832a6eb9ab6a767f1ade2b548092d0fa64795\jinput-platform-2.0.5-natives-linux.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\385ee093e01f587f30ee1c8a2ee7d408fd732e16\jinput-platform-2.0.5-natives-windows.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\53f9c919f34d2ca9de8c51fc4e1e8282029a9232\jinput-platform-2.0.5-natives-osx.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.4-nightly-20150209\b84d5102b9dbfabfeb5e43c7e2828d98a7fc80e0\lwjgl-platform-2.9.4-nightly-20150209-natives-windows.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.4-nightly-20150209\931074f46c795d2f7b30ed6395df5715cfd7675b\lwjgl-platform-2.9.4-nightly-20150209-natives-linux.jar
+[16:42:24] [main/TRACE] [FML]: Skipping known library file C:\Users\win7\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.4-nightly-20150209\bcab850f8f487c3f4c4dbabde778bb82bd1a40ed\lwjgl-platform-2.9.4-nightly-20150209-natives-osx.jar
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related directory at C:\Users\win7\.gradle\caches\minecraft\net\minecraftforge\forge\1.12.2-14.23.5.2768\start, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Found a minecraft related file at C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2018.3.5\lib\idea_rt.jar, examining for mod candidates
+[16:42:24] [main/DEBUG] [FML]: Minecraft jar mods loaded successfully
+[16:42:24] [main/INFO] [FML]: Searching C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\.\mods for mods
+[16:42:24] [main/DEBUG] [FML]: Examining directory com.TheRPGAdventurer.ROTD.dragonmounts2-1.12.2.main for potential mods
+[16:42:24] [main/ERROR] [FML]: The mcmod.info file in com.TheRPGAdventurer.ROTD.dragonmounts2-1.12.2.main cannot be parsed as valid JSON. It will be ignored
+com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Unterminated object at line 32 column 4 path $[0].credits
+	at com.google.gson.internal.Streams.parse(Streams.java:60) ~[Streams.class:?]
+	at com.google.gson.JsonParser.parse(JsonParser.java:84) ~[JsonParser.class:?]
+	at com.google.gson.JsonParser.parse(JsonParser.java:59) ~[JsonParser.class:?]
+	at net.minecraftforge.fml.common.MetadataCollection.from(MetadataCollection.java:63) [MetadataCollection.class:?]
+	at net.minecraftforge.fml.common.discovery.DirectoryDiscoverer.exploreFileSystem(DirectoryDiscoverer.java:80) [DirectoryDiscoverer.class:?]
+	at net.minecraftforge.fml.common.discovery.DirectoryDiscoverer.discover(DirectoryDiscoverer.java:62) [DirectoryDiscoverer.class:?]
+	at net.minecraftforge.fml.common.discovery.ContainerType.findMods(ContainerType.java:47) [ContainerType.class:?]
+	at net.minecraftforge.fml.common.discovery.ModCandidate.explore(ModCandidate.java:74) [ModCandidate.class:?]
+	at net.minecraftforge.fml.common.discovery.ModDiscoverer.identifyMods(ModDiscoverer.java:93) [ModDiscoverer.class:?]
+	at net.minecraftforge.fml.common.Loader.identifyMods(Loader.java:425) [Loader.class:?]
+	at net.minecraftforge.fml.common.Loader.loadMods(Loader.java:566) [Loader.class:?]
+	at net.minecraftforge.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:232) [FMLClientHandler.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:508) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+Caused by: com.google.gson.stream.MalformedJsonException: Unterminated object at line 32 column 4 path $[0].credits
+	at com.google.gson.stream.JsonReader.syntaxError(JsonReader.java:1559) ~[JsonReader.class:?]
+	at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:491) ~[JsonReader.class:?]
+	at com.google.gson.stream.JsonReader.hasNext(JsonReader.java:414) ~[JsonReader.class:?]
+	at com.google.gson.internal.bind.TypeAdapters$29.read(TypeAdapters.java:738) ~[TypeAdapters$29.class:?]
+	at com.google.gson.internal.bind.TypeAdapters$29.read(TypeAdapters.java:731) ~[TypeAdapters$29.class:?]
+	at com.google.gson.internal.bind.TypeAdapters$29.read(TypeAdapters.java:714) ~[TypeAdapters$29.class:?]
+	at com.google.gson.internal.Streams.parse(Streams.java:48) ~[Streams.class:?]
+	... 26 more
+[16:42:24] [main/DEBUG] [FML]: Found an mcmod.info file in directory com.TheRPGAdventurer.ROTD.dragonmounts2-1.12.2.main
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/blockstates
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/lang
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/loot_tables
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/models
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/models/block
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/models/entities
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/models/entities/dragon
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/models/item
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/models/item/shield
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/recipes
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/sounds
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/sounds/mob
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/sounds/mob/dragon
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/sounds/mob/dragon/breathweapon
+[16:42:24] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/structures
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/blocks
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/blocks/blockstates
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/armor
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/aether
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/enchant
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/ender
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/fire
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/forest
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/ice
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/moonlight
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/nether
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/skeleton
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/storm
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/sunlight
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/sylphid
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/terra
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/wither
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon/zombie
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon_carriage
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/entities/dragon_shield
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/gui
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/items
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/items/bow
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/items/bow/Bow
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/items/bow/Bow/gif
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/models
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/models/armor
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/models/entities
+[16:42:25] [main/TRACE] [FML]: Recursing into package assets/dragonmounts/textures/models/entities/dragon
+[16:42:25] [main/TRACE] [FML]: Recursing into package com
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/event
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/gui
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/handler
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/inventory
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/inventory/tabs
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/message
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/model
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/model/anim
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/model/dragon
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/model/dragon/anim
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/breathweaponFX
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/breeds
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/dragon
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/dragon/breathweaponFX
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/dragon/breeds
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/dragon/layer
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/render/layers
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/sound
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/client/userinput
+[16:42:25] [main/DEBUG] [FML]: Identified a mod of type Lnet/minecraftforge/fml/common/Mod; (com.TheRPGAdventurer.ROTD.DragonMounts) - loading
+[16:42:25] [main/TRACE] [FML]: Parsed dependency info for dragonmounts: Requirements: [llibrary@[1.7.14,)] After:[llibrary@[1.7.14,)] Before:[]
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/blocks
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/blocks/tileentities
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/cmd
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/ai
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/ai/air
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/ai/ground
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/ai/path
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/ai/water
+[16:42:25] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/breathweapon
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/breeds
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/helper
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/helper/breath
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/helper/breath/breathweapons
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/entity/interact
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/handler
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/initialization
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/items
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/items/bow
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/items/entity
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/items/gemset
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/items/specialset
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/network
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/util
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/server/world
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/util
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/util/breath
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/util/math
+[16:42:26] [main/TRACE] [FML]: Recursing into package com/TheRPGAdventurer/ROTD/util/reflection
+[16:42:26] [main/TRACE] [FML]: Recursing into package META-INF
+[16:42:26] [main/DEBUG] [FML]: Examining file jei_1.12.2-4.13.1.225.jar for potential mods
+[16:42:26] [main/TRACE] [FML]: Located mcmod.info file in file jei_1.12.2-4.13.1.225.jar
+[16:42:26] [main/DEBUG] [FML]: Identified a mod of type Lnet/minecraftforge/fml/common/Mod; (mezz.jei.JustEnoughItems) - loading
+[16:42:26] [main/TRACE] [FML]: Parsed dependency info for jei: Requirements: [forge@[14.23.1.2594,)] After:[forge@[14.23.1.2594,)] Before:[]
+[16:42:26] [main/DEBUG] [FML]: Examining file llibrary-1.7.9-1.12-dev.jar for potential mods
+[16:42:26] [main/TRACE] [FML]: Located mcmod.info file in file llibrary-1.7.9-1.12-dev.jar
+[16:42:26] [main/DEBUG] [FML]: Identified a mod of type Lnet/minecraftforge/fml/common/Mod; (net.ilexiconn.llibrary.LLibrary) - loading
+[16:42:26] [main/TRACE] [FML]: Parsed dependency info for llibrary: Requirements: [] After:[] Before:[]
+[16:42:26] [main/DEBUG] [FML]: Examining file compileDummy.jar for potential mods
+[16:42:26] [main/DEBUG] [FML]: The mod container compileDummy.jar appears to be missing an mcmod.info file
+[16:42:26] [main/DEBUG] [FML]: Examining file providedDummy.jar for potential mods
+[16:42:26] [main/DEBUG] [FML]: The mod container providedDummy.jar appears to be missing an mcmod.info file
+[16:42:26] [main/DEBUG] [FML]: Examining file thaumcraft-api-6.1-beta23.jar for potential mods
+[16:42:26] [main/DEBUG] [FML]: The mod container thaumcraft-api-6.1-beta23.jar appears to be missing an mcmod.info file
+[16:42:26] [main/DEBUG] [FML]: Examining file llibrary-1.7.14-1.12.2.jar for potential mods
+[16:42:26] [main/TRACE] [FML]: Located mcmod.info file in file llibrary-1.7.14-1.12.2.jar
+[16:42:26] [main/DEBUG] [FML]: Identified a mod of type Lnet/minecraftforge/fml/common/Mod; (net.ilexiconn.llibrary.LLibrary) - loading
+[16:42:26] [main/TRACE] [FML]: Parsed dependency info for llibrary: Requirements: [forge@[14.23.3.2655,)] After:[forge@[14.23.3.2655,)] Before:[]
+[16:42:26] [main/DEBUG] [FML]: Examining file llibrary-core-1.0.6-1.12.2.jar for potential mods
+[16:42:26] [main/DEBUG] [FML]: The mod container llibrary-core-1.0.6-1.12.2.jar appears to be missing an mcmod.info file
+[16:42:26] [main/DEBUG] [FML]: Examining file forgeSrc-1.12.2-14.23.5.2768.jar for potential mods
+[16:42:26] [main/DEBUG] [FML]: The mod container forgeSrc-1.12.2-14.23.5.2768.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file jsr305-3.0.1.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container jsr305-3.0.1.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file patchy-1.1.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container patchy-1.1.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file text2speech-1.10.3.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container text2speech-1.10.3.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file asm-debug-all-5.2.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container asm-debug-all-5.2.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file maven-artifact-3.5.3.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container maven-artifact-3.5.3.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file java-objc-bridge-1.0.0.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container java-objc-bridge-1.0.0.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining file plexus-utils-3.1.0.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container plexus-utils-3.1.0.jar appears to be missing an mcmod.info file
+[16:42:27] [main/DEBUG] [FML]: Examining directory start for potential mods
+[16:42:27] [main/DEBUG] [FML]: No mcmod.info file found in directory start
+[16:42:27] [main/TRACE] [FML]: Recursing into package net
+[16:42:27] [main/TRACE] [FML]: Recursing into package net/minecraftforge
+[16:42:27] [main/TRACE] [FML]: Recursing into package net/minecraftforge/gradle
+[16:42:27] [main/TRACE] [FML]: Recursing into package net/minecraftforge/gradle/tweakers
+[16:42:27] [main/DEBUG] [FML]: Examining file idea_rt.jar for potential mods
+[16:42:27] [main/DEBUG] [FML]: The mod container idea_rt.jar appears to be missing an mcmod.info file
+[16:42:27] [main/FATAL] [FML]: Found a duplicate mod llibrary at [C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar, C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar]
+[16:42:27] [main/ERROR] [FML]: An exception was thrown, the game will display an error screen and halt.
+net.minecraftforge.fml.common.DuplicateModsFoundException: 
+Duplicate Mods:
+	llibrary : C:\Users\win7\Desktop\MDK\dragonmounts2\dragonmounts2-1.12.2\libs\llibrary-1.7.9-1.12-dev.jar
+	llibrary : C:\Users\win7\.gradle\caches\minecraft\deobfedDeps\deobf\net\ilexiconn\llibrary\1.7.14-1.12.2\llibrary-1.7.14-1.12.2.jar
+
+
+	at net.minecraftforge.fml.common.Loader.identifyDuplicates(Loader.java:464) ~[Loader.class:?]
+	at net.minecraftforge.fml.common.Loader.identifyMods(Loader.java:426) ~[Loader.class:?]
+	at net.minecraftforge.fml.common.Loader.loadMods(Loader.java:566) ~[Loader.class:?]
+	at net.minecraftforge.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:232) [FMLClientHandler.class:?]
+	at net.minecraft.client.Minecraft.init(Minecraft.java:508) [Minecraft.class:?]
+	at net.minecraft.client.Minecraft.run(Minecraft.java:416) [Minecraft.class:?]
+	at net.minecraft.client.main.Main.main(Main.java:118) [Main.class:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135) [launchwrapper-1.12.jar:?]
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28) [launchwrapper-1.12.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_201]
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97) [start/:?]
+	at GradleStart.main(GradleStart.java:25) [start/:?]
+[16:42:27] [main/WARN] [FML]: EventBus 0 shutting down - future events will not be posted.
+[16:42:27] [main/INFO] [net.minecraft.client.resources.SimpleReloadableResourceManager]: Reloading ResourceManager: Default
+[16:42:27] [main/DEBUG] [FML]: Bar Step: Loading Resources - Default took 0.030s
+[16:42:29] [main/DEBUG] [FML]: Bar Finished: Reloading - LanguageManager took 1.474s
+[16:42:29] [main/DEBUG] [FML]: Bar Step: Loading Resources - Reloading listeners took 1.476s
+[16:42:29] [main/DEBUG] [FML]: Bar Finished: Loading Resources took 1.506s
+[16:42:29] [main/WARN] [FML]: There were errors previously. Not beginning mod initialization phase
+[16:42:29] [main/DEBUG] [FML]: Bar Finished: Loading Resource - TextureManager took 0.000s
+[16:42:30] [Thread-3/INFO] [FML]: Using alternative sync timing : 200 frames of Display.update took 1126812793 nanos
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading sounds took 8.079s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - SoundHandler took 8.208s
+[16:42:37] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Starting up SoundSystem...
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - FontRenderer took 0.009s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - FontRenderer took 0.008s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - GrassColorReloadListener took 0.020s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - FoliageColorReloadListener took 0.020s
+[16:42:37] [main/DEBUG] [FML]: Bar Step: Rendering Setup - GL Setup took 0.003s
+[16:42:37] [main/DEBUG] [FML]: Bar Step: Rendering Setup - Loading Texture Map took 0.012s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - B3DLoader took 0.000s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - OBJLoader took 0.000s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - ModelFluid$FluidLoader took 0.000s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - ItemLayerModel$Loader took 0.000s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - MultiLayerModel$Loader took 0.000s
+[16:42:37] [main/DEBUG] [FML]: Bar Finished: Loading Resource - ModelDynBucket$LoaderDynBucket took 0.000s
+[16:42:38] [main/DEBUG] [FML]: Bar Finished: Loading Resource - ModelManager took 0.241s
+[16:42:38] [main/DEBUG] [FML]: Bar Step: Rendering Setup - Loading Model Manager took 0.489s
+[16:42:38] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: Initializing LWJGL OpenAL
+[16:42:38] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[16:42:38] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: OpenAL initialized.
+[16:42:38] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Sound engine started
+[16:42:39] [main/DEBUG] [FML]: Bar Finished: Loading Resource - RenderItem took 0.066s
+[16:42:39] [main/DEBUG] [FML]: Bar Step: Rendering Setup - Loading Item Renderer took 0.974s
+[16:42:39] [main/DEBUG] [FML]: Bar Finished: Loading Resource - EntityRenderer took 0.000s
+[16:42:39] [main/DEBUG] [FML]: Bar Finished: Loading Resource - BlockRendererDispatcher took 0.000s
+[16:42:39] [main/DEBUG] [FML]: Bar Finished: Loading Resource - RenderGlobal took 0.000s
+[16:42:40] [main/DEBUG] [FML]: Bar Finished: Loading Resource - SearchTreeManager took 0.264s
+[16:42:40] [main/DEBUG] [FML]: Bar Step: Rendering Setup - Loading Entity Renderer took 1.175s
+[16:42:40] [main/DEBUG] [FML]: Bar Finished: Rendering Setup took 2.652s
+[16:42:40] [main/INFO] [com.mojang.text2speech.NarratorWindows]: Narrator library for x64 successfully loaded
+[16:42:43] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient]: Could not authorize you against Realms server: Invalid session id
+[16:43:52] [main/INFO] [net.minecraft.client.Minecraft]: Stopping!
+[16:43:52] [main/INFO] [net.minecraft.client.audio.SoundManager]: SoundSystem shutting down...
+[16:43:52] [main/WARN] [net.minecraft.client.audio.SoundManager]: Author: Paul Lamb, www.paulscode.com

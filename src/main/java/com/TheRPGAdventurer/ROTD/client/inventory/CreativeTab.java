@@ -1,8 +1,5 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.client.initialization.ModItems;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

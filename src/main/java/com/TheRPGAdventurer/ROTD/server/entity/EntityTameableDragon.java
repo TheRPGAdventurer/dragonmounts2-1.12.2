@@ -2099,12 +2099,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         switch (getLifeStageHelper().getLifeStage()) {
             case EGG:
                 return "dragon.egg";
+    		case INFANCY:
+    			return "dragon.infancy";
             case HATCHLING:
                 return "dragon.hatchling";
             case JUVENILE:
                 return "dragon.juvenile";
             case ADULT:
                 return "dragon.adult";
+		default:
+			break;
         }
 
         return null;

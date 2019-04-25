@@ -1,6 +1,0 @@
-{
-    "parent": "dragonmounts:item/dragon_bow_moonlight",
-    "textures": {
-        "layer0": "dragonmounts:items/bow/dragon_bow_moonlight_1"
-    }
-}

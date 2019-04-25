@@ -1,6 +1,0 @@
-{
-    "parent": "dragonmounts:item/dragon_bow_nether2",
-    "textures": {
-        "layer0": "dragonmounts:items/bow/dragon_bow_nether2_1"
-    }
-}

@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
 import net.minecraft.client.util.ITooltipFlag;
@@ -37,7 +37,7 @@ public class ItemDiamondShears extends ItemShears implements IHasModel
 	    this.setMaxStackSize(1);
 	    this.setCreativeTab(DragonMounts.mainTab);
 	    
-	    ModItems.ITEMS.add(this);
+	    ModTools.TOOLS.add(this);
 	}
 	
 	@Override

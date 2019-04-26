@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.items.bow;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,7 +37,7 @@ public class ItemDragonIceBow extends ItemBow implements IHasModel {
                 if (entityIn == null) {
                     return 0.0F;
                 } else {
-                    return entityIn.getActiveItemStack().getItem() != ModItems.ice_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+                    return entityIn.getActiveItemStack().getItem() != ModTools.ice_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
                 }
             }
         });
@@ -47,7 +47,7 @@ public class ItemDragonIceBow extends ItemBow implements IHasModel {
                 return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
             }
         });
-        ModItems.ITEMS.add(this);
+        ModTools.BOWS.add(this);
     }
 
     @Override

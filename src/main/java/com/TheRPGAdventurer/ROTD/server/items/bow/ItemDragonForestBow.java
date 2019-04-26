@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.server.items.bow;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -41,7 +41,7 @@ public class ItemDragonForestBow extends ItemBow implements IHasModel {
                 }
                 else
                 {
-                    return entityIn.getActiveItemStack().getItem() != ModItems.forest_dragon_bow ? 0.0F : (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+                    return entityIn.getActiveItemStack().getItem() != ModTools.forest_dragon_bow ? 0.0F : (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
                 }
             }
         });
@@ -54,7 +54,7 @@ public class ItemDragonForestBow extends ItemBow implements IHasModel {
             }
         });
 
-        ModItems.ITEMS.add(this);
+        ModTools.BOWS.add(this);
     }
 
     @Override

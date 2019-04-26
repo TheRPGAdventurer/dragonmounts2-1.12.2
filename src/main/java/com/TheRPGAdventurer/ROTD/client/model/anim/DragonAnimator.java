@@ -10,6 +10,8 @@
 package com.TheRPGAdventurer.ROTD.client.model.anim;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.CircularBuffer;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.TickFloat;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.SegmentSizePositionRotation;

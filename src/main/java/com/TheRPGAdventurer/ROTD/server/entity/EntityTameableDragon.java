@@ -1161,6 +1161,21 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 
+    public boolean fireSupport(EntityLivingBase entityLivingBase) {
+        BlockPos midPoint = entityLivingBase.getPosition();
+        double x = midPoint.getX();
+        double y = midPoint.getY();
+        double z = midPoint.getZ();
+        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
+        double offset = 16D;
+        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
+        x = midPoint.getX() + 0.5 - 12;
+        y = midPoint.getY() + 0.5 + 24;
+        z = midPoint.getZ() + 0.5 - offset;
+        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
+    }
+
     public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
         float dist = this.getDistanceToEntity(owner);
         if (dist <= 12) {

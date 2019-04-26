@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.server.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
@@ -38,7 +39,8 @@ public class ItemDragonGender extends Item implements IHasModel
             EntityTameableDragon dragon = (EntityTameableDragon) target;
             if (dragon.isTamedFor(player)) {
                 dragon.setOppositeGender();
-                dragon.world.playSound(player, player.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1, 1);
+                dragon.world.playSound(player, player.getPosition(), ModSounds.DRAGON_SWITCH, SoundCategory.PLAYERS, 1, 1);
+                stack.shrink(1);
                 return true;
             }
         }

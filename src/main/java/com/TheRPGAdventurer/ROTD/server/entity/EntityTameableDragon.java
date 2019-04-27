@@ -44,6 +44,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -2577,6 +2578,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
         Entity sourceEntity = source.getTrueSource();
+
+        // don't just sit there!
+        this.aiSit.setSitting(false);
+
+        if(!sourceEntity.onGround) this.setFlying(true);
+
         if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource())) {
             return false;
         }
@@ -2600,8 +2607,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return damage == 8.0f;
         }
 
-        // don't just sit there!
-        aiSit.setSitting(false);
+
 
         float damageReduction = getArmorResistance() + 3.0F;
         if (getArmorResistance() != 0) {

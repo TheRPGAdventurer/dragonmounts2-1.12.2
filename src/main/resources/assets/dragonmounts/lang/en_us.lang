@@ -314,6 +314,22 @@ item.dragon_shield_terra.name=Dragon Shield
 item.dragon_shield_terra2.name=Dragon Shield
 item.dragon_shield_moonlight.name=Dragon Shield
 
+item.dragon_bow_forest.name=Dragon Bow
+item.dragon_bow_aether.name=Dragon Bow
+item.dragon_bow_end.name=Dragon Bow
+item.dragon_bow_fire.name=Dragon Bow
+item.dragon_bow_fire2.name=Dragon Bow
+item.dragon_bow_ice.name=Dragon Bow
+item.dragon_bow_water.name=Dragon Bow
+item.dragon_bow_sunlight.name=Dragon Bow
+item.dragon_bow_sunlight2.name=Dragon Bow
+item.dragon_bow_enchant.name=Dragon Bow
+item.dragon_bow_forest.name=Dragon Bow
+item.dragon_bow_storm.name=Dragon Bow
+item.dragon_bow_terra.name=Dragon Bow
+item.dragon_bow_terra2.name=Dragon Bow
+item.dragon_bow_moonlight.name=Dragon Bow
+
 item.end_dragon_essence.name=Dragon Essence
 item.aether_dragon_essence.name=Dragon Essence
 item.ice_dragon_essence.name=Dragon Essence

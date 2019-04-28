@@ -38,21 +38,6 @@ public enum EnumDragonLifeStage {
 
     }
 
-    public static final int TICKS_PER_STAGE() {
-        if (values().equals(EGG)) {
-            return 20;
-        } else if (values().equals(HATCHLING)) {
-            return 30;
-        } else if (values().equals(JUVENILE)) {
-            return 40;
-        } else if (values().equals(ADULT)) {
-            return 50;
-        }
-
-        return 100;
-    }
-
-
     public static int clampTickCount(int ticksSinceCreation) {
         return MathX.clamps(ticksSinceCreation, 0, STAGE.length * TICKS_PER_STAGE);
     }

@@ -23,7 +23,9 @@ public enum EnumDragonLifeStage {
     HATCHLING(0.10f),
     INFANCY(0.35f),
     JUVENILE(1.00f),
-    ADULT(1.8f);
+    ADULT(1.8f),
+    GIGA(4),
+    ADJUDICATOR(5);
 
     public static final int TICKS_PER_STAGE = 42000;
     //    public static final int TICKS_PER_STAGE;

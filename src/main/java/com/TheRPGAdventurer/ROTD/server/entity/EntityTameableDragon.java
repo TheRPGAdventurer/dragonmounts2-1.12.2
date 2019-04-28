@@ -2592,8 +2592,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             this.roar();
         }
 
-        //	this.setSleeping(true);
-
         if (isHatchling() && isJumping) {
             return false;
         }

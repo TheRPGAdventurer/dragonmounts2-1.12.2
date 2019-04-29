@@ -310,29 +310,14 @@ public class DragonLifeStageHelper extends DragonHelper {
     }
 
     protected EnumParticleTypes getEggParticle() {
-
         switch (dragon.getBreedType()) {
             case END:
                 return EnumParticleTypes.PORTAL;
             case NETHER:
                 return EnumParticleTypes.DRIP_LAVA;
-            case FOREST:
-                return EnumParticleTypes.TOWN_AURA;
-            case ICE:
-                return EnumParticleTypes.TOWN_AURA;
-            case FIRE:
-                return EnumParticleTypes.TOWN_AURA;
-            case SYLPHID:
-                return EnumParticleTypes.TOWN_AURA;
-            case AETHER:
-                return EnumParticleTypes.TOWN_AURA;
-            case SKELETON:
-                return EnumParticleTypes.TOWN_AURA;
-            case WITHER:
-                return EnumParticleTypes.TOWN_AURA;
+            //All Eggs without special particles:
             default:
                 return EnumParticleTypes.TOWN_AURA;
-
         }
     }
 

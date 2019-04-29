@@ -532,10 +532,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean homepos() {
         return (dataManager.get(WHISTLE_STATE)) == 4;
     }
-    
-    public boolean sit()
-    {
-    	return (dataManager.get(WHISTLE_STATE)) == 5;
+
+    public boolean sit() {
+        return (dataManager.get(WHISTLE_STATE)) == 5;
     }
 
     public void setnothing(boolean nothing) {
@@ -557,10 +556,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void sethomepos(boolean homepos) {
         setStateField(4, homepos);
     }
-    
-    public void setsit(boolean sit)
-    {
-    	setStateField(5, sit);
+
+    public void setsit(boolean sit) {
+        setStateField(5, sit);
     }
 
     /**
@@ -764,8 +762,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     /**
      * Returns the distance to the ground while the entity is flying.
      */
-    public double getAltitude()
-    {
+    public double getAltitude() {
         BlockPos groundPos = world.getHeight(getPosition());
         double altitude = posY - groundPos.getY();
         return altitude;
@@ -896,24 +893,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      *
      * @return True if so
      */
-    public boolean onSolidGround()
-    {
+    public boolean onSolidGround() {
         double[] xz = {-2, -1, 0, 1, 2};
-        
+
         //Array not needed for y, only used once (In fact its better this way) @Wolf
-    	for (double y = -3.0; y <= -1.0; ++y)
-    	{
-    		for (double x : xz)
-    		{
-    			for (double z : xz)
-    			{
-    				if (isBlockSolid(posX + x, posY + y, posZ + z) && this.getScale() > 0.70)
-    				{
-    					return true;
-    				}
-    			}
-    		}
-    	} return false;
+        for (double y = -3.0; y <= -1.0; ++y) {
+            for (double x : xz) {
+                for (double z : xz) {
+                    if (isBlockSolid(posX + x, posY + y, posZ + z) && this.getScale() > 0.70) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /*
@@ -1236,8 +1229,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public void roar() {
         if (!isDead && getBreed().getRoarSoundEvent() != null) {
-            this.roarTicks = 0;
-            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 0, 2.3f), MathX.clamp(getScale(), 0.88f, 1), true);
+            this.roarTicks = 0; // MathX.clamp(getScale(), 0.88f
+            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL,
+                    MathX.clamp(getScale(), 0, 2.3f), this.getSoundManager().getPitch(), true);
         }
     }
 
@@ -1398,10 +1392,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return true;
         }
 
-        // inherited interaction
-        if (super.processInteract(player, hand)) {
-            return true;
-        }
+        // inherited interaction no inheritance they block taming for younger mobs
+//        if (super.processInteract(player, hand)) {
+//            return true;
+//        }
 
         return getInteractHelper().interact(player, item);
     }
@@ -1871,7 +1865,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
     }
-    
+
     public boolean isRidingAboveGround(Entity entity) {
         BlockPos groundPos = world.getHeight(getPosition());
         double altitude = entity.posY - groundPos.getY();
@@ -2087,6 +2081,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public boolean isAdult() {
+        return getLifeStageHelper().isAdult();
+    }
+
+    public boolean isGiga() {
+        return getLifeStageHelper().isAdult();
+    }
+
+    public boolean isAdjudicator() {
         return getLifeStageHelper().isAdult();
     }
 
@@ -2582,9 +2584,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // don't just sit there!
         this.aiSit.setSitting(false);
 
-        if(!sourceEntity.onGround) this.setFlying(true);
+//        if(!sourceEntity.onGround && sourceEntity != null) this.setFlying(true);
 
-        if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource())) {
+        if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource()) && damage < 1) {
             return false;
         }
 
@@ -2604,7 +2606,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (damage >= 17 && source != DamageSource.GENERIC) {
             return damage == 8.0f;
         }
-
 
 
         float damageReduction = getArmorResistance() + 3.0F;

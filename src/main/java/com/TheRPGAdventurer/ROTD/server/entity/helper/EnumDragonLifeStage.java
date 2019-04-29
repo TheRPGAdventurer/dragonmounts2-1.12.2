@@ -21,11 +21,11 @@ public enum EnumDragonLifeStage {
 
     EGG(0.25f),
     HATCHLING(0.10f),
-    INFANCY(0.35f),
+    INFANCY(0.25f),
     JUVENILE(1.00f),
-    ADULT(1.8f),
-    GIGA(4),
-    ADJUDICATOR(5);
+    ADULT(2f),
+    GIGA(3f),
+    ADJUDICATOR(4.4f);
 
     public static final int TICKS_PER_STAGE = 42000;
     //    public static final int TICKS_PER_STAGE;
@@ -56,7 +56,7 @@ public enum EnumDragonLifeStage {
         EnumDragonLifeStage lifeStage = fromTickCount(ticksSinceCreation);
 
         // constant size for egg and adult stage end growth if adult
-        if (lifeStage == EGG || lifeStage == ADULT) {
+        if (lifeStage == EGG || lifeStage == ADJUDICATOR) {
             return lifeStage.scale;
         }
 
@@ -71,6 +71,6 @@ public enum EnumDragonLifeStage {
     }
 
     public EnumDragonLifeStage next() {
-        return this == ADULT ? null : STAGE[ordinal() + 1];
+        return this == ADJUDICATOR ? null : STAGE[ordinal() + 1];
     }
 }

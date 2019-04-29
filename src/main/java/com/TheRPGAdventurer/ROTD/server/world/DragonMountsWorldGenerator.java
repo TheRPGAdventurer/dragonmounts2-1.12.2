@@ -127,10 +127,10 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(new BlockPos(height.getX(), height.getY() + 10, height.getZ()), world, random.nextBoolean() ? "aether" : "moonlight", LootTableList.CHESTS_WOODLAND_MANSION, true, random);
                 //   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 10, height.getZ()));
 
-            } else if (isSnowy && random.nextInt((DragonMountsConfig.AllNestRarity1)) == 1 && canSpawnHere(world, height, 7)) {
+            } else if (isSnowy && random.nextInt((DragonMountsConfig.IceNestRarity)) == 1 && canSpawnHere(world, height, 7)) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice", LootTableList.CHESTS_STRONGHOLD_CROSSING, true, random);
-                //   DMUtils.getLogger().info("Ice Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
+                   DMUtils.getLogger().info("Ice Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if (isJungle && random.nextInt((DragonMountsConfig.JungleNestRarity)) == 1) {
                 loadStructure(height, world, "forest1", LootTableList.CHESTS_STRONGHOLD_LIBRARY, true, random);
@@ -144,9 +144,9 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 
             } else if (isMesa && random.nextInt((DragonMountsConfig.AllNestRarity1)) == 1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                //   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
+                   DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 
-            } else if ((isSwamp) && random.nextInt((DragonMountsConfig.AllNestRarity)) == 1
+            } else if ((isSwamp) && random.nextInt((DragonMountsConfig.WaterNestRarity)) == 1
                     && canSpawnWaterHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));

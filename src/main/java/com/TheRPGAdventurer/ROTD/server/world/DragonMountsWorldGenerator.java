@@ -142,7 +142,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 10, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 DMUtils.getLogger().info("Sunlight Nest here at: " + new BlockPos(height.getX(), height.getY(), height.getZ()));
 
-            } else if (isMesa && random.nextInt((DragonMountsConfig.AllNestRarity1)) == 1 && canSpawnHere(world, height, 4)) {
+            } else if (isMesa && random.nextInt((DragonMountsConfig.TerraNestRarity)) == 1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
                    DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 

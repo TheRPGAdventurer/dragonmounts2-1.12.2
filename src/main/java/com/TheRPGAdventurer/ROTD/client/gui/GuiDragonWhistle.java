@@ -24,7 +24,6 @@ public class GuiDragonWhistle extends GuiScreen {
     private final MessageDragonWhistle dcw = new MessageDragonWhistle();
     private float mousePosX;
     private float mousePosY;
-    private EntityTameableDragon dragon;
     World world;
 
     ItemStack whistle;

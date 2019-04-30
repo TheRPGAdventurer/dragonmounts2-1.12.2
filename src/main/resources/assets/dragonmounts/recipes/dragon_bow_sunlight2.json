@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "item": "dragonmounts:sunlight_dragonscales"
+      "item": "dragonmounts:sunlight2_dragonscales"
     },
     "X": {
       "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "dragonmounts:dragon_bow_sunlight"
+    "item": "dragonmounts:dragon_bow_sunlight2"
   }
 }

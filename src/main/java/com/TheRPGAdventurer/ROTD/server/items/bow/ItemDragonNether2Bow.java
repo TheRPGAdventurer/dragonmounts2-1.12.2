@@ -19,24 +19,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonFire2Bow extends ItemDragonBow implements IHasModel {
+public class ItemDragonNether2Bow extends ItemDragonBow implements IHasModel {
 
     public EnumItemBreedTypes type;
     public Item repair;
 
-    public ItemDragonFire2Bow(EnumItemBreedTypes type, Item repair) {
+    public ItemDragonNether2Bow(EnumItemBreedTypes type, Item repair) {
         String name = "dragon_bow_" + type.toString().toLowerCase() + "2";
         this.setUnlocalizedName(name);
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.type = type;
         this.repair = repair;
+
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
                 if (entityIn == null) {
                     return 0.0F;
                 } else {
-                    return entityIn.getActiveItemStack().getItem() != ModTools.fire2_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+                    return entityIn.getActiveItemStack().getItem() != ModTools.nether2_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
                 }
             }
         });
@@ -46,6 +47,7 @@ public class ItemDragonFire2Bow extends ItemDragonBow implements IHasModel {
                 return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
             }
         });
+
         ModTools.BOWS.add(this);
     }
 

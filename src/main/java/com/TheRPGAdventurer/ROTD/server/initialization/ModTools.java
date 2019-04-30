@@ -178,14 +178,15 @@ public class ModTools {
     public static final Item aether_dragon_bow = new ItemDragonAetherBow(EnumItemBreedTypes.AETHER, ModItems.AetherDragonScales);
     public static final Item forest_dragon_bow = new ItemDragonForestBow(EnumItemBreedTypes.FOREST, ModItems.ForestDragonScales);
     public static final Item fire_dragon_bow = new ItemDragonFireBow(EnumItemBreedTypes.FIRE, ModItems.FireDragonScales);
-    public static final Item fire2_dragon_bow = new ItemDragonFire2Bow(EnumItemBreedTypes.FIRE2, ModItems.FireDragonScales2);
+    public static final Item fire2_dragon_bow = new ItemDragonFire2Bow(EnumItemBreedTypes.FIRE, ModItems.FireDragonScales2);
     public static final Item ice_dragon_bow = new ItemDragonIceBow(EnumItemBreedTypes.ICE, ModItems.IceDragonScales);
     public static final Item water_dragon_bow = new ItemDragonWaterBow(EnumItemBreedTypes.WATER, ModItems.WaterDragonScales);
     public static final Item sunlight_dragon_bow = new ItemDragonSunlightBow(EnumItemBreedTypes.SUNLIGHT, ModItems.SunlightDragonScales);
-    public static final Item sunlight2_dragon_bow = new ItemDragonSunlight2Bow(EnumItemBreedTypes.SUNLIGHT2, ModItems.SunlightDragonScales2);
+    public static final Item sunlight2_dragon_bow = new ItemDragonSunlight2Bow(EnumItemBreedTypes.SUNLIGHT, ModItems.SunlightDragonScales2);
     public static final Item enchant_dragon_bow = new ItemDragonEnchantBow(EnumItemBreedTypes.ENCHANT, ModItems.EnchantDragonScales);
     public static final Item storm_dragon_bow = new ItemDragonStormBow(EnumItemBreedTypes.STORM, ModItems.StormDragonScales);
     public static final Item nether_dragon_bow = new ItemDragonNetherBow(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales);
+    public static final Item nether2_dragon_bow = new ItemDragonNether2Bow(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales2);
     public static final Item ender_dragon_bow = new ItemDragonEndBow(EnumItemBreedTypes.END, ModItems.EnderDragonScales);
     public static final Item terra_dragon_bow = new ItemDragonTerraBow(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
     public static final Item terra2_dragon_bow = new ItemDragonTerra2Bow(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);

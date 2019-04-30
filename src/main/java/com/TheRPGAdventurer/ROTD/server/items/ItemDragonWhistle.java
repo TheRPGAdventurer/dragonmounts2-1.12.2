@@ -4,6 +4,8 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
@@ -28,9 +30,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemDragonWhistle extends Item implements IHasModel
-{
-
+public class ItemDragonWhistle extends Item implements IHasModel {
+	private EntityTameableDragon dragon;
+	private EnumItemBreedTypes type;
+	
 	public ItemDragonWhistle() {
 		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
@@ -55,7 +58,9 @@ public class ItemDragonWhistle extends Item implements IHasModel
 	    if (stack.hasTagCompound()) {
 	         nbt = stack.getTagCompound(); 
 	    } else {
-	         nbt = new NBTTagCompound();
+	    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.unBound"), true);
+	    	return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+//	         nbt = new NBTTagCompound();
 	    }
 	       				
         stack.setTagCompound(nbt);
@@ -68,8 +73,7 @@ public class ItemDragonWhistle extends Item implements IHasModel
 		//  } //else if(!nbt.hasKey(DragonMounts.MODID + "dragon")) {
            // player.sendStatusMessage(new TextComponentTranslation("item.whistle.noDragon", new Object[0]), true);
         }
-
-	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
+	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 	}
 	
     @SideOnly(Side.CLIENT)
@@ -79,39 +83,36 @@ public class ItemDragonWhistle extends Item implements IHasModel
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
-		NBTTagCompound nbt = stack.getTagCompound();		
+		NBTTagCompound nbt = stack.getTagCompound();
+		EntityTameableDragon dragon = (EntityTameableDragon) target;
+		this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+		//debug
+		System.out.println(type);
 
 	    if (stack.hasTagCompound()) {
 	         nbt = stack.getTagCompound(); 
-	    } else {
-	         nbt = new NBTTagCompound();
+	    } else if (dragon.isTamedFor(player)) {
+	    	nbt = new NBTTagCompound();
 	    }
+	    else return false;
 	       				
         stack.setTagCompound(nbt);
         
 		if (target instanceof EntityTameableDragon) {
-			EntityTameableDragon dragon = (EntityTameableDragon) target;				
-			
 			if (dragon.isTamedFor(player)) {
 				if(stack.getTagCompound() != null) {
-				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand())) { 					        
-				    	String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-					    String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";			  
-				    	nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
-				    	player.sendStatusMessage(new TextComponentTranslation(
-				    	        "item.whistle.hasDragon", "name:" + dragonName + "owner:" + ownerName),
-                                true);
-				    	if(dragon.hasCustomName()) {
-				    		stack.setStackDisplayName(dragonName);
-				    	}
-				    	
+				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand())) { 	
+					   this.dragon = dragon;
+					   String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
+					   String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";
+					   nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
+					   player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon"), true);
 				    }
 			    }
 				dragon.setControllingWhistle(stack);
 			} else {
 	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
 			}
-			
 			return true;
 		} else {
 			return false;
@@ -119,8 +120,16 @@ public class ItemDragonWhistle extends Item implements IHasModel
 	}
 	
 	@Override
-	public void RegisterModels()
-	{
+	public String getItemStackDisplayName(ItemStack stack) {
+//		System.out.println(dragon.getBreed().getColor());
+		if (stack.hasTagCompound())
+			return new TextComponentTranslation(getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + type.color + dragon.getBreedType().toString().toLowerCase() + " dragon" + TextFormatting.RESET + ")";
+		else
+			return new TextComponentTranslation(getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
+	}
+	
+	@Override
+	public void RegisterModels() {
 		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 }

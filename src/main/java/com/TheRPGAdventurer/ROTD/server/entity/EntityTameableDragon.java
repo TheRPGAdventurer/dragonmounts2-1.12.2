@@ -151,6 +151,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             .createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_REPRO_COUNT = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> HUNGER = EntityDataManager
+            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES = EntityDataManager
@@ -270,11 +272,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dragonBodyHelper.updateRenderAngles();
         return f2;
     }
-
-//    @Override
-//    protected EntityBodyHelper createBodyHelper() {
-//        return new DragonBodyHelper(this);
-//    }
 
     @Override
     protected void entityInit() {
@@ -1634,24 +1631,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         ticksSinceLastAttack = 0;
     }
 
-    public void sendEssenceToPlayer(ItemStack essence, EntityPlayer player) {
-        boolean flag = player.inventory.addItemStackToInventory(essence);
-
-        if (flag) {
-            player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
-            player.inventoryContainer.detectAndSendChanges();
-        }
-
-        if (flag && essence.isEmpty()) {
-            essence.setCount(1);
-            EntityItem entityitem1 = player.dropItem(essence, false);
-
-            if (entityitem1 != null) {
-                entityitem1.makeFakeItem();
-            }
-        }
-    }
-
     /**
      * 1 equals iron 2 equals gold 3 equals diamond
      *
@@ -2656,7 +2635,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public void collideDragon() {
-
         this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()), 4);
         this.collideWithEntities(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()), 4);
         this.attackEntitiesInList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));

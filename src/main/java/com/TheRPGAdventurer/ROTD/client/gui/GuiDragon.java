@@ -110,7 +110,6 @@ public class GuiDragon extends GuiContainer {
 
     static class LockButton extends GuiButton {
 
-        private boolean enable;
         private EntityTameableDragon dragon;
 
         public LockButton(int buttonId, int x, int y, int i, int j, EntityTameableDragon dragon) {

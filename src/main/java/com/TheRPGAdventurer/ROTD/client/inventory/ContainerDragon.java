@@ -27,7 +27,8 @@ public class ContainerDragon extends Container {
 		final int inventoryColumn = 9;
 		dragonInv.openInventory(player);
 		int j = -21;
-		
+		int k2;
+
 		// location of the slot for the saddle in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 0, 8, 18) {
 			
@@ -150,6 +151,10 @@ public class ContainerDragon extends Container {
 
 		for (j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 208 + i));
+		}
+
+		for (k2 = 0; k2 < 4; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, k2, 18, 150 + k2 * 18 + i)); // 8 * 18
 		}
 		
 	}

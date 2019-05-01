@@ -4,7 +4,9 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -36,7 +38,7 @@ import java.util.Random;
  * @author WolfShotz
  */
 
-public class BlockDragonShulker extends BlockContainer {
+public class BlockDragonShulker extends Block {
 
     public static final PropertyEnum<EnumFacing> FACING = PropertyDirection.create("facing");
 
@@ -85,9 +87,14 @@ public class BlockDragonShulker extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createTileEntity(World worldIn, IBlockState state) {
         return new TileEntityDragonShulker();
     }
+
+//    public boolean hasTileEntity(IBlockState state)
+//    {
+//        return true;
+//    }
 
     /**
      * Called when the block is right clicked by a player.

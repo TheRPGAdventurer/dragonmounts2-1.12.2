@@ -4,8 +4,13 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
 
 public class ItemDragonShulker extends ItemBlock implements IHasModel {
     public ItemDragonShulker(Block p_i47260_1_) {
@@ -22,4 +27,12 @@ public class ItemDragonShulker extends ItemBlock implements IHasModel {
         DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
     }
 
+    @Override
+    public void setTileEntityItemStackRenderer(@Nullable TileEntityItemStackRenderer teisr) {
+        super.setTileEntityItemStackRenderer(teisr);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Nullable
+    private net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer teisr;
 }

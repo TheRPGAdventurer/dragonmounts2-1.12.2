@@ -1002,6 +1002,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 //            }
 //        }
 
+        DMUtils.getLogger().info("follow yaw is " + this.followYaw());
+        DMUtils.getLogger().info("unhovered is " + this.isUnHovered());
+
+        int followYaw = DragonMounts.proxy.getDragonFollowYaw();
+        int unhover = DragonMounts.proxy.getDragonHover();
+
+        this.setFollowYaw(followYaw == 1);
+        this.setUnHovered(unhover == 1);
+
+        DMUtils.getLogger().info("follow yaw = " + followYaw);
+        DMUtils.getLogger().info("unhover = "+unhover);
+
         if (roarTicks >= 0) { // used for jaw animation
             ++roarTicks;
             if (roarTicks > 1000) {

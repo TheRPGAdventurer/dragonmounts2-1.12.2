@@ -153,7 +153,7 @@ public class ContainerDragon extends Container {
 		}
 
 		for (k2 = 0; k2 < 4; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -16, 135 - k2 * 18));
+			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -70, 90 - k2 * 18));
 		}
 		
 	}

@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,21 +72,6 @@ public class DragonViewEvent {
                 } else if (currentView == 2) {
                     GlStateManager.translate(4.7F, -3.6F, DragonMountsConfig.ThirdPersonZoom);
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void misc(LivingEvent.LivingUpdateEvent event) {
-        if(event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if(player.getRidingEntity() instanceof  EntityTameableDragon) {
-                EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
-                int followYaw = DragonMounts.proxy.getDragonFollowYaw();
-                int unhover = DragonMounts.proxy.getDragonHover();
-
-                dragon.setFollowYaw(followYaw == 1);
-                dragon.setUnHovered(unhover == 1);
             }
         }
     }

@@ -8,6 +8,7 @@ import com.TheRPGAdventurer.ROTD.server.network.MessageDragonLock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +24,7 @@ import java.io.IOException;
 public class GuiDragon extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
+    private static final ResourceLocation texture1 = new ResourceLocation(DragonMounts.MODID, "textures/gui/player.png");
     private IInventory playerInventory;
     private IInventory dragonInv;
     private EntityTameableDragon dragon;
@@ -64,12 +66,20 @@ public class GuiDragon extends GuiContainer {
         this.mc.getTextureManager().bindTexture(texture);
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;
+
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
         }
+
         GuiInventory.drawEntityOnScreen(x + 80, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
-                this.dragon);
+                this.dragon); //
+        GuiInventory.drawEntityOnScreen(x - 24, y + 120, 35, x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
+                this.player);
+
+        this.mc.getTextureManager().bindTexture(texture1);
+        drawModalRectWithCustomSizedTexture(x - 52, y + 20, 0.0F, 0.0F, 93, 79, 16, 16);
+
     }
 
     @Override

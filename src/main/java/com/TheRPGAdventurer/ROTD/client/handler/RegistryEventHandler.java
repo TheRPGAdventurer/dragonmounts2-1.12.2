@@ -35,7 +35,6 @@ public class RegistryEventHandler {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
         TileEntityHandler.registerTileEntities();
         DMUtils.getLogger().info("Block Registries Successfully Registered");
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
     }
 
     @SubscribeEvent

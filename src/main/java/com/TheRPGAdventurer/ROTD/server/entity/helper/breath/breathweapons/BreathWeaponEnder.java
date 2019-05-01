@@ -68,10 +68,10 @@ public class BreathWeaponEnder extends BreathWeapon implements PrivateAccessor {
             entityareaeffectcloud.setRadius(1.6F);
             entityareaeffectcloud.setDuration(750);
             entityareaeffectcloud.setRadiusPerTick((1.0F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());
-            entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.WITHER, 250, 1));
+            entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.WITHER, 200, 1));
 
             entityareaeffectcloud.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-            if (!block.isAir(iBlockState, world, blockPos)) {
+            if (!block.isAir(iBlockState, world, blockPos) && rand.nextInt(500) == 1) {
                 world.spawnEntity(entityareaeffectcloud);
             }
         }

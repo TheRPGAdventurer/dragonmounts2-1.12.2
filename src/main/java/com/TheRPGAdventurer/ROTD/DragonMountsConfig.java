@@ -56,6 +56,7 @@ public class DragonMountsConfig {
 	// chances
 	public static int AllNestRarity  = 110;
 	public static int AllNestRarity1  = 180;
+//	public static int ZombieNestRarity1  = 180;
 	public static int TerraNestRarity  = 180;
 	public static int ForestNestRarity1  = 400;
 	public static int SunlightNestRarity  = 60;
@@ -65,9 +66,13 @@ public class DragonMountsConfig {
 	public static int WaterNestRarity  = 110;
 	public static int IceNestRarity  = 200;
 
-	public static int netherNestRarity = 500;
+	public static int netherNestRarity = 600;
 	public static int netherNestRarerityInX = 32;
 	public static int netherNestRarerityInZ = 32;
+
+	public static int zombieNestRarity = 500;
+	public static int zombieNestRarerityInX = 28;
+	public static int zombieNestRarerityInZ = 28;
 
 	public static double ThirdPersonZoom = 20;
 

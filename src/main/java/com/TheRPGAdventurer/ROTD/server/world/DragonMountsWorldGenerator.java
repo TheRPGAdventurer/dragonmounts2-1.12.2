@@ -243,12 +243,12 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         if (DragonMountsConfig.canSpawnNetherNest && !world.isRemote) {
             WorldServer worldserver = (WorldServer) world;
 
-            int x = (chunkX * DragonMountsConfig.netherNestRarerityInX) + random.nextInt(DragonMountsConfig.netherNestRarerityInX);
-            int z = (chunkZ * DragonMountsConfig.netherNestRarerityInZ) + random.nextInt(DragonMountsConfig.netherNestRarerityInZ);
+            int x = (chunkX * DragonMountsConfig.zombieNestRarerityInX) + random.nextInt(DragonMountsConfig.zombieNestRarerityInX);
+            int z = (chunkZ * DragonMountsConfig.zombieNestRarerityInZ) + random.nextInt(DragonMountsConfig.zombieNestRarerityInZ);
             for (int y = 85; y >= 5; y--) {
 
                 boolean solidGround = world.getBlockState(new BlockPos(x, y, z)).isBlockNormalCube();
-                if (solidGround && random.nextInt(DragonMountsConfig.netherNestRarity) == 1) {
+                if (solidGround && random.nextInt(DragonMountsConfig.zombieNestRarity) == 1) {
                     boolean place = true;
 
                     for (int Y = 0; Y < 3; Y++) {

@@ -26,7 +26,7 @@ public class DragonViewEvent {
 
         if (player.getRidingEntity() instanceof EntityTameableDragon) {
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
-                GlStateManager.translate(0F, -0.9F, 0);
+                GlStateManager.translate(0F, -1.2F, 0);
             }
 
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {

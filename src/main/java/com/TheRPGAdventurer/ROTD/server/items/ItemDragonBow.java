@@ -23,6 +23,16 @@ public class ItemDragonBow extends ItemBow {
         this.setCreativeTab(DragonMounts.armoryTab);
     }
 
+    /**
+     * How long it takes to use or consume an item
+     */
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack)
+    {
+        return 67000;
+    }
+
+
     private ItemStack findAmmo(EntityPlayer player) {
         if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
             return player.getHeldItem(EnumHand.OFF_HAND);

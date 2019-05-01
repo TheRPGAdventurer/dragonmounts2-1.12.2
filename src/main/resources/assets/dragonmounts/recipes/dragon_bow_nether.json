@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "item": "dragonmounts:end_dragonscales"
+      "item": "dragonmounts:nether_dragonscales"
     },
     "X": {
       "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "dragonmounts:dragon_bow_end"
+    "item": "dragonmounts:dragon_bow_nether"
   }
 }

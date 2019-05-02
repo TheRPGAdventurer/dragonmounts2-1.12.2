@@ -18,16 +18,22 @@
   "url": "https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/2912751-dragon-mounts-2-1-12-firebreathing-dragons-dragon",
   "authorList": ["BarracudaATA, TheRPGAdventurer"],
   
-  "credits":
+  "credits": "
+  BarracudaATA4 - The Original Owner,
   
-  "BarracudaATA4 - The Original Owner, 
-   FlaemWing - for new nest block textures and dragonarmor item textures, new tool textures,
-   Merpou/Kingdomall/Masked_Ares - more textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O),
-   GundunUkan/Lord Ukan - for new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student
-   AlexThe666 - for open source code, Ice and Fire owner, Older Matured and more experience than me
-   Shannieanne - Zombie Textures, Terra textures, Texture Fixes, Overall Second Dev,
-   Majty/Guinea Owl - for amulet textures,
-   Wolf - Second Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds",
+  FlaemWing - for new nest block textures and dragonarmor item textures, new tool textures,
+  
+  Merpou/Kingdomall/Masked_Ares - more textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O),
+  
+  GundunUkan/Lord Ukan - for new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student,
+  
+  AlexThe666 - for open source code, Ice and Fire owner, Older Matured and more experience than me,
+  
+  Shannieanne - Zombie Textures, Terra textures, Texture Fixes, Overall Second Dev,
+  
+  Majty/Guinea Owl - for amulet textures,
+  
+  Wolf - Second Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds",
    
   "logoFile": "logo.png",
   

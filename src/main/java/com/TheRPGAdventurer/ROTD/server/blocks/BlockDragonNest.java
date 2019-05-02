@@ -1,28 +1,35 @@
 package com.TheRPGAdventurer.ROTD.server.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 import java.util.Random;
 
-public class BlockDragonNest extends BlockBase
-{
+public class BlockDragonNest extends Block implements IHasModel {
 
-	public BlockDragonNest(String unlocalizedName, Material material)
-	{
-		super(unlocalizedName, material);
-		this.setUnlocalizedName(unlocalizedName);
+	public BlockDragonNest(String name) {
+		super(Material.WOOD);
+		this.setUnlocalizedName(name);
+		this.setRegistryName(name);
 		this.setResistance(1);
 		this.setHardness(1);
 		this.setSoundType(SoundType.WOOD);
 		this.setCreativeTab(DragonMounts.mainTab);
+		
+		ModBlocks.BLOCKS.add(this);
+		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
 	} 
 
     @Override
@@ -39,4 +46,9 @@ public class BlockDragonNest extends BlockBase
     public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 77;
     }
+
+	@Override
+	public void RegisterModels() {
+		DragonMounts.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+	}
 }

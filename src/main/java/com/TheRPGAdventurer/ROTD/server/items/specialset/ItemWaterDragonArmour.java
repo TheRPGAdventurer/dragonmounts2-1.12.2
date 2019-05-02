@@ -15,11 +15,11 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
 	private final PotionEffect potionEffect;
 
-	public ItemWaterDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn,
-			String unlocalizedName, EnumItemBreedTypes type, @Nullable PotionEffect potionEffect) {
+	public ItemWaterDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, EnumItemBreedTypes type, @Nullable PotionEffect potionEffect) {
 		super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
 		this.potionEffect = potionEffect;
 		this.setCreativeTab(DragonMounts.armoryTab);
+		this.setUnlocalizedName("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
 		
 	}
 	

@@ -33,6 +33,7 @@ import java.util.UUID;
 public class ItemDragonWhistle extends Item implements IHasModel {
 	private EntityTameableDragon dragon;
 	private EnumItemBreedTypes type;
+//	private EntityPlayer player;
 	
 	public ItemDragonWhistle() {
 		this.setUnlocalizedName("dragon_whistle");
@@ -44,7 +45,6 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
 		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.whistle.info"));
@@ -70,8 +70,9 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 
 			  }
-		//  } //else if(!nbt.hasKey(DragonMounts.MODID + "dragon")) {
-           // player.sendStatusMessage(new TextComponentTranslation("item.whistle.noDragon", new Object[0]), true);
+/*		  } else if(!nbt.hasKey(DragonMounts.MODID + "dragon")) {
+            player.sendStatusMessage(new TextComponentTranslation("item.whistle.noDragon", new Object[0]), true);
+*/
         }
 	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 	}
@@ -86,15 +87,16 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 		NBTTagCompound nbt = stack.getTagCompound();
 		EntityTameableDragon dragon = (EntityTameableDragon) target;
 		this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-		//debug
-		System.out.println(type);
+//		this.player = player;	
 
 	    if (stack.hasTagCompound()) {
 	         nbt = stack.getTagCompound(); 
 	    } else if (dragon.isTamedFor(player)) {
 	    	nbt = new NBTTagCompound();
+	    } else {
+	    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+	    	return false;
 	    }
-	    else return false;
 	       				
         stack.setTagCompound(nbt);
         
@@ -121,11 +123,9 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 	
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-//		System.out.println(dragon.getBreed().getColor());
-		if (stack.hasTagCompound())
-			return new TextComponentTranslation(getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + type.color + dragon.getBreedType().toString().toLowerCase() + " dragon" + TextFormatting.RESET + ")";
-		else
-			return new TextComponentTranslation(getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
+		if (!stack.hasTagCompound())	//stack.getTagCompound().hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand()))
+			return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
+		return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + type.color + dragon.getBreedType().toString().toLowerCase() + " dragon" + TextFormatting.RESET + ")";		
 	}
 	
 	@Override

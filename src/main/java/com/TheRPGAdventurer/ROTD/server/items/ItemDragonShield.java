@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,7 +29,7 @@ public class ItemDragonShield extends ItemShield implements IHasModel {
     public ItemDragonShield(EnumItemBreedTypes type, Item repair) {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_shield_" + type.toString().toLowerCase()));
         this.repair = repair;
-        this.setUnlocalizedName("dragon_shield_" + type.toString().toLowerCase());
+        this.setUnlocalizedName("dragon_shield");
         this.setMaxDamage(2500);
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.armoryTab);
@@ -43,15 +44,17 @@ public class ItemDragonShield extends ItemShield implements IHasModel {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
     }
+    
+    //Necessary because were extending from ItemShield, which creates its own displayname method
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {return I18n.translateToLocal("item.dragon_shield.name");}
 
     @Override
     public boolean isShield(ItemStack stack, EntityLivingBase entity) {
         return true;
     }
 
-    /**
-     * Return whether this item is repairable in an anvil.
-     */
+    @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack item) {
         return item.getItem() == repair ? true : super.getIsRepairable(toRepair, new ItemStack(repair));
     }

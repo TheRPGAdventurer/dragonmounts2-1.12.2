@@ -55,7 +55,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
         modid = DragonMounts.MODID,
         name = DragonMounts.NAME,
         version = DragonMounts.VERSION,
-        useMetadata = true,
+        useMetadata = false,
         guiFactory = DragonMounts.GUI_FACTORY
 )
 public class DragonMounts {
@@ -97,13 +97,11 @@ public class DragonMounts {
     public static DamageSource dragons_fire;
 
     @EventHandler
-    public void PreInitialization(FMLPreInitializationEvent event)
-    {
+    public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         metadata = event.getModMetadata();
-        proxy.PreInitialization(event);
-
+        proxy.PreInitialization(event);     
     }
 
     @EventHandler

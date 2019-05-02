@@ -39,9 +39,9 @@ public class ItemEnderDragonArmour extends ItemArmor implements IHasModel
 
 	@Override
 	public void onArmorTick(final World world, final EntityPlayer player, final ItemStack itemStack) {
-		if (!player.isPotionActive(potionEffect.getPotion())) { // If the Potion isn't currently active,
-			player.addPotionEffect(new PotionEffect(potionEffect)); // Apply a copy of the PotionEffect to the player
-		}
+//		if (!player.isPotionActive(potionEffect.getPotion())) { // If the Potion isn't currently active,
+//			player.addPotionEffect(new PotionEffect(potionEffect)); // Apply a copy of the PotionEffect to the player
+//		}
 
 		spawnParticles(player);
 	}

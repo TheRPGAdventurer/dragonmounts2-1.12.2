@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -151,10 +152,18 @@ public class ContainerDragon extends Container {
 		for (j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 208 + i));
 		}
-
+//		GuiContainerCreative.ContainerCreative
 		// player armor position
-		for (k2 = 0; k2 < 4; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -70, 130 - k2 * 18));
+		for (k2 = 0; k2 < 2; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -19, 109 - k2 * 27));
+		}
+
+		for (k2 = 0; k2 < 2; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, 38 + k2, -73, 109 - k2 * 27));
+		}
+
+		for (k2 = 0; k2 < 1; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, 40 + k2, -91, 100 - k2 * 27));
 		}
 		
 	}

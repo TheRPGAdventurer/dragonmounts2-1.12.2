@@ -33,11 +33,15 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -48,6 +52,7 @@ public class ClientProxy extends ServerProxy {
     private int thirdPersonViewDragon = 0;
     private int followYaw = 0;
     private int hover = 0;
+    private ModMetadata metadata;
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -67,6 +72,25 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
+
+        metadata = event.getModMetadata();
+        metadata.name = "§3§lDragon Mounts";
+        metadata.credits =
+                "\n§aBarracudaATA4§r - §bThe Original Owner" +
+                        "\n\n§aFlaemWing§r - §bfor new nest block textures and dragonarmor item textures, new tool textures" +
+                        "\n\n§aMerpou/Kingdomall/Masked_Ares§r - §bmore textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O)" +
+                        "\n\n§aGundunUkan/Lord Ukan§r - §bfor new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student" +
+                        "\n\n§aAlexThe666§r - §bfor open source code, Ice and Fire owner, Older Matured and more experience than me" +
+                        "\n\n§aShannieanne§r - §bZombie Textures, Terra textures, Texture Fixes, Overall Second Dev" +
+                        "\n\n§aMajty/Guinea Owl§r - §bfor amulet textures" +
+                        "\n\n§aWolf§r - §bSecond Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds\n";
+        metadata.authorList = Arrays.asList(StringUtils.split("§6§lTheRpgAdventurer§r,§6§lBarracudaATA§r,§6§lKingdomall§r,§6§lShannieanne§r,§6§lWolfShotz§r", ','));
+        metadata.description =
+                "\n§c1.§r Don't forget to right click the egg to start the hatching process\n" +
+                        "§c2.§r Also water dragon needs to be struck by lightning to become a storm dragon\n" +
+                        "§c3.§r You can't hatch eggs in the End Dimension\n" +
+                        "§c4.§r You can press §octrl§r to enable boost flight\n" +
+                        "§c5.§r Dragons need to be of opposite genders to breed";
     }
 
     @Override

@@ -254,8 +254,8 @@ public class BreathWeaponNether extends BreathWeapon implements PrivateAccessor 
     final float CATCH_FIRE_THRESHOLD = 1.4F;
     final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
     float hitDensity = currentHitDensity.getHitDensity();
-    
-    final float DAMAGE_PER_HIT_DENSITY = 0.5F * hitDensity;
+
+    final float DAMAGE_PER_HIT_DENSITY = 2.5F * hitDensity;
     
     triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
     entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);

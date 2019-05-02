@@ -23,25 +23,19 @@ public abstract class DragonInteract {
     protected final EntityTameableDragon dragon;
 
     public DragonInteract(EntityTameableDragon dragon) {
-        this.dragon = dragon;	
+        this.dragon = dragon;
     }
 
     public abstract boolean interact(EntityPlayer player, ItemStack item);
 
-    protected boolean isAllowed(EntityPlayer player)
-    {
-    	if (!dragon.isTamed())
-        {
-        	player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
-        	return dragon.isTamedFor(player);
-        }
-    	else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player))
-        {
-        	player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
+    protected boolean isAllowed(EntityPlayer player) {
+        if (!dragon.isTamed()) {
+            player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
             return dragon.isTamedFor(player);
-        }
-        else
-        {
+        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player)) {
+            player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
+            return dragon.isTamedFor(player);
+        } else {
             return true;
         }
     }

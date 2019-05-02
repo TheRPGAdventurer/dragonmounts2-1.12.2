@@ -95,7 +95,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 	    	nbt = new NBTTagCompound();
 	    } else {
 	    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-	    	return false;
+	    	return true; // return true to end this method without damaging the dragon after clicking
 	    }
 	       				
         stack.setTagCompound(nbt);

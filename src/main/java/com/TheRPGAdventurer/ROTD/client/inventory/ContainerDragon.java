@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -27,7 +28,8 @@ public class ContainerDragon extends Container {
 		final int inventoryColumn = 9;
 		dragonInv.openInventory(player);
 		int j = -21;
-		
+		int k2;
+
 		// location of the slot for the saddle in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 0, 8, 18) {
 			
@@ -137,8 +139,7 @@ public class ContainerDragon extends Container {
 				});
 			}
 		}
-		
-		int j1;
+
 		int k;
 		
 		// location of the player's inventory in the dragon inventory 
@@ -150,6 +151,19 @@ public class ContainerDragon extends Container {
 
 		for (j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 208 + i));
+		}
+//		GuiContainerCreative.ContainerCreative
+		// player armor position
+		for (k2 = 0; k2 < 2; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -19, 109 - k2 * 27));
+		}
+
+		for (k2 = 0; k2 < 2; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, 38 + k2, -73, 109 - k2 * 27));
+		}
+
+		for (k2 = 0; k2 < 1; ++k2) {
+			this.addSlotToContainer(new Slot(player.inventory, 40 + k2, -92, 96 - k2 * 27));
 		}
 		
 	}

@@ -9,6 +9,8 @@
  */
 package com.TheRPGAdventurer.ROTD.client;
 
+import java.util.Arrays;
+
 import javax.annotation.Nonnull;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,20 +21,24 @@ import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
+import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
 import com.TheRPGAdventurer.ROTD.server.ServerProxy;
+import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.*;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
 import com.TheRPGAdventurer.ROTD.server.items.entity.ImmuneEntityItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelShulker;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -40,7 +46,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.actors.threadpool.Arrays;
+
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -69,8 +75,8 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
-        
-//      ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer(new ModelShulker()));
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
         
         //Override mcmod.info - This looks cooler :)
         metadata = event.getModMetadata();
@@ -105,7 +111,6 @@ public class ClientProxy extends ServerProxy {
         if (DragonMountsConfig.isDebug()) {
             MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
         }
-        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
         MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
         MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);
@@ -125,11 +130,11 @@ public class ClientProxy extends ServerProxy {
         thirdPersonViewDragon = view;
     }
 
-    public int getFollowYaw() {
+    public int getDragonFollowYaw() {
         return followYaw;
     }
 
-    public void setFollowYaw(int followYaw) {
+    public void setDragonFollowYaw(int followYaw) {
         this.followYaw = followYaw;
     }
 

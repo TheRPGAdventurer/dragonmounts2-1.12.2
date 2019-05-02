@@ -348,6 +348,14 @@ public class DragonLifeStageHelper extends DragonHelper {
         return getLifeStage() == ADULT;
     }
 
+    public boolean isGiga() {
+        return getLifeStage() == GIGA;
+    }
+
+    public boolean isAdjudicator() {
+        return getLifeStage() == ADJUDICATOR;
+    }
+
     public BreathNode.Power getBreathPower() {
         switch (getLifeStage()) {
             case EGG: {

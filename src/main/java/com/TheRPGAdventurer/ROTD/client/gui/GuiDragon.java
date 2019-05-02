@@ -8,6 +8,7 @@ import com.TheRPGAdventurer.ROTD.server.network.MessageDragonLock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,8 +22,8 @@ import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {
-
     private static final ResourceLocation texture = new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
+    private static final ResourceLocation texture1 = new ResourceLocation(DragonMounts.MODID, "textures/gui/player.png");
     private IInventory playerInventory;
     private IInventory dragonInv;
     private EntityTameableDragon dragon;
@@ -64,12 +65,20 @@ public class GuiDragon extends GuiContainer {
         this.mc.getTextureManager().bindTexture(texture);
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;
+
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
         }
-        GuiInventory.drawEntityOnScreen(x + 80, y + 60, (int) (13 / dragon.getScale()), x + 78 - this.mousePosX, y + 75 - 50 - this.mousePosY,
-                this.dragon);
+        // draw dragon entity
+        GuiInventory.drawEntityOnScreen(x + 85, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY, this.dragon);
+
+        //draw player entity
+        GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY, this.player);
+
+        // draw player model (skin, equips)
+        this.mc.getTextureManager().bindTexture(texture1);
+        drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
     }
 
     @Override
@@ -110,7 +119,6 @@ public class GuiDragon extends GuiContainer {
 
     static class LockButton extends GuiButton {
 
-        private boolean enable;
         private EntityTameableDragon dragon;
 
         public LockButton(int buttonId, int x, int y, int i, int j, EntityTameableDragon dragon) {

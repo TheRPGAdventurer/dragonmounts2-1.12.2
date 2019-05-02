@@ -182,8 +182,8 @@ public class DragonAnimator {
 
     public void setLook(float lookYaw, float lookPitch) {
         // don't twist the neck
-        this.lookYaw = MathX.clamp(lookYaw, -120, 120);
-        this.lookPitch = MathX.clamp(lookPitch, -90, 90);
+        this.lookYaw = MathX.clamp(lookYaw, -150, 150);
+        this.lookPitch = MathX.clamp(lookPitch, -150, 150);
     }
 
     /**
@@ -586,7 +586,7 @@ public class DragonAnimator {
     }
 
     public float getBodyPitch(float pt) {
-        float pitchMovingMax = 90;
+        float pitchMovingMax = -90;
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60;
         boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null

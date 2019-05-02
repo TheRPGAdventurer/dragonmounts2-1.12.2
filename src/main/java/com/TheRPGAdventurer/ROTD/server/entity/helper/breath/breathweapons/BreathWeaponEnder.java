@@ -68,11 +68,10 @@ public class BreathWeaponEnder extends BreathWeapon implements PrivateAccessor {
             entityareaeffectcloud.setRadius(1.6F);
             entityareaeffectcloud.setDuration(750);
             entityareaeffectcloud.setRadiusPerTick((1.0F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());
-            entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.WITHER, 150, 1));
+            entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.WITHER, 200, 1));
 
             entityareaeffectcloud.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-            int i = rand.nextInt(10000);
-            if (i < 10) {
+            if (!block.isAir(iBlockState, world, blockPos) && rand.nextInt(500) == 1) {
                 world.spawnEntity(entityareaeffectcloud);
             }
         }
@@ -102,7 +101,7 @@ public class BreathWeaponEnder extends BreathWeapon implements PrivateAccessor {
         this.xp(entity);
 
         float hitDensity = currentHitDensity.getHitDensity();
-        final float DAMAGE_PER_HIT_DENSITY = 0.6F * hitDensity;
+        final float DAMAGE_PER_HIT_DENSITY = 3F * hitDensity;
 
         triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
 

@@ -4,12 +4,12 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonBow;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonSkeletonBow extends ItemBow implements IHasModel {
+public class ItemDragonSkeletonBow extends ItemDragonBow implements IHasModel {
 
     public EnumItemBreedTypes type;
     public Item repair;
@@ -37,7 +37,8 @@ public class ItemDragonSkeletonBow extends ItemBow implements IHasModel {
                 if (entityIn == null) {
                     return 0.0F;
                 } else {
-                    return entityIn.getActiveItemStack().getItem() != ModTools.skelton_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+//                	return entityIn.getActiveItemStack().getItem() != ModTools.skeleton_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+                	return entityIn.getActiveItemStack().getItem() != ModTools.ice_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
                 }
             }
         });

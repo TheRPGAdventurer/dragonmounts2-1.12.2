@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,8 +14,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DragonViewEvent {
-
-    Minecraft mc = Minecraft.getMinecraft();
 
     /**
      * Credit to AlexThe666 : iceandfire
@@ -28,7 +27,7 @@ public class DragonViewEvent {
 
         if (player.getRidingEntity() instanceof EntityTameableDragon) {
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
-                GlStateManager.translate(0F, -0.9F, 0);
+                GlStateManager.translate(0F, -1.2F, 0);
             }
 
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
@@ -92,27 +91,27 @@ public class DragonViewEvent {
 
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
-//                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
-//
-//
-//                    int followYaw = DragonMounts.proxy.getDragonFollowYaw();
-//                    if (followYaw + 1 > 1) {
-//                        followYaw = 0;
-//                    } else {
-//                        followYaw++;
-//                    }
-//
-//                    DragonMounts.proxy.setDragonFollowYaw(followYaw);
-//
-//                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-//                    int hover = DragonMounts.proxy.getDragonHover();
-//                    if (hover + 1 > 1) {
-//                        hover = 0;
-//                    } else {
-//                        hover++;
-//                    }
-//
-//                    DragonMounts.proxy.setDragonHover(hover);
+                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
+
+
+                    int followYaw = DragonMounts.proxy.getDragonFollowYaw();
+                    if (followYaw + 1 > 1) {
+                        followYaw = 0;
+                    } else {
+                        followYaw++;
+                    }
+
+                    DragonMounts.proxy.setDragonFollowYaw(followYaw);
+
+                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
+                    int hover = DragonMounts.proxy.getDragonHover();
+                    if (hover + 1 > 1) {
+                        hover = 0;
+                    } else {
+                        hover++;
+                    }
+
+                    DragonMounts.proxy.setDragonHover(hover);
                 }
             }
         }

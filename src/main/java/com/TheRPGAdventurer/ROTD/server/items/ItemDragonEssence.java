@@ -26,6 +26,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.soap.Text;
+
 import java.util.List;
 
 public class ItemDragonEssence extends Item implements IHasModel {
@@ -35,7 +37,7 @@ public class ItemDragonEssence extends Item implements IHasModel {
 
     public ItemDragonEssence(EnumItemBreedTypes type, EnumDragonBreed breed) {
         this.breed = breed;
-        this.setUnlocalizedName(type.toString().toLowerCase() + "_dragon_essence");
+        this.setUnlocalizedName("dragon_essence");
         this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
         this.maxStackSize = 1;
         this.type = type;
@@ -69,11 +71,10 @@ public class ItemDragonEssence extends Item implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+    	tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
         if (stack.getTagCompound() == null) {
-            //Broken NBT, possibly cheated in...
+            //Broken NBT, possibly cheated in, Warn the player...
             tooltip.add(TextFormatting.RED + "ERROR: Broken or Missing NBT Data");
-        } else {
-            tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
         }
     }
 
@@ -109,7 +110,7 @@ public class ItemDragonEssence extends Item implements IHasModel {
         ItemStack stack = player.getHeldItem(hand);
         EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
 
-        if (hand != EnumHand.MAIN_HAND) return EnumActionResult.FAIL;
+        if (hand != EnumHand.MAIN_HAND || !stack.hasTagCompound()) return EnumActionResult.FAIL;
 
         dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
 

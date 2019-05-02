@@ -4,6 +4,9 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
+import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
@@ -17,6 +20,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -49,6 +54,7 @@ public class BlockDragonShulker extends Block {
         setCreativeTab(DragonMounts.mainTab);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         ModBlocks.BLOCKS.add(this);
+		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
     public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
@@ -100,9 +106,7 @@ public class BlockDragonShulker extends Block {
      * Called when the block is right clicked by a player.
      */
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else if (playerIn.isSpectator()) {
+        if (worldIn.isRemote || playerIn.isSpectator()) {
             return true;
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -113,7 +117,7 @@ public class BlockDragonShulker extends Block {
 
                 if (((TileEntityDragonShulker) tileentity).getAnimationStatus() == TileEntityDragonShulker.AnimationStatus.CLOSED) {
                     AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB.expand((double) (0.5F * (float) enumfacing.getFrontOffsetX()), (double) (0.5F * (float) enumfacing.getFrontOffsetY()), (double) (0.5F * (float) enumfacing.getFrontOffsetZ())).contract((double) enumfacing.getFrontOffsetX(), (double) enumfacing.getFrontOffsetY(), (double) enumfacing.getFrontOffsetZ());
-                    flag = !worldIn.collidesWithAnyBlock(axisalignedbb.offset(pos.offset(enumfacing)));
+                    flag = !worldIn.collidesWithAnyBlock(axisalignedbb.offset(pos.getX(), pos.getY() + 1, pos.getZ()));
                 } else {
                     flag = true;
                 }

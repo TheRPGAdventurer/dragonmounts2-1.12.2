@@ -23,10 +23,10 @@ public class ItemDragonSword extends ItemSword{
 
     public EnumItemBreedTypes type;
 
-    public ItemDragonSword(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
+    public ItemDragonSword(ToolMaterial material, String name, EnumItemBreedTypes type) {
         super(material);
-        this.setUnlocalizedName(unlocalizedName);
-        this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
+        this.setUnlocalizedName("dragon_sword");
+        this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
@@ -39,9 +39,9 @@ public class ItemDragonSword extends ItemSword{
         tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
     }
 
-    //    /**
-//     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
-//     */
+    /**
+     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
+     */
     @Override
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);

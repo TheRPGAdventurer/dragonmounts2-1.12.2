@@ -34,6 +34,8 @@ public class RegistryEventHandler {
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
         TileEntityHandler.registerTileEntities();
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
+        
         DMUtils.getLogger().info("Block Registries Successfully Registered");
     }
 
@@ -42,12 +44,8 @@ public class RegistryEventHandler {
         event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));
         event.getRegistry().registerAll(ModTools.BOWS.toArray(new Item[0]));
         event.getRegistry().registerAll(ModTools.TOOLS.toArray(new Item[0]));
-        event.getRegistry().registerAll(ModArmour.ARMOR);
-
-        for (Block block : ModBlocks.BLOCKS) {
-            event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getRegistryName()));
-        }
-
+        event.getRegistry().registerAll(ModArmour.ARMOR); //Will work on this later
+        
         DMUtils.getLogger().info("Item Registries Successfully Registered!");
     }
 
@@ -63,11 +61,13 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.dragonshulker), 0);
+        DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.DRAGONSHULKER), 0);
 
 
         for (Block block : ModBlocks.BLOCKS) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+        	if (block instanceof IHasModel) {
+        		((IHasModel) block).RegisterModels();
+        	}
         }
 
         for (Item item : ModItems.ITEMS) {

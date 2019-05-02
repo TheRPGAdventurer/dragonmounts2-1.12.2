@@ -71,6 +71,7 @@ public class GuiDragon extends GuiContainer {
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
         }
+<<<<<<< HEAD
 
         GuiInventory.drawEntityOnScreen(x + 80, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
                 this.dragon); //
@@ -83,6 +84,10 @@ public class GuiDragon extends GuiContainer {
         this.mc.getTextureManager().bindTexture(texture1);
         drawModalRectWithCustomSizedTexture(x - 88, y + 60, 0.0F, 0.0F, 93, 79, 93, 79);
 
+=======
+        GuiInventory.drawEntityOnScreen(x + 80, y + 60, (int) (13 / dragon.getScale()), x + 78 - this.mousePosX, y + 75 - 50 - this.mousePosY,
+                this.dragon);
+>>>>>>> 255f582505fa671ea070218d334c2eef6ecbaada
     }
 
     @Override

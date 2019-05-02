@@ -81,7 +81,6 @@ public class RegistryEventHandler {
                 ((IHasModel) item).RegisterModels();
             }
         }
-        
         for (Item item : ModTools.TOOLS) {
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName().toString(), "inventory"));
         }

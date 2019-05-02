@@ -39,11 +39,11 @@ public enum EnumDragonLifeStage {
     }
 
     public static int clampTickCount(int ticksSinceCreation) {
-        return MathX.clamps(ticksSinceCreation, 0, STAGE.length * TICKS_PER_STAGE);
+        return MathX.clamps(ticksSinceCreation, 0, STAGE.length * TICKS_PER_STAGE());
     }
 
     public static EnumDragonLifeStage fromTickCount(int ticksSinceCreation) {
-        return STAGE[clampTickCount(ticksSinceCreation) / TICKS_PER_STAGE];
+        return STAGE[clampTickCount(ticksSinceCreation) / TICKS_PER_STAGE()];
     }
 
     public static float progressFromTickCount(int ticksSinceCreation) {

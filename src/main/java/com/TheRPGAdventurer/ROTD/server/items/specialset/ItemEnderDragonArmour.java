@@ -31,7 +31,7 @@ public class ItemEnderDragonArmour extends ItemArmor implements IHasModel
 	public ItemEnderDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, PotionEffect potionEffect2, EnumItemBreedTypes type) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.potionEffect = potionEffect2;
-		this.setUnlocalizedName(unlocalizedName);
+		this.setUnlocalizedName("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;

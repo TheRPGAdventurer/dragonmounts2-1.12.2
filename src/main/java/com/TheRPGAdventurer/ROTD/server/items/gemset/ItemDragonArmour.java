@@ -22,7 +22,7 @@ public class ItemDragonArmour extends ItemArmor {
 
 	public ItemDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName,  EnumItemBreedTypes type) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
-		this.setUnlocalizedName(unlocalizedName);
+		this.setUnlocalizedName("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;

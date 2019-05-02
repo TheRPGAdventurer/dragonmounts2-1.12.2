@@ -1093,7 +1093,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public void generateChest(World world, BlockPos pos, ItemStack essenceStack) {
-        world.setBlockState(pos, ModBlocks.dragonshulker.getDefaultState(), 1);
+        world.setBlockState(pos, ModBlocks.DRAGONSHULKER.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileEntityDragonShulker) {
             ((TileEntityDragonShulker) te).setInventorySlotContents(0, essenceStack);

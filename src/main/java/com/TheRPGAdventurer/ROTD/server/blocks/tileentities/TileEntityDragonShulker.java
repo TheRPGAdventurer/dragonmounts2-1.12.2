@@ -211,7 +211,6 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
                     this.animationStatus = TileEntityDragonShulker.AnimationStatus.OPENED;
                     this.progress = 1.0F;
                 }
-
                 break;
             case CLOSING:
                 this.progress -= 0.1F;
@@ -220,7 +219,6 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
                     this.animationStatus = TileEntityDragonShulker.AnimationStatus.CLOSED;
                     this.progress = 0.0F;
                 }
-
                 break;
             case OPENED:
                 this.progress = 1.0F;
@@ -238,7 +236,6 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         this.world.addBlockEvent(pos, this.getBlockType(), 1, this.numPlayersUsing);
         this.world.notifyNeighborsOfStateChange(pos, this.getBlockType(), false);
         if (numPlayersUsing == 1) {
-
             double d1 = (double) pos.getX() + 0.5D;
             double d2 = (double) pos.getZ() + 0.5D;
             this.world.playSound((EntityPlayer) null, d1, (double) pos.getY() + 0.5D, d2, SoundEvents.BLOCK_ENDERCHEST_OPEN, SoundCategory.BLOCKS, 0.9F, this.world.rand.nextFloat() * 0.1F + 0.9F);

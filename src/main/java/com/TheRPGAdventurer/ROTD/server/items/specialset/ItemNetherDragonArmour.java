@@ -29,7 +29,7 @@ public class ItemNetherDragonArmour extends ItemArmor {
 	public ItemNetherDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName,  PotionEffect potionEffect, EnumItemBreedTypes type) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.potionEffect = potionEffect;
-		this.setUnlocalizedName(unlocalizedName);
+		this.setUnlocalizedName("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;

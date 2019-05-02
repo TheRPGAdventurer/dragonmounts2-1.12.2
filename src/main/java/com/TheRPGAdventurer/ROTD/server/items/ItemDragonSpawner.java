@@ -41,7 +41,7 @@ public class ItemDragonSpawner extends Item implements IHasModel
     public ItemDragonSpawner(EnumItemBreedTypes type, EnumDragonBreed breed, CreativeTabs tAB)
     {
     	String unlocalizedName = type.toString().toLowerCase();
-        this.setUnlocalizedName("summon_" + unlocalizedName); //  ItemMonsterPlacer
+        this.setUnlocalizedName("summon_egg"); //  ItemMonsterPlacer
         this.setRegistryName("summon_" + unlocalizedName);
         this.setMaxStackSize(1);
         this.setCreativeTab(tAB);

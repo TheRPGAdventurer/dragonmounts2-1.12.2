@@ -152,6 +152,7 @@ public class ContainerDragon extends Container {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 208 + i));
 		}
 
+		// player armor position
 		for (k2 = 0; k2 < 4; ++k2) {
 			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -70, 130 - k2 * 18));
 		}

@@ -5,7 +5,9 @@ import net.minecraft.util.text.TextFormatting;
 public enum EnumItemBreedTypes {
 	
 	AETHER(TextFormatting.AQUA), 
-	WATER(TextFormatting.BLUE), 
+	WATER(TextFormatting.BLUE),
+	//Register Sylphid for other purposes
+	SYLPHID(TextFormatting.BLUE),
 	ICE(TextFormatting.DARK_BLUE), 
 	FIRE(TextFormatting.DARK_RED), 
 	FIRE2(TextFormatting.GOLD), 

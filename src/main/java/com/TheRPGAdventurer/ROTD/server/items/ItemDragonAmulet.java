@@ -46,7 +46,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
         this.type = type;
         this.breed = breed;
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
-        this.setUnlocalizedName(name);
+        this.setUnlocalizedName("dragon_amulet");
         this.setMaxStackSize(1);
 //        this.setCreativeTab(DragonMounts.TAB);
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {

@@ -4,6 +4,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 
@@ -28,9 +29,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemDragonWhistle extends Item implements IHasModel
-{
-
+public class ItemDragonWhistle extends Item implements IHasModel {
+	private EntityTameableDragon dragon;
+	private EnumItemBreedTypes type;
+//	private EntityPlayer player;
+	
 	public ItemDragonWhistle() {
 		this.setUnlocalizedName("dragon_whistle");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
@@ -41,7 +44,6 @@ public class ItemDragonWhistle extends Item implements IHasModel
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
 		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.whistle.info"));
@@ -65,8 +67,9 @@ public class ItemDragonWhistle extends Item implements IHasModel
 				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 
 			  }
-		//  } //else if(!nbt.hasKey(DragonMounts.MODID + "dragon")) {
-           // player.sendStatusMessage(new TextComponentTranslation("item.whistle.noDragon", new Object[0]), true);
+/*		  } else if(!nbt.hasKey(DragonMounts.MODID + "dragon")) {
+            player.sendStatusMessage(new TextComponentTranslation("item.whistle.noDragon", new Object[0]), true);
+*/
         }
 
 	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);		
@@ -79,19 +82,23 @@ public class ItemDragonWhistle extends Item implements IHasModel
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
-		NBTTagCompound nbt = stack.getTagCompound();		
+		NBTTagCompound nbt = stack.getTagCompound();
+		EntityTameableDragon dragon = (EntityTameableDragon) target;
+		this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+//		this.player = player;	
 
 	    if (stack.hasTagCompound()) {
 	         nbt = stack.getTagCompound(); 
+	    } else if (dragon.isTamedFor(player)) {
+	    	nbt = new NBTTagCompound();
 	    } else {
-	         nbt = new NBTTagCompound();
+	    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+	    	return false;
 	    }
 	       				
         stack.setTagCompound(nbt);
         
-		if (target instanceof EntityTameableDragon) {
-			EntityTameableDragon dragon = (EntityTameableDragon) target;				
-			
+		if (target instanceof EntityTameableDragon) {			
 			if (dragon.isTamedFor(player)) {
 				if(stack.getTagCompound() != null) {
 				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand())) { 					        
@@ -119,8 +126,14 @@ public class ItemDragonWhistle extends Item implements IHasModel
 	}
 	
 	@Override
-	public void RegisterModels()
-	{
+	public String getItemStackDisplayName(ItemStack stack) {
+		if (!stack.hasTagCompound())	//stack.getTagCompound().hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand()))
+			return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
+		return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + type.color + dragon.getBreedType().toString().toLowerCase() + " dragon" + TextFormatting.RESET + ")";		
+	}
+	
+	@Override
+	public void RegisterModels() {
 		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 }

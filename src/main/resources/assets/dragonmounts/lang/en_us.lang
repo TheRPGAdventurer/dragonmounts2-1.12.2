@@ -109,6 +109,7 @@ tile.pileofsticks.name=Nest Block
 tile.block_dragon_shulker.name=Dragon Core
 
 # Item Info
+item.armoryitems.info=Forged with the Scales of
 item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat

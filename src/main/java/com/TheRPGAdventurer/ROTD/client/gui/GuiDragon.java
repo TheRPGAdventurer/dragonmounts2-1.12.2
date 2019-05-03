@@ -79,6 +79,7 @@ public class GuiDragon extends GuiContainer {
             this.mc.getTextureManager().bindTexture(texture1);
             drawModalRectWithCustomSizedTexture(x + 32, y + 69, 0.0F, 0.0F, 99, 51, 99, 51);
         }
+        
         // draw dragon entity
         GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
     }

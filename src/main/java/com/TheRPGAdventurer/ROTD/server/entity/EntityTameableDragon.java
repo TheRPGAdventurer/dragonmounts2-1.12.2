@@ -893,11 +893,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean onSolidGround() {
         double[] xz = {-2, -1, 0, 1, 2};
 
-        //Array not needed for y, only used once (In fact its better this way) @Wolf
         for (double y = -3.0; y <= -1.0; ++y) {
             for (double x : xz) {
                 for (double z : xz) {
-                    if (isBlockSolid(posX + x, posY + y, posZ + z) && this.getScale() > 0.70) {
+                    if (isBlockSolid(posX + x, posY + y, posZ + z)) {
                         return true;
                     }
                 }
@@ -1093,7 +1092,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public void generateChest(World world, BlockPos pos, ItemStack essenceStack) {
-        world.setBlockState(pos, ModBlocks.DRAGONSHULKER.getDefaultState(), 1);
+        world.setBlockState(pos, ModBlocks.dragonshulker.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileEntityDragonShulker) {
             ((TileEntityDragonShulker) te).setInventorySlotContents(0, essenceStack);
@@ -2532,6 +2531,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         ItemStack banner2 = this.dragonInv.getStackInSlot(32);
         ItemStack banner3 = this.dragonInv.getStackInSlot(33);
         ItemStack banner4 = this.dragonInv.getStackInSlot(34);
+        
         this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
         this.setChested(leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
         this.setBanner1(banner1);

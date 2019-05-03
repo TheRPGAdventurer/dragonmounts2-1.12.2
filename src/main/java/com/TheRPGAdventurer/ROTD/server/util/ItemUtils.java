@@ -89,12 +89,9 @@ public class ItemUtils {
                 //Found fish in player hand, remove 1 from itemStack, return true on consumeFish
                 itemstack.shrink(1);
                 return true;
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
+		return false;
     }
 
     /**

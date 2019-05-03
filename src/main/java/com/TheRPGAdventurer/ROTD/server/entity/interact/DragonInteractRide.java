@@ -34,11 +34,11 @@ public class DragonInteractRide extends DragonInteract {
         		!(ItemUtils.hasEquippedUsable(player) &&
                 ItemUtils.hasEquipped(player, ModTools.diamond_shears) &&
                 ItemUtils.hasEquipped(player, ModItems.dragon_wand) &&
-                (ItemUtils.hasEquipped(player, ModItems.dragon_whistle) && player.isSneaking()) &&
+                ItemUtils.hasEquipped(player, ModItems.dragon_whistle) &&
                 ItemUtils.hasEquipped(player, ModItems.AmuletEmpty) &&
                 ItemUtils.hasEquipped(player, dragon.dragonEssence()) &&
-                ItemUtils.hasEquippedAmulet(player) &&
-                !player.isSneaking())) { // isInAppropriateAgeForInteraction()
+                ItemUtils.hasEquippedAmulet(player)) &&
+                !player.isSneaking()) { // isInAppropriateAgeForInteraction() && player.isSneaking())(
             dragon.setRidingPlayer(player);
             return true;
         }

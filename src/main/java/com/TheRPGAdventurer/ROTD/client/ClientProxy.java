@@ -44,13 +44,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-<<<<<<< HEAD
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-=======
+//import java.util.Arrays;
 import scala.actors.threadpool.Arrays;
->>>>>>> e66eb930c0e73ae27d84e99dd2388fb85cbf0abe
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -79,7 +76,6 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
-<<<<<<< HEAD
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
 
@@ -101,30 +97,28 @@ public class ClientProxy extends ServerProxy {
                         "Â§c3.Â§r You can't hatch eggs in the End Dimension\n" +
                         "Â§c4.Â§r You can press Â§octrlÂ§r to enable boost flight\n" +
                         "Â§c5.Â§r Dragons need to be of opposite genders to breed";
-=======
-        
+
 //      ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer(new ModelShulker()));
         
         //Override mcmod.info - This looks cooler :)
         metadata = event.getModMetadata();
-        metadata.name = "§3§lDragon Mounts";
+        metadata.name = "ï¿½3ï¿½lDragon Mounts";
         metadata.credits = 
-        		"\n§aBarracudaATA4§r - §bThe Original Owner" +
-        		"\n\n§aFlaemWing§r - §bfor new nest block textures and dragonarmor item textures, new tool textures" + 
-        		"\n\n§aMerpou/Kingdomall/Masked_Ares§r - §bmore textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O)" +
-        		"\n\n§aGundunUkan/Lord Ukan§r - §bfor new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student" +
-        		"\n\n§aAlexThe666§r - §bfor open source code, Ice and Fire owner, Older Matured and more experience than me" +
-        		"\n\n§aShannieanne§r - §bZombie Textures, Terra textures, Texture Fixes, Overall Second Dev" +
-        		"\n\n§aMajty/Guinea Owl§r - §bfor amulet textures" +
-        		"\n\n§aWolf§r - §bSecond Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds\n";
-        metadata.authorList = Arrays.asList(StringUtils.split("§6§lTheRpgAdventurer§r,§6§lBarracudaATA§r,§6§lKingdomall§r,§6§lShannieanne§r,§6§lWolfShotz§r", ','));
+        		"\nï¿½aBarracudaATA4ï¿½r - ï¿½bThe Original Owner" +
+        		"\n\nï¿½aFlaemWingï¿½r - ï¿½bfor new nest block textures and dragonarmor item textures, new tool textures" + 
+        		"\n\nï¿½aMerpou/Kingdomall/Masked_Aresï¿½r - ï¿½bmore textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O)" +
+        		"\n\nï¿½aGundunUkan/Lord Ukanï¿½r - ï¿½bfor new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student" +
+        		"\n\nï¿½aAlexThe666ï¿½r - ï¿½bfor open source code, Ice and Fire owner, Older Matured and more experience than me" +
+        		"\n\nï¿½aShannieanneï¿½r - ï¿½bZombie Textures, Terra textures, Texture Fixes, Overall Second Dev" +
+        		"\n\nï¿½aMajty/Guinea Owlï¿½r - ï¿½bfor amulet textures" +
+        		"\n\nï¿½aWolfï¿½r - ï¿½bSecond Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds\n";
+        metadata.authorList = Arrays.asList(StringUtils.split("ï¿½6ï¿½lTheRpgAdventurerï¿½r,ï¿½6ï¿½lBarracudaATAï¿½r,ï¿½6ï¿½lKingdomallï¿½r,ï¿½6ï¿½lShannieanneï¿½r,ï¿½6ï¿½lWolfShotzï¿½r", ','));
         metadata.description =
-        		"\n§c1.§r Don't forget to right click the egg to start the hatching process\n" +
-        		"§c2.§r Also water dragon needs to be struck by lightning to become a storm dragon\n" +
-        		"§c3.§r You can't hatch eggs in the End Dimension\n" +
-        		"§c4.§r You can press §octrl§r to enable boost flight\n" +
-        		"§c5.§r Dragons need to be of opposite genders to breed";
->>>>>>> e66eb930c0e73ae27d84e99dd2388fb85cbf0abe
+        		"\nï¿½c1.ï¿½r Don't forget to right click the egg to start the hatching process\n" +
+        		"ï¿½c2.ï¿½r Also water dragon needs to be struck by lightning to become a storm dragon\n" +
+        		"ï¿½c3.ï¿½r You can't hatch eggs in the End Dimension\n" +
+        		"ï¿½c4.ï¿½r You can press ï¿½octrlï¿½r to enable boost flight\n" +
+        		"ï¿½c5.ï¿½r Dragons need to be of opposite genders to breed";
     }
     
     @Override

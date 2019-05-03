@@ -154,16 +154,19 @@ public class ContainerDragon extends Container {
 		}
 //		GuiContainerCreative.ContainerCreative
 		// player armor position
-		for (k2 = 0; k2 < 2; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -19, 109 - k2 * 27));
-		}
-
-		for (k2 = 0; k2 < 2; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 38 + k2, -73, 109 - k2 * 27));
-		}
-
-		for (k2 = 0; k2 < 1; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 40 + k2, -92, 96 - k2 * 27));
+		// Build Armor + Offhand slots
+		if (dragon.isChested()) {
+			for (int chested = 0; chested < 2; ++chested) {
+				this.addSlotToContainer(new Slot(player.inventory, 36 + chested, -19, 109 - chested * 27));
+				this.addSlotToContainer(new Slot(player.inventory, 38 + chested, -73, 109 - chested * 27));
+			}
+			this.addSlotToContainer(new Slot(player.inventory, 40, -92, 96));
+		} else {
+			for (int notChested = 0; notChested < 2; ++notChested) {
+				this.addSlotToContainer(new Slot(player.inventory, 36 + notChested, 109, 100 - notChested * 27));
+				this.addSlotToContainer(new Slot(player.inventory, 38 + notChested, 55, 100 - notChested * 27));
+			}
+			this.addSlotToContainer(new Slot(player.inventory, 40, 36, 87));
 		}
 		
 	}

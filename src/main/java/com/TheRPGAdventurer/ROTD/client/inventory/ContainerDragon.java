@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -23,12 +23,9 @@ public class ContainerDragon extends Container {
 		this.dragonInv = dragon.dragonInv;
 		this.dragon = dragon;
 		this.player = player;
-		int b0 = 3;
-		int i = (b0 - 4) * 18;
+		int i = (3 - 4) * 18;
 		final int inventoryColumn = 9;
 		dragonInv.openInventory(player);
-		int j = -21;
-		int k2;
 
 		// location of the slot for the saddle in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 0, 8, 18) {
@@ -51,6 +48,7 @@ public class ContainerDragon extends Container {
 				return stack.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.getHasStack();
 			}
 
+			@Override
 			public void onSlotChanged() {
 				ContainerDragon.this.dragon.refreshInventory();
 			}
@@ -126,7 +124,7 @@ public class ContainerDragon extends Container {
 			
 		});
 		
-		// location of the dragon's inventory when chested in the dragon inventory 
+		// Build Chest Inventory Slots
 		for (int k = 0; k < 3; ++k) {
 			for (int l = 0; l < 9; ++l) {                                            
 				this.addSlotToContainer(new Slot(dragonInv, chestStartIndex + l + k * inventoryColumn, 8 + l * 18, 75 + k * 18) {
@@ -139,35 +137,38 @@ public class ContainerDragon extends Container {
 				});
 			}
 		}
-
-		int k;
 		
-		// location of the player's inventory in the dragon inventory 
-		for (j = 0; j < 3; ++j) {
-			for (k = 0; k < 9; ++k) {
+		/*
+		 * Player Inventory Slots within Dragon GUI
+		 */
+		// Build Inventory Slots
+		for (int j = 0; j < 3; ++j) {
+			for (int k = 0; k < 9; ++k) {
 				this.addSlotToContainer(new Slot(player.inventory, k + j * 9 + 9, 8 + k * 18, 150 + j * 18 + i));
 			}
 		}
 
-		for (j = 0; j < 9; ++j) {
+		// Build hotbar slots
+		for (int j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 208 + i));
 		}
-//		GuiContainerCreative.ContainerCreative
-		// player armor position
-		for (k2 = 0; k2 < 2; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 36 + k2, -19, 109 - k2 * 27));
-		}
-
-		for (k2 = 0; k2 < 2; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 38 + k2, -73, 109 - k2 * 27));
-		}
-
-		for (k2 = 0; k2 < 1; ++k2) {
-			this.addSlotToContainer(new Slot(player.inventory, 40 + k2, -92, 96 - k2 * 27));
-		}
 		
+		// Build Armor + Offhand slots
+		if (dragon.isChested()) {
+			for (int chested = 0; chested < 2; ++chested) {
+				this.addSlotToContainer(new Slot(player.inventory, 36 + chested, -19, 109 - chested * 27));
+				this.addSlotToContainer(new Slot(player.inventory, 38 + chested, -73, 109 - chested * 27));
+			}
+			this.addSlotToContainer(new Slot(player.inventory, 40, -92, 96));
+		} else {
+			for (int notChested = 0; notChested < 2; ++notChested) {
+				this.addSlotToContainer(new Slot(player.inventory, 36 + notChested, 109, 100 - notChested * 27));
+				this.addSlotToContainer(new Slot(player.inventory, 38 + notChested, 55, 100 - notChested * 27));
+				}
+			this.addSlotToContainer(new Slot(player.inventory, 40, 36, 87));
+		}
 	}
-
+		
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return this.dragonInv.isUsableByPlayer(playerIn) && this.dragon.isEntityAlive() && this.dragon.getDistanceToEntity(playerIn) < 8.0F;
 	}

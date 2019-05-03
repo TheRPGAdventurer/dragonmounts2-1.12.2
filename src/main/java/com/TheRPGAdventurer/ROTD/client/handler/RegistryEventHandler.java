@@ -34,7 +34,7 @@ public class RegistryEventHandler {
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
         TileEntityHandler.registerTileEntities();
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
+//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
         
         DMUtils.getLogger().info("Block Registries Successfully Registered");
     }
@@ -61,7 +61,7 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.DRAGONSHULKER), 0);
+        DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.dragonshulker), 0);
 
 
         for (Block block : ModBlocks.BLOCKS) {

@@ -124,8 +124,7 @@ public class ModItems {
     public static final Item terra_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
     public static final Item terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
     public static final Item moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
-
-//    public static final Item item_dragon_shulker = new ItemDragonShulker(ModBlocks.dragonshulker);
+    
     /**
      * @WolfShotz Registering OreDictionary for vanilla Fish, since Forge doesn't do it on its own for some stupid reason...
      */

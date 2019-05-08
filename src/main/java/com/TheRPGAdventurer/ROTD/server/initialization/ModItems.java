@@ -130,11 +130,7 @@ public class ModItems {
     /**
      * @WolfShotz Registering OreDictionary for vanilla Fish, since Forge doesn't do it on its own for some stupid reason...
      */
-    public void register() {
-        OreDictionary.registerOre(listAllfishraw, new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE));
+    public static void register() {
+        OreDictionary.registerOre("listAllfishraw", Items.FISH);
     }
-
-    //Setting String for oredict entry
-    public static final String listAllfishraw = "listAllfishraw";
-
 }

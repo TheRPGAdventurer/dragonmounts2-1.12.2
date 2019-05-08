@@ -62,17 +62,17 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase
 			if(dragon.circle() && dragon.getOwner() != null && !dragon.circleTarget1(dragon.getOwner().getPosition()))
 			{
 				dragon.circleTarget1(dragon.getOwner().getPosition());
-				dragon.setSitting(false);
+				dragon.getAISit().setSitting(false);
 			}
 			else if(dragon.follow() && !dragon.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null)
 			{
 				dragon.followPlayerFlying(dragon.getOwner());
-				dragon.setSitting(false);
+				dragon.getAISit().setSitting(false);
 			}
 			else if(dragon.come() && !dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner()) && dragon.getOwner() != null)
 			{
 				dragon.comeToPlayerFlying(dragon.getOwner().getPosition(), dragon.getOwner());
-				dragon.setSitting(false);
+				dragon.getAISit().setSitting(false);
 			}
 			else if(dragon.homepos())
 			{

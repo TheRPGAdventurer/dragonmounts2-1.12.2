@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonParticleHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -32,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 /**
  *
@@ -162,6 +164,11 @@ public class DragonBreedIce extends DragonBreed {
 		if(dragon.isOverWater()) { 
 			freezeNearby(dragon, dragon.world, new BlockPos(dragon),  1);
 		}
+		World world = dragon.world;
+		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
+//			dragon.getParticleHelper().spawnBodyParticle(EnumParticleTypes.CLOUD);
+//			((WorldServer) world).spawnParticle(EnumParticleTypes.CLOUD, dragon.posX, dragon.getEyeHeight() + 4, dragon.posZ, (int) dragon.getScale(), dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
+			}
 	}
 	
 	public static void freezeNearby(EntityLivingBase living, World worldIn, BlockPos pos, int level) {

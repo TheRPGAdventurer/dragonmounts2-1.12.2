@@ -27,26 +27,19 @@ public class DragonBreedEnchant extends DragonBreed {
 	}
 
 	@Override
-	public void onEnable(EntityTameableDragon dragon) {
-		
-	}
+	public void onEnable(EntityTameableDragon dragon) {}
 
 	@Override
-	public void onDisable(EntityTameableDragon dragon) {
-		
-	}
+	public void onDisable(EntityTameableDragon dragon) {}
 
 	@Override
-	public void onDeath(EntityTameableDragon dragon) {
-		
-	}
+	public void onDeath(EntityTameableDragon dragon) {}
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
 		World world = dragon.world;
 		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, dragon.posX,
-					dragon.posY + dragon.getEyeHeight() + 0.7, dragon.posZ, 12, 0.5D, 0.25D, 0.5D, 0.0D);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, dragon.posX, dragon.getEyeHeight() + 4, dragon.posZ, 30, dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
 		}
 	}
 	

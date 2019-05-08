@@ -224,52 +224,23 @@ public class DragonBreedHelper extends DragonHelper {
     public void getBreedHealth() {
         EnumDragonBreed currentType = getBreedType();
         SharedMonsterAttributes att = new SharedMonsterAttributes();
-        if (currentType == EnumDragonBreed.NETHER) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);
-        }
-        if (currentType == EnumDragonBreed.END) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
-        }
-        if (currentType == EnumDragonBreed.FIRE) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.FOREST) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.ICE) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.SYLPHID) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.AETHER) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.SKELETON) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);
-        }
-        if (currentType == EnumDragonBreed.WITHER) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
-        }
-        if (currentType == EnumDragonBreed.ENCHANT) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.SUNLIGHT) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.STORM) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.ZOMBIE) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.TERRA) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
-        }
-        if (currentType == EnumDragonBreed.MOONLIGHT) {
-            dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        
+        switch (currentType) {
+        	case NETHER:
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);
+        		break;
+        	case END:
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+        		break;
+        	case SKELETON:
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);
+        		break;
+        	case WITHER:
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+        		break;
+        	default: //All Dragons without special health parameters
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        		break;
         }
     }
-
-
 }

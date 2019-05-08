@@ -10,8 +10,10 @@
 package com.TheRPGAdventurer.ROTD.server.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -29,10 +31,11 @@ public abstract class DragonInteract {
     public abstract boolean interact(EntityPlayer player, ItemStack item);
 
     protected boolean isAllowed(EntityPlayer player) {
-        if (!dragon.isTamed()) {
+        ItemFood food = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems());
+        if (!dragon.isTamed() && (food == null || !ItemUtils.consumeFish(player))) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
             return dragon.isTamedFor(player);
-        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player)) {
+        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player) && (food == null || !ItemUtils.consumeFish(player))) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
             return dragon.isTamedFor(player);
         } else {

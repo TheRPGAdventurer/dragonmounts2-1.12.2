@@ -35,7 +35,6 @@ public class ItemDragonBow extends ItemBow {
         return 67000;
     }
 
-
     private ItemStack findAmmo(EntityPlayer player) {
         if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
             return player.getHeldItem(EnumHand.OFF_HAND);
@@ -57,6 +56,7 @@ public class ItemDragonBow extends ItemBow {
     /**
      * Called when the player stops using an Item (stops holding the right mouse button).
      */
+    @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         if (entityLiving instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) entityLiving;
@@ -140,5 +140,4 @@ public class ItemDragonBow extends ItemBow {
 
         return f;
     }
-
 }

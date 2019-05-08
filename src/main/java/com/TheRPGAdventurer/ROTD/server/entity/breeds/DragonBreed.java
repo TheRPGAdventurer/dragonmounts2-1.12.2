@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nullable;
+
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -47,18 +48,12 @@ public abstract class DragonBreed {
         // ignore suffocation damage
         setImmunity(DamageSource.DROWN);
         setImmunity(DamageSource.IN_WALL);
-        
         setImmunity(DamageSource.ON_FIRE);
         setImmunity(DamageSource.IN_FIRE);
         setImmunity(DamageSource.LAVA);
         setImmunity(DamageSource.HOT_FLOOR);
-        setImmunity(DamageSource.HOT_FLOOR);
-        
-        // assume that cactus needles don't do much damage to animals with horned scales
-        setImmunity(DamageSource.CACTUS);        
-        
-        // ignore damage from vanilla ender dragon
-        setImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
+        setImmunity(DamageSource.CACTUS); // assume that cactus needles don't do much damage to animals with horned scales
+        setImmunity(DamageSource.DRAGON_BREATH); // ignore damage from vanilla ender dragon. I kinda disabled this because it wouldn't make any sense, feel free to re enable
     }
   
     public String getSkin() {
@@ -116,13 +111,12 @@ public abstract class DragonBreed {
     public boolean isHabitatEnvironment(EntityTameableDragon dragon) {
         return false;
     }
-   
-    public Item[] getFoodItems() {
-        return new Item[] { Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH, 
-        		Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.COOKED_FISH,
-        		Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP,
-        		Items.COOKED_RABBIT, Items.FISH, Items.COOKED_FISH, Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS,
-        		Items.MELON_SEEDS, Items.MUTTON, Items.RABBIT_STEW};
+    
+    public static Item[] getFoodItems() {
+        return new Item[]  {Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH,
+        					Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN,
+        					Items.COOKED_MUTTON,Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON,
+        					Items.COOKED_PORKCHOP};
     }
 
     public Item[] getShrinkingFood() {

@@ -14,7 +14,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DragonViewEvent {
-
     /**
      * Credit to AlexThe666 : iceandfire
      *
@@ -93,35 +92,9 @@ public class DragonViewEvent {
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
                 } else if (ModKeys.FOLLOW_YAW.isPressed()) {
-
-
-                    int followYaw = DragonMounts.proxy.getDragonFollowYaw();
-                    if (followYaw + 1 > 1) {
-                        followYaw = 0;
-                    } else {
-                        followYaw++;
-                    }
-
-                    DragonMounts.proxy.setDragonFollowYaw(followYaw);
-
+                    DragonMounts.proxy.setDragonFollowYaw(!DragonMounts.proxy.getDragonFollowYaw());
                 } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-                    int hover = DragonMounts.proxy.getDragonHover();
-                    if (hover + 1 > 1) {
-                        hover = 0;
-                    } else {
-                        hover++;
-                    }
-
-                    DragonMounts.proxy.setDragonHover(hover);
-                } else if (ModKeys.KEY_LOCKEDY.isPressed()) {
-                    int lock = DragonMounts.proxy.getDragonLockY();
-                    if (lock + 1 > 1) {
-                        lock = 0;
-                    } else {
-                        lock++;
-                    }
-
-                    DragonMounts.proxy.setDragonLockY(lock);
+                	DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
                 }
             }
         }

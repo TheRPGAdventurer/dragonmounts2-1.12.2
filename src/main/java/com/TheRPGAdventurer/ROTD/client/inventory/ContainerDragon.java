@@ -32,7 +32,7 @@ public class ContainerDragon extends Container {
 
 		// location of the slot for the saddle in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 0, 8, 18) {
-			
+
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.SADDLE && !this.getHasStack();
 			}
@@ -41,12 +41,12 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
-			
+
 		});
-		
+
 		// location of the slot for chest in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 1, 8, 36) {
-			
+
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.getHasStack();
 			}
@@ -60,8 +60,8 @@ public class ContainerDragon extends Container {
 				return true;
 			}
 		});
-		
-		// location of the slot for armor in the dragon inventory 
+
+		// location of the slot for armor in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 2, 8, 53) {
 
 			public boolean isItemValid(ItemStack stack) {
@@ -69,10 +69,10 @@ public class ContainerDragon extends Container {
 			}
 
 		});
-		
+
 		// location of the slot for the banner1 in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 31, 153, 18) {
-			
+
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -81,12 +81,12 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
-			
+
 		});
-				
+
 		// location of the slot for the dragon banner2 in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 32, 153, 36) {
-			
+
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -95,12 +95,12 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
-			
+
 		});
-		
+
 		// location of the slot for the dragon banner3 in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 33, 135, 18) {
-			
+
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -109,12 +109,12 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
-			
+
 		});
-		
+
 		// location of the slot for the dragon banner4 in the dragon inventory
 		this.addSlotToContainer(new Slot(dragonInv, 34, 135, 36) {
-			
+
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Items.BANNER && !this.getHasStack();
 			}
@@ -123,26 +123,26 @@ public class ContainerDragon extends Container {
 			public boolean isEnabled() {
 				return true;
 			}
-			
+
 		});
-		
-		// location of the dragon's inventory when chested in the dragon inventory 
+
+		// location of the dragon's inventory when chested in the dragon inventory
 		for (int k = 0; k < 3; ++k) {
-			for (int l = 0; l < 9; ++l) {                                            
+			for (int l = 0; l < 9; ++l) {
 				this.addSlotToContainer(new Slot(dragonInv, chestStartIndex + l + k * inventoryColumn, 8 + l * 18, 75 + k * 18) {
-					
+
 					@SideOnly(Side.CLIENT)
 					public boolean isEnabled() {
 						return ContainerDragon.this.dragon.isChested();
 					}
-					
+
 				});
 			}
 		}
 
 		int k;
-		
-		// location of the player's inventory in the dragon inventory 
+
+		// location of the player's inventory in the dragon inventory
 		for (j = 0; j < 3; ++j) {
 			for (k = 0; k < 9; ++k) {
 				this.addSlotToContainer(new Slot(player.inventory, k + j * 9 + 9, 8 + k * 18, 150 + j * 18 + i));
@@ -168,7 +168,7 @@ public class ContainerDragon extends Container {
 			}
 			this.addSlotToContainer(new Slot(player.inventory, 40, 36, 87));
 		}
-		
+
 	}
 
 	public boolean canInteractWith(EntityPlayer playerIn) {

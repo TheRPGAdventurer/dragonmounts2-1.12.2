@@ -88,8 +88,8 @@ public class GuiDragon extends GuiContainer {
 //                this.player);
 
         // extra different textures for the player and armor
-        this.mc.getTextureManager().bindTexture(texture1);
-        drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
+//        this.mc.getTextureManager().bindTexture(texture1);
+//        drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class DragonInteractEat extends DragonInteract {
                 if (food != null) {
                     dragon.heal(6 * dragon.getScale());
                     dragon.playSound(dragon.getSoundManager().getEatSound(), 0.7f, 1);
-                    spawnItemCrackParticles(food);
+                    dragon.spawnItemCrackParticles(food);
                     return true;
                 }
             }
@@ -70,27 +70,4 @@ public class DragonInteractEat extends DragonInteract {
 
         return false;
     }
-
-    public void spawnItemCrackParticles(Item item) {
-        for (int i = 0; i < 15; i++) {
-            double hx, hy, hz;
-            double motionX = dragon.getRNG().nextGaussian() * 0.07D;
-            double motionY = dragon.getRNG().nextGaussian() * 0.07D;
-            double motionZ = dragon.getRNG().nextGaussian() * 0.07D;
-            DragonHeadPositionHelper pos = dragon.getAnimator().getDragonHeadPositionHelper();
-            boolean isMoving = dragon.motionX != 0 && dragon.motionY != 0 && dragon.motionZ != 0;
-
-            float angle = (((dragon.renderYawOffset + 0) * 3.14159265F) / 180F);
-            hx = dragon.getAnimator().getThroatPosition().x;
-            double yChange = !isMoving && dragon.isFlying() ? 2.6 : 3.6 * dragon.getScale();
-            hy = dragon.getAnimator().getThroatPosition().y;
-            hz = dragon.getAnimator().getThroatPosition().z;
-
-            if (dragon.world.isRemote) {
-                dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY,
-                        motionZ, new int[]{Item.getIdFromItem(item)});
-            }
-        }
-    }
-
 }

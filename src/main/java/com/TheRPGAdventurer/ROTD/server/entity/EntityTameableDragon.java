@@ -1087,6 +1087,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         regenerateHealth();
         updateForRiding();
         ACHOOOOO();
+        this.spawnItemCrackParticles(Items.CHICKEN);
 
         super.onLivingUpdate();
     }
@@ -1396,6 +1397,28 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @Override
     protected float getWaterSlowDown() {
         return 0.9F;
+    }
+
+    public void spawnItemCrackParticles(Item item) {
+        for (int i = 0; i < 15; i++) {
+            double hx, hy, hz;
+            double motionX = this.getRNG().nextGaussian() * 0.07D;
+            double motionY = this.getRNG().nextGaussian() * 0.07D;
+            double motionZ = this.getRNG().nextGaussian() * 0.07D;
+            DragonHeadPositionHelper pos = this.getAnimator().getDragonHeadPositionHelper();
+            boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
+
+            float angle = (((this.renderYawOffset + 0) * 3.14159265F) / 180F);
+            hx = this.getAnimator().getThroatPosition().x;
+            double yChange = !isMoving && this.isFlying() ? 2.6 : 3.6 * this.getScale();
+            hy = this.getAnimator().getThroatPosition().y;
+            hz = this.getAnimator().getThroatPosition().z;
+
+            if (this.world.isRemote) {
+                this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY,
+                        motionZ, new int[]{Item.getIdFromItem(item)});
+            }
+        }
     }
 
     /**

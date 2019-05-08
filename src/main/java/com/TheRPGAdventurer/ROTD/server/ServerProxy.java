@@ -93,18 +93,18 @@ public class ServerProxy {
     public void setDragon3rdPersonView(int view) {
     }
 
-    public int getDragonFollowYaw() {
-        return 0;
+    public boolean getDragonFollowYaw() {
+        return false;
     }
 
-    public void setDragonFollowYaw(int yaw) {
+    public void setDragonFollowYaw(boolean yaw) {
     }
 
-    public int getDragonHover() {
-        return 0;
+    public boolean getDragonHover() {
+        return false;
     }
 
-    public void setDragonHover(int hover) {
+    public void setDragonHover(boolean hover) {
     }
     
     public void registerModel(Item item, int metadata)

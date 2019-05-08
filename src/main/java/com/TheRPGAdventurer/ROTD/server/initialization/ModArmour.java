@@ -27,8 +27,8 @@ public class ModArmour {
     public static final ArmorMaterial NetherDragonScaleMaterial = EnumHelper.addArmorMaterial("nether", DragonMounts.MODID + ":nether", 55, new int[]{4, 7, 9, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 8.0F);
     public static final ArmorMaterial NetherDragonScaleMaterial2 = EnumHelper.addArmorMaterial("nether2", DragonMounts.MODID + ":nether2", 55, new int[]{4, 7, 9, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 8.0F);
     public static final ArmorMaterial EnderDragonScaleMaterial = EnumHelper.addArmorMaterial("ender", DragonMounts.MODID + ":ender", 70, new int[]{4, 7, 9, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 9.0F);
-    public static final ArmorMaterial EnchantDragonScaleMaterial = EnumHelper.addArmorMaterial("enchant", DragonMounts.MODID + ":enchant", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
-    public static final ArmorMaterial SunlightDragonScaleMaterial = EnumHelper.addArmorMaterial("sunlight", DragonMounts.MODID + ":sunlight", 50, new int[]{4, 7, 8, 4}, 28, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
+    public static final ArmorMaterial EnchantDragonScaleMaterial = EnumHelper.addArmorMaterial("enchant", DragonMounts.MODID + ":enchant", 50, new int[]{4, 7, 8, 4}, 30, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
+    public static final ArmorMaterial SunlightDragonScaleMaterial = EnumHelper.addArmorMaterial("sunlight", DragonMounts.MODID + ":sunlight", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial SunlightDragonScaleMaterial2 = EnumHelper.addArmorMaterial("sunlight2", DragonMounts.MODID + ":sunlight2", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial StormDragonScaleMaterial = EnumHelper.addArmorMaterial("storm", DragonMounts.MODID + ":storm", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial StormDragonScaleMaterial2 = EnumHelper.addArmorMaterial("storm2", DragonMounts.MODID + ":storm2", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);

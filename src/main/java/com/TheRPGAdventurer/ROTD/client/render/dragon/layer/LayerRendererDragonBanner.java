@@ -113,7 +113,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (itemstack3 != null) {
+        if (itemstack4 != null) {
         	float f = 0.625F; 	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(0.4F, -1.7F, 1.7F); 

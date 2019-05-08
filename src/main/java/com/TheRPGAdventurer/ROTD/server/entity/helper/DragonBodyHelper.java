@@ -50,8 +50,7 @@ public class DragonBodyHelper extends EntityBodyHelper {
         // (This also disables body snapping when sitting)
         if (dragon.isFlying() || dragon.isSitting() || distSQ > MOVEMENT_THRESHOLD_SQ) {
             dragon.renderYawOffset = dragon.rotationYaw;
-            float newRotationYawHead = MathX.constrainAngle(dragon.getRotationYawHead(), dragon.renderYawOffset,
-                    maximumHeadBodyAngleDifference);
+            float newRotationYawHead = MathX.constrainAngle(dragon.getRotationYawHead(), dragon.renderYawOffset, maximumHeadBodyAngleDifference);
             dragon.rotationYawHead = newRotationYawHead;
             lastRotationYawHead = dragon.getRotationYawHead();
             turnTicks = 0;

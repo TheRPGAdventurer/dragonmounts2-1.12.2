@@ -55,8 +55,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends ServerProxy {
 
     private int thirdPersonViewDragon = 0;
-    private int followYaw = 0;
-    private int hover = 0;
+    private boolean followYaw = false;
+    private boolean hover = false;
     private ModMetadata metadata;
 
     @Override
@@ -130,21 +130,21 @@ public class ClientProxy extends ServerProxy {
         thirdPersonViewDragon = view;
     }
 
-    public int getDragonFollowYaw() {
+    public boolean getDragonFollowYaw() {
         return followYaw;
     }
 
-    public void setDragonFollowYaw(int followYaw) {
+    public void setDragonFollowYaw(boolean followYaw) {
         this.followYaw = followYaw;
     }
 
     @Override
-    public int getDragonHover() {
+    public boolean getDragonHover() {
         return hover;
     }
 
     @Override
-    public void setDragonHover(int hover) {
+    public void setDragonHover(boolean hover) {
         this.hover = hover;
     }
 

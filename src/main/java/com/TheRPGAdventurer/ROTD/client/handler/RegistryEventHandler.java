@@ -117,6 +117,7 @@ public class RegistryEventHandler {
 
     public static void initRegistries() {
         NetworkRegistry.INSTANCE.registerGuiHandler(DragonMounts.instance, new GuiHandler());
+        ModItems.register();
         DMUtils.getLogger().info("Gui's Successfully Registered");
     }
 }

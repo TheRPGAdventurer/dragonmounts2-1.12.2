@@ -99,8 +99,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     private static final Logger L = LogManager.getLogger();
 
-    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE)
-            .setDescription("Movement Speed Air").setShouldWatch(true);
+    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE).setDescription("Movement Speed Air").setShouldWatch(true);
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
@@ -1392,7 +1391,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (!player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
-                && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.STICK)
                 && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player)
                 && this.getScale() <= 0.35) {
             this.setSitting(false);
@@ -1702,7 +1700,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         EntityTameableDragon baby = new EntityTameableDragon(this.world);
 
         if (parent1.isMale() && !parent2.isMale() || !parent1.isMale() && parent2.isMale()) {
-            return getReproductionHelper().createChild(mate);
+            return getReproductionHelper().createChild(parent1.isMale() ? mate : parent1);
         } else {
             return null;
         }
@@ -1783,7 +1781,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean canBeSteered() {
 //         must always return false or the vanilla movement code interferes
 //         with DragonMoveHelper
-        return false;
+    	return false;
     }
 
     @Override
@@ -2612,9 +2610,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean attackEntityFrom(DamageSource source, float damage) {
         Entity sourceEntity = source.getTrueSource();
 
+        if (source != DamageSource.IN_WALL) {
         // don't just sit there!
         this.aiSit.setSitting(false);
-
+        }
 //        if(!sourceEntity.onGround && sourceEntity != null) this.setFlying(true);
 
         if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource()) && damage < 1) {

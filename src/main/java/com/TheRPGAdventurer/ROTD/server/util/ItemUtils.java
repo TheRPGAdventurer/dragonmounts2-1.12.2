@@ -76,22 +76,23 @@ public class ItemUtils {
     public static boolean consumeEquipped(EntityPlayer player, Item item) {
         return consumeEquipped(player, new Item[]{item}) != null;
     }
+    
+    public static boolean consumeEquippedArray(EntityPlayer player, Item[] foodItems) {
+    	return consumeEquipped(player, foodItems) != null;
+    }
 
     /**
      * @WolfShotz Checks if held item is any kind of Fish (Registered under listAllfishraw in OreDict)
      * This allows other mods' fishes to be used with dragon taming
+     * @return True if fish is found in player hand
      */
     public static boolean consumeFish(EntityPlayer player) {
         Set<Item> consumeFish = OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet());
         ItemStack itemstack = player.getHeldItemMainhand();
-        if (!itemstack.isEmpty()) {
-            if (consumeFish.contains(itemstack.getItem())) {
-                //Found fish in player hand, remove 1 from itemStack, return true on consumeFish
-                itemstack.shrink(1);
-                return true;
-            }
+        if (consumeFish.contains(itemstack.getItem())) {
+        	return true;
         }
-		return false;
+        return false;
     }
 
     /**

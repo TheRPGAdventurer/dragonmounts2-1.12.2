@@ -20,58 +20,65 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
+ * @
  */
-public class DragonInteractEat extends DragonInteract {
+public class DragonInteractConsume extends DragonInteract {
 
-    public DragonInteractEat(EntityTameableDragon dragon) {
+	/**
+	 * Handles dragon taming and healing regarding food consumption
+	 */
+    public DragonInteractConsume(EntityTameableDragon dragon) {
         super(dragon);
     }
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        // eat only if hurt
-//        if (dragon.isServer()) {
-            if (dragon.getHealthRelative() < 1) {
-                ItemFood food = (ItemFood) ItemUtils.consumeEquipped(player,
-                        dragon.getBreed().getFoodItems());
-
-
-                // heal only if the food was actually consumed
-                if (food != null) {
-                    dragon.heal(6 * dragon.getScale());
-                    dragon.playSound(dragon.getSoundManager().getEatSound(), 0.7f, 1);
-                    spawnItemCrackParticles(food);
-                    return true;
-                }
-            }
-
-            ItemFood shrinking = (ItemFood) ItemUtils.consumeEquipped(player,
-                    dragon.getBreed().getShrinkingFood());
-            ItemFood growing = (ItemFood) ItemUtils.consumeEquipped(player,
-                    dragon.getBreed().getGrowingFood());
-
-            //.stop growth
-            if (shrinking != null) {
-                dragon.setGrowthPaused(true);
-                dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
-                player.sendStatusMessage(new TextComponentTranslation("dragon.growth.paused"), true);
-                return true;
-            }
-            //.continue growth
-            if (growing != null) {
-                dragon.setGrowthPaused(false);
-                dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
-                return true;
-            }
-//        }
-
+        if (dragon.isServer() && (ItemUtils.consumeFish(player) || ItemUtils.consumeEquippedArray(player, dragon.getBreed().getFoodItems()))) {
+            // Taming
+        	if (!dragon.isTamed()) {
+        		dragon.tamedFor(player, dragon.getRNG().nextInt(15) == 0);
+        		eatEvent(player);
+        	}
+        	// Healing (if Hurt)
+        	if (dragon.getHealthRelative() < 1) {
+        		dragon.heal(6 * dragon.getScale());
+        		eatEvent(player);
+        	}
+        	return true;
+        }
+    	
+    	// Stop growth
+    	ItemFood shrinking = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
+    	if (shrinking != null) {
+    		dragon.setGrowthPaused(true);
+    		dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
+    		player.sendStatusMessage(new TextComponentTranslation("dragon.growth.paused"), true);
+    		return true;
+    	}
+    	
+    	// Continue growth
+    	ItemFood growing = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
+    	if (growing != null) {
+    		dragon.setGrowthPaused(false);
+    		dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
+    		return true;
+    	}
         return false;
     }
 
-    public void spawnItemCrackParticles(Item item) {
+    @SideOnly(Side.CLIENT)
+    private void eatEvent(EntityPlayer player) {
+        dragon.playSound(dragon.getSoundManager().getEatSound(), 0.6f, 0.75f);
+        spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems()));
+    }
+    
+    @SideOnly(Side.CLIENT)
+    private void spawnItemCrackParticles(Item item) {
         for (int i = 0; i < 15; i++) {
             double hx, hy, hz;
             double motionX = dragon.getRNG().nextGaussian() * 0.07D;
@@ -87,8 +94,7 @@ public class DragonInteractEat extends DragonInteract {
             hz = dragon.getAnimator().getThroatPosition().z;
 
             if (dragon.world.isRemote) {
-                dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY,
-                        motionZ, new int[]{Item.getIdFromItem(item)});
+                dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[]{Item.getIdFromItem(item)});
             }
         }
     }

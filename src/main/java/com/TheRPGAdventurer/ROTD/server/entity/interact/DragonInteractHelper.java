@@ -28,8 +28,8 @@ public class DragonInteractHelper extends DragonHelper {
     public DragonInteractHelper(EntityTameableDragon dragon) {
         super(dragon);
         
-        actions.add(new DragonInteractEat(dragon));
-        actions.add(new DragonInteractTame(dragon));
+        actions.add(new DragonInteractConsume(dragon));
+//        actions.add(new DragonInteractTame(dragon));
         actions.add(new DragonInteractSit(dragon));
         actions.add(new DragonInteractRide(dragon));
         actions.add(new DragonInteractOpenGUI(dragon));
@@ -39,5 +39,4 @@ public class DragonInteractHelper extends DragonHelper {
     public boolean interact(EntityPlayer player, ItemStack item) {
         return actions.stream().anyMatch(action -> action.interact(player, item));
     }
-    
 }

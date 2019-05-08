@@ -37,10 +37,10 @@ public class DragonBreedSkeleton extends DragonBreed {
         int bz = MathHelper.floor(dragon.posZ);
 
         BlockPos blockPos = new BlockPos(bx, by, bz);
-        if (dragon.world.canBlockSeeSky(blockPos)) {
+//        if (dragon.world.canBlockSeeSky(blockPos)) {
             // sun is shining!
-            return false;
-        }
+//            return false;
+//        }
         
         if (dragon.world.getLightBrightness(blockPos) > 4) {
             // too bright!

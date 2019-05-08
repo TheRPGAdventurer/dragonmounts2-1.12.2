@@ -8,7 +8,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 /**
-* Created by TGG on 24/06/2015.
+ * Created by TGG on 24/06/2015.
  * Helps to specify the position & orientation of the head and neck segments.
  * Can be used on both client and server sides.
  *
@@ -18,16 +18,16 @@ import net.minecraft.util.math.Vec3d;
  * 3) call getThroatPosition() to get the [x,y,z] position of the throat, uses body pitch from the dragon.
  * 4) getHeadPositionSizeLocation, getNeckPositionSizeLocation, getNeckSegmentPositionSizeLocations are used to
  *    provide detailed position information for the model
-*/
+ */
 public class DragonHeadPositionHelper {
-	
+
   public SegmentSizePositionRotation[] neckSegments;
   public SegmentSizePositionRotation head;
   public SegmentSizePositionRotation neck;  //not required?  not sure.
 
   private EntityTameableDragon dragon;
   private final int NUMBER_OF_NECK_SEGMENTS;
-	
+
   public DragonHeadPositionHelper(EntityTameableDragon parent, int i_numberOfNeckSegments) {
     dragon = parent;
     NUMBER_OF_NECK_SEGMENTS = i_numberOfNeckSegments;
@@ -53,7 +53,7 @@ public class DragonHeadPositionHelper {
     currentSegment.rotationPointX = 0;
     currentSegment.rotationPointY = 14;
     currentSegment.rotationPointZ = -8;
-    
+
     currentSegment.rotateAngleX = 0;
     currentSegment.rotateAngleY = 0;
     currentSegment.rotateAngleZ = 0;
@@ -82,7 +82,7 @@ public class DragonHeadPositionHelper {
       currentSegment.scaleX = currentSegment.scaleY = MathX.lerp(1.6f, 1, vertMulti);
       currentSegment.scaleZ = 0.6f;
 
-       neckSegments[i] = currentSegment.getCopy();
+      neckSegments[i] = currentSegment.getCopy();
 
       // move next segment behind the current one
       float neckSize = DragonModel.NECK_SIZE * currentSegment.scaleZ - 1.4f;
@@ -100,7 +100,7 @@ public class DragonHeadPositionHelper {
     head.rotationPointX = currentSegment.rotationPointX;
     head.rotationPointY = currentSegment.rotationPointY;
     head.rotationPointZ = currentSegment.rotationPointZ;
-   }
+  }
 
   public SegmentSizePositionRotation getHeadPositionSizeLocation() {
     if (head == null) {
@@ -161,8 +161,8 @@ public class DragonHeadPositionHelper {
     final float THROAT_Z_OFFSET = -17; // -17
 
     Vec3d headOffset =  new Vec3d((head.rotationPointX + HEAD_X_OFFSET) * BODY_X_SCALE,
-                                (head.rotationPointY + HEAD_Y_OFFSET) * BODY_Y_SCALE,
-                                (head.rotationPointZ + HEAD_Z_OFFSET) * BODY_Z_SCALE);
+            (head.rotationPointY + HEAD_Y_OFFSET) * BODY_Y_SCALE,
+            (head.rotationPointZ + HEAD_Z_OFFSET) * BODY_Z_SCALE);
 
     // offset of the throat position relative to the head origin- rotate and pitch to match head
 

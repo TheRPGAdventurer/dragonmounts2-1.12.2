@@ -81,10 +81,10 @@ public class DragonInteractEat extends DragonInteract {
             boolean isMoving = dragon.motionX != 0 && dragon.motionY != 0 && dragon.motionZ != 0;
 
             float angle = (((dragon.renderYawOffset + 0) * 3.14159265F) / 180F);
-            hx = dragon.posX - MathHelper.sin(angle) * 3.0 - pos.head.rotateAngleX * dragon.getScale();
+            hx = dragon.getAnimator().getThroatPosition().x;
             double yChange = !isMoving && dragon.isFlying() ? 2.6 : 3.6 * dragon.getScale();
-            hy = dragon.posY + 25 * dragon.getScale();
-            hz = dragon.posZ + MathHelper.cos(angle) * 3.0 + pos.head.rotateAngleZ * dragon.getScale();
+            hy = dragon.getAnimator().getThroatPosition().y;
+            hz = dragon.getAnimator().getThroatPosition().z;
 
             if (dragon.world.isRemote) {
                 dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY,

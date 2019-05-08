@@ -141,6 +141,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> Y_LOCKED = EntityDataManager
+            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> FLUTTER_CANCELLED = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> FOLLOW_YAW = EntityDataManager
@@ -207,6 +209,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private boolean allowOthers;
     private boolean isUnhovered;
     private boolean isUnflutter;
+    private boolean yLocked;
     private boolean followYaw;
     public boolean isSlowed;
     public int inAirTicks;
@@ -296,6 +299,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(WHISTLE, ItemStack.EMPTY);
         dataManager.register(SLEEP, false);
         dataManager.register(HOVER_CANCELLED, false);
+        dataManager.register(Y_LOCKED, false);
         dataManager.register(FLUTTER_CANCELLED, false);
         dataManager.register(FOLLOW_YAW, true);
     }
@@ -334,6 +338,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
         nbt.setBoolean("boosting", this.boosting());
+        nbt.setBoolean("ylocked", this.isYLocked());
         nbt.setBoolean(NBT_ELDER, this.canBeElder());
         nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
         nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
@@ -363,6 +368,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         this.setArmor(nbt.getInteger(NBT_ARMOR));
         this.setMale(nbt.getBoolean(NBT_ISMALE));
         this.setUnHovered(nbt.getBoolean("unhovered"));
+        this.setYLocked(nbt.getBoolean("ylocked"));
         this.setUnFluttered(nbt.getBoolean("unFluttered"));
         this.setBoosting(nbt.getBoolean("boosting"));
 //		this.setSleeping(nbt.getBoolean("sleeping"));
@@ -616,7 +622,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public boolean canFly() {
         // eggs can't fly
-        return !isEgg() && !isHatchling();
+        return !isEgg() && !isHatchling() && !isInfant();
     }
 
     /**
@@ -670,6 +676,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         this.dataManager.set(DATA_BREATHING, usingBreathWeapon);
         if (!world.isRemote) {
             this.isUsingBreathWeapon = usingBreathWeapon;
+        }
+    }
+
+    public boolean isYLocked() {
+        if (world.isRemote) {
+            boolean isUnhovered = dataManager.get(Y_LOCKED);
+            this.isUnhovered = isUnhovered;
+            return isUnhovered;
+        }
+        return isUnhovered;
+    }
+
+    public void setYLocked(boolean isUnflutter) {
+        dataManager.set(Y_LOCKED, isUnflutter);
+        if (!world.isRemote) {
+            this.isUnflutter = isUnflutter;
         }
     }
 
@@ -2064,8 +2086,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public boolean isHatchling() {
-        return getLifeStageHelper().isHatchling();
+        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant();
     }
+
+    public boolean isInfant() {
+        return getLifeStageHelper().isInfant();
+    }
+
 
     public boolean isJuvenile() {
         return getLifeStageHelper().isJuvenile();
@@ -2087,26 +2114,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean isChild() {
         return !isAdult();
     }
-
-    public String getStageString() {
-        switch (getLifeStageHelper().getLifeStage()) {
-            case EGG:
-                return "dragon.egg";
-    		case INFANCY:
-    			return "dragon.infancy";
-            case HATCHLING:
-                return "dragon.hatchling";
-            case JUVENILE:
-                return "dragon.juvenile";
-            case ADULT:
-                return "dragon.adult";
-		default:
-			break;
-        }
-
-        return null;
-    }
-
 
     /**
      * Checks if this entity is running on a client.
@@ -2157,7 +2164,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     @Override
     public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-        return item != null && item.getItem() == ModTools.diamond_shears && !this.isChild() && !this.isSheared()
+        return item != null && item.getItem() == ModTools.diamond_shears && (this.isAdult() || this.isJuvenile()) && !this.isSheared()
                 && ticksShear <= 0;
 
     }

@@ -100,6 +100,13 @@ public class ServerProxy {
     public void setDragonFollowYaw(int yaw) {
     }
 
+    public int getDragonLockY() {
+        return 0;
+    }
+
+    public void setDragonLockY(int yaw) {
+    }
+
     public int getDragonHover() {
         return 0;
     }

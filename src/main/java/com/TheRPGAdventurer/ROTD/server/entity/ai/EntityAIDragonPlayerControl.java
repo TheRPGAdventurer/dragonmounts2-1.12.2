@@ -108,6 +108,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
         }
-        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
+        dragon.getMoveHelper().setMoveTo(x, dragon.isYLocked() ? dragon.posY : y, z, 1.2);
     }
 }

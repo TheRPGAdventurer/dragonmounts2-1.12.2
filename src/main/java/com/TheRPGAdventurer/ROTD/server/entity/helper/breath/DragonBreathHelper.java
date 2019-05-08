@@ -151,10 +151,10 @@ public class DragonBreathHelper extends DragonHelper {
         soundEffectBreathWeapon.performTick(Minecraft.getMinecraft().player, dragon);
     }
 
-    private void updateBreathState(boolean targetBeingBreathedAt) {
+    private void updateBreathState(boolean isBreathing) {
         switch (currentBreathState) {
             case IDLE: {
-                if (targetBeingBreathedAt == true) {
+                if (isBreathing == true) {
                     transitionStartTick = tickCounter;
                     currentBreathState = BreathState.STARTING;
                 }
@@ -164,12 +164,12 @@ public class DragonBreathHelper extends DragonHelper {
                 int ticksSpentStarting = tickCounter - transitionStartTick;
                 if (ticksSpentStarting >= BREATH_START_DURATION) {
                     transitionStartTick = tickCounter;
-                    currentBreathState = (targetBeingBreathedAt == true) ? BreathState.SUSTAIN : BreathState.STOPPING;
+                    currentBreathState = (isBreathing == true) ? BreathState.SUSTAIN : BreathState.STOPPING;
                 }
                 break;
             }
             case SUSTAIN: {
-                if (targetBeingBreathedAt == false) {
+                if (isBreathing == false) {
                     transitionStartTick = tickCounter;
                     currentBreathState = BreathState.STOPPING;
                 }

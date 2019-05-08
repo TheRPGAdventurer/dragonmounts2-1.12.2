@@ -57,6 +57,7 @@ public class ClientProxy extends ServerProxy {
 
     private int thirdPersonViewDragon = 0;
     private int followYaw = 0;
+    private int lockY = 0;
     private int hover = 0;
     private ModMetadata metadata;
 
@@ -157,6 +158,14 @@ public class ClientProxy extends ServerProxy {
     }
 
     public void setDragonFollowYaw(int followYaw) {
+        this.followYaw = followYaw;
+    }
+
+    public int getDragonLockY() {
+        return lockY;
+    }
+
+    public void setDragonLockY(int lockY) {
         this.followYaw = followYaw;
     }
 

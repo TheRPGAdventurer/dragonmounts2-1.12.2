@@ -2072,6 +2072,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 return 1;
             case JUVENILE:
                 return 2;
+            case INFANT:
+            	return 4;
             default:
                 break;
 
@@ -2093,6 +2095,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             case 2:
                 this.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.JUVENILE);
                 break;
+            case 4:
+            	this.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.INFANT);
             default:
                 break;
         }

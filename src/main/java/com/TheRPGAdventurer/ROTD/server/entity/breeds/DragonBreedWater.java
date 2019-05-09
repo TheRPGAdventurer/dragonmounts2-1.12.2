@@ -74,7 +74,7 @@ public class DragonBreedWater extends DragonBreed {
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
-		dragon.getBreathHelper().getbreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power);
+		dragon.getBreathHelper().getbreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power, dragon);
 		dragon.getBreathHelper().getbreathAffectedAreaHydro().updateTick(world);
     }
     

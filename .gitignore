@@ -27,3 +27,4 @@ config/*
 crash-reports/*
 llibrary/*
 logs/*
+libs

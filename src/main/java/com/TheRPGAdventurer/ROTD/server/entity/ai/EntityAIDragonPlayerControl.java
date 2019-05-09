@@ -104,10 +104,10 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
         }
 
-        if (rider.moveStrafing == 0 && dragon.followYaw()) {
+        if (rider.moveStrafing == 0 || dragon.followYaw()) {
             dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
         }
-        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
+        dragon.getMoveHelper().setMoveTo(x, dragon.isYLocked() ? dragon.posY : y, z, 1.2);
     }
 }

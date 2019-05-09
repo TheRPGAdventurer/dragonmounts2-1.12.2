@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
+import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.breath.EntityMoveAndResizeHelper;
 import com.TheRPGAdventurer.ROTD.util.breath.Pair;
 import net.minecraft.entity.Entity;
@@ -27,11 +28,11 @@ class EntityBreathNode extends Entity {
 	
   public static EntityBreathNode createEntityBreathNodeServer(World world, double x, double y, double z,
                                                                     double directionX, double directionY, double directionZ,
-                                                                    BreathNode.Power power) {
+                                                                    BreathNode.Power power, EntityTameableDragon dragon) {
     Vec3d direction = new Vec3d(directionX, directionY, directionZ).normalize();
 
     Random rand = new Random();
-    BreathNode breathNode = new BreathNode(power);
+    BreathNode breathNode = new BreathNode(power, dragon);
     Vec3d actualMotion = breathNode.getRandomisedStartingMotion(direction, rand);
     // don't randomise the other properties (size, age) on the server.
 

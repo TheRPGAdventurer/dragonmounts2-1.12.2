@@ -103,6 +103,13 @@ public class ServerProxy {
     public boolean getDragonHover() {
         return false;
     }
+    
+    public int getDragonLockY() {
+        return 0;
+    }
+
+    public void setDragonLockY(int yaw) {
+    }
 
     public void setDragonHover(boolean hover) {
     }

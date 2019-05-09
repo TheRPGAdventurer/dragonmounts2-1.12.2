@@ -17,6 +17,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.util.breath.Spline;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
+import com.mojang.text2speech.Narrator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -182,8 +183,8 @@ public class DragonAnimator {
 
     public void setLook(float lookYaw, float lookPitch) {
         // don't twist the neck
-        this.lookYaw = MathX.clamp(lookYaw, -150, 150);
-        this.lookPitch = MathX.clamp(lookPitch, -150, 150);
+        this.lookYaw = MathX.clamp(lookYaw, -220, 220); // 120
+        this.lookPitch = MathX.clamp(lookPitch, -140, 140); // 90
     }
 
     /**
@@ -586,7 +587,7 @@ public class DragonAnimator {
     }
 
     public float getBodyPitch(float pt) {
-        float pitchMovingMax = -90;
+        float pitchMovingMax = 90;
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60;
         boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null

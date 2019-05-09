@@ -105,11 +105,11 @@ public class NetherBreathFX extends Entity {
   public static NetherBreathFX createNetherBreathFX(World world, double x, double y, double z,
                                                   double directionX, double directionY, double directionZ,
                                                   BreathNode.Power power,
-                                                  float partialTicksHeadStart) {
+                                                  float partialTicksHeadStart, EntityTameableDragon dragon) {
     Vec3d direction = new Vec3d(directionX, directionY, directionZ).normalize();
 
     Random rand = new Random();
-    BreathNode breathNode = new BreathNode(power);
+    BreathNode breathNode = new BreathNode(power, dragon);
     breathNode.randomiseProperties(rand);
     Vec3d actualMotion = breathNode.getRandomisedStartingMotion(direction, rand);
 

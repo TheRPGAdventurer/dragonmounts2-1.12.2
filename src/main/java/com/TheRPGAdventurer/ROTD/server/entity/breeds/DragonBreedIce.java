@@ -111,7 +111,7 @@ public class DragonBreedIce extends DragonBreed {
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
-		dragon.getBreathHelper().getBreathAffectedAreaIce().continueBreathing(world, origin, endOfLook, power);
+		dragon.getBreathHelper().getBreathAffectedAreaIce().continueBreathing(world, origin, endOfLook, power, dragon);
 		dragon.getBreathHelper().getBreathAffectedAreaIce().updateTick(world);
     }
     

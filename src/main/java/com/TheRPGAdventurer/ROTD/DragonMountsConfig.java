@@ -55,6 +55,7 @@ public class DragonMountsConfig {
 
 	// chances
 	public static int AllNestRarity  = 110;
+	public static int FireNestRarity  = 120;
 	public static int AllNestRarity1  = 180;
 //	public static int ZombieNestRarity1  = 180;
 	public static int TerraNestRarity  = 180;

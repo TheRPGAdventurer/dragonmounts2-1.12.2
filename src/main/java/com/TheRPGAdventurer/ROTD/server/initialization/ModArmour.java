@@ -36,6 +36,8 @@ public class ModArmour {
     public static final ArmorMaterial TerraDragonScaleMaterial = EnumHelper.addArmorMaterial("terra", DragonMounts.MODID + ":terra", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial TerraDragonScaleMaterial2 = EnumHelper.addArmorMaterial("terra2", DragonMounts.MODID + ":terra2", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial MoonlightDragonScaleMaterial = EnumHelper.addArmorMaterial("moonlight", DragonMounts.MODID + ":moonlight", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
+    public static final ArmorMaterial GhostDragonScaleMaterial = EnumHelper.addArmorMaterial("ghost", DragonMounts.MODID + ":ghost", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
+    public static final ArmorMaterial WitherDragonScaleMaterial = EnumHelper.addArmorMaterial("wither", DragonMounts.MODID + ":wither", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
 
     public static ItemDragonArmour forestDragonScaleCap;
     public static ItemDragonArmour forestDragonScaleTunic;
@@ -127,6 +129,16 @@ public class ModArmour {
     public static ItemDragonArmour moonlightDragonScaleLeggings;
     public static ItemDragonArmour moonlightDragonScaleBoots;
 
+    public static ItemDragonArmour ghostDragonScaleCap;
+    public static ItemDragonArmour ghostDragonScaleTunic;
+    public static ItemDragonArmour ghostDragonScaleLeggings;
+    public static ItemDragonArmour ghostDragonScaleBoots;
+
+    public static ItemDragonArmour witherDragonScaleCap;
+    public static ItemDragonArmour witherDragonScaleTunic;
+    public static ItemDragonArmour witherDragonScaleLeggings;
+    public static ItemDragonArmour witherDragonScaleBoots;
+
     // for dragon
     public static ItemDragonArmor dragonarmor_diamond;
     public static ItemDragonArmor dragonarmor_gold;
@@ -160,9 +172,9 @@ public class ModArmour {
             iceDragonScaleBoots = new ItemDragonArmour(IceDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "ice_dragonscale_boots", EnumItemBreedTypes.ICE),
 
             waterDragonScaleCap = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "water_dragonscale_cap", EnumItemBreedTypes.WATER, new PotionEffect(MobEffects.WATER_BREATHING)),
-            waterDragonscaleChesplate = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "water_dragonscale_tunic", EnumItemBreedTypes.WATER, new PotionEffect(MobEffects.WATER_BREATHING)),
-            waterDragonScaleLeggings = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "water_dragonscale_leggings", EnumItemBreedTypes.WATER, new PotionEffect(MobEffects.WATER_BREATHING)),
-            waterDragonScaleBoots = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "water_dragonscale_boots", EnumItemBreedTypes.WATER, new PotionEffect(MobEffects.WATER_BREATHING)),
+            waterDragonscaleChesplate = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "water_dragonscale_tunic", EnumItemBreedTypes.WATER, null),
+            waterDragonScaleLeggings = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "water_dragonscale_leggings", EnumItemBreedTypes.WATER, null),
+            waterDragonScaleBoots = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "water_dragonscale_boots", EnumItemBreedTypes.WATER, null),
 
             netherDragonScaleCap = new ItemNetherDragonArmour(NetherDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "nether_dragonscale_cap", new PotionEffect(MobEffects.RESISTANCE, 2, 1, true, false), EnumItemBreedTypes.NETHER),
             netherDragonScaleTunic = new ItemNetherDragonArmour(NetherDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "nether_dragonscale_tunic", new PotionEffect(MobEffects.RESISTANCE, 2, 1, true, false), EnumItemBreedTypes.NETHER),
@@ -223,6 +235,16 @@ public class ModArmour {
             moonlightDragonScaleTunic = new ItemDragonArmour(MoonlightDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "moonlight_dragonscale_tunic", EnumItemBreedTypes.MOONLIGHT),
             moonlightDragonScaleLeggings = new ItemDragonArmour(MoonlightDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "moonlight_dragonscale_leggings", EnumItemBreedTypes.MOONLIGHT),
             moonlightDragonScaleBoots = new ItemDragonArmour(MoonlightDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "moonlight_dragonscale_boots", EnumItemBreedTypes.MOONLIGHT),
+
+            ghostDragonScaleCap = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "ghost_dragonscale_cap", EnumItemBreedTypes.GHOST),
+            ghostDragonScaleTunic = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "ghost_dragonscale_tunic", EnumItemBreedTypes.GHOST),
+            ghostDragonScaleLeggings = new ItemDragonArmour(GhostDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "ghost_dragonscale_leggings", EnumItemBreedTypes.GHOST),
+            ghostDragonScaleBoots = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "ghost_dragonscale_boots", EnumItemBreedTypes.GHOST),
+
+            witherDragonScaleCap = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "wither_dragonscale_cap", EnumItemBreedTypes.WITHER),
+            witherDragonScaleTunic = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "wither_dragonscale_tunic", EnumItemBreedTypes.WITHER),
+            witherDragonScaleLeggings = new ItemDragonArmour(WitherDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "wither_dragonscale_leggings", EnumItemBreedTypes.WITHER),
+            witherDragonScaleBoots = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "wither_dragonscale_boots", EnumItemBreedTypes.WITHER),
 
             dragonarmor_iron = new ItemDragonArmor("dragonarmor_iron"),
             dragonarmor_gold = new ItemDragonArmor("dragonarmor_gold"),

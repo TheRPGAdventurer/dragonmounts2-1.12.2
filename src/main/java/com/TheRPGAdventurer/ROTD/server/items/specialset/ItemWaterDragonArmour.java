@@ -1,10 +1,9 @@
 package com.TheRPGAdventurer.ROTD.server.items.specialset;
 
-import javax.annotation.Nullable;
-
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.server.initialization.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.server.items.gemset.ItemDragonArmour;
-import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.sun.istack.internal.Nullable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -25,9 +24,8 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		super.onArmorTick(world, player, itemStack);
 		if (player.isInWater()) { // If the Potion isn't currently active,
-			player.addPotionEffect(new PotionEffect(potionEffect)); // Apply a copy of the PotionEffect to the player
+			player.addPotionEffect(potionEffect); // Apply a copy of the PotionEffect to the player
 		}
 	}
 }

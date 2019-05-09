@@ -1,34 +1,16 @@
 package com.TheRPGAdventurer.ROTD.server.entity.breathweapon;
 
-import java.util.List;
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.util.breath.EntityMoveAndResizeHelper;
-import com.TheRPGAdventurer.ROTD.util.breath.RotatingQuad;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAreaEffectCloud;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.projectile.EntityFireball;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.datafix.DataFixer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * Created by TGG on 21/06/2015.
@@ -119,11 +101,11 @@ public class HydroBreathFX extends Entity {
   public static HydroBreathFX createHydroBreathFX(World world, double x, double y, double z,
                                                   double directionX, double directionY, double directionZ,
                                                   BreathNode.Power power,
-                                                  float partialTicksHeadStart) {
+                                                  float partialTicksHeadStart, EntityTameableDragon dragon) {
     Vec3d direction = new Vec3d(directionX, directionY, directionZ).normalize();
 
     Random rand = new Random();
-    BreathNode breathNode = new BreathNode(power);
+    BreathNode breathNode = new BreathNode(power, dragon);
     breathNode.randomiseProperties(rand);
     Vec3d actualMotion = breathNode.getRandomisedStartingMotion(direction, rand);
 

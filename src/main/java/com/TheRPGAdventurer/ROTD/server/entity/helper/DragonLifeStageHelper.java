@@ -340,6 +340,10 @@ public class DragonLifeStageHelper extends DragonHelper {
         return getLifeStage() == HATCHLING;
     }
 
+    public boolean isInfant() {
+        return getLifeStage() == INFANT;
+    }
+
     public boolean isJuvenile() {
         return getLifeStage() == JUVENILE;
     }
@@ -348,13 +352,13 @@ public class DragonLifeStageHelper extends DragonHelper {
         return getLifeStage() == ADULT;
     }
 
-    public boolean isGiga() {
-        return getLifeStage() == GIGA;
-    }
-
-    public boolean isAdjudicator() {
-        return getLifeStage() == ADJUDICATOR;
-    }
+//    public boolean isGiga() {
+//        return getLifeStage() == GIGA;
+//    }
+//
+//    public boolean isAdjudicator() {
+//        return getLifeStage() == ADJUDICATOR;
+//    }
 
     public BreathNode.Power getBreathPower() {
         switch (getLifeStage()) {

@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
+import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.util.breath.Pair;
 import com.google.common.collect.ArrayListMultimap;
@@ -45,12 +46,12 @@ public class BreathAffectedArea {
    * @param destination the destination of the beam, used to calculate direction
    * @param power
    */
-  public void continueBreathing(World world, Vec3d origin, Vec3d destination, BreathNode.Power power) {
+  public void continueBreathing(World world, Vec3d origin, Vec3d destination, BreathNode.Power power, EntityTameableDragon dragon) {
     Vec3d direction = destination.subtract(origin).normalize();
 
     EntityBreathNode newNode = EntityBreathNode.createEntityBreathNodeServer(
             world, origin.x, origin.y, origin.z, direction.x, direction.y, direction.z,
-            power);
+            power, dragon);
 
     entityBreathNodes.add(newNode);
   }
@@ -207,7 +208,7 @@ public class BreathAffectedArea {
                       if (currentDensity == null) {
                         currentDensity = new BreathAffectedEntity();
                       }
-                      currentDensity.addHitDensity(nodeLineSegments.get(i).getSegmentDirection(), hitDensity / 4f);
+                      currentDensity.addHitDensity(nodeLineSegments.get(i).getSegmentDirection(), hitDensity);
                       affectedEntities.put(entityID, currentDensity);
                     }
                   }

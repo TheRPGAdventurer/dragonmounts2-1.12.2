@@ -89,10 +89,10 @@ public class ItemUtils {
     public static boolean consumeFish(EntityPlayer player) {
         Set<Item> consumeFish = OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet());
         ItemStack itemstack = player.getHeldItemMainhand();
-        if (consumeFish.contains(itemstack.getItem())) {
-        	return true;
+        if (itemstack.getItem() != null) {
+        	if (consumeFish.contains(itemstack.getItem())) return true;
         }
-        return false;
+		return false;
     }
 
     /**

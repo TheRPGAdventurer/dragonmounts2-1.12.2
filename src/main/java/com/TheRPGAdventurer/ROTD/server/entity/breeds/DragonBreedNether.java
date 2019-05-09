@@ -62,7 +62,7 @@ public class DragonBreedNether extends DragonBreed {
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
-		dragon.getBreathHelper().getBreathAffectedAreaNether().continueBreathing(world, origin, endOfLook, power);
+		dragon.getBreathHelper().getBreathAffectedAreaNether().continueBreathing(world, origin, endOfLook, power, dragon);
 		dragon.getBreathHelper().getBreathAffectedAreaNether().updateTick(world);
     }
     
@@ -82,7 +82,7 @@ public class DragonBreedNether extends DragonBreed {
 		World world = dragon.world;
 		if (world instanceof WorldServer && dragon.isWet() &&  !dragon.isEgg()) {
 			((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, dragon.posX + 0.5D,
-					dragon.posY + dragon.getEyeHeight(), dragon.posZ + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
+					dragon.posY + dragon.getEyeHeight(), dragon.posZ + 0.5D, 4 * (int)dragon.getScale(), 0.5D, 0.25D, 0.5D, 0.0D);
 		}
 		
 		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {

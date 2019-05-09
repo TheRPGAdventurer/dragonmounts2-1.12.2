@@ -28,7 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @
  */
 public class DragonInteractConsume extends DragonInteract {
-
 	/**
 	 * Handles dragon taming and healing regarding food consumption
 	 */
@@ -76,7 +75,7 @@ public class DragonInteractConsume extends DragonInteract {
         dragon.playSound(dragon.getSoundManager().getEatSound(), 0.6f, 0.75f);
         spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems()));
     }
-    
+
     @SideOnly(Side.CLIENT)
     private void spawnItemCrackParticles(Item item) {
         for (int i = 0; i < 15; i++) {
@@ -98,5 +97,4 @@ public class DragonInteractConsume extends DragonInteract {
             }
         }
     }
-
 }

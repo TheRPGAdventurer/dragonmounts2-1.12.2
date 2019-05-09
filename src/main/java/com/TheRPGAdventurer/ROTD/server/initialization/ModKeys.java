@@ -20,10 +20,10 @@ public class ModKeys {
     
     public static void init() {
     	KEY_BREATH = new KeyBinding("key.dragon.breath", Keyboard.KEY_R, KEY_CATEGORY);
-    	KEY_HOVERCANCEL = new KeyBinding("key.dragon.cancelhover", Keyboard.KEY_F12, KEY_CATEGORY);
-    	dragon_change_view = new KeyBinding("key.dragon.f7", Keyboard.KEY_F7, KEY_CATEGORY);
-    	FOLLOW_YAW = new KeyBinding("key.dragon.followYaw", Keyboard.KEY_F9, KEY_CATEGORY);
-    	KEY_LOCKEDY = new KeyBinding("key.dragon.lockY", Keyboard.KEY_F10, KEY_CATEGORY);
+    	KEY_HOVERCANCEL = new KeyBinding("key.dragon.cancelhover", Keyboard.KEY_V, KEY_CATEGORY);
+    	FOLLOW_YAW = new KeyBinding("key.dragon.followYaw", Keyboard.KEY_N, KEY_CATEGORY);
+    	KEY_LOCKEDY = new KeyBinding("key.dragon.lockY", Keyboard.KEY_M, KEY_CATEGORY);
+        dragon_change_view = new KeyBinding("key.dragon.f7", Keyboard.KEY_F7, KEY_CATEGORY);
     	BOOST=new KeyBinding("key.dragon.boost", Keyboard.KEY_LCONTROL, KEY_CATEGORY);
     	DISMOUNT = new KeyBinding("key.dragon.dismount",Keyboard.KEY_X, KEY_CATEGORY);
    // 	KEY_FLY_UP = new KeyBinding("key.dragon.flyUp", Keyboard.KEY_SPACE, KEY_CATEGORY);

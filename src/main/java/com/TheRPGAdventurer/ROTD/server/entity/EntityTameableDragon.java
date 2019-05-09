@@ -680,17 +680,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public boolean isYLocked() {
         if (world.isRemote) {
-            boolean isUnhovered = dataManager.get(Y_LOCKED);
-            this.isUnhovered = isUnhovered;
-            return isUnhovered;
+            boolean yLocked = dataManager.get(Y_LOCKED);
+            this.yLocked = yLocked;
+            return yLocked;
         }
-        return isUnhovered;
+        return yLocked;
     }
 
-    public void setYLocked(boolean isUnflutter) {
-        dataManager.set(Y_LOCKED, isUnflutter);
+    public void setYLocked(boolean yLocked) {
+        dataManager.set(Y_LOCKED, yLocked);
         if (!world.isRemote) {
-            this.isUnflutter = isUnflutter;
+            this.yLocked = yLocked;
         }
     }
 
@@ -703,10 +703,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return isUnhovered;
     }
 
-    public void setUnHovered(boolean isUnflutter) {
-        dataManager.set(HOVER_CANCELLED, isUnflutter);
+    public void setUnHovered(boolean isUnhovered) {
+        dataManager.set(HOVER_CANCELLED, isUnhovered);
         if (!world.isRemote) {
-            this.isUnflutter = isUnflutter;
+            this.isUnhovered = isUnhovered;
         }
     }
 
@@ -1016,25 +1016,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
 
-//        if (dismountTicks >= 0) {
-//            ++dismountTicks;
-//            if (dismountTicks > 1000) {
-//                dismountTicks = -1;
-//            }
-//        }
-
-//        DMUtils.getLogger().info("follow yaw is " + this.followYaw());
-//        DMUtils.getLogger().info("unhovered is " + this.isUnHovered());
-//
-//        int followYaw = DragonMounts.proxy.getDragonFollowYaw();
-//        int unhover = DragonMounts.proxy.getDragonHover();
-//
-//        this.setFollowYaw(followYaw == 1);
-//        this.setUnHovered(unhover == 1);
-
-//        DMUtils.getLogger().info("follow yaw = " + followYaw);
-//        DMUtils.getLogger().info("unhover = "+unhover);  setUnHovered(this.boosting());
-
         if (roarTicks >= 0) { // used for jaw animation
             ++roarTicks;
             if (roarTicks > 1000) {
@@ -1070,23 +1051,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             hasChestVarChanged = false;
         }
 
-//        EntityLivingBase target = null;
-//        if (this.getAttackTarget() != null && getScale() > 1 && !(this.getAttackTarget() instanceof EntityPlayer) && getAttackTarget().width <= 1
-//                && getAttackTarget() == target) {
-//            Vec3d throat = animator.getThroatPosition();
-//            target.setPosition(throat.x, throat.y + (3 * getScale()), throat.z);
-//        }
-
-//        if (this.boosting()) {
-//            collideDragon();
-//        }
-
         updateShearing();
         updateDragonEnderCrystal();
         regenerateHealth();
         updateForRiding();
         ACHOOOOO();
-        this.spawnItemCrackParticles(Items.CHICKEN);
+//        this.spawnItemCrackParticles(Items.CHICKEN);
 
         super.onLivingUpdate();
     }

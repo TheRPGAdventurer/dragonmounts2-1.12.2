@@ -58,9 +58,9 @@ public class DragonViewEvent {
                 if (currentView == 0) {
                     GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom);
                 } else if (currentView == 1) {
-                    GlStateManager.translate(-4.7F, -3.6F, -DragonMountsConfig.ThirdPersonZoom);
-                } else if (currentView == 2) {
                     GlStateManager.translate(4.7F, -3.6F, -DragonMountsConfig.ThirdPersonZoom);
+                } else if (currentView == 2) {
+                    GlStateManager.translate(-4.7F, -3.6F, -DragonMountsConfig.ThirdPersonZoom);
                 }
             }
 
@@ -123,6 +123,9 @@ public class DragonViewEvent {
                 } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
 //                    DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
                     dragon.setUnHovered(!dragon.isUnHovered());
+                } else if (ModKeys.KEY_LOCKEDY.isPressed()) {
+//                    DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
+                    dragon.setYLocked(!dragon.isYLocked());
                 }
             }
 //            }

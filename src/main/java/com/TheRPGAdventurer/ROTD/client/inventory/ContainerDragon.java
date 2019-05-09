@@ -100,13 +100,14 @@ public class ContainerDragon extends Container {
 		// Build Inventory Slots
 		for (int j = 0; j < 3; ++j) {
 			for (int k = 0; k < 9; ++k) {
-				this.addSlotToContainer(new Slot(player.inventory, k + j * 9 + 9, 8 + k * 18, 149 + j * 18 + 18));
+				this.addSlotToContainer(new Slot(player.inventory, k + j * 9 + 9, 8 + k * 18, 250 + j * 18 - 18));
 			}
 		}
 		// Build hotbar slots
 		for (int j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 189));
 		}
+
 		// offhand
 		this.addSlotToContainer(new Slot(player.inventory, 40, -13, 189));
 	}

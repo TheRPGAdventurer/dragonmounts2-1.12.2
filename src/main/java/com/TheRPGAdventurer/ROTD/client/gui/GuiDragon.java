@@ -68,18 +68,17 @@ public class GuiDragon extends GuiContainer {
         int y = (this.height - this.ySize) / 2;
 
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
-        if (dragon.isChested()) {
-            this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
-<<<<<<< HEAD
-            // Draw Player Entity
-            GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x - 38 - this.mousePosX, y + 90 - this.mousePosY, this.player);
-            this.mc.getTextureManager().bindTexture(texture1);
-            drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
-        } else {
-            GuiInventory.drawEntityOnScreen(x + 90, y + 113, 20, x + 90 - this.mousePosX, y + 90 - this.mousePosY, this.player);
-            this.mc.getTextureManager().bindTexture(texture1);
-            drawModalRectWithCustomSizedTexture(x + 32, y + 69, 0.0F, 0.0F, 99, 51, 99, 51);
-        }
+//        if (dragon.isChested()) {
+//            this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
+//            // Draw Player Entity
+//            GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x - 38 - this.mousePosX, y + 90 - this.mousePosY, this.player);
+//            this.mc.getTextureManager().bindTexture(texture1);
+//            drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
+//        } else {
+//            GuiInventory.drawEntityOnScreen(x + 90, y + 113, 20, x + 90 - this.mousePosX, y + 90 - this.mousePosY, this.player);
+//            this.mc.getTextureManager().bindTexture(texture1);
+//            drawModalRectWithCustomSizedTexture(x + 32, y + 69, 0.0F, 0.0F, 99, 51, 99, 51);
+//        }
 
         GuiInventory.drawEntityOnScreen(x + 85, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
                 this.dragon);
@@ -91,14 +90,13 @@ public class GuiDragon extends GuiContainer {
         // extra different textures for the player and armor
 //        this.mc.getTextureManager().bindTexture(texture1);
 //        drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
-=======
-        }
+//        }
         this.mc.getTextureManager().bindTexture(offhand);
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
 
         //draw dragon entity
         GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
->>>>>>> 29ba695... 1.6.1PULL
+
     }
 
     @Override

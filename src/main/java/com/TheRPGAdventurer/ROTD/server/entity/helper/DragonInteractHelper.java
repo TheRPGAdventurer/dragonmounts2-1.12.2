@@ -9,18 +9,16 @@
  */
 package com.TheRPGAdventurer.ROTD.server.entity.helper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteract;
-import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractEat;
+import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractConsume;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractRide;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractSit;
-import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractTame;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,9 +30,8 @@ public class DragonInteractHelper extends DragonHelper {
     
     public DragonInteractHelper(EntityTameableDragon dragon) {
         super(dragon);
-        
-        actions.add(new DragonInteractEat(dragon));
-        actions.add(new DragonInteractTame(dragon));
+
+        actions.add(new DragonInteractConsume(dragon));
         actions.add(new DragonInteractSit(dragon));
         actions.add(new DragonInteractRide(dragon));
     }

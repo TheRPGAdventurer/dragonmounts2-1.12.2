@@ -76,11 +76,37 @@ public class DragonViewEvent {
         }
     }
 
+//    @SubscribeEvent
+//    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+//        if (event.getEntityLiving() instanceof EntityPlayer) {
+//            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+//            if (player.world.isRemote) {
+//                if (ModKeys.dragon_change_view.isPressed()) {
+//                    int currentView = DragonMounts.proxy.getDragon3rdPersonView();
+//                    if (currentView + 1 > 2) {
+//                        currentView = 0;
+//                    } else {
+//                        currentView++;
+//                    }
+//
+//                    DragonMounts.proxy.setDragon3rdPersonView(currentView);
+//
+//                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
+//                    DragonMounts.proxy.setDragonFollowYaw(!DragonMounts.proxy.getDragonFollowYaw());
+//                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
+//                	DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
+//                }
+//            }
+//        }
+//    }
+
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if (player.world.isRemote) {
+            if (player.getRidingEntity() instanceof EntityTameableDragon) {
+                EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
+//            if (player.world.isRemote) {
                 if (ModKeys.dragon_change_view.isPressed()) {
                     int currentView = DragonMounts.proxy.getDragon3rdPersonView();
                     if (currentView + 1 > 2) {
@@ -92,11 +118,14 @@ public class DragonViewEvent {
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
                 } else if (ModKeys.FOLLOW_YAW.isPressed()) {
-                    DragonMounts.proxy.setDragonFollowYaw(!DragonMounts.proxy.getDragonFollowYaw());
+//                    DragonMounts.proxy.setDragonFollowYaw(!DragonMounts.proxy.getDragonFollowYaw());
+                    dragon.setFollowYaw(!dragon.followYaw());
                 } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-                	DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
+//                    DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
+                    dragon.setUnHovered(!dragon.isUnHovered());
                 }
             }
+//            }
         }
     }
 }

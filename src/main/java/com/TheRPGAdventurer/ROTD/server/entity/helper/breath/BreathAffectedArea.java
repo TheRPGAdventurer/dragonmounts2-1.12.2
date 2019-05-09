@@ -51,7 +51,7 @@ public class BreathAffectedArea {
 
     EntityBreathNode newNode = EntityBreathNode.createEntityBreathNodeServer(
             world, origin.x, origin.y, origin.z, direction.x, direction.y, direction.z,
-            power);
+            power, dragon);
 
     entityBreathNodes.add(newNode);
   }

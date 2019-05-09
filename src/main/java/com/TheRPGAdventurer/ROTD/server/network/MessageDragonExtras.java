@@ -15,10 +15,10 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
 
     private int dragonId;
     public int isHoverCancel;
-    public int isFollowYaw;
+    public boolean isFollowYaw;
 
 
-    public MessageDragonExtras(int dragonId, int isHoverCancel, int isFollowYaw) {
+    public MessageDragonExtras(int dragonId, int isHoverCancel, boolean isFollowYaw) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
         this.isFollowYaw = isFollowYaw;
@@ -30,7 +30,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     public void fromBytes(ByteBuf buf) {
         dragonId = buf.readInt();
         isHoverCancel = buf.readInt();
-        isFollowYaw = buf.readInt();
+        isFollowYaw = buf.readBoolean();
 
     }
 
@@ -38,7 +38,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     public void toBytes(ByteBuf buf) {
         buf.writeInt(dragonId);
         buf.writeInt(isHoverCancel);
-        buf.writeInt(isFollowYaw);
+        buf.writeBoolean(isFollowYaw);
 
     }
 
@@ -59,10 +59,8 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
                 dragon.setUnHovered(false);
             }
 
-            if(message.isFollowYaw == 1) {
-                dragon.setFollowYaw(true);
-            } else {
-                dragon.setFollowYaw(false);
+            if(message.isFollowYaw) {
+                dragon.setFollowYaw(!dragon.followYaw());
             }
         }
     }

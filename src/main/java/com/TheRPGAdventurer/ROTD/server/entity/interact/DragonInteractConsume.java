@@ -29,85 +29,47 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class DragonInteractConsume extends DragonInteract {
 
-	/**
-	 * Handles dragon taming and healing regarding food consumption
-	 */
+    /**
+     * Handles dragon taming and healing regarding food consumption
+     */
     public DragonInteractConsume(EntityTameableDragon dragon) {
         super(dragon);
     }
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/server/entity/interact/DragonInteractEat.java
         // eat only if hurt
 //        if (dragon.isServer()) {
-            if (dragon.getHealthRelative() < 1) {
-                ItemFood food = (ItemFood) ItemUtils.consumeEquipped(player,
-                        dragon.getBreed().getFoodItems());
-
-
-                // heal only if the food was actually consumed
-                if (food != null) {
-                    dragon.heal(6 * dragon.getScale());
-                    dragon.playSound(dragon.getSoundManager().getEatSound(), 0.7f, 1);
-                    dragon.spawnItemCrackParticles(food);
-                    return true;
-                }
-            }
-
-            ItemFood shrinking = (ItemFood) ItemUtils.consumeEquipped(player,
-                    dragon.getBreed().getShrinkingFood());
-            ItemFood growing = (ItemFood) ItemUtils.consumeEquipped(player,
-                    dragon.getBreed().getGrowingFood());
-
-            //.stop growth
-            if (shrinking != null) {
-                dragon.setGrowthPaused(true);
-                dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
-                player.sendStatusMessage(new TextComponentTranslation("dragon.growth.paused"), true);
-                return true;
-            }
-            //.continue growth
-            if (growing != null) {
-                dragon.setGrowthPaused(false);
-                dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
-                return true;
-            }
-//        }
-
-        return false;
-    }
-=======
         if (dragon.isServer() && (ItemUtils.consumeFish(player) || ItemUtils.consumeEquippedArray(player, dragon.getBreed().getFoodItems()))) {
             // Taming
-        	if (!dragon.isTamed()) {
-        		dragon.tamedFor(player, dragon.getRNG().nextInt(15) == 0);
-        		eatEvent(player);
-        	}
-        	// Healing (if Hurt)
-        	if (dragon.getHealthRelative() < 1) {
-        		dragon.heal(6 * dragon.getScale());
-        		eatEvent(player);
-        	}
-        	return true;
+            if (!dragon.isTamed()) {
+                dragon.tamedFor(player, dragon.getRNG().nextInt(15) == 0);
+                eatEvent(player);
+            }
+            // Healing (if Hurt)
+            if (dragon.getHealthRelative() < 1) {
+                dragon.heal(6 * dragon.getScale());
+                eatEvent(player);
+            }
+            return true;
         }
-    	
-    	// Stop growth
-    	ItemFood shrinking = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
-    	if (shrinking != null) {
-    		dragon.setGrowthPaused(true);
-    		dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
-    		player.sendStatusMessage(new TextComponentTranslation("dragon.growth.paused"), true);
-    		return true;
-    	}
-    	
-    	// Continue growth
-    	ItemFood growing = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
-    	if (growing != null) {
-    		dragon.setGrowthPaused(false);
-    		dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
-    		return true;
-    	}
+
+        // Stop growth
+        ItemFood shrinking = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
+        if (shrinking != null) {
+            dragon.setGrowthPaused(true);
+            dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
+            player.sendStatusMessage(new TextComponentTranslation("dragon.growth.paused"), true);
+            return true;
+        }
+
+        // Continue growth
+        ItemFood growing = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
+        if (growing != null) {
+            dragon.setGrowthPaused(false);
+            dragon.playSound(SoundEvents.ENTITY_PLAYER_BURP, 0.7f, 1);
+            return true;
+        }
         return false;
     }
 
@@ -116,7 +78,7 @@ public class DragonInteractConsume extends DragonInteract {
         dragon.playSound(dragon.getSoundManager().getEatSound(), 0.6f, 0.75f);
         spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems()));
     }
-    
+
     @SideOnly(Side.CLIENT)
     private void spawnItemCrackParticles(Item item) {
         for (int i = 0; i < 15; i++) {
@@ -138,6 +100,4 @@ public class DragonInteractConsume extends DragonInteract {
             }
         }
     }
-
->>>>>>> f9ddbf1fa422a2d7b9226000123b44d083328637:src/main/java/com/TheRPGAdventurer/ROTD/server/entity/interact/DragonInteractConsume.java
 }

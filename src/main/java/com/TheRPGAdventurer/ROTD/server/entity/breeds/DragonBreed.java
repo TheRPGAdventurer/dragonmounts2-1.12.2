@@ -47,15 +47,10 @@ public abstract class DragonBreed {
         // ignore suffocation damage
         setImmunity(DamageSource.DROWN);
         setImmunity(DamageSource.IN_WALL);
-<<<<<<< HEAD
-
-=======
->>>>>>> f9ddbf1fa422a2d7b9226000123b44d083328637
         setImmunity(DamageSource.ON_FIRE);
         setImmunity(DamageSource.IN_FIRE);
         setImmunity(DamageSource.LAVA);
         setImmunity(DamageSource.HOT_FLOOR);
-<<<<<<< HEAD
         setImmunity(DamageSource.HOT_FLOOR);
 
         // assume that cactus needles don't do much damage to animals with horned scales
@@ -63,10 +58,8 @@ public abstract class DragonBreed {
 
         // ignore damage from vanilla ender dragon
         setImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
-=======
         setImmunity(DamageSource.CACTUS); // assume that cactus needles don't do much damage to animals with horned scales
         setImmunity(DamageSource.DRAGON_BREATH); // ignore damage from vanilla ender dragon. I kinda disabled this because it wouldn't make any sense, feel free to re enable
->>>>>>> f9ddbf1fa422a2d7b9226000123b44d083328637
     }
 
     public String getSkin() {
@@ -124,22 +117,12 @@ public abstract class DragonBreed {
     public boolean isHabitatEnvironment(EntityTameableDragon dragon) {
         return false;
     }
-<<<<<<< HEAD
 
-    public Item[] getFoodItems() {
-        return new Item[]{Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH,
-                Items.WHEAT, Items.BEETROOT, Items.RABBIT, Items.COOKED_FISH,
-                Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_PORKCHOP,
-                Items.COOKED_RABBIT, Items.FISH, Items.COOKED_FISH, Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS,
-                Items.MELON_SEEDS, Items.MUTTON, Items.RABBIT_STEW};
-=======
-    
     public static Item[] getFoodItems() {
-        return new Item[]  {Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH,
-        					Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN,
-        					Items.COOKED_MUTTON,Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON,
-        					Items.COOKED_PORKCHOP};
->>>>>>> f9ddbf1fa422a2d7b9226000123b44d083328637
+        return new Item[]{Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH,
+                Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN,
+                Items.COOKED_MUTTON, Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON,
+                Items.COOKED_PORKCHOP};
     }
 
     public Item[] getShrinkingFood() {
@@ -276,12 +259,14 @@ public abstract class DragonBreed {
 
     }
 
-    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
+    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power
+            power, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getBreathAffectedArea().continueBreathing(world, origin, endOfLook, power, dragon);
         dragon.getBreathHelper().getBreathAffectedArea().updateTick(world);
     }
 
-    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
+    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d
+            endOfLook, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticles(world, power, tickCounter);
     }

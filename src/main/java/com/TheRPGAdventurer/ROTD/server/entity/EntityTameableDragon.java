@@ -1033,7 +1033,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 //        this.setUnHovered(unhover == 1);
 
 //        DMUtils.getLogger().info("follow yaw = " + followYaw);
-//        DMUtils.getLogger().info("unhover = "+unhover);
+//        DMUtils.getLogger().info("unhover = "+unhover);  setUnHovered(this.boosting());
 
         if (roarTicks >= 0) { // used for jaw animation
             ++roarTicks;
@@ -1042,7 +1042,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
 
-        setUnHovered(this.boosting());
+
 
         if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();

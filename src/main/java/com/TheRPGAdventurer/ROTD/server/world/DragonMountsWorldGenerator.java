@@ -153,8 +153,8 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
             } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.ForestNestRarity1)) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-                //  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
-            } else if (isHills && random.nextInt(DragonMountsConfig.AllNestRarity) == 1
+                  DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
+            } else if (isHills && random.nextInt(DragonMountsConfig.FireNestRarity) == 1
                     && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "fire", LootTableList.CHESTS_SIMPLE_DUNGEON, true, random);
                 //  DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));

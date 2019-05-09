@@ -870,22 +870,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return this.getPosition();
     }
 
-    private float updateRotation(float angle, float targetAngle, float maxIncrease) {
-        float f = MathHelper.wrapDegrees(targetAngle - angle);
-
-        if (f > maxIncrease) {
-            f = maxIncrease;
-        }
-
-        if (f < -maxIncrease) {
-            f = -maxIncrease;
-        }
-
-        return angle + f;
-    }
-
     @SideOnly(Side.CLIENT)
-    public void updateBreathing() {
+    public void updateKeys() {
         Minecraft mc = Minecraft.getMinecraft();
         if (hasControllingPlayer(mc.player) && getControllingPlayer() != null) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
@@ -902,7 +888,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void onUpdate() {
         super.onUpdate();
         if (world.isRemote) {
-            this.updateBreathing();
+            this.updateKeys();
         }
     }
 

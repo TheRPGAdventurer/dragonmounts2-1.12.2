@@ -112,7 +112,7 @@ public class BreathWeaponHydro extends BreathWeapon implements PrivateAccessor {
         }
 
 
-        final float DAMAGE_PER_HIT_DENSITY = 3.0F;
+        final float DAMAGE_PER_HIT_DENSITY = HYDRO_DAMAGE;
         float hitDensity = currentHitDensity.getHitDensity();
 
         if (entity instanceof EntityLivingBase) {

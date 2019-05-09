@@ -47,6 +47,14 @@ public class BreathWeapon implements PrivateAccessor {
 
     protected EntityTameableDragon dragon;
 
+    protected float FIRE_DAMAGE = 1F;
+    protected float ENDER_DAMAGE = 2F;
+    protected float HYDRO_DAMAGE = 3F;
+    protected float ICE_DAMAGE = 2F;
+    protected float NETHER_DAMAGE = 2F;
+    protected float POISON_DAMAGE = 2F;
+    protected float WITHER_DAMAGE = 2F;
+
     public BreathWeapon(EntityTameableDragon i_dragon) {
         dragon = i_dragon;
     }
@@ -332,7 +340,7 @@ public class BreathWeapon implements PrivateAccessor {
         final float CATCH_FIRE_THRESHOLD = 1.4F;
         final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
         float hitDensity = currentHitDensity.getHitDensity();
-        final float DAMAGE_PER_HIT_DENSITY = 1F * hitDensity;
+        final float DAMAGE_PER_HIT_DENSITY = FIRE_DAMAGE * hitDensity;
         MathX.clamp(hitDensity, 0, 2);
 
         Entity entity = world.getEntityByID(entityID);

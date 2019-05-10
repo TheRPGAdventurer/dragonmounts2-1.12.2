@@ -44,7 +44,7 @@ public class DragonBodyHelper extends EntityBodyHelper {
         double deltaZ = dragon.posZ - dragon.prevPosZ;
         double distSQ = deltaX * deltaX + deltaZ * deltaZ;
 
-        float maximumHeadBodyAngleDifference = 90; // 90
+        float maximumHeadBodyAngleDifference = 90;
         final float MOVEMENT_THRESHOLD_SQ = 0.0001F;
         // if flying, sitting or moving:
         // 1) snap the body yaw (renderYawOffset) to the movement direction (rotationYaw)

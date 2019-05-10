@@ -10,6 +10,7 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.google.common.collect.Lists;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -51,11 +52,11 @@ public class DragonMountsConfig {
 
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static int REG_FACTOR  = 63;
+	public static int REG_FACTOR  = 45;
 
 	// chances
 	public static int AllNestRarity  = 110;
-	public static int FireNestRarity  = 120;
+	public static int FireNestRarity  = 50;
 	public static int AllNestRarity1  = 180;
 //	public static int ZombieNestRarity1  = 180;
 	public static int TerraNestRarity  = 180;

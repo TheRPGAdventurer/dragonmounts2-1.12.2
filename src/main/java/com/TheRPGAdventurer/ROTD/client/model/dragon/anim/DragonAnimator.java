@@ -183,8 +183,8 @@ public class DragonAnimator {
 
     public void setLook(float lookYaw, float lookPitch) {
         // don't twist the neck
-        this.lookYaw = MathX.clamp(lookYaw, -220, 220); // 120
-        this.lookPitch = MathX.clamp(lookPitch, -140, 140); // 90
+        this.lookYaw = MathX.clamp(lookYaw, -90, 90); // 120
+        this.lookPitch = MathX.clamp(lookPitch, -60, 60); // 90
     }
 
     /**

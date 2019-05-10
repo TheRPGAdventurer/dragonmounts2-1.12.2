@@ -11,10 +11,17 @@ package com.TheRPGAdventurer.ROTD.server.entity.ai.ground;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.ai.EntityAIDragonBase;
+import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.EntityAIFollow;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 /**
@@ -156,7 +163,39 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             return;
         }
 
+        if (!this.dragon.isSitting()) {
+            if (--this.timeToRecalcPath <= 0) {
+                this.timeToRecalcPath = 10;
+
+                if (!dragon.getNavigator().tryMoveToEntityLiving(this.owner, this.followSpeed)) {
+                    if (!this.dragon.getLeashed() && !this.dragon.isRiding()) {
+                        if (this.dragon.getDistanceSqToEntity(this.owner) >= 144.0D) {
+                            int i = MathHelper.floor(this.owner.posX) - 2;
+                            int j = MathHelper.floor(this.owner.posZ) - 2;
+                            int k = MathHelper.floor(this.owner.getEntityBoundingBox().minY);
+
+                            for (int l = 0; l <= 4; ++l) {
+                                for (int i1 = 0; i1 <= 4; ++i1) {
+                                    if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.isTeleportFriendlyBlock(i, j, k, l, i1)) {
+                                        this.dragon.setLocationAndAngles((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.dragon.rotationYaw, this.dragon.rotationPitch);
+                                        dragon.getNavigator().clearPathEntity();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 //        if(dragon.getDistanceSqToEntity(owner) > maxDist * maxDist) dragon.comeToPlayerFlying(owner.getPosition(), (EntityLivingBase) owner);
 
+    }
+
+    protected boolean isTeleportFriendlyBlock(int x, int p_192381_2_, int y, int p_192381_4_, int p_192381_5_) {
+        BlockPos blockpos = new BlockPos(x + p_192381_4_, y - 1, p_192381_2_ + p_192381_5_);
+        IBlockState iblockstate = this.world.getBlockState(blockpos);
+        return iblockstate.getBlockFaceShape(this.world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(this.tameable) && this.world.isAirBlock(blockpos.up()) && this.world.isAirBlock(blockpos.up(2));
     }
 }

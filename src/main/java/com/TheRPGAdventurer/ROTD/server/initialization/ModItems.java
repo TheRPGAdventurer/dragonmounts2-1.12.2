@@ -93,7 +93,7 @@ public class ModItems {
     //Amulet End
 
     //Other Start //complete
-    public static final Item structure_spawner = new ItemStructureSpawner("structure_spawner");
+//    public static final Item structure_spawner = new ItemStructureSpawner("structure_spawner");
     public static final Item dragon_wand = new ItemDragonWand("dragon_wand");
     public static final Item dragon_whistle = new ItemDragonWhistle();
     public static final Item gender = new ItemDragonGender("dragon_gender");

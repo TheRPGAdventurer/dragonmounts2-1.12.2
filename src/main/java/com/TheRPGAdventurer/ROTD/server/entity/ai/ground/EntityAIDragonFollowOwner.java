@@ -38,6 +38,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     private int updateTicks;
     private float maxDist;
     private float minDist;
+    private int timeToRecalcPath;
     private boolean avoidWater;
 
     public EntityAIDragonFollowOwner(EntityTameableDragon dragon, double speed, float minDist, float maxDist) {
@@ -107,6 +108,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     @Override
     public void startExecuting() {
         updateTicks = 0;
+        this.timeToRecalcPath = 0;
 
         //        avoidWater = dragon.getNavigator().getAvoidsWater();
         //        dragon.getNavigator().setAvoidsWater(false);
@@ -167,7 +169,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             if (--this.timeToRecalcPath <= 0) {
                 this.timeToRecalcPath = 10;
 
-                if (!dragon.getNavigator().tryMoveToEntityLiving(this.owner, this.followSpeed)) {
+                if (!dragon.getNavigator().tryMoveToEntityLiving(this.owner, this.speed)) {
                     if (!this.dragon.getLeashed() && !this.dragon.isRiding()) {
                         if (this.dragon.getDistanceSqToEntity(this.owner) >= 144.0D) {
                             int i = MathHelper.floor(this.owner.posX) - 2;
@@ -187,15 +189,12 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
                     }
                 }
             }
-        }
-
-//        if(dragon.getDistanceSqToEntity(owner) > maxDist * maxDist) dragon.comeToPlayerFlying(owner.getPosition(), (EntityLivingBase) owner);
-
+        }         //        if(dragon.getDistanceSqToEntity(owner) > maxDist * maxDist) dragon.comeToPlayerFlying(owner.getPosition(), (EntityLivingBase) owner);
     }
 
     protected boolean isTeleportFriendlyBlock(int x, int p_192381_2_, int y, int p_192381_4_, int p_192381_5_) {
         BlockPos blockpos = new BlockPos(x + p_192381_4_, y - 1, p_192381_2_ + p_192381_5_);
         IBlockState iblockstate = this.world.getBlockState(blockpos);
-        return iblockstate.getBlockFaceShape(this.world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(this.tameable) && this.world.isAirBlock(blockpos.up()) && this.world.isAirBlock(blockpos.up(2));
+        return iblockstate.getBlockFaceShape(this.world, blockpos, EnumFacing.DOWN) == BlockFaceShape.SOLID && iblockstate.canEntitySpawn(dragon) && this.world.isAirBlock(blockpos.up()) && this.world.isAirBlock(blockpos.up(2));
     }
 }

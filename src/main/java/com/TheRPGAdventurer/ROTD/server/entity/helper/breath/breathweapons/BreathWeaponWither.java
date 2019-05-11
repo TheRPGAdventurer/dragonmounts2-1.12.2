@@ -67,8 +67,7 @@ public class BreathWeaponWither extends BreathWeapon implements PrivateAccessor 
             entityareaeffectcloud.addEffect(new PotionEffect(MobEffects.WITHER, witherduration));
 
             entityareaeffectcloud.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-            int i = rand.nextInt(10000);
-            if (i < 18) {
+            if (!block.isAir(iBlockState, world, blockPos) && rand.nextInt(500) == 1) {
                 world.spawnEntity(entityareaeffectcloud);
             }
         }

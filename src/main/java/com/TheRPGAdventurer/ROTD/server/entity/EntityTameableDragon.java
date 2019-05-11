@@ -107,7 +107,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
-    public static final float BASE_WIDTH = 2.55f;
+    public static final float BASE_WIDTH = 2.33f;
     public static final float BASE_HEIGHT = 2.0f;
     public static final float RESISTANCE = 10.0f;
     public static final double BASE_FOLLOW_RANGE = 70;
@@ -854,14 +854,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc = Minecraft.getMinecraft();
-        if (hasControllingPlayer(mc.player) && getControllingPlayer() != null) {
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player))) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting = ModKeys.BOOST.isKeyDown();
-//            boolean isHoverCancel = ModKeys.KEY_HOVERCANCEL.isPressed();
-//            boolean isFollowYaw = ModKeys.FOLLOW_YAW.isPressed();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isBoosting));
-
-
         }
     }
 

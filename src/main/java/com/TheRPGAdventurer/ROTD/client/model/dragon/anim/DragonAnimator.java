@@ -507,7 +507,7 @@ public class DragonAnimator {
 
             // body movement
             float angleLimit = 160 * vertMulti;
-            float pitchAngleLimit = 180 * vertMulti;
+            float pitchAngleLimit = 160 * vertMulti;
             float yawOfs = MathX
                     .clamp((float) yawTrail.getChangeInValue(partialTicks, 0, i + 1) * 2, -angleLimit, angleLimit);
             float pitchOfs = MathX

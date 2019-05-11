@@ -63,7 +63,7 @@ public class DragonHeadPositionHelper {
       float vertMulti = (i + 1) / (float)NUMBER_OF_NECK_SEGMENTS;
 
       float baseRotX = MathX.cos((float) i * 0.45f + animBase) * 0.15f; // 0.15
-      baseRotX *= MathX.lerp(0.7f, 1, flutter); // if(!dragon.isUsingBreathWeapon())
+      baseRotX *= MathX.lerp(0.2f, 1, flutter); // if(!dragon.isUsingBreathWeapon()) 0.7
       baseRotX *= MathX.lerp(1, 0.2f, sit);
       float ofsRotX = MathX.sin(vertMulti * MathX.PI_F * 0.9f) * 0.63f; // 0.9
 

@@ -1312,24 +1312,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return getBreed().getCreatureAttribute();
     }
 
-    @Nullable
-    public EntityLivingBase getOwner2() {
-        for (int i = 0; i < world.playerEntities.size(); ) {
-            EntityPlayer entityplayer = world.playerEntities.get(i);
-            return entityplayer;
-        }
-        return null;
-    }
-
-    public EntityLivingBase getRidingEntityLivingBase() {
-        if (this.getRidingEntity() instanceof EntityLivingBase) {
-            EntityLivingBase ridingEntityLiving = (EntityLivingBase) this.getRidingEntity();
-            return ridingEntityLiving;
-        }
-
-        return null;
-    }
-
     @Override
     protected float getWaterSlowDown() {
         return 0.9F;

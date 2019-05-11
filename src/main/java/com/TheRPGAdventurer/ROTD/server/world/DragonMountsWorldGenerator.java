@@ -288,9 +288,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), worldserver, "enchant", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
                 DMUtils.getLogger().info("Enchant Nest here at: " + height);
             }
-
         }
-
     }
 
     public void loadStructure(BlockPos pos, World world, String name, ResourceLocation lootTable, boolean hasChest, Random rand) {

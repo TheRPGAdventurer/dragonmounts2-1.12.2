@@ -1,22 +1,11 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.util.breath.Pair;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.*;
+
+import java.util.*;
 
 /**
  * Created by TGG on 31/07/2015.
@@ -34,19 +23,16 @@ import net.minecraft.util.math.Vec3i;
  *      perform collision checks of the against the node against blocks or entities
  *
  */
-public class NodeLineSegment {
-	
-  public Vec3d startPoint;
-  public Vec3d endPoint;
-  public float radius;
-  private Collection<Pair<EnumFacing, AxisAlignedBB>> collisions;
-	
-  public NodeLineSegment(Vec3d i_startPoint, Vec3d i_endPoint, float i_radius) {
+public class NodeLineSegment
+{
+  public NodeLineSegment(Vec3d i_startPoint, Vec3d i_endPoint, float i_radius)
+  {
     this(i_startPoint, i_endPoint, i_radius, null);
   }
 
   public NodeLineSegment(Vec3d i_startPoint, Vec3d i_endPoint, float i_radius,
-                         Collection<Pair<EnumFacing, AxisAlignedBB>> i_collisions) {
+                         Collection<Pair<EnumFacing, AxisAlignedBB>> i_collisions)
+  {
     startPoint = i_startPoint;
     endPoint = i_endPoint;
     radius = i_radius;
@@ -58,7 +44,8 @@ public class NodeLineSegment {
    * @return the new deep copy
    */
 
-  public NodeLineSegment deepCopy() {
+  public NodeLineSegment deepCopy()
+  {
     return new NodeLineSegment(startPoint, endPoint, radius);
   }
 
@@ -67,7 +54,8 @@ public class NodeLineSegment {
    * @param sourceList the LineSegment list to be copied, empty ok but not null!
    * @return the new deep copy
    */
-  public static ArrayList<NodeLineSegment> deepCopy(List<NodeLineSegment> sourceList) {
+  public static ArrayList<NodeLineSegment> deepCopy(List<NodeLineSegment> sourceList)
+  {
     ArrayList<NodeLineSegment> newCopy = new ArrayList<NodeLineSegment>(sourceList.size());
     for (NodeLineSegment nodeLineSegment : sourceList) {
       newCopy.add(nodeLineSegment.deepCopy());
@@ -75,7 +63,8 @@ public class NodeLineSegment {
     return newCopy;
   }
 
-  public double getSegmentLength() {
+  public double getSegmentLength()
+  {
     double deltaX = startPoint.x - endPoint.x;
     double deltaY = startPoint.y - endPoint.y;
     double deltaZ = startPoint.z - endPoint.z;
@@ -86,7 +75,8 @@ public class NodeLineSegment {
   /** getChangeInValue the vector corresponding to the segment (from start point to end point)
    * @return
    */
-  public Vec3d getSegmentDirection() {
+  public Vec3d getSegmentDirection()
+  {
     return new Vec3d(endPoint.x - startPoint.x, endPoint.y - startPoint.y, endPoint.z - startPoint.z);
   }
 
@@ -111,13 +101,14 @@ public class NodeLineSegment {
    * @param nodeLineSegments
    * @return the AABB which contains all the line segments; null if collection empty
    */
-  public static AxisAlignedBB getAxisAlignedBoundingBoxForAll(Collection<NodeLineSegment> nodeLineSegments) {
+  public static AxisAlignedBB getAxisAlignedBoundingBoxForAll(Collection<NodeLineSegment> nodeLineSegments)
+  {
     if (nodeLineSegments == null || nodeLineSegments.isEmpty()) return null;
 
     AxisAlignedBB aabb = null;
     for (NodeLineSegment nodeLineSegment : nodeLineSegments) {
       aabb = (aabb == null) ? nodeLineSegment.getAxisAlignedBoundingBox()
-                            : aabb.union(nodeLineSegment.getAxisAlignedBoundingBox());
+              : aabb.union(nodeLineSegment.getAxisAlignedBoundingBox());
 
     }
     return aabb;
@@ -139,20 +130,21 @@ public class NodeLineSegment {
    * 1) a point [x1,y1,z1] is chosen along the line segment, evenly distributed according to the number of cloud points,
    *    plus a small random jitter
    * 2) a random point [x2,y2,z2] is chosen within the sphere centred on [x1,y1,z1].  This is generated from spherical
-   *    inates radius, phi, theta, uniformly distributed.  This puts more points near the centre of the sphere
+   *    coordinates radius, phi, theta, uniformly distributed.  This puts more points near the centre of the sphere
    *    i.e. the density of points is highest in the centre which is roughly what we want.
    * @param aabb the aabb to check against
    * @param totalDensity the density of a complete collision
    * @param numberOfCloudPoints number of cloud points to use (1 - 1000) - clamped if out of range
    * @return a value from 0.0 (no collision) to totalDensity (total collision)
    */
-  public float collisionCheckAABB(AxisAlignedBB aabb, float totalDensity, int numberOfCloudPoints) {
+  public float collisionCheckAABB(AxisAlignedBB aabb, float totalDensity, int numberOfCloudPoints)
+  {
     for (Pair<EnumFacing, AxisAlignedBB> collision : collisions) {
       if (collision.getSecond().intersects(aabb)) {
         return totalDensity;
       }
     }
-    float stochasticHitDensity = collisionCheckAABBstochastic(aabb, totalDensity, numberOfCloudPoints - 4);
+    float stochasticHitDensity = collisionCheckAABBstochastic(aabb, totalDensity, numberOfCloudPoints);
     float aabbCornersHitDensity = collisionCheckAABBcorners(aabb, totalDensity);
     return Math.max(stochasticHitDensity, aabbCornersHitDensity);
   }
@@ -163,7 +155,8 @@ public class NodeLineSegment {
    * @param totalDensity the density of a complete collision
    * @return a value from 0.0 (no collision) to totalDensity (total collision)
    */
-  public float collisionCheckAABBcorners(AxisAlignedBB aabb, float totalDensity) {
+  public float collisionCheckAABBcorners(AxisAlignedBB aabb, float totalDensity)
+  {
     int cornersInside = 0;
     cornersInside += isPointWithinNodeLineSegment(aabb.minX, aabb.minY, aabb.minZ) ? 1 : 0;
     cornersInside += isPointWithinNodeLineSegment(aabb.minX, aabb.minY, aabb.maxZ) ? 1 : 0;
@@ -178,10 +171,11 @@ public class NodeLineSegment {
 
   /** check whether the given point lies within the nodeLineSegment (i.e. within the sphere around the start point,
    *   within the sphere around the end point, or within the cylinder about the line connecting start and end)
-   * @param x [x,y,z] is the world inate to check
+   * @param x [x,y,z] is the world coordinate to check
    * @return true if it lies inside, false otherwise
    */
-  public boolean isPointWithinNodeLineSegment(double x, double y, double z) {
+  public boolean isPointWithinNodeLineSegment(double x, double y, double z)
+  {
     // first, find the closest point on the line segment between start and finish.
     // This is given by the formula
     //  projection_of_u_on_v = v . ( u dot v) / length(v)^2
@@ -190,7 +184,7 @@ public class NodeLineSegment {
     Vec3d deltaAxis = endPoint.subtract(startPoint);
     Vec3d deltaPointToCheck = new Vec3d(x - startPoint.x, y - startPoint.y, z - startPoint.z);
     double deltaAxisLengthSq = deltaAxis.x * deltaAxis.x + deltaAxis.y * deltaAxis.y
-                               + deltaAxis.z * deltaAxis.z;
+            + deltaAxis.z * deltaAxis.z;
     double dotProduct = deltaAxis.dotProduct(deltaPointToCheck);
     Vec3d closestPoint;
     if (dotProduct <= 0) {
@@ -213,7 +207,8 @@ public class NodeLineSegment {
    * @param numberOfCloudPoints number of cloud points to use (1 - 1000) - clamped if out of range
    * @return a value from 0.0 (no collision) to totalDensity (total collision)
    */
-  private float collisionCheckAABBstochastic(AxisAlignedBB aabb, float totalDensity, int numberOfCloudPoints) {
+  private float collisionCheckAABBstochastic(AxisAlignedBB aabb, float totalDensity, int numberOfCloudPoints)
+  {
     float retval = NO_HIT_DENSITY_VALUE;
     initialiseTables();
     final int MINIMUM_REASONABLE_CLOUD_POINTS = 1;
@@ -259,7 +254,7 @@ public class NodeLineSegment {
    * 1) a point [x1,y1,z1] is chosen along the line segment, evenly distributed according to the number of cloud points,
    *    plus a small random jitter
    * 2) a random point [x2,y2,z2] is chosen within the sphere centred on [x1,y1,z1].  This is generated from spherical
-   *    inates radius, phi, theta, uniformly distributed.  This puts more points near the centre of the sphere
+   *    coordinates radius, phi, theta, uniformly distributed.  This puts more points near the centre of the sphere
    *    i.e. the density of points is highest in the centre which is roughly what we want.
    * Each call to addStochasticCloud adds a total of totalDensity to the world grid -
    *   eg if totalDensity = 1.0, it adds 1.0 to a single location, or 0.2 to location 1 and 0.8 to location 2, etc
@@ -272,7 +267,7 @@ public class NodeLineSegment {
     final int MINIMUM_REASONABLE_CLOUD_POINTS = 1;
     final int MAXIMUM_REASONABLE_CLOUD_POINTS = 1000;
     numberOfCloudPoints = MathHelper.clamp(numberOfCloudPoints,
-                                               MINIMUM_REASONABLE_CLOUD_POINTS, MAXIMUM_REASONABLE_CLOUD_POINTS);
+            MINIMUM_REASONABLE_CLOUD_POINTS, MAXIMUM_REASONABLE_CLOUD_POINTS);
     final int NUMBER_OF_CLOUD_POINTS = numberOfCloudPoints;
     final float DENSITY_PER_POINT = totalDensity / NUMBER_OF_CLOUD_POINTS;
 
@@ -318,12 +313,13 @@ public class NodeLineSegment {
    * @param densityPerCollision the total density to be added (eg 1.0F)
    */
   public void addBlockCollisions(Map<Vec3i, BreathAffectedBlock> hitDensity, float densityPerCollision) {
+
     for (Pair<EnumFacing, AxisAlignedBB> collision : collisions) {
       final double CONTRACTION = 0.001;
       AxisAlignedBB aabb = collision.getSecond();
       if (aabb.maxX - aabb.minX > 2 * CONTRACTION
-          && aabb.maxY - aabb.minY > 2 * CONTRACTION
-          && aabb.maxZ - aabb.minZ > 2 * CONTRACTION) {
+              && aabb.maxY - aabb.minY > 2 * CONTRACTION
+              && aabb.maxZ - aabb.minZ > 2 * CONTRACTION) {
         aabb = aabb.contract(CONTRACTION, CONTRACTION, CONTRACTION);
         BlockPos blockposMin = new BlockPos(aabb.minX, aabb.minY, aabb.minZ);
         BlockPos blockposMax = new BlockPos(aabb.maxX, aabb.maxY, aabb.maxZ);
@@ -354,7 +350,8 @@ public class NodeLineSegment {
    * @return the face which was hit.  If none (was inside block), returns null
    */
   public static EnumFacing getIntersectedFace(double xOrigin, double yOrigin, double zOrigin,
-                                              double xHit, double yHit, double zHit) {
+                                              double xHit, double yHit, double zHit)
+  {
     AxisAlignedBB aabb = new AxisAlignedBB(Math.floor(xHit), Math.floor(yHit), Math.floor(zHit),
             Math.ceil(xHit), Math.ceil(yHit), Math.ceil(zHit));
 
@@ -369,7 +366,8 @@ public class NodeLineSegment {
   private static double [] sinTable = new double[TABLE_POINTS];
   private static double [] cosTable = new double[TABLE_POINTS];
 
-  private static void initialiseTables() {
+  private static void initialiseTables()
+  {
     if (tablesInitialised) return;
     for (int i = 0; i < TABLE_POINTS; ++i) {
       double angle = i * 2.0 * Math.PI / TABLE_POINTS;
@@ -378,4 +376,10 @@ public class NodeLineSegment {
     }
     tablesInitialised = true;
   }
+
+
+  public Vec3d startPoint;
+  public Vec3d endPoint;
+  public float radius;
+  private Collection<Pair<EnumFacing, AxisAlignedBB>> collisions;
 }

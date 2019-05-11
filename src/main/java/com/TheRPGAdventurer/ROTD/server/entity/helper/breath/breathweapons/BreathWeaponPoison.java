@@ -59,7 +59,6 @@ public class BreathWeaponPoison extends BreathWeapon implements PrivateAccessor 
         if (!world.isRemote) {
             EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
             entityareaeffectcloud.setOwner(this.dragon);
-            //  entityareaeffectcloud.setParticle(EnumParticleTypes.SMOKE_NORMAL);
             entityareaeffectcloud.setRadius(1.3F);
             entityareaeffectcloud.setDuration(600);
             entityareaeffectcloud.setRadiusPerTick((1.0F - entityareaeffectcloud.getRadius()) / (float) entityareaeffectcloud.getDuration());

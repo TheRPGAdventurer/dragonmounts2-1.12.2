@@ -217,7 +217,7 @@ public class BreathNode {
                 break;
             }
             case LARGE: {
-                speedPowerFactor = 5.0F;
+                speedPowerFactor = 4.0F;
                 lifetimePowerFactor = 0.8F;
                 sizePowerFactor = 3.25F;
                 intensityPowerFactor = 1.4F;

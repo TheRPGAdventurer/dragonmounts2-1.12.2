@@ -107,8 +107,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
-    public static final float BASE_WIDTH = 2.33f;
-    public static final float BASE_HEIGHT = 2.0f;
+    public static final float BASE_WIDTH = 2.75f;
+    public static final float BASE_HEIGHT = 2.75f;
     public static final float RESISTANCE = 10.0f;
     public static final double BASE_FOLLOW_RANGE = 70;
     public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
@@ -788,57 +788,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return canFly() ? 1 : super.getJumpUpwardsMotion();
     }
 
-//    public void flyAround() {
-//        if (airPoint != null) {
-//            if (!isTargetInAir() || inAirTicks > 2000 || !this.isFlying()) {
-//                airPoint = null;
-//            }
-//            flyTowardsTarget();
-//        }
-//    }
-
-    public void flyTowardsTarget() {
-        if (airPoint != null && airPoint.getY() > 128) {
-            airPoint = new BlockPos(airPoint.getX(), 128, airPoint.getZ());
-        }
-        if (airPoint != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airPoint.getX(), this.posY, airPoint.getZ())) > 3) {
-            double y = posY; // this.attackDecision ? airPoint.getY() :
-
-            double targetX = airPoint.getX() + 0.5D - posX;
-            double targetY = Math.min(y, 256) + 1D - posY;
-            double targetZ = airPoint.getZ() + 0.5D - posZ;
-            motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 5;
-            motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 5;
-            motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * 5;
-            moveForward = 0.5F;
-
-
-            double d0 = airPoint.getX() + 0.5D - this.posX;
-            double d2 = airPoint.getZ() + 0.5D - this.posZ;
-            double d1 = y + 0.5D - this.posY;
-            double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-            float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
-            float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
-            //     this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
-            //     this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
-
-            if (!this.isFlying()) {
-                this.setFlying(true);
-            }
-        } else {
-            this.airPoint = null;
-        }
-        // if (airPoint != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airPoint.getX(), this.posY, airPoint.getZ())) < 3 && this.doesWantToLand()) {
-        //     this.setFlying(false);
-        ///     this.setHovering(true);
-        //     this.flyHovering = 1;
-        // }
-    }
-
-    public Vec3d findAirPoint() {
-        return new Vec3d(getAirPoint());
-    }
-
     public BlockPos getAirPoint() {
         if (this.getAttackTarget() == null) {
             BlockPos pos = DMUtils.getBlockInView(this);
@@ -997,9 +946,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         if (this.getRidingEntity() instanceof EntityLivingBase) {
             EntityLivingBase ridingEntity = (EntityLivingBase) this.getRidingEntity();
             if (ridingEntity.isElytraFlying() && ridingEntity != null) {
-                float speedMax = 0.05f;
-                float speedEnt = (float) (ridingEntity.motionX * ridingEntity.motionX + ridingEntity.motionZ * ridingEntity.motionZ);
-
                 this.setUnHovered(true);
             }
         }
@@ -1028,6 +974,28 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 //        this.spawnItemCrackParticles(Items.CHICKEN);
 
         super.onLivingUpdate();
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void spawnItemCrackParticles(Item item) {
+        for (int i = 0; i < 15; i++) {
+            double hx, hy, hz;
+            double motionX = this.getRNG().nextGaussian() * 0.07D;
+            double motionY = this.getRNG().nextGaussian() * 0.07D;
+            double motionZ = this.getRNG().nextGaussian() * 0.07D;
+            DragonHeadPositionHelper pos = this.getAnimator().getDragonHeadPositionHelper();
+            boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
+
+            float angle = (((this.renderYawOffset + 0) * 3.14159265F) / 180F);
+            hx = this.getAnimator().getThroatPosition().x;
+            double yChange = !isMoving && this.isFlying() ? 2.6 : 3.6 * this.getScale();
+            hy = this.getAnimator().getThroatPosition().y;
+            hz = this.getAnimator().getThroatPosition().z;
+
+            if (this.world.isRemote) {
+                this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[]{Item.getIdFromItem(item)});
+            }
+        }
     }
 
     /**
@@ -2603,10 +2571,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 }
             }
         }
-    }
-
-    public boolean isTargetInAir() {
-        return airPoint != null && world.getBlockState(airPoint).getMaterial() == Material.AIR;
     }
 
     protected double getFollowRange() {

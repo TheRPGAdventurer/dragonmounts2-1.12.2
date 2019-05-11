@@ -158,7 +158,7 @@ public class DragonHeadPositionHelper {
 
     final float THROAT_X_OFFSET = 0;
     final float THROAT_Y_OFFSET = 2; // 4
-    final float THROAT_Z_OFFSET = -30; // -17
+    final float THROAT_Z_OFFSET = -17; // -17
 
     Vec3d headOffset =  new Vec3d((head.rotationPointX + HEAD_X_OFFSET) * BODY_X_SCALE,
             (head.rotationPointY + HEAD_Y_OFFSET) * BODY_Y_SCALE,

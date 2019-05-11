@@ -73,11 +73,6 @@ public class DragonBreedNether extends DragonBreed {
     }
 	
 	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_NETHER : DragonMountsLootTables.ENTITIES_DRAGON_NETHER2;
-	}
-	
-	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
 		World world = dragon.world;
 		if (world instanceof WorldServer && dragon.isWet() &&  !dragon.isEgg()) {
@@ -95,15 +90,5 @@ public class DragonBreedNether extends DragonBreed {
 //	public boolean isInfertile() {
 //		return true;
 //	}
-	
-	@Override
-	public Item getShearDropitem(EntityTameableDragon dragon) {		
-		return dragon.isMale() ? ModItems.NetherDragonScales : ModItems.NetherDragonScales2;
-	}
-
-	@Override
-	public double getHealth() {
-		return 190;
-	}
     
 }

@@ -43,16 +43,5 @@ public class DragonBreedForest extends DragonBreed {
     @Override
     public void onDeath(EntityTameableDragon dragon) {}
     
-    @Override
-    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-    	return DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
-    }
-    
-    @Override
-    public Item getShearDropitem(EntityTameableDragon dragon) {   
-    	return ModItems.ForestDragonScales;
-    }
- 
-    
 }
 	

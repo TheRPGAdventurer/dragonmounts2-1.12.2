@@ -80,16 +80,6 @@ public class DragonBreedSkeleton extends DragonBreed {
   public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
 		return;
    }
-  
-	@Override
-   public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
-		return;
-   }
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
-	}
     
 //	@Override
 //	public boolean isInfertile() {
@@ -99,11 +89,6 @@ public class DragonBreedSkeleton extends DragonBreed {
 	@Override
 	public EnumParticleTypes getSneezeParticle() {
 		return null;
-	}
-	
-	@Override
-	public double getHealth() {
-		return 145;
 	}
 
 }

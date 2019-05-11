@@ -42,14 +42,4 @@ public class DragonBreedEnchant extends DragonBreed {
 			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, dragon.posX, dragon.getEyeHeight() + 4, dragon.posZ, 30, dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
 		}
 	}
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return DragonMountsLootTables.ENTITIES_DRAGON_ENCHANT;
-	}
-	
-    @Override
-    public Item getShearDropitem(EntityTameableDragon dragon) {    	
-    	return ModItems.EnchantDragonScales;
-    }
 }

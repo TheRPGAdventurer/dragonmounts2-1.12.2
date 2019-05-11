@@ -37,16 +37,5 @@ public class DragonBreedTerra extends DragonBreed {
 	public void onDeath(EntityTameableDragon dragon) {
 		
 	}
-	
-	@Override
-	public Item getShearDropitem(EntityTameableDragon dragon) {
-		return dragon.isMale() ? ModItems.TerraDragonScales : ModItems.TerraDragonScales2;
-	}
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_TERRA : DragonMountsLootTables.ENTITIES_DRAGON_TERRA2;
-	}
-	
 
 }

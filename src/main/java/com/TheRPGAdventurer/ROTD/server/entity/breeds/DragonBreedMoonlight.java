@@ -31,15 +31,4 @@ public class DragonBreedMoonlight extends DragonBreed {
 	public void onDeath(EntityTameableDragon dragon) {
 		
 	}
-
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return DragonMountsLootTables.ENTITIES_DRAGON_MOONLIGHT;
-	}
-
-	@Override
-	public Item getShearDropitem(EntityTameableDragon dragon) {		
-		return ModItems.MoonlightDragonScales;
-	}
-	
 }

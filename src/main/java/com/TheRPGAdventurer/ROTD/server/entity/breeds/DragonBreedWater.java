@@ -66,12 +66,7 @@ public class DragonBreedWater extends DragonBreed {
 		
 		
 	}
-	
-	@Override
-    public boolean useColdSound() {
-    	return true;
-    }
-	
+
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
 		dragon.getBreathHelper().getbreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power, dragon);
@@ -115,12 +110,7 @@ public class DragonBreedWater extends DragonBreed {
     	}
     	
 		return soundEffectNames;
-    }   
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return DragonMountsLootTables.ENTITIES_DRAGON_WATER;
-	}
+    }
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
@@ -132,11 +122,6 @@ public class DragonBreedWater extends DragonBreed {
     //	if(dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
     //		dragon.setBreedType(EnumDragonBreed.STORM);
      //	}
-	}
-	
-	@Override
-	public Item getShearDropitem(EntityTameableDragon dragon) {		
-		return ModItems.WaterDragonScales;
 	}
 	
 	@Override

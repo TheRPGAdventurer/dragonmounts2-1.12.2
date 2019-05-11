@@ -44,12 +44,6 @@ public class DragonBreedStorm extends DragonBreed {
 
 		
 	}
-	
-	@Override
-    public boolean useColdSound() {
-    	return true;
-    }
-	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
 		dragon.getBreathHelper().getbreathAffectedAreaHydro().continueBreathing(world, origin, endOfLook, power, dragon);
@@ -134,16 +128,6 @@ public class DragonBreedStorm extends DragonBreed {
     //	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
     //		dragon.setBreedType(EnumDragonBreed.SYLPHID);
     //	}
-	}
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_STORM : DragonMountsLootTables.ENTITIES_DRAGON_STORM2;
-	}
-	
-	@Override
-	public Item getShearDropitem(EntityTameableDragon dragon) {		
-		return dragon.isMale() ? ModItems.StormDragonScales : ModItems.StormDragonScales2;
 	}
 	
 	@Override

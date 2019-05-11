@@ -53,15 +53,4 @@ public class DragonBreedFire extends DragonBreed {
 		
 	}
 	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {		
-		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
-	}
-	
-    @Override
-    public Item getShearDropitem(EntityTameableDragon dragon) {    	
-    	return dragon.isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
-    }
-    
-	
 }

@@ -41,7 +41,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         } else if (!isDimensionBlacklisted(world.provider.getDimension())) {
             this.generateNestAtSurface(world, random, x, z);
 //			this.generateNestUnderground(world, random, x, z);
-        } else if (world.provider.getDimensionType() == DimensionType.THE_END && (x > 1000 || z > 1000 || x < -1000 || z < 1000)) {
+        } else if (world.provider.getDimensionType() == DimensionType.THE_END && (x > 2000 || z > 2000 || x < -2000 || z < 2000)) {
             this.generateNestAtEnd(world, random, x, z);
         }
     }

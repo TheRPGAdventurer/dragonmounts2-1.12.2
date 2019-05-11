@@ -134,7 +134,7 @@ public abstract class DragonBreed {
     }
 
     public Item getBreedingItem() {
-        return Items.FISH;
+        return Items.RABBIT_STEW;
     }
 
     public void onUpdate(EntityTameableDragon dragon) {
@@ -248,17 +248,6 @@ public abstract class DragonBreed {
         return true;
     }
 
-    public boolean useColdSound() {
-        return false;
-    }
-
-    public Entity getEntityBreath(World world, double x, double y, double z, Vec3d motion,
-                                  BreathNode i_breathNode) {
-        FlameBreathFX FX = new FlameBreathFX(world, z, z, z, motion, i_breathNode);
-        return FX;
-
-    }
-
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power
             power, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getBreathAffectedArea().continueBreathing(world, origin, endOfLook, power, dragon);
@@ -307,11 +296,6 @@ public abstract class DragonBreed {
 
     }
 
-    @Nullable
-    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-        return null;
-    }
-
     public void onLivingUpdate(EntityTameableDragon dragon) {
 
     }
@@ -320,21 +304,12 @@ public abstract class DragonBreed {
         return false;
     }
 
-    @Nullable
-    public Item getShearDropitem(EntityTameableDragon dragon) {
-        return null;
-    }
-
     public SoundEvent getSneezeSound() {
         return ModSounds.DRAGON_SNEEZE;
     }
 
     public EnumParticleTypes getSneezeParticle() {
         return EnumParticleTypes.SMOKE_LARGE;
-    }
-
-    public double getHealth() {
-        return 170;
     }
 
 }

@@ -65,12 +65,7 @@ public class DragonBreedWither extends DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWitherDragon(world, power, tickCounter);
     }
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
-	}
-	
+
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
 		World world = dragon.world;
@@ -91,12 +86,6 @@ public class DragonBreedWither extends DragonBreed {
 	public EnumParticleTypes getSneezeParticle() {
 		return null;
 	}
-	
-	@Override
-	public double getHealth() {
-		return 150;
-	}
 
-    
 }
 	

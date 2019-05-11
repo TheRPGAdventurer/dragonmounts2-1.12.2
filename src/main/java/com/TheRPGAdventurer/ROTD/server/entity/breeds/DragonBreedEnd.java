@@ -62,22 +62,6 @@ public class DragonBreedEnd extends DragonBreed {
 		dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
 		dragon.getBreathHelper().getEmitter().spawnBreathParticlesforEnderDragon(world, power, tickCounter);
     }
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return DragonMountsLootTables.ENTITIES_DRAGON_END;
-	}
-	
-//	@Override
-//	public boolean isInfertile() {
-//		return true;
-//	}
-	
-    @Override
-    public Item getShearDropitem(EntityTameableDragon dragon) {    	
-    	return ModItems.EnderDragonScales;
-    }
-    
     
 }
 	

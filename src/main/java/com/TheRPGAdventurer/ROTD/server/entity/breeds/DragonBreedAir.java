@@ -52,15 +52,5 @@ public class DragonBreedAir extends DragonBreed {
     	super.onLivingUpdate(dragon);
     }
     
-    @Override
-    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-    	return DragonMountsLootTables.ENTITIES_DRAGON_AETHER;
-    }
-    
-    @Override
-    public Item getShearDropitem(EntityTameableDragon dragon) {    	
-    	return ModItems.AetherDragonScales;
-    }
-    
 }
 	

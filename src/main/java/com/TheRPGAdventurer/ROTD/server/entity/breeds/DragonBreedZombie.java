@@ -61,11 +61,6 @@ public class DragonBreedZombie extends DragonBreed {
     }
 
     @Override
-    public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-        return DragonMountsLootTables.ENTITIES_DRAGON_ZOMBIE;
-    }
-
-    @Override
     public SoundEvent getLivingSound() {
         return ModSounds.ENTITY_DRAGON_BREATHE;
     }
@@ -84,11 +79,6 @@ public class DragonBreedZombie extends DragonBreed {
 //	public boolean isInfertile() {
 //		return true;
 //	}
-
-    @Override
-    public Item getShearDropitem(EntityTameableDragon dragon) {
-        return ModItems.ZombieDragonScales;
-    }
 
     @Override
     public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
@@ -132,10 +122,4 @@ public class DragonBreedZombie extends DragonBreed {
 //	public boolean canChangeBreed() {
 //		return false;
 //	}
-
-    @Override
-    public double getHealth() {
-        return 150;
-    }
-
 }

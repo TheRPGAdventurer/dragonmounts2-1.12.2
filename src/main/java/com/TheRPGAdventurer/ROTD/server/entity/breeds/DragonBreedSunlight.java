@@ -32,16 +32,4 @@ public class DragonBreedSunlight extends DragonBreed {
 	public void onDeath(EntityTameableDragon dragon) {
 		
 	}
-
-	
-	@Override
-	public ResourceLocation getLootTable(EntityTameableDragon dragon) {
-		return dragon.isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_SUNLIGHT : DragonMountsLootTables.ENTITIES_DRAGON_SUNLIGHT2;
-	}
-
-	@Override
-	public Item getShearDropitem(EntityTameableDragon dragon) {		
-		return dragon.isMale() ? ModItems.SunlightDragonScales : ModItems.SunlightDragonScales2;
-	}
-	
 }

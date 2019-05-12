@@ -2,7 +2,7 @@ package com.TheRPGAdventurer.ROTD.server.entity.breathweapon;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
-import com.TheRPGAdventurer.ROTD.util.breath.EntityMoveAndResizeHelper;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.util.EntityMoveAndResizeHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.nbt.NBTTagCompound;
@@ -108,7 +108,7 @@ public class IceBreathFX extends Entity {
     Vec3d direction = new Vec3d(directionX, directionY, directionZ).normalize();
 
     Random rand = new Random();
-    BreathNode breathNode = new BreathNode(power, dragon);
+    BreathNode breathNode = new BreathNode(power);
     breathNode.randomiseProperties(rand);
     Vec3d actualMotion = breathNode.getRandomisedStartingMotion(direction, rand);
 

@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -23,24 +22,20 @@ import java.util.Random;
  * 3) getCurrentAABBCollionSize() - the size used for collision detection with entities or the world
  */
 public class BreathNode {
-
-    EntityTameableDragon dragon;
-
-    public BreathNode(Power i_power, EntityTameableDragon dragon) {
+    public BreathNode(Power i_power) {
         setPower(i_power);
-        this.dragon = dragon;
     }
 
     public enum Power {SMALL, MEDIUM, LARGE} // how powerful is this node?
 
     private float ageTicks;
 
-    private float relativeSizeOfThisNode = 1.0F;
-    private float relativeLifetimeOfThisNode = 1.0F;
+    private float relativeSizeOfThisNode=1.0F;
+    private float relativeLifetimeOfThisNode=1.0F;
 
-    private static final double SPEED_VARIATION_ABS = 0.1;  // plus or minus this amount (3 std deviations)
-    private static final double AGE_VARIATION_FACTOR = 0.25;  // plus or minus this amount (3 std deviations)
-    private static final double SIZE_VARIATION_FACTOR = 0.25;   // plus or minus this amount (3 std deviations)
+    private static final double SPEED_VARIATION_ABS=0.1;  // plus or minus this amount (3 std deviations)
+    private static final double AGE_VARIATION_FACTOR=0.25;  // plus or minus this amount (3 std deviations)
+    private static final double SIZE_VARIATION_FACTOR=0.25;   // plus or minus this amount (3 std deviations)
 
     /**
      * Randomise the maximum lifetime and the node size
@@ -48,8 +43,8 @@ public class BreathNode {
      * @param rand
      */
     public void randomiseProperties(Random rand) {
-        relativeLifetimeOfThisNode = (float) (MathX.getTruncatedGaussian(rand, 1, AGE_VARIATION_FACTOR));
-        relativeSizeOfThisNode = (float) (MathX.getTruncatedGaussian(rand, 1, SIZE_VARIATION_FACTOR));
+        relativeLifetimeOfThisNode=(float) (MathX.getTruncatedGaussian(rand, 1, AGE_VARIATION_FACTOR));
+        relativeSizeOfThisNode=(float) (MathX.getTruncatedGaussian(rand, 1, SIZE_VARIATION_FACTOR));
     }
 
     /**
@@ -60,15 +55,15 @@ public class BreathNode {
      * @return the initial motion vector (speed and direction)
      */
     public Vec3d getRandomisedStartingMotion(Vec3d initialDirection, Random rand) {
-        float initialSpeed = getStartingSpeed();
-        Vec3d direction = initialDirection.normalize();
+        float initialSpeed=getStartingSpeed();
+        Vec3d direction=initialDirection.normalize();
 
-        double actualMotionX = direction.x + MathX.getTruncatedGaussian(rand, 0, SPEED_VARIATION_ABS);
-        double actualMotionY = direction.y + MathX.getTruncatedGaussian(rand, 0, SPEED_VARIATION_ABS);
-        double actualMotionZ = direction.z + MathX.getTruncatedGaussian(rand, 0, SPEED_VARIATION_ABS);
-        actualMotionX *= initialSpeed;
-        actualMotionY *= initialSpeed;
-        actualMotionZ *= initialSpeed;
+        double actualMotionX=direction.x + MathX.getTruncatedGaussian(rand, 0, SPEED_VARIATION_ABS);
+        double actualMotionY=direction.y + MathX.getTruncatedGaussian(rand, 0, SPEED_VARIATION_ABS);
+        double actualMotionZ=direction.z + MathX.getTruncatedGaussian(rand, 0, SPEED_VARIATION_ABS);
+        actualMotionX*=initialSpeed;
+        actualMotionY*=initialSpeed;
+        actualMotionZ*=initialSpeed;
         return new Vec3d(actualMotionX, actualMotionY, actualMotionZ);
     }
 
@@ -96,7 +91,7 @@ public class BreathNode {
      */
     public void updateAge(Entity parentEntity) {
         if (parentEntity.isInWater()) {  // extinguish in water
-            ageTicks = getMaxLifeTime() + 1;
+            ageTicks=getMaxLifeTime() + 1;
             return;
         }
 
@@ -106,21 +101,19 @@ public class BreathNode {
 
         // collision ages breath node faster
         if (parentEntity.isCollided) {
-            ageTicks += 4;
+            ageTicks+=5;
         }
 
         // slow breath nodes age very fast (they look silly when sitting still)
-        final double SPEED_THRESHOLD = getStartingSpeed() * 0.25;
-        double speedSQ = parentEntity.motionX * parentEntity.motionX
-                + parentEntity.motionY * parentEntity.motionY
-                + parentEntity.motionZ * parentEntity.motionZ;
+        final double SPEED_THRESHOLD=getStartingSpeed() * 0.25;
+        double speedSQ=parentEntity.motionX * parentEntity.motionX + parentEntity.motionY * parentEntity.motionY + parentEntity.motionZ * parentEntity.motionZ;
         if (speedSQ < SPEED_THRESHOLD * SPEED_THRESHOLD) {
-            ageTicks += 20;
+            ageTicks+=20;
         }
     }
 
-    private final float RATIO_OF_RENDER_DIAMETER_TO_EFFECT_DIAMETER = 1.0F;
-    private final float RATIO_OF_COLLISION_DIAMETER_TO_EFFECT_DIAMETER = 0.5F;  // change to 0.5F
+    private final float RATIO_OF_RENDER_DIAMETER_TO_EFFECT_DIAMETER=1.0F;
+    private final float RATIO_OF_COLLISION_DIAMETER_TO_EFFECT_DIAMETER=0.5F;  // change to 0.5F
 
     /**
      * get the current render size (diameter) of the breathnode in blocks
@@ -146,15 +139,15 @@ public class BreathNode {
      * @return the size (diameter) of the area of effect of the breathnode in blocks
      */
     public float getCurrentDiameterOfEffect() {
-        float lifetimeFraction = getLifetimeFraction();
+        float lifetimeFraction=getLifetimeFraction();
 
-        float fractionOfFullSize = 1.0F;
+        float fractionOfFullSize=1.0F;
         if (lifetimeFraction < YOUNG_AGE) {
-            fractionOfFullSize = MathHelper.sin(lifetimeFraction / YOUNG_AGE * (float) Math.PI / 2.0F);
+            fractionOfFullSize=MathHelper.sin(lifetimeFraction / YOUNG_AGE * (float) Math.PI / 2.0F);
         }
 
-        final float NODE_MAX_SIZE = NODE_DIAMETER_IN_BLOCKS * sizePowerFactor * relativeSizeOfThisNode;
-        final float INITIAL_SIZE = 0.2F * NODE_MAX_SIZE;
+        final float NODE_MAX_SIZE=NODE_DIAMETER_IN_BLOCKS * sizePowerFactor * relativeSizeOfThisNode;
+        final float INITIAL_SIZE=0.2F * NODE_MAX_SIZE;
         return INITIAL_SIZE + (NODE_MAX_SIZE - INITIAL_SIZE) * MathHelper.clamp(fractionOfFullSize, 0.0F, 1.0F);
     }
 
@@ -165,15 +158,15 @@ public class BreathNode {
      * @return current relative intensity - 0.0 = none, 1.0 = full
      */
     public float getCurrentIntensity() {
-        float lifetimeFraction = getLifetimeFraction();
+        float lifetimeFraction=getLifetimeFraction();
 
-        float fractionOfFullPower = 1.0F;
+        float fractionOfFullPower=1.0F;
         if (lifetimeFraction < YOUNG_AGE) {
-            fractionOfFullPower = MathHelper.sin(lifetimeFraction / YOUNG_AGE * (float) Math.PI / 2.0F);
+            fractionOfFullPower=MathHelper.sin(lifetimeFraction / YOUNG_AGE * (float) Math.PI / 2.0F);
         } else if (lifetimeFraction >= 1.0F) {
-            fractionOfFullPower = 0.0F;
+            fractionOfFullPower=0.0F;
         } else if (lifetimeFraction > OLD_AGE) {
-            fractionOfFullPower = MathHelper.sin((1.0F - lifetimeFraction) / (1.0F - OLD_AGE) * (float) Math.PI / 2.0F);
+            fractionOfFullPower=MathHelper.sin((1.0F - lifetimeFraction) / (1.0F - OLD_AGE) * (float) Math.PI / 2.0F);
         }
 
         return fractionOfFullPower * intensityPowerFactor;
@@ -181,11 +174,11 @@ public class BreathNode {
 
 
     public float getLifetimeFraction() {
-        float lifetimeFraction = ageTicks / getMaxLifeTime();
-        lifetimeFraction = MathHelper.clamp(lifetimeFraction, 0.0F, 1.0F);
+        float lifetimeFraction=ageTicks / getMaxLifeTime();
+        lifetimeFraction=MathHelper.clamp(lifetimeFraction, 0.0F, 1.0F);
         return lifetimeFraction;
     }
-
+    
     private static final float INITIAL_SPEED = 1.2F; // blocks per tick at full speed
     private static final float NODE_DIAMETER_IN_BLOCKS = 2.0F;
     private static final int DEFAULT_AGE_IN_TICKS = 40;

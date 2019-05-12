@@ -1,5 +1,6 @@
-package com.TheRPGAdventurer.ROTD.util.breath;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.util;
 
+import com.TheRPGAdventurer.ROTD.server.entity.helper.util.Pair;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
@@ -38,10 +39,6 @@ public class EntityMoveAndResizeHelper {
     public Collection<Pair<EnumFacing, AxisAlignedBB>> moveAndResizeEntity(double dx, double dy, double dz, float newWidth, float newHeight) {
         entity.world.profiler.startSection("moveflame");
         AxisAlignedBB entityAABB=entity.getEntityBoundingBox().offset(0, 0, 0);  // get a copy
-
-
-        final float BASE_WIDTH = 2.75f;
-        final float BASE_HEIGHT = 2.75f;
 
         double wDXplus=(newWidth - entity.width) / 2.0;
         double wDYplus=(newHeight - entity.height) / 2.0;

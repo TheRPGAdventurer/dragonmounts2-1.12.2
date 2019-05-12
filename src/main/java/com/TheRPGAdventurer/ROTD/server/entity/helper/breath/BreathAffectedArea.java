@@ -1,8 +1,8 @@
 package com.TheRPGAdventurer.ROTD.server.entity.helper.breath;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons.BreathWeapon;
-import com.TheRPGAdventurer.ROTD.util.breath.Pair;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breathweapons.BreathWeapon;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.util.Pair;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
@@ -51,7 +51,7 @@ public class BreathAffectedArea {
 
     EntityBreathNode newNode = EntityBreathNode.createEntityBreathNodeServer(
             world, origin.x, origin.y, origin.z, direction.x, direction.y, direction.z,
-            power, dragon);
+            power);
 
     entityBreathNodes.add(newNode);
   }

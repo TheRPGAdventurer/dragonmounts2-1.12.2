@@ -13,7 +13,7 @@ package com.TheRPGAdventurer.ROTD.client.model.dragon;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.SegmentSizePositionRotation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 

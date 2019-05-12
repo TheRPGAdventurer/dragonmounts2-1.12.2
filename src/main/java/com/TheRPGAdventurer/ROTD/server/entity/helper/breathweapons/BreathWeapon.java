@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.breathweapons;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
@@ -43,7 +43,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * <p>
  * Currently does fire only.  Intended to be subclassed later on for different weapon types.
  */
-public class BreathWeapon implements PrivateAccessor {
+public class BreathWeapon {
 
     protected EntityTameableDragon dragon;
 
@@ -145,32 +145,6 @@ public class BreathWeapon implements PrivateAccessor {
     protected void burnBlocks(BlockPos sideToIgnite, Random rand, int factor, World world) {
         if (rand.nextInt(2500) < factor)
             world.setBlockState(sideToIgnite, Blocks.FIRE.getDefaultState());
-    }
-
-    private BlockBurnProperties getBurnProperties(IBlockState iBlockState, World world, BlockPos pos) {
-        Block block = iBlockState.getBlock();
-        if (blockBurnPropertiesCache.containsKey(block)) {
-            return blockBurnPropertiesCache.get(block);
-        }
-
-        BlockBurnProperties blockBurnProperties = new BlockBurnProperties();
-        boolean result = getSmeltingResult(iBlockState, world, pos);
-        blockBurnProperties.threshold = 20;
-        if (result == false) {
-            blockBurnProperties.threshold = 3;
-            result = getScorchedResult(iBlockState, world, pos);
-        }
-        if (result == false) {
-            blockBurnProperties.threshold = 5;
-            result = getVaporisedLiquidResult(iBlockState, world, pos);
-        }
-        if (result == false) {
-            blockBurnProperties.threshold = 100;
-            result = getMoltenLavaResult(iBlockState, world, pos);
-        }
-        //  blockBurnProperties.burnResult = result;
-        //  blockBurnPropertiesCache.put(block, blockBurnProperties);
-        return blockBurnProperties;
     }
 
     protected static class BlockBurnProperties {

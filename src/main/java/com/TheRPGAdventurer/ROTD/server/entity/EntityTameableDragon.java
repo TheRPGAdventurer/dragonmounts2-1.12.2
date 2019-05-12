@@ -24,6 +24,7 @@ import com.TheRPGAdventurer.ROTD.server.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.entity.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.server.initialization.*;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
@@ -107,8 +108,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
-    public static final float BASE_WIDTH = 2.75f;
-    public static final float BASE_HEIGHT = 2.75f;
+    public static final float BASE_WIDTH = 2.33f;
+    public static final float BASE_HEIGHT = 2.33f;
     public static final float RESISTANCE = 10.0f;
     public static final double BASE_FOLLOW_RANGE = 70;
     public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
@@ -116,7 +117,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public static final double IN_AIR_THRESH = 10;
 
     protected int ticksSinceLastAttack;
-    protected int dismountTicks;
     public static int ticksShear;
 
     // data value IDs
@@ -1296,10 +1296,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return false;
         }
 
-        if (!player.isSneaking() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
+        if (!ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.AmuletEmpty)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
                 && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player)
                 && this.getScale() <= 0.35) {
+
             this.setSitting(false);
             this.startRiding(player, true);
             return true;
@@ -1345,18 +1346,32 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      */
     @Override
     public float getEyeHeight() {
-        float eyeHeight = height * 0.85F;
+        float eyeHeight = super.getEyeHeight();
 
         if (isSitting()) {
             eyeHeight *= 0.8f;
         }
 
-        if (isEgg()) {
-            eyeHeight = 1.3f;
-        }
-
         return eyeHeight;
     }
+
+//    /**
+//     * Returns the height of the eyes. Used for looking at other entities.
+//     */
+//    @Override
+//    public float getEyeHeight() {
+//        float eyeHeight = height * 0.85F;
+//
+//        if (isSitting()) {
+//            eyeHeight *= 0.8f;
+//        }
+//
+//        if (isEgg()) {
+//            eyeHeight = 1.3f;
+//        }
+//
+//        return eyeHeight;
+//    }
 
     /**
      * Returns the Y offset from the entity's position for any entity riding this

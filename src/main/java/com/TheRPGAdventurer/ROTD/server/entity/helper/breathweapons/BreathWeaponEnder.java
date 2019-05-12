@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.breathweapons;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathAffectedBlock;
@@ -31,7 +31,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * 2) affectBlock() to apply an area of effect to the given block (eg set fire to it)
  * 3) affectEntity() to apply an area of effect to the given entity (eg damage it)
  */
-public class BreathWeaponEnder extends BreathWeapon implements PrivateAccessor {
+public class BreathWeaponEnder extends BreathWeapon {
 
     public EntityAreaEffectCloud entityareaeffectcloud;
 
@@ -97,8 +97,6 @@ public class BreathWeaponEnder extends BreathWeapon implements PrivateAccessor {
         if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
             return null;
         }
-
-        this.xp(entity);
 
         float hitDensity = currentHitDensity.getHitDensity();
         final float DAMAGE_PER_HIT_DENSITY = ENDER_DAMAGE * hitDensity;

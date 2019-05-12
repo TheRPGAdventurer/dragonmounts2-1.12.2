@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.util.breath;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.util;
 
 /**
  * Created by TGG on 22/06/2015.

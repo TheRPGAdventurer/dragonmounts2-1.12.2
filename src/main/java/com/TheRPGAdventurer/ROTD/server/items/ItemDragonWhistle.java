@@ -127,7 +127,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 	
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		if (!stack.hasTagCompound())	//stack.getTagCompound().hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand()))
+		if (!stack.hasTagCompound())
 			return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
 		return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + type.color + dragon.getBreedType().toString().toLowerCase() + " dragon" + TextFormatting.RESET + ")";		
 	}

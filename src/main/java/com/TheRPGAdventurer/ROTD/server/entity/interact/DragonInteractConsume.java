@@ -10,7 +10,7 @@
 package com.TheRPGAdventurer.ROTD.server.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.server.util.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

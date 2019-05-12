@@ -52,7 +52,7 @@ public class DragonMountsConfig {
 
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static int REG_FACTOR  = 45;
+	public static int REG_FACTOR  = 75;
 
 	// chances
 	public static int AllNestRarity  = 110;
@@ -156,7 +156,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", REG_FACTOR);
-		prop.setComment("Lesser numbers slower regen for dragons");
+		prop.setComment("Higher numbers slower regen for dragons");
 		REG_FACTOR = prop.getInt();
 		propOrder.add(prop.getName());
 

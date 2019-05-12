@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.server.entity.helper.breath.breathweapons;
+package com.TheRPGAdventurer.ROTD.server.entity.helper.breathweapons;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;

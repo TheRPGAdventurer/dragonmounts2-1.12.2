@@ -9,26 +9,16 @@
  */
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import java.text.DecimalFormat;
-import java.util.Collection;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.lwjgl.input.Keyboard;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonLifeStageHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
-import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
-
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonBreedHelper;
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStageHelper;
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonReproductionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,12 +33,18 @@ import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.lwjgl.input.Keyboard;
+
+import java.text.DecimalFormat;
+import java.util.Collection;
 
 /**
  * @TheRPGAdventurer NOT affiliated with GuiDragon.class
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class GuiDragonDebug extends Gui implements PrivateAccessor {
+public class GuiDragonDebug extends Gui {
     
     private static final int WHITE = 0xFFFFFF;
     private static final int GREY = 0xAAAAAA;

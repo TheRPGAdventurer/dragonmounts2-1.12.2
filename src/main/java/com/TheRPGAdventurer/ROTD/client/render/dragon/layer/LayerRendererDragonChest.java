@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.client.render.dragon.layer;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 
 public class LayerRendererDragonChest extends LayerRendererDragon {
     

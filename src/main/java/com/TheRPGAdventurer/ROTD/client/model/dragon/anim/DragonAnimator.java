@@ -10,14 +10,13 @@
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonHeadPositionHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.SegmentSizePositionRotation;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.DragonBreathHelper;
-import com.TheRPGAdventurer.ROTD.util.breath.Spline;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.helper.SegmentSizePositionRotation;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.entity.helper.util.Spline;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-import com.mojang.text2speech.Narrator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -183,8 +182,8 @@ public class DragonAnimator {
 
     public void setLook(float lookYaw, float lookPitch) {
         // don't twist the neck
-        this.lookYaw = MathX.clamp(lookYaw, -220, 220); // 120
-        this.lookPitch = MathX.clamp(lookPitch, -140, 140); // 90
+        this.lookYaw = MathX.clamp(lookYaw, -90, 90); // 120
+        this.lookPitch = MathX.clamp(lookPitch, -60, 60); // 90
     }
 
     /**
@@ -507,10 +506,11 @@ public class DragonAnimator {
 
             // body movement
             float angleLimit = 160 * vertMulti;
+            float pitchAngleLimit = 160 * vertMulti;
             float yawOfs = MathX
                     .clamp((float) yawTrail.getChangeInValue(partialTicks, 0, i + 1) * 2, -angleLimit, angleLimit);
             float pitchOfs = MathX
-                    .clamp((float) pitchTrail.getChangeInValue(partialTicks, 0, i + 1) * 2, -angleLimit, angleLimit);
+                    .clamp((float) pitchTrail.getChangeInValue(partialTicks, 0, i + 1) * 2, -pitchAngleLimit, pitchAngleLimit);
 
             tail.rotateAngleX += MathX.toRadians(pitchOfs);
             tail.rotateAngleX -= (1 - speed) * vertMulti * 2;

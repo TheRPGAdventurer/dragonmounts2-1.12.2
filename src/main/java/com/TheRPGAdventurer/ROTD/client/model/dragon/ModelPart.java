@@ -9,19 +9,15 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon;
 
-import static org.lwjgl.opengl.GL11.GL_COMPILE;
-import static org.lwjgl.opengl.GL11.glEndList;
-import static org.lwjgl.opengl.GL11.glNewList;
-
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Extended model renderer with some helpful extra methods.

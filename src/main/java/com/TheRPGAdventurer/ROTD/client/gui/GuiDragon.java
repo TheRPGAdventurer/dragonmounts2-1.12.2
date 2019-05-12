@@ -1,14 +1,18 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
+import java.io.IOException;
+
+import org.lwjgl.input.Keyboard;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonGui;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonLock;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonGui;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonLock;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,9 +20,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
-
-import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {

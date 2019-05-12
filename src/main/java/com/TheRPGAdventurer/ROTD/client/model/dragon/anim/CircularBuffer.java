@@ -9,12 +9,12 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import java.util.Arrays;
 
-import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
-import com.TheRPGAdventurer.ROTD.util.math.MathX;
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Very simple fixed size circular buffer implementation for animation purposes.

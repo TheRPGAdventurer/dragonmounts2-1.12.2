@@ -9,23 +9,18 @@
  */
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breeds;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonArmor;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonBanner;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonChest;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonGlow;
-import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.LayerRendererDragonSaddle;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-
+import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.*;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *

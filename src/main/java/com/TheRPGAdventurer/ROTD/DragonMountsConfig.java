@@ -51,11 +51,11 @@ public class DragonMountsConfig {
 
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static int REG_FACTOR  = 63;
+	public static int REG_FACTOR  = 75;
 
 	// chances
 	public static int AllNestRarity  = 110;
-	public static int FireNestRarity  = 120;
+	public static int FireNestRarity  = 50;
 	public static int AllNestRarity1  = 180;
 //	public static int ZombieNestRarity1  = 180;
 	public static int TerraNestRarity  = 180;
@@ -64,7 +64,7 @@ public class DragonMountsConfig {
 	public static int OceanNestRarity  = 4000;
 	public static int EnchantNestRarity  = 250;
 	public static int JungleNestRarity  = 700;
-	public static int WaterNestRarity  = 110;
+	public static int WaterNestRarity  = 140;
 	public static int IceNestRarity  = 200;
 
 	public static int netherNestRarity = 600;
@@ -155,7 +155,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", REG_FACTOR);
-		prop.setComment("Lesser numbers slower regen for dragons");
+		prop.setComment("Higher numbers slower regen for dragons");
 		REG_FACTOR = prop.getInt();
 		propOrder.add(prop.getName());
 

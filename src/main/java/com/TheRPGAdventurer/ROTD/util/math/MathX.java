@@ -171,7 +171,8 @@ public class MathX {
             return b;
         }
         
-        return lerp(a, b, x * x * (3 - 2 * x));
+//        return lerp(a, b, x * x * (3 - 2 * x)); im stupid ik
+        return lerp(a, b, x * x * x);
     }
     
  // float trigonometric interpolation

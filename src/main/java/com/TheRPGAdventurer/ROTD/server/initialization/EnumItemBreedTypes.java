@@ -4,26 +4,25 @@ import net.minecraft.util.text.TextFormatting;
 
 public enum EnumItemBreedTypes {
 	
-	AETHER(TextFormatting.AQUA), 
+	AETHER(TextFormatting.DARK_AQUA), 
 	WATER(TextFormatting.BLUE),
-	//Register Sylphid for other purposes
-	SYLPHID(TextFormatting.BLUE),
-	ICE(TextFormatting.DARK_BLUE), 
-	FIRE(TextFormatting.DARK_RED), 
+	SYLPHID(TextFormatting.BLUE), //Register Sylphid for other purposes
+	ICE(TextFormatting.AQUA), 
+	FIRE(TextFormatting.RED), 
 	FIRE2(TextFormatting.GOLD), 
 	FOREST(TextFormatting.DARK_GREEN),
 	SKELETON(TextFormatting.WHITE),
-	WITHER(TextFormatting.WHITE),
-	NETHER(TextFormatting.GOLD),
-	NETHER2(TextFormatting.GOLD),
-	END(TextFormatting.LIGHT_PURPLE),
+	WITHER(TextFormatting.DARK_GRAY),
+	NETHER(TextFormatting.DARK_RED),
+	NETHER2(TextFormatting.DARK_RED),
+	END(TextFormatting.DARK_PURPLE),
 	ENCHANT(TextFormatting.LIGHT_PURPLE),
 	SUNLIGHT(TextFormatting.YELLOW),
 	SUNLIGHT2(TextFormatting.LIGHT_PURPLE),
-	MOONLIGHT(TextFormatting.DARK_BLUE),
+	MOONLIGHT(TextFormatting.BLUE),
 	STORM(TextFormatting.BLUE),
-	TERRA(TextFormatting.YELLOW),
-	TERRA2(TextFormatting.YELLOW),
+	TERRA(TextFormatting.GOLD),
+	TERRA2(TextFormatting.GOLD),
 	GHOST(TextFormatting.YELLOW),
 	ZOMBIE(TextFormatting.WHITE);
 	

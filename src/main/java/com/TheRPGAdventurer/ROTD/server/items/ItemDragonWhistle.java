@@ -31,9 +31,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class ItemDragonWhistle extends Item implements IHasModel {
-	private EntityTameableDragon dragon;
-	private EnumItemBreedTypes type;
-//	private EntityPlayer player;
 	
 	public ItemDragonWhistle() {
 		this.setUnlocalizedName("dragon_whistle");
@@ -43,93 +40,57 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 		
 		ModItems.ITEMS.add(this);
 	}
-
-	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		NBTTagCompound nbt = stack.getTagCompound();
-		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.whistle.info"));
-	}
-	
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		NBTTagCompound nbt = stack.getTagCompound();		
-
-	    if (stack.hasTagCompound()) {
-	         nbt = stack.getTagCompound(); 
-	    } else {
-	    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.unBound"), true);
-	    	return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-//	         nbt = new NBTTagCompound();
-	    }
-	       				
-        stack.setTagCompound(nbt);
-        if (!player.isSneaking() && stack.hasTagCompound()) {
-      		  if (worldIn.isRemote) {
-				  this.openDragonWhistleGui(nbt.getUniqueId(DragonMounts.MODID + "dragon"), new ItemStack(this), worldIn);
-				  return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-
-			  }
-/*		  } else if(!nbt.hasKey(DragonMounts.MODID + "dragon")) {
-            player.sendStatusMessage(new TextComponentTranslation("item.whistle.noDragon", new Object[0]), true);
-*/
-        }
-	   return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
-	}
-	
-    @SideOnly(Side.CLIENT)
-    public void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world) {
-    	Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid, whistle));
-    }
 	
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
-		NBTTagCompound nbt = stack.getTagCompound();
+		if (target.world.isRemote) return false;
+		if (!(target instanceof EntityTameableDragon)) return false;
 		EntityTameableDragon dragon = (EntityTameableDragon) target;
-		this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-//		this.player = player;	
-
-	    if (stack.hasTagCompound()) {
-	         nbt = stack.getTagCompound(); 
-	    } else if (dragon.isTamedFor(player)) {
-	    	nbt = new NBTTagCompound();
-	    } else {
-	    	player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-	    	return true; // return true to end this method without damaging the dragon after clicking
-	    }
-	       				
-        stack.setTagCompound(nbt);
-        
-		if (target instanceof EntityTameableDragon) {
-			if (dragon.isTamedFor(player)) {
-				if(stack.getTagCompound() != null) {
-				   if (!nbt.hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand())) { 	
-					   this.dragon = dragon;
-					   String dragonName = dragon.hasCustomName() ? dragon.getCustomNameTag() : dragon.getBreedType().toString().toLowerCase() + " dragon";
-					   String ownerName = dragon.getOwner() != null ? dragon.getOwner().getName() : "NULL";
-					   nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
-					   player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon"), true);
-				    }
-			    }
-				dragon.setControllingWhistle(stack);
-			} else {
-	            player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-			}
-			return true;
-		} else {
-			return false;
+		if (!dragon.isTamedFor(player)) {
+			player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+			return true; // Return true so the dragon isnt damaged
 		}
+		
+		NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
+        EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+    	nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+        stack.setTagCompound(nbt);
+		dragon.setControllingWhistle(stack);
+		player.sendStatusMessage(new TextComponentTranslation("item.whistle.hasDragon"), true);
+		return true;
 	}
 	
 	@Override
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if (!world.isRemote) return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+		if (!stack.hasTagCompound()) {
+			player.sendStatusMessage(new TextComponentTranslation("item.whistle.unBound"), true);
+			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+		}
+		this.openDragonWhistleGui(stack.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon"), new ItemStack(this), world);
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+	}
+	
+    @SideOnly(Side.CLIENT)
+    public void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world)
+    	{ Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid, whistle)); }
+	
+	@Override
+	@SideOnly(Side.CLIENT)
 	public String getItemStackDisplayName(ItemStack stack) {
-		if (!stack.hasTagCompound())	//stack.getTagCompound().hasKey(DragonMounts.MODID.toLowerCase() + "dragon") && !itemInteractionForEntity(stack, player, dragon, player.getActiveHand()))
-			return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
-		return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon" + TextFormatting.RESET + ")";	
+		if (stack.hasTagCompound() && stack.getTagCompound().hasUniqueId(DragonMounts.MODID.toLowerCase() + "dragon")) {
+			return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + stack.getTagCompound().getString("Name") + TextFormatting.RESET + ")";
+		} else return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
 	}
 	
 	@Override
-	public void RegisterModels() {
-		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
-	}
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+		{ tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.whistle.info")); }
+	
+	@Override
+	public void RegisterModels()
+		{ DragonMounts.proxy.registerItemRenderer(this, 0, "inventory"); }
 }

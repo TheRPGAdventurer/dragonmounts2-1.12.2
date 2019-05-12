@@ -11,7 +11,6 @@
 package com.TheRPGAdventurer.ROTD.server.util;
 
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
-import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmuletEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -143,11 +142,11 @@ public class ItemUtils {
     	return itemStack.getItem() == item;
     }
 
-    public static boolean hasEquippedAmulet(EntityPlayer player)
-    {
+    public static boolean hasEquippedAmulet(EntityPlayer player) {
 		ItemStack itemStack = player.getHeldItemMainhand();
     		if (itemStack == null) return false;
     	//found amulet in mainHand
-    	return itemStack.getItem() instanceof ItemDragonAmulet || itemStack.getItem() instanceof ItemDragonAmuletEmpty;
+    	return itemStack.getItem() instanceof ItemDragonAmulet;
     }
+
 }

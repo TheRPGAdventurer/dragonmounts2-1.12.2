@@ -23,17 +23,11 @@ import java.util.List;
  */
 public class DragonInteractHelper extends DragonHelper {
     
-    private final List<DragonInteract> actions = new ArrayList<>();
+    private final List<DragonInteractBase> actions = new ArrayList<>();
     
     public DragonInteractHelper(EntityTameableDragon dragon) {
         super(dragon);
-        
-        actions.add(new DragonInteractConsume(dragon));
-//        actions.add(new DragonInteractTame(dragon));
-        actions.add(new DragonInteractSit(dragon));
-        actions.add(new DragonInteractRide(dragon));
-        actions.add(new DragonInteractOpenGUI(dragon));
-        actions.add(new DragonInteractAmulet(dragon));
+        actions.add(new DragonInteract(dragon));
     }
     
     public boolean interact(EntityPlayer player, ItemStack item) {

@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.sound;
+package com.TheRPGAdventurer.ROTD.entity.helper.breath.sound;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;

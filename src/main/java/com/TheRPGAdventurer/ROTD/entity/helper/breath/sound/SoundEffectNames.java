@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.sound;
+package com.TheRPGAdventurer.ROTD.entity.helper.breath.sound;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 

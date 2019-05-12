@@ -1,21 +1,19 @@
 package com.TheRPGAdventurer.ROTD.client.sound;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Collection;
-
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Collection;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by TheGreyGhost on 8/10/14.
@@ -311,7 +309,7 @@ public class SoundEffectBreathWeapon {
    * @param lifeStage how old is the dragon?
    * @return the resourcelocation corresponding to the desired sound
    */
-  protected ResourceLocation weaponSound(SoundPart soundPart, EnumDragonLifeStage lifeStage, EntityTameableDragon dragon) {    
+  protected ResourceLocation weaponSound(SoundPart soundPart, EnumDragonLifeStage lifeStage, EntityTameableDragon dragon) {
     return new ResourceLocation(dragon.getBreed().getBreathWeaponSoundEffects(lifeStage)[soundPart.ordinal()].getJsonName());
   }
 

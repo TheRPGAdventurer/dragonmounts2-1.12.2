@@ -10,7 +10,6 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.google.common.collect.Lists;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;

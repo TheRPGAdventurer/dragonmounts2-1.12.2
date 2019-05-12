@@ -1,17 +1,14 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
+import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonShulker;
-import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuiHandler implements IGuiHandler {
 

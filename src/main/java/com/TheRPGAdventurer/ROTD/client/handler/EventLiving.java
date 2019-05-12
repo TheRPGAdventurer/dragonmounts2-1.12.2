@@ -1,6 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.handler;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

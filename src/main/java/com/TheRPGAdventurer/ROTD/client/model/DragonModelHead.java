@@ -2,7 +2,6 @@ package com.TheRPGAdventurer.ROTD.client.model;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.ModelPart;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 
 public class DragonModelHead extends AdvancedModelBase {

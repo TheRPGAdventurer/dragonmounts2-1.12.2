@@ -1,13 +1,9 @@
 package com.TheRPGAdventurer.ROTD.client.render;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
-
+import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.model.ModelDragonShulker;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

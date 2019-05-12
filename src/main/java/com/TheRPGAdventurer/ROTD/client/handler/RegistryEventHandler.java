@@ -1,26 +1,24 @@
 package com.TheRPGAdventurer.ROTD.client.handler;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
+import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityHandler;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
-import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
-import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityHandler;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
-import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
-import com.TheRPGAdventurer.ROTD.server.items.ItemDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.initialization.ModBlocks;
+import com.TheRPGAdventurer.ROTD.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.items.ItemDragonAmulet;
+import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
+import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;

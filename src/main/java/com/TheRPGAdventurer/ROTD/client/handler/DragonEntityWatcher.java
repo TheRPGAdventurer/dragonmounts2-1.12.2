@@ -9,18 +9,6 @@
  */
 package com.TheRPGAdventurer.ROTD.client.handler;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.PrivateFields;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-
 /**
  * Event handler that watches the currently ridden dragon entity. Used to change
  * the camera distance and to show button usage notices.

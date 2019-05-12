@@ -9,18 +9,14 @@
  */
 package com.TheRPGAdventurer.ROTD.client.render.dragon.layer;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_ONE;
-import static org.lwjgl.opengl.GL11.GL_SRC_COLOR;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE;
-
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.client.renderer.GlStateManager;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  *

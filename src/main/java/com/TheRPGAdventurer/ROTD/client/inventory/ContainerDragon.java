@@ -1,7 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.inventory;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

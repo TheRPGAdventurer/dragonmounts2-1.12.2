@@ -1,16 +1,14 @@
 package com.TheRPGAdventurer.ROTD.util;
 
-import java.util.Random;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Random;
 
 public class DMUtils {
 	

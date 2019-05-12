@@ -1,15 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.EnderBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.FlameBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.HydroBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.IceBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.NetherBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.PoisonBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.breathweapon.WitherBreathFX;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.breath.BreathNode;
-
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breathweapon.*;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -93,7 +86,7 @@ public class BreathWeaponEmitter {
       float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
       Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
       Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
-      EnderBreathFX enderBreathFX = EnderBreathFX.createEnderBreathFX(world, 
+      EnderBreathFX enderBreathFX = EnderBreathFX.createEnderBreathFX(world,
     		  interpOrigin.x, interpOrigin.y, interpOrigin.z,
     		  interpDirection.x, interpDirection.y, interpDirection.z, power, partialTickHeadStart, dragon) ;
       
@@ -124,7 +117,7 @@ public class BreathWeaponEmitter {
       float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
       Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
       Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
-      NetherBreathFX netherBreathFX = NetherBreathFX.createNetherBreathFX(world, 
+      NetherBreathFX netherBreathFX = NetherBreathFX.createNetherBreathFX(world,
     		  interpOrigin.x, interpOrigin.y, interpOrigin.z,
     		  interpDirection.x, interpDirection.y, interpDirection.z, power, partialTickHeadStart, dragon) ;
       

@@ -1,12 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.inventory.tabs;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.blocks.BlockDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.server.items.gemset.ItemDragonSword;
-
-import net.minecraft.block.Block;
+import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonSword;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

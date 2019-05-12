@@ -1,16 +1,15 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.layer;
 
-import static org.lwjgl.opengl.GL11.GL_ONE;
-
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+
+import static org.lwjgl.opengl.GL11.GL_ONE;
 
 /**
  * Created by EveryoneElse on 14/06/2015.

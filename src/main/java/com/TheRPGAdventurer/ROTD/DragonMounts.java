@@ -15,12 +15,12 @@ import com.TheRPGAdventurer.ROTD.client.handler.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.client.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
-import com.TheRPGAdventurer.ROTD.server.ServerProxy;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
-import com.TheRPGAdventurer.ROTD.server.network.*;
-import com.TheRPGAdventurer.ROTD.server.world.DragonMountsWorldGenerator;
+import com.TheRPGAdventurer.ROTD.initialization.ModArmour;
+import com.TheRPGAdventurer.ROTD.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.network.*;
+import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
+import com.TheRPGAdventurer.ROTD.world.DragonMountsWorldGenerator;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,41 +39,28 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 /**
  * Main control class for Forge.
  */
-@Mod(
-        dependencies = "required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)",
-        modid = DragonMounts.MODID,
-        name = DragonMounts.NAME,
-        version = DragonMounts.VERSION,
-        useMetadata = false,
-        guiFactory = DragonMounts.GUI_FACTORY
-)
+@Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=false, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
-    @NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class,
-            MessageDragonWand.class,
-            MessageDragonWhistle.class, MessageDragonLock.class,
-            MessageDragonGui.class, MessageDragonTeleport.class})
+    @NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
-    public static final String NAME = "Dragon Mounts";
-    public static final String MODID = "dragonmounts";
-    public static final String VERSION = "1.12.2-1.5.8";
-    public static final String LLIBRARY_VERSION = "1.7.14";
-    public static final String GUI_FACTORY = "com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
+    public static final String NAME="Dragon Mounts";
+    public static final String MODID="dragonmounts";
+    public static final String VERSION="1.12.2-1.5.8";
+    public static final String LLIBRARY_VERSION="1.7.14";
+    public static final String GUI_FACTORY="com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
 
-    @SidedProxy(
-            serverSide = "com.TheRPGAdventurer.ROTD.server.ServerProxy",
-            clientSide = "com.TheRPGAdventurer.ROTD.client.ClientProxy"
-    )
+    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.server.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.client.ClientProxy")
     public static ServerProxy proxy;
 
-    @Instance(value = MODID)
+    @Instance(value=MODID)
     public static DragonMounts instance;
 
     private ModMetadata metadata;
     private DragonMountsConfig config;
-    public static CreativeTabs mainTab = new CreativeTab("maintab");
-    public static CreativeTabs armoryTab = new ArmoryTab("armorytab");
+    public static CreativeTabs mainTab=new CreativeTab("maintab");
+    public static CreativeTabs armoryTab=new ArmoryTab("armorytab");
 
     public DragonMountsConfig getConfig() {
         return config;
@@ -89,12 +76,11 @@ public class DragonMounts {
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
-        proxy.PreInitialization(event);     
+        proxy.PreInitialization(event);
     }
 
     @EventHandler
-    public void Initialization(FMLInitializationEvent event)
-    {
+    public void Initialization(FMLInitializationEvent event) {
         proxy.Initialization(event);
         proxy.render();
         ModTools.InitializaRepairs();
@@ -122,7 +108,7 @@ public class DragonMounts {
     }
 
     private void initDamageSources() {
-        dragons_fire = new DamageSource("dragons_fire") {
+        dragons_fire=new DamageSource("dragons_fire") {
         };
     }
 }

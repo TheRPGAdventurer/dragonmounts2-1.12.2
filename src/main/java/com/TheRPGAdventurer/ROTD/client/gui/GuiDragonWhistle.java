@@ -1,19 +1,13 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonGui;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonTeleport;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
-
+import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 

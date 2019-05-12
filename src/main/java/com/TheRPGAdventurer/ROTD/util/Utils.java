@@ -1,9 +1,8 @@
 package com.TheRPGAdventurer.ROTD.util;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.TheRPGAdventurer.ROTD.DragonMounts;
 
 public class Utils {
 	

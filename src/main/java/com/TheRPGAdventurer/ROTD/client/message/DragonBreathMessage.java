@@ -1,6 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.message;
 
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;

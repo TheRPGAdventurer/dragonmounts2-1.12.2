@@ -1,9 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonShulker;
-import com.TheRPGAdventurer.ROTD.server.blocks.tileentities.TileEntityDragonShulker;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;

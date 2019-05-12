@@ -1,11 +1,13 @@
 package com.TheRPGAdventurer.ROTD;
 
-import static com.TheRPGAdventurer.ROTD.DragonMountsLootTables.RegistrationHandler.create;
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.TheRPGAdventurer.ROTD.DragonMountsLootTables.RegistrationHandler.create;
 
 public class DragonMountsLootTables {
 	

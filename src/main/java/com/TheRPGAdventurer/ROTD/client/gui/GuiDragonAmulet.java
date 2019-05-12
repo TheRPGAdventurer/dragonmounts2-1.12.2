@@ -1,14 +1,14 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonWhistle;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
-import com.TheRPGAdventurer.ROTD.server.network.MessageDragonTeleport;
 
 import java.util.UUID;
 

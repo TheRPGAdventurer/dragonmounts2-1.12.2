@@ -1,7 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.sound;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;

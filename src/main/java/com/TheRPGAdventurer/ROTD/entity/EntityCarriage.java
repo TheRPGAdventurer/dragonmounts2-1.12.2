@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.entity;
 
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.sun.istack.internal.Nullable;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,7 +26,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class EntityCarriage extends Entity {
@@ -278,7 +278,7 @@ public class EntityCarriage extends Entity {
         this.setRotation(this.rotationYaw, this.rotationPitch);
 
         this.doBlockCollisions();
-        List<Entity> list=this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
+        List<Entity> list=world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
 
         if (!list.isEmpty()) {
             boolean flag=!this.world.isRemote && !(this.getControllingPassenger() instanceof EntityPlayer);

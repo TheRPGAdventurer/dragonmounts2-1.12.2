@@ -34,6 +34,7 @@ import net.minecraft.client.model.ModelShulker;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -79,47 +80,28 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
-
-        metadata = event.getModMetadata();
-        metadata.name = "§3§lDragon Mounts";
-        metadata.credits =
-                "\n§aBarracudaATA4§r - §bThe Original Owner" +
-                        "\n\n§aFlaemWing§r - §bfor new nest block textures and dragonarmor item textures, new tool textures" +
-                        "\n\n§aMerpou/Kingdomall/Masked_Ares§r - §bmore textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O)" +
-                        "\n\n§aGundunUkan/Lord Ukan§r - §bfor new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student" +
-                        "\n\n§aAlexThe666§r - §bfor open source code, Ice and Fire owner, Older Matured and more experience than me" +
-                        "\n\n§aShannieanne§r - §bZombie Textures, Terra textures, Texture Fixes, Overall Second Dev" +
-                        "\n\n§aMajty/Guinea Owl§r - §bfor amulet textures" +
-                        "\n\n§aWolf§r - §bSecond Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds\n";
-        metadata.authorList = Arrays.asList(StringUtils.split("§6§lTheRpgAdventurer§r,§6§lBarracudaATA§r,§6§lKingdomall§r,§6§lShannieanne§r,§6§lWolfShotz§r", ','));
-        metadata.description =
-                "\n§c1.§r Don't forget to right click the egg to start the hatching process\n" +
-                        "§c2.§r Also water dragon needs to be struck by lightning to become a storm dragon\n" +
-                        "§c3.§r You can't hatch eggs in the End Dimension\n" +
-                        "§c4.§r You can press §octrl§r to enable boost flight\n" +
-                        "§c5.§r Dragons need to be of opposite genders to breed";
-
-//      ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer(new ModelShulker()));
         
         //Override mcmod.info - This looks cooler :)
+        TextFormatting g = TextFormatting.GREEN, r = TextFormatting.RESET, a = TextFormatting.AQUA, gd = TextFormatting.GOLD;
         metadata = event.getModMetadata();
-        metadata.name = "�3�lDragon Mounts";
-        metadata.credits = 
-        		"\n�aBarracudaATA4�r - �bThe Original Owner" +
-        		"\n\n�aFlaemWing�r - �bfor new nest block textures and dragonarmor item textures, new tool textures" + 
-        		"\n\n�aMerpou/Kingdomall/Masked_Ares�r - �bmore textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O)" +
-        		"\n\n�aGundunUkan/Lord Ukan�r - �bfor new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student" +
-        		"\n\n�aAlexThe666�r - �bfor open source code, Ice and Fire owner, Older Matured and more experience than me" +
-        		"\n\n�aShannieanne�r - �bZombie Textures, Terra textures, Texture Fixes, Overall Second Dev" +
-        		"\n\n�aMajty/Guinea Owl�r - �bfor amulet textures" +
-        		"\n\n�aWolf�r - �bSecond Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds\n";
-        metadata.authorList = Arrays.asList(StringUtils.split("�6�lTheRpgAdventurer�r,�6�lBarracudaATA�r,�6�lKingdomall�r,�6�lShannieanne�r,�6�lWolfShotz�r", ','));
+        metadata.name = TextFormatting.DARK_AQUA + "Dragon Mounts";
+        metadata.credits = "\n" +
+        		g + "BarracudaATA4" + r +" - "+ a + "The Original Owner\n\n" +
+                g + "Merpou/Kingdomall/Masked_Ares" + r + " - " + a + "more textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes a girl BTW O_O)\n\n" +
+        		g + "Shannieanne" + r + " - " + a + "Zombie Textures, Terra textures, Texture Fixes, Overall Second Dev\n\n" +
+        		g + "GundunUkan/Lord Ukan" + r + " - " + a + "for new fire texures, sunlight textures, and more.... I Hope he finishes his university hes a hardworking working student\n\n" +
+        		g + "Wolf" + r + " - " + a + "Second Coder, started making small fixes then started doing big ones, I hope his dreams of becoming a computer engineer succeeds\n\n" +
+        		g + "FlaemWing" + r + " - " + a + "for new nest block textures and dragonarmor item textures, new tool textures\n\n" + 
+        		g + "AlexThe666" + r + " - " + a + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" +
+        		g + "Majty/Guinea Owl" + r + " - " + a + "for amulet textures\n";
+        metadata.authorList = Arrays.asList(StringUtils.split(gd + "TheRpgAdventurer," + gd + "BarracudaATA," + gd + "Kingdomall," + gd + "Shannieanne," + gd + "WolfShotz", ','));
         metadata.description =
-        		"\n�c1.�r Don't forget to right click the egg to start the hatching process\n" +
-        		"�c2.�r Also water dragon needs to be struck by lightning to become a storm dragon\n" +
-        		"�c3.�r You can't hatch eggs in the End Dimension\n" +
-        		"�c4.�r You can press �octrl�r to enable boost flight\n" +
-        		"�c5.�r Dragons need to be of opposite genders to breed";
+        		"\nTips:\n" +
+        		"1. Don't forget to right click the egg to start the hatching process\n" +
+        		"2. Also water dragon needs to be struck by lightning to become a storm dragon\n" +
+        		"3. You can't hatch eggs in the End Dimension\n" +
+        		"4. You can press " + TextFormatting.ITALIC + "ctrl" + r + " to enable boost flight\n" +
+        		"5. Dragons need to be of opposite genders to breed";
     }
     
     @Override

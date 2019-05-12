@@ -10,12 +10,14 @@ import com.TheRPGAdventurer.ROTD.server.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModBlocks;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModItems;
 import com.TheRPGAdventurer.ROTD.server.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.server.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.server.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.server.util.IHasModel;
 import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -62,7 +64,21 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.dragonshulker), 0);
-
+        
+        ModelLoader.setCustomMeshDefinition(ModItems.Amulet, new ItemDragonAmulet());
+        ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation[] {
+        		new ModelResourceLocation("dragonmounts:dragon_amulet"),			new ModelResourceLocation("dragonmounts:ice_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:aether_dragon_amulet"),		new ModelResourceLocation("dragonmounts:moonlight_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:enchant_dragon_amulet"),	new ModelResourceLocation("dragonmounts:nether_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:end_dragon_amulet"),		new ModelResourceLocation("dragonmounts:nether2_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:fire_dragon_amulet"),		new ModelResourceLocation("dragonmounts:storm_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:fire2_dragon_amulet"),		new ModelResourceLocation("dragonmounts:storm2_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:forest_dragon_amulet"),		new ModelResourceLocation("dragonmounts:sunlight_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:sunlight2_dragon_amulet"),	new ModelResourceLocation("dragonmounts:terra_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:terra2_dragon_amulet"),		new ModelResourceLocation("dragonmounts:sylphid_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:wither_dragon_amulet"),		new ModelResourceLocation("dragonmounts:zombie_dragon_amulet"),
+        		new ModelResourceLocation("dragonmounts:skeleton_dragon_amulet"),
+        });
 
         for (Block block : ModBlocks.BLOCKS) {
         	if (block instanceof IHasModel) {
@@ -90,7 +106,7 @@ public class RegistryEventHandler {
         }
 
         for (Item itemegg : ItemDragonBreedEgg.ITEM_EGG) {
-            // register item renderer for dragon egg block variants
+            // register item renderer for dragon egg item variants
             ResourceLocation eggModelItemLoc = new ResourceLocation(DragonMounts.MODID, "dragon_egg");
             Item itemBlockDragonEgg = Item.REGISTRY.getObject(eggModelItemLoc);
             EnumDragonBreed.META_MAPPING.forEach((breed, meta) -> {

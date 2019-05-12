@@ -26,15 +26,13 @@ import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.initialization.*;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
-import com.TheRPGAdventurer.ROTD.network.DragonBreathMessage;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
@@ -94,7 +92,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable, PrivateAccessor {
+public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     private static final Logger L = LogManager.getLogger();
 
@@ -786,25 +784,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return canFly() ? 1 : super.getJumpUpwardsMotion();
     }
 
-    public BlockPos getAirPoint() {
-        if (this.getAttackTarget() == null) {
-            BlockPos pos = DMUtils.getBlockInView(this);
-            if (pos != null && this.world.getBlockState(pos).getMaterial() == Material.AIR) {
-                return pos;
-            }
-        } //else {
-        //return new BlockPos((int) dragon.getAttackTarget().posX, (int) dragon.getAttackTarget().posY, (int) dragon.getAttackTarget().posZ);
-//	}
-        return this.getPosition();
-    }
-
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc = Minecraft.getMinecraft();
         if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player))) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting = ModKeys.BOOST.isKeyDown();
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new DragonBreathMessage(getEntityId(), isBreathing, isBoosting));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing, isBoosting));
         }
     }
 
@@ -1294,7 +1280,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             return false;
         }
 
-        if (!ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.Amulet)
+        if (ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.Amulet)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
                 && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player)
                 && this.getScale() <= 0.35) {

@@ -7,7 +7,7 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
-package com.TheRPGAdventurer.ROTD.client.handler;
+package com.TheRPGAdventurer.ROTD.event;
 
 /**
  * Event handler that watches the currently ridden dragon entity. Used to change

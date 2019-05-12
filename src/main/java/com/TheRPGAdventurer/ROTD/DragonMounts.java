@@ -10,13 +10,12 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
-import com.TheRPGAdventurer.ROTD.client.handler.EventLiving;
-import com.TheRPGAdventurer.ROTD.client.handler.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.client.inventory.tabs.ArmoryTab;
-import com.TheRPGAdventurer.ROTD.client.inventory.tabs.CreativeTab;
-import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
+import com.TheRPGAdventurer.ROTD.event.EventLiving;
+import com.TheRPGAdventurer.ROTD.event.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.initialization.ModArmour;
 import com.TheRPGAdventurer.ROTD.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.network.*;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
@@ -42,7 +41,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=false, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
-    @NetworkWrapper({MessageDragonInventory.class, DragonBreathMessage.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class})
+    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME="Dragon Mounts";

@@ -30,7 +30,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * 
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class DragonEggBlockHandler {
+public class DragonEggBlockEvents {
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.RightClickBlock evt) {

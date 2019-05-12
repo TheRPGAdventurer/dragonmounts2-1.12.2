@@ -1,10 +1,10 @@
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
-import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
-import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;

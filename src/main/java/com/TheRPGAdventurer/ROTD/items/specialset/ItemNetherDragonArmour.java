@@ -2,7 +2,7 @@ package com.TheRPGAdventurer.ROTD.items.specialset;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-import com.TheRPGAdventurer.ROTD.initialization.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

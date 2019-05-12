@@ -1,10 +1,10 @@
 package com.TheRPGAdventurer.ROTD.entity.helper.breath;
 
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponEmitter;
-import com.TheRPGAdventurer.ROTD.client.sound.SoundController;
-import com.TheRPGAdventurer.ROTD.client.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.sound.SoundController;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.helper.breathweapons.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.datasync.DataParameter;

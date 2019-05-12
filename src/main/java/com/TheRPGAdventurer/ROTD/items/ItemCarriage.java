@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;

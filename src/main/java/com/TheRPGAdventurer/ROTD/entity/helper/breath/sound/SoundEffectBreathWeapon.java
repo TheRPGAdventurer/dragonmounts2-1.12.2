@@ -1,7 +1,8 @@
-package com.TheRPGAdventurer.ROTD.client.sound;
+package com.TheRPGAdventurer.ROTD.entity.helper.breath.sound;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.entity.helper.breath.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.PositionedSound;

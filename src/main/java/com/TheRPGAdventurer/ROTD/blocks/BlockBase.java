@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.initialization.ModBlocks;
+import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

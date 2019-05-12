@@ -1,6 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity;
 
-import com.TheRPGAdventurer.ROTD.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

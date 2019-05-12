@@ -1,8 +1,8 @@
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
-import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -33,7 +33,7 @@ public class DragonBreedEnd extends DragonBreed {
     
     @Override
     public SoundEvent getLivingSound() {
-       return ModSounds.ENTITY_DRAGON_BREATHE;   
+       return ModSounds.ENTITY_DRAGON_BREATHE;
     }
     
     @Override

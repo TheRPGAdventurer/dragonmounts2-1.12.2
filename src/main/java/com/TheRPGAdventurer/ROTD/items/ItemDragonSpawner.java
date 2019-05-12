@@ -5,8 +5,8 @@ import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
-import com.TheRPGAdventurer.ROTD.initialization.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
@@ -29,14 +29,6 @@ import java.util.List;
 
 public class ItemDragonSpawner extends Item implements IHasModel {
 
-    /**
-     * Base color of the egg
-     */
-    public int primaryColor;
-    /**
-     * Color of the egg spots
-     */
-    public int secondaryColor;
     private EnumDragonBreed breed;
     private EnumItemBreedTypes type;
 

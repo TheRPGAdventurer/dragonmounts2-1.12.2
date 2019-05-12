@@ -3,8 +3,8 @@ package com.TheRPGAdventurer.ROTD.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.initialization.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.initialization.ModItems;
+import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -34,9 +34,9 @@ import java.util.List;
  * @author WolfShotz
  */
 public class ItemDragonAmulet extends Item implements ItemMeshDefinition {
-	
+
 	private EnumItemBreedTypes type;
-	
+
     public ItemDragonAmulet() {
         String name = "dragon_amulet";
         this.setRegistryName(DragonMounts.MODID, name);
@@ -127,7 +127,7 @@ public class ItemDragonAmulet extends Item implements ItemMeshDefinition {
 
 /**
  * Gets the Amulet Model According to breed type
- * @see com.TheRPGAdventurer.ROTD.client.handler.RegistryEventHandler Amulet Model Registry Class
+ * @see com.TheRPGAdventurer.ROTD.event.RegistryEventHandler Amulet Model Registry Class
  */
 	@Override
 	@SideOnly(Side.CLIENT)

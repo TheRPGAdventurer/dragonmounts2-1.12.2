@@ -10,10 +10,10 @@
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.block.Block;

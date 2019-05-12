@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.entity.helper.breathweapons;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathAffectedEntity;
-import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -30,7 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * 2) affectBlock() to apply an area of effect to the given block (eg set fire to it)
  * 3) affectEntity() to apply an area of effect to the given entity (eg damage it)
  */
-public class BreathWeaponWither extends BreathWeapon implements PrivateAccessor {
+public class BreathWeaponWither extends BreathWeapon {
 
     private int witherduration = 12 * 10;
 

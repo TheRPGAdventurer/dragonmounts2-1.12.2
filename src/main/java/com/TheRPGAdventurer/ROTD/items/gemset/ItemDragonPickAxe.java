@@ -2,8 +2,8 @@ package com.TheRPGAdventurer.ROTD.items.gemset;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-import com.TheRPGAdventurer.ROTD.initialization.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;

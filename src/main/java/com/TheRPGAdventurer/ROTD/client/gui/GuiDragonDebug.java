@@ -15,7 +15,6 @@ import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonBreedHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStageHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonReproductionHelper;
-import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -45,7 +44,7 @@ import java.util.Collection;
  * @TheRPGAdventurer NOT affiliated with GuiDragon.class
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class GuiDragonDebug extends Gui implements PrivateAccessor {
+public class GuiDragonDebug extends Gui {
     
     private static final int WHITE = 0xFFFFFF;
     private static final int GREY = 0xAAAAAA;

@@ -24,7 +24,7 @@ import com.TheRPGAdventurer.ROTD.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.interact.DragonInteractHelper;
-import com.TheRPGAdventurer.ROTD.initialization.*;
+import com.TheRPGAdventurer.ROTD.inits.*;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;

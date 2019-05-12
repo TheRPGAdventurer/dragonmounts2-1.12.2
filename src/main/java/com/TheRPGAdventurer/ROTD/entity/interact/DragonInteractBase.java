@@ -10,8 +10,8 @@
 package com.TheRPGAdventurer.ROTD.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.initialization.ModItems;
-import com.TheRPGAdventurer.ROTD.initialization.ModTools;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;

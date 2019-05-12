@@ -9,8 +9,8 @@
  */
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
-import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

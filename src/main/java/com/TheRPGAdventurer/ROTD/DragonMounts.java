@@ -89,7 +89,6 @@ public class DragonMounts {
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
-        metadata = event.getModMetadata();
         proxy.PreInitialization(event);     
     }
 

@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.sound;
+package com.TheRPGAdventurer.ROTD.initialization;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import net.minecraft.util.ResourceLocation;

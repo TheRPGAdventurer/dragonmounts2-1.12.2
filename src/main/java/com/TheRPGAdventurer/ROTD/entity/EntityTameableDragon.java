@@ -14,9 +14,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.client.message.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
-import com.TheRPGAdventurer.ROTD.client.sound.ModSounds;
 import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.entity.ai.path.PathNavigateFlying;
@@ -28,6 +26,7 @@ import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.initialization.*;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
+import com.TheRPGAdventurer.ROTD.network.DragonBreathMessage;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
@@ -1621,7 +1620,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public EntityAgeable createChild(EntityAgeable mate) {
         EntityTameableDragon parent1 = this;
         EntityTameableDragon parent2 = (EntityTameableDragon) mate;
-        EntityTameableDragon baby = new EntityTameableDragon(this.world);
 
         if (parent1.isMale() && !parent2.isMale() || !parent1.isMale() && parent2.isMale()) {
             return getReproductionHelper().createChild(parent1.isMale() ? mate : parent1);

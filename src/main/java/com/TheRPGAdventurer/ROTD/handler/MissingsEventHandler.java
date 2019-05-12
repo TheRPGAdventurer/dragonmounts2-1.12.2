@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.handler;
+package com.TheRPGAdventurer.ROTD.handler;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

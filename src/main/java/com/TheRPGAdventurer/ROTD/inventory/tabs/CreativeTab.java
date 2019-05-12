@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.inventory.tabs;
+package com.TheRPGAdventurer.ROTD.inventory.tabs;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;

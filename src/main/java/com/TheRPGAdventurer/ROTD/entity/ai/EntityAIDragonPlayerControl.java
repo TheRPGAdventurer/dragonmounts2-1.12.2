@@ -78,9 +78,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
                     dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
         }
 
-        dragon.setUnHovered(dragon.boosting());
-
-
         // control direction with movement keys
         if (rider.moveStrafing != 0 || rider.moveForward != 0) {
             if (rider.moveForward < 0) {
@@ -92,7 +89,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
 
             x += wp.x * 10;
-            if(!dragon.isYLocked()) y += wp.y * 10;
+            y += !dragon.isYLocked()? wp.y * 10 : wp.y * 1;
             z += wp.z * 10;
         }
 
@@ -103,7 +100,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
         }
 
-        if (( !dragon.isUsingBreathWeapon() && rider.moveStrafing == 0) || dragon.followYaw()) {
+        if ((!dragon.isUsingBreathWeapon() && rider.moveStrafing == 0) || dragon.followYaw()) {
             dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
         }

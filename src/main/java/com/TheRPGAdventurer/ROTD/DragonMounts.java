@@ -10,11 +10,11 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
-import com.TheRPGAdventurer.ROTD.client.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.event.EventLiving;
 import com.TheRPGAdventurer.ROTD.event.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
+import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.network.*;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
@@ -38,7 +38,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 /**
  * Main control class for Forge.
  */
-@Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=false, guiFactory=DragonMounts.GUI_FACTORY)
+@Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
     @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class})
@@ -50,7 +50,7 @@ public class DragonMounts {
     public static final String LLIBRARY_VERSION="1.7.14";
     public static final String GUI_FACTORY="com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
 
-    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.server.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.client.ClientProxy")
+    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.proxy.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.proxy.ClientProxy")
     public static ServerProxy proxy;
 
     @Instance(value=MODID)
@@ -65,6 +65,7 @@ public class DragonMounts {
         return config;
     }
 
+    // important for debug in config
     public ModMetadata getMetadata() {
         return metadata;
     }
@@ -76,6 +77,7 @@ public class DragonMounts {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         proxy.PreInitialization(event);
+        metadata=event.getModMetadata();
     }
 
     @EventHandler

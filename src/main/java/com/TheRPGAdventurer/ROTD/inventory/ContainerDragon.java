@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.inventory;
+package com.TheRPGAdventurer.ROTD.inventory;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.player.EntityPlayer;

@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
-import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
@@ -25,6 +24,7 @@ import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonBreathHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.inits.*;
+import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;
@@ -104,7 +104,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
-    public static final float BASE_WIDTH = 2.33f;
+    public static final float BASE_WIDTH = 1.88f;
     public static final float BASE_HEIGHT = 2.33f;
     public static final float RESISTANCE = 10.0f;
     public static final double BASE_FOLLOW_RANGE = 70;
@@ -327,6 +327,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
         nbt.setBoolean("unhovered", this.isUnHovered());
+        nbt.setBoolean("followyaw", this.followYaw());
 //        nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
         nbt.setBoolean("boosting", this.boosting());
@@ -361,6 +362,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setMale(nbt.getBoolean(NBT_ISMALE));
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setYLocked(nbt.getBoolean("ylocked"));
+        this.setFollowYaw(nbt.getBoolean("followYaw"));
 //        this.setUnFluttered(nbt.getBoolean("unFluttered"));
         this.setBoosting(nbt.getBoolean("boosting"));
 //		this.setSleeping(nbt.getBoolean("sleeping"));
@@ -939,7 +941,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         //	Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound((EntityPlayerSP)this.getControllingPlayer()));
         //	}
         if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
-            for (int i = ContainerDragon.chestStartIndex; i < 30; i++) {
+            for (int i=ContainerDragon.chestStartIndex; i < 30; i++) {
                 if (!dragonInv.getStackInSlot(i).isEmpty()) {
                     if (!world.isRemote) {
                         this.entityDropItem(dragonInv.getStackInSlot(i), 1);
@@ -1330,32 +1332,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     @Override
     public float getEyeHeight() {
-        float eyeHeight = super.getEyeHeight();
+        float eyeHeight = height * 0.85F;
 
         if (isSitting()) {
             eyeHeight *= 0.8f;
         }
 
+        if (isEgg()) {
+            eyeHeight = 1.3f;
+        }
+
         return eyeHeight;
     }
-
-//    /**
-//     * Returns the height of the eyes. Used for looking at other entities.
-//     */
-//    @Override
-//    public float getEyeHeight() {
-//        float eyeHeight = height * 0.85F;
-//
-//        if (isSitting()) {
-//            eyeHeight *= 0.8f;
-//        }
-//
-//        if (isEgg()) {
-//            eyeHeight = 1.3f;
-//        }
-//
-//        return eyeHeight;
-//    }
 
     /**
      * Returns the Y offset from the entity's position for any entity riding this
@@ -1699,14 +1687,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         // hovering
         if (!isFlying()) {
             super.travel(strafe, forward, vertical);
-        }
-    }
-
-    private void updateIntendedRideRotation(EntityPlayer rider) {
-        boolean hasRider = this.hasControllingPlayer(rider);
-        if (this.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
-            this.rotationYaw = rider.rotationYaw;
-            this.rotationPitch = rider.rotationPitch;
         }
     }
 

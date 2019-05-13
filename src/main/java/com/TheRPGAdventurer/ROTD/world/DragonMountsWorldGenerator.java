@@ -107,7 +107,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
         int z=(chunkZ * 16) + random.nextInt(16);
         BlockPos height=getHeight(world, new BlockPos(x, 0, z));
 
-        boolean isHills=BiomeDictionary.hasType(world.getBiome(height), Type.MOUNTAIN) || world.getBiomeForCoordsBody(height)==Biomes.STONE_BEACH;
+        boolean isMountainOrBeach=BiomeDictionary.hasType(world.getBiome(height), Type.MOUNTAIN) || world.getBiomeForCoordsBody(height)==Biomes.STONE_BEACH;
         boolean isSnowy=BiomeDictionary.hasType(world.getBiome(height), Type.SNOWY);
         boolean isJungle=BiomeDictionary.hasType(world.getBiome(height), Type.JUNGLE);
         boolean isForest=BiomeDictionary.hasType(world.getBiome(height), Type.FOREST);
@@ -145,11 +145,11 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
                 DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
-            } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.ForestNestRarity1))==1 && canSpawnHere(world, height, 4)) {
+            } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.ForestNestRarity))==1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
 
                 DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
-            } else if (isHills && random.nextInt(DragonMountsConfig.FireNestRarity)==1 && canSpawnHere(world, height, 4)) {
+            } else if (isMountainOrBeach && random.nextInt(DragonMountsConfig.FireNestRarity)==1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "fire", LootTableList.CHESTS_SIMPLE_DUNGEON, true, random);
                 //  DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
             }

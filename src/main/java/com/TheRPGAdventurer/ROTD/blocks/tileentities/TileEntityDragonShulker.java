@@ -2,7 +2,7 @@ package com.TheRPGAdventurer.ROTD.blocks.tileentities;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonShulker;
-import com.TheRPGAdventurer.ROTD.client.inventory.ContainerDragonShulker;
+import com.TheRPGAdventurer.ROTD.inventory.ContainerDragonShulker;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.state.IBlockState;

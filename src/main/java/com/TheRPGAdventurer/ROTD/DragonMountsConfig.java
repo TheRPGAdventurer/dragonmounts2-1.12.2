@@ -54,12 +54,10 @@ public class DragonMountsConfig {
 	public static int REG_FACTOR  = 75;
 
 	// chances
-	public static int AllNestRarity  = 110;
 	public static int FireNestRarity  = 50;
-	public static int AllNestRarity1  = 180;
 //	public static int ZombieNestRarity1  = 180;
 	public static int TerraNestRarity  = 180;
-	public static int ForestNestRarity1  = 400;
+	public static int ForestNestRarity  = 180;
 	public static int SunlightNestRarity  = 60;
 	public static int OceanNestRarity  = 4000;
 	public static int EnchantNestRarity  = 250;
@@ -227,24 +225,10 @@ public class DragonMountsConfig {
 		canSpawnEndNest = prop.getBoolean();
 		propOrder.add(prop.getName());
 
-		// surface world nest
-		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity", AllNestRarity);
-		prop.setComment("Determines how rare Water, Fire dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
-				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		AllNestRarity = prop.getInt();
-		propOrder.add(prop.getName());
-
-		// surface world nest
-		prop = config.get(CATEGORY_WORLDGEN, "Common Nest Rarity 2", AllNestRarity1);
-		prop.setComment("Determines how rare Terra, Ice dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
-				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		AllNestRarity1 = prop.getInt();
-		propOrder.add(prop.getName());
-
-		prop = config.get(CATEGORY_WORLDGEN, "Forest Nest Rarity", AllNestRarity1);
+		prop = config.get(CATEGORY_WORLDGEN, "Forest Nest Rarity", ForestNestRarity);
 		prop.setComment("Determines how rare Forest Plains dragon nests will mainly spawn. I did this because the forest biome is too common thus making the forest breed to common. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
-		AllNestRarity1 = prop.getInt();
+		ForestNestRarity = prop.getInt();
 		propOrder.add(prop.getName());
 
 		// sunlight world nest
@@ -284,6 +268,12 @@ public class DragonMountsConfig {
 		prop.setComment("Determines how rare ice dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
 				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
 		IceNestRarity = prop.getInt();
+		propOrder.add(prop.getName());
+
+		prop = config.get(CATEGORY_WORLDGEN, "Fire Nest Rarity", FireNestRarity);
+		prop.setComment("Determines how rare fire dragon nests will mainly spawn. Higher numbers = higher rarity (in other words  how many blocks for another nest to spawn), "
+				+ "(Note: Expermiment on a new world when editing these numbers because it may cause damages to your own worlds)");
+		FireNestRarity = prop.getInt();
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_WORLDGEN, "Enchant Nest Rarity", EnchantNestRarity);

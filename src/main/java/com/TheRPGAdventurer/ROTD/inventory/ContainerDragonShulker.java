@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.inventory;
+package com.TheRPGAdventurer.ROTD.inventory;
 
 
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;

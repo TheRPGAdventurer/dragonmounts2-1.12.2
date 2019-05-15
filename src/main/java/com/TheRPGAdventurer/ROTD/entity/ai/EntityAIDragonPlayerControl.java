@@ -89,7 +89,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
 
             x += wp.x * 10;
-            y += !dragon.isYLocked()? wp.y * 10 : wp.y * 1;
+            if(!dragon.isYLocked()) y += wp.y * 10;
             z += wp.z * 10;
         }
 

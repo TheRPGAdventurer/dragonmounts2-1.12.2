@@ -27,6 +27,7 @@ import com.TheRPGAdventurer.ROTD.inits.*;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
@@ -792,7 +793,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player))) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting = ModKeys.BOOST.isKeyDown();
+            boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
+            boolean followyaw = ModKeys.FOLLOW_YAW.isPressed();
+            boolean locky = ModKeys.KEY_LOCKEDY.isPressed();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing, isBoosting));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followYaw, locky));
         }
     }
 
@@ -905,13 +910,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         } else {
             animator.tickingUpdate();
-        }
-
-        if (this.isUsingBreathWeapon()) {
-            DMUtils.getLogger().info("head pitch is at:" + rotationPitch);
-            DMUtils.getLogger().info("ylocked is = :" + isYLocked());
-            DMUtils.getLogger().info("followYaw is = :" + followYaw());
-            DMUtils.getLogger().info("cancel hover is = :" + isUnHovered());
         }
 
         if (ticksSinceLastAttack >= 0) { // used for jaw animation
@@ -1282,7 +1280,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return false;
         }
 
-        if (ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.Amulet)
+        if (!ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.Amulet)
                 && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE)
                 && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player)
                 && this.getScale() <= 0.35) {

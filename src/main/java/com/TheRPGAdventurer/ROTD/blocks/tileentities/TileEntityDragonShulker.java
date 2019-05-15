@@ -1,8 +1,11 @@
 package com.TheRPGAdventurer.ROTD.blocks.tileentities;
 
+import java.util.List;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonShulker;
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonShulker;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragonShulker;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.state.IBlockState;
@@ -21,8 +24,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import java.util.List;
 
 /**
  * Dragon Core TileEntity
@@ -68,8 +69,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
             return super.receiveClientEvent(id, type);
         }
     }
-
-    //Why does this return the opposite lol
+    
     @Override
     public boolean isEmpty() {
         for (ItemStack stack : this.chestContents) {
@@ -224,7 +224,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
                 this.progress = 1.0F;
         }
     }
-
+    
     public TileEntityDragonShulker.AnimationStatus getAnimationStatus() {
         return this.animationStatus;
     }
@@ -268,5 +268,4 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         OPENED,
         CLOSING;
     }
-
 }

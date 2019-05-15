@@ -16,21 +16,18 @@ import static org.lwjgl.opengl.GL11.GL_ONE;
  */
 public class LayerRendererDragonGlow extends LayerRendererDragon {
 
-    public LayerRendererDragonGlow(DragonRenderer renderer,
-            DefaultDragonBreedRenderer breedRenderer, DragonModel model) {
+    public LayerRendererDragonGlow(DragonRenderer renderer, DefaultDragonBreedRenderer breedRenderer, DragonModel model) {
         super(renderer, breedRenderer, model);
     }
 
     @Override
-    public void doRenderLayer(EntityTameableDragon dragon, float moveTime,
-            float moveSpeed, float partialTicks, float ticksExisted, float lookYaw,
-            float lookPitch, float scale) {
+    public void doRenderLayer(EntityTameableDragon dragon, float moveTime, float moveSpeed, float partialTicks, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture() : breedRenderer.getFemaleGlowTexture());
-        
+
         GlStateManager.pushMatrix();
         GlStateManager.pushAttrib();
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL_ONE, GL_ONE); 
+        GlStateManager.blendFunc(GL_ONE, GL_ONE);
         GlStateManager.color(1, 1, 1, 1);
 
         disableLighting();
@@ -39,13 +36,13 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
         model.render(dragon, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
         enableLighting(dragon.getBrightnessForRender());
-        
+
         GlStateManager.disableBlend();
         GlStateManager.popAttrib();
         GlStateManager.popMatrix();
-        
-        if(dragon.getBreedType() == EnumDragonBreed.ENCHANT) {
-        	renderEnchantedGlint(this.renderer, dragon, model, moveTime, moveSpeed, partialTicks, ticksExisted, lookYaw, lookPitch, scale);
+
+        if (dragon.getBreedType()==EnumDragonBreed.ENCHANT) {
+            renderEnchantedGlint(this.renderer, dragon, model, moveTime, moveSpeed, partialTicks, ticksExisted, lookYaw, lookPitch, scale);
         }
     }
 

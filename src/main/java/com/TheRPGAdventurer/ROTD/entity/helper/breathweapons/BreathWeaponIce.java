@@ -117,9 +117,11 @@ public class BreathWeaponIce extends BreathWeapon implements PrivateAccessor {
             entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 1.0f, 0.0f);
         }
 
-        entity.isWet();
-        PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 500);
-        ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the player
+        if((dragon.getControllingPlayer() != null && dragon.getControllingPlayer() != entity) || (dragon.getRidingEntity() != entity && dragon.getRidingEntity() != null)) {
+            entity.isWet();
+            PotionEffect iceEffect=new PotionEffect(MobEffects.SLOWNESS, 100);
+            ((EntityLivingBase) entity).addPotionEffect(iceEffect); // Apply a copy of the PotionEffect to the player
+        }
 
         this.xp(entity);
 

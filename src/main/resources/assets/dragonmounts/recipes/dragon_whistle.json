@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "P#",
-    "# "
+    "#X"
 	
   ],
   "key": {
@@ -11,6 +11,9 @@
     },
     "P": {
      "item": "minecraft:ender_pearl"
+	},
+    "P": {
+     "item": "minecraft:string"
 	}
   },
   "result": {

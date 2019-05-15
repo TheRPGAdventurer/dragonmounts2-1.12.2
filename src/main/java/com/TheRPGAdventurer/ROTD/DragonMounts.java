@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.event.EventLiving;
 import com.TheRPGAdventurer.ROTD.event.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
+import com.TheRPGAdventurer.ROTD.inits.ModDataFixers;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
@@ -41,7 +42,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
-    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class})
+    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class, MessageDragonExtras.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME="Dragon Mounts";
@@ -86,6 +87,7 @@ public class DragonMounts {
         proxy.render();
         ModTools.InitializaRepairs();
         ModArmour.InitializaRepairs();
+        ModDataFixers.registerDataFixers();
         EntityPropertiesHandler.INSTANCE.registerProperties(MiscPlayerProperties.class);
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());

@@ -14,14 +14,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
 
     private int dragonId;
-    public int isHoverCancel;
+    public boolean isHoverCancel;
     public boolean isFollowYaw;
+    public boolean locky;
 
-
-    public MessageDragonExtras(int dragonId, int isHoverCancel, boolean isFollowYaw) {
+    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
         this.isFollowYaw = isFollowYaw;
+        this.locky = locky;
     }
 
     public MessageDragonExtras() {}
@@ -29,16 +30,18 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     @Override
     public void fromBytes(ByteBuf buf) {
         dragonId = buf.readInt();
-        isHoverCancel = buf.readInt();
+        isHoverCancel = buf.readBoolean();
         isFollowYaw = buf.readBoolean();
+        locky = buf.readBoolean();
 
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(dragonId);
-        buf.writeInt(isHoverCancel);
+        buf.writeBoolean(isHoverCancel);
         buf.writeBoolean(isFollowYaw);
+        buf.writeBoolean(locky);
 
     }
 
@@ -53,14 +56,16 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         Entity entity = player.world.getEntityByID(message.dragonId);
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
-            if (message.isHoverCancel == 1) {
-                dragon.setUnHovered(true);
-            } else {
-                dragon.setUnHovered(false);
+            if (message.isHoverCancel) {
+                dragon.setUnHovered(!dragon.isUnHovered());
             }
 
             if(message.isFollowYaw) {
                 dragon.setFollowYaw(!dragon.followYaw());
+            }
+
+            if(message.locky) {
+                dragon.setYLocked(!dragon.isYLocked());
             }
         }
     }

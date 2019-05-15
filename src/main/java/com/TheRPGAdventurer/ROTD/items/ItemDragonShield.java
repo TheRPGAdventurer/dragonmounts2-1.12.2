@@ -2,7 +2,6 @@ package com.TheRPGAdventurer.ROTD.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;

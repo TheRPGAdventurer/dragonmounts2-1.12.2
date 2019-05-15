@@ -13,11 +13,11 @@ public class DragonMountsItemDataFixes implements IFixableData {
     // is the fixTag proper (I think this is the cause tho) derived from PotionItem.class
     public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
         NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
-        if ("dragonmounts:end_dragon_amulet".equals(nbttagcompound.getString("id"))) {
-            nbttagcompound.setString("id", "dragonmounts:dragon_amulet");
+        if ("end_dragon_amulet".equals(nbttagcompound.getString("id"))) {
+            nbttagcompound.setString("id", "dragon_amulet");
         }
         if ("dragonmounts:nether_dragon_amulet".equals(nbttagcompound.getString("id"))) {
-            nbttagcompound.setString("id", "dragonmounts:dragon_amulet");
+            nbttagcompound.setString("id", "dragon_amulet");
         }
         if ("dragonmounts:skeleton_dragon_amulet".equals(nbttagcompound.getString("id"))) {
             nbttagcompound.setString("id", "dragonmounts:dragon_amulet");
@@ -25,10 +25,10 @@ public class DragonMountsItemDataFixes implements IFixableData {
         if ("dragonmounts:wither_dragon_amulet".equals(nbttagcompound.getString("id"))) {
             nbttagcompound.setString("id", "dragonmounts:dragon_amulet");
         }
-        if ("dragonmounts:forest_dragon_amulet".equals(nbttagcompound.getString("id"))) {
-            nbttagcompound.setString("id", "dragonmounts:dragon_amulet");
+        if ("forest_dragon_amulet".equals(nbttagcompound.getString("id"))) {
+            nbttagcompound.setString("id", "dragon_amulet");
         }
-        if ("dragonmounts:fire_dragon_amulet".equals(nbttagcompound.getString("id"))) {
+        if ("fire_dragon_amulet".equals(nbttagcompound.getString("id"))) {
             nbttagcompound.setString("id", "dragonmounts:dragon_amulet");
         }
         if ("dragonmounts:water_dragon_amulet".equals(nbttagcompound.getString("id"))) {

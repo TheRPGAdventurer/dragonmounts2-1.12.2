@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

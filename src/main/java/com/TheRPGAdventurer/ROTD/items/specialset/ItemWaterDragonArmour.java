@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.items.specialset;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonArmour;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

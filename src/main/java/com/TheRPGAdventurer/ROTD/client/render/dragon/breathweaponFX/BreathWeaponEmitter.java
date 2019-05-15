@@ -1,8 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breathweapon.*;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -148,7 +148,7 @@ public class BreathWeaponEmitter {
       float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
       Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
       Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
-      HydroBreathFX hydroBreathFX = HydroBreathFX.createHydroBreathFX(world, 
+      HydroBreathFX hydroBreathFX = HydroBreathFX.createHydroBreathFX(world,
     		  interpOrigin.x, interpOrigin.y, interpOrigin.z,
     		  interpDirection.x, interpDirection.y, interpDirection.z, power, partialTickHeadStart, dragon) ;
       
@@ -179,7 +179,7 @@ public class BreathWeaponEmitter {
       float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
       Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
       Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
-      WitherBreathFX witherBreathFX = WitherBreathFX.createWitherBreathFX(world, 
+      WitherBreathFX witherBreathFX = WitherBreathFX.createWitherBreathFX(world,
     		  interpOrigin.x, interpOrigin.y, interpOrigin.z,
     		  interpDirection.x, interpDirection.y, interpDirection.z, power, partialTickHeadStart, dragon) ;
       

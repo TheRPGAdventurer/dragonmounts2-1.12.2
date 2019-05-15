@@ -18,7 +18,6 @@ import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.*;
@@ -399,16 +398,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * Sets new relative speed multiplier for the vertical flying speed.
-     *
-     * @param airSpeedVertical new relative vertical speed multiplier
-     */
-    public void setMoveSpeedAirVert(double airSpeedVertical) {
-        L.trace("setMoveSpeedAirVert({})", airSpeedVertical);
-        this.airSpeedVertical = airSpeedVertical;
-    }
-
-    /**
      * Returns true if the dragon is saddled.
      */
     public boolean isSaddled() {
@@ -531,32 +520,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return (dataManager.get(WHISTLE_STATE)) == 4;
     }
 
-    public boolean sit() {
+    public boolean sit()
+    {
         return (dataManager.get(WHISTLE_STATE)) == 5;
     }
 
     public void setnothing(boolean nothing) {
         setStateField(0, nothing);
-    }
-
-    public void setfollow(boolean follow) {
-        setStateField(1, follow);
-    }
-
-    public void setcircle(boolean circle) {
-        setStateField(2, circle);
-    }
-
-    public void setcome(boolean come) {
-        setStateField(3, come);
-    }
-
-    public void sethomepos(boolean homepos) {
-        setStateField(4, homepos);
-    }
-
-    public void setsit(boolean sit) {
-        setStateField(5, sit);
     }
 
     /**
@@ -1033,31 +1003,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
             world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);
         }
-//        this.spawnItemCrackParticles(Items.CHICKEN);
 
         super.onLivingUpdate();
-    }
-
-    @SideOnly(Side.CLIENT)
-    private void spawnItemCrackParticles(Item item) {
-        for (int i = 0; i < 15; i++) {
-            double hx, hy, hz;
-            double motionX = this.getRNG().nextGaussian() * 0.07D;
-            double motionY = this.getRNG().nextGaussian() * 0.07D;
-            double motionZ = this.getRNG().nextGaussian() * 0.07D;
-            DragonHeadPositionHelper pos = this.getAnimator().getDragonHeadPositionHelper();
-            boolean isMoving = this.motionX != 0 && this.motionY != 0 && this.motionZ != 0;
-
-            float angle = (((this.renderYawOffset + 0) * 3.14159265F) / 180F);
-            hx = this.getAnimator().getThroatPosition().x;
-            double yChange = !isMoving && this.isFlying() ? 2.6 : 3.6 * this.getScale();
-            hy = this.getAnimator().getThroatPosition().y;
-            hz = this.getAnimator().getThroatPosition().z;
-
-            if (this.world.isRemote) {
-                this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[]{Item.getIdFromItem(item)});
-            }
-        }
     }
 
     /**

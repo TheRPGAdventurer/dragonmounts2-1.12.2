@@ -27,6 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by TGG on 7/12/2015.
  */
 public class BreathWeaponAether extends BreathWeapon {
+
     public BreathWeaponAether(EntityTameableDragon i_dragon) {
         super(i_dragon);
         initialiseStatics();
@@ -139,8 +140,7 @@ public class BreathWeaponAether extends BreathWeapon {
 
         final double WT_ENTITY=0.5;
         final double WT_AIR=1 - WT_ENTITY;
-        entity.motionX=WT_ENTITY * entity.motionX + WT_AIR * airMotion.x;
-        entity.motionZ=WT_ENTITY * entity.motionZ + WT_AIR * airMotion.z;
+        ((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
 
         final double UPFORCE_THRESHOLD=1.0;
         if (airForce > UPFORCE_THRESHOLD) {
@@ -160,44 +160,6 @@ public class BreathWeaponAether extends BreathWeapon {
 
         return currentHitDensity;
     }
-
-    //  /** flood fill from the starting block for the indicated number of blocks, setting fire to blocks
-    //   * @param world
-    //   * @param blockPos
-    //   * @param maxPathLength maximum path length to flood fill to [0 - 10]
-    //   */
-    //  private void spreadFire(World world, BlockPos blockPos, int maxPathLength)
-    //  {
-    //    checkArgument(maxPathLength >= 0 && maxPathLength <= 10);
-    //    HashSet<BlockPos> blocksToSearchFrom = new HashSet<BlockPos>();
-    //    HashSet<BlockPos> blocksSearched = new HashSet<BlockPos>();
-    //    HashSet<BlockPos> blocksToIgnite = new HashSet<BlockPos>();
-    //
-    //    blocksToSearchFrom.add(blockPos);
-    //    for (int pathLength = 0; pathLength < maxPathLength; ++pathLength) {
-    //      HashSet<BlockPos> blocksToSearchFromNext = new HashSet<BlockPos>();
-    //
-    //      for (BlockPos whichBlock : blocksToSearchFrom) {
-    //        for (EnumFacing whichDirection : EnumFacing.VALUES) {
-    //          BlockPos adjacent = whichBlock.offset(whichDirection);
-    //          if (!blocksSearched.contains(adjacent)) {
-    //            blocksSearched.add(adjacent);
-    //
-    //            IBlockState adjacentBlockState = world.getBlockState(adjacent);
-    //            Material material = adjacentBlockState.getBlock().getMaterial();
-    //            if (material == Material.air) {
-    //              blocksToSearchFromNext.add(adjacent);
-    //              blocksToIgnite.add(adjacent);
-    //            }
-    //          }
-    //        }
-    //      }
-    //    }
-    //
-    //    for (BlockPos blockPosIgnite : blocksToIgnite) {
-    //      world.setBlockState(blockPosIgnite, Blocks.fire.getDefaultState());
-    //    }
-    //  }
 
     private static Map<Material, Integer> materialDisintegrateTime=Maps.newHashMap();  // lazy initialisation
 

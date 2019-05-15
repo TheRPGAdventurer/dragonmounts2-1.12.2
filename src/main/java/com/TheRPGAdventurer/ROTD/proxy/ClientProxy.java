@@ -19,7 +19,7 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
 import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breathweapon.*;
+import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.event.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;

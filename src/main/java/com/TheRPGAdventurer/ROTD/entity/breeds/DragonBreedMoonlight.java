@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;

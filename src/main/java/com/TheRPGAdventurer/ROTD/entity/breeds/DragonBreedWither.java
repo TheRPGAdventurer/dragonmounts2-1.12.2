@@ -1,8 +1,7 @@
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathAffectedArea;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
@@ -14,8 +13,6 @@ import net.minecraft.world.WorldServer;
 
 
 public class DragonBreedWither extends DragonBreed {
-	
-	public BreathAffectedArea breathAffectedAreaWither;
 
     DragonBreedWither() {
         super("wither", 0x50260a);
@@ -52,7 +49,7 @@ public class DragonBreedWither extends DragonBreed {
 	}
 	
 	@Override
-    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {     
+    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getbreathAffectedAreaWither().continueBreathing(world, origin, endOfLook, power, dragon);
         dragon.getBreathHelper().getbreathAffectedAreaWither().updateTick(world);
     }

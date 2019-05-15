@@ -111,7 +111,7 @@ public class DragonInteract extends DragonInteractBase {
     }
 
     private void eatEvent(EntityPlayer player) {
-        dragon.playSound(dragon.getSoundManager().getEatSound(), 0.6f, 0.75f);
+        dragon.playSound(dragon.getEatSound(), 0.6f, 0.75f);
         spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems()));
     }
 

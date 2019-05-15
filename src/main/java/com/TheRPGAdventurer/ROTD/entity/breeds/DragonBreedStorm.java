@@ -1,9 +1,9 @@
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.sound.SoundEffectNames;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;

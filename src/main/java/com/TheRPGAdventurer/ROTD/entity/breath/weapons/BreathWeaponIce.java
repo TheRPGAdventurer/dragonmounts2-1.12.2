@@ -2,8 +2,8 @@ package com.TheRPGAdventurer.ROTD.entity.breath.weapons;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathAffectedBlock;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathAffectedEntity;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedBlock;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedEntity;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

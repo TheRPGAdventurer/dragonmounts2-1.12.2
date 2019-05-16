@@ -12,7 +12,7 @@ public class DragonMountsItemDataFixes implements IFixableData {
 
     // is the fixTag proper (I think this is the cause tho) derived from PotionItem.class
     public NBTTagCompound fixTagCompound(NBTTagCompound compound) {
-        NBTTagCompound nbttagcompound = compound.getCompoundTag("tag");
+        NBTTagCompound nbttagcompound = compound.getCompoundTag("id");
         if ("end_dragon_amulet".equals(nbttagcompound.getString("id"))) {
             nbttagcompound.setString("id", "dragon_amulet");
         }

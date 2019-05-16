@@ -150,6 +150,11 @@ public class DragonBreathHelper extends DragonHelper {
         }
         soundEffectBreathWeapon.performTick(Minecraft.getMinecraft().player, dragon);
     }
+    public void refreshBreedClientOnly(EntityTameableDragon dragon)
+    {
+        soundEffectBreathWeapon = dragon.getBreed().getSoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);
+    }
+
 
     private void updateBreathState(boolean isBreathing) {
         switch (currentBreathState) {

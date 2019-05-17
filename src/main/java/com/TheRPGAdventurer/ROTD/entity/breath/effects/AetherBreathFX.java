@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.effects;
 
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.EntityMoveAndResizeHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.RotatingQuad;
@@ -7,7 +8,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -25,14 +25,35 @@ import java.util.Random;
  */
 public class AetherBreathFX extends Entity {
 
-    private final ResourceLocation airDustCloudRL = new ResourceLocation("dragonmounts:entities/breathweapon/breath_air");
-
     private final float SPLASH_CHANCE = 0.1f;
     private final float LARGE_SPLASH_CHANCE = 0.3f;
 
+    public float scale;
     private static final float MAX_ALPHA = 0.35F;
+    private EntityTameableDragon dragon;
 
+    private final float SMOKE_CHANCE = 0.1f;
+    private final float LARGE_SMOKE_CHANCE = 0.3f;
+    private EntityMoveAndResizeHelper entityMoveAndResizeHelper;
     private BreathNode breathNode;
+
+
+    public AetherBreathFX(World world, double x, double y, double z, Vec3d motion,
+                         BreathNode i_breathNode) {
+        super(world);
+
+        breathNode = i_breathNode;
+        this.setPosition(x, y, z);
+        this.scale = (this.rand.nextFloat() * 0.7F + 0.7F) * 4.0F;
+
+        //undo random velocity variation of vanilla EntityFX constructor
+        motionX = motion.x;
+        motionY = motion.y;
+        motionZ = motion.z;
+
+        dragon = new EntityTameableDragon(world);
+        entityMoveAndResizeHelper = new EntityMoveAndResizeHelper(this);
+    }
 
     /**
      * creates a single EntityFX from the given parameters.  Applies some random spread to direction.
@@ -51,7 +72,7 @@ public class AetherBreathFX extends Entity {
     public static AetherBreathFX createAetherBreathFX(World world, double x, double y, double z,
                                                 double directionX, double directionY, double directionZ,
                                                 BreathNode.Power power,
-                                                int tickCount, float partialTicksHeadStart)
+                                                int tickCount, float partialTicksHeadStart, EntityTameableDragon dragon)
     {
         Vec3d direction = new Vec3d(directionX, directionY, directionZ).normalize();
 
@@ -221,14 +242,9 @@ public class AetherBreathFX extends Entity {
         final float YOUNG_AGE = 0.25F;
         final float OLD_AGE = 0.75F;
 
-//        float lifetimeFraction = breathNode.getLifetimeFraction();
-//        if (lifetimeFraction < YOUNG_AGE) {
-//            particleAlpha = MAX_ALPHA;
-//        } else if (lifetimeFraction < OLD_AGE) {
-//            particleAlpha = MAX_ALPHA;
-//        } else {
-//            particleAlpha = MAX_ALPHA * (1 - lifetimeFraction);
-//        }
+        final float ENTITY_SCALE_RELATIVE_TO_SIZE = 5.0F;
+        float currentEntitySize = breathNode.getCurrentRenderDiameter();
+        scale = ENTITY_SCALE_RELATIVE_TO_SIZE * currentEntitySize;
 
         rotationResidual += rotationSpeedQuadrantsPerTick;
         int quadrantsRotated = MathHelper.floor(rotationResidual);
@@ -286,7 +302,6 @@ public class AetherBreathFX extends Entity {
         entityMoveAndResizeHelper.moveAndResizeEntity(dx, dy, dz, this.width, this.height);
     }
 
-    private EntityMoveAndResizeHelper entityMoveAndResizeHelper;
     private RotatingQuad textureUV;
     private boolean clockwiseRotation;
     private float rotationSpeedQuadrantsPerTick;
@@ -300,10 +315,5 @@ public class AetherBreathFX extends Entity {
     private double spawnTimeTicks = 0;
     private double ticksSinceSpawn = 0;
 
-    //  // the wiggle at the dragon's mouth performs a cycle every WIGGLE_CYCLE_IN_TICKS ticks.
-    //  // the forward movement of this shape, compared to the movement speed of the breathnodes themselves, is
-    //  //  WIGGLE_RELATIVE_FORWARD_SPEED
-    //  private static final double WIGGLE_CYCLE_IN_TICKS = 4.0;
-    //  private static final double WIGGLE_RELATIVE_FORWARD_SPEED = 0.4;
 
 }

@@ -7,9 +7,11 @@ import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.*;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -132,6 +134,9 @@ public class DragonBreathHelper extends DragonHelper {
     private void onLivingUpdateClient() {
         updateBreathState(dragon.isUsingBreathWeapon());
 
+        soundEffectBreathWeapon=dragon.getBreed().getSoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);
+
+
         if (dragon.isUsingBreathWeapon()) {
             Vec3d origin=dragon.getAnimator().getThroatPosition();
             Vec3d lookDirection=dragon.getLook(1.0f);
@@ -142,17 +147,23 @@ public class DragonBreathHelper extends DragonHelper {
             }
         }
 
-        if (soundController==null) {
-            soundController=new SoundController();
-        }
-        if (soundEffectBreathWeapon==null) {
-            soundEffectBreathWeapon=new SoundEffectBreathWeapon(soundController, weaponInfoLink);
-        }
-        soundEffectBreathWeapon.performTick(Minecraft.getMinecraft().player, dragon);
+
+        soundEffectBreathWeapon.performTick(Minecraft.getMinecraft().player);
     }
-    public void refreshBreedClientOnly(EntityTameableDragon dragon)
-    {
-        soundEffectBreathWeapon = dragon.getBreed().getSoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);
+
+    public SoundController getSoundController(World world) {
+        if (!world.isRemote) {
+            throw new IllegalArgumentException("getSoundController() only valid for WorldClient");
+        }
+        if (soundController==null) {
+            soundController=new SoundController((WorldClient) world);
+        }
+
+        return soundController;
+    }
+
+    public void refreshBreedClientOnly(EntityTameableDragon dragon) {
+        soundEffectBreathWeapon=dragon.getBreed().getSoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);
     }
 
 

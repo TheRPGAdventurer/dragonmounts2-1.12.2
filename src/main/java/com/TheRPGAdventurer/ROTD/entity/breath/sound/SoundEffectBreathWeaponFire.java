@@ -7,6 +7,7 @@ import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
  * Sounds effects for the dragon's mouth for fire
  */
 public class SoundEffectBreathWeaponFire extends SoundEffectBreathWeapon {
+
     public SoundEffectBreathWeaponFire(SoundController i_soundController, WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
         super(i_soundController, i_weaponSoundUpdateLink);
     }

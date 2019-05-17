@@ -220,6 +220,37 @@ public class BreathWeaponEmitter {
     previousOrigin = origin;
     previousTickCount = tickCounter;
   }
+
+  /**
+   * Spawn breath particles for this tick.  If the beam endpoints have moved, interpolate between them, unless
+   *   the beam stopped for a while (tickCount skipped one or more tick)
+   * @param world
+   * @param power the strength of the beam
+   */
+  public void spawnBreathParticlesforAetherDragon(World world, BreathNode.Power power, int tickCounter) {
+	  EntityTameableDragon dragon = new EntityTameableDragon(world);
+    if (tickCounter != previousTickCount + 1) {
+      previousDirection = direction;
+      previousOrigin = origin;
+    } else {
+      if (previousDirection == null) previousDirection = direction;
+      if (previousOrigin == null) previousOrigin = origin;
+    }
+    final int PARTICLES_PER_TICK = 4;
+    for (int i = 0; i < PARTICLES_PER_TICK; ++i) {
+      float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
+      Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
+      Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
+      AetherBreathFX iceBreathFX = AetherBreathFX.createAetherBreathFX(world, interpOrigin.x, interpOrigin.y, interpOrigin.z,
+    		  interpDirection.x, interpDirection.y, interpDirection.z,
+              power, tickCounter, partialTickHeadStart, dragon);
+
+      Minecraft.getMinecraft().world.spawnEntity(iceBreathFX);
+    }
+    previousDirection = direction;
+    previousOrigin = origin;
+    previousTickCount = tickCounter;
+  }
   /**
    * Spawn breath particles for this tick.  If the beam endpoints have moved, interpolate between them, unless
    *   the beam stopped for a while (tickCount skipped one or more tick)

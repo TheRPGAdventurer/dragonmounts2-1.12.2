@@ -32,15 +32,15 @@ public abstract class DragonBreed {
 
     private final String skin;
     private final int color;
-    private final Set<String> immunities = new HashSet<>();
-    private final Set<Block> breedBlocks = new HashSet<>();
-    private final Set<Biome> biomes = new HashSet<>();
-    protected final Random rand = new Random();
+    private final Set<String> immunities=new HashSet<>();
+    private final Set<Block> breedBlocks=new HashSet<>();
+    private final Set<Biome> biomes=new HashSet<>();
+    protected final Random rand=new Random();
     public static SoundEffectNames[] soundEffectNames;
 
     DragonBreed(String skin, int color) {
-        this.skin = skin;
-        this.color = color;
+        this.skin=skin;
+        this.color=color;
 
         // ignore suffocation damage
         setImmunity(DamageSource.DROWN);
@@ -117,10 +117,7 @@ public abstract class DragonBreed {
     }
 
     public static Item[] getFoodItems() {
-        return new Item[]{Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH,
-                Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN,
-                Items.COOKED_MUTTON, Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON,
-                Items.COOKED_PORKCHOP};
+        return new Item[]{Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH, Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON, Items.COOKED_PORKCHOP};
     }
 
     public Item[] getShrinkingFood() {
@@ -151,24 +148,24 @@ public abstract class DragonBreed {
         }
 
         // only apply if footprints are enabled
-        float footprintChance = getFootprintChance();
-        if (footprintChance == 1) {
+        float footprintChance=getFootprintChance();
+        if (footprintChance==1) {
             return;
         }
 
         // footprint loop, from EntitySnowman.onLivingUpdate with slight tweaks
-        World world = dragon.world;
-        for (int i = 0; i < 4; i++) {
+        World world=dragon.world;
+        for (int i=0; i < 4; i++) {
             // place only if randomly selected
             if (world.rand.nextFloat() > footprintChance) {
                 continue;
             }
 
             // get footprint position
-            double bx = dragon.posX + (i % 2 * 2 - 1) * 0.25;
-            double by = dragon.posY + 0.5;
-            double bz = dragon.posZ + (i / 2 % 2 * 2 - 1) * 0.25;
-            BlockPos pos = new BlockPos(bx, by, bz);
+            double bx=dragon.posX + (i % 2 * 2 - 1) * 0.25;
+            double by=dragon.posY + 0.5;
+            double bz=dragon.posZ + (i / 2 % 2 * 2 - 1) * 0.25;
+            BlockPos pos=new BlockPos(bx, by, bz);
 
             // footprints can only be placed on empty space
             if (world.isAirBlock(pos)) {
@@ -194,7 +191,7 @@ public abstract class DragonBreed {
     public abstract void onDeath(EntityTameableDragon dragon);
 
     public SoundEvent getLivingSound() {
-        if (rand.nextInt(3) == 0) {
+        if (rand.nextInt(3)==0) {
             return ModSounds.ENTITY_DRAGON_GROWL;
         } else {
             return ModSounds.ENTITY_DRAGON_BREATHE;
@@ -246,45 +243,37 @@ public abstract class DragonBreed {
         return true;
     }
 
-    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power
-            power, EntityTameableDragon dragon) {
+    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getBreathAffectedArea().continueBreathing(world, origin, endOfLook, power, dragon);
         dragon.getBreathHelper().getBreathAffectedArea().updateTick(world);
     }
 
-    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d
-            endOfLook, EntityTameableDragon dragon) {
+    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticles(world, power, tickCounter);
     }
 
     public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-        final SoundEffectNames hatchling[] = {SoundEffectNames.HATCHLING_BREATHE_FIRE_START,
-                SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP,
-                SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
+        final SoundEffectNames hatchling[]={SoundEffectNames.HATCHLING_BREATHE_FIRE_START, SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP, SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
 
-        final SoundEffectNames juvenile[] = {SoundEffectNames.JUVENILE_BREATHE_FIRE_START,
-                SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP,
-                SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
+        final SoundEffectNames juvenile[]={SoundEffectNames.JUVENILE_BREATHE_FIRE_START, SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP, SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
 
-        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_FIRE_START,
-                SoundEffectNames.ADULT_BREATHE_FIRE_LOOP,
-                SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
+        final SoundEffectNames adult[]={SoundEffectNames.ADULT_BREATHE_FIRE_START, SoundEffectNames.ADULT_BREATHE_FIRE_LOOP, SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
 
         switch (stage) {
             case ADULT:
-                soundEffectNames = adult;
+                soundEffectNames=adult;
                 break;
             case EGG:
                 break;
             case HATCHLING:
-                soundEffectNames = hatchling;
+                soundEffectNames=hatchling;
                 break;
             case INFANT:
-                soundEffectNames = hatchling;
+                soundEffectNames=hatchling;
                 break;
             case JUVENILE:
-                soundEffectNames = juvenile;
+                soundEffectNames=juvenile;
                 break;
             default:
                 break;
@@ -300,10 +289,10 @@ public abstract class DragonBreed {
 
     /**
      * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
+     *
      * @return
      */
-    public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController,
-                                                              SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+    public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController, SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
         return new SoundEffectBreathWeaponFire(i_soundController, i_weaponSoundUpdateLink);
     }
 

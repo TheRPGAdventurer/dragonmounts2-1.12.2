@@ -68,6 +68,7 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(AetherBreathFX.class, RenderAetherBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());

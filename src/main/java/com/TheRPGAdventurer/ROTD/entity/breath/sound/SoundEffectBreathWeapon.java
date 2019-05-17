@@ -27,7 +27,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Is subclassed for the different breath weapons.
  */
 public abstract class SoundEffectBreathWeapon {
-
     public SoundEffectBreathWeapon(SoundController i_soundController, WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
         soundController=i_soundController;
         weaponSoundUpdateLink=i_weaponSoundUpdateLink;

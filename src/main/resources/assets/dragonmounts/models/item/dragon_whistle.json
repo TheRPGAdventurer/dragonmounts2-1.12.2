@@ -1,6 +1,7 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/dragon_whistle"
+	    "layer0": "dragonmounts:items/dragon_whistle_1",
+	    "layer1": "dragonmounts:items/dragon_whistle_2"
 	}
 }

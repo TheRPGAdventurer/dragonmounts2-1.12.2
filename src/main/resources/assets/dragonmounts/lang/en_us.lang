@@ -56,10 +56,9 @@ dragon.adult=Adult
 # Item Names
 ##
 item.diamond_shears.name=Diamond Shears
-item.structure_spawner.name=Structure Spawner (Debug)
 item.dragonEgg.name=%s Egg
-item.dragon_gender.name=Dragon Gender Switcher
-item.gui.dragon_gender=Left Click an owned dragon to change the gender of it
+item.dragon_gender.name=Dragon Gender Gem
+item.gui.dragon_gender=Left Click an owned dragon with the gem will switch its gender
 item.summon_egg.name=Spawn Dragon
 item.dragon_essence.name=Dragon Essence
 item.dragon_whistle.name=Dragon Whistle
@@ -94,11 +93,12 @@ tile.pileofsticks.name=Nest Block
 tile.block_dragon_shulker.name=Dragon Core
 
 # Item Info
-item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
+item.removeNBT=<Sneak + Right Click to unbind a Dragon>
+item.armoryitems.info=Forged with the Scales of
+item.diamondshears.info=Used to get scales from tamed dragons without killing it. Untamed ones will attack
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (!WIP!)
-dragon.amulet=Right click a Dragon to store it
 
 
 ##
@@ -106,6 +106,7 @@ dragon.amulet=Right click a Dragon to store it
 ##
 dragon.locked=This Dragon has been locked by the Owner
 dragon.notTamed=This Dragon is not Tamed
+dragon.notOwned=You do not own this dragon
 entity.dragon.tooYoung=Dragon is too young for that, let it grow
 egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
@@ -113,13 +114,13 @@ entity.dragon.tooYounng=The dragon is too young to be saddled, let it grow.
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 
-#Whistle
-item.whistle.notOwned=You do not own this dragon
-item.whistle.hasDragon=Dragon Successfully Bound to Whistle
-item.whistle.unBound=You Must Bind a Dragon First
-item.whistle.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
-item.whistle.limit=One Whistle can only command 3 Dragons
-item.command.new_home=New HomePos at
+# Whistle
+whistle.msg.cleared=Dragon has been unbound
+whistle.msg.hasDragon=Dragon Successfully Bound to Whistle
+whistle.msg.unBound=You Must Bind a Dragon First
+whistle.msg.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
+whistle.msg.fail=The Dragon can't hear the whistle...
+whistle.command.new_home=New HomePos at
 
 
 ##

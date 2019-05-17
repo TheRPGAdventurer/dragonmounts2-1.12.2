@@ -24,6 +24,7 @@ import com.TheRPGAdventurer.ROTD.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.entity.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.inits.*;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
+import com.TheRPGAdventurer.ROTD.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonExtras;
@@ -781,23 +782,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     /**
      * Checks if the blocks below the dragons hitbox is present and solid
-     *
-     * @return True if so
      */
     public boolean onSolidGround() {
-        double[] xz = {-2, -1, 0, 1, 2};
-
-        //Array not needed for y, only used once (In fact its better this way) @Wolf
-        for (double y = -3.0; y <= -1.0; ++y) {
-            for (double x : xz) {
-                for (double z : xz) {
-                    if (isBlockSolid(posX + x, posY + y, posZ + z) && this.getScale() > 0.70) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+    	for (double y = -3.0; y <= -1.0; ++y) {
+    		for (double xz = -2.0; xz < 3.0; ++xz) {
+    			if (isBlockSolid(posX + xz, posY + y, posZ + xz)) return true;
+    		}
+    	}
+    	return false;
     }
 
     /*
@@ -1024,13 +1016,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (isTamed()) {
             ItemDragonEssence essence = dragonEssence();
             ItemStack essenceStack = new ItemStack(essence);
-            essence.setDragonNBT(this, essenceStack);
-            generateChest(world, this.getPosition(), essenceStack);
+            NBTTagCompound nbt = new NBTTagCompound();
+            this.writeToNBT(nbt);
+            essenceStack.setTagCompound(nbt);
+            
+            generateContainer(world, this.getPosition(), essenceStack);
         }
 
     }
 
-    public void generateChest(World world, BlockPos pos, ItemStack essenceStack) {
+    public void generateContainer(World world, BlockPos pos, ItemStack essenceStack) {
         world.setBlockState(pos, ModBlocks.DRAGONSHULKER.getDefaultState(), 1);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileEntityDragonShulker) {
@@ -1497,6 +1492,51 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return false;
     }
 
+    /**
+     * @deprecated
+     * TODO Method used for temporary amulet datafix. REMOVE THIS BEFORE NEXT PATCH!
+     */
+    public ItemDragonAmulet dragonAmulet() {
+        switch (getBreedType()) {
+            case AETHER:
+                return ModItems.AmuletAether;
+            case ENCHANT:
+                return ModItems.AmuletEnchant;
+            case END:
+                return ModItems.AmuletEnd;
+            case FIRE:
+                return ModItems.AmuletFire;
+            case FOREST:
+                return ModItems.AmuletForest;
+            case ICE:
+                return ModItems.AmuletIce;
+            case NETHER:
+                return ModItems.AmuletNether;
+            case SKELETON:
+                return ModItems.AmuletSkeleton;
+            case STORM:
+                return ModItems.AmuletStorm;
+            case SUNLIGHT:
+                return ModItems.AmuletSunlight;
+            case SYLPHID:
+                return ModItems.AmuletWater;
+            case TERRA:
+                return ModItems.AmuletTerra;
+            case WITHER:
+                return ModItems.AmuletWither;
+            case ZOMBIE:
+                return ModItems.AmuletZombie;
+            case MOONLIGHT:
+                return ModItems.AmuletMoonlight;
+            default:
+                return ModItems.AmuletEnd;
+
+        }
+    }
+
+    
+    
+    
     public ItemDragonEssence dragonEssence() {
         switch (getBreedType()) {
             case AETHER:
@@ -2053,7 +2093,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean isHatchling() {
-        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant();
+        return getLifeStageHelper().isHatchling(); //|| getLifeStageHelper().isInfant();
     }
 
     public boolean isInfant() {
@@ -2069,13 +2109,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return getLifeStageHelper().isAdult();
     }
 
-    public boolean isGiga() {
+/*    public boolean isGiga() {
         return getLifeStageHelper().isAdult();
     }
 
     public boolean isAdjudicator() {
         return getLifeStageHelper().isAdult();
     }
+*/    
 
     @Override
     public boolean isChild() {
@@ -2225,6 +2266,71 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     protected boolean canFitPassenger(Entity passenger) {
         return this.getPassengers().size() < 3;
+    }
+
+    private void updateForRiding() {
+        doBlockCollisions();
+        List<Entity> list = this.world.getEntitiesInAABBexcluding(this,
+                this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D),
+                EntitySelectors.getTeamCollisionPredicate(this));
+
+        if (!list.isEmpty() && isSaddled() && isAdult()) {
+            boolean flag = !this.world.isRemote;
+
+            for (int j = 0; j < list.size(); ++j) {
+                Entity entity = list.get(j);
+                if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
+                    if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && (isJuvenile() || isAdult())) {
+                        entity.startRiding(this);
+                    } else {
+                        this.applyEntityCollision(entity);
+                    }
+                }
+            }
+        }
+
+        if (getControllingPlayer() == null && !isFlying() && isSitting()) {
+            removePassengers();
+        } else if (isChild() || !isSaddled()) {
+            removePassengers();
+        }
+    }
+
+    /**
+     * Updates the state of the enderdragon's current endercrystal.
+     */
+    private void updateDragonEnderCrystal() {
+        if (!isDead) {
+            if (this.healingEnderCrystal != null) {
+                if (this.healingEnderCrystal.isDead) {
+                    this.healingEnderCrystal = null;
+                } else if (this.ticksExisted % 10 == 0) {
+                    if (this.getHealth() < this.getMaxHealth()) {
+                        this.setHealth(this.getHealth() + 1.0F);
+                    }
+
+                    addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 15 * 20));
+                }
+            }
+
+            if (this.rand.nextInt(10) == 0) {
+                List<EntityEnderCrystal> list = this.world.getEntitiesWithinAABB(
+                        EntityEnderCrystal.class, this.getEntityBoundingBox().grow(32.0D));
+                EntityEnderCrystal entityendercrystal = null;
+                double d0 = Double.MAX_VALUE;
+
+                for (EntityEnderCrystal entityendercrystal1 : list) {
+                    double d1 = entityendercrystal1.getDistanceSqToEntity(this);
+
+                    if (d1 < d0) {
+                        d0 = d1;
+                        entityendercrystal = entityendercrystal1;
+                    }
+                }
+
+                this.healingEnderCrystal = entityendercrystal;
+            }
+        }
     }
 
     /**

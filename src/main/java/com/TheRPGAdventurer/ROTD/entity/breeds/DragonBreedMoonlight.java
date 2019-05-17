@@ -2,6 +2,8 @@ package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -40,5 +42,14 @@ public class DragonBreedMoonlight extends DragonBreed {
 	public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
 		dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
 		dragon.getBreathHelper().getEmitter().spawnBreathParticlesforIceDragon(world, power, tickCounter);
+	}
+
+	@Override
+	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+		final SoundEffectNames ice[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+				SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+				SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+
+		return ice;
 	}
 }

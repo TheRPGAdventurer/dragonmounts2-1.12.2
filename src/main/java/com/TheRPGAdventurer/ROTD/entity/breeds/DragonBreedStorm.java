@@ -56,39 +56,15 @@ public class DragonBreedStorm extends DragonBreed {
 //	public boolean isInfertile() {
 //		return true;
 //	}
-	
+
 	@Override
 	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-    	final SoundEffectNames hatchling[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+		final SoundEffectNames ice[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
+				SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
+				SoundEffectNames.ADULT_BREATHE_ICE_STOP};
 
-        final SoundEffectNames juvenile[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-
-        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-            SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-            SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-    	
-    	switch(stage) {
-		case ADULT:
-			soundEffectNames = adult;
-			break;
-		case EGG:
-			break;
-		case HATCHLING:
-			soundEffectNames = hatchling;
-			break;
-		case JUVENILE:
-			soundEffectNames = juvenile;       
-			break;
-		default:
-			break;    	
-    	}
-    	
-		return soundEffectNames;
-    }
+		return ice;
+	}
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {

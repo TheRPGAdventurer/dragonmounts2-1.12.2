@@ -70,7 +70,7 @@ public class DragonBreedAir extends DragonBreed {
     @Override
     public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
         final SoundEffectNames aether[]={SoundEffectNames.ADULT_BREATHE_AETHER_START, SoundEffectNames.ADULT_BREATHE_AETHER_LOOP, SoundEffectNames.ADULT_BREATHE_AETHER_STOP};
-        
+
         return aether;
     }
 

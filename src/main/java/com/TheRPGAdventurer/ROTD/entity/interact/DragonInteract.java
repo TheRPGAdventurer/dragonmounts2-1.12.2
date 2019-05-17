@@ -34,35 +34,35 @@ public class DragonInteract extends DragonInteractBase {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer()) {
-        	if (isAllowed(player)) {
+            if (isAllowed(player)) {
 
-	            /*
-	             * Riding
-	             */
-	            if (dragon.isTamed() && dragon.isSaddled() && !dragon.isChild() && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
-	                dragon.setRidingPlayer(player);
-	                return true;
-	            }
+                /*
+                 * Riding
+                 */
+                if (dragon.isTamed() && dragon.isSaddled() && (dragon.isAdult() || dragon.isJuvenile()) && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
+                    dragon.setRidingPlayer(player);
+                    return true;
+                }
 
 
 
-	            /*
-	             * GUI
-	             */
-	            if (player.isSneaking() && dragon.isTamed() && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) {
-	                // Dragon Inventory
-	                if (!dragon.isHatchling()) {
-	                    dragon.openGUI(player, GuiHandler.GUI_DRAGON);
-	                    return true;
-	                } else player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
-	                // Wand Gui
+                /*
+                 * GUI
+                 */
+                if (player.isSneaking() && dragon.isTamed() && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) {
+                    // Dragon Inventory
+                    if (!dragon.isHatchling()) {
+                        dragon.openGUI(player, GuiHandler.GUI_DRAGON);
+                        return true;
+                    } else player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
+                    // Wand Gui
 /*        		if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
 	            		dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
 	            		return true;
 	            	}
 */
-	            }
-        	}
+                }
+            }
 
 
 
@@ -89,11 +89,18 @@ public class DragonInteract extends DragonInteractBase {
                     }
                     // Healing (if Hurt)
                     if (dragon.getHealthRelative() < 1) {
-                        dragon.heal(28 / dragon.getScale());
+                        dragon.heal(22F / dragon.getScale());
                         eatEvent(player);
+                    }
+
+                    // breed
+                    if (dragon.isBreedingItem(item) && dragon.isAdult() && !dragon.isInLove()) {
+                        eatEvent(player);
+                        dragon.setInLove(player);
                     }
                     return true;
                 }
+
                 // Stop Growth
                 ItemFood shrinking=(ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
                 if (shrinking!=null) {

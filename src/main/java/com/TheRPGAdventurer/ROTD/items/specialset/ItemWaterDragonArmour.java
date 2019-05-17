@@ -20,7 +20,8 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 		this.potionEffect = potionEffect;
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.setUnlocalizedName("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
-		
+
+		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
 	}
 	
 	@Override

@@ -30,6 +30,8 @@ public class ItemDragonForestBow extends ItemDragonBow implements IHasModel {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.type = type;
         this.repair = repair;
+
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
         {
             @SideOnly(Side.CLIENT)

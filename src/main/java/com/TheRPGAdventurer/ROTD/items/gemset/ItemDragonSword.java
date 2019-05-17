@@ -25,11 +25,12 @@ public class ItemDragonSword extends ItemSword{
 
     public ItemDragonSword(ToolMaterial material, String name, EnumItemBreedTypes type) {
         super(material);
-        this.setUnlocalizedName("dragon_sword");
+        this.setUnlocalizedName(name);
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
         ModTools.TOOLS.add(this);
     }
 

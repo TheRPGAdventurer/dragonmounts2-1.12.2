@@ -109,7 +109,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     @SideOnly(Side.CLIENT)
     private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
         if (release) {
-            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.NEUTRAL, 1, 1);
+//            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.NEUTRAL, 1, 1);
             player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
             stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
         } else {

@@ -9,19 +9,23 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
  */
 public enum SoundEffectNames {
 	
-  ADULT_BREATHE_FIRE_START("mob.dragon.breathweapon.dragon.adultbreathefirestart"),
-  ADULT_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.dragon.adultbreathefireloop"),
-  ADULT_BREATHE_FIRE_STOP("mob.dragon.breathweapon.dragon.adultbreathefirestop"),
-  JUVENILE_BREATHE_FIRE_START("mob.dragon.breathweapon.dragon.juvenilebreathefirestart"),
-  JUVENILE_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.dragon.juvenilebreathefireloop"),
-  JUVENILE_BREATHE_FIRE_STOP("mob.dragon.breathweapon.dragon.juvenilebreathefirestop"),
-  HATCHLING_BREATHE_FIRE_START("mob.dragon.breathweapon.dragon.hatchlingbreathefirestart"),
-  HATCHLING_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.dragon.hatchlingbreathefireloop"),
-  HATCHLING_BREATHE_FIRE_STOP("mob.dragon.breathweapon.dragon.hatchlingbreathefirestop"),
+  ADULT_BREATHE_FIRE_START("mob.dragon.breathweapon.fire.adultbreathefirestart"),
+  ADULT_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.fire.adultbreathefireloop"),
+  ADULT_BREATHE_FIRE_STOP("mob.dragon.breathweapon.fire.adultbreathefirestop"),
+  JUVENILE_BREATHE_FIRE_START("mob.dragon.breathweapon.fire.juvenilebreathefirestart"),
+  JUVENILE_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.fire.juvenilebreathefireloop"),
+  JUVENILE_BREATHE_FIRE_STOP("mob.dragon.breathweapon.fire.juvenilebreathefirestop"),
+  HATCHLING_BREATHE_FIRE_START("mob.dragon.breathweapon.fire.hatchlingbreathefirestart"),
+  HATCHLING_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.fire.hatchlingbreathefireloop"),
+  HATCHLING_BREATHE_FIRE_STOP("mob.dragon.breathweapon.fire.hatchlingbreathefirestop"),
   
-  ADULT_BREATHE_ICE_START("mob.dragon.breathweapon.dragon.adultbreatheicestart"),
-  ADULT_BREATHE_ICE_LOOP("mob.dragon.breathweapon.dragon.adultbreatheiceloop"),
-  ADULT_BREATHE_ICE_STOP("mob.dragon.breathweapon.dragon.adultbreatheicestop");
+  ADULT_BREATHE_ICE_START("mob.dragon.breathweapon.ice.adultbreatheicestart"),
+  ADULT_BREATHE_ICE_LOOP("mob.dragon.breathweapon.ice.adultbreatheiceloop"),
+  ADULT_BREATHE_ICE_STOP("mob.dragon.breathweapon.ice.adultbreatheicestop"),
+
+  ADULT_BREATHE_AETHER_START("mob.dragon.breathweapon.air.adultbreatheairstart"),
+  ADULT_BREATHE_AETHER_LOOP("mob.dragon.breathweapon.air.adultbreatheairloop"),
+  ADULT_BREATHE_AETHER_STOP("mob.dragon.breathweapon.air.adultbreatheairstop");
 
   public final String getJsonName() {return DragonMounts.MODID + ":" + jsonName;}
 

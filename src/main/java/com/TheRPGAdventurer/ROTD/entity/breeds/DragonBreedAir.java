@@ -2,6 +2,8 @@ package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
@@ -63,6 +65,13 @@ public class DragonBreedAir extends DragonBreed {
     public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforAetherDragon(world, power, tickCounter);
+    }
+
+    @Override
+    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+        final SoundEffectNames aether[]={SoundEffectNames.ADULT_BREATHE_AETHER_START, SoundEffectNames.ADULT_BREATHE_AETHER_LOOP, SoundEffectNames.ADULT_BREATHE_AETHER_STOP};
+        
+        return aether;
     }
 
 }

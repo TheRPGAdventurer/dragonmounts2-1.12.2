@@ -69,6 +69,7 @@ public class DragonBreathHelper extends DragonHelper {
         breathAffectedAreaEnder = new BreathAffectedArea(new BreathWeaponEnder(dragon));
         breathAffectedAreaWither = new BreathAffectedArea(new BreathWeaponWither(dragon));
         breathAffectedAreaPoison = new BreathAffectedArea(new BreathWeaponPoison(dragon));
+        breathAffectedAreaAether = new BreathAffectedArea(new BreathWeaponAether(dragon));
     }
 
     public enum  BreathState {IDLE, STARTING, SUSTAIN, STOPPING}

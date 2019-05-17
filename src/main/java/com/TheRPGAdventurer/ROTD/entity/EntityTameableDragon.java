@@ -14,7 +14,6 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
-import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
@@ -66,7 +65,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -431,28 +429,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         hasChestVarChanged = true;
     }
 
-    public boolean isFlyingAround() {
-        if (inAirTicks < 2000 && this.isFlying() && getControllingPlayer() == null && getAttackTarget() == null && !isTamed()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isTargetBlocked(Vec3d target) {
-        if (target != null) {
-            RayTraceResult rayTrace = world.rayTraceBlocks(new Vec3d(this.getPosition()), target, false);
-            if (rayTrace != null && rayTrace.hitVec != null) {
-                BlockPos pos = new BlockPos(rayTrace.hitVec);
-                if (!world.isAirBlock(pos)) {
-                    return true;
-                }
-                return rayTrace != null && rayTrace.typeOfHit != RayTraceResult.Type.BLOCK;
-            }
-        }
-        return false;
-    }
-
     public boolean canBeAdjucator() {
         return dataManager.get(HAS_ADJUCATOR_STONE);
     }
@@ -691,11 +667,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!world.isRemote) {
             this.followYaw = folowYaw;
         }
-    }
-
-    @Override
-    protected void initEntityAI() {
-        tasks.addTask(6, new EntityAIAirPoint(this));
     }
 
     /**
@@ -1203,13 +1174,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Returns the sound this mob makes when it is hurt.
      */
-    public SoundEvent getHurtSound() {
+    @Override
+    public SoundEvent getHurtSound(DamageSource src) {
         if (isEgg()) {
             return ModSounds.DRAGON_HATCHING;
         } else {
             return getBreed().getHurtSound();
         }
     }
+
+
 
     public SoundEvent getWingsSound() {
         return getBreed().getWingsSound();

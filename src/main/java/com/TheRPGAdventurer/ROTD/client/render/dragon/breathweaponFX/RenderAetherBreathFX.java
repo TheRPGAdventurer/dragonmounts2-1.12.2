@@ -13,8 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Random;
-
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
@@ -60,10 +58,10 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
         tessellator.draw();
 
-        Random random = new Random();
-        if(random.nextInt(4) == 1) {
-            GlStateManager.rotate(90,0,0,0);
-        }
+//        Random random = new Random();
+//        if(random.nextInt(4) == 1) {
+//            GlStateManager.rotate(90,0,0,0);
+//        }
 
         if (this.renderOutlines) {
             GlStateManager.disableOutlineMode();

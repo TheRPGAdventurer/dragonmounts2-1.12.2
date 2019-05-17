@@ -1,7 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity;
 
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
-import com.sun.istack.internal.Nullable;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +26,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class EntityCarriage extends Entity {
 

@@ -77,7 +77,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
             tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
             tooltip.add("Health: " + TextFormatting.GREEN + stack.getTagCompound().getDouble("Health"));
             tooltip.add("Owner: " + TextFormatting.GOLD + stack.getTagCompound().getString("Owner"));
-            tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + "DEBUG: Amulet ID: " + (stack.getTagCompound().hasKey("Id") ? stack.getTagCompound().getString("Id") : "null"));
+            tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + "DEBUG: Amulet ID: " + (stack.getTagCompound().hasKey("inventory") ? stack.getTagCompound().getString("inventory") : "null"));
         } else tooltip.add(StatCollector.translateToLocal("dragon.amulet"));
     }
 

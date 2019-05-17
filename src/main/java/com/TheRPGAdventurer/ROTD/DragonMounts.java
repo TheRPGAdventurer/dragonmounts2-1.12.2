@@ -23,7 +23,6 @@ import com.TheRPGAdventurer.ROTD.network.MessageDragonLock;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonWand;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
-import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.world.DragonMountsWorldGenerator;
 
@@ -61,7 +60,7 @@ public class DragonMounts {
     public static final String LLIBRARY_VERSION="1.7.14";
     public static final String GUI_FACTORY="com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
 
-    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.server.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.client.ClientProxy")
+    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.client.ClientProxy")
     public static ServerProxy proxy;
 
     @Instance(value=MODID)

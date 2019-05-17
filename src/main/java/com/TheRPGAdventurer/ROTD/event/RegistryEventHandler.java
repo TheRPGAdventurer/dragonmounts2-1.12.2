@@ -6,12 +6,14 @@ import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityHandler;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonBreedHelper;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
-import com.TheRPGAdventurer.ROTD.items.ItemDragonAmulet;
+import com.TheRPGAdventurer.ROTD.items.ItemDragonAmuletNEW;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
@@ -30,6 +32,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @Mod.EventBusSubscriber
 public class RegistryEventHandler {
+	
+	private static EntityTameableDragon dragon;
+	
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
@@ -63,7 +68,7 @@ public class RegistryEventHandler {
     public static void registerModels(ModelRegistryEvent event) {
         DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.dragonshulker), 0);
         
-        ModelLoader.setCustomMeshDefinition(ModItems.Amulet, new ItemDragonAmulet());
+        ModelLoader.setCustomMeshDefinition(ModItems.Amulet, new ItemDragonAmuletNEW());
         ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation[] {
         		new ModelResourceLocation("dragonmounts:dragon_amulet"),			new ModelResourceLocation("dragonmounts:ice_dragon_amulet"),
         		new ModelResourceLocation("dragonmounts:aether_dragon_amulet"),		new ModelResourceLocation("dragonmounts:moonlight_dragon_amulet"),

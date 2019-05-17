@@ -2,10 +2,10 @@ package com.TheRPGAdventurer.ROTD.client.handler;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.initialization.ModKeys;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
+import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.inits.ModKeys;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;

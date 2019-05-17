@@ -12,6 +12,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,30 @@ public class ItemDragonEssence extends Item implements IHasModel {
         ModItems.ITEMS.add(this);
     }
 
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float x, float y, float z) {
+    	if (world.isRemote || !player.isServerWorld()) return EnumActionResult.FAIL;
+    	ItemStack stack = player.getHeldItem(hand);
+    	if (!stack.hasTagCompound()) return EnumActionResult.FAIL;
+    	
+        EntityTameableDragon dragon = new EntityTameableDragon(world);
+        dragon.readFromNBT(stack.getTagCompound());
+        
+        if (dragon.isTamedFor(player)) {
+        	dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
+        	world.spawnEntity(dragon);
+        		//debug
+        		System.out.println(dragon.getUniqueID());
+        	player.setHeldItem(hand, ItemStack.EMPTY);
+            dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);
+            dragon.world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x + dragon.getRNG().nextInt(5), y + dragon.getRNG().nextInt(5), z + dragon.getRNG().nextInt(5), 1, 1, 1, 0);
+        } else player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+        
+        return super.onItemUse(player, world, pos, hand, facing, x, y, z);
+    }
+    
+    /* INDESTRUCTIBLE */
+    
     @Nonnull
     @Override
     public Entity createEntity(World world, Entity location, ItemStack itemstack) {
@@ -59,13 +84,9 @@ public class ItemDragonEssence extends Item implements IHasModel {
         return entity;
     }
 
-    /* INDESTRUCTIBLE */
-
     @Override
-    public boolean hasCustomEntity(ItemStack stack) {
-        return true;
-    }
-
+    public boolean hasCustomEntity(ItemStack stack) { return true; }
+    
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
@@ -77,70 +98,5 @@ public class ItemDragonEssence extends Item implements IHasModel {
     }
 
     @Override
-    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-        stack.setTagCompound(new NBTTagCompound());
-    }
-
-    public void setDragonNBT(EntityTameableDragon dragon, ItemStack stack) {
-        NBTTagCompound nbt;
-        if (stack.hasTagCompound()) {
-            nbt = stack.getTagCompound();
-        } else {
-            nbt = new NBTTagCompound();
-        }
-
-        stack.setTagCompound(nbt);
-
-        nbt.setUniqueId("essenceID", dragon.getUniqueID());
-
-        if (dragon.hasCustomName()) {
-            stack.setStackDisplayName(dragon.getCustomNameTag());
-        }
-
-        dragon.writeEntityToNBT(nbt);
-    }
-
-    /**
-     * Thanks again Lex!
-     */
-    @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float x, float y, float z) {
-        ItemStack stack = player.getHeldItem(hand);
-        EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
-
-        if (hand != EnumHand.MAIN_HAND || !stack.hasTagCompound()) return EnumActionResult.FAIL;
-
-        dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
-
-
-        if (stack.hasDisplayName()) {
-            dragon.setCustomNameTag(stack.getDisplayName());
-        }
-
-        if (stack.getTagCompound() != null) {
-            dragon.readEntityFromNBT(stack.getTagCompound());
-        }
-
-        dragon.setUniqueId(stack.getTagCompound().getUniqueId("essenceID"));
-        dragon.setBreedType(breed);
-        if (!worldIn.isRemote) {
-            if (dragon.isTamedFor(player)) {
-                worldIn.spawnEntity(dragon);
-            } else {
-                player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-            }
-        }
-
-        stack = new ItemStack(this);
-        dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);
-        dragon.world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x + dragon.getRNG().nextInt(5), y + dragon.getRNG().nextInt(5), z + dragon.getRNG().nextInt(5), 1, 1, 1, 0);
-
-        return super.onItemUse(player, worldIn, pos, hand, facing, x, y, z);
-
-    }
-
-    @Override
-    public void RegisterModels() {
-        DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
-    }
+    public void RegisterModels() { DragonMounts.proxy.registerItemRenderer(this, 0, "inventory"); }
 }

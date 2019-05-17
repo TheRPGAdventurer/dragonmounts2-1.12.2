@@ -1,11 +1,12 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
-import com.TheRPGAdventurer.ROTD.blocks.BlockDragonNest;
-import com.TheRPGAdventurer.ROTD.client.blocks.BlockDragonShulker;
-import net.minecraft.block.Block;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonNest;
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonShulker;
+
+import net.minecraft.block.Block;
 
 public class ModBlocks
 {

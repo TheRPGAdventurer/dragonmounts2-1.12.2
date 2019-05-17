@@ -255,7 +255,7 @@ public class DragonAnimator {
 
         float speedMax = 0.05f;
         float speedEnt = (float) (dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ);
-        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 1f);
+        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 1);
 
         // update main animation timer
         float animAdd = 0.035f;

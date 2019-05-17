@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.inventory.tabs;
+package com.TheRPGAdventurer.ROTD.inventory.tabs;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonSword;

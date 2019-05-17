@@ -11,6 +11,7 @@ package com.TheRPGAdventurer.ROTD.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -33,33 +34,35 @@ public class DragonInteract extends DragonInteractBase {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer()) {
+        	if (isAllowed(player)) {
 
-            /*
-             * Riding
-             */
-            if (dragon.isTamed() && dragon.isSaddled() && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
-                dragon.setRidingPlayer(player);
-                return true;
-            }
+	            /*
+	             * Riding
+	             */
+	            if (dragon.isTamed() && dragon.isSaddled() && !dragon.isChild() && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
+	                dragon.setRidingPlayer(player);
+	                return true;
+	            }
 
 
 
-            /*
-             * GUI
-             */
-            if (player.isSneaking() && dragon.isTamed() /*&& isAllowed(player)*/) {
-                // Dragon Inventory
-                if (!dragon.isHatchling()) {
-                    dragon.openGUI(player, GuiHandler.GUI_DRAGON);
-                    return true;
-                } else player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
-                // Wand Gui
+	            /*
+	             * GUI
+	             */
+	            if (player.isSneaking() && dragon.isTamed() && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) {
+	                // Dragon Inventory
+	                if (!dragon.isHatchling()) {
+	                    dragon.openGUI(player, GuiHandler.GUI_DRAGON);
+	                    return true;
+	                } else player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
+	                // Wand Gui
 /*        		if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
-            		dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
-            		return true;
-            	}
+	            		dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
+	            		return true;
+	            	}
 */
-            }
+	            }
+        	}
 
 
 
@@ -71,6 +74,7 @@ public class DragonInteract extends DragonInteractBase {
                 dragon.getNavigator().clearPathEntity();
                 return true;
             }
+
 
 
             /*

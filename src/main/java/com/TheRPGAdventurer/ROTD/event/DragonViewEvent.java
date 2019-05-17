@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.client.handler;
+package com.TheRPGAdventurer.ROTD.event;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;

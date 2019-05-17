@@ -8,7 +8,7 @@
  **    May you share freely, never taking more than you give.
  */
 
-package com.TheRPGAdventurer.ROTD.handler;
+package com.TheRPGAdventurer.ROTD.event;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;

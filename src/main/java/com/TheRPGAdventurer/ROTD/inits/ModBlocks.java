@@ -3,6 +3,10 @@ package com.TheRPGAdventurer.ROTD.inits;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonNest;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonShulker;
 import net.minecraft.block.Block;
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonNest;
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonShulker;
+
+import net.minecraft.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@
 
 package com.TheRPGAdventurer.ROTD.util;
 
-import com.TheRPGAdventurer.ROTD.items.ItemDragonAmulet;
+import com.TheRPGAdventurer.ROTD.items.ItemDragonAmuletNEW;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -145,7 +145,7 @@ public class ItemUtils {
 		ItemStack itemStack = player.getHeldItemMainhand();
     		if (itemStack == null) return false;
     	//found amulet in mainHand
-    	return itemStack.getItem() instanceof ItemDragonAmulet;
+    	return itemStack.getItem() instanceof ItemDragonAmuletNEW;
     }
 
 }

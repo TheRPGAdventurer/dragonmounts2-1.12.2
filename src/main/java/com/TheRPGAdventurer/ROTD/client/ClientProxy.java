@@ -20,7 +20,7 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
 import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breathweapon.*;
+import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.event.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
@@ -51,9 +51,10 @@ import scala.actors.threadpool.Arrays;
  */
 public class ClientProxy extends ServerProxy {
 
-    private int thirdPersonViewDragon = 0;
-    private boolean followYaw = false;
-    private boolean hover = false;
+    private int thirdPersonViewDragon=0;
+    private int lockY=0;
+    private boolean followYaw=false;
+    private boolean hover=false;
     private ModMetadata metadata;
 
     @Override
@@ -71,10 +72,11 @@ public class ClientProxy extends ServerProxy {
         RenderingRegistry.registerEntityRenderingHandler(WitherBreathFX.class, RenderWitherBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(IceBreathFX.class, RenderIceBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(PoisonBreathFX.class, RenderPoisonBreathFX::new);
+        RenderingRegistry.registerEntityRenderingHandler(AetherBreathFX.class, RenderAetherBreathFX::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityCarriage.class, RenderCarriage::new);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
-        
+
         //Override mcmod.info - This looks cooler :)
         TextFormatting t = null, r = TextFormatting.RESET;
         metadata = event.getModMetadata();
@@ -97,7 +99,7 @@ public class ClientProxy extends ServerProxy {
         		"4. You can press " + t.ITALIC + "ctrl" + r + " to enable boost flight\n" +
         		"5. Dragons need to be of opposite genders to breed";
     }
-    
+
     @Override
     public void Initialization(FMLInitializationEvent evt) {
         super.Initialization(evt);
@@ -123,22 +125,40 @@ public class ClientProxy extends ServerProxy {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void render() { ModKeys.init(); }
+    public void render() {
+        ModKeys.init();
+    }
 
-    public int getDragon3rdPersonView() { return thirdPersonViewDragon; }
+    public int getDragon3rdPersonView() {
+        return thirdPersonViewDragon;
+    }
 
-    public void setDragon3rdPersonView(int view) { thirdPersonViewDragon = view; }
+    public void setDragon3rdPersonView(int view) {
+        thirdPersonViewDragon=view;
+    }
 
-    public boolean getDragonFollowYaw() { return followYaw; }
+    public void setDragonFollowYaw(boolean followYaw) {
+        this.followYaw=followYaw;
+    }
 
-    public void setDragonFollowYaw(boolean followYaw) { this.followYaw = followYaw; }
+    public boolean getDragonFollowYaw() {
+    	return followYaw;
+    }
+
+
+    public void setDragonLockY(int lockY) {
+        this.followYaw=followYaw;
+    }
 
     @Override
     public boolean getDragonHover() { return hover; }
 
     @Override
-    public void setDragonHover(boolean hover) { this.hover = hover; }
+    public void setDragonHover(boolean hover) {
+        this.hover=hover;
+    }
 
-    public void registerItemRenderer(Item item, int meta, String id)
-    { ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id)); }
+    public void registerItemRenderer(Item item, int meta, String id) {
+    	ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
+    }
 }

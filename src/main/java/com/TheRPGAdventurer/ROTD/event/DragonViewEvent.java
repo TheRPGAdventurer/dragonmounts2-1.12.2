@@ -31,7 +31,7 @@ public class DragonViewEvent {
 
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView==1) {
                 if (currentView==0) {
-                    GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                    GlStateManager.translate(0F, -2.6F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==1) {
                     GlStateManager.translate(-4.7F, -3.6F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==2) {
@@ -41,7 +41,7 @@ public class DragonViewEvent {
 
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView==2) {
                 if (currentView==0) {
-                    GlStateManager.translate(0F, -2.6F, DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                    GlStateManager.translate(0F, -2.6F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==1) {
                     GlStateManager.translate(-4.7F, -3.6F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==2) {
@@ -58,7 +58,7 @@ public class DragonViewEvent {
 
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView==1) {
                     if (currentView==0) {
-                        GlStateManager.translate(0F, -2.6F, -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(0F, -2.6F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==1) {
                         GlStateManager.translate(4.7F, -3.6F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==2) {
@@ -68,7 +68,7 @@ public class DragonViewEvent {
 
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView==2) {
                     if (currentView==0) {
-                        GlStateManager.translate(0F, -2.6F, DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(0F, -2.6F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==1) {
                         GlStateManager.translate(4.7F, -3.6F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==2) {
@@ -122,18 +122,16 @@ public class DragonViewEvent {
 
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
-                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
-                    //                    DragonMounts.proxy.setDragonFollowYaw(!DragonMounts.proxy.getDragonFollowYaw());
-                    dragon.setFollowYaw(!dragon.followYaw());
-                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-                    //                    DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
-                    dragon.setUnHovered(!dragon.isUnHovered());
-                } else if (ModKeys.KEY_LOCKEDY.isPressed()) {
-                    //                    DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
-                    dragon.setYLocked(!dragon.isYLocked());
                 }
+
+//                else if (ModKeys.FOLLOW_YAW.isPressed()) {
+//                    dragon.setFollowYaw(!dragon.followYaw());
+//                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
+//                    dragon.setUnHovered(!dragon.isUnHovered());
+//                } else if (ModKeys.KEY_LOCKEDY.isPressed()) {
+//                    dragon.setYLocked(!dragon.isYLocked());
+//                }
             }
-            //            }
         }
     }
 }

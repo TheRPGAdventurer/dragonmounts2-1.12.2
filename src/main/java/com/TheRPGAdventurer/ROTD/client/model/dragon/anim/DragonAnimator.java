@@ -11,9 +11,9 @@ package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.entity.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.SegmentSizePositionRotation;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonBreathHelper;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Spline;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -182,8 +182,8 @@ public class DragonAnimator {
 
     public void setLook(float lookYaw, float lookPitch) {
         // don't twist the neck
-        this.lookYaw = MathX.clamp(lookYaw, -90, 90); // 120
-        this.lookPitch = MathX.clamp(lookPitch, -60, 60); // 90
+        this.lookYaw = MathX.clamp(lookYaw, -120, 120); // 120
+        this.lookPitch = MathX.clamp(lookPitch, -90, 90); // 90
     }
 
     /**
@@ -208,7 +208,7 @@ public class DragonAnimator {
         // check if the wings are moving down and trigger the event
         boolean newWingsDown = cycleOfs > 1;
         if (newWingsDown && !wingsDown && flutter != 0) {
-            dragon.getSoundManager().onWingsDown(speed);
+            dragon.onWingsDown(speed);
         }
         wingsDown = newWingsDown;
 

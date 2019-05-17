@@ -11,8 +11,8 @@ package com.TheRPGAdventurer.ROTD.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.entity.helper.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -85,7 +85,7 @@ public class DragonLifeStageHelper extends DragonHelper {
     public void applyEntityAttributes() {
         applyScaleModifier(MAX_HEALTH);
         applyScaleModifier(ATTACK_DAMAGE);
-        applyScaleModifier(ARMOR);
+        applyScaleModifierArmor(ARMOR);
     }
 
     private void applyScaleModifier(IAttribute attribute) {
@@ -95,6 +95,14 @@ public class DragonLifeStageHelper extends DragonHelper {
             instance.removeModifier(oldModifier);
         }
         instance.applyModifier(new DragonScaleModifier(MathX.clamp(getScale(), 0.1, 1)));
+    }
+
+    private void applyScaleModifierArmor(IAttribute attribute) {
+        IAttributeInstance instance = dragon.getEntityAttribute(attribute);
+        AttributeModifier oldModifier = instance.getModifier(DragonScaleModifier.ID);
+        if (oldModifier != null) {
+            instance.removeModifier(oldModifier);
+        }        instance.applyModifier(new DragonScaleModifier(MathX.clamp(getScale(), 0.1, 1.2)));
     }
 
     /**

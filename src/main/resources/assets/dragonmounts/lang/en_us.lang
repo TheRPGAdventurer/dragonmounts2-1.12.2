@@ -23,22 +23,7 @@ entity.DragonMount.zombie.name=Zombie Dragon
 entity.DragonMount.terra.name=Terra Dragon
 entity.DragonMount.moonlight.name=Moonlight Dragon
 
-entity.DragonMounts.dragon.ice.name=Ice Dragon
-entity.DragonMounts.dragon.end.name=Ender Dragon
-entity.DragonMounts.dragon.aether.name=Aether Dragon
-entity.DragonMounts.dragon.forest.name=Forest Dragon
-entity.DragonMounts.dragon.sylphid.name=Water Dragon
-entity.DragonMounts.dragon.nether.name=Nether Dragon
-entity.DragonMounts.dragon.fire.name=Fire Dragon
-entity.DragonMounts.dragon.skeleton.name=Skeleton Dragon
-entity.DragonMounts.dragon.wither.name=Wither Dragon
-entity.DragonMounts.dragon.enchant.name=Enchant Dragon
-entity.DragonMounts.dragon.sunlight.name=Sunlight Dragon
-entity.DragonMounts.dragon.storm.name=Storm Dragon
-entity.DragonMounts.dragon.zombie.name=Zombie Dragon
-entity.DragonMounts.dragon.terra.name=Terra Dragon
-entity.DragonMounts.dragon.moonlight.name=Moonlight Dragon
-
+#Breeds
 dragon.forest=Forest
 dragon.aether=Aether
 dragon.ice=Ice
@@ -60,6 +45,7 @@ dragon.zombie=Zombie
 dragon.terra=Terra
 dragon.terra2=Terra
 
+#Stage
 dragon.egg=Egg
 dragon.hatchling=Hatchling
 dragon.juvenile=Juvenile
@@ -160,7 +146,11 @@ key.dragon.cancelhover=Cancel Hover
 key.dragon.f7=Change Mount Camera
 key.dragon.followYaw=Follow Yaw
 key.dragon.boost=Flight Boost
+key.dragon.dismount=Shoulder Dismount
+key.dragon.lockY=Lock Height
+key.dragon.cancelhover=Unhover
 
+#Shield
 item.dragon_shield_forest.name=Dragon Shield
 item.dragon_shield_aether.name=Dragon Shield
 item.dragon_shield_end.name=Dragon Shield
@@ -177,6 +167,7 @@ item.dragon_shield_terra.name=Dragon Shield
 item.dragon_shield_terra2.name=Dragon Shield
 item.dragon_shield_moonlight.name=Dragon Shield
 
+#Bows
 item.dragon_bow_forest.name=Dragon Bow
 item.dragon_bow_aether.name=Dragon Bow
 item.dragon_bow_end.name=Dragon Bow

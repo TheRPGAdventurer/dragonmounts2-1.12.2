@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.blocks.tileentities;
 
+import java.util.List;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonShulker;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragonShulker;
@@ -22,8 +24,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import java.util.List;
 
 /**
  * Dragon Core TileEntity

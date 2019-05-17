@@ -188,5 +188,23 @@
     "sounds": [
       "dragonmounts:mob/dragon/breathweapon/adultbreatheicestop"
     ]
+  },
+  "mob.dragon.breathweapon.air.breatheairstart": {
+    "category": "neutral",
+    "sounds": [
+      "mob/dragon/breathweapon/air/breatheairstart"
+    ]
+  },
+  "mob.dragon.breathweapon.air.breatheairloop": {
+    "category": "neutral",
+    "sounds": [
+      "mob/dragon/breathweapon/air/breatheairloop"
+    ]
+  },
+  "mob.dragon.breathweapon.air.breatheairstop": {
+    "category": "neutral",
+    "sounds": [
+      "mob/dragon/breathweapon/air/breatheairstop"
+    ]
   }
 }

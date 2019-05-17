@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.inits.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -50,8 +49,9 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
         ModItems.ITEMS.add(this);
     }
 
-    private boolean containsDragonEntity(ItemStack stack)
-    	{ return !stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound().hasKey("breed"); }
+    private boolean containsDragonEntity(ItemStack stack) {
+        return !stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound().hasKey("breed");
+    }
     
     /**
      * Called when the player has right clicked an entity with the itemstack
@@ -106,7 +106,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     }
     
     /* Item Extras */
-    
+   
     @SideOnly(Side.CLIENT)
 	private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
     	if (release) {

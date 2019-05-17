@@ -89,7 +89,7 @@ public class DragonInteract extends DragonInteractBase {
                     }
                     // Healing (if Hurt)
                     if (dragon.getHealthRelative() < 1) {
-                        dragon.heal(6 * dragon.getScale());
+                        dragon.heal(28 / dragon.getScale());
                         eatEvent(player);
                     }
                     return true;
@@ -115,7 +115,7 @@ public class DragonInteract extends DragonInteractBase {
     }
 
     private void eatEvent(EntityPlayer player) {
-        dragon.playSound(dragon.getSoundManager().getEatSound(), 0.6f, 0.75f);
+        dragon.playSound(dragon.getEatSound(), 0.6f, 0.75f);
         spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems()));
     }
 
@@ -125,10 +125,7 @@ public class DragonInteract extends DragonInteractBase {
             double motionY=dragon.getRNG().nextGaussian() * 0.07D;
             double motionZ=dragon.getRNG().nextGaussian() * 0.07D;
             Vec3d pos=dragon.getAnimator().getThroatPosition();
-            boolean isMoving=dragon.motionX!=0 && dragon.motionY!=0 && dragon.motionZ!=0;
-            float angle=(((dragon.renderYawOffset + 0) * (float) Math.PI) / 180F);
             double hx=pos.x;
-            double yChange=!isMoving && dragon.isFlying() ? 2.6 : 3.6 * dragon.getScale();
             double hy=pos.y;
             double hz=pos.z;
             // Spawn calculated particles

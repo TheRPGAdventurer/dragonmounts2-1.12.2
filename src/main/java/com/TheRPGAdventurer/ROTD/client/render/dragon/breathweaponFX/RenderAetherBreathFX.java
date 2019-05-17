@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.entity.breath.effects.AetherBreathFX;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,7 +18,7 @@ import java.util.Random;
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
-    private final ResourceLocation airDustCloudRL = new ResourceLocation("dragonmounts:entities/breath_air");
+    private final ResourceLocation airDustCloudRL = new ResourceLocation(DragonMounts.MODID,"textures/entities/breath_air.png");
 
     public RenderAetherBreathFX(RenderManager renderManagerIn) {
         super(renderManagerIn);

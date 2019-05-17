@@ -4,7 +4,6 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
-import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -34,7 +33,7 @@ import java.util.List;
  * @author WolfShotz
  * TODO Remove ItemDragonAmulet deprecated class and replace it with this one. Rename this to 'ItemDragonAmulet'
  */
-public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition, IHasModel {
+public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
 
     private EnumItemBreedTypes type;
 
@@ -127,6 +126,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition, IHa
             tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
             tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
             tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("Owner"));
+            tooltip.add("ID: " + t.GOLD + stack.getTagCompound().getString("inventory".isEmpty()? "null" :"inventory"));
         } else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.amulet"));
     }
 
@@ -141,11 +141,5 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition, IHa
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("breed")) {
             return new ModelResourceLocation("dragonmounts:" + stack.getTagCompound().getString("breed") + "_dragon_amulet");
         } else return new ModelResourceLocation("dragonmounts:dragon_amulet");
-    }
-
-
-    @Override
-    public void RegisterModels() {
-        DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
     }
 }

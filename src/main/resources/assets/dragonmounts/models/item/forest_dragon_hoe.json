@@ -1,6 +1,6 @@
 { 
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/forest_dragon_hoe"
+	    "layer0": "dragonmounts:items/tools/hoe/forest_dragon_hoe"
 	}
 }

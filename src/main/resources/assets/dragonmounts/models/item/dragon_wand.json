@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/dragon_wand"
+	    "layer0": "dragonmounts:items/tools/etc/dragon_wand"
 	}
 }

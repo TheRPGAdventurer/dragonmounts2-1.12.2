@@ -23,7 +23,6 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -108,27 +107,12 @@ public class BlockDragonShulker extends BlockContainer {
             return true;
         } else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
-
             if (tileentity instanceof TileEntityDragonShulker) {
-                EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-                boolean flag;
-
-                if (((TileEntityDragonShulker) tileentity).getAnimationStatus() == TileEntityDragonShulker.AnimationStatus.CLOSED) {
-                    AxisAlignedBB axisalignedbb = FULL_BLOCK_AABB.expand((double) (0.5F * (float) enumfacing.getFrontOffsetX()), (double) (0.5F * (float) enumfacing.getFrontOffsetY()), (double) (0.5F * (float) enumfacing.getFrontOffsetZ())).contract((double) enumfacing.getFrontOffsetX(), (double) enumfacing.getFrontOffsetY(), (double) enumfacing.getFrontOffsetZ());
-                    flag = !worldIn.collidesWithAnyBlock(axisalignedbb.offset(pos.offset(enumfacing)));
-                } else {
-                    flag = true;
-                }
-
-                if (flag) {
-                    playerIn.openGui(DragonMounts.instance, GuiHandler.GUI_DRAGON_SHULKER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-                }
-
-                return true;
-            } else {
-                return false;
+            	playerIn.openGui(DragonMounts.instance, GuiHandler.GUI_DRAGON_SHULKER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            	return true;
             }
         }
+		return false;
     }
 
     /**

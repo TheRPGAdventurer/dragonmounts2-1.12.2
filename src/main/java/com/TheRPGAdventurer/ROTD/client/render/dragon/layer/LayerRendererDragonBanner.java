@@ -6,15 +6,12 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedR
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.item.ItemStack;
 
 public class LayerRendererDragonBanner extends LayerRendererDragon {
 	
-    private final ModelBanner bannerModel = new ModelBanner();
-
 	public LayerRendererDragonBanner(DragonRenderer renderer, DefaultDragonBreedRenderer breedRenderer,
 			DragonModel model) {
 		super(renderer, breedRenderer, model); 
@@ -31,8 +28,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 
     	GlStateManager.pushMatrix();
     	
-        if(itemstack1 != null) {
- 	       float f = 0.625F; 	   	       
+        if(itemstack1 != null) {	   	       
  	       model.body.postRender(0.0625F);
            GlStateManager.translate(1.0F, 0.4F, -0.5F); 
            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
@@ -48,8 +44,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (itemstack2 != null) {
-        	float f = 0.625F; 	   	       
+        if (itemstack2 != null) {	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(-1.0F, 0.4, -0.5F); 
             GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
@@ -64,8 +59,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (itemstack3 != null) {
-        	float f = 0.625F; 	   	       
+        if (itemstack3 != null) {	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(-0.4F, -1.7F, 1.7F); 
             GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(0F, 0.0F, dragon.getAnimator().getSpeed()));
@@ -81,8 +75,7 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         
         GlStateManager.pushMatrix();
         
-        if (itemstack4 != null) {
-        	float f = 0.625F; 	   	       
+        if (itemstack4 != null) {	   	       
   	        model.body.postRender(0.0625F);
             GlStateManager.translate(0.4F, -1.7F, 1.7F); 
             GlStateManager.translate(0, Interpolation.smoothStep(3.2F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);            

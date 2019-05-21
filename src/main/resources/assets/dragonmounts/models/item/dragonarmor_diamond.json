@@ -1,7 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dragonmounts:items/dragonarmor_diamond"
+    "layer0": "dragonmounts:items/armor/dragon/dragonarmor_diamond"
   }
 }
 

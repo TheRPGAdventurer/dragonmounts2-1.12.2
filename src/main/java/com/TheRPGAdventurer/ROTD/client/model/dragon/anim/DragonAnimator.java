@@ -17,7 +17,6 @@ import com.TheRPGAdventurer.ROTD.entity.helper.SegmentSizePositionRotation;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Spline;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -29,7 +28,6 @@ public class DragonAnimator {
 
     private final DragonHeadPositionHelper dragonHeadPositionHelper;
     private SegmentSizePositionRotation[] tailSegments;
-    private DragonModel model;
     private SegmentSizePositionRotation tail = new SegmentSizePositionRotation();  //not required?  not sure.
 
     private boolean haveCalculatedAnimations = false;
@@ -43,7 +41,6 @@ public class DragonAnimator {
     private float lookPitch;
     private double prevRenderYawOffset;
     private double yawAbs;
-    private BlockPos pos;
 
     // timing vars
     private float animBase;
@@ -106,7 +103,7 @@ public class DragonAnimator {
     private final int NECK_SEGMENTS;
     private final int TAIL_SEGMENTS;
 
-    // final X rotation angles for ground
+/*    // final X rotation angles for ground
     private float[] xGround = {0, 0, 0, 0};
 
     // X rotation angles for ground
@@ -154,7 +151,7 @@ public class DragonAnimator {
 
     // Y rotation angles for air, thigh only
     private float[] yAirAll = {-0.1f, 0.1f};
-
+*/
     public DragonAnimator(EntityTameableDragon dragon) {
         this.dragon = dragon;
         WING_FINGERS = dragon.getBreedType().getNumberOfWingFingers();

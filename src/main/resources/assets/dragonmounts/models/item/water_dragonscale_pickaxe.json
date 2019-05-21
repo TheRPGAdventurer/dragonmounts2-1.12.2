@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/water_dragonscale_pickaxe"
+	    "layer0": "dragonmounts:items/armor/water/water_dragonscale_pickaxe"
 	}
 }

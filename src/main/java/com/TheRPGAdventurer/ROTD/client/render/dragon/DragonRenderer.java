@@ -226,7 +226,6 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
         float f5 = 0.0F - ((float)p_188325_13_ + p_188325_6_) * 0.01F;
         float f6 = MathHelper.sqrt(f * f + f1 * f1 + f2 * f2) / 32.0F - ((float)p_188325_13_ + p_188325_6_) * 0.01F;
         bufferbuilder.begin(5, DefaultVertexFormats.POSITION_TEX_COLOR);
-        int i = 8;
 
         for (int j = 0; j <= 8; ++j)
         {

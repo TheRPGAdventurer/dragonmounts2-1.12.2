@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/forest_dragon_amulet"
+	    "layer0": "dragonmounts:items/amulet/forest_dragon_amulet"
 	},
 	  "firstperson_righthand": {
       "translation": [

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/aether_dragon_essence"
+	    "layer0": "dragonmounts:items/essence/aether_dragon_essence"
 	}
 }

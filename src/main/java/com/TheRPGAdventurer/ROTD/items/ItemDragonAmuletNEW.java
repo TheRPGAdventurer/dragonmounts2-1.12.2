@@ -85,23 +85,23 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (world.isRemote || !player.isServerWorld()) return EnumActionResult.FAIL;
-        ItemStack stack=player.getHeldItem(hand);
-        if (!containsDragonEntity(stack) || !stack.hasTagCompound()) return EnumActionResult.FAIL;
-
-        EntityTameableDragon entityDragon=new EntityTameableDragon(world);
-        entityDragon.readFromNBT(stack.getTagCompound());
-
-        if (entityDragon.isTamedFor(player)) {
-            BlockPos blockPos=pos.offset(facing);
-            entityDragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-            stack.setTagCompound(null);
-            doAmuletExtras(player, stack, true);
-            player.setHeldItem(hand, stack);
-            world.spawnEntity(entityDragon);
-            return EnumActionResult.SUCCESS;
-        } else player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
-        return EnumActionResult.FAIL;
+    	if (world.isRemote || !player.isServerWorld()) return EnumActionResult.FAIL;
+    	ItemStack stack = player.getHeldItem(hand);
+    	if (!containsDragonEntity(stack) || !stack.hasTagCompound()) return EnumActionResult.FAIL;
+    	
+    	EntityTameableDragon entityDragon = new EntityTameableDragon(world);
+    	entityDragon.readFromNBT(stack.getTagCompound());
+    	
+    	if (entityDragon.isTamedFor(player)) {
+    		BlockPos blockPos = pos.offset(facing);
+    		entityDragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    		stack.setTagCompound(null);
+    		doAmuletExtras(player, stack, true);
+    		player.setHeldItem(hand, stack);
+    		world.spawnEntity(entityDragon);
+    		return EnumActionResult.SUCCESS;
+    	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
+    	return EnumActionResult.FAIL;
     }
 
     /* Item Extras */
@@ -121,13 +121,12 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {
-        TextFormatting t=null;
-        if (containsDragonEntity(stack)) {
-            tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
-            tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
-            tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("Owner"));
-            tooltip.add("ID: " + t.GOLD + stack.getTagCompound().getString("inventory".isEmpty()? "null" :"inventory"));
-        } else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.amulet"));
+		TextFormatting t = null;
+    	if (containsDragonEntity(stack)) {
+    		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
+    		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
+    		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("Owner"));
+    	} else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }
 
     /**

@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/sunlight_dragon_shovel"
+	    "layer0": "dragonmounts:items/tools/shovel/sunlight_dragon_shovel"
 	}
 }

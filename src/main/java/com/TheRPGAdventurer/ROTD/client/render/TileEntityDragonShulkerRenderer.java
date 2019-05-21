@@ -49,7 +49,7 @@ public class TileEntityDragonShulkerRenderer extends TileEntitySpecialRenderer<T
         GlStateManager.scale(1.0F, -1.0F, -1.0F);
         GlStateManager.translate(0.0F, 1.0F, 0.0F);
         float f = 0.9995F;
-        GlStateManager.scale(0.9995F, 0.9995F, 0.9995F);
+        GlStateManager.scale(f, f, f);
         GlStateManager.translate(0.0F, -1.0F, 0.0F);
 
         

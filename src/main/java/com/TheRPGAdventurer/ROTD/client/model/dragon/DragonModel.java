@@ -76,7 +76,7 @@ public class DragonModel extends AdvancedModelBase {
     public ModelPartProxy[] tailProxy = new ModelPartProxy[VERTS_TAIL];
     public ModelPartProxy[] thighProxy = new ModelPartProxy[4];
 
-    // animation parameters
+/*    // animation parameters
     private float[] wingArmf = new float[3];
     private float[] wingForearmf = new float[3];
     private float[] wingArmFlutterf = new float[3];
@@ -85,6 +85,7 @@ public class DragonModel extends AdvancedModelBase {
     private float[] wingForearmGlidef = new float[3];
     private float[] wingArmGroundf = new float[3];
     private float[] wingForearmGroundf = new float[3];
+*/    
 
     public float offsetX;
     public float offsetY;

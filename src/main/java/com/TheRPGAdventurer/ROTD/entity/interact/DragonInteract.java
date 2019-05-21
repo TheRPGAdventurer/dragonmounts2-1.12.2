@@ -11,6 +11,7 @@ package com.TheRPGAdventurer.ROTD.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -81,7 +82,7 @@ public class DragonInteract extends DragonInteractBase {
              * Consume
              */
             if (ItemUtils.hasEquippedFood(player)) {
-                if (ItemUtils.consumeFish(player) || ItemUtils.consumeEquippedArray(player, dragon.getBreed().getFoodItems())) {
+				if (ItemUtils.consumeFish(player) || ItemUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
                     // Taming
                     if (!dragon.isTamed()) {
                         dragon.tamedFor(player, dragon.getRNG().nextInt(15)==0);
@@ -123,7 +124,7 @@ public class DragonInteract extends DragonInteractBase {
 
     private void eatEvent(EntityPlayer player) {
         dragon.playSound(dragon.getEatSound(), 0.6f, 0.75f);
-        spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems()));
+		spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
     }
 
     private void spawnItemCrackParticles(Item item) {

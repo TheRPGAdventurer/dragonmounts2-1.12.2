@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/ender_dragonscale_boots"
+	    "layer0": "dragonmounts:items/armor/ender/ender_dragonscale_boots"
 	}
 }
 

@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/water_dragon_amulet"
+	    "layer0": "dragonmounts:items/amulet/water_dragon_amulet"
 	},
 	  "firstperson_righthand": {
       "translation": [

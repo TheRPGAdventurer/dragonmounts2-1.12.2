@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/ice_dragon_shovel"
+	    "layer0": "dragonmounts:items/tools/shovel/ice_dragon_shovel"
 	}
 }

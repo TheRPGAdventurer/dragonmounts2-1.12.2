@@ -10,6 +10,7 @@
 package com.TheRPGAdventurer.ROTD.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
@@ -32,7 +33,7 @@ public abstract class DragonInteractBase {
     public abstract boolean interact(EntityPlayer player, ItemStack item);
     
     protected boolean isAllowed(EntityPlayer player) {
-        ItemFood food = (ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getFoodItems());
+		ItemFood food = (ItemFood) ItemUtils.consumeEquipped(player, DragonBreed.getFoodItems());
         if (!dragon.isTamed() && (food == null || !ItemUtils.consumeFish(player))) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
             return dragon.isTamedFor(player);

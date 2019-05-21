@@ -15,11 +15,7 @@ import java.util.UUID;
 
 public class GuiDragonWhistle extends GuiScreen {
 
-    private final MessageDragonWhistle dcw = new MessageDragonWhistle();
-    private float mousePosX;
-    private float mousePosY;
     World world;
-
     ItemStack whistle;
     UUID uuid;
     GuiButton nothing;
@@ -143,8 +139,6 @@ public class GuiDragonWhistle extends GuiScreen {
     
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.mousePosX = mouseX;
-        this.mousePosY = mouseY;
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

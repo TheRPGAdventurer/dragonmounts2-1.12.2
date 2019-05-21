@@ -1,7 +1,7 @@
 {
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/forest_dragon_sword"
+	    "layer0": "dragonmounts:items/tools/sword/forest_dragon_sword"
 	},
 	
 	"display": {

@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/nether_dragonscale_boots"
+	    "layer0": "dragonmounts:items/armor/nether/nether_dragonscale_boots"
 	}
 }
 

@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/nether_dragon_amulet"
+	    "layer0": "dragonmounts:items/amulet/nether_dragon_amulet"
 	},
 	  "firstperson_righthand": {
       "translation": [

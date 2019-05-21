@@ -10,7 +10,6 @@
 package com.TheRPGAdventurer.ROTD.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
@@ -38,8 +37,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     
     public static final PropertyEnum<EnumDragonBreed> BREED = PropertyEnum.create("breed", EnumDragonBreed.class);
     public static BlockDragonBreedEgg DRAGON_BREED_EGG;
-    private EntityTameableDragon dragon;
-    public static int meta; 
+    public int meta; 
     
     public BlockDragonBreedEgg() {
         setUnlocalizedName("dragonEgg");
@@ -98,7 +96,6 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     
     private void checkFall(World worldIn, BlockPos pos) {
         if (worldIn.isAirBlock(pos.down()) && BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
-            int i = 32;
 
             if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
                 worldIn.spawnEntity(new EntityFallingBlock(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), this.getStateFromMeta(meta)));

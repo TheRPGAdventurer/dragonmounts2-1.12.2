@@ -222,10 +222,8 @@ public class DragonBreedHelper extends DragonHelper {
     }
 
     public void getBreedHealth() {
-        EnumDragonBreed currentType = getBreedType();
-        SharedMonsterAttributes att = new SharedMonsterAttributes();
-        
-        switch (currentType) {
+    	
+        switch (getBreedType()) {
         	case NETHER:
         		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);
         		break;

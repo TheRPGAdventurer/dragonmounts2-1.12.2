@@ -49,9 +49,7 @@ public class BreathAffectedArea {
   public void continueBreathing(World world, Vec3d origin, Vec3d destination, BreathNode.Power power, EntityTameableDragon dragon) {
     Vec3d direction = destination.subtract(origin).normalize();
 
-    EntityBreathNode newNode = EntityBreathNode.createEntityBreathNodeServer(
-            world, origin.x, origin.y, origin.z, direction.x, direction.y, direction.z,
-            power);
+    EntityBreathNode newNode = EntityBreathNode.createEntityBreathNodeServer(world, origin.x, origin.y, origin.z, direction.x, direction.y, direction.z, power);
 
     entityBreathNodes.add(newNode);
   }

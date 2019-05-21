@@ -2,6 +2,9 @@ package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeaponFire;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
@@ -284,14 +287,14 @@ public abstract class DragonBreed {
 
     }
 
-//    /**
-//     * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
-//     *
-//     * @return
-//     */
-//    public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController, SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
-//        return new SoundEffectBreathWeaponFire(i_soundController, i_weaponSoundUpdateLink);
-//    }
+    //    /**
+    //     * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
+    //     *
+    //     * @return
+    //     */
+    //    public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController, SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+    //        return new SoundEffectBreathWeaponFire(i_soundController, i_weaponSoundUpdateLink);
+    //    }
 
     public boolean isInfertile() {
         return false;
@@ -303,6 +306,15 @@ public abstract class DragonBreed {
 
     public EnumParticleTypes getSneezeParticle() {
         return EnumParticleTypes.SMOKE_LARGE;
+    }
+
+    /**
+     * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
+     *
+     * @return
+     */
+    public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController, SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+        return new SoundEffectBreathWeaponFire(i_soundController, i_weaponSoundUpdateLink);
     }
 
 }

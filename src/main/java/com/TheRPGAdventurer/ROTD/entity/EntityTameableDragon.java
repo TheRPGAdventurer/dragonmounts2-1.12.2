@@ -1206,7 +1206,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public void playLivingSound() {
         SoundEvent sound = getLivingSound();
-        if (sound == null && !isEgg()) {
+        if (sound == null && !isEgg() && isUsingBreathWeapon()) {
             return;
         }
 

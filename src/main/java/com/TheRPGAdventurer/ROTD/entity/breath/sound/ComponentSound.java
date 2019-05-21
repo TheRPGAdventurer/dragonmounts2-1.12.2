@@ -40,9 +40,9 @@ class ComponentSound extends PositionedSound implements ITickableSound {
      * @return
      */
     static public ComponentSound createComponentSound(@Nullable SoundEvent i_soundEvent, SoundCategory i_soundCategory, float initialVolume, RepeatType i_repeat, ComponentSoundSettings i_soundSettings) {
-        //        if (i_soundEvent == null) {
-        //            return new ComponentSoundSilent();
-        //        }
+        if (i_soundEvent==null) {
+            return new ComponentSoundSilent();
+        }
         return new ComponentSound(i_soundEvent, i_soundCategory, initialVolume, i_repeat, i_soundSettings);
     }
 
@@ -52,9 +52,9 @@ class ComponentSound extends PositionedSound implements ITickableSound {
      * @param i_soundEvent null means silence
      */
     static public ComponentSound createComponentSoundPreload(@Nullable SoundEvent i_soundEvent, SoundCategory i_soundCategory) {
-        //        if (i_soundEvent == null) {
-        //            return new ComponentSoundSilent();
-        //        }
+        if (i_soundEvent==null) {
+            return new ComponentSoundSilent();
+        }
         return new ComponentSound(i_soundEvent, i_soundCategory);
     }
 
@@ -68,9 +68,9 @@ class ComponentSound extends PositionedSound implements ITickableSound {
      * @return
      */
     static public ComponentSound createComponentSound(SoundEffectNames soundEffectName, SoundCategory soundCategory, float initialVolume, RepeatType i_repeat, ComponentSoundSettings i_soundSettings) {
-        //        if (soundEffectName == null) {
-        //            return new ComponentSoundSilent();
-        //        }
+        if (soundEffectName==null) {
+            return new ComponentSoundSilent();
+        }
         SoundEvent soundEvent=soundEffectName.getSoundEvent();
         return new ComponentSound(soundEvent, soundCategory, initialVolume, i_repeat, i_soundSettings);
     }

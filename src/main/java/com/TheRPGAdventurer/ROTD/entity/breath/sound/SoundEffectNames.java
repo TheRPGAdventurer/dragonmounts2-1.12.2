@@ -11,6 +11,9 @@ import net.minecraft.util.SoundEvent;
  */
 public enum SoundEffectNames {
 
+
+  SILENCE("mob.enderdragon.silence", 0),
+
   ADULT_BREATHE_FIRE_START("mob.dragon.breathweapon.fire.adultbreathefirestart", 2.0),
   ADULT_BREATHE_FIRE_LOOP("mob.dragon.breathweapon.fire.adultbreathefireloop", 5.336),
   ADULT_BREATHE_FIRE_STOP("mob.dragon.breathweapon.fire.adultbreathefirestop", 1.0),

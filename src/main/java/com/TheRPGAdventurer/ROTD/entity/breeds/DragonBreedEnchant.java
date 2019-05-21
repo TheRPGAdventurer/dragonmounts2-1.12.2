@@ -34,7 +34,7 @@ public class DragonBreedEnchant extends DragonBreed {
 	public void onLivingUpdate(EntityTameableDragon dragon) {
 		World world = dragon.world;
 		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, dragon.posX, dragon.getEyeHeight() + 4, dragon.posZ, 30, dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, dragon.posX, dragon.getEyeHeight() - 1, dragon.posZ, 30, dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
 		}
 	}
 }

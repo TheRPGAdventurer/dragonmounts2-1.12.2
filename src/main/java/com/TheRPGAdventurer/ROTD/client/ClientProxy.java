@@ -52,12 +52,12 @@ import scala.actors.threadpool.Arrays;
 public class ClientProxy extends ServerProxy {
 
     private int thirdPersonViewDragon=0;
-    private int lockY=0;
+    private int lockY = 0;
     private boolean followYaw=false;
     private boolean hover=false;
     private ModMetadata metadata;
 
-    @Override
+	@Override
     public void PreInitialization(FMLPreInitializationEvent event) {
         super.PreInitialization(event);
         // register dragon entity renderer
@@ -80,7 +80,7 @@ public class ClientProxy extends ServerProxy {
         //Override mcmod.info - This looks cooler :)
         TextFormatting t = null, r = TextFormatting.RESET;
         metadata = event.getModMetadata();
-        metadata.name = TextFormatting.DARK_AQUA + "Dragon Mounts";
+        metadata.name = t.DARK_AQUA +""+ t.BOLD + "Dragon Mounts";
         metadata.credits = "\n" +
         		t.GREEN + "BarracudaATA4" + r + "-" + t.AQUA + "The Original Owner\n\n" +
                 t.GREEN + "Merpou/Kingdomall/Masked_Ares" + r + "-" + t.AQUA + "more textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes t.AQUA girl BTW O_O)\n\n" +
@@ -106,7 +106,7 @@ public class ClientProxy extends ServerProxy {
         
         // Dragon Whistle String Color
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-        	if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1) return 0xffe900;
+        	if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1) return stack.getTagCompound().getInteger("Color");
 			return 0xFFFFFF;
         }, ModItems.dragon_whistle);
     }
@@ -147,7 +147,7 @@ public class ClientProxy extends ServerProxy {
 
 
     public void setDragonLockY(int lockY) {
-        this.followYaw=followYaw;
+    	this.lockY = lockY;
     }
 
     @Override

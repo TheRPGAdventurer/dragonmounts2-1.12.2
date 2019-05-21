@@ -36,10 +36,10 @@ import net.minecraft.world.WorldServer;
 public class DragonBreedIce extends DragonBreed {
 
     private static final Block FOOTPRINT = Blocks.SNOW_LAYER;
-    private static final float FOOTPRINT_CHANCE = 0.2f;
+    private static final float FOOTPRINT_CHANCE = 0.01f;
 
     public DragonBreedIce() {
-        super("ice", 0Xffffff);
+        super("ice", 0x00f2ff);
 
         setImmunity(DamageSource.MAGIC);
         setImmunity(DamageSource.HOT_FLOOR);
@@ -61,7 +61,7 @@ public class DragonBreedIce extends DragonBreed {
     @Override
     public void onUpdate(EntityTameableDragon dragon) {
         // place some snow footprints where the dragon walks
-        if (dragon.isEgg() && !dragon.isFlying()) {
+        if (!dragon.isFlying()) {
             World world = dragon.world;
             for (int i = 0; i < 4; i++) {
                 if (world.rand.nextFloat() < FOOTPRINT_CHANCE) {
@@ -71,13 +71,11 @@ public class DragonBreedIce extends DragonBreed {
                 double bx = dragon.posX + (i % 2 * 2 - 1) * 0.25;
                 double by = dragon.posY + 0.5;
                 double bz = dragon.posZ + (i / 2 % 2 * 2 - 1) * 0.25;
+                
                 BlockPos blockPos = new BlockPos(bx, by, bz);
-                IBlockState state = world.getBlockState(blockPos);
                 // from EntitySnowman.onLivingUpdate, with slight tweaks
-                if (world.getBlockState(blockPos).getMaterial() == Material.AIR
-                        && world.getBiomeForCoordsBody(blockPos).getFloatTemperature(blockPos) <= 0.8F
-                        && FOOTPRINT.canPlaceBlockAt(world, blockPos)) {
-                    world.setBlockState(blockPos, FOOTPRINT.getDefaultState());
+                if (world.getBlockState(blockPos).getMaterial() == Material.AIR && world.rand.nextFloat() < FOOTPRINT_CHANCE && world.getBiomeForCoordsBody(blockPos).getFloatTemperature(blockPos) <= 1.0F && FOOTPRINT.canPlaceBlockAt(world, blockPos)) {
+                	world.setBlockState(blockPos, FOOTPRINT.getDefaultState());
                 }
             }
         }

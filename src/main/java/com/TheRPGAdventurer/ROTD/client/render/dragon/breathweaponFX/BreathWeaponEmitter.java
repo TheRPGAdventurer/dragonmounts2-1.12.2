@@ -243,7 +243,7 @@ public class BreathWeaponEmitter {
       Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
       AetherBreathFX iceBreathFX = AetherBreathFX.createAetherBreathFX(world, interpOrigin.x, interpOrigin.y, interpOrigin.z,
     		  interpDirection.x, interpDirection.y, interpDirection.z,
-              power, tickCounter, partialTickHeadStart, dragon);
+              power, partialTickHeadStart, dragon);
 
       Minecraft.getMinecraft().world.spawnEntity(iceBreathFX);
     }

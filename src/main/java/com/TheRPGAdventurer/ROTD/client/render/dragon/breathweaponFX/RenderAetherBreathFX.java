@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
-    private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_air.png");
+    private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_fire.png");
 
     public RenderAetherBreathFX(RenderManager renderManagerIn) {
         super(renderManagerIn);

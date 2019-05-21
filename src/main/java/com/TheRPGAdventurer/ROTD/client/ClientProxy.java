@@ -53,12 +53,12 @@ import scala.actors.threadpool.Arrays;
 public class ClientProxy extends ServerProxy {
 
     private int thirdPersonViewDragon=0;
-    private int lockY=0;
+    private int lockY = 0;
     private boolean followYaw=false;
     private boolean hover=false;
     private ModMetadata metadata;
 
-    @Override
+	@Override
     public void PreInitialization(FMLPreInitializationEvent event) {
         super.PreInitialization(event);
         // register dragon entity renderer
@@ -79,12 +79,26 @@ public class ClientProxy extends ServerProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
 
         //Override mcmod.info - This looks cooler :)
-        TextFormatting t=null, r=TextFormatting.RESET;
-        metadata=event.getModMetadata();
-        metadata.name=TextFormatting.DARK_AQUA + "Dragon Mounts";
-        metadata.credits="\n" + t.GREEN + "BarracudaATA4" + r + "-" + t.AQUA + "The Original Owner\n\n" + t.GREEN + "Merpou/Kingdomall/Masked_Ares" + r + "-" + t.AQUA + "more textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes t.AQUA girl BTW O_O)\n\n" + t.GREEN + "Shannieanne" + r + "-" + t.AQUA + "Zombie Textures, Terra textures, Texture Fixes, Overall Second Dev\n\n" + t.GREEN + "GundunUkan/Lord Ukan" + r + "-" + t.AQUA + "for new fire texures, sunlight textures, and more.... I Hope he finishes his university hes t.AQUA hardworking working student\n\n" + t.GREEN + "Wolf" + r + "-" + t.AQUA + "Second Coder, started making small fixes then started doing big ones, I hope his dreams of becoming t.AQUA computer engineer succeeds\n\n" + t.GREEN + "FlaemWing" + r + "-" + t.AQUA + "for new nest block textures and dragonarmor item textures, new tool textures\n\n" + t.GREEN + "AlexThe666" + r + "-" + t.AQUA + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" + t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n";
-        metadata.authorList=Arrays.asList(StringUtils.split(t.GOLD + "" + t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
-        metadata.description="\nTips:\n" + "1. Don't forget to right click the egg to start the hatching process\n" + "2. Also water dragon needs to be struck by lightning to become t.AQUA storm dragon\n" + "3. You can't hatch eggs in the End Dimension\n" + "4. You can press " + t.ITALIC + "ctrl" + r + " to enable boost flight\n" + "5. Dragons need to be of opposite genders to breed";
+        TextFormatting t = null, r = TextFormatting.RESET;
+        metadata = event.getModMetadata();
+        metadata.name = t.DARK_AQUA +""+ t.BOLD + "Dragon Mounts";
+        metadata.credits = "\n" +
+        		t.GREEN + "BarracudaATA4" + r + "-" + t.AQUA + "The Original Owner\n\n" +
+                t.GREEN + "Merpou/Kingdomall/Masked_Ares" + r + "-" + t.AQUA + "more textures much help, First Dev for Dragon Mounts, Overall Second Dev :D Thanks Man... (just found out shes t.AQUA girl BTW O_O)\n\n" +
+        		t.GREEN + "Shannieanne" + r + "-" + t.AQUA + "Zombie Textures, Terra textures, Texture Fixes, Overall Second Dev\n\n" +
+        		t.GREEN + "GundunUkan/Lord Ukan" + r + "-" + t.AQUA + "for new fire texures, sunlight textures, and more.... I Hope he finishes his university hes t.AQUA hardworking working student\n\n" +
+        		t.GREEN + "Wolf" + r + "-" + t.AQUA + "Second Coder, started making small fixes then started doing big ones, I hope his dreams of becoming t.AQUA computer engineer succeeds\n\n" +
+        		t.GREEN + "FlaemWing" + r + "-" + t.AQUA + "for new nest block textures and dragonarmor item textures, new tool textures\n\n" + 
+        		t.GREEN + "AlexThe666" + r + "-" + t.AQUA + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" +
+        		t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n";
+        metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD +""+ t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
+        metadata.description =
+        		"\nTips:\n" +
+        		"1. Don't forget to right click the egg to start the hatching process\n" +
+        		"2. Also water dragon needs to be struck by lightning to become t.AQUA storm dragon\n" +
+        		"3. You can't hatch eggs in the End Dimension\n" +
+        		"4. You can press " + t.ITALIC + "ctrl" + r + " to enable boost flight\n" +
+        		"5. Dragons need to be of opposite genders to breed";
     }
 
     @Override
@@ -93,8 +107,8 @@ public class ClientProxy extends ServerProxy {
 
         // Dragon Whistle String Color
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex==1) return 0xffe900;
-            return 0xFFFFFF;
+        	if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1) return stack.getTagCompound().getInteger("Color");
+			return 0xFFFFFF;
         }, ModItems.dragon_whistle);
     }
 
@@ -138,7 +152,7 @@ public class ClientProxy extends ServerProxy {
     }
 
     public void setDragonLockY(int lockY) {
-        this.followYaw=followYaw;
+    	this.lockY = lockY;
     }
 
     @Override

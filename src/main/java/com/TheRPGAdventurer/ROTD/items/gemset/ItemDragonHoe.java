@@ -26,7 +26,8 @@ public class ItemDragonHoe extends ItemHoe {
 		this.setUnlocalizedName("dragon_hoe");
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
-		
+
+		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
 		ModTools.TOOLS.add(this);
 	}
 	

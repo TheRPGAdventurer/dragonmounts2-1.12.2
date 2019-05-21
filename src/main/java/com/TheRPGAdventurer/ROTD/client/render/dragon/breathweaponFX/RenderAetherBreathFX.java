@@ -13,12 +13,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Random;
-
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
-    private final ResourceLocation airDustCloudRL = new ResourceLocation(DragonMounts.MODID,"textures/entities/breath_air.png");
+    private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_air.png");
 
     public RenderAetherBreathFX(RenderManager renderManagerIn) {
         super(renderManagerIn);
@@ -57,11 +55,6 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
         tessellator.draw();
 
-        Random random = new Random();
-        if(random.nextInt(4) == 1) {
-            GlStateManager.rotate(90,0,0,0);
-        }
-
         if (this.renderOutlines) {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
@@ -75,6 +68,6 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
     protected ResourceLocation getEntityTexture(AetherBreathFX entity) {
-        return airDustCloudRL;
+        return DRAGON_FIREBALL_TEXTURE;
     }
 }

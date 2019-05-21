@@ -108,17 +108,17 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     /* Item Extras */
    
     @SideOnly(Side.CLIENT)
-	private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
-    	if (release) {
-    		player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.NEUTRAL, 1, 1);
-    		player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
-    		stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
-    	} else {
-    		player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
-    		stack.setStackDisplayName(type.color + stack.getDisplayName());
-    	}
-	}
-    
+    private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
+        if (release) {
+//            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.NEUTRAL, 1, 1);
+            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
+            stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
+        } else {
+            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
+            stack.setStackDisplayName(type.color + stack.getDisplayName());
+        }
+    }
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {

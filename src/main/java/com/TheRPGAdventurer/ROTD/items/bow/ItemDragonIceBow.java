@@ -32,6 +32,7 @@ public class ItemDragonIceBow extends ItemDragonBow implements IHasModel {
         this.type = type;
         this.repair = repair;
 
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
         this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {

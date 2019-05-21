@@ -27,6 +27,9 @@ public class ItemDragonArmour extends ItemArmor {
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
+
+
+		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
 		
 	}
 	

@@ -29,7 +29,6 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
-import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
@@ -92,7 +91,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -449,28 +447,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         hasChestVarChanged = true;
     }
 
-    public boolean isFlyingAround() {
-        if (inAirTicks < 2000 && this.isFlying() && getControllingPlayer() == null && getAttackTarget() == null && !isTamed()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isTargetBlocked(Vec3d target) {
-        if (target != null) {
-            RayTraceResult rayTrace = world.rayTraceBlocks(new Vec3d(this.getPosition()), target, false);
-            if (rayTrace != null && rayTrace.hitVec != null) {
-                BlockPos pos = new BlockPos(rayTrace.hitVec);
-                if (!world.isAirBlock(pos)) {
-                    return true;
-                }
-                return rayTrace != null && rayTrace.typeOfHit != RayTraceResult.Type.BLOCK;
-            }
-        }
-        return false;
-    }
-
     public boolean canBeAdjucator() {
         return dataManager.get(HAS_ADJUCATOR_STONE);
     }
@@ -709,11 +685,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!world.isRemote) {
             this.followYaw = folowYaw;
         }
-    }
-
-    @Override
-    protected void initEntityAI() {
-        tasks.addTask(6, new EntityAIAirPoint(this));
     }
 
     /**
@@ -973,7 +944,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         int factor = DragonMountsConfig.REG_FACTOR;
         if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor == 0 && !isDead) {
             int[] exclude = {0};
-            int health = DMUtils.getRandomWithExclusionstatic(new Random(), 3, 5, exclude);
+            int health = DMUtils.getRandomWithExclusionstatic(new Random(), 1, 3, exclude);
             this.heal(health);
         }
 
@@ -1191,7 +1162,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!isDead && getBreed().getRoarSoundEvent() != null) {
             this.roarTicks = 0; // MathX.clamp(getScale(), 0.88f
             world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL,
-                    MathX.clamp(getScale(), 1, 2.3f), getPitch(), true);
+                    MathX.clamp(getScale(), 0.5f, 1), getPitch(), true);
         }
     }
 
@@ -1221,13 +1192,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Returns the sound this mob makes when it is hurt.
      */
-    public SoundEvent getHurtSound() {
+    @Override
+    public SoundEvent getHurtSound(DamageSource src) {
         if (isEgg()) {
             return ModSounds.DRAGON_HATCHING;
         } else {
             return getBreed().getHurtSound();
         }
     }
+
+
 
     public SoundEvent getWingsSound() {
         return getBreed().getWingsSound();
@@ -1250,7 +1224,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public void playLivingSound() {
         SoundEvent sound = getLivingSound();
-        if (sound == null && !isEgg()) {
+        if (sound == null && !isEgg() && isUsingBreathWeapon()) {
             return;
         }
 
@@ -1335,7 +1309,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * Returns the volume for a sound to play.
      */
     public float getVolume(SoundEvent sound) {
-        return MathX.clamp(getScale(), 0, 1) * getBreed().getSoundVolume(sound);
+        return MathX.clamp(getScale(), 0, 2);
     }
 
 
@@ -1343,7 +1317,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * Gets the pitch of living sounds in living entities.
      */
     public float getPitch() {
-        return isChild() ? (getRNG().nextFloat() - getRNG().nextFloat()) * 0.2F + 1.5F : (getRNG().nextFloat() - getRNG().nextFloat()) * 0.2F + 1.0F;
+        return MathX.clamp(getScale(), 0.5F, 1);
     }
 
     /**
@@ -1415,9 +1389,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         // inherited interaction no inheritance they block taming for younger mobs
-        if (super.processInteract(player, hand)) {
-            return true;
-        }
+//        if (super.processInteract(player, hand)) {
+//            return true;
+//        }
 
         return getInteractHelper().interact(player, item);
     }
@@ -1646,7 +1620,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case ICE:
                 return DragonMountsLootTables.ENTITIES_DRAGON_ICE;
             case NETHER:
-                return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_NETHER : DragonMountsLootTables.ENTITIES_DRAGON_NETHER;
+                return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_NETHER : DragonMountsLootTables.ENTITIES_DRAGON_NETHER2;
             case SKELETON:
                 return DragonMountsLootTables.ENTITIES_DRAGON_SKELETON;
             case STORM:
@@ -1677,6 +1651,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (attacked) {
             applyEnchantments(this, entityIn);
+        }
+
+        if (!this.nothing()) {
+            return false;
         }
 
         if (getBreedType() == EnumDragonBreed.WITHER) {
@@ -1922,6 +1900,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.rotationYaw = ((EntityPlayer) riding).rotationYawHead;
             this.rotationYawHead = ((EntityPlayer) riding).rotationYawHead;
             this.prevRotationYaw = ((EntityPlayer) riding).rotationYawHead;
+            this.rotationPitch = ((EntityPlayer) riding).rotationPitch;
+            this.prevRotationPitch = ((EntityPlayer) riding).prevRotationPitch;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
             if (riding.isSneaking() && !this.boosting()) {
                 this.dismountRidingEntity();

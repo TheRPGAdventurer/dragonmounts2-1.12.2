@@ -25,6 +25,22 @@ entity.DragonMount.zombie.name=Zombie Dragon
 entity.DragonMount.terra.name=Terra Dragon
 entity.DragonMount.moonlight.name=Moonlight Dragon
 
+entity.DragonMounts.ice.name=Ice Dragon
+entity.DragonMounts.ender.name=Ender Dragon
+entity.DragonMounts.aether.name=Sky Dragon
+entity.DragonMounts.forest.name=Forest Dragon
+entity.DragonMounts.sylphid.name=Water Dragon
+entity.DragonMounts.nether.name=Nether Dragon
+entity.DragonMounts.fire.name=Fire Dragon
+entity.DragonMounts.skeleton.name=Skeleton Dragon
+entity.DragonMounts.wither.name=Wither Dragon
+entity.DragonMounts.enchant.name=Enchantment Dragon
+entity.DragonMounts.sunlight.name=Sunlight Dragon
+entity.DragonMounts.storm.name=Storm Dragon
+entity.DragonMounts.zombie.name=Zombie Dragon
+entity.DragonMounts.terra.name=Terra Dragon
+entity.DragonMounts.moonlight.name=Moonlight Dragon
+
 #Breeds
 dragon.forest=Forest
 dragon.aether=Aether
@@ -122,6 +138,7 @@ commands.dragon.canttame=You cannot tame dragons
 whistle.msg.cleared=Dragon has been unbound
 whistle.msg.hasDragon=Dragon Successfully Bound to Whistle
 whistle.msg.unBound=You Must Bind a Dragon First
+whistle.msg.notOwned=You Do not Own This Dragon
 whistle.msg.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
 whistle.msg.fail=The Dragon can't hear the whistle...
 whistle.command.new_home=New HomePos at

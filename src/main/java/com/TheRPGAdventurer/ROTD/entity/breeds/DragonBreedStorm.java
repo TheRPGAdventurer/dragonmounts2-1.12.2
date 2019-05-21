@@ -2,8 +2,9 @@ package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
-import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeaponIce;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,39 +57,12 @@ public class DragonBreedStorm extends DragonBreed {
 //	public boolean isInfertile() {
 //		return true;
 //	}
-	
+
 	@Override
-	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-    	final SoundEffectNames hatchling[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-
-        final SoundEffectNames juvenile[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-                SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-                SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-
-        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_ICE_START,
-            SoundEffectNames.ADULT_BREATHE_ICE_LOOP,
-            SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-    	
-    	switch(stage) {
-		case ADULT:
-			soundEffectNames = adult;
-			break;
-		case EGG:
-			break;
-		case HATCHLING:
-			soundEffectNames = hatchling;
-			break;
-		case JUVENILE:
-			soundEffectNames = juvenile;       
-			break;
-		default:
-			break;    	
-    	}
-    	
-		return soundEffectNames;
-    }
+	public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController,
+															  SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+		return new SoundEffectBreathWeaponIce(i_soundController, i_weaponSoundUpdateLink);
+	}
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {

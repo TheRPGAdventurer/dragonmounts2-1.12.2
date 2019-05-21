@@ -32,7 +32,6 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     
     private final DragonRenderer renderer;
     private final DragonModel model;
-    private EntityTameableDragon dragon;
     
     private final ResourceLocation maleBodyTexture;
     private final ResourceLocation femaleBodyTexture;

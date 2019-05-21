@@ -101,7 +101,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     		player.setHeldItem(hand, stack);
     		world.spawnEntity(entityDragon);
     		return EnumActionResult.SUCCESS;
-    	} else player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+    	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
     	return EnumActionResult.FAIL;
     }
     
@@ -127,7 +127,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
     		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
     		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("Owner"));
-    	} else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.amulet"));
+    	} else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }
 
     /**

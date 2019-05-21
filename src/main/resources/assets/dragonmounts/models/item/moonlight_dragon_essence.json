@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/moonlight_dragon_essence"
+	    "layer0": "dragonmounts:items/essence/moonlight_dragon_essence"
 	}
 }

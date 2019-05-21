@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/skeleton_dragon_essence"
+	    "layer0": "dragonmounts:items/essence/skeleton_dragon_essence"
 	}
 }

@@ -12,7 +12,6 @@ package com.TheRPGAdventurer.ROTD.entity.helper;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -32,10 +31,6 @@ import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage.*;
 import static net.minecraft.entity.SharedMonsterAttributes.*;
 
@@ -47,10 +42,7 @@ public class DragonLifeStageHelper extends DragonHelper {
     private static final Logger L = LogManager.getLogger();
 
     private static final String NBT_TICKS_SINCE_CREATION = "TicksSinceCreation";
-    private static final int BLOCK_RANGE = 2;
-    private static final int POINTS_BLOCK = 1;
     private static final int TICKS_SINCE_CREATION_UPDATE_INTERVAL = 100;
-    private static final int TICK_RATE_BLOCK = 20;
     private static final float EGG_CRACK_THRESHOLD = 0.9f;
     private static final float EGG_WIGGLE_THRESHOLD = 0.75f;
     private static final float EGG_WIGGLE_BASE_CHANCE = 20;
@@ -63,7 +55,7 @@ public class DragonLifeStageHelper extends DragonHelper {
     // the client keeps a cached copy of it and uses client ticks to interpolate in the gaps.
     // when the watcher is updated from the server, the client will tick it faster or slower to resynchronise
     private final DataParameter<Integer> dataParam;
-    private final Map<EnumDragonBreed, AtomicInteger> breedPoints = new EnumMap<>(EnumDragonBreed.class);
+//    private final Map<EnumDragonBreed, AtomicInteger> breedPoints = new EnumMap<>(EnumDragonBreed.class);
     private int ticksSinceCreationServer;
     private final ClientServerSynchronisedTickCount ticksSinceCreationClient;
 

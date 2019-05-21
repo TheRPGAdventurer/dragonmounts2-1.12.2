@@ -13,7 +13,6 @@ import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
 import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +87,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -106,7 +104,6 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.ItemStackHandler;
 
 /**
  * Here be dragons.
@@ -144,7 +141,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_BREATHING = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> AGE_TICKS = EntityDataManager
+    private static final DataParameter<Integer> AGE_TICKS = EntityDataManager //unused, however left for obvious reasons
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> CHESTED = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -170,8 +167,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             .createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_REPRO_COUNT = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> HUNGER = EntityDataManager
+    // unused as of now
+/*    private static final DataParameter<Integer> HUNGER = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+*/            
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES = EntityDataManager
@@ -214,13 +213,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     // client-only delegates
     private final DragonBodyHelper dragonBodyHelper = new DragonBodyHelper(this);
 
-    // server-only flags
-    private BitSet controlFlags;
-    private BitSet dragonWhistle;
+    // server-only flags //unused
+//    private BitSet controlFlags;
+//    private BitSet dragonWhistle;
 
     public EntityEnderCrystal healingEnderCrystal;
     public DragonInventory dragonInv;
-    private ItemStackHandler itemHandler = null;
     private boolean hasChestVarChanged = false;
     private boolean isUsingBreathWeapon;
     private boolean isUnhovered;
@@ -1107,9 +1105,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x = midPoint.getX();
         double y = midPoint.getY();
         double z = midPoint.getZ();
-        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
+//        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
         double offset = 16D;
-        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
+//        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
         x = midPoint.getX() + 0.5 - 12;
         y = midPoint.getY() + 0.5 + 24;
         z = midPoint.getZ() + 0.5 - offset;
@@ -1122,9 +1120,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x = midPoint.getX();
         double y = midPoint.getY();
         double z = midPoint.getZ();
-        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
+//        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
         double offset = 16D;
-        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
+//        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
         x = midPoint.getX() + 0.5 - 12;
         y = midPoint.getY() + 0.5 + 24;
         z = midPoint.getZ() + 0.5 - offset;
@@ -1775,7 +1773,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         helpers.put(helper.getClass(), helper);
     }
 
-    private <T extends DragonHelper> T getHelper(Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+	private <T extends DragonHelper> T getHelper(Class<T> clazz) {
         return (T) helpers.get(clazz);
     }
 
@@ -2205,7 +2204,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     protected ResourceLocation getLootTable() {
         if (!isTamed()) {
-            return getLootTable();
+            return lootTable();
         } else {
             return null;
         }
@@ -2279,7 +2278,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void onStruckByLightning(EntityLightningBolt lightningBolt) {
         EnumDragonBreed currentType = getBreedType();
         super.onStruckByLightning(lightningBolt);
-        Random random = new Random();
         if (currentType == EnumDragonBreed.SKELETON) {
             this.setBreedType(EnumDragonBreed.WITHER);
 

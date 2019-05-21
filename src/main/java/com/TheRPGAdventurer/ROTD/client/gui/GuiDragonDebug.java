@@ -27,7 +27,6 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -62,8 +61,6 @@ public class GuiDragonDebug extends Gui {
     private ScaledResolution res;
     private EntityTameableDragon dragonClient;
     private EntityTameableDragon dragonServer;
-    
-    private BlockPos pos;
     
     public GuiDragonDebug() {
         fr = mc.fontRenderer;

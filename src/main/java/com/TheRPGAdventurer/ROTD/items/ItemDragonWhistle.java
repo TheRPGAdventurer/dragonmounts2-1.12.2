@@ -50,7 +50,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 		if (!(target instanceof EntityTameableDragon)) return false;
 		EntityTameableDragon dragon = (EntityTameableDragon) target;
 		if (!dragon.isTamedFor(player)) {
-			player.sendStatusMessage(new TextComponentTranslation("whistle.msg.notOwned"), true);
+			player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
 			return true; // Return true so the method ends and the dragon isnt damaged
 		}
 		NBTTagCompound nbt = new NBTTagCompound();

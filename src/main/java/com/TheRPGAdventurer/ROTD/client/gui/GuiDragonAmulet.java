@@ -12,13 +12,13 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.UUID;
 
+/**
+ *	This Class is unused?
+ *	@deprecated
+ */
 public class GuiDragonAmulet extends GuiScreen {
 
-    private final MessageDragonWhistle dcw = new MessageDragonWhistle();
-    private float mousePosX;
-    private float mousePosY;
     World world;
-
     ItemStack amulet;
     UUID uuid;
     GuiButton teleport;
@@ -74,8 +74,6 @@ public class GuiDragonAmulet extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.mousePosX = mouseX;
-        this.mousePosY = mouseY;
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

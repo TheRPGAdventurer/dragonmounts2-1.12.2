@@ -25,8 +25,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class GuiDragon extends GuiContainer {
     private static final ResourceLocation texture = new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
     private static final ResourceLocation offhand = new ResourceLocation(DragonMounts.MODID, "textures/gui/offhand.png");
-    private IInventory playerInventory;
-    private IInventory dragonInv;
     private EntityTameableDragon dragon;
     private float mousePosX;
     private float mousePosY;
@@ -39,8 +37,6 @@ public class GuiDragon extends GuiContainer {
 
     public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
         super(new ContainerDragon(dragon, Minecraft.getMinecraft().player));
-        this.playerInventory = playerInv;
-        this.dragonInv = dragon.dragonInv;
         this.player = Minecraft.getMinecraft().player;
         this.dragon = dragon;
         this.allowUserInput = false;
@@ -94,9 +90,10 @@ public class GuiDragon extends GuiContainer {
         this.mc.getTextureManager().bindTexture(texture1);
         drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
         }
+*/        
         this.mc.getTextureManager().bindTexture(offhand);
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
-*/
+
         //draw dragon entity
         GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
     }

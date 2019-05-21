@@ -364,7 +364,6 @@ public class EntityCarriage extends Entity {
      * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
      */
     protected void applyYawToEntity(Entity passenger) {
-        EntityTameableDragon dragon=new EntityTameableDragon(world);
         //float rotation = dragon.isPassenger(this) && this == dragon.getPassengers().get(0) ? -50: dragon.isPassenger(this) && this == dragon.getPassengers().get(0) ? 50: 0;
         passenger.setRenderYawOffset(this.rotationYaw + 0);
         float f=MathHelper.wrapDegrees(passenger.rotationYaw - this.rotationYaw);

@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "item": "dragonmounts:ender_dragonscales"
+      "item": "dragonmounts:zombie_dragonscales"
     },
     "X": {
       "item": "minecraft:string"
     }
   },
   "result": {
-    "item": "dragonmounts:dragon_bow_end"
+    "item": "dragonmounts:dragon_bow_zombie"
   }
 }

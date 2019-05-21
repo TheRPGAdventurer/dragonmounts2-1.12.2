@@ -105,7 +105,7 @@ public abstract class SoundEffectBreathWeapon
         if (weaponSoundInfo.breathingState != currentWeaponState) {
             switch (weaponSoundInfo.breathingState) {
                 case IDLE: {
-                    stopAllHeadSounds();
+//                    stopAllHeadSounds();
                     SoundEffectNames headStop = weaponHeadSound(SoundPart.STOP, weaponSoundInfo.lifeStage);
                     headStoppingSound =
                             ComponentSound.createComponentSound(headStop.getSoundEvent(), SoundCategory.HOSTILE,
@@ -116,7 +116,7 @@ public abstract class SoundEffectBreathWeapon
                     break;
                 }
                 case BREATHING: {
-                    stopAllHeadSounds();
+//                    stopAllHeadSounds();
                     SoundEffectNames headStart = weaponHeadSound(SoundPart.START, weaponSoundInfo.lifeStage);
                     SoundEffectNames headLoop = weaponHeadSound(SoundPart.LOOP, weaponSoundInfo.lifeStage);
                     SoundEffectNames headStop = weaponHeadSound(SoundPart.STOP, weaponSoundInfo.lifeStage);
@@ -145,7 +145,7 @@ public abstract class SoundEffectBreathWeapon
         switch (currentWeaponState) {
             case BREATHING: {
                 if (headStartupSound != null && headStartupSound.getPlayCountdown() <= 0) {
-                    stopAllHeadSounds();
+//                    stopAllHeadSounds();
                     SoundEffectNames headLoop = weaponHeadSound(SoundPart.LOOP, weaponSoundInfo.lifeStage);
                     headLoopSound = ComponentSound.createComponentSound(headLoop.getSoundEvent(), SoundCategory.HOSTILE,
                             HEAD_MIN_VOLUME, ComponentSound.RepeatType.REPEAT, headSoundSettings);

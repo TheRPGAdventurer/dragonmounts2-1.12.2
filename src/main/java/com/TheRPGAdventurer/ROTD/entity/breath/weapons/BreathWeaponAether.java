@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -111,7 +112,7 @@ public class BreathWeaponAether extends BreathWeapon {
         checkNotNull(world);
         checkNotNull(entityID);
         checkNotNull(currentHitDensity);
-
+        float hitDensity=currentHitDensity.getHitDensity();
         if (entityID==dragon.getEntityId()) return null;
 
         Entity entity=world.getEntityByID(entityID);
@@ -121,7 +122,7 @@ public class BreathWeaponAether extends BreathWeapon {
 
         if (entity instanceof EntityPlayer) {
             EntityPlayer entityPlayer=(EntityPlayer) entity;
-            if (entityPlayer.getRidingEntity() == dragon) {
+            if (entityPlayer.getRidingEntity()==dragon) {
                 return null;
             }
         }
@@ -130,18 +131,22 @@ public class BreathWeaponAether extends BreathWeapon {
             entity.extinguish();
         }
 
+
+        final float DAMAGE_PER_HIT_DENSITY=FIRE_DAMAGE * hitDensity;
+
         //    System.out.format("Old entity motion:[%.2f, %.2f, %.2f]\n", entity.motionX, entity.motionY, entity.motionZ);
         // push in the direction of the wind, but add a vertical upthrust as well
         final double FORCE_MULTIPLIER=0.05;
         final double VERTICAL_FORCE_MULTIPLIER=0.05;
         float airForce=currentHitDensity.getHitDensity();
-//        Vec3d airForceDirection=currentHitDensity.getHitDensityDirection();
-//        Vec3d airMotion=MathX.multiply(airForceDirection, FORCE_MULTIPLIER);
+        //        Vec3d airForceDirection=currentHitDensity.getHitDensityDirection();
+        //        Vec3d airMotion=MathX.multiply(airForceDirection, FORCE_MULTIPLIER);
 
         final double WT_ENTITY=0.5;
         final double WT_AIR=1 - WT_ENTITY;
-        ((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
-
+        ((EntityLivingBase) entity).knockBack(entity, 0.8F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
+        entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+        triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
         final double UPFORCE_THRESHOLD=1.0;
         if (airForce > UPFORCE_THRESHOLD) {
             final double GRAVITY_OFFSET=-0.08;
@@ -156,7 +161,7 @@ public class BreathWeaponAether extends BreathWeapon {
 
         final int DELAY_UNTIL_DECAY=5;
         final float DECAY_PERCENTAGE_PER_TICK=10.0F;
-//        currentHitDensity.setDecayParameters(DECAY_PERCENTAGE_PER_TICK, DELAY_UNTIL_DECAY);
+        //        currentHitDensity.setDecayParameters(DECAY_PERCENTAGE_PER_TICK, DELAY_UNTIL_DECAY);
 
         return currentHitDensity;
     }
@@ -167,17 +172,17 @@ public class BreathWeaponAether extends BreathWeapon {
         if (!materialDisintegrateTime.isEmpty()) return;
         final int INSTANT=0;
         final int MODERATE=10;
-        final int SLOW=50;
-        materialDisintegrateTime.put(Material.LEAVES, INSTANT);
-        materialDisintegrateTime.put(Material.PLANTS, INSTANT);
-        materialDisintegrateTime.put(Material.VINE, INSTANT);
-        materialDisintegrateTime.put(Material.WEB, INSTANT);
-        materialDisintegrateTime.put(Material.GOURD, INSTANT);
-        materialDisintegrateTime.put(Material.SPONGE, MODERATE);
-        materialDisintegrateTime.put(Material.SAND, MODERATE);
-        materialDisintegrateTime.put(Material.SNOW, MODERATE);
-        materialDisintegrateTime.put(Material.CRAFTED_SNOW, MODERATE);
-        materialDisintegrateTime.put(Material.CACTUS, MODERATE);
+        final int SLOW=100;
+        materialDisintegrateTime.put(Material.LEAVES, SLOW);
+        materialDisintegrateTime.put(Material.PLANTS, SLOW);
+        materialDisintegrateTime.put(Material.VINE, SLOW);
+        materialDisintegrateTime.put(Material.WEB, SLOW);
+        materialDisintegrateTime.put(Material.GOURD, SLOW);
+        materialDisintegrateTime.put(Material.SPONGE, SLOW);
+        materialDisintegrateTime.put(Material.SAND, SLOW);
+        materialDisintegrateTime.put(Material.SNOW, SLOW);
+        materialDisintegrateTime.put(Material.CRAFTED_SNOW, SLOW);
+        materialDisintegrateTime.put(Material.CACTUS, SLOW);
     }
 
 }

@@ -6,7 +6,9 @@ import com.TheRPGAdventurer.ROTD.entity.helper.util.EntityMoveAndResizeHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -30,6 +32,7 @@ public class AetherBreathFX extends Entity {
     private BreathNode breathNode;
     private EntityTameableDragon dragon;
     private EntityMoveAndResizeHelper entityMoveAndResizeHelper;
+    World world;
 
     private AetherBreathFX(World world, double x, double y, double z, Vec3d motion,
                           BreathNode i_breathNode) {
@@ -45,6 +48,7 @@ public class AetherBreathFX extends Entity {
         motionZ = motion.z;
         dragon = new EntityTameableDragon(world);
 
+        this.world=world;
         entityMoveAndResizeHelper = new EntityMoveAndResizeHelper(this);
     }
 
@@ -62,14 +66,14 @@ public class AetherBreathFX extends Entity {
         scale = ENTITY_SCALE_RELATIVE_TO_SIZE * currentEntitySize;
 
         // spawn a smoke trail after some time
-        if (ENDER_CHANCE != 0 && rand.nextFloat() < lifetimeFraction && rand.nextFloat() <= ENDER_CHANCE) {
-            world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, motionX * 0.5, motionY * 0.5, motionZ * 0.5);
-        }
+//        if (ENDER_CHANCE != 0 && rand.nextFloat() < lifetimeFraction && rand.nextFloat() <= ENDER_CHANCE && new BlockPos(posX,posY,posZ) !=null) {
+//            world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, motionX * 1.5, motionY * 1.5, motionZ * 1.5, Block.getStateId(world.getBlockState(new BlockPos(posX,posY,posZ))));
+//        }
 
         // smoke / steam when hitting water.  node is responsible for aging to death
-        if (handleWaterMovement()) {
-            world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, 0, 0, 0);
-        }
+//        if (handleWaterMovement()) {
+//            world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, 0, 0, 0);
+//        }
 
         float newAABBDiameter = breathNode.getCurrentAABBcollisionSize();
 
@@ -120,11 +124,11 @@ public class AetherBreathFX extends Entity {
     }
 
     protected EnumParticleTypes getSmokeParticleID() {
-        if (LARGE_ENDER_CHANCE != 0 && rand.nextFloat() <= LARGE_ENDER_CHANCE) {
-            return EnumParticleTypes.DRAGON_BREATH;
-        } else {
-            return EnumParticleTypes.DRAGON_BREATH;
+        if(world.getBlockState(new BlockPos(posX,posY,posZ)).isSideSolid(world,new BlockPos(posX,posY,posZ), EnumFacing.UP)) {
+            return EnumParticleTypes.BLOCK_CRACK;
         }
+
+        return null;
     }
 
     /** Vanilla moveEntity does a pile of unneeded calculations, and also doesn't handle resize around the centre properly,

@@ -146,7 +146,7 @@ public class BreathWeaponAether extends BreathWeapon {
         final double WT_AIR=1 - WT_ENTITY;
         ((EntityLivingBase) entity).knockBack(entity, 0.8F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
         entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
-        triggerDamageExceptionsForFire(entity, entityID, DAMAGE_PER_HIT_DENSITY, currentHitDensity);
+        triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY,entityID, currentHitDensity);
         final double UPFORCE_THRESHOLD=1.0;
         if (airForce > UPFORCE_THRESHOLD) {
             final double GRAVITY_OFFSET=-0.08;

@@ -27,6 +27,10 @@ public interface DragonBreedRenderer {
     
     public ResourceLocation getFemaleBodyTexture();
 
+    public ResourceLocation getHMaleBodyTexture();
+
+    public ResourceLocation getHFemaleBodyTexture();
+
     public ResourceLocation getDissolveTexture();
 
     public ResourceLocation getEggTexture();
@@ -34,6 +38,10 @@ public interface DragonBreedRenderer {
     public ResourceLocation getMaleGlowTexture();
     
     public ResourceLocation getFemaleGlowTexture();
+
+    public ResourceLocation getHMaleGlowTexture();
+
+    public ResourceLocation getHFemaleGlowTexture();
     
     public ResourceLocation getGlowAnimTexture();
 
@@ -48,5 +56,5 @@ public interface DragonBreedRenderer {
     public ResourceLocation getChestTexture();
     
     public ResourceLocation getArmorTexture();
-    
+
 }

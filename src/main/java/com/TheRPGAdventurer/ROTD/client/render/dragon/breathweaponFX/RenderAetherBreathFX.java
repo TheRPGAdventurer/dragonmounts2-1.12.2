@@ -30,7 +30,7 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
         this.bindEntityTexture(entity);
         GlStateManager.translate((float)x, (float)y, (float)z);
         GlStateManager.enableRescaleNormal();
-        GlStateManager.scale(entity.scale / 4, entity.scale / 4, entity.scale / 4);
+        GlStateManager.scale(entity.scale / 8, entity.scale / 8, entity.scale / 8);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
@@ -59,6 +59,11 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
         }
+
+//        if(new Random().nextInt(4) == 1) {
+//           GlStateManager.rotate(34,90,0,0);
+//        }
+
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

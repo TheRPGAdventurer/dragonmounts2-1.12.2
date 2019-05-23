@@ -2,9 +2,8 @@ package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeaponIce;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
@@ -77,10 +76,11 @@ public class DragonBreedZombie extends DragonBreed {
 //		return true;
 //	}
 
-    @Override
-    public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController,
-                                                              SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
-        return new SoundEffectBreathWeaponIce(i_soundController, i_weaponSoundUpdateLink);
+    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+        final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+
+        return soundEffectNames;
+
     }
 
     @Override

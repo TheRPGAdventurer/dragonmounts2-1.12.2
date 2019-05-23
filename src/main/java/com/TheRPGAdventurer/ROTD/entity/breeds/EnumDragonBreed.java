@@ -40,7 +40,7 @@ public enum EnumDragonBreed implements IStringSerializable {
     // constant after adding more breeds in unexpected orders
     private final int meta;
 
-    private EnumDragonBreed(int meta, Supplier<DragonBreed> factory) {
+    EnumDragonBreed(int meta, Supplier<DragonBreed> factory) {
         this.breed = factory.get();
         this.meta = meta;
     }

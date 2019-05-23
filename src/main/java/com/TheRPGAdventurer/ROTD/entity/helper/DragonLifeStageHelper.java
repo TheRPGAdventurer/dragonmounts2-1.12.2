@@ -15,7 +15,6 @@ import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -102,10 +101,10 @@ public class DragonLifeStageHelper extends DragonHelper {
      */
     public void playEggCrackEffect() {
         // dragon.world.playEvent(2001, dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
-        this.playEvent(dragon.getPosition(), Block.getIdFromBlock(BlockDragonBreedEgg.DRAGON_BREED_EGG));
+        this.playEvent(dragon.getPosition());
     }
 
-    public void playEvent(BlockPos blockPosIn, int data) {
+    public void playEvent(BlockPos blockPosIn) {
         dragon.world.playSound(null, blockPosIn, ModSounds.DRAGON_HATCHING, SoundCategory.BLOCKS, +1.0F, 1.0F);
     }
 

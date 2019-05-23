@@ -10,7 +10,6 @@
 
 package com.TheRPGAdventurer.ROTD.util;
 
-import com.TheRPGAdventurer.ROTD.items.ItemDragonAmuletNEW;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -20,6 +19,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 
 
 /**

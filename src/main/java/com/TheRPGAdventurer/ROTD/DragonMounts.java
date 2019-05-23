@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.event.EventLiving;
 import com.TheRPGAdventurer.ROTD.event.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
-import com.TheRPGAdventurer.ROTD.inits.ModDataFixers;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
@@ -92,7 +91,6 @@ public class DragonMounts {
         proxy.render();
         ModTools.InitializaRepairs();
         ModArmour.InitializaRepairs();
-        ModDataFixers.registerDataFixers();
         EntityPropertiesHandler.INSTANCE.registerProperties(MiscPlayerProperties.class);
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());

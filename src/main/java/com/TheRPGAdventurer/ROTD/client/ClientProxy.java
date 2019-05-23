@@ -11,7 +11,6 @@ package com.TheRPGAdventurer.ROTD.client;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.ServerProxy;
-import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
@@ -19,13 +18,14 @@ import com.TheRPGAdventurer.ROTD.client.render.RenderDM2Cape;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.event.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
-import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.entity.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.*;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

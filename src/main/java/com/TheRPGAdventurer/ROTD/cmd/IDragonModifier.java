@@ -9,7 +9,6 @@
  */
 package com.TheRPGAdventurer.ROTD.cmd;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -21,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 
 import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 

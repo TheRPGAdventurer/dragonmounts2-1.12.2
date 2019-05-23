@@ -10,11 +10,12 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonBreedHelper;
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStageHelper;
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonReproductionHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonBreedHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStageHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonReproductionHelper;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

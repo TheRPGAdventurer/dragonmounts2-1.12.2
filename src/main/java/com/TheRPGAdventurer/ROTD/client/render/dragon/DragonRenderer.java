@@ -9,14 +9,15 @@
  */
 package com.TheRPGAdventurer.ROTD.client.render.dragon;
 
-import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStageHelper;
-import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStageHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -205,11 +206,8 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
 
     @Override
     protected ResourceLocation getEntityTexture(EntityTameableDragon dragon) {
-        if (dragon.getLifeStageHelper().getLifeStage()==EnumDragonLifeStage.HATCHLING) {
-            return dragon.isMale() ? getBreedRenderer(dragon).getHMaleBodyTexture() : getBreedRenderer(dragon).getHFemaleBodyTexture();
-        } else {
-            return dragon.isMale() ? getBreedRenderer(dragon).getMaleBodyTexture() : getBreedRenderer(dragon).getFemaleBodyTexture();
-        }
+    	return dragon.isHatchling() ? (dragon.isMale() ? getBreedRenderer(dragon).getHMaleBodyTexture() : getBreedRenderer(dragon).getHFemaleBodyTexture()) :
+    								  (dragon.isMale() ? getBreedRenderer(dragon).getMaleBodyTexture() : getBreedRenderer(dragon).getFemaleBodyTexture());
     }
 
     public static void renderCrystalBeams(double p_188325_0_, double p_188325_2_, double p_188325_4_, float p_188325_6_, double p_188325_7_, double p_188325_9_, double p_188325_11_, int p_188325_13_, double p_188325_14_, double p_188325_16_, double p_188325_18_) {

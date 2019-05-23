@@ -1,9 +1,9 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragonShulker;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

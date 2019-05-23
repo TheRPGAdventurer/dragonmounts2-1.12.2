@@ -11,10 +11,10 @@
 package com.TheRPGAdventurer.ROTD.client.model.dragon;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonHeadPositionHelper;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.entity.helper.SegmentSizePositionRotation;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.SegmentSizePositionRotation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -328,7 +328,7 @@ public class DragonModel extends AdvancedModelBase {
     private void buildWing() {
         wingArm = new ModelPart(this, "wingarm");
         wingArm.setRotationPoint(-10, 5, 4);
-        wingArm.setRenderScale(1.1f);
+        wingArm.setRenderScale(1.1f); //1.1f
         wingArm.addBox("bone", -28, -3, -3, 28, 6, 6);
         wingArm.addBox("skin", -28, 0, 2, 28, 0, 24);
 

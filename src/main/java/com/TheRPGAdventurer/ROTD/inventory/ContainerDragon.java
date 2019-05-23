@@ -15,13 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ContainerDragon extends Container {
 	private final IInventory dragonInv;
 	private final EntityTameableDragon dragon;
-	private final EntityPlayer player;
 	public static final int chestStartIndex = 3;
 
 	public ContainerDragon(final EntityTameableDragon dragon, EntityPlayer player) {
 		this.dragonInv = dragon.dragonInv;
 		this.dragon = dragon;
-		this.player = player;
 		final int inventoryColumn = 9;
 		dragonInv.openInventory(player);
 

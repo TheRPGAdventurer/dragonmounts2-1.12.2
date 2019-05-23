@@ -146,11 +146,17 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
         if (tickZ > 0) {
             rotZ = (float) Math.sin(tickZ - partialTicks) * 8;
         }
-
+        
+/*		// Aether Egg Levitate
+        float l = (float) (0.1 * Math.cos(dragon.ticksExisted / (Math.PI * 6.89)) + 0.307);
+        boolean lev = false;
+        if (dragon.getBreedType() == EnumDragonBreed.AETHER) lev = true;
+*/        
+        
         // prepare GL states
         GlStateManager.pushMatrix();
         GlStateManager.pushAttrib();
-        GlStateManager.translate(x, y, z);
+        GlStateManager.translate(x, y /*+ (lev ? l : 0)*/, z);
         GlStateManager.rotate(rotX, 1, 0, 0);
         GlStateManager.rotate(rotZ, 0, 0, 1);
         GlStateManager.disableLighting();
@@ -176,8 +182,7 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
         IBakedModel bakedModel = brd.getModelForState(iblockstate);
         
         // render egg
-        brd.getBlockModelRenderer().renderModel(dragon.world, bakedModel,
-                iblockstate, blockpos, vb, false);
+        brd.getBlockModelRenderer().renderModel(dragon.world, bakedModel, iblockstate, blockpos, vb, false);
         vb.setTranslation(0, 0, 0);
         
         tessellator.draw();

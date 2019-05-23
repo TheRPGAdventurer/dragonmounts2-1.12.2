@@ -4,8 +4,8 @@ import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DragonBreedEnchant extends DragonBreed {
 
@@ -32,9 +32,20 @@ public class DragonBreedEnchant extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		World world = dragon.world;
-		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, dragon.posX, dragon.getEyeHeight() - 1, dragon.posZ, 30, dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
-		}
+		doParticles(dragon);
 	}
+	
+    @SideOnly(Side.CLIENT)
+    private void doParticles(EntityTameableDragon dragon) {
+        if (!dragon.isEgg() && !dragon.isHatchling()) {
+	        float s = dragon.getScale() * 1.2f;
+	        for (double x1 = 0; x1 < s + 25; ++x1) {
+		        double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 1.2) * s;
+		        double y = dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;
+		        double z = dragon.posZ + (rand.nextDouble() - 0.5) * (dragon.width - 1.2) * s;
+		        
+		        dragon.world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, x, y, z, 0, 0, 0);
+	        }
+        }
+    }
 }

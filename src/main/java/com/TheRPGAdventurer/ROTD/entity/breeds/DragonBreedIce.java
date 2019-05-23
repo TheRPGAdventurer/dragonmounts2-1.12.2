@@ -28,7 +28,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  *
@@ -83,19 +84,13 @@ public class DragonBreedIce extends DragonBreed {
     }
 
 	@Override
-	public void onEnable(EntityTameableDragon dragon) {
-		
-	}
+	public void onEnable(EntityTameableDragon dragon) {}
 
 	@Override
-	public void onDisable(EntityTameableDragon dragon) {
-		
-	}
+	public void onDisable(EntityTameableDragon dragon) {}
 
 	@Override
-	public void onDeath(EntityTameableDragon dragon) {
-		
-	}
+	public void onDeath(EntityTameableDragon dragon) {}
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
@@ -120,12 +115,22 @@ public class DragonBreedIce extends DragonBreed {
 		if(dragon.isOverWater()) { 
 			freezeNearby(dragon, dragon.world, new BlockPos(dragon),  1);
 		}
-		World world = dragon.world;
-		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-//			dragon.getParticleHelper().spawnBodyParticle(EnumParticleTypes.CLOUD);
-//			((WorldServer) world).spawnParticle(EnumParticleTypes.CLOUD, dragon.posX, dragon.getEyeHeight() + 4, dragon.posZ, (int) dragon.getScale(), dragon.getScale() * 0.6, dragon.getScale() * 0.9, dragon.getScale() * 0.6, 0.0D);
-			}
+		doParticles(dragon);
 	}
+	
+    @SideOnly(Side.CLIENT)
+    private void doParticles(EntityTameableDragon dragon) {
+        if (!dragon.isEgg() && !dragon.isHatchling()) {
+	        float s = dragon.getScale() * 1.2f;
+	        for (double x1 = 0; x1 < s + 2; ++x1) {
+		        double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
+		        double y = dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;
+		        double z = dragon.posZ + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
+		        
+		        dragon.world.spawnParticle(EnumParticleTypes.SNOW_SHOVEL, x, y, z, 0, 0, 0);
+	        }
+        }
+    }
 	
 	public static void freezeNearby(EntityLivingBase living, World worldIn, BlockPos pos, int level) {
         if (living.onGround) {

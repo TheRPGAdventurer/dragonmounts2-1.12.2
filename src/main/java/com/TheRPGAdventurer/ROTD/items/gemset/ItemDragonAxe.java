@@ -22,12 +22,11 @@ public class ItemDragonAxe extends ItemAxe {
 	
 	public ItemDragonAxe(ToolMaterial material, String unlocalizedName, float damage, float speed, EnumItemBreedTypes type) {
 		super(material, damage, speed);
-		this.setUnlocalizedName(unlocalizedName);
+		this.setUnlocalizedName("dragon_axe");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 
-		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
 		ModTools.TOOLS.add(this);
 	}
 	

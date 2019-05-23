@@ -22,7 +22,7 @@ public class ItemDragonPickAxe extends ItemPickaxe {
 
 	public ItemDragonPickAxe(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
 		super(material);
-		this.setUnlocalizedName(unlocalizedName);
+		this.setUnlocalizedName("dragon_pickaxe");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;

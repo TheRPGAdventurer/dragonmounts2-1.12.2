@@ -1038,6 +1038,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.rotationYawHead=owner.rotationYawHead;
         this.rotationYaw=owner.rotationYaw;
         this.rotationPitch=owner.rotationPitch;
+        Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+        Vec3d endOfLook = dragonEyePos.addVector(owner.getLook(1).x, owner.getLook(1).y, owner.getLook(1).z);
+        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
+                this.getHeadYawSpeed(), this.getHeadPitchSpeed());
         return this.followPlayerFlying(entityLivingBase);
     }
 

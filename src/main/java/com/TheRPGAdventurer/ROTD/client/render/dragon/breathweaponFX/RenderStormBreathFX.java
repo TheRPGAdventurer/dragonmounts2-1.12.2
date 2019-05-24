@@ -1,4 +1,4 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
-public class RenderStormBreath {
+public class RenderStormBreathFX {
 }

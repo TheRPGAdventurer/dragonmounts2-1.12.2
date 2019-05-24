@@ -706,8 +706,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc=Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player))
-                || (this.getOwner() != null && firesupport())) {
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player)) || (this.getOwner()!=null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting=ModKeys.BOOST.isKeyDown();
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
@@ -1027,34 +1026,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
         BlockPos midPoint=entityLivingBase.getPosition();
-        double x=midPoint.getX();
-        double y=midPoint.getY();
-        double z=midPoint.getZ();
-        //        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
         double offset=16D;
-        //        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
-        x=midPoint.getX() + 0.5 - 12;
-        y=midPoint.getY() + 0.5 + 24;
-        z=midPoint.getZ() + 0.5 - offset;
+        double x=midPoint.getX() + 0.5 - 12;
+        double y=midPoint.getY() + 0.5 + 24;
+        double z=midPoint.getZ() + 0.5 - offset;
         this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 
-    public boolean fireSupport(EntityLivingBase entityLivingBase) {
-        BlockPos midPoint=entityLivingBase.getPosition();
-        double x=midPoint.getX();
-        double y=midPoint.getY();
-        double z=midPoint.getZ();
-        //        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
-        double offset=16D;
-        //        double leftOrRight = this.getRNG().nextBoolean() && !isMoving ? -offset : offset;
-        x=midPoint.getX() + 0.5 - 12;
-        y=midPoint.getY() + 0.5 + 24;
-        z=midPoint.getZ() + 0.5 - offset;
-        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
-        this.rotationYawHead=getOwner().rotationYawHead;
-        this.rotationPitch=getOwner().rotationPitch;
-        return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
+    public boolean fireSupport(EntityLivingBase entityLivingBase, EntityLivingBase owner) {
+        this.rotationYawHead=owner.rotationYawHead;
+        this.rotationYaw=owner.rotationYaw;
+        this.rotationPitch=owner.rotationPitch;
+        return this.followPlayerFlying(entityLivingBase);
     }
 
     public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {

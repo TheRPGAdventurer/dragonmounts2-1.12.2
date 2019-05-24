@@ -81,7 +81,8 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         }
 
         owner = ownerCurrent;
-        return true;
+
+        return dragon.nothing();
     }
 
     /**

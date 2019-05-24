@@ -62,15 +62,15 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
                 ((EntityPlayer) dragon.getOwner()).sendStatusMessage(new TextComponentTranslation("dragon.command.new_home", dragon.homePos.getX(), dragon.homePos.getY(), dragon.homePos.getZ()), true);
             } else if (dragon.nothing()) {
                 return;
+            } else if(dragon.firesupport()) {
+                dragon.fireSupport(dragon, dragon.getOwner());
+                dragon.getAISit().setSitting(false);
             }
 
         } else if (dragon.sit()) {
             dragon.getAISit().setSitting(!dragon.isSitting());
             dragon.getNavigator().clearPathEntity();
             dragon.setnothing(true);
-        } else if(dragon.firesupport()) {
-            dragon.fireSupport(dragon);
-            dragon.getAISit().setSitting(false);
         }
     }
 }

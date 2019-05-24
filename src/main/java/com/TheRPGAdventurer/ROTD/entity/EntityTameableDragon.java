@@ -706,14 +706,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc=Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player))) {
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player))
+                || (this.getOwner() != null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting=ModKeys.BOOST.isKeyDown();
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
             boolean followyaw=ModKeys.FOLLOW_YAW.isPressed();
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing, isBoosting));
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followYaw, locky));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky));
         }
     }
 
@@ -1051,6 +1052,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         y=midPoint.getY() + 0.5 + 24;
         z=midPoint.getZ() + 0.5 - offset;
         this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        this.rotationYawHead=getOwner().rotationYawHead;
+        this.rotationPitch=getOwner().rotationPitch;
         return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 

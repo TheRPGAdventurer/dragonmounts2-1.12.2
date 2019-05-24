@@ -1808,7 +1808,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void updateRidden() {
         Entity entity=this.getRidingEntity();
-        if (this.isRiding() && !isRidingAboveGround(entity) && (entity.isSneaking() || entity.isDead || this.getScale() > 0.35)) {
+        if (this.isRiding() && !isRidingAboveGround(entity) && (ModKeys.DISMOUNT.isPressed() || entity.isDead || this.getScale() > 0.35)) {
             this.dismountRidingEntity();
         } else {
             this.motionX=0.0D;

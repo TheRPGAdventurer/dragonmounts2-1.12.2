@@ -1031,7 +1031,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double y=midPoint.getY() + 0.5 + 24;
         double z=midPoint.getZ() + 0.5 - offset;
         this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
-        return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
+        return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
     }
 
     public boolean fireSupport(EntityLivingBase entityLivingBase, EntityLivingBase owner) {

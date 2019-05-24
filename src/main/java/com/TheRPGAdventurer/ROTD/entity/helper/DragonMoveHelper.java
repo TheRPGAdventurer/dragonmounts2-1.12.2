@@ -23,7 +23,6 @@ public class DragonMoveHelper extends EntityMoveHelper {
     public void onUpdateMoveHelper() {
         // original movement behavior if the entity isn't flying
         if (dragon.isFlying()) {
-//            if (this.action == EntityMoveHelper.Action.MOVE_TO) {
 
             Vec3d dragonPos = dragon.getPositionVector();
             Vec3d movePos = new Vec3d(posX, posY, posZ);
@@ -39,7 +38,6 @@ public class DragonMoveHelper extends EntityMoveHelper {
             if (dist > dragon.width) {
                 double boost = dragon.boosting() ? 4 : 1;
                 double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost;
-//                double flySpeed = this.speed * boost;
 
                 // update velocity to approach target
                 dragon.motionX = dir.x * flySpeed;

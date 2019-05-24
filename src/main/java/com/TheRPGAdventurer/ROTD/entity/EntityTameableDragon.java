@@ -2034,7 +2034,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return
      */
     public boolean isHatchling() {
-        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant(); 
+        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant();
     }
 
     public boolean isInfant() {

@@ -13,8 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Random;
-
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
@@ -36,6 +34,7 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(entity.ticksExisted * 40, 0, 0, 1);
         GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
         if (this.renderOutlines) {
@@ -62,9 +61,9 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
             GlStateManager.disableColorMaterial();
         }
 
-        if(new Random().nextInt(4) == 1) {
-           GlStateManager.rotate(34,90,0,0);
-        }
+//        if(new Random().nextInt(4) == 1) {
+//           GlStateManager.translate(34,90,0);
+//        }
 
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();

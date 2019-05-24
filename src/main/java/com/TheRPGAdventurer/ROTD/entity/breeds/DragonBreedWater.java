@@ -75,7 +75,7 @@ public class DragonBreedWater extends DragonBreed {
     }
 
 	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-		final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
+		final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_WATER_START, SoundEffectNames.ADULT_BREATHE_WATER_LOOP, SoundEffectNames.ADULT_BREATHE_WATER_STOP};
 
 		return soundEffectNames;
 

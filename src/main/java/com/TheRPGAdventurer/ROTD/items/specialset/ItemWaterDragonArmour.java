@@ -26,8 +26,8 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (player.isInWater()) { // If the Potion isn't currently active,
-			player.addPotionEffect(potionEffect); // Apply a copy of the PotionEffect to the player
-		}
+//		if (player.) { // If the Potion isn't currently active,
+//			player.addPotionEffect(potionEffect); // Apply a copy of the PotionEffect to the player
+//		}
 	}
 }

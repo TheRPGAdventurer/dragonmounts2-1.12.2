@@ -26,7 +26,6 @@ public class ItemDragonZombieBow extends ItemDragonBow implements IHasModel {
 
     public ItemDragonZombieBow(EnumItemBreedTypes type, Item repair) {
         String name = "dragon_bow_" + type.toString().toLowerCase();
-        this.setUnlocalizedName(name);
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.type = type;
         this.repair = repair;

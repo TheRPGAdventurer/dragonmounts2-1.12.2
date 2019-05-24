@@ -21,7 +21,7 @@ public class ItemDragonShovel extends ItemSpade {
 
 	public ItemDragonShovel(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
 		super(material);
-		this.setUnlocalizedName(unlocalizedName);
+		this.setUnlocalizedName("dragon_shovel");
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;

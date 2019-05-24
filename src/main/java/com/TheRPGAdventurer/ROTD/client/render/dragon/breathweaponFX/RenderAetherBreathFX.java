@@ -13,6 +13,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
 
@@ -60,9 +62,9 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
             GlStateManager.disableColorMaterial();
         }
 
-//        if(new Random().nextInt(4) == 1) {
-//           GlStateManager.rotate(34,90,0,0);
-//        }
+        if(new Random().nextInt(4) == 1) {
+           GlStateManager.rotate(34,90,0,0);
+        }
 
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();

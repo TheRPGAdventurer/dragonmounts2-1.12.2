@@ -20,6 +20,7 @@ public class ItemDragonBow extends ItemBow {
 
     public ItemDragonBow() {
         this.setMaxDamage(725);
+        this.setUnlocalizedName("dragon_bow");
         this.setCreativeTab(DragonMounts.armoryTab);
     }
 

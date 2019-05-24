@@ -20,13 +20,12 @@ import com.TheRPGAdventurer.ROTD.util.math.MathX;
 public enum EnumDragonLifeStage {
 
     EGG(0.25f),
-    HATCHLING(0.10f),
-    INFANT(0.25f),
+    HATCHLING(0.08f),
+    INFANT(0.18f),
     JUVENILE(1.00f),
     ADULT(2.00f);
 
-    public static final int TICKS_PER_STAGE = 42000;
-    //    public static final int TICKS_PER_STAGE;
+    public static final int TICKS_PER_STAGE = 45000;
     public static final EnumDragonLifeStage[] STAGE = values(); // cached for speed
 
     public final float scale;

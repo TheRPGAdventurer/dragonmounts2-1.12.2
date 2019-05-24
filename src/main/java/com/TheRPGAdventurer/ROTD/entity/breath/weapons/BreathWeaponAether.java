@@ -142,7 +142,7 @@ public class BreathWeaponAether extends BreathWeapon {
         //        Vec3d airForceDirection=currentHitDensity.getHitDensityDirection();
         //        Vec3d airMotion=MathX.multiply(airForceDirection, FORCE_MULTIPLIER);
 
-        final double WT_ENTITY=0.5;
+        final double WT_ENTITY=0.05;
         final double WT_AIR=1 - WT_ENTITY;
         ((EntityLivingBase) entity).knockBack(entity, 0.8F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
         entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);

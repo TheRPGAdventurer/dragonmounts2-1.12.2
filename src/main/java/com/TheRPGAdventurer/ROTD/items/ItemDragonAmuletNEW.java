@@ -70,6 +70,8 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
         this.type=EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
         tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
         tag.setString("Owner", dragon.getOwner().getName());
+        tag.setString("Age", StatCollector.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
+
 
         target.writeToNBT(tag);
         stack.setTagCompound(tag);
@@ -125,6 +127,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     	if (containsDragonEntity(stack)) {
     		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
     		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
+            tooltip.add(TextFormatting.GRAY + "Age: " + TextFormatting.AQUA + stack.getTagCompound().getString("Age"));
     		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("Owner"));
     	} else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }

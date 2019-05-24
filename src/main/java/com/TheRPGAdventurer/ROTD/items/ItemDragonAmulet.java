@@ -56,15 +56,16 @@ public class ItemDragonAmulet extends Item implements IHasModel {
         ItemStack stack=player.getHeldItem(hand);
         if (!stack.hasTagCompound()) return EnumActionResult.FAIL;
 
-        EntityTameableDragon entityDragon=new EntityTameableDragon(world);
-        entityDragon.readFromNBT(stack.getTagCompound());
+        EntityTameableDragon dragon=new EntityTameableDragon(world);
+        dragon.readFromNBT(stack.getTagCompound());
 
-        //    	if (entityDragon.isTamedFor(player)) {
+        stack.getTagCompound().setString("Age", StatCollector.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
+        //    	if (dragon.isTamedFor(player)) {
         BlockPos blockPos=pos.offset(facing);
-        entityDragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        dragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         stack.setTagCompound(null);
         player.setHeldItem(hand, new ItemStack(ModItems.Amulet));
-        world.spawnEntity(entityDragon);
+        world.spawnEntity(dragon);
         return EnumActionResult.SUCCESS;
         //    	} else player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
         //    	return EnumActionResult.FAIL;
@@ -76,6 +77,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
         if (containsDragonEntity(stack)) {
             tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
             tooltip.add("Health: " + TextFormatting.GREEN + stack.getTagCompound().getDouble("Health"));
+            tooltip.add(TextFormatting.GRAY + "Age: " + TextFormatting.AQUA + stack.getTagCompound().getString("Age"));
             tooltip.add("Owner: " + TextFormatting.GOLD + stack.getTagCompound().getString("Owner"));
           } else tooltip.add(StatCollector.translateToLocal("dragon.amulet"));
     }
@@ -83,7 +85,6 @@ public class ItemDragonAmulet extends Item implements IHasModel {
     private boolean containsDragonEntity(ItemStack stack) {
         return !stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound().hasKey("breed");
     }
-
 
     /**
      * Gets the Amulet Model According to breed type

@@ -23,9 +23,9 @@ public enum SoundEffectNames {
   ADULT_BREATHE_ICE_LOOP("mob.dragon.breathweapon.ice.adultbreatheiceloop"),
   ADULT_BREATHE_ICE_STOP("mob.dragon.breathweapon.ice.adultbreatheicestop"),
 
-  ADULT_BREATHE_WATER_START("mob.dragon.breathweapon.water.adultbreathewaterstart"),
-  ADULT_BREATHE_WATER_LOOP("mob.dragon.breathweapon.water.adultbreathewaterloop"),
-  ADULT_BREATHE_WATER_STOP("mob.dragon.breathweapon.water.adultbreathewaterstop"),
+  ADULT_BREATHE_WATER_START("mob.dragon.breathweapon.water.breathewaterstart"),
+  ADULT_BREATHE_WATER_LOOP("mob.dragon.breathweapon.water.breathewaterloop"),
+  ADULT_BREATHE_WATER_STOP("mob.dragon.breathweapon.water.breathewaterstop"),
   
   ADULT_BREATHE_AIR_START("mob.dragon.breathweapon.air.breatheairstart"),
   ADULT_BREATHE_AIR_LOOP("mob.dragon.breathweapon.air.breatheairloop"),

@@ -173,8 +173,9 @@ public class BreathWeaponAether extends BreathWeapon {
         final int INSTANT=0;
         final int MODERATE=10;
         final int SLOW=100;
-        materialDisintegrateTime.put(Material.LEAVES, SLOW);
-        materialDisintegrateTime.put(Material.PLANTS, SLOW);
+        materialDisintegrateTime.put(Material.LEAVES, INSTANT);
+        materialDisintegrateTime.put(Material.PLANTS, INSTANT);
+        materialDisintegrateTime.put(Material.FIRE, INSTANT);
         materialDisintegrateTime.put(Material.VINE, SLOW);
         materialDisintegrateTime.put(Material.WEB, SLOW);
         materialDisintegrateTime.put(Material.GOURD, SLOW);

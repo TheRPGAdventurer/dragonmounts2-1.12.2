@@ -36,7 +36,7 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-        if(new Random().nextInt(4) == 1) GlStateManager.rotate(entity.ticksExisted * 90, 0, 0, 1);
+        if(new Random().nextInt(4) == 1) GlStateManager.rotate(entity.ticksExisted * 30, 0, 0, 1);
         GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
         if (this.renderOutlines) {

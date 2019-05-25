@@ -195,6 +195,12 @@
       "dragonmounts:mob/dragon/breathweapon/water/breathewaterstart"
     ]
   },
+  "mob.dragon.breathweapon.water.breathewaterstart": {
+    "category": "neutral",
+    "sounds": [
+      "dragonmounts:mob/dragon/breathweapon/water/breathewaterstart"
+    ]
+  },
   "mob.dragon.breathweapon.water.breathewaterloop": {
     "category": "neutral",
     "sounds": [

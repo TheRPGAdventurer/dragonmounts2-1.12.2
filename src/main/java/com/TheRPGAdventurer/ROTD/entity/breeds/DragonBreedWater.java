@@ -73,13 +73,6 @@ public class DragonBreedWater extends DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWaterDragon(world, power, tickCounter);
     }
-
-	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-		final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_WATER_START, SoundEffectNames.ADULT_BREATHE_WATER_LOOP, SoundEffectNames.ADULT_BREATHE_WATER_STOP};
-
-		return soundEffectNames;
-
-	}
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
@@ -96,6 +89,13 @@ public class DragonBreedWater extends DragonBreed {
 	@Override
 	public EnumParticleTypes getSneezeParticle() {
 		return null;
+	}
+
+	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+		final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_WATER_START, SoundEffectNames.ADULT_BREATHE_WATER_LOOP, SoundEffectNames.ADULT_BREATHE_WATER_STOP};
+
+		return soundEffectNames;
+
 	}
 	
 

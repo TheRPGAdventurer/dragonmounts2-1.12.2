@@ -1042,7 +1042,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Vec3d endOfLook = dragonEyePos.addVector(owner.getLook(1).x, owner.getLook(1).y, owner.getLook(1).z);
         this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                 this.getHeadYawSpeed(), this.getHeadPitchSpeed());
-        return this.followPlayerFlying(entityLivingBase);
+
+        BlockPos midPoint=entityLivingBase.getPosition();
+        double offset=16D;
+        double x=midPoint.getX() + 0.5 - 12;
+        double y=midPoint.getY() + 0.5 + 24;
+        double z=midPoint.getZ() + 0.5 - offset;
+        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
     }
 
     public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
@@ -1832,9 +1839,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.rotationPitch=((EntityPlayer) riding).rotationPitch;
             this.prevRotationPitch=((EntityPlayer) riding).prevRotationPitch;
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() && !this.boosting()) {
-                this.dismountRidingEntity();
-            }
+//            if (riding.isSneaking() && !this.boosting()) {
+//                this.dismountRidingEntity();
+//            }
             this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying);
         }
     }

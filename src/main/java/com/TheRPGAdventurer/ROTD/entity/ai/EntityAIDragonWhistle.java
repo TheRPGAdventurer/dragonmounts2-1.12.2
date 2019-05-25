@@ -41,7 +41,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
     @Override
     public void startExecuting() {
         //Commands Requiring Flight - if any is true, start flying
-        if (!dragon.isFlying() && (dragon.circle() || dragon.follow() || dragon.come())) {
+        if (!dragon.isFlying() && (dragon.circle() || dragon.follow() || dragon.come()) || dragon.firesupport()) {
             dragon.liftOff();
         }
 

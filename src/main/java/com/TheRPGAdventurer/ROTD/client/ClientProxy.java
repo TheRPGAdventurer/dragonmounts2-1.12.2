@@ -11,21 +11,22 @@ package com.TheRPGAdventurer.ROTD.client;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.ServerProxy;
-import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
+import com.TheRPGAdventurer.ROTD.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.RenderDM2Cape;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
+import com.TheRPGAdventurer.ROTD.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.event.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -55,7 +56,6 @@ public class ClientProxy extends ServerProxy {
     private int lockY = 0;
     private boolean followYaw=false;
     private boolean hover=false;
-    private ModMetadata metadata;
 
 	@Override
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -79,7 +79,7 @@ public class ClientProxy extends ServerProxy {
 
         //Override mcmod.info - This looks cooler :)
         TextFormatting t = null, r = TextFormatting.RESET;
-        metadata = event.getModMetadata();
+        ModMetadata metadata = event.getModMetadata();
         metadata.name = t.DARK_AQUA +""+ t.BOLD + "Dragon Mounts";
         metadata.credits = "\n" +
         		t.GREEN + "BarracudaATA4" + r + "-" + t.AQUA + "The Original Owner\n\n" +

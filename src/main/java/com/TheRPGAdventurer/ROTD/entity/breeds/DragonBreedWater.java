@@ -7,7 +7,16 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breeds/DragonBreedWater.java
 package com.TheRPGAdventurer.ROTD.entity.breeds;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breeds/DragonBreedWater.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;

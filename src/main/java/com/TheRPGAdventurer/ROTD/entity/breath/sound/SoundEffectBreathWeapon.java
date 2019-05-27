@@ -1,7 +1,14 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/sound/SoundEffectBreathWeapon.java
 package com.TheRPGAdventurer.ROTD.entity.breath.sound;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/sound/SoundEffectBreathWeapon.java
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.PositionedSound;

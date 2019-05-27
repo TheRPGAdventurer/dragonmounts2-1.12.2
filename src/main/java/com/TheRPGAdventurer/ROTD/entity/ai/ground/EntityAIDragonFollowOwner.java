@@ -7,7 +7,14 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/ground/EntityAIDragonFollowOwner.java
 package com.TheRPGAdventurer.ROTD.entity.ai.ground;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.EntityAIDragonBase;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/ground/EntityAIDragonFollowOwner.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.ai.EntityAIDragonBase;
@@ -57,28 +64,12 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     @Override
     public boolean shouldExecute() {
         Entity ownerCurrent = dragon.getOwner();
-
-        if (ownerCurrent == null) {
-            return false;
-        }
-
-        if (ownerCurrent instanceof EntityPlayer) {
-            if (((EntityPlayer) ownerCurrent).isSpectator()) {
-                return false;
-            }
-        }
-
-        if (dragon.isSitting()) {
-            return false;
-        }
-
-        if (!dragon.nothing()) {
-            return false;
-        }
-
-        if (dragon.getDistanceToEntity(ownerCurrent) < minDist && dragon.isAdult()) {
-            return false;
-        }
+        if (ownerCurrent == null) return false;
+        if (ownerCurrent instanceof EntityPlayer)
+            if (((EntityPlayer) ownerCurrent).isSpectator()) return false;
+        if (dragon.isSitting()) return false;
+        if (!dragon.nothing()) return false;
+        if (dragon.getDistanceToEntity(ownerCurrent) < minDist && dragon.isAdult()) return false;
 
         owner = ownerCurrent;
 
@@ -90,17 +81,9 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldContinueExecuting() {
-        if (nav.noPath()) {
-            return false;
-        }
-
-        if (dragon.isSitting()) {
-            return false;
-        }
-
-        if (dragon.getDistanceToEntity(owner) < minDist) {
-            return false;
-        }
+        if (nav.noPath()) return false;
+        if (dragon.isSitting()) return false;
+        if (dragon.getDistanceToEntity(owner) < minDist) return false;
 
         return true;
     }
@@ -145,29 +128,21 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     @Override
     public void updateTask() {
         // don't move when sitting
-        if (dragon.isSitting()) {
-            return;
-        }
-
+        if (dragon.isSitting()) return;
+        
         // look towards owner
         dragon.getLookHelper().setLookPositionWithEntity(owner, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
 
         // update every 10 ticks only from here
-        if (--updateTicks > 0) {
-            return;
-        }
+        if (--updateTicks > 0) return;
         updateTicks = 10;
+        
+        // move only but don't teleport if leashed
+        if (dragon.getLeashed()) return;
 
         // finish task if it can move to the owner
-        if (nav.tryMoveToEntityLiving(owner, speed)) {
-            return;
-        }
-
-        // move only but don't teleport if leashed
-        if (dragon.getLeashed()) {
-            return;
-        }
-
+        if (nav.tryMoveToEntityLiving(owner, speed)) return;
+        
         if (!this.dragon.isSitting()) {
             if (--this.timeToRecalcPath <= 0) {
                 this.timeToRecalcPath = 10;

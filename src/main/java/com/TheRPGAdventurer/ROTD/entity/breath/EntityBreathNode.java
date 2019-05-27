@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/EntityBreathNode.java
 package com.TheRPGAdventurer.ROTD.entity.breath;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/EntityBreathNode.java
 
 import com.TheRPGAdventurer.ROTD.entity.helper.util.EntityMoveAndResizeHelper;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
@@ -13,6 +17,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/EntityBreathNode.java
+=======
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.EntityMoveAndResizeHelper;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.Pair;
+
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/EntityBreathNode.java
 /**
  * Created by TGG on 31/07/2015.
  * Server side; tracks the position, motion, and collision detection of a breath node in a breath weapon stream,
@@ -91,9 +101,8 @@ class EntityBreathNode extends Entity {
      * x = 3, but got pushed back to x=3.5
      */
     public Collection<Pair<EnumFacing, AxisAlignedBB>> getRecentCollisions() {
-        if (collisions==null) {
-            collisions=new ArrayList<Pair<EnumFacing, AxisAlignedBB>>();
-        }
+        if (collisions==null) collisions=new ArrayList<Pair<EnumFacing, AxisAlignedBB>>();
+        
         return collisions;
     }
 
@@ -110,16 +119,13 @@ class EntityBreathNode extends Entity {
     private EntityMoveAndResizeHelper entityMoveAndResizeHelper;
 
     @Override
-    protected void entityInit() {
-    }
+    protected void entityInit() {}
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound tagCompund) {
-    }
+    protected void readEntityFromNBT(NBTTagCompound tagCompund) {}
 
     @Override
-    protected void writeEntityToNBT(NBTTagCompound tagCompound) {
-    }
+    protected void writeEntityToNBT(NBTTagCompound tagCompound) {}
 
     private Collection<Pair<EnumFacing, AxisAlignedBB>> collisions;
     private float intensityAtCollision;

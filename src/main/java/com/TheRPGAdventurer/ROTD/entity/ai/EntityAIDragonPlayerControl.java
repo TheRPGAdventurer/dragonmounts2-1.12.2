@@ -7,10 +7,17 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/EntityAIDragonPlayerControl.java
 package com.TheRPGAdventurer.ROTD.entity.ai;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/EntityAIDragonPlayerControl.java
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,23 +66,20 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         double y = dragon.posY;
         double z = dragon.posZ;
 
-        double verticalSpeed = 0;
-
         if (dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
-            PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20 * 10);
+            PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 200);
             if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
                 rider.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
             }
         }
 
 //        // if we're breathing at a target, look at it
-        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
+        if (dragon.getBreed().canUseBreathWeapon() && dragon.isUsingBreathWeapon()) {
 
             updateIntendedRideRotation(rider);
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d endOfLook = dragonEyePos.addVector(wp.x, wp.y, wp.z);
-            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                    dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
         }
 
         // control direction with movement keys

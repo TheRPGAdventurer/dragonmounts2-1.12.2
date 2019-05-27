@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/util/EntityMoveAndResizeHelper.java
 package com.TheRPGAdventurer.ROTD.entity.helper.util;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/util/EntityMoveAndResizeHelper.java
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.Entity;

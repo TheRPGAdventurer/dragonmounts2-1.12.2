@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.network;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -17,12 +18,14 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     public boolean isHoverCancel;
     public boolean isFollowYaw;
     public boolean locky;
+    public boolean isBoosting;
 
-    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky) {
+    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky, boolean isBoosting) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
         this.isFollowYaw = isFollowYaw;
         this.locky = locky;
+        this.isBoosting = isBoosting;
     }
 
     public MessageDragonExtras() {}
@@ -33,6 +36,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         isHoverCancel = buf.readBoolean();
         isFollowYaw = buf.readBoolean();
         locky = buf.readBoolean();
+        isBoosting = buf.readBoolean();
 
     }
 
@@ -42,6 +46,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         buf.writeBoolean(isHoverCancel);
         buf.writeBoolean(isFollowYaw);
         buf.writeBoolean(locky);
+        buf.writeBoolean(isBoosting);
 
     }
 
@@ -67,6 +72,12 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
             if(message.locky) {
                 dragon.setYLocked(!dragon.isYLocked());
             }
+            
+			if(message.isBoosting) {
+				dragon.setBoosting(true);
+			} else {
+				dragon.setBoosting(false);
+			}
         }
     }
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breeds/EnumDragonBreed.java
 package com.TheRPGAdventurer.ROTD.entity.breeds;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breeds/EnumDragonBreed.java
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;

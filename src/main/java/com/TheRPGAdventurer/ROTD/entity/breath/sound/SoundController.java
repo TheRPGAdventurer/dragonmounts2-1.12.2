@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/sound/SoundController.java
 package com.TheRPGAdventurer.ROTD.entity.breath.sound;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/sound/SoundController.java
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;

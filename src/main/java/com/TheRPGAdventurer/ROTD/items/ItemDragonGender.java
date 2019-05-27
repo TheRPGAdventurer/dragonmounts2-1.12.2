@@ -1,11 +1,12 @@
 package com.TheRPGAdventurer.ROTD.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import com.TheRPGAdventurer.ROTD.util.StatCollector;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +38,7 @@ public class ItemDragonGender extends Item implements IHasModel
             EntityTameableDragon dragon = (EntityTameableDragon) target;
             if (dragon.isTamedFor(player)) {
                 dragon.setOppositeGender();
-                dragon.world.playSound(player, player.getPosition(), ModSounds.DRAGON_SWITCH, SoundCategory.PLAYERS, 1, 1);
+                dragon.world.playSound(null, player.getPosition(), ModSounds.DRAGON_SWITCH, SoundCategory.PLAYERS, 1, 1);
                 stack.shrink(1);
                 return true;
             }

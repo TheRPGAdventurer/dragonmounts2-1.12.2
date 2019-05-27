@@ -1,8 +1,16 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/weapons/BreathWeaponPoison.java
 package com.TheRPGAdventurer.ROTD.entity.breath.weapons;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedEntity;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.weapons;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathAffectedBlock;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathAffectedEntity;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/weapons/BreathWeaponPoison.java
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

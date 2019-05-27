@@ -1,4 +1,10 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/ground/EntityAIDragonSit.java
 package com.TheRPGAdventurer.ROTD.entity.ai.ground;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/ground/EntityAIDragonSit.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.EntityLivingBase;

@@ -7,12 +7,20 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonReproductionHelper.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonReproductionHelper.java
 import com.google.common.base.Optional;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;

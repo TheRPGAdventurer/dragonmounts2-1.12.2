@@ -1,17 +1,19 @@
 package com.TheRPGAdventurer.ROTD.items.bow;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonBow;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import com.TheRPGAdventurer.ROTD.util.StatCollector;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,6 +28,7 @@ public class ItemDragonSkeletonBow extends ItemDragonBow implements IHasModel {
 
     public ItemDragonSkeletonBow(EnumItemBreedTypes type, Item repair) {
         String name = "dragon_bow_" + type.toString().toLowerCase();
+        this.setUnlocalizedName("dragon_bow");
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.type = type;
         this.repair = repair;
@@ -38,7 +41,8 @@ public class ItemDragonSkeletonBow extends ItemDragonBow implements IHasModel {
                 if (entityIn == null) {
                     return 0.0F;
                 } else {
-                    return entityIn.getActiveItemStack().getItem() != ModTools.ice_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+//                	return entityIn.getActiveItemStack().getItem() != ModTools.skeleton_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
+                	return entityIn.getActiveItemStack().getItem() != ModTools.ice_dragon_bow ? 0.0F : (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F;
                 }
             }
         });
@@ -54,7 +58,7 @@ public class ItemDragonSkeletonBow extends ItemDragonBow implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+    	tooltip.add(TextFormatting.GRAY + StatCollector.translateToLocal("item.armoryitems.info") + " " + type.color + TextFormatting.BOLD + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
     }
 
     /**

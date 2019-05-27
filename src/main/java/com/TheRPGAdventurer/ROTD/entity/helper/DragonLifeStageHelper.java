@@ -7,11 +7,19 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonLifeStageHelper.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+
+import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonLifeStageHelper.java
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -30,7 +38,11 @@ import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonLifeStageHelper.java
 import static com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage.*;
+=======
+import static com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage.*;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonLifeStageHelper.java
 import static net.minecraft.entity.SharedMonsterAttributes.*;
 
 /**

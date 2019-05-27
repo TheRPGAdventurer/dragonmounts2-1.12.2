@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityPartDragon.java
 package com.TheRPGAdventurer.ROTD.entity;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityPartDragon.java
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonHitboxInteract;

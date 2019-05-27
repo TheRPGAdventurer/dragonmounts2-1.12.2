@@ -7,7 +7,14 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/air/EntityAIDragonFlight.java
 package com.TheRPGAdventurer.ROTD.entity.ai.air;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.air;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.EntityAIDragonBase;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/air/EntityAIDragonFlight.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.ai.EntityAIDragonBase;

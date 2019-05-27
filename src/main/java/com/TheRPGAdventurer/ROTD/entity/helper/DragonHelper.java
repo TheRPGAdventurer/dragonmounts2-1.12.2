@@ -7,7 +7,11 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonHelper.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonHelper.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,6 +19,11 @@ import net.minecraft.network.datasync.EntityDataManager;
 
 import java.util.Random;
 
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonHelper.java
+=======
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonHelper.java
 /**
  *
  * @author Nico Bergemann <barracuda415 at yahoo.de>

@@ -1,8 +1,16 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/DragonHeadPositionHelper.java
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.SegmentSizePositionRotation;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
+
+import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.SegmentSizePositionRotation;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/DragonHeadPositionHelper.java
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -44,8 +52,7 @@ public class DragonHeadPositionHelper {
      * @param lookPitch
      * @param breath
      */
-    public void calculateHeadAndNeck(float animBase, float flutter, float sit, float walk, float speed, float ground,
-                                     float netLookYaw, float lookPitch, float breath) {
+    public void calculateHeadAndNeck(float animBase, float flutter, float sit, float walk, float speed, float ground, float netLookYaw, float lookPitch, float breath) {
         neckSegments = new SegmentSizePositionRotation[NUMBER_OF_NECK_SEGMENTS];
         head = new SegmentSizePositionRotation();
         SegmentSizePositionRotation currentSegment = new SegmentSizePositionRotation();

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/SegmentSizePositionRotation.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/SegmentSizePositionRotation.java
 
 /**
 * Created by TGG on 30/08/2015.

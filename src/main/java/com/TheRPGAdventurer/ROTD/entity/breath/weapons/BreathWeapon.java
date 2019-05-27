@@ -1,9 +1,18 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/weapons/BreathWeapon.java
 package com.TheRPGAdventurer.ROTD.entity.breath.weapons;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedEntity;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.weapons;
+
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathAffectedBlock;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathAffectedEntity;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/weapons/BreathWeapon.java
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -309,17 +318,15 @@ public class BreathWeapon {
         checkNotNull(world);
         checkNotNull(entityID);
         checkNotNull(currentHitDensity);
+        
+        Entity entity = world.getEntityByID(entityID);
+        if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) return null;
 
         final float CATCH_FIRE_THRESHOLD = 1.4F;
         final float BURN_SECONDS_PER_HIT_DENSITY = 1.0F;
         float hitDensity = currentHitDensity.getHitDensity();
         final float DAMAGE_PER_HIT_DENSITY = FIRE_DAMAGE * hitDensity;
         MathX.clamp(hitDensity, 0, 2);
-
-        Entity entity = world.getEntityByID(entityID);
-        if (entity == null || !(entity instanceof EntityLivingBase) || entity.isDead) {
-            return null;
-        }
 
         this.xp(entity);
 

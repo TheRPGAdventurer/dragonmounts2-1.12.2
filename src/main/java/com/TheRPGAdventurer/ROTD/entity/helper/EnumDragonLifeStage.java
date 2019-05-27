@@ -7,7 +7,11 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/EnumDragonLifeStage.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/EnumDragonLifeStage.java
 
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;

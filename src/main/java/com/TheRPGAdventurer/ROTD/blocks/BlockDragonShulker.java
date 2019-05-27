@@ -1,16 +1,16 @@
 package com.TheRPGAdventurer.ROTD.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.TheRPGAdventurer.ROTD.tileentities.TileEntityDragonShulker;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,7 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -52,22 +51,6 @@ public class BlockDragonShulker extends BlockContainer {
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
-    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
-        p_193383_2_ = this.getActualState(p_193383_2_, p_193383_1_, p_193383_3_);
-        EnumFacing enumfacing = (EnumFacing) p_193383_2_.getValue(FACING);
-        TileEntityDragonShulker.AnimationStatus tileentityshulkerbox$animationstatus = ((TileEntityDragonShulker) p_193383_1_.getTileEntity(p_193383_3_)).getAnimationStatus();
-        return tileentityshulkerbox$animationstatus != TileEntityDragonShulker.AnimationStatus.CLOSED && (tileentityshulkerbox$animationstatus != TileEntityDragonShulker.AnimationStatus.OPENED || enumfacing != p_193383_4_.getOpposite() && enumfacing != p_193383_4_) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
-    }
-
-//    @Override
-//    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        if (!worldIn.isRemote) {
-//            playerIn.openGui(DragonMounts.instance, GuiHandler.GUI_DRAGON_SHULKER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-//        }
-//
-//        return true;
-//    }
-
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntityDragonShulker tileentity = (TileEntityDragonShulker) worldIn.getTileEntity(pos);
@@ -92,27 +75,17 @@ public class BlockDragonShulker extends BlockContainer {
         return new TileEntityDragonShulker();
     }
 
-//    public boolean hasTileEntity(IBlockState state)
-//    {
-//        return true;
-//    }
-
     /**
      * Called when the block is right clicked by a player.
      */
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else if (playerIn.isSpectator()) {
-            return true;
-        } else {
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof TileEntityDragonShulker) {
-            	playerIn.openGui(DragonMounts.instance, GuiHandler.GUI_DRAGON_SHULKER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            	return true;
-            }
+        if (worldIn.isRemote) return true;
+        else if (playerIn.isSpectator()) return true;
+        else if (worldIn.getTileEntity(pos) instanceof TileEntityDragonShulker) {
+        	playerIn.openGui(DragonMounts.instance, GuiHandler.GUI_DRAGON_SHULKER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        	return true;
         }
-		return false;
+        return false;
     }
 
     /**
@@ -142,7 +115,9 @@ public class BlockDragonShulker extends BlockContainer {
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
-    //Create That Particle Surrounding the Box. Similar to Ender Chest
+    /**
+     * Creates the particles that play around the block
+     */
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         for (int i = 0; i < 3; ++i) {

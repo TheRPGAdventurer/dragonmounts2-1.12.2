@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/util/RotatingQuad.java
 package com.TheRPGAdventurer.ROTD.entity.helper.util;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/util/RotatingQuad.java
 
 /**
  * Created by TGG on 22/06/2015.

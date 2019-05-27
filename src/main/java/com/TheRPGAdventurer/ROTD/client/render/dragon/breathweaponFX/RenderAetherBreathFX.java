@@ -1,7 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.breath.effects.AetherBreathFX;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.effects.AetherBreathFX;
+
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -17,7 +18,7 @@ import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class RenderAetherBreathFX extends Render<AetherBreathFX> {
-
+	
     private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_air.png");
 
     public RenderAetherBreathFX(RenderManager renderManagerIn) {
@@ -38,6 +39,8 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         if(new Random().nextInt(4) == 1) GlStateManager.rotate(entity.ticksExisted * 30, 0, 0, 1);
         GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GlStateManager.rotate(entity.ticksExisted * 40, 0, 0, 1);
+
 
         if (this.renderOutlines) {
             GlStateManager.enableColorMaterial();
@@ -62,10 +65,6 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
         }
-
-//        if(new Random().nextInt(4) == 1) {
-//           GlStateManager.translate(34,90,0);
-//        }
 
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();

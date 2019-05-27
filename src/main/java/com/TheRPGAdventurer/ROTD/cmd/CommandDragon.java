@@ -10,9 +10,10 @@
 package com.TheRPGAdventurer.ROTD.cmd;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+
 import net.minecraft.command.ICommandSender;
 
 import java.util.function.BiConsumer;

@@ -1,8 +1,16 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/BreathAffectedArea.java
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.weapons.BreathWeapon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.Pair;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/BreathAffectedArea.java
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;

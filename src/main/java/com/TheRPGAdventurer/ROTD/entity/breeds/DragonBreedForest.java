@@ -1,4 +1,10 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breeds/DragonBreedForest.java
 package com.TheRPGAdventurer.ROTD.entity.breeds;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breeds/DragonBreedForest.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.init.Biomes;

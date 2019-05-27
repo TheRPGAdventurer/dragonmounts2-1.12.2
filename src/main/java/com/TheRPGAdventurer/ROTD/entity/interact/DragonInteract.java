@@ -7,11 +7,19 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/interact/DragonInteract.java
 package com.TheRPGAdventurer.ROTD.entity.interact;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.interact;
+
+import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.DragonBreed;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/interact/DragonInteract.java
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,7 +58,7 @@ public class DragonInteract extends DragonInteractBase {
                 /*
                  * GUI
                  */
-                if (player.isSneaking() && dragon.isTamed() && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) {
+                if (player.isSneaking() && dragon.isTamedFor(player) && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) {
                     // Dragon Inventory
                     if (!dragon.isHatchling()) {
                         dragon.openGUI(player, GuiHandler.GUI_DRAGON);

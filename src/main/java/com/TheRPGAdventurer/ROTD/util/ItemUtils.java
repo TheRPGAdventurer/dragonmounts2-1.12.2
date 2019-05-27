@@ -20,8 +20,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
-
 /**
  * Small item utility class.
  *

@@ -7,7 +7,11 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/util/Spline.java
 package com.TheRPGAdventurer.ROTD.entity.helper.util;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/util/Spline.java
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 

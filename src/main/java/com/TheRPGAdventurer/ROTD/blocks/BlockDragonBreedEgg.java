@@ -10,7 +10,8 @@
 package com.TheRPGAdventurer.ROTD.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;

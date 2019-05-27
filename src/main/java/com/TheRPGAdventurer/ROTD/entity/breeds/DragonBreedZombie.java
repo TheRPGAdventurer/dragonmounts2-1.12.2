@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breeds/DragonBreedZombie.java
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
@@ -5,6 +6,16 @@ import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
+
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breeds/DragonBreedZombie.java
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;

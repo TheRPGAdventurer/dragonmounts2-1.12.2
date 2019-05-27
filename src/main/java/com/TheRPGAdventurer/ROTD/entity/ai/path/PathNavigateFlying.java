@@ -7,7 +7,11 @@
 **    May you find forgiveness for yourself and forgive others.
 **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/path/PathNavigateFlying.java
 package com.TheRPGAdventurer.ROTD.entity.ai.path;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.path;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/path/PathNavigateFlying.java
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.pathfinding.PathFinder;

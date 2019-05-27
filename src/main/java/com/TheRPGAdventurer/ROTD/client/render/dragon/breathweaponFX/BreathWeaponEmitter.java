@@ -1,8 +1,9 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
-import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.effects.*;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;

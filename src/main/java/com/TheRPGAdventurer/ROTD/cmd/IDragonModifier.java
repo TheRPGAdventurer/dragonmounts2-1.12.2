@@ -9,7 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.cmd;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -30,28 +30,24 @@ import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
  */
 public interface IDragonModifier {
     
-    static final double MODIFIER_RANGE = 64;
-    
     default void applyModifier(MinecraftServer server, ICommandSender sender, Consumer<EntityTameableDragon> modifier) throws CommandException {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
-            AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .grow(MODIFIER_RANGE, MODIFIER_RANGE, MODIFIER_RANGE);
+            // Get the players bounding box and expand it
+            AxisAlignedBB aabb = player.getEntityBoundingBox().grow(16, 5, 16); //Modifier Range. Defaults: XZ Plane: 16; Y Plane: 5
             
-            List<EntityTameableDragon> dragons = player.world
-                .getEntitiesWithinAABB(EntityTameableDragon.class, aabb);
+            // List all dragons in expanded player entity box
+            List<EntityTameableDragon> dragons = player
+            		.world
+            		.getEntitiesWithinAABB(EntityTameableDragon.class, aabb);
 
-            // get closest dragon
-            Optional<EntityTameableDragon> closestDragon = dragons.stream()
-                .min((dragon1, dragon2) -> Float.compare( // max
-                    dragon1.getDistanceToEntity(player),
-                    dragon2.getDistanceToEntity(player))
-                );
+            // Get the closest dragon if theres more than 1
+            Optional<EntityTameableDragon> closestDragon = dragons
+            		.stream()
+            		.min( (dragon1, dragon2) -> Float.compare(dragon1.getDistanceToEntity(player), dragon2.getDistanceToEntity(player)) );
 
-            if (!closestDragon.isPresent()) {
-                throw new CommandException("commands.dragon.nodragons");
-            }
+            if (!closestDragon.isPresent()) throw new CommandException("commands.dragon.nodragons");
             
             modifier.accept(closestDragon.get());
         } else {

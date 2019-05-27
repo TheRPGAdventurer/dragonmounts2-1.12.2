@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonLookHelper.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonLookHelper.java
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

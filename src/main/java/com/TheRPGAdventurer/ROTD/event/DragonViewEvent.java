@@ -33,9 +33,9 @@ public class DragonViewEvent {
                 if (currentView==0) {
                     GlStateManager.translate(0F, -1.3F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==1) {
-                    GlStateManager.translate(-4.7F, -0.8F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==2) {
-                    GlStateManager.translate(4.7F, -0.8F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 }
             }
 
@@ -43,9 +43,9 @@ public class DragonViewEvent {
                 if (currentView==0) {
                     GlStateManager.translate(0F, -1.3F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==1) {
-                    GlStateManager.translate(-4.7F, -0.8F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 } else if (currentView==2) {
-                    GlStateManager.translate(4.7F, -0.8F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 }
             }
         } else if (player.getRidingEntity() instanceof EntityCarriage) {
@@ -60,9 +60,9 @@ public class DragonViewEvent {
                     if (currentView==0) {
                         GlStateManager.translate(0F, -1.3F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==1) {
-                        GlStateManager.translate(4.7F, -0.8F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==2) {
-                        GlStateManager.translate(-4.7F, -0.8F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     }
                 }
 
@@ -70,9 +70,9 @@ public class DragonViewEvent {
                     if (currentView==0) {
                         GlStateManager.translate(0F, -1.3F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==1) {
-                        GlStateManager.translate(4.7F, -0.8F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView==2) {
-                        GlStateManager.translate(-4.7F, -0.8F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     }
                 }
             } else {

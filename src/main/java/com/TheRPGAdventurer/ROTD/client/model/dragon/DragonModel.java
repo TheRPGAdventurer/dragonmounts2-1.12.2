@@ -192,17 +192,17 @@ public class DragonModel extends AdvancedModelBase {
 
     private void buildHead() {
         head=new ModelPart(this, "head");
-        head.addBox("upperjaw", -6, -3, -9 + HEAD_OFS, 12, 5, 16);
-        head.addBox("mainhead", -8, -10, 4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril", -5, -5, -7 + HEAD_OFS, 2, 2, 4);
+        head.addBox("upperjaw", -6, 0, -9 + HEAD_OFS, 12, 5, 16);
+        head.addBox("mainhead", -8, -7, 4 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("nostril", -5, -2, -7 + HEAD_OFS, 2, 2, 4);
         head.mirror=true;
-        head.addBox("nostril", 3, -5, -7 + HEAD_OFS, 2, 2, 4);
+        head.addBox("nostril", 3, -2, -7 + HEAD_OFS, 2, 2, 4);
 
         buildHorn(false);
         buildHorn(true);
 
-        jaw=head.addChildBox("lowerjaw", -6, -3, -17, 12, 4, 16);
-        jaw.setRotationPoint(0, 4, 8 + HEAD_OFS); // 4 rotationPointY
+        jaw=head.addChildBox("lowerjaw", -6, -4, -17, 12, 4, 16);
+        jaw.setRotationPoint(0, 7, 8 + HEAD_OFS); // 4 rotationPointY
     }
 
     private void buildHorn(boolean mirror) {
@@ -212,7 +212,7 @@ public class DragonModel extends AdvancedModelBase {
         float hornOfs=-(hornThick / 2f);
 
         float hornPosX=-5;
-        float hornPosY=-10;
+        float hornPosY=-7;
         float hornPosZ=-2;
 
         float hornRotX=MathX.toRadians(30);
@@ -673,7 +673,7 @@ public class DragonModel extends AdvancedModelBase {
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         DragonAnimator animator=dragon.getAnimator();
         float speed=MathX.clamp(dragon.getScale(), 0.33f, 0.44f);
-        animator.setMovement(dragon.isHatchling() ? moveTime : moveTime / 3, moveSpeed * speed);
+        animator.setMovement(moveTime, moveSpeed * 1);
         animator.setLook(lookYaw, lookPitch);
         animator.animate();
         updateFromAnimator(dragon);

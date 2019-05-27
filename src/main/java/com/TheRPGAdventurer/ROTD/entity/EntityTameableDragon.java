@@ -291,7 +291,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        //        nbt.setUniqueId("IdAmulet", this.getUniqueID());
+        nbt.setUniqueId("IdAmulet", this.getUniqueID()); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
         nbt.setBoolean(NBT_SADDLED, isSaddled());
         nbt.setInteger(NBT_ARMOR, this.getArmor());
         nbt.setBoolean(NBT_CHESTED, this.isChested());
@@ -324,7 +324,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        //        this.setUniqueId(nbt.getUniqueId("IdAmulet"));
+        this.setUniqueId(nbt.getUniqueId("IdAmulet")); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
         this.setSaddled(nbt.getBoolean(NBT_SADDLED));
         this.setChested(nbt.getBoolean(NBT_CHESTED));
         this.setSheared(nbt.getBoolean(NBT_SHEARED));
@@ -923,8 +923,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (getControllingPlayer()==null && !isFlying() && isSitting()) {
             removePassengers();
-        } else if (!isSaddled()) {
-            removePassengers();
         }
 
         Random rand=new Random();
@@ -936,6 +934,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
             world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
             world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);
+        }
+
+        //        // if we're breathing at a target, look at it
+        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon()) {
+            //            this.equalizeYaw(getControllingPlayer());
+            Vec3d wp=getControllingPlayer().getLook(1.0F);
+            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
+            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
+            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+
         }
 
         super.onLivingUpdate();
@@ -1034,16 +1042,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
     }
 
-    public boolean fireSupport(EntityLivingBase entityLivingBase, EntityLivingBase owner) {
-        this.rotationYawHead=owner.rotationYawHead;
-        this.rotationYaw=owner.rotationYaw;
-        this.rotationPitch=owner.rotationPitch;
-        Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-        Vec3d endOfLook = dragonEyePos.addVector(owner.getLook(1).x, owner.getLook(1).y, owner.getLook(1).z);
-        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+    public boolean fireSupport(EntityTameableDragon dragon, EntityLivingBase owner) {
+        if (dragon.isUsingBreathWeapon()) {
+            //            dragon.rotationYaw=owner.rotationYawHead;
+            //            dragon.rotationYawHead=owner.rotationYawHead;
+            //            dragon.prevRotationYaw=owner.rotationYawHead;
+            //            dragon.rotationPitch=owner.rotationPitch;
+            //            dragon.prevRotationPitch=owner.prevRotationPitch;
+            Vec3d dragonEyePos=this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+            Vec3d endOfLook=dragonEyePos.addVector(owner.getLook(1).x, owner.getLook(1).y, owner.getLook(1).z);
+            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+        }
 
-        BlockPos midPoint=entityLivingBase.getPosition();
+        BlockPos midPoint=dragon.getPosition();
         double offset=16D;
         double x=midPoint.getX() + 0.5 - 12;
         double y=midPoint.getY() + 0.5 + 24;
@@ -1378,6 +1389,58 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         return eyeHeight;
+    }
+
+    /**
+     * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
+     */
+    @Override
+    public void setPositionAndRotation(double x, double y, double z, float yaw, float pitch) {
+        this.posX=MathHelper.clamp(x, -3.0E7D, 3.0E7D);
+        this.posY=y;
+        this.posZ=MathHelper.clamp(z, -3.0E7D, 3.0E7D);
+        this.prevPosX=this.posX;
+        this.prevPosY=this.posY;
+        this.prevPosZ=this.posZ;
+        pitch=MathHelper.clamp(pitch, -140.0F, 140.0F); // attempt for the head pitch turn() wont work
+        this.rotationYaw=yaw;
+        this.rotationPitch=pitch;
+        this.prevRotationYaw=this.rotationYaw;
+        this.prevRotationPitch=this.rotationPitch;
+        double d0=(double) (this.prevRotationYaw - yaw);
+
+        if (d0 < -180.0D) {
+            this.prevRotationYaw+=360.0F;
+        }
+
+        if (d0 >= 180.0D) {
+            this.prevRotationYaw-=360.0F;
+        }
+
+        if (!this.world.isRemote)
+            this.world.getChunkFromChunkCoords((int) Math.floor(this.posX) >> 4, (int) Math.floor(this.posZ) >> 4); // Forge - ensure target chunk is loaded.
+        this.setPosition(this.posX, this.posY, this.posZ);
+        this.setRotation(yaw, pitch);
+    }
+
+    /**
+     * Adds 15% to the entity's yaw and subtracts 15% from the pitch. Clamps pitch from -90 to 90. Both arguments in
+     * degrees.
+     */
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void turn(float yaw, float pitch) {
+        float f=this.rotationPitch;
+        float f1=this.rotationYaw;
+        this.rotationYaw=(float) ((double) this.rotationYaw + (double) yaw * 0.15D);
+        this.rotationPitch=(float) ((double) this.rotationPitch + (double) pitch * 0.15D); // attempt for the head pitch
+        this.rotationPitch=MathHelper.clamp(this.rotationPitch, -280.0F, 280.0F); // attempt for the head pitch
+        this.prevRotationPitch+=this.rotationPitch + f;
+        this.prevRotationYaw+=this.rotationYaw + f1;
+
+        if (this.getRidingEntity()!=null) {
+            this.getRidingEntity().applyOrientationToEntity(this);
+        }
     }
 
     /**
@@ -1806,7 +1869,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void updateRidden() {
         Entity entity=this.getRidingEntity();
-        if (this.isRiding() && !isRidingAboveGround(entity) && (ModKeys.DISMOUNT.isPressed() || entity.isDead || this.getScale() > 0.35)) {
+        if (this.isRiding() && !isRidingAboveGround(entity) && (ModKeys.DISMOUNT.isPressed() || entity.isDead)) { //  || this.getScale() > 0.35
             this.dismountRidingEntity();
         } else {
             this.motionX=0.0D;
@@ -1825,6 +1888,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return altitude > 2.0;
     }
 
+    /**
+    * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
+     */
+    public void equalizeYaw(EntityLivingBase riding) {
+        //        this.rotationYaw=((EntityPlayer) riding).rotationYawHead;
+        this.rotationYawHead=((EntityPlayer) riding).rotationYawHead;
+        this.prevRotationYaw=((EntityPlayer) riding).rotationYawHead;
+        this.rotationPitch=((EntityPlayer) riding).rotationPitch;
+        this.prevRotationPitch=((EntityPlayer) riding).prevRotationPitch;
+    }
+
     public void updateRiding(Entity riding) {
         if (riding!=null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
             int i=riding.getPassengers().indexOf(this);
@@ -1832,16 +1906,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             float angle=(0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i==1 ? -90 : i==0 ? 90 : 0);
             double extraX=(double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ=(double) (radius * MathHelper.cos(angle));
-            double extraY=(riding.isSneaking() ? 1.2D : 1.4D) + (i==2 ? 0.4D : 0D);
-            this.rotationYaw=((EntityPlayer) riding).rotationYawHead;
-            this.rotationYawHead=((EntityPlayer) riding).rotationYawHead;
-            this.prevRotationYaw=((EntityPlayer) riding).rotationYawHead;
-            this.rotationPitch=((EntityPlayer) riding).rotationPitch;
-            this.prevRotationPitch=((EntityPlayer) riding).prevRotationPitch;
+            double extraY=(riding.isSneaking() ? 1.0D : 1.4D) + (i==2 ? 0.4D : 0D);
+            equalizeYaw((EntityPlayer) riding);
+            //            Vec3d wp=riding.getLook(1.0F);
+            //            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
+            //            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
+            //            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-//            if (riding.isSneaking() && !this.boosting()) {
-//                this.dismountRidingEntity();
-//            }
+            if (riding.isSneaking() && !this.boosting()) {
+                this.dismountRidingEntity();
+            }
             this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying);
         }
     }
@@ -2135,7 +2210,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public List<ItemStack> onSheared(ItemStack item, net.minecraft.world.IBlockAccess world, BlockPos pos, int fortune) {
         this.setSheared(true);
-        int i=1 + this.rand.nextInt(3);
+        int i=2 + this.rand.nextInt(3);
 
         List<ItemStack> ret=new ArrayList<ItemStack>();
         for (int j=0; j < i; ++j)
@@ -2201,68 +2276,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     protected boolean canFitPassenger(Entity passenger) {
         return this.getPassengers().size() < 3;
-    }
-
-    private void updateForRiding() {
-        doBlockCollisions();
-        List<Entity> list=this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
-
-        if (!list.isEmpty() && isSaddled() && isAdult()) {
-            boolean flag=!this.world.isRemote;
-
-            for (int j=0; j < list.size(); ++j) {
-                Entity entity=list.get(j);
-                if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-                    if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && (isJuvenile() || isAdult())) {
-                        entity.startRiding(this);
-                    } else {
-                        this.applyEntityCollision(entity);
-                    }
-                }
-            }
-        }
-
-        if (getControllingPlayer()==null && !isFlying() && isSitting()) {
-            removePassengers();
-        } else if (isChild() || !isSaddled()) {
-            removePassengers();
-        }
-    }
-
-    /**
-     * Updates the state of the enderdragon's current endercrystal.
-     */
-    private void updateDragonEnderCrystal() {
-        if (!isDead) {
-            if (this.healingEnderCrystal!=null) {
-                if (this.healingEnderCrystal.isDead) {
-                    this.healingEnderCrystal=null;
-                } else if (this.ticksExisted % 10==0) {
-                    if (this.getHealth() < this.getMaxHealth()) {
-                        this.setHealth(this.getHealth() + 1.0F);
-                    }
-
-                    addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 15 * 20));
-                }
-            }
-
-            if (this.rand.nextInt(10)==0) {
-                List<EntityEnderCrystal> list=this.world.getEntitiesWithinAABB(EntityEnderCrystal.class, this.getEntityBoundingBox().grow(32.0D));
-                EntityEnderCrystal entityendercrystal=null;
-                double d0=Double.MAX_VALUE;
-
-                for (EntityEnderCrystal entityendercrystal1 : list) {
-                    double d1=entityendercrystal1.getDistanceSqToEntity(this);
-
-                    if (d1 < d0) {
-                        d0=d1;
-                        entityendercrystal=entityendercrystal1;
-                    }
-                }
-
-                this.healingEnderCrystal=entityendercrystal;
-            }
-        }
     }
 
     /**

@@ -11,10 +11,10 @@
 package com.TheRPGAdventurer.ROTD.client.model.dragon;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonHeadPositionHelper;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.SegmentSizePositionRotation;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.SegmentSizePositionRotation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 import net.minecraft.client.renderer.GlStateManager;

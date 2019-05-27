@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.network;
 
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
@@ -46,15 +46,25 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 		buf.writeByte(controlState);
 
 	}
-
-	@Override
+	
+	/**
+	 * Play Sound on the client only; dont let anyone else hear!
+	 * <p>
+	 * Doesnt seem to work in {@code onClientRecieved()}...
+	 * @param player
+	 */
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
+	private void clientWhistleSound(EntityPlayer player) {
+		player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 4, 1);
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {}
+
+	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
-		player.getEntityWorld().playSound((EntityPlayer) null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 4, 1);
+		clientWhistleSound(player);
 		if (!player.world.isRemote) {
 			Entity entity = server.getEntityFromUuid(dragonId);
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;

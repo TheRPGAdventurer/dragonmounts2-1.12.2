@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.inventory.tabs;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.ItemDragonSword;
+import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonSword;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;

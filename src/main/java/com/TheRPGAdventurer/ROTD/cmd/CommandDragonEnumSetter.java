@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 
 import java.util.List;
 import java.util.function.BiConsumer;

@@ -15,17 +15,16 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 
 public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport> {
-    public UUID dragonId;
+	public UUID dragonId;
     public byte controlState;
     EntityTameableDragon dragon;
 
@@ -57,7 +56,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {
         World world = player.world;
-        WorldServer worldServer = (WorldServer) world;
+        if (world.isRemote) return;
         Entity entity = server.getEntityFromUuid(dragonId);
         if (entity != null && entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
@@ -81,6 +80,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
             RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec31, true);
             if (raytraceresult == null) {
                 player.sendStatusMessage(new TextComponentTranslation("item.whistle.nullBlockPos"), true);
+                return; //suppress null blockpos warnings
             }
             if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
             	BlockPos rayresult = raytraceresult.getBlockPos();

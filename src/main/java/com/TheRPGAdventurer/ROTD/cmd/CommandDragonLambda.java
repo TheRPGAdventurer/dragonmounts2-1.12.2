@@ -16,7 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 
 /**
  *

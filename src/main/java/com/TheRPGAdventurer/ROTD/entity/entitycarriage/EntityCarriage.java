@@ -92,7 +92,6 @@ public class EntityCarriage extends Entity {
      *
      * @return The collision handler or null
      */
-    @Nullable
     public static com.TheRPGAdventurer.ROTD.util.ICollisionHandler getCollisionHandler() {
         return collisionHandler;
     }
@@ -111,7 +110,6 @@ public class EntityCarriage extends Entity {
      * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
      * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
      */
-    @Nullable
     public Entity getControllingPassenger() {
         List<Entity> list=this.getPassengers();
         return list.isEmpty() ? null : list.get(0);
@@ -121,7 +119,6 @@ public class EntityCarriage extends Entity {
      * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
      * pushable on contact, like boats or minecarts.
      */
-    @Nullable
     public AxisAlignedBB getCollisionBox(Entity entityIn) {
         if (getCollisionHandler()!=null) return getCollisionHandler().getCollisionBox(this, entityIn);
         return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
@@ -130,7 +127,6 @@ public class EntityCarriage extends Entity {
     /**
      * Returns the collision bounding box for this entity
      */
-    @Nullable
     public AxisAlignedBB getCollisionBoundingBox() {
         if (getCollisionHandler()!=null) return getCollisionHandler().getBoundingBox(this);
         return null;

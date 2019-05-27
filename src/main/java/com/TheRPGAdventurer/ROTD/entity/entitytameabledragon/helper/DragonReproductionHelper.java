@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
 import com.google.common.base.Optional;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -160,58 +161,64 @@ public class DragonReproductionHelper extends DragonHelper  {
         
         EntityTameableDragon parent1 = dragon;
         EntityTameableDragon parent2 = (EntityTameableDragon) mate;
-        EntityTameableDragon baby = new EntityTameableDragon(dragon.world);
-        
-        // mix the custom names in case both parents have one
-            if (parent1.hasCustomName() && parent2.hasCustomName()) {
-                String p1Name = parent1.getCustomNameTag();
-                String p2Name = parent2.getCustomNameTag();
-                String babyName;
+//        EntityTameableDragon baby = new EntityTameableDragon(dragon.world);
+//
+//        // mix the custom names in case both parents have one
+//            if (parent1.hasCustomName() && parent2.hasCustomName()) {
+//                String p1Name = parent1.getCustomNameTag();
+//                String p2Name = parent2.getCustomNameTag();
+//                String babyName;
+//
+//                if (p1Name.contains(" ") || p2Name.contains(" ")) {
+//                    // combine two words with space
+//                    // "Tempor Invidunt Dolore" + "Magna"
+//                    // = "Tempor Magna" or "Magna Tempor"
+//                    String[] p1Names = p1Name.split(" ");
+//                    String[] p2Names = p2Name.split(" ");
+//
+//                    p1Name = fixChildName(p1Names[rand.nextInt(p1Names.length)]);
+//                    p2Name = fixChildName(p2Names[rand.nextInt(p2Names.length)]);
+//
+//                    babyName = rand.nextBoolean() ? p1Name + " " + p2Name : p2Name + " " + p1Name;
+//                } else {
+//                 // scramble two words
+//                 // "Eirmod" + "Voluptua"
+//                 // = "Eirvolu" or "Volueir" or "Modptua" or "Ptuamod" or ...
+//                 if (rand.nextBoolean()) {
+//                      p1Name = p1Name.substring(0, (p1Name.length() - 1) / 2);
+//                 } else {
+//                    p1Name = p1Name.substring((p1Name.length() - 1) / 2);
+//                 }
+//
+//                 if (rand.nextBoolean()) {
+//                     p2Name = p2Name.substring(0, (p2Name.length() - 1) / 2);
+//                 } else {
+//                     p2Name = p2Name.substring((p2Name.length() - 1) / 2);
+//                 }
+//
+//                 p2Name = fixChildName(p2Name);
+//                 babyName = rand.nextBoolean() ? p1Name + p2Name : p2Name + p1Name;
+//            }
+//
+//            baby.setCustomNameTag(babyName);
+//        }
+//
+//        // inherit the baby's breed from its parents
+////      dragon.getBreedHelper().inheritBreed(parent1, parent2)
+//        baby.setBreedType(inheritRandombreed(parent1, parent2));
 
-                if (p1Name.contains(" ") || p2Name.contains(" ")) {
-                    // combine two words with space
-                    // "Tempor Invidunt Dolore" + "Magna"
-                    // = "Tempor Magna" or "Magna Tempor"
-                    String[] p1Names = p1Name.split(" ");
-                    String[] p2Names = p2Name.split(" ");
+        ItemDragonBreedEgg egg= new ItemDragonBreedEgg();
+        egg.getMetadata(inheritRandombreed(parent1, parent2).getMeta());
+        if(!dragon.isMale()) {
+            dragon.dropItem(egg, 1);
+        }
 
-                    p1Name = fixChildName(p1Names[rand.nextInt(p1Names.length)]);
-                    p2Name = fixChildName(p2Names[rand.nextInt(p2Names.length)]);
-
-                    babyName = rand.nextBoolean() ? p1Name + " " + p2Name : p2Name + " " + p1Name;
-                } else {
-                 // scramble two words
-                 // "Eirmod" + "Voluptua"
-                 // = "Eirvolu" or "Volueir" or "Modptua" or "Ptuamod" or ...
-                 if (rand.nextBoolean()) {
-                      p1Name = p1Name.substring(0, (p1Name.length() - 1) / 2);
-                 } else {
-                    p1Name = p1Name.substring((p1Name.length() - 1) / 2);
-                 }
-
-                 if (rand.nextBoolean()) {
-                     p2Name = p2Name.substring(0, (p2Name.length() - 1) / 2);
-                 } else {
-                     p2Name = p2Name.substring((p2Name.length() - 1) / 2);
-                 }
-
-                 p2Name = fixChildName(p2Name);
-                 babyName = rand.nextBoolean() ? p1Name + p2Name : p2Name + p1Name;
-            }
-
-            baby.setCustomNameTag(babyName);
-        }       
-        
-        // inherit the baby's breed from its parents
-//      dragon.getBreedHelper().inheritBreed(parent1, parent2)
-        baby.setBreedType(inheritRandombreed(parent1, parent2));
-        
         // increase reproduction counter
         parent1.getReproductionHelper().addReproduced();
         parent2.getReproductionHelper().addReproduced();
      
       
-        return baby;
+        return null;
     }
     
     private String fixChildName(String nameOld) {

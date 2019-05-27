@@ -42,7 +42,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
     @Override
     public void startExecuting() {
         //Commands Requiring Flight - if any is true, start flying
-        if (!dragon.isFlying() && (dragon.circle() || dragon.follow() || dragon.come())) {
+        if (!dragon.isFlying() && (dragon.circle() || dragon.follow() || dragon.come()) || dragon.firesupport()) {
             dragon.liftOff();
         }
 
@@ -63,6 +63,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
                 ((EntityPlayer) dragon.getOwner()).sendStatusMessage(new TextComponentTranslation("dragon.command.new_home", dragon.homePos.getX(), dragon.homePos.getY(), dragon.homePos.getZ()), true);
             } else if (dragon.nothing()) {
                 return;
+            } else if(dragon.firesupport()) {
+                dragon.fireSupport(dragon, dragon.getOwner());
+                dragon.getAISit().setSitting(false);
             }
 
         } else if (dragon.sit()) {

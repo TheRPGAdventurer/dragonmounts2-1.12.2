@@ -53,7 +53,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     @Override
     public void updateTask() {
-        Vec3d wp = rider.getLookVec();
+        Vec3d wp = rider.getLook(1.0F);
 
         double x = dragon.posX;
         double y = dragon.posY;
@@ -97,7 +97,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
         }
 
-        if ((dragon.isUsingBreathWeapon() && rider.moveStrafing == 0) && dragon.followYaw()) {
+        if ((dragon.isUsingBreathWeapon() && rider.moveStrafing == 0) || dragon.followYaw()) {
             dragon.rotationYaw = rider.rotationYaw;
             dragon.rotationPitch = rider.rotationPitch;
         }

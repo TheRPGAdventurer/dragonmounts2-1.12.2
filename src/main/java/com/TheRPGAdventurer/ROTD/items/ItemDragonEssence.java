@@ -12,7 +12,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,7 +60,7 @@ public class ItemDragonEssence extends Item implements IHasModel {
         	player.setHeldItem(hand, ItemStack.EMPTY);
             dragon.world.playSound(x, y, z, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 1, 1, false);
             dragon.world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x + dragon.getRNG().nextInt(5), y + dragon.getRNG().nextInt(5), z + dragon.getRNG().nextInt(5), 1, 1, 1, 0);
-        } else player.sendStatusMessage(new TextComponentTranslation("item.whistle.notOwned"), true);
+        } else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
         
         return super.onItemUse(player, world, pos, hand, facing, x, y, z);
     }

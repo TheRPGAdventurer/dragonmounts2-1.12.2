@@ -142,7 +142,7 @@ public class BreathWeaponAether extends BreathWeapon {
         //        Vec3d airForceDirection=currentHitDensity.getHitDensityDirection();
         //        Vec3d airMotion=MathX.multiply(airForceDirection, FORCE_MULTIPLIER);
 
-        final double WT_ENTITY=0.5;
+        final double WT_ENTITY=0.05;
         final double WT_AIR=1 - WT_ENTITY;
         ((EntityLivingBase) entity).knockBack(entity, 0.8F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
         entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
@@ -173,8 +173,10 @@ public class BreathWeaponAether extends BreathWeapon {
         final int INSTANT=0;
         final int MODERATE=10;
         final int SLOW=100;
-        materialDisintegrateTime.put(Material.LEAVES, SLOW);
-        materialDisintegrateTime.put(Material.PLANTS, SLOW);
+        
+        materialDisintegrateTime.put(Material.LEAVES, INSTANT);
+        materialDisintegrateTime.put(Material.PLANTS, INSTANT);
+        materialDisintegrateTime.put(Material.FIRE, INSTANT);
         materialDisintegrateTime.put(Material.VINE, SLOW);
         materialDisintegrateTime.put(Material.WEB, SLOW);
         materialDisintegrateTime.put(Material.GOURD, SLOW);

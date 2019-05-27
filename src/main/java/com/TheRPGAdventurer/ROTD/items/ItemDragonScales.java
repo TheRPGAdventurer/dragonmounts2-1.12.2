@@ -23,7 +23,7 @@ public class ItemDragonScales extends Item implements IHasModel {
         this.setUnlocalizedName("dragonscales");
         this.setRegistryName(name);
         this.setCreativeTab(DragonMounts.mainTab);
-        this.maxStackSize=16;
+        this.maxStackSize=32;
         this.type=type;
 
         ModItems.ITEMS.add(this);

@@ -171,7 +171,7 @@
       "dragonmounts:mob/dragon/breathweapon/fire/hatchlingbreathefirestop"
     ]
   },
-    "mob.dragon.breathweapon.ice.adultbreatheicestart": {
+  "mob.dragon.breathweapon.ice.adultbreatheicestart": {
     "category": "dragon_start",
     "sounds": [
       "dragonmounts:mob/dragon/breathweapon/ice/adultbreatheicestart"
@@ -187,6 +187,30 @@
     "category": "dragon_stop",
     "sounds": [
       "dragonmounts:mob/dragon/breathweapon/ice/adultbreatheicestop"
+    ]
+  },
+  "mob.dragon.breathweapon.air.breathewaterstart": {
+    "category": "neutral",
+    "sounds": [
+      "dragonmounts:mob/dragon/breathweapon/water/breathewaterstart"
+    ]
+  },
+  "mob.dragon.breathweapon.water.breathewaterstart": {
+    "category": "neutral",
+    "sounds": [
+      "dragonmounts:mob/dragon/breathweapon/water/breathewaterstart"
+    ]
+  },
+  "mob.dragon.breathweapon.water.breathewaterloop": {
+    "category": "neutral",
+    "sounds": [
+      "dragonmounts:mob/dragon/breathweapon/water/breathewaterloop"
+    ]
+  },
+  "mob.dragon.breathweapon.water.breathewaterstop": {
+    "category": "neutral",
+    "sounds": [
+      "dragonmounts:mob/dragon/breathweapon/water/breathewaterstop"
     ]
   },
   "mob.dragon.breathweapon.air.breatheairstart": {

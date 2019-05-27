@@ -120,15 +120,15 @@ public class BreathWeaponHydro extends BreathWeapon {
             if (entity1.isPotionActive(MobEffects.WATER_BREATHING)) {
                 return null;
             } else {
-                entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+                entity1.attackEntityFrom(DamageSource.causeMobDamage(dragon), hitDensity * DAMAGE_PER_HIT_DENSITY);
             }
         }
-        triggerDamageExceptions(entity, DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
+        triggerDamageExceptions(entity, hitDensity * DAMAGE_PER_HIT_DENSITY, entityID, currentHitDensity);
 
 
         if (entity instanceof EntityWaterMob) {
             EntityWaterMob watermob = (EntityWaterMob) entity;
-            watermob.attackEntityFrom(DamageSource.GENERIC, DAMAGE_PER_HIT_DENSITY + 4);
+            watermob.attackEntityFrom(DamageSource.GENERIC, hitDensity * DAMAGE_PER_HIT_DENSITY + 4);
         }
 
         if (entity.isBurning()) {
@@ -136,7 +136,7 @@ public class BreathWeaponHydro extends BreathWeapon {
             entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 1.0f, 0.0f);
         }
 
-        entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), DAMAGE_PER_HIT_DENSITY);
+        entity.attackEntityFrom(DamageSource.causeMobDamage(dragon), hitDensity * DAMAGE_PER_HIT_DENSITY);
         entity.isWet();
         ((EntityLivingBase) entity).knockBack(entity, 0.2F, dragon.posX - entity.posX, dragon.posZ - entity.posZ);
 //        PotionEffect iceEffect = new PotionEffect(MobEffects.SLOWNESS, 200);

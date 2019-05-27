@@ -14,13 +14,10 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Dragon Amulet Item for the use of carrying dragons in an item ||
+ * Dragon Amulet Item for the use of carrying dragons in an item <p>
  *
  * Temporary Class made in order to "datafix" old amulets.
  * This Class checks for the old amulet item use, place the dragon and then replace it with the new amulet.
@@ -65,5 +62,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
     }
 
 	@Override
-	public void RegisterModels() { DragonMounts.proxy.registerItemRenderer(this, 0, "inventory"); }
+	public void RegisterModels() {
+		DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
+	}
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityCarriage.java
 package com.TheRPGAdventurer.ROTD.entity;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitycarriage;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitycarriage/EntityCarriage.java
 
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import net.minecraft.block.BlockPlanks;

@@ -1,9 +1,9 @@
-package com.TheRPGAdventurer.ROTD.client.gui;
+package com.TheRPGAdventurer.ROTD.util;
 
 import net.minecraft.client.resources.I18n;
 
 /*
-    Legacy translations helper
+ * Legacy translations helper
  */
 public class StatCollector {
 

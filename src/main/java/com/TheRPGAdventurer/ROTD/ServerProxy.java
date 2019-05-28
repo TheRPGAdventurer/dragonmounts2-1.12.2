@@ -10,8 +10,8 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.event.DragonEggBlockEvents;
 import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
 

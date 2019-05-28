@@ -1,4 +1,10 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/EntityAIWanderOld.java
 package com.TheRPGAdventurer.ROTD.entity.ai;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/EntityAIWanderOld.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.ai.RandomPositionGenerator;
@@ -22,16 +28,13 @@ public class EntityAIWanderOld extends EntityAIDragonBase {
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-        if (this.dragon.isEgg()) {
-            return false;
-        } else if (this.dragon.getRNG().nextInt(120) != 0) {
-            return false;
-        } else {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.dragon, 10, 7);
+        if (this.dragon.isEgg()) return false;
+        else if (this.dragon.getRNG().nextInt(120) != 0) return false;
+        else {
+        	Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.dragon, 10, 7);
 
-            if (vec3d == null) {
-                return false;
-            } else {
+            if (vec3d == null) return false;
+            else {
                 this.xPosition = vec3d.x;
                 this.yPosition = vec3d.y;
                 this.zPosition = vec3d.z;

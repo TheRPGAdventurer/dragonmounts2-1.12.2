@@ -68,7 +68,7 @@ public class GuiDragonAmulet extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) {
         if(uuid != null) {
-            if (button == teleport) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
+            if (button == teleport) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport());
         }
     }
 

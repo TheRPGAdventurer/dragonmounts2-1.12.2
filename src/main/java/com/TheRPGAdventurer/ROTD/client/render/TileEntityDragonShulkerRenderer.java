@@ -1,6 +1,6 @@
 package com.TheRPGAdventurer.ROTD.client.render;
 
-import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
+import com.TheRPGAdventurer.ROTD.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.model.ModelDragonShulker;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

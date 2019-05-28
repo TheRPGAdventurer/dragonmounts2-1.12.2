@@ -31,32 +31,57 @@ public class MathX {
     private MathX() {
     }
 
-    // float sine function, may use LUT
+    /**
+     * Float sine function, may use LUT
+     * @param a
+     * @return
+     */
     public static float sin(float a) {
         return (float) Math.sin(a);
     }
 
-    // float cosine function, may use LUT
+    /**
+     * Float cosine function, may use LUT
+     * @param a
+     * @return
+     */
     public static float cos(float a) {
         return (float) Math.cos(a);
     }
 
-    // float tangent function
+    /**
+     * Float tangent function
+     * @param a
+     * @return
+     */
     public static float tan(float a) {
         return (float) Math.tan(a);
     }
 
-    // float atan2 function
+    /**
+     * Float atan2 function
+     * @param y
+     * @param x
+     * @return
+     */
     public static float atan2(float y, float x) {
         return (float) Math.atan2(y, x);
     }
 
-    // float degrees to radians conversion
+    /**
+     * Float degrees to radians conversion
+     * @param angdeg
+     * @return
+     */
     public static float toRadians(float angdeg) {
         return (float) Math.toRadians(angdeg);
     }
 
-    // float radians to degrees conversion
+    /**
+     * Float radians to degrees conversion
+     * @param angrad
+     * @return
+     */
     public static float toDegrees(float angrad) {
         return (float) Math.toDegrees(angrad);
     }
@@ -109,8 +134,9 @@ public class MathX {
         return a;
     }
     
-    /** return a random value from a truncated gaussian distribution with
-     *    mean and standard deviation = threeSigma/3
+    /**
+     *  return a random value from a truncated gaussian distribution with
+     *  mean and standard deviation = threeSigma/3
      *  distribution is truncated to +/- threeSigma.
      * @param mean the mean of the distribution
      * @param threeSigma three times the standard deviation of the distribution
@@ -123,27 +149,67 @@ public class MathX {
       return mean + rawValue * threeSigma / 3.0;
     }
     
-    // float square root
+    /**
+     * Float square root
+     * @param f
+     * @return
+     */
     public static float sqrtf(float f) {
         return (float) Math.sqrt(f);
     }
     
-    // numeric float clamp
+    /**
+     * Numeric Float Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static float clamp(float value, float min, float max) {
         return (value < min ? min : (value > max ? max : value));
     }
     
-    // numeric double clamp
+    /**
+     * Numeric Double Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static double clamp(double value, double min, double max) {
         return (value < min ? min : (value > max ? max : value));
     }
     
-    // numeric integer clamp
+    /**
+     * Numeric Integer Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static int clamp(int value, int min, int max) {
         return (value < min ? min : (value > max ? max : value));
     }
 
-    // numeric integer clamp
+    /**
+     * Numeric Integer Clamps
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than or equal to {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static int clamps(int value, int min, int max) {
         return (value < min ? min : (value >= max ? max : value));
     }
@@ -152,17 +218,35 @@ public class MathX {
         return r1 + clamp(normDeg(r2 - r1), -step, step);
     }
     
-    // float linear interpolation
+    /**
+     * Float Linear Interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static float lerp(float a, float b, float x) {
         return a * (1 - x) + b * x;
     }
     
-    // double linear interpolation
+    /**
+     * Double Linear Interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static double lerp(double a, double b, double x) {
         return a * (1 - x) + b * x;
     }
     
-    // smoothed float linear interpolation, similar to terp() but faster
+    /**
+     * Smoothed float linear interpolation, similar to terp() but faster
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static float slerp(float a, float b, float x) {
         if (x <= 0) {
             return a;
@@ -175,7 +259,13 @@ public class MathX {
         return lerp(a, b, x * x * x);
     }
     
- // float trigonometric interpolation
+    /**
+     * Float trigonometric interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static float terp(float a, float b, float x) {
         if (x <= 0) {
             return a;
@@ -188,7 +278,13 @@ public class MathX {
         return a * (1 - mu2) + b * mu2;
     }
     
-    // double trigonometric interpolation
+    /**
+     * Double trigonometric interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static double terp(double a, double b, double x) {
         if (x <= 0) {
             return a;
@@ -201,7 +297,8 @@ public class MathX {
         return a * (1 - mu2) + b * mu2;
     }
 
-    /** clamp the target angle to within a given range of the centre angle
+    /**
+     * Clamp the target angle to within a given range of the centre angle
      * @param targetAngle the desired angle (degrees)
      * @param centreAngle the centre angle to clamp to (degrees)
      * @param maximumDifference the maximum allowable difference between the target and the centre (degrees)
@@ -211,6 +308,12 @@ public class MathX {
         return centreAngle + clamp(normDeg(targetAngle - centreAngle), -maximumDifference, maximumDifference);
     }
 
+    /**
+     * Calculate a Vec3d with a given multiplier
+     * @param source
+     * @param multiplier
+     * @return
+     */
     public static Vec3d multiply(Vec3d source, double multiplier) {
       return new Vec3d(source.x * multiplier, source.y * multiplier, source.z * multiplier);
     }
@@ -218,15 +321,14 @@ public class MathX {
     public final static double MINIMUM_SIGNIFICANT_DIFFERENCE = 1e-3;
 
     public static boolean isApproximatelyEqual(double x1, double x2) {
-
-      return Math.abs(x1 - x2) <= MINIMUM_SIGNIFICANT_DIFFERENCE;
+    	return Math.abs(x1 - x2) <= MINIMUM_SIGNIFICANT_DIFFERENCE;
     }
 
-  public static boolean isSignificantlyDifferent(double x1, double x2) {
-    return Math.abs(x1 - x2) > MINIMUM_SIGNIFICANT_DIFFERENCE;
-  }
+	public static boolean isSignificantlyDifferent(double x1, double x2) {
+	  return Math.abs(x1 - x2) > MINIMUM_SIGNIFICANT_DIFFERENCE;
+	}
 
-    /** return the modulus (always positive)
+    /** Return the modulus (always positive)
      * @param numerator
      * @param divisor
      * @return calculates the numerator modulus by divisor, always positive
@@ -236,7 +338,9 @@ public class MathX {
   }
   
   /**
-   * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
+   * [FLOAT] The angle is reduced to an angle between -180 and +180 by mod, and a 360 check
+   * @param p_76142_0_
+   * @return
    */
   public static float wrapAngleTo180(float p_76142_0_)
   {
@@ -256,7 +360,9 @@ public class MathX {
   }
 
   /**
-   * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
+   * [DOUBLE] The angle is reduced to an angle between -180 and +180 by mod, and a 360 check
+   * @param p_76138_0_
+   * @return
    */
   public static double wrapAngleTo180(double p_76138_0_)
   {
@@ -275,6 +381,11 @@ public class MathX {
       return p_76138_0_;
   }
   
+  /**
+   * Calculates the inverted square root
+   * @param x
+   * @return
+   */
   public static float invSqrt(float x) {
 	    float xhalf = 0.5f * x;
 	    int i = Float.floatToIntBits(x);

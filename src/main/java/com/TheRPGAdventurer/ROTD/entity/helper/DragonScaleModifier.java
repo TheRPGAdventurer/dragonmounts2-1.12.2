@@ -7,7 +7,11 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonScaleModifier.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonScaleModifier.java
 
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 

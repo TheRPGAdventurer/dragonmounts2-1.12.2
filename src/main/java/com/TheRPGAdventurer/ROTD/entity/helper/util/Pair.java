@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/util/Pair.java
 package com.TheRPGAdventurer.ROTD.entity.helper.util;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/util/Pair.java
 
 /**
  * User: The Grey Ghost

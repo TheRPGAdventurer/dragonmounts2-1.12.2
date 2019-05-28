@@ -7,6 +7,7 @@
 **    May you find forgiveness for yourself and forgive others.
 **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/DragonBrain.java
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
@@ -14,6 +15,15 @@ import com.TheRPGAdventurer.ROTD.entity.ai.*;
 import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.*;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.*;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.air.EntityAIDragonFlight;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.air.EntityAIDragonFollowOwnerElytraFlying;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground.*;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/DragonBrain.java
 import com.TheRPGAdventurer.ROTD.util.EntityClassPredicate;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.EntityLiving;

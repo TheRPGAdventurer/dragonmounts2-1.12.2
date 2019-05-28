@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/BreathAffectedEntity.java
 package com.TheRPGAdventurer.ROTD.entity.breath;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/BreathAffectedEntity.java
 
 import net.minecraft.util.math.Vec3d;
 

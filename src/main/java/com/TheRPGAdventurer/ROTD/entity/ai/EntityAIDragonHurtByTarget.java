@@ -1,4 +1,10 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/EntityAIDragonHurtByTarget.java
 package com.TheRPGAdventurer.ROTD.entity.ai;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/EntityAIDragonHurtByTarget.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import net.minecraft.entity.EntityCreature;

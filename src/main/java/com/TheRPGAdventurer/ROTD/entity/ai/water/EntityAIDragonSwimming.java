@@ -1,4 +1,11 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/water/EntityAIDragonSwimming.java
 package com.TheRPGAdventurer.ROTD.entity.ai.water;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.water;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.EntityAIDragonBase;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/water/EntityAIDragonSwimming.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.ai.EntityAIDragonBase;

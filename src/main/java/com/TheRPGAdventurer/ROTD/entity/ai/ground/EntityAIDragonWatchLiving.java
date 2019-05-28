@@ -7,7 +7,14 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/ai/ground/EntityAIDragonWatchLiving.java
 package com.TheRPGAdventurer.ROTD.entity.ai.ground;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.EntityAIDragonBase;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/ai/ground/EntityAIDragonWatchLiving.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.ai.EntityAIDragonBase;
@@ -46,7 +53,7 @@ public class EntityAIDragonWatchLiving extends EntityAIDragonBase {
         
         if (watchedEntity == null) {
             AxisAlignedBB aabb = dragon.getEntityBoundingBox().expand(maxDist, dragon.height, maxDist);
-            Class clazz = EntityLiving.class;
+            Class<EntityLiving> clazz = EntityLiving.class;
             watchedEntity = world.findNearestEntityWithinAABB(clazz, aabb, dragon);
         }
 
@@ -70,15 +77,9 @@ public class EntityAIDragonWatchLiving extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldContinueExecuting() {
-        if (!watchedEntity.isEntityAlive()) {
-            return false;
-        }
-
-        if (dragon.getDistanceSqToEntity(watchedEntity) > maxDist * maxDist) {
-            return false;
-        } else {
-            return watchTicks > 2;
-        }
+        if (!watchedEntity.isEntityAlive()) return false;
+        if (dragon.getDistanceSqToEntity(watchedEntity) > maxDist * maxDist) return false;
+        else return watchTicks > 2;
     }
 
     /**

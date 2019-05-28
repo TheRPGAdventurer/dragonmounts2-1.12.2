@@ -1,9 +1,10 @@
 package com.TheRPGAdventurer.ROTD.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.TheRPGAdventurer.ROTD.util.StatCollector;
+
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -53,37 +54,36 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
 
     /**
      * Called when the player has right clicked an entity with the itemstack
+     * <p> Writes the entity NBT data to the item stack, and then sets dead
      */
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
-        if (!target.isServerWorld()) return false;
-        if (containsDragonEntity(stack) || !(target instanceof EntityTameableDragon) || !target.isEntityAlive())
-            return false;
-        EntityTameableDragon dragon=(EntityTameableDragon) target;
-        if (!dragon.isOwner(player)) {
-            player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
-            return false;
-        }
+    	if (!target.isServerWorld()) return false;
+    	if (containsDragonEntity(stack) || !(target instanceof EntityTameableDragon) || !target.isEntityAlive()) return false;
+    	EntityTameableDragon dragon = (EntityTameableDragon) target;
+    	if (!dragon.isOwner(player)) {
+    		player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
+    		return false;
+    	}
+    	
+    	NBTTagCompound tag = new NBTTagCompound();
+    	tag.setString("breed", dragon.getBreedType().toString().toLowerCase());
+    	this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+    	tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+    	tag.setString("OwnerName", dragon.getOwner().getName());
 
-        NBTTagCompound tag=new NBTTagCompound();
-        tag.setString("breed", dragon.getBreedType().toString().toLowerCase());
-        this.type=EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-        tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
-        tag.setString("Owner", dragon.getOwner().getName());
-        tag.setString("Age", StatCollector.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
+    	target.writeToNBT(tag);
+    	stack.setTagCompound(tag);
 
-
-        target.writeToNBT(tag);
-        stack.setTagCompound(tag);
-
-        doAmuletExtras(player, stack, false);
-        player.setHeldItem(hand, stack);
-        target.setDead();
-        return true;
+    	doAmuletExtras(player, stack, false);
+    	player.setHeldItem(hand, stack);
+    	target.setDead();
+		return true;
     }
 
     /**
-     * Called when the player has right clicked the itemstack on the ground
+     * Called when the player has right clicked the ItemStack on a block
+     * <p> Spawns an entity in the world with the given NBT data the ItemStack was storing
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -111,7 +111,6 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     @SideOnly(Side.CLIENT)
     private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
         if (release) {
-//            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.NEUTRAL, 1, 1);
             player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
             stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
         } else {
@@ -127,8 +126,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     	if (containsDragonEntity(stack)) {
     		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
     		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
-            tooltip.add(TextFormatting.GRAY + "Age: " + TextFormatting.AQUA + stack.getTagCompound().getString("Age"));
-    		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("Owner"));
+    		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));
     	} else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
     }
 

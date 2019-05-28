@@ -2,10 +2,11 @@ package com.TheRPGAdventurer.ROTD.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
-import com.TheRPGAdventurer.ROTD.client.userinput.StatCollector;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import com.TheRPGAdventurer.ROTD.util.StatCollector;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -26,8 +27,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.codec.binary.Hex;
-
+/**
+ * Dragon Whistle Item for controlling certain dragon behaviour remotely.
+ * @author TheRPGAdventurer
+ * @modifier WolfShotz
+ */
 public class ItemDragonWhistle extends Item implements IHasModel {
 	
 	
@@ -40,10 +44,20 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 		ModItems.ITEMS.add(this);
 	}
 	
+	/**
+	 * Open Dragon Whistle gui for dragon with given uuid
+	 * @param uuid
+	 * @param whistle
+	 * @param world
+	 */
     @SideOnly(Side.CLIENT)
-    public void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world)
+    private void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world)
     	{ Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid, whistle)); }
 	
+    /**
+     * Called when the player left clicks an entity
+     * <p> Registers dragon id as well as cosmetic keys to the whistle
+     */
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
 		if (target.world.isRemote) return false;
@@ -59,7 +73,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
         EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
     	nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
     	nbt.setString("Age", StatCollector.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
-    	nbt.setString("Owner", dragon.getOwner().getName());
+    	nbt.setString("OwnerName", dragon.getOwner().getName());
     	nbt.setInteger("Color", dragon.getBreed().getColor());
 
         stack.setTagCompound(nbt);
@@ -68,6 +82,10 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 		return true;
 	}
 	
+	/**
+	 * Called when the ItemStack is right clicked by the player
+	 * <p> If player is sneaking, clear the tag compound. else, open the whistle gui with given id
+	 */
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
@@ -75,7 +93,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 			player.sendStatusMessage(new TextComponentTranslation("whistle.msg.unBound"), true);
 			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 		}
-		if (stack.getTagCompound().getString("Owner") != player.getName()) {
+		if (stack.getTagCompound().getString("OwnerName") != player.getName()) {
 			player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
 			return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 		}
@@ -106,7 +124,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasUniqueId(DragonMounts.MODID.toLowerCase() + "dragon")) {
 			tooltip.add(TextFormatting.GRAY + "Name: " + stack.getTagCompound().getString("Name"));
 			tooltip.add(TextFormatting.GRAY + "Age: " + TextFormatting.AQUA + stack.getTagCompound().getString("Age"));
-			tooltip.add(TextFormatting.GRAY + "Owner: " + TextFormatting.GOLD + stack.getTagCompound().getString("Owner"));
+			tooltip.add(TextFormatting.GRAY + "Owner: " + TextFormatting.GOLD + stack.getTagCompound().getString("OwnerName"));
 			tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + StatCollector.translateToLocal("item.removeNBT"));
 		} else tooltip.add(StatCollector.translateToLocal("item.whistle.info"));
 	}

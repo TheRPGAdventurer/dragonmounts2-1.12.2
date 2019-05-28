@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/NodeLineSegment.java
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.Pair;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/NodeLineSegment.java
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;

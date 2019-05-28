@@ -1,4 +1,12 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/effects/NetherBreathFX.java
 package com.TheRPGAdventurer.ROTD.entity.breath.effects;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.effects;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.EntityMoveAndResizeHelper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/effects/NetherBreathFX.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;

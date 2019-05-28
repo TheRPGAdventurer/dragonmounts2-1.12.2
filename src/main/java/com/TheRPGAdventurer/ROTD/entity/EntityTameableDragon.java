@@ -7,13 +7,34 @@ c ** 2012 August 13
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
 package com.TheRPGAdventurer.ROTD.entity;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon;
+
+import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
+import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
+
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
@@ -21,6 +42,16 @@ import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.*;
 import com.TheRPGAdventurer.ROTD.entity.interact.DragonInteractHelper;
+=======
+import com.TheRPGAdventurer.ROTD.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground.EntityAIDragonSit;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.path.PathNavigateFlying;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.DragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.*;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.interact.DragonInteractHelper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
 import com.TheRPGAdventurer.ROTD.inits.*;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonAmulet;
@@ -28,6 +59,10 @@ import com.TheRPGAdventurer.ROTD.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
+=======
+import com.TheRPGAdventurer.ROTD.tileentities.TileEntityDragonShulker;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -97,6 +132,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     private static final Logger L=LogManager.getLogger();
 
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
     public static final IAttribute MOVEMENT_SPEED_AIR=new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE).setDescription("Movement Speed Air").setShouldWatch(true);
 
     // base attributes
@@ -112,6 +148,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_FOLLOW_RANGE_FLYING=BASE_FOLLOW_RANGE * 2;
     public static final int HOME_RADIUS=64;
     public static final double IN_AIR_THRESH=10;
+=======
+    // base attributes
+    public static final double BASE_GROUND_SPEED = 0.4;
+    public static final double BASE_AIR_SPEED = 0.9;
+    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE).setDescription("Movement Speed Air").setShouldWatch(true);
+    public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
+    public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
+    public static final double BASE_TOUGHNESS = 30.0D;
+    public static final float BASE_WIDTH = 1.88f;
+    public static final float BASE_HEIGHT = 2.33f;
+    public static final float RESISTANCE = 10.0f;
+    public static final double BASE_FOLLOW_RANGE = 70;
+    public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
+    public static final int HOME_RADIUS = 64;
+    public static final double IN_AIR_THRESH = 10;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
 
     protected int ticksSinceLastAttack;
     public static int ticksShear;
@@ -167,8 +219,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private final DragonBodyHelper dragonBodyHelper=new DragonBodyHelper(this);
 
     // server-only flags //unused
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
     //    private BitSet controlFlags;
     //    private BitSet dragonWhistle;
+=======
+    private BitSet controlFlags;
+    private BitSet dragonWhistle;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
 
     public EntityEnderCrystal healingEnderCrystal;
     public DragonInventory dragonInv;
@@ -516,11 +573,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * set in commands
      */
     public void setOppositeGender() {
-        if (isMale()) {
-            this.setMale(false);
-        } else if (!isMale()) {
-            this.setMale(true);
-        }
+        this.setMale(!this.isMale());
     }
 
     /**
@@ -705,6 +758,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
         Minecraft mc=Minecraft.getMinecraft();
         if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player)) || (this.getOwner()!=null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
@@ -714,6 +768,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing, isBoosting));
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky));
+=======
+        Minecraft mc = Minecraft.getMinecraft();
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player))) {
+            boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
+            boolean isBoosting = ModKeys.BOOST.isKeyDown();
+            boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
+            boolean followyaw = ModKeys.FOLLOW_YAW.isPressed(); //unused
+            boolean locky = ModKeys.KEY_LOCKEDY.isPressed();
+            n.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followYaw, locky, isBoosting));
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
         }
     }
 
@@ -1270,7 +1335,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * Gets the pitch of living sounds in living entities.
      */
     public float getPitch() {
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/EntityTameableDragon.java
         return isHatchling() ? 2.5F : 1;
+=======
+        return getScale() > 1 ? 1 : 4;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/EntityTameableDragon.java
     }
 
     /**

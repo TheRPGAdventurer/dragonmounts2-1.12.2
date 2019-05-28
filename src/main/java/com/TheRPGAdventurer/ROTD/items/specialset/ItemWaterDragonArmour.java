@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.items.specialset;
 
+import javax.annotation.Nullable;
+
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonArmour;
@@ -8,8 +10,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class ItemWaterDragonArmour extends ItemDragonArmour {
 	

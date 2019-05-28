@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/DragonBreathHelper.java
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponEmitter;
@@ -6,6 +7,17 @@ import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.*;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
+
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponEmitter;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound.SoundController;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound.SoundEffectBreathWeapon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.weapons.*;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.DragonHelper;
+
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/DragonBreathHelper.java
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
@@ -55,7 +67,8 @@ public class DragonBreathHelper extends DragonHelper {
     public BreathAffectedArea breathAffectedAreaWither;
     public BreathAffectedArea breathAffectedAreaPoison;
     public BreathAffectedArea breathAffectedAreaAether;
-    private static final Logger L = LogManager.getLogger();
+    	//DEBUG
+    	private static final Logger L = LogManager.getLogger();
 
     public DragonBreathHelper(EntityTameableDragon dragon, DataParameter<String> dataParam) {
         super(dragon);
@@ -72,7 +85,7 @@ public class DragonBreathHelper extends DragonHelper {
         breathAffectedAreaAether = new BreathAffectedArea(new BreathWeaponAether(dragon));
     }
 
-    public enum  BreathState {IDLE, STARTING, SUSTAIN, STOPPING}
+    public enum BreathState {IDLE, STARTING, SUSTAIN, STOPPING}
 
     public BreathState getCurrentBreathState() {return currentBreathState;}
 
@@ -110,14 +123,12 @@ public class DragonBreathHelper extends DragonHelper {
     }
 
     private void onLivingUpdateServer() {
-        updateBreathState(dragon.isUsingBreathWeapon());
+       updateBreathState(dragon.isUsingBreathWeapon());
 
         if (dragon.isUsingBreathWeapon()) {
             Vec3d origin = dragon.getAnimator().getThroatPosition();
-            Vec3d lookDirection = dragon.getLook(1.0f);
-            Vec3d endOfLook = origin.addVector(lookDirection.x,
-                    lookDirection.y,
-                    lookDirection.z);
+            Vec3d lookDirection = dragon.getLook(1.1f);
+            Vec3d endOfLook = origin.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
             BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();
             if (endOfLook != null && currentBreathState == BreathState.SUSTAIN) {
                 dragon.getBreed().continueAndUpdateBreathing(dragon.getEntityWorld(), origin, endOfLook, power, dragon);
@@ -138,12 +149,10 @@ public class DragonBreathHelper extends DragonHelper {
             }
         }
 
-        if (soundController == null) {
-            soundController = new SoundController();
-        }
-        if (soundEffectBreathWeapon == null) {
-            soundEffectBreathWeapon = new SoundEffectBreathWeapon(soundController, weaponInfoLink);
-        }
+        if (soundController == null) soundController = new SoundController();
+        
+        if (soundEffectBreathWeapon == null) soundEffectBreathWeapon = new SoundEffectBreathWeapon(soundController, weaponInfoLink);
+        
         soundEffectBreathWeapon.performTick(Minecraft.getMinecraft().player, dragon);
     }
 

@@ -1,4 +1,12 @@
+<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/breath/effects/FlameBreathFX.java
 package com.TheRPGAdventurer.ROTD.entity.breath.effects;
+=======
+package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.effects;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.EntityMoveAndResizeHelper;
+>>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/breath/effects/FlameBreathFX.java
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
@@ -63,14 +71,11 @@ public class FlameBreathFX extends Entity {
     scale = ENTITY_SCALE_RELATIVE_TO_SIZE * currentEntitySize;
 
     // spawn a smoke trail after some time
-    if (SMOKE_CHANCE != 0 && rand.nextFloat() < lifetimeFraction && rand.nextFloat() <= SMOKE_CHANCE) {
-      world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, motionX * 0.5, motionY * 0.5, motionZ * 0.5);
-    }
+    if (SMOKE_CHANCE != 0 && rand.nextFloat() < lifetimeFraction && rand.nextFloat() <= SMOKE_CHANCE)
+    	world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, motionX * 0.5, motionY * 0.5, motionZ * 0.5);
 
     // smoke / steam when hitting water.  node is responsible for aging to death
-    if (handleWaterMovement()) {
-      world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, 0, 0, 0);
-    }
+    if (handleWaterMovement()) world.spawnParticle(getSmokeParticleID(), posX, posY, posZ, 0, 0, 0);
 
     float newAABBDiameter = breathNode.getCurrentAABBcollisionSize();
 
@@ -79,14 +84,11 @@ public class FlameBreathFX extends Entity {
     prevPosZ = posZ;
     entityMoveAndResizeHelper.moveAndResizeEntity(motionX, motionY, motionZ, newAABBDiameter, newAABBDiameter);
 
-    if (isCollided && onGround) {
-        motionY -= 0.01F;         // ensure that we hit the ground next time too
-    }
+    // ensure that we hit the ground next time too
+    if (isCollided && onGround) motionY -= 0.01F;
     
     breathNode.updateAge(this);
-    if (breathNode.isDead()) {
-      setDead();
-    }
+    if (breathNode.isDead()) setDead();
   }
   
   /**
@@ -103,10 +105,7 @@ public class FlameBreathFX extends Entity {
    *                              location in the direction
    * @return the new FlameBreathFX
    */
-  public static FlameBreathFX createFlameBreathFX(World world, double x, double y, double z,
-                                                  double directionX, double directionY, double directionZ,
-                                                  BreathNode.Power power,
-                                                  float partialTicksHeadStart, EntityTameableDragon dragon) {
+  public static FlameBreathFX createFlameBreathFX(World world, double x, double y, double z, double directionX, double directionY, double directionZ, BreathNode.Power power, float partialTicksHeadStart, EntityTameableDragon dragon) { 
     Vec3d direction = new Vec3d(directionX, directionY, directionZ).normalize();
 
     Random rand = new Random();
@@ -122,12 +121,9 @@ public class FlameBreathFX extends Entity {
   }
 
   protected EnumParticleTypes getSmokeParticleID() {
-    if (LARGE_SMOKE_CHANCE != 0 && rand.nextFloat() <= LARGE_SMOKE_CHANCE) {
-      return EnumParticleTypes.SMOKE_LARGE;
-    } else {
-      return EnumParticleTypes.SMOKE_NORMAL;
+    if (LARGE_SMOKE_CHANCE != 0 && rand.nextFloat() <= LARGE_SMOKE_CHANCE) return EnumParticleTypes.SMOKE_LARGE;
+    else return EnumParticleTypes.SMOKE_NORMAL;
     }
-  }
 
   /** Vanilla moveEntity does a pile of unneeded calculations, and also doesn't handle resize around the centre properly,
    * so replace with a custom one
@@ -137,17 +133,17 @@ public class FlameBreathFX extends Entity {
    */
   @Override
   public void move(MoverType mover, double dx, double dy, double dz) {
-    entityMoveAndResizeHelper.moveAndResizeEntity(dx, dy, dz, this.width, this.height);
+	  entityMoveAndResizeHelper.moveAndResizeEntity(dx, dy, dz, this.width, this.height);
   }
 
-@Override
-protected void entityInit() {}
+  @Override
+  protected void entityInit() {}
 
-@Override
-protected void readEntityFromNBT(NBTTagCompound compound) {}
+  @Override
+  protected void readEntityFromNBT(NBTTagCompound compound) {}
 
-@Override
-protected void writeEntityToNBT(NBTTagCompound compound) {}
+  @Override
+  protected void writeEntityToNBT(NBTTagCompound compound) {}
 	
 }
 

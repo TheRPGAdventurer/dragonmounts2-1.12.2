@@ -978,7 +978,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 double d0 = Double.MAX_VALUE;
 
                 for (EntityEnderCrystal entityendercrystal1 : list) {
-                    double d1 = entityendercrystal1.getDistanceSqToEntity(this);
+                    double d1 = entityendercrystal1.getDistanceSq(this);
 
                     if (d1 < d0) {
                         d0 = d1;
@@ -1151,7 +1151,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         x = midPoint.getX() + 0.5 - 12;
         y = midPoint.getY() + 0.5 + 24;
         z = midPoint.getZ() + 0.5 - offset;
-        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 
@@ -1166,12 +1166,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         x = midPoint.getX() + 0.5 - 12;
         y = midPoint.getY() + 0.5 + 24;
         z = midPoint.getZ() + 0.5 - offset;
-        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 
     public boolean comeToPlayerFlying(BlockPos point, EntityLivingBase owner) {
-        float dist = this.getDistanceToEntity(owner);
+        float dist = this.getDistance(owner);
         if (dist <= 12) {
             this.inAirTicks = 0;
             this.setFlying(false);
@@ -1180,7 +1180,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 50);
 
         if (this.getControllingPlayer() != null) {
             return false;
@@ -1201,7 +1201,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction,
                                  float offset, float moveSpeedMultiplier) {
         int directionInt = direction ? 1 : -1;
-        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(
                 target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset),
                 DragonMountsConfig.maxFLightHeight + target.getY(),
@@ -1465,7 +1465,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void tamedFor(EntityPlayer player, boolean successful) {
         if (successful) {
             setTamed(true);
-            navigator.clearPathEntity(); // replacement for setPathToEntity(null);
+            navigator.clearPath(); // replacement for setPathToEntity(null);
             setAttackTarget(null);
             setOwnerId(player.getUniqueID());
             playTameEffect(true);

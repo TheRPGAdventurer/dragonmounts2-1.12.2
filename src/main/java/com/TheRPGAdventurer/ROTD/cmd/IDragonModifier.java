@@ -45,8 +45,8 @@ public interface IDragonModifier {
             // get closest dragon
             Optional<EntityTameableDragon> closestDragon = dragons.stream()
                 .min((dragon1, dragon2) -> Float.compare( // max
-                    dragon1.getDistanceToEntity(player),
-                    dragon2.getDistanceToEntity(player))
+                    dragon1.getDistance(player),
+                    dragon2.getDistance(player))
                 );
 
             if (!closestDragon.isPresent()) {

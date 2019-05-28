@@ -278,7 +278,7 @@ public class DragonAnimator {
         groundTimer.set(groundVal);
 
         // update Flutter transition
-        boolean FlutterFlag = !onGround && (dragon.isCollided
+        boolean FlutterFlag = !onGround && (dragon.collided
                 || dragon.motionY > -0.1 || speedEnt < speedMax);
         FlutterTimer.add(FlutterFlag ? 0.1f : -0.1f);
 

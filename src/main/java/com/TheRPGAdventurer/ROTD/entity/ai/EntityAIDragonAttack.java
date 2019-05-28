@@ -119,7 +119,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
             this.dragon.setAttackTarget(null);
             dragon.setUsingBreathWeapon(false);
         }
-        this.dragon.getNavigator().clearPathEntity();
+        this.dragon.getNavigator().clearPath();
         dragon.setUsingBreathWeapon(false);
     }
 

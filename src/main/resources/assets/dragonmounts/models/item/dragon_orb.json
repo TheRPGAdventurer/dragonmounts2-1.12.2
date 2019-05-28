@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+    "textures": {
+        "layer0": "dragonmounts:items/dragon_wand",
+        "layer1": "dragonmounts:items/dragon_orb-layer1v2"
+    }
+}

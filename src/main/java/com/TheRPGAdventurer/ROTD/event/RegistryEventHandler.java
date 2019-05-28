@@ -11,11 +11,13 @@ import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
+import com.TheRPGAdventurer.ROTD.items.IItemDragonOrbColour;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -123,7 +125,7 @@ public class RegistryEventHandler {
             });
         }
 
-        DMUtils.getLogger().info("Models Sucessfully Registered");
+      DMUtils.getLogger().info("Models Sucessfully Registered");
     }
 
     public static void preInitRegistries() {

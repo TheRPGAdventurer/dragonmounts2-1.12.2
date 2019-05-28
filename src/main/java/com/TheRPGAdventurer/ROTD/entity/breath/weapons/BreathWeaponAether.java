@@ -134,8 +134,8 @@ public class BreathWeaponAether extends BreathWeapon {
         final double FORCE_MULTIPLIER=0.05;
         final double VERTICAL_FORCE_MULTIPLIER=0.05;
         float airForce=currentHitDensity.getHitDensity();
-//        Vec3d airForceDirection=currentHitDensity.getHitDensityDirection();
-//        Vec3d airMotion=MathX.multiply(airForceDirection, FORCE_MULTIPLIER);
+        Vec3d airForceDirection=currentHitDensity.getHitDensityDirection();
+        Vec3d airMotion=MathX.multiply(airForceDirection, FORCE_MULTIPLIER);
 
         final double WT_ENTITY=0.5;
         final double WT_AIR=1 - WT_ENTITY;

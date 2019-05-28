@@ -94,7 +94,7 @@ public class DragonMountsConfig {
 	}
 
 	public static void clientPreInit() {
-		MinecraftForge.EVENT_BUS.register(new ConfigEventHadler());
+		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
 	}
 
 	public static void syncFromFiles() {
@@ -310,7 +310,7 @@ public class DragonMountsConfig {
 		}
 	}
 
-	public static class ConfigEventHadler {
+	public static class ConfigEventHandler {
 
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public void onEvent(ConfigChangedEvent.OnConfigChangedEvent event) {

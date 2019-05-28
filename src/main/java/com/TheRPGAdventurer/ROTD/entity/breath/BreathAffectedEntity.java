@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -25,7 +26,8 @@ public class BreathAffectedEntity {
   private float hitDensity;
   private int timeSinceLastHit;
   private int ticksUntilDamageApplied;
-	
+  private Vec3d averageDirection = new Vec3d(0, 0, 0);
+
   public BreathAffectedEntity() {
     hitDensity = 0.0F;
     timeSinceLastHit = 0;
@@ -37,12 +39,27 @@ public class BreathAffectedEntity {
    * @param increase the amount to increase the hit density by
    */
   public void addHitDensity(Vec3d beamDirection, float increase) {
+    Vec3d oldWeightedDirection = MathX.multiply(averageDirection.normalize(), hitDensity);
+    Vec3d addedWeightedDirection = MathX.multiply(beamDirection.normalize(), increase);
+    Vec3d newAverageDirection = oldWeightedDirection.add(addedWeightedDirection);
+    averageDirection = newAverageDirection;
+
     hitDensity += increase;
     timeSinceLastHit = 0;
   }
 
   public float getHitDensity() {
     return hitDensity;
+  }
+
+  /**
+   * Gets the average direction of the applied hitDensity (--> for example: if the breath weapon is a stream of water,
+   *   this returns the average direction the water is travelling in).
+   * @return the direction with density (i.e. not normalised - magnitude equals the hitDensity)
+   */
+  public Vec3d getHitDensityDirection()
+  {
+    return averageDirection;
   }
 
   /**

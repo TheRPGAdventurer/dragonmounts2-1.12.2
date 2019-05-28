@@ -76,6 +76,7 @@ public class ModItems {
     public static final Item dragon_wand = new ItemDragonWand("dragon_wand");
     public static final Item dragon_whistle = new ItemDragonWhistle();
     public static final Item gender = new ItemDragonGender("dragon_gender");
+    public static final ItemDragonOrb dragon_orb = new ItemDragonOrb();
     //Other End
 
     //Carriages Start //complete

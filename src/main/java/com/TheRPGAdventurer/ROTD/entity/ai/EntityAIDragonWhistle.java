@@ -84,7 +84,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase
 		else if(dragon.sit())
 		{
 			dragon.getAISit().setSitting(!dragon.isSitting());
-			dragon.getNavigator().clearPathEntity();
+			dragon.getNavigator().clearPath();
 			dragon.setnothing(true);
 		}	
 	}

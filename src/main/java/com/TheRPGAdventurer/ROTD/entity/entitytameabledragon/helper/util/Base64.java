@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/TheRPGAdventurer/ROTD/entity/helper/util/Base64.java
-package com.TheRPGAdventurer.ROTD.entity.helper.util;
-=======
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util;
->>>>>>> 487f066b... changes:src/main/java/com/TheRPGAdventurer/ROTD/entity/entitytameabledragon/helper/util/Base64.java
 
 import java.util.Arrays;
 

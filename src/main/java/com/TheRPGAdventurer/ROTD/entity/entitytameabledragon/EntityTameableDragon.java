@@ -9,26 +9,9 @@ c ** 2012 August 13
  */
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon;
 
-import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
-import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
-
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.DragonMountsLootTables;
-import com.TheRPGAdventurer.ROTD.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import com.TheRPGAdventurer.ROTD.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground.EntityAIDragonSit;
@@ -115,22 +98,22 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     private static final Logger L=LogManager.getLogger();
-    private static final SimpleNetworkWrapper n = DragonMounts.NETWORK_WRAPPER;
-    
+    private static final SimpleNetworkWrapper n=DragonMounts.NETWORK_WRAPPER;
+
     // base attributes
-    public static final double BASE_GROUND_SPEED = 0.4;
-    public static final double BASE_AIR_SPEED = 0.9;
-    public static final IAttribute MOVEMENT_SPEED_AIR = new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE).setDescription("Movement Speed Air").setShouldWatch(true);
-    public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
-    public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
-    public static final double BASE_TOUGHNESS = 30.0D;
-    public static final float BASE_WIDTH = 1.88f;
-    public static final float BASE_HEIGHT = 2.33f;
-    public static final float RESISTANCE = 10.0f;
-    public static final double BASE_FOLLOW_RANGE = 70;
-    public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
-    public static final int HOME_RADIUS = 64;
-    public static final double IN_AIR_THRESH = 10;
+    public static final double BASE_GROUND_SPEED=0.4;
+    public static final double BASE_AIR_SPEED=0.9;
+    public static final IAttribute MOVEMENT_SPEED_AIR=new RangedAttribute(null, "generic.movementSpeedAir", 0.9, 0.0, Double.MAX_VALUE).setDescription("Movement Speed Air").setShouldWatch(true);
+    public static final double BASE_DAMAGE=DragonMountsConfig.BASE_DAMAGE;
+    public static final double BASE_ARMOR=DragonMountsConfig.ARMOR;
+    public static final double BASE_TOUGHNESS=30.0D;
+    public static final float BASE_WIDTH=1.88f;
+    public static final float BASE_HEIGHT=2.33f;
+    public static final float RESISTANCE=10.0f;
+    public static final double BASE_FOLLOW_RANGE=70;
+    public static final double BASE_FOLLOW_RANGE_FLYING=BASE_FOLLOW_RANGE * 2;
+    public static final int HOME_RADIUS=64;
+    public static final double IN_AIR_THRESH=10;
 
     protected int ticksSinceLastAttack;
     public static int ticksShear;
@@ -720,13 +703,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
-        Minecraft mc = Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player))) {
-            boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
-            boolean isBoosting = ModKeys.BOOST.isKeyDown();
-            boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
-            boolean followyaw = ModKeys.FOLLOW_YAW.isPressed(); //unused
-            boolean locky = ModKeys.KEY_LOCKEDY.isPressed();
+        Minecraft mc=Minecraft.getMinecraft();
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player))) {
+            boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
+            boolean isBoosting=ModKeys.BOOST.isKeyDown();
+            boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
+            boolean followyaw=ModKeys.FOLLOW_YAW.isPressed(); //unused
+            boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
             n.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
             n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followYaw, locky, isBoosting));
         }
@@ -953,11 +936,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         //        // if we're breathing at a target, look at it
         if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon()) {
-            //            this.equalizeYaw(getControllingPlayer());
-            Vec3d wp=getControllingPlayer().getLook(1.0F);
-            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
-            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
-            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+            this.equalizeYaw(getControllingPlayer());
+            //            Vec3d wp=getControllingPlayer().getLook(1.0F);
+            //            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
+            //            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
+            //            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
 
         }
 
@@ -1904,7 +1887,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-    * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
+     * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase riding) {
         //        this.rotationYaw=((EntityPlayer) riding).rotationYawHead;

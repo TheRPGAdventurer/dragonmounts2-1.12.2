@@ -17,10 +17,10 @@ import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDrago
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.DragonLifeStageHelper;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -97,6 +97,17 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
                 unsetBrightness();
             }
         });
+    }
+
+    public void renderBanner(ResourceLocation resourceLocation, ModelBanner bannerModel) {
+        if (resourceLocation!=null) {
+            this.bindTexture(resourceLocation);
+            bannerModel.bannerSlate.showModel=false;
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.6666667F, -0.6666667F, -0.6666667F);
+            bannerModel.renderBanner();
+            GlStateManager.popMatrix();
+        }
     }
 
     /**

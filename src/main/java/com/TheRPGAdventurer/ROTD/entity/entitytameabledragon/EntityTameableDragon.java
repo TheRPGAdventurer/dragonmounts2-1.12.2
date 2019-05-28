@@ -108,7 +108,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_ARMOR=DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS=30.0D;
     public static final float BASE_WIDTH=1.88f;
-    public static final float BASE_HEIGHT=2.33f;
+    public static final float BASE_HEIGHT=1.88f;
     public static final float RESISTANCE=10.0f;
     public static final double BASE_FOLLOW_RANGE=70;
     public static final double BASE_FOLLOW_RANGE_FLYING=BASE_FOLLOW_RANGE * 2;
@@ -711,7 +711,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             boolean followyaw=ModKeys.FOLLOW_YAW.isPressed(); //unused
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
             n.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
-            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followYaw, locky, isBoosting));
+            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting));
         }
     }
 

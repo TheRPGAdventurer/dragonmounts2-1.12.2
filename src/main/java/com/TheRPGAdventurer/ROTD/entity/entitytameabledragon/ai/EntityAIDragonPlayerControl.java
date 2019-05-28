@@ -97,10 +97,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
         }
 
-        if ((dragon.isUsingBreathWeapon() && rider.moveStrafing == 0) || dragon.followYaw()) {
-            dragon.rotationYaw = rider.rotationYaw;
-            dragon.rotationPitch = rider.rotationPitch;
-        }
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
 }

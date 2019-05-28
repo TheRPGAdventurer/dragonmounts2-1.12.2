@@ -35,8 +35,8 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         Item item3=dragon.getBanner3().getItem();
         Item item4=dragon.getBanner4().getItem();
 
-        if(item1==TileEntityBanner.getItem().getItem()) 
-        ResourceLocation resourcelocation1=this.getBannerResourceLocation(TileEntityBanner.getKey());
+        if(item1==TileEntityBanner.getItem().getItem())
+        ResourceLocation resourcelocation1=this.getBannerResourceLocation(Item.getT);
         ResourceLocation resourcelocation2=this.getBannerResourceLocation((TileEntityBanner) BlockBanner.getBlockFromItem(item2).createNewTileEntity(null, null));
         ResourceLocation resourcelocation3=this.getBannerResourceLocation((TileEntityBanner) BlockBanner.getBlockFromItem(item3).createNewTileEntity(null, null));
         ResourceLocation resourcelocation4=this.getBannerResourceLocation((TileEntityBanner) BlockBanner.getBlockFromItem(item4)).createNewTileEntity(null, null));

@@ -10,7 +10,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 public class DragonMoveHelper extends EntityMoveHelper {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 12;
+    private final float YAW_SPEED = 50;
 
     public DragonMoveHelper(EntityTameableDragon dragon) {
         super(dragon);

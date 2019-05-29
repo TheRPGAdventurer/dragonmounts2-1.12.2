@@ -704,7 +704,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc=Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player))) {
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player))
+        || (getOwner() != null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting=ModKeys.BOOST.isKeyDown();
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
@@ -935,13 +936,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon()) {
-            this.equalizeYaw(getControllingPlayer());
-            //            Vec3d wp=getControllingPlayer().getLook(1.0F);
-            //            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
-            //            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
-            //            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
-
+        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer() != null) {
+            equalizeYaw(getControllingPlayer());
         }
 
         super.onLivingUpdate();
@@ -1041,18 +1037,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean fireSupport(EntityTameableDragon dragon, EntityLivingBase owner) {
-        if (dragon.isUsingBreathWeapon()) {
-            //            dragon.rotationYaw=owner.rotationYawHead;
-            //            dragon.rotationYawHead=owner.rotationYawHead;
-            //            dragon.prevRotationYaw=owner.rotationYawHead;
-            //            dragon.rotationPitch=owner.rotationPitch;
-            //            dragon.prevRotationPitch=owner.prevRotationPitch;
-            Vec3d dragonEyePos=this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-            Vec3d endOfLook=dragonEyePos.addVector(owner.getLook(1).x, owner.getLook(1).y, owner.getLook(1).z);
-            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+        if (dragon.isUsingBreathWeapon() && owner != null) {
+            equalizeYaw(owner);
+            //            Vec3d dragonEyePos=this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+            //            Vec3d endOfLook=dragonEyePos.addVector(owner.getLook(1).x, owner.getLook(1).y, owner.getLook(1).z);
+            //            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
         }
 
-        BlockPos midPoint=dragon.getPosition();
+        BlockPos midPoint=owner.getPosition();
         double offset=16D;
         double x=midPoint.getX() + 0.5 - 12;
         double y=midPoint.getY() + 0.5 + 24;
@@ -1096,18 +1088,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean circleTarget1(BlockPos midPoint) {
-        if (this.getControllingPlayer()!=null) {
+        if(this.getControllingPlayer() != null) {
             return false;
         }
 
-        Vec3d vec1=this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-        Vec3d vec2=new Vec3d(0, 0, 1);
+        Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
+        Vec3d vec2 = new Vec3d(0,0,1);
 
-        double a=Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r=70;
-        double x=midPoint.getX() + r * Math.cos(a * this.ticksExisted * 2.5);
-        double y=midPoint.getY() + DragonMountsConfig.maxFLightHeight;
-        double z=midPoint.getZ() + r * Math.sin(a * this.ticksExisted * 2.5);
+        int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
+        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+        double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
+        double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 3.5); // ()
+        double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
+        double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 3.5); //()
 
         return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
     }

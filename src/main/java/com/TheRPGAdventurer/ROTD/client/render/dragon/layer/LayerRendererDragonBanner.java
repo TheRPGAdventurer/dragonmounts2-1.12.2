@@ -5,10 +5,10 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBanner;
 import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityBanner;
@@ -34,24 +34,28 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
         ItemStack itemstack3=dragon.getBanner3();
         ItemStack itemstack4=dragon.getBanner4();
 
+        Minecraft mc = Minecraft.getMinecraft();
+
         GlStateManager.pushMatrix();
 
         if (itemstack1!=null && itemstack1.getItem()==Items.BANNER && banner1!=null) {
             banner1.setItemValues(itemstack1, false);
-            TileEntityRendererDispatcher.instance.render(this.banner1, 0.0D, 0.0D, 0.0D, 0.0F, 1.0f);
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation1=this.getBannerResourceLocation(banner1);
-            GlStateManager.translate(1.0F, 0.4F, -0.5F);
-            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
-            GlStateManager.translate(0, Interpolation.smoothStep(0.3F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
+//            GlStateManager.translate(0.7F, 0.4F, -0.6F);
+            //lower x++ higher x--
+            GlStateManager.translate(0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getSpeed()));
+            // higher y-- lower y++
+            GlStateManager.translate(0, Interpolation.smoothStep(0.2F, dragon.getAnimator().getModelOffsetY() + 1.2F, dragon.getAnimator().getSpeed()), 0);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
             GlStateManager.scale(0.625F, -0.625F, -0.625F);
-
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
             //            mc.getItemRenderer().renderItem(dragon, itemstack1, ItemCameraTransforms.TransformType.HEAD);
             renderer.bindTexture(resourcelocation1);
             bannerModel.bannerStand.showModel=false;
+            bannerModel.renderBanner();
 
 
         }
@@ -62,19 +66,22 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 
         if (itemstack2!=null && itemstack2.getItem()==Items.BANNER && banner2!=null) {
             banner2.setItemValues(itemstack2, false);
-            TileEntityRendererDispatcher.instance.render(this.banner2, 0.0D, 0.0D, 0.0D, 0.0F, 1.0f);
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation2=this.getBannerResourceLocation(banner2);
-            GlStateManager.translate(-1.0F, 0.4, -0.5F);
-            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(-2.5F, 0.0F, dragon.getAnimator().getSpeed()));
-            GlStateManager.translate(0, Interpolation.smoothStep(0.3F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
+//            GlStateManager.translate(-0.7F, 0.4, -0.6F);
+            //lower x++ higher x--
+            GlStateManager.translate(-0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getSpeed()));
+            // higher y-- lower y++
+            GlStateManager.translate(0, Interpolation.smoothStep(0.2F, dragon.getAnimator().getModelOffsetY() + 1.2F, dragon.getAnimator().getSpeed()), 0);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(-180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
             GlStateManager.scale(0.625F, -0.625F, -0.625F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
-            //            mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD);
+//            mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD);
             renderer.bindTexture(resourcelocation2);
             bannerModel.bannerStand.showModel=false;
+            bannerModel.renderBanner();
 
         }
 
@@ -84,20 +91,20 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 
         if (itemstack3!=null && itemstack3.getItem()==Items.BANNER && banner3!=null) {
             banner3.setItemValues(itemstack3, false);
-            TileEntityRendererDispatcher.instance.render(this.banner3, 0.0D, 0.0D, 0.0D, 0.0F, 1.0f);
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation3=this.getBannerResourceLocation(banner3);
             GlStateManager.translate(-0.4F, -1.7F, 1.7F);
-            GlStateManager.translate(0.0F, 0.0, Interpolation.smoothStep(0F, 0.0F, dragon.getAnimator().getSpeed()));
-            GlStateManager.translate(0, Interpolation.smoothStep(3.2F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
-            GlStateManager.translate(0, 0, Interpolation.smoothStep(-1.9F, dragon.getAnimator().getModelOffsetZ() + 1.5F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0, Interpolation.smoothStep(2.9F, dragon.getAnimator().getModelOffsetY() + 1.7F, dragon.getAnimator().getSpeed()), 0);
+            GlStateManager.translate(0, 0, Interpolation.smoothStep(-2.3F, dragon.getAnimator().getModelOffsetZ() + 1.0F, dragon.getAnimator().getSpeed()));
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(-dragon.getBodyPitch() - 5, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(dragon.getBodyPitch(), 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(0.525F, -0.625F, -0.625F);
             //            mc.getItemRenderer().renderItem(dragon, itemstack3, ItemCameraTransforms.TransformType.HEAD);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
             renderer.bindTexture(resourcelocation3);
             bannerModel.bannerStand.showModel=false;
+            bannerModel.renderBanner();
         }
 
         GlStateManager.popMatrix();
@@ -106,19 +113,20 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
 
         if (itemstack4!=null && itemstack4.getItem()==Items.BANNER && banner4!=null) {
             banner4.setItemValues(itemstack4, false);
-            TileEntityRendererDispatcher.instance.render(this.banner4, 0.0D, 0.0D, 0.0D, 0.0F, 1.0f);
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation4=this.getBannerResourceLocation(banner4);
             GlStateManager.translate(0.4F, -1.7F, 1.7F);
-            GlStateManager.translate(0, Interpolation.smoothStep(3.2F, dragon.getAnimator().getModelOffsetY() + 1.5F, dragon.getAnimator().getSpeed()), 0);
-            GlStateManager.translate(0, 0, Interpolation.smoothStep(-1.9F, dragon.getAnimator().getModelOffsetZ() + 1.5F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0, Interpolation.smoothStep(2.9F, dragon.getAnimator().getModelOffsetY() + 1.7F, dragon.getAnimator().getSpeed()), 0);
+            GlStateManager.translate(0, 0, Interpolation.smoothStep(-2.3F, dragon.getAnimator().getModelOffsetZ() + 1.0F, dragon.getAnimator().getSpeed()));
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(-dragon.getBodyPitch() - 5, 1.0F, 0.0F, 0.0F);
+            GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(dragon.getBodyPitch(), 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(0.525F, -0.625F, -0.625F);
             //            mc.getItemRenderer().renderItem(dragon, itemstack4, ItemCameraTransforms.TransformType.HEAD);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
             renderer.bindTexture(resourcelocation4);
             bannerModel.bannerStand.showModel=false;
+            bannerModel.renderBanner();
 
         }
 

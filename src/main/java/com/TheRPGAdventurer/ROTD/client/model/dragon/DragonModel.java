@@ -193,10 +193,10 @@ public class DragonModel extends AdvancedModelBase {
     private void buildHead() {
         head=new ModelPart(this, "head");
         head.addBox("upperjaw", -6, 0, -9 + HEAD_OFS, 12, 5, 16);
-        head.addBox("mainhead", -8, -7, 4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril", -5, -2, -7 + HEAD_OFS, 2, 2, 4);
+        head.addBox("mainhead", -8, -6, 4 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("nostril", -5, -3, -7 + HEAD_OFS, 2, 2, 4);
         head.mirror=true;
-        head.addBox("nostril", 3, -2, -7 + HEAD_OFS, 2, 2, 4);
+        head.addBox("nostril", 3, -3, -7 + HEAD_OFS, 2, 2, 4);
 
         buildHorn(false);
         buildHorn(true);
@@ -212,7 +212,7 @@ public class DragonModel extends AdvancedModelBase {
         float hornOfs=-(hornThick / 2f);
 
         float hornPosX=-5;
-        float hornPosY=-7;
+        float hornPosY=-6;
         float hornPosZ=-2;
 
         float hornRotX=MathX.toRadians(30);

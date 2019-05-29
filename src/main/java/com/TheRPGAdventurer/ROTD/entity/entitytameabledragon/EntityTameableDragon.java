@@ -1107,9 +1107,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 
     public void roar() {
-        if (!isDead && getBreed().getRoarSoundEvent()!=null) {
+        if (!isDead && getBreed().getRoarSoundEvent(this)!=null) {
             this.roarTicks=0; // MathX.clamp(getScale(), 0.88f
-            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 2, 5), getPitch(), true);
+            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(this), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 2, 5), getPitch(), true);
         }
     }
 

@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Items;
@@ -188,17 +187,20 @@ public abstract class DragonBreed {
 
     public abstract void onDeath(EntityTameableDragon dragon);
 
-    public SoundEvent getLivingSound() {
-        if (rand.nextInt(3)==0) {
+    public SoundEvent getLivingSound(EntityTameableDragon dragon) {
+        if (dragon.isHatchling()) {
             return ModSounds.ENTITY_DRAGON_GROWL;
         } else {
-            return ModSounds.ENTITY_DRAGON_BREATHE;
+            if (rand.nextInt(3)==0) {
+                return ModSounds.ENTITY_DRAGON_GROWL;
+            } else {
+                return ModSounds.ENTITY_DRAGON_BREATHE;
+            }
         }
     }
 
-    public SoundEvent getRoarSoundEvent() {
-        return ModSounds.DRAGON_ROAR;
-
+    public SoundEvent getRoarSoundEvent(EntityTameableDragon dragon) {
+        return dragon.isHatchling() ? ModSounds.HATCHLING_DRAGON_ROAR : ModSounds.DRAGON_ROAR;
     }
 
     public SoundEvent getHurtSound() {

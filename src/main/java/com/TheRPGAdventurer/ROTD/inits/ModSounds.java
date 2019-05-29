@@ -62,6 +62,9 @@ public class ModSounds {
 	@ObjectHolder("mob.dragon.roar")
 	public static final SoundEvent DRAGON_ROAR = createSoundEvent("mob.dragon.roar");
 
+	@ObjectHolder("mob.dragon.hatchlingroar")
+	public static final SoundEvent HATCHLING_DRAGON_ROAR = createSoundEvent("mob.dragon.hatchlingroar");
+
 	@ObjectHolder("mob.dragon.gender_switch")
 	public static final SoundEvent DRAGON_SWITCH = createSoundEvent("mob.dragon.gender_switch");
 	
@@ -92,6 +95,7 @@ public class ModSounds {
 					DRAGON_WHISTLE,
 					DRAGON_WHISTLE1,
 					DRAGON_ROAR,
+					HATCHLING_DRAGON_ROAR,
 					DRAGON_SWITCH
 			);
 		}

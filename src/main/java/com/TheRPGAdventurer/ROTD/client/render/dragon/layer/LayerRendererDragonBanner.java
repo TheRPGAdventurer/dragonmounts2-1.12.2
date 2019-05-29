@@ -44,9 +44,9 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             ResourceLocation resourcelocation1=this.getBannerResourceLocation(banner1);
 //            GlStateManager.translate(0.7F, 0.4F, -0.6F);
             //lower x++ higher x--
-            GlStateManager.translate(0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getBodyPitch())); // all of it is get speed or one was pitch?
             // higher y-- lower y++
-            GlStateManager.translate(0, Interpolation.smoothStep(0.2F, dragon.getAnimator().getModelOffsetY() + 1.2F, dragon.getAnimator().getSpeed()), 0);
+            GlStateManager.translate(0, Interpolation.smoothStep(0.2F, dragon.getAnimator().getModelOffsetY() + 1.2F, dragon.getAnimator().getBodyPitch()), 0);
             GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
@@ -70,9 +70,9 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             ResourceLocation resourcelocation2=this.getBannerResourceLocation(banner2);
 //            GlStateManager.translate(-0.7F, 0.4, -0.6F);
             //lower x++ higher x--
-            GlStateManager.translate(-0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(-0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getBodyPitch()));
             // higher y-- lower y++
-            GlStateManager.translate(0, Interpolation.smoothStep(0.2F, dragon.getAnimator().getModelOffsetY() + 1.2F, dragon.getAnimator().getSpeed()), 0);
+            GlStateManager.translate(0, Interpolation.smoothStep(0.2F, dragon.getAnimator().getModelOffsetY() + 1.2F, dragon.getAnimator().getBodyPitch()), 0);
             GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(-180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
@@ -94,8 +94,8 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation3=this.getBannerResourceLocation(banner3);
             GlStateManager.translate(-0.4F, -1.7F, 1.7F);
-            GlStateManager.translate(0, Interpolation.smoothStep(2.9F, dragon.getAnimator().getModelOffsetY() + 1.7F, dragon.getAnimator().getSpeed()), 0);
-            GlStateManager.translate(0, 0, Interpolation.smoothStep(-2.3F, dragon.getAnimator().getModelOffsetZ() + 1.0F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0, Interpolation.smoothStep(2.9F, dragon.getAnimator().getModelOffsetY() + 1.7F, dragon.getAnimator().getBodyPitch()), 0);
+            GlStateManager.translate(0, 0, Interpolation.smoothStep(-2.3F, dragon.getAnimator().getModelOffsetZ() + 1.0F, dragon.getAnimator().getBodyPitch()));
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 1.0F, 0.0F, 0.0F);
@@ -116,8 +116,8 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation4=this.getBannerResourceLocation(banner4);
             GlStateManager.translate(0.4F, -1.7F, 1.7F);
-            GlStateManager.translate(0, Interpolation.smoothStep(2.9F, dragon.getAnimator().getModelOffsetY() + 1.7F, dragon.getAnimator().getSpeed()), 0);
-            GlStateManager.translate(0, 0, Interpolation.smoothStep(-2.3F, dragon.getAnimator().getModelOffsetZ() + 1.0F, dragon.getAnimator().getSpeed()));
+            GlStateManager.translate(0, Interpolation.smoothStep(2.9F, dragon.getAnimator().getModelOffsetY() + 1.7F, dragon.getAnimator().getBodyPitch()), 0);
+            GlStateManager.translate(0, 0, Interpolation.smoothStep(-2.3F, dragon.getAnimator().getModelOffsetZ() + 1.0F, dragon.getAnimator().getBodyPitch()));
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 1.0F, 0.0F, 0.0F);

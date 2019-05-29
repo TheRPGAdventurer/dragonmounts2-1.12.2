@@ -2106,7 +2106,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean isJuvenile() {
-        return getLifeStageHelper().isJuvenile();
+        return getLifeStageHelper().isJuvenile() || getLifeStageHelper().isPreJuvenile();
     }
 
     public boolean isAdult() {

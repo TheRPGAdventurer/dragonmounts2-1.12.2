@@ -7,6 +7,25 @@
     ]
   },
   
+  "mob.dragon.hatchlingroar": {
+  "category": "dragon_hatchling_roar",
+    "sounds": [
+      "dragonmounts:mob/dragon/hatchlingroar1",
+	   "dragonmounts:mob/dragon/hatchlingroar2"
+    ]
+  },
+
+  "mob.dragon.hatchlinggrowl": {
+  "category": "dragon_hatchling_growl",
+    "sounds": [
+      "dragonmounts:mob/dragon/hatchlinggrowl1",
+      "dragonmounts:mob/dragon/hatchlinggrowl2",
+      "dragonmounts:mob/dragon/hatchlinggrowl3",
+      "dragonmounts:mob/dragon/hatchlinggrowl4",
+      "dragonmounts:mob/dragon/hatchlinggrowl5"
+    ]
+  },
+
   "mob.dragon.roar": {
   "category": "dragon_roar",
     "sounds": [

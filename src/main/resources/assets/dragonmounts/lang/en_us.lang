@@ -156,6 +156,7 @@ gui.homePos=Teleport
 gui.locked.dragon=LOCK
 gui.unlocked.dragon=UNLOCK
 gui.sit=Sit
+gui.firesupport=Fire Support
 container.dragon_shulker=Dragon Core
 
 #Controls

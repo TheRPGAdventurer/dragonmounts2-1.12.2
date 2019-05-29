@@ -22,6 +22,7 @@ public enum EnumDragonLifeStage {
     EGG(0.25f),
     HATCHLING(0.08f),
     INFANT(0.18f),
+    PREJUVENILE(0.20f),
     JUVENILE(1.00f),
     ADULT(2.00f);
 

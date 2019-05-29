@@ -115,6 +115,7 @@ public class DragonBrain extends DragonHelper {
 
             if (dragon.isHatchling() && dragon.onGround) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.7F)); // mutex 1
+                tasks.addTask(6, new EntityAIFollowParent(dragon, 1.4f));
                 tasks.addTask(6, new EntityAITempt(dragon, 0.75, false, OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet()))); // mutex 2+1
             }
 

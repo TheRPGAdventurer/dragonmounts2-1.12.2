@@ -194,14 +194,14 @@ public class DragonModel extends AdvancedModelBase {
         head=new ModelPart(this, "head");
         head.addBox("upperjaw", -6, 0, -9 + HEAD_OFS, 12, 5, 16);
         head.addBox("mainhead", -8, -6, 4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril", -5, -3, -7 + HEAD_OFS, 2, 2, 4);
+        head.addBox("nostril", -5, -1, -7 + HEAD_OFS, 2, 2, 4);
         head.mirror=true;
-        head.addBox("nostril", 3, -3, -7 + HEAD_OFS, 2, 2, 4);
+        head.addBox("nostril", 3, -1, -7 + HEAD_OFS, 2, 2, 4);
 
         buildHorn(false);
         buildHorn(true);
 
-        jaw=head.addChildBox("lowerjaw", -6, -4, -17, 12, 4, 16);
+        jaw=head.addChildBox("lowerjaw", -6, -5, -17, 12, 4, 16);
         jaw.setRotationPoint(0, 7, 8 + HEAD_OFS); // 4 rotationPointY
     }
 

@@ -343,6 +343,10 @@ public class DragonLifeStageHelper extends DragonHelper {
         return getLifeStage() == INFANT;
     }
 
+    public boolean isPreJuvenile() {
+        return getLifeStage() == PREJUVENILE;
+    }
+
     public boolean isJuvenile() {
         return getLifeStage() == JUVENILE;
     }

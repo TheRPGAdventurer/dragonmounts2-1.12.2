@@ -1,6 +1,9 @@
-package com.TheRPGAdventurer.ROTD.util.debugging;
+package com.TheRPGAdventurer.ROTD.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import com.TheRPGAdventurer.ROTD.util.debugging.TestRunner;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,16 +27,19 @@ import java.util.List;
  *
  * ItemTestRunner is used to trigger a test case
  */
-public class ItemTestRunner extends Item
+public class ItemTestRunner extends Item implements IHasModel
 {
   public ItemTestRunner()
   {
     final int MAX_TEST_NUMBER = 64;
+    this.setUnlocalizedName("test_runner");
+    this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "test_runner"));
+
     this.setMaxStackSize(MAX_TEST_NUMBER);
+
     if (DragonMounts.instance.getConfig().isDebug()) {
       this.setCreativeTab(DragonMounts.mainTab);
-    } else {
-      // no tab
+      ModItems.ITEMS.add(this);
     }
   }
 
@@ -79,5 +86,9 @@ public class ItemTestRunner extends Item
     }
     return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
   }
+
+  @Override
+  public void RegisterModels()
+  { DragonMounts.proxy.registerItemRenderer(this, 0, "inventory"); }
 
 }

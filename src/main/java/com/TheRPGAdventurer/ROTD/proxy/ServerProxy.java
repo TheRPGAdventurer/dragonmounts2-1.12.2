@@ -14,8 +14,12 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
 import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.handler.DragonEggBlockEvents;
+import com.TheRPGAdventurer.ROTD.event.DragonEggBlockEvents;
 import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.items.ItemTestRunner;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonControl;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonTarget;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonTargetHandlerServer;
 import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
@@ -26,6 +30,8 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.server.FMLServerHandler;
 
 import java.io.File;
@@ -51,19 +57,18 @@ public class ServerProxy {
 
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsConfig.PreInit();
-      if (DragonMountsConfig.isDebug()) {
         StartupDebugCommon.preInitCommon();
-      }
-
     }
-
 
     public void Initialization(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(new DragonEggBlockEvents());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
-      if (DragonMountsConfig.isDebug()) {
+//      network.registerMessage(DragonControlMessageHandler.class, MessageDragonControl.class,
+//              DCM_DISCRIMINATOR_ID, Side.SERVER);
+      network.registerMessage(MessageDragonTargetHandlerServer.class, MessageDragonTarget.class,
+              DOT_DISCRIMINATOR_ID, Side.SERVER);
+
         StartupDebugCommon.initCommon();
-      }
     }
 
     public void PostInitialization(FMLPostInitializationEvent event) {

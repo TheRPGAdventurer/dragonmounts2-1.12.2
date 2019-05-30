@@ -1,7 +1,8 @@
 package com.TheRPGAdventurer.ROTD.util.debugging;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.items.ItemTestRunner;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * User: The Grey Ghost
@@ -18,21 +19,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class StartupDebugCommon
 {
-  public static ItemTestRunner itemTestRunner;  // this holds the unique instance of your block
-
   public static void preInitCommon()
   {
-    // each instance of your item should have a name that is unique within your mod.  use lower case.
-    itemTestRunner = (ItemTestRunner)(new ItemTestRunner().setUnlocalizedName("test_runner"));
-    itemTestRunner.setRegistryName("test_runner");
-    ForgeRegistries.ITEMS.register(itemTestRunner);
+    if (!DragonMountsConfig.isDebug()) return;
   }
 
   public static void initCommon()
   {
+    if (!DragonMountsConfig.isDebug()) return;
   }
 
   public static void postInitCommon()
   {
+    if (!DragonMountsConfig.isDebug()) return;
   }
 }

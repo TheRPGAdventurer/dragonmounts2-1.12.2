@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -30,8 +31,11 @@ public class ItemDragonOrb extends Item implements IHasModel {
     this.setUnlocalizedName("dragon_orb");
     this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_orb"));
     this.setMaxStackSize(MAXIMUM_NUMBER_OF_ORBS);
-    this.setCreativeTab(DragonMounts.mainTab);
-    ModItems.ITEMS.add(this);
+
+    if (DragonMountsConfig.isPrototypeBreathweapons()) {
+      this.setCreativeTab(DragonMounts.mainTab);
+      ModItems.ITEMS.add(this);
+    }
   }
 
   /**
@@ -66,6 +70,5 @@ public class ItemDragonOrb extends Item implements IHasModel {
   @Override
   public void RegisterModels()
   { DragonMounts.proxy.registerItemRenderer(this, 0, "inventory"); }
-
 
 }

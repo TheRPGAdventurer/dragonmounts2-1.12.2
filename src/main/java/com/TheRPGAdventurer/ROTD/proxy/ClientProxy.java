@@ -12,11 +12,12 @@ package com.TheRPGAdventurer.ROTD.proxy;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
-import com.TheRPGAdventurer.ROTD.client.handler.DragonViewEvent;
+import com.TheRPGAdventurer.ROTD.client.other.TargetHighlighter;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
+import com.TheRPGAdventurer.ROTD.client.userinput.DragonOrbControl;
 import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
@@ -32,6 +33,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -40,6 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
 import scala.actors.threadpool.Arrays;
+import com.TheRPGAdventurer.ROTD.event.DragonViewEvent;
 
 import java.io.File;
 
@@ -99,8 +102,8 @@ public class ClientProxy extends ServerProxy {
         		"5. Dragons need to be of opposite genders to breed";
       if (DragonMountsConfig.isDebug()) {
         MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
-        StartupDebugClientOnly.preInitClientOnly();
       }
+      StartupDebugClientOnly.preInitClientOnly();
 
     }
     
@@ -109,8 +112,8 @@ public class ClientProxy extends ServerProxy {
         super.Initialization(evt);
       if (DragonMountsConfig.isDebug()) {
         MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
-        StartupDebugClientOnly.initClientOnly();
       }
+      StartupDebugClientOnly.initClientOnly();
 
     }
 
@@ -120,9 +123,19 @@ public class ClientProxy extends ServerProxy {
 
         if (DragonMountsConfig.isDebug()) {
             MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
-          StartupDebugClientOnly.postInitClientOnly();
         }
-        MinecraftForge.EVENT_BUS.register(new ModKeys());
+      StartupDebugClientOnly.postInitClientOnly();
+
+      if (DragonMountsConfig.isPrototypeBreathweapons()) {
+        DragonOrbControl.createSingleton(getNetwork());
+        DragonOrbControl.initialiseInterceptors();
+        MinecraftForge.EVENT_BUS.register(DragonOrbControl.getInstance());
+        MinecraftForge.EVENT_BUS.register(new TargetHighlighter());
+        FMLCommonHandler.instance().bus().register(new DragonEntityWatcher());
+      }
+
+
+      MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
         MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);
     }

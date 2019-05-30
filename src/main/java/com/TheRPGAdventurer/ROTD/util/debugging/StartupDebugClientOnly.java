@@ -1,5 +1,7 @@
 package com.TheRPGAdventurer.ROTD.util.debugging;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.client.model.dragon.anim.DragonAnimator;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
@@ -20,17 +22,16 @@ public class StartupDebugClientOnly
 {
   public static void preInitClientOnly()
   {
+    if (!DragonMountsConfig.isDebug()) return;
   }
 
   public static void initClientOnly()
   {
-    // required in order for the renderer to know how to render your item.  Likely to change in the near future.
-    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("dragonmounts:test_runner", "inventory");
-    final int DEFAULT_ITEM_SUBTYPE = 0;
-    ModelLoader.setCustomModelResourceLocation(StartupDebugCommon.itemTestRunner, DEFAULT_ITEM_SUBTYPE, itemModelResourceLocation);
+    if (!DragonMountsConfig.isDebug()) return;
   }
 
   public static void postInitClientOnly()
   {
+    if (!DragonMountsConfig.isDebug()) return;
   }
 }

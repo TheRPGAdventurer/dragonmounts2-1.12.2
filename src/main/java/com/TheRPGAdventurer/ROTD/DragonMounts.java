@@ -39,6 +39,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Main control class for Forge.
@@ -76,6 +78,9 @@ public class DragonMounts {
     }
 
     public static DamageSource dragons_fire;
+
+  // Add this field to your main class
+    public static final Logger logger = LogManager.getLogger(DragonMounts.MODID);
 
     @EventHandler
     public void PreInitialization(FMLPreInitializationEvent event) {

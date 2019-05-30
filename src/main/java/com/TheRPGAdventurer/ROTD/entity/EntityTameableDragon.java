@@ -156,8 +156,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BYTE);
-    private static final DataParameter<String> DATA_BREATH_WEAPON = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
+//    private static final DataParameter<String> DATA_BREATH_WEAPON = EntityDataManager
+//            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<ItemStack> BANNER1 = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER2 = EntityDataManager
@@ -176,6 +176,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<Boolean> SLEEP = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+
+    private static final DataParameter<String> DATA_BREATH_WEAPON_TARGET = EntityDataManager
+            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
+    private static final DataParameter<Integer> DATA_BREATH_WEAPON_MODE = EntityDataManager
+            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
 
     // data NBT IDs
     private static final String NBT_ARMOR = "Armor";
@@ -231,7 +236,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonBreedHelper(this, DATA_BREED));
         addHelper(new DragonLifeStageHelper(this, DATA_TICKS_SINCE_CREATION));
         addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
-        addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON));
+        addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
         addHelper(new DragonInteractHelper(this));
 
         InitializeDragonInventory();
@@ -295,6 +300,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(Y_LOCKED, false);
         dataManager.register(FLUTTER_CANCELLED, false);
         dataManager.register(FOLLOW_YAW, true);
+        dataManager.register(DATA_BREATH_WEAPON_TARGET, "");
+        dataManager.register(DATA_BREATH_WEAPON_MODE, "");
     }
 
     @Override

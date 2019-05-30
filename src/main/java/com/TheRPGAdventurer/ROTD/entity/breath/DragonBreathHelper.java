@@ -5,9 +5,12 @@ import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.*;
+import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.LogManager;
@@ -40,7 +43,11 @@ import org.apache.logging.log4j.Logger;
  */
 public class DragonBreathHelper extends DragonHelper {
 
-    private final DataParameter<String> dataParam;
+//  private final DataParameter<String> dataParam;
+
+    private DataParameter<String> dataParamBreathWeaponTarget;
+    private DataParameter<String> dataParamBreathWeaponMode;
+
     private final int BREATH_START_DURATION = 5; // ticks
     private final int BREATH_STOP_DURATION = 5; // ticks
     private BreathState currentBreathState = BreathState.IDLE;
@@ -56,13 +63,20 @@ public class DragonBreathHelper extends DragonHelper {
     public BreathAffectedArea breathAffectedAreaPoison = null;
     private static final Logger L = LogManager.getLogger();
 
-    public DragonBreathHelper(EntityTameableDragon dragon, DataParameter<String> dataParam) {
+
+
+    public DragonBreathHelper(EntityTameableDragon dragon, DataParameter<String>i_dataParamBreathWeaponTarget, DataParameter<String> i_dataParamBreathWeaponMode) {
         super(dragon);
-        if (dragon.isClient()) {
+        dataParamBreathWeaponTarget = i_dataParamBreathWeaponTarget;
+        dataParamBreathWeaponMode = i_dataParamBreathWeaponMode;
+
+      if (dragon.isClient()) {
             breathWeaponEmitter = new BreathWeaponEmitter();
         }
-        this.dataParam = dataParam;
-        dataWatcher.register(dataParam, "");
+//        this.dataParam = dataParam;
+//        dataWatcher.register(dataParamBreathWeaponTarget, "");    already registered in EntityTameableDragon
+//        dataWatcher.register(dataParamBreathWeaponMode, "");
+
         breathAffectedArea = new BreathAffectedArea(new BreathWeapon(dragon));
         breathAffectedAreaNether = new BreathAffectedArea(new BreathWeaponNether(dragon));
         breathAffectedAreaIce = new BreathAffectedArea(new BreathWeaponIce(dragon));
@@ -101,7 +115,45 @@ public class DragonBreathHelper extends DragonHelper {
         }
     }
 
-    @Override
+  // changes the breath weapon after the breed is changed
+  public void refreshBreed(EntityTameableDragon dragon)
+  {
+    DragonBreed newBreed = dragon.getBreed();
+    if (currentBreed == newBreed) return;
+    currentBreed = newBreed;
+
+    switch (currentBreed.getBreathWeaponSpawnType(dragon)) {
+      case NODES: {
+        BreathWeapon breathWeapon = currentBreed.getBreathWeapon(dragon);
+        breathAffectedArea = new BreathAffectedArea(breathWeapon);
+        breathNodeFactory = currentBreed.getBreathNodeFactory(dragon);
+        if (dragon.isClient()) {
+          breathWeaponFXEmitter = currentBreed.getBreathWeaponFXEmitter(dragon);
+        }
+        break;
+      }
+      case PROJECTILE: {
+        breathProjectileFactory = currentBreed.getBreathProjectileFactory(dragon);
+        break;
+      }
+      default: {
+        System.err.println("Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
+        return;
+      }
+    }
+    if (dragon.isClient()) {
+      refreshBreedClientOnly(dragon);
+    }
+
+  }
+
+  public void refreshBreedClientOnly(EntityTameableDragon dragon)
+  {
+    soundEffectBreathWeapon = dragon.getBreed().getSoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);
+  }
+
+
+  @Override
     public void onLivingUpdate() {
         ++tickCounter;
         if (dragon != null) {
@@ -252,4 +304,18 @@ public class DragonBreathHelper extends DragonHelper {
         return breathAffectedAreaPoison;
     }
 
+  private BreathWeaponTarget targetBeingBreathedAt = null;  // server: the target currently being breathed at
+  private BreathWeaponTarget lastBreathTargetSent = null;   // server: the last target sent to the client thru DataWatcher
+  private BreathState currentBreathState = BreathState.IDLE;
+  private int transitionStartTick;
+  private BreathWeaponFXEmitter breathWeaponFXEmitter = null;
+  private int tickCounter = 0;
+  private BreathWeaponTarget breathWeaponTarget;
+  private boolean playerHasReleasedTargetSinceLastBreath = false;
+
+  private BreathAffectedArea breathAffectedArea;
+  private DragonBreed currentBreed = null;
+  private BreathProjectileFactory breathProjectileFactory = null;
+  private BreathNodeFactory breathNodeFactory = null;
+  private DragonBreathMode breathWeaponMode = DragonBreathMode.DEFAULT;
 }

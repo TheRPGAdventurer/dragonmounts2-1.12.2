@@ -26,6 +26,15 @@ public class BreathNode {
         setPower(i_power);
     }
 
+  public BreathNode(Power i_power, DragonBreathMode i_dragonBreathMode, float i_initialSpeed, float i_nodeDiameterInBlocks, int i_defaultAgeInTicks)
+  {
+    INITIAL_SPEED = i_initialSpeed;
+    NODE_DIAMETER_IN_BLOCKS = i_nodeDiameterInBlocks;
+    DEFAULT_AGE_IN_TICKS = i_defaultAgeInTicks;
+    setPower(i_power);
+    dragonBreathMode = i_dragonBreathMode;
+  }
+
     public enum Power {SMALL, MEDIUM, LARGE} // how powerful is this node?
 
     private float ageTicks;
@@ -47,7 +56,30 @@ public class BreathNode {
         relativeSizeOfThisNode=(float) (MathX.getTruncatedGaussian(rand, 1, SIZE_VARIATION_FACTOR));
     }
 
-    /**
+  /**
+   * Get an initial motion vector for this node, randomised around the initialDirection
+   * @param initialDirection the initial direction
+   * @param rand
+   * @return the initial motion vector (speed and direction)
+   */
+  public abstract Vec3 getRandomisedStartingMotion(Vec3 initialDirection, Random rand);
+
+  protected Vec3 getRandomisedStartingMotion(Vec3 initialDirection, Random rand, double speedVariationAbsolute)
+  {
+    float initialSpeed = getStartingSpeed();
+    Vec3 direction = initialDirection.normalize();
+
+    double actualMotionX = direction.xCoord + MathX.getTruncatedGaussian(rand, 0, speedVariationAbsolute);
+    double actualMotionY = direction.yCoord + MathX.getTruncatedGaussian(rand, 0, speedVariationAbsolute);
+    double actualMotionZ = direction.zCoord + MathX.getTruncatedGaussian(rand, 0, speedVariationAbsolute);
+    actualMotionX *= initialSpeed;
+    actualMotionY *= initialSpeed;
+    actualMotionZ *= initialSpeed;
+    return new Vec3(actualMotionX, actualMotionY, actualMotionZ);
+  }
+
+
+  /**
      * Get an initial motion vector for this node, randomised around the initialDirection
      *
      * @param initialDirection the initial direction
@@ -70,6 +102,11 @@ public class BreathNode {
     public float getStartingSpeed() {
         return speedPowerFactor * INITIAL_SPEED;
     }
+
+  /**
+   * Modifies the entity's velocity depending on the breathnode state (eg its age)
+   */
+  public void modifyEntityVelocity(Entity entity) {return;}
 
     public float getMaxLifeTime() {
         return lifetimePowerFactor * relativeLifetimeOfThisNode * DEFAULT_AGE_IN_TICKS;
@@ -112,7 +149,26 @@ public class BreathNode {
         }
     }
 
-    private final float RATIO_OF_RENDER_DIAMETER_TO_EFFECT_DIAMETER=1.0F;
+  /**
+   * Update the age of the node based on what is happening (collisions) to the associated entity
+   * Should be called once per tick
+   * @param parentEntity the entity associated with this node
+   */
+  public void updateAge(Entity parentEntity)
+  {
+    ageTicks = calculateNewAge(parentEntity, ageTicks);
+  }
+
+  /**
+   * Calculate the new age of the node based on what is happening (collisions) to the associated entity
+   * Should be called once per tick
+   * @param parentEntity the entity associated with this node
+   * @param currentAge the current age of the entity (ticks)
+   * @return the new age of the entity
+   */
+  protected abstract float calculateNewAge(Entity parentEntity, float currentAge);
+
+  private final float RATIO_OF_RENDER_DIAMETER_TO_EFFECT_DIAMETER=1.0F;
     private final float RATIO_OF_COLLISION_DIAMETER_TO_EFFECT_DIAMETER=0.5F;  // change to 0.5F
 
     /**
@@ -151,8 +207,40 @@ public class BreathNode {
         return INITIAL_SIZE + (NODE_MAX_SIZE - INITIAL_SIZE) * MathHelper.clamp(fractionOfFullSize, 0.0F, 1.0F);
     }
 
+  /** get the current size (diameter) of the area of effect of the breath node, in blocks
+   * @return the size (diameter) of the area of effect of the breathnode in blocks
+   */
+  public abstract float getCurrentDiameterOfEffect();
 
-    /**
+  /** get the current size (diameter) of the area of effect of the breath node, in blocks
+   * This is a beam whose diameter is constant apart from an initial rapid expansion.
+   * @return the size (diameter) of the area of effect of the breathnode in blocks
+   */
+  protected float getConstantSizeBeamDiameter()
+  {
+    float lifetimeFraction = getLifetimeFraction();
+
+    float fractionOfFullSize = 1.0F;
+    if (lifetimeFraction < YOUNG_AGE) {
+      fractionOfFullSize = MathHelper.sin(lifetimeFraction / YOUNG_AGE * (float) Math.PI / 2.0F);
+    }
+
+    final float NODE_MAX_SIZE = NODE_DIAMETER_IN_BLOCKS * sizePowerFactor * relativeSizeOfThisNode;
+    final float INITIAL_SIZE = 0.2F * NODE_MAX_SIZE;
+    return INITIAL_SIZE + (NODE_MAX_SIZE - INITIAL_SIZE) * MathHelper.clamp_float(fractionOfFullSize, 0.0F, 1.0F);
+  }
+
+  protected float getConicalBeamDiameter()
+  {
+    float fractionOfFullSize = getLifetimeFraction();
+
+    final float NODE_MAX_SIZE = NODE_DIAMETER_IN_BLOCKS * sizePowerFactor * relativeSizeOfThisNode;
+    final float INITIAL_SIZE = 0.2F * NODE_MAX_SIZE;
+    return INITIAL_SIZE + (NODE_MAX_SIZE - INITIAL_SIZE) * MathHelper.clamp_float(fractionOfFullSize, 0.0F, 1.0F);
+  }
+
+
+  /**
      * returns the current intensity of the node (eg for flame = how hot it is)
      *
      * @return current relative intensity - 0.0 = none, 1.0 = full
@@ -222,4 +310,58 @@ public class BreathNode {
             }
         }
     }
+
+  /**
+   * Change the mode of this node - for most types does nothing
+   * @param newMode
+   */
+  public void changeBreathMode(DragonBreathMode newMode)
+  {
+    dragonBreathMode = newMode;
+  }
+
+  private final float INITIAL_SPEED; // blocks per tick at full speed
+  private final float NODE_DIAMETER_IN_BLOCKS;
+  private final int DEFAULT_AGE_IN_TICKS;
+
+  private final float YOUNG_AGE = 0.25F;
+  private final float OLD_AGE = 0.75F;
+
+  private Power power;
+  protected DragonBreathMode dragonBreathMode;
+  private float speedPowerFactor = 1.0F;
+  private float lifetimePowerFactor = 1.0F;
+  private float sizePowerFactor = 1.0F;
+  private float intensityPowerFactor = 1.0F;
+
+  private void setPower(Power newPower) {
+    power = newPower;
+    switch (newPower) {
+      case SMALL: {
+        speedPowerFactor = 0.25F;
+        lifetimePowerFactor = 0.25F;
+        sizePowerFactor = 0.25F;
+        intensityPowerFactor = 0.10F;
+        break;
+      }
+      case MEDIUM: {
+        speedPowerFactor = 0.5F;
+        lifetimePowerFactor = 0.5F;
+        sizePowerFactor = 0.5F;
+        intensityPowerFactor = 0.25F;
+        break;
+      }
+      case LARGE: {
+        speedPowerFactor = 1.0F;
+        lifetimePowerFactor = 1.0F;
+        sizePowerFactor = 1.0F;
+        intensityPowerFactor = 1.0F;
+        break;
+      }
+
+      default: {
+        System.err.println("Invalid power in setPower:" + newPower);
+      }
+    }
+  }
 }

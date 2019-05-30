@@ -134,7 +134,6 @@ public class ClientProxy extends ServerProxy {
         FMLCommonHandler.instance().bus().register(new DragonEntityWatcher());
       }
 
-
       MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
         MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);

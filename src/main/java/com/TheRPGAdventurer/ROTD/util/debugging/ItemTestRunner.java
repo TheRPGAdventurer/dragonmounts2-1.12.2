@@ -1,15 +1,20 @@
 package com.TheRPGAdventurer.ROTD.util.debugging;
 
-import info.ata4.minecraft.dragon.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMounts;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -25,7 +30,7 @@ public class ItemTestRunner extends Item
     final int MAX_TEST_NUMBER = 64;
     this.setMaxStackSize(MAX_TEST_NUMBER);
     if (DragonMounts.instance.getConfig().isDebug()) {
-      this.setCreativeTab(CreativeTabs.tabMisc);   // the item will appear on the Miscellaneous tab in creative
+      this.setCreativeTab(DragonMounts.mainTab);
     } else {
       // no tab
     }
@@ -36,11 +41,11 @@ public class ItemTestRunner extends Item
    */
   @Override
   @SideOnly(Side.CLIENT)
-  public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List textList, boolean useAdvancedItemTooltips)
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
   {
-    textList.add("Right click: conduct test");
-    textList.add("Stacksize: change test #");
-    textList.add("  (64 = test all)");
+    tooltip.add("Right click: conduct test");
+    tooltip.add("Stacksize: change test #");
+    tooltip.add("  (64 = test all)");
   }
 
   // what animation to use when the player holds the "use" button
@@ -59,9 +64,12 @@ public class ItemTestRunner extends Item
   // called on the client and again on the server
   // execute your test code on the appropriate side....
   @Override
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-    if (itemStackIn == null) return itemStackIn;  // just in case.
-    int testNumber = itemStackIn.stackSize;
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    if (itemStackIn.isEmpty()) {  // returns true if the item is empty (player is holding nothing)
+      return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);  // just in case.
+    }
+    int testNumber = itemStackIn.getCount(); // getStackSize()
     TestRunner testRunner = new TestRunner();
 
     if (worldIn.isRemote) {
@@ -69,7 +77,7 @@ public class ItemTestRunner extends Item
     } else {
       testRunner.runServerSideTest(worldIn, playerIn, testNumber);
     }
-    return itemStackIn;
+    return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
   }
 
 }

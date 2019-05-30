@@ -16,6 +16,7 @@ import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.handler.DragonEggBlockEvents;
 import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
@@ -25,6 +26,9 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.server.FMLServerHandler;
+
+import java.io.File;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -47,17 +51,26 @@ public class ServerProxy {
 
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsConfig.PreInit();
+      if (DragonMountsConfig.isDebug()) {
+        StartupDebugCommon.preInitCommon();
+      }
+
     }
 
 
     public void Initialization(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(new DragonEggBlockEvents());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
+      if (DragonMountsConfig.isDebug()) {
+        StartupDebugCommon.initCommon();
+      }
     }
 
     public void PostInitialization(FMLPostInitializationEvent event) {
         registerEntities();
-
+      if (DragonMountsConfig.isDebug()) {
+        StartupDebugCommon.postInitCommon();
+      }
     }
 
     public void ServerStarting(FMLServerStartingEvent evt) {
@@ -121,5 +134,12 @@ public class ServerProxy {
     public void registerItemRenderer(Item item, int meta, String id)
     {
     }
+
+    // get the directory on disk used for storing the game files
+    // is different for dedicated server vs client
+    public File getDataDirectory() {
+    return FMLServerHandler.instance().getSavesDirectory();
+  }
+
 
 }

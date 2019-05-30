@@ -23,6 +23,8 @@ import com.TheRPGAdventurer.ROTD.entity.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.event.DragonEntityWatcher;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugClientOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.TextFormatting;
@@ -38,6 +40,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
 import scala.actors.threadpool.Arrays;
+
+import java.io.File;
 
 //import java.util.Arrays;
 
@@ -93,11 +97,21 @@ public class ClientProxy extends ServerProxy {
         		"3. You can't hatch eggs in the End Dimension\n" +
         		"4. You can press " + TextFormatting.ITALIC + "ctrl" + r + " to enable boost flight\n" +
         		"5. Dragons need to be of opposite genders to breed";
+      if (DragonMountsConfig.isDebug()) {
+        MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+        StartupDebugClientOnly.preInitClientOnly();
+      }
+
     }
     
     @Override
     public void Initialization(FMLInitializationEvent evt) {
         super.Initialization(evt);
+      if (DragonMountsConfig.isDebug()) {
+        MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+        StartupDebugClientOnly.initClientOnly();
+      }
+
     }
 
     @Override
@@ -106,6 +120,7 @@ public class ClientProxy extends ServerProxy {
 
         if (DragonMountsConfig.isDebug()) {
             MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+          StartupDebugClientOnly.postInitClientOnly();
         }
         MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
@@ -155,4 +170,10 @@ public class ClientProxy extends ServerProxy {
     public void registerItemRenderer(Item item, int meta, String id) {
         ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
     }
+
+  @Override
+  public File getDataDirectory()
+  {
+    return Minecraft.getMinecraft().mcDataDir;
+  }
 }

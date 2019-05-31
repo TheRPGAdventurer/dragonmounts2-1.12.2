@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
-import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathMode;
+import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeP;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -47,7 +47,7 @@ public abstract class BreathWeaponFXEmitter
    * @param power the strength of the beam
    * @param tickCount
    */
-  abstract public void spawnBreathParticles(World world, BreathNode.Power power, int tickCount);
+  abstract public void spawnBreathParticles(World world, BreathNodeP.Power power, int tickCount);
 
   public void changeBreathMode(DragonBreathMode newDragonBreathMode)
   {
@@ -66,14 +66,14 @@ public abstract class BreathWeaponFXEmitter
    * @param particlesPerTick number of particles to spawn
    * @param tickCount running count of the number of ticks the game has performed
    */
-  protected void spawnMultipleWithSmoothedDirection(World world, BreathNode.Power power, int particlesPerTick, int tickCount)
+  protected void spawnMultipleWithSmoothedDirection(World world, BreathNodeP.Power power, int particlesPerTick, int tickCount)
   {
     // create a list of NodeLineSegments from the motion path of the BreathNodes
     Iterator<BreathFX> it = spawnedBreathFX.iterator();
     boolean foundLive = false;
     while (it.hasNext() && !foundLive) {
       BreathFX entity = it.next();
-      if (entity.isDead) {
+      if (!entity.isAlive()) {
         it.remove();
       } else {
         foundLive = true;
@@ -106,7 +106,7 @@ public abstract class BreathWeaponFXEmitter
   }
 
 
-  protected abstract BreathFX createSingleParticle(World world, Vec3d origin, Vec3d direction, BreathNode.Power power,
+  protected abstract BreathFX createSingleParticle(World world, Vec3d origin, Vec3d direction, BreathNodeP.Power power,
                                                    int tickCount, float partialTickHeadStart);
 
   /**
@@ -125,6 +125,7 @@ public abstract class BreathWeaponFXEmitter
   }
 
   protected DragonBreathMode dragonBreathMode = DragonBreathMode.DEFAULT;
+
 
   private ArrayList<BreathFX> spawnedBreathFX = new ArrayList<BreathFX>();
 

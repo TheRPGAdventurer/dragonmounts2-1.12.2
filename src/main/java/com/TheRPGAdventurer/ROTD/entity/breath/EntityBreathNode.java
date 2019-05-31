@@ -28,17 +28,18 @@ class EntityBreathNode extends Entity {
         Vec3d direction=new Vec3d(directionX, directionY, directionZ).normalize();
 
         Random rand=new Random();
-        BreathNode breathNode=new BreathNode(power);
-        Vec3d actualMotion=breathNode.getRandomisedStartingMotion(direction, rand);
+        BreathNode breathNode =new BreathNode(power);
+        Vec3d actualMotion= breathNode.getRandomisedStartingMotion(direction, rand);
         // don't randomise the other properties (size, age) on the server.
 
         EntityBreathNode newEntity=new EntityBreathNode(world, x, y, z, actualMotion, breathNode);
         return newEntity;
     }
 
-    private EntityBreathNode(World world, double x, double y, double z, Vec3d motion, BreathNode i_breathNode) {
+    private EntityBreathNode(World world, double x, double y, double z, Vec3d motion,
+                             BreathNode i_breathNode) {
         super(world);
-        breathNode=i_breathNode;
+        breathNode = i_breathNode;
 
         final float ARBITRARY_START_SIZE=0.2F;
         this.setSize(ARBITRARY_START_SIZE, ARBITRARY_START_SIZE);
@@ -58,7 +59,7 @@ class EntityBreathNode extends Entity {
 
         handleWaterMovement();
 
-        float newAABBDiameter=breathNode.getCurrentAABBcollisionSize();
+        float newAABBDiameter= breathNode.getCurrentAABBcollisionSize();
 
         prevPosX=posX;
         prevPosY=posY;

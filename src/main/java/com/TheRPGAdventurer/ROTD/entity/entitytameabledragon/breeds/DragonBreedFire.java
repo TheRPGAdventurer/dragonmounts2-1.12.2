@@ -10,12 +10,9 @@
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
-
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -45,10 +42,10 @@ public class DragonBreedFire extends DragonBreed {
         dragon.getBrain().setAvoidsWater(true);
     }
     
-    @Override
-    public SoundEvent getLivingSound() {
-       return SoundEvents.BLOCK_FIRE_AMBIENT;
-    }
+//    @Override
+//    public SoundEvent getLivingSound() {
+//       return SoundEvents.BLOCK_FIRE_AMBIENT;
+//    }
 
     @Override
     public void onDisable(EntityTameableDragon dragon) {
@@ -60,7 +57,7 @@ public class DragonBreedFire extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		doParticles(dragon);
+		if(dragon.isInLava()) doParticles(dragon);
 	}
 	
     @SideOnly(Side.CLIENT)

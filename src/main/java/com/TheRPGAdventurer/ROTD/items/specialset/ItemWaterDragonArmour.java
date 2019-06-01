@@ -1,15 +1,17 @@
 package com.TheRPGAdventurer.ROTD.items.specialset;
 
-import javax.annotation.Nullable;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonArmour;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
@@ -26,8 +28,10 @@ public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-//		if (player.) { // If the Potion isn't currently active,
-//			player.addPotionEffect(potionEffect); // Apply a copy of the PotionEffect to the player
-//		}
+		ItemStack head = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+		if (head.getItem() == ModArmour.waterDragonScaleCap && player.isInWater()) { // If the Potion isn't currently active,
+			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 300,0, false, false));
+			// Apply a copy of the PotionEffect to the player
+		}
 	}
 }

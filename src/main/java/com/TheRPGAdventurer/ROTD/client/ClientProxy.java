@@ -42,9 +42,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
-import scala.actors.threadpool.Arrays;
+//import scala.actors.threadpool.Arrays;
 
-//import java.util.Arrays;
+import java.util.Arrays;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>

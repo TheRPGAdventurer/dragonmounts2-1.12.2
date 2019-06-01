@@ -2,13 +2,16 @@ package com.TheRPGAdventurer.ROTD.items.gemset;
 
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,6 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
 
 public class ItemDragonArmour extends ItemArmor {
 	
@@ -37,5 +41,15 @@ public class ItemDragonArmour extends ItemArmor {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+	}
+
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
+		ItemStack head = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+		ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		ItemStack legs = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
+		ItemStack feet = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+		if(chest.getItem() ==ModArmour.forestDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 200,0, false, false));
+
 	}
 }

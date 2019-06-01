@@ -53,7 +53,7 @@ public class DragonBreedAir extends DragonBreed {
     @Override
     public void onLivingUpdate(EntityTameableDragon dragon) {
         super.onLivingUpdate(dragon);
-        doParticles(dragon);
+        if(dragon.posY > dragon.world.getHeight() * 1.2 && dragon.world.isDaytime()) doParticles(dragon);
     }
 
     @SideOnly(Side.CLIENT)

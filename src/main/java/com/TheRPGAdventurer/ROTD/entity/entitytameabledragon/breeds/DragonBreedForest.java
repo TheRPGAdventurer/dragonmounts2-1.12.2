@@ -1,9 +1,12 @@
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
-
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
 
@@ -38,6 +41,16 @@ public class DragonBreedForest extends DragonBreed {
 
     @Override
     public void onDeath(EntityTameableDragon dragon) {}
-    
+
+    @Override
+    public void onLivingUpdate(EntityTameableDragon dragon) {
+        if(dragon.isSheared()) {
+            net.minecraft.entity.item.EntityItem ent = dragon.entityDropItem(new ItemStack(
+                    Item.getItemFromBlock(Blocks.SAPLING.getBlockState().getBaseState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK).getBlock())), 1.0F);
+            ent.motionY += rand.nextFloat() * 0.05F;
+            ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+        }
+    }
 }
 	

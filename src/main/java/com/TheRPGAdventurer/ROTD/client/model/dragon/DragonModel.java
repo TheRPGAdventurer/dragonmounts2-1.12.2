@@ -191,41 +191,41 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     private void buildHead() {
-        head=new ModelPart(this, "head");
-        head.addBox("upperjaw", -6, 0, -9 + HEAD_OFS, 12, 5, 16);
-        head.addBox("mainhead", -8, -6, 4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril", -5, -1, -7 + HEAD_OFS, 2, 2, 4);
-        head.mirror=true;
-        head.addBox("nostril", 3, -1, -7 + HEAD_OFS, 2, 2, 4);
+        head = new ModelPart(this, "head");
+        head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
+        head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
+        head.mirror = true;
+        head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
 
         buildHorn(false);
         buildHorn(true);
 
-        jaw=head.addChildBox("lowerjaw", -6, -5, -17, 12, 4, 16);
-        jaw.setRotationPoint(0, 7, 8 + HEAD_OFS); // 4 rotationPointY
+        jaw = head.addChildBox("lowerjaw", -6, 0, -16, 12, 4, 16);
+        jaw.setRotationPoint(0, 4, 8 + HEAD_OFS);
     }
 
     private void buildHorn(boolean mirror) {
-        int hornThick=3;
-        int hornLength=12;
+        int hornThick = 3;
+        int hornLength = 12;
 
-        float hornOfs=-(hornThick / 2f);
+        float hornOfs = -(hornThick / 2f);
 
-        float hornPosX=-5;
-        float hornPosY=-6;
-        float hornPosZ=-2;
+        float hornPosX = -5;
+        float hornPosY = -8;
+        float hornPosZ = 0;
 
-        float hornRotX=MathX.toRadians(30);
-        float hornRotY=MathX.toRadians(-30);
-        float hornRotZ=0;
+        float hornRotX = MathX.toRadians(30);
+        float hornRotY = MathX.toRadians(-30);
+        float hornRotZ = 0;
 
         if (mirror) {
-            hornPosX*=-1;
-            hornRotY*=-1;
+            hornPosX *= -1;
+            hornRotY *= -1;
         }
 
-        head.mirror=mirror;
-        ModelPart horn=head.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
+        head.mirror = mirror;
+        ModelPart horn = head.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
         horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
         horn.setAngles(hornRotX, hornRotY, hornRotZ);
 

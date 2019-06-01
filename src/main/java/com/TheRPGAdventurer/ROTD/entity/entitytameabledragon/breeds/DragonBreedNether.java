@@ -11,6 +11,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 public class DragonBreedNether extends DragonBreed {
@@ -70,11 +72,25 @@ public class DragonBreedNether extends DragonBreed {
     public void onLivingUpdate(EntityTameableDragon dragon) {
         World world=dragon.world;
         if (world instanceof WorldServer && dragon.isWet() && !dragon.isEgg()) {
-            ((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, dragon.posX + 0.5D, dragon.posY + dragon.getEyeHeight(), dragon.posZ + 0.5D, 4 * (int) dragon.getScale(), 0.5D, 0.25D, 0.5D, 0.0D);
+            doParticles(dragon, EnumParticleTypes.SMOKE_NORMAL);
         }
 
         if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-            ((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_LAVA, dragon.posX, dragon.posY + dragon.getEyeHeight(), dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
+            doParticles(dragon, EnumParticleTypes.DRIP_LAVA);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void doParticles(EntityTameableDragon dragon, EnumParticleTypes types) {
+        if (!dragon.isEgg() && !dragon.isHatchling()) {
+            float s = dragon.getScale(); //  * 1.2f
+            for (double x1 = 0; x1 < s + 1; ++x1) {
+                double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
+                double y = dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;
+                double z = dragon.posZ + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
+
+                dragon.world.spawnParticle(types, x, y, z, 0, 0, 0);
+            }
         }
     }
 

@@ -58,6 +58,7 @@ public class DragonHeadPositionHelper {
         currentSegment.rotateAngleY = 0;
         currentSegment.rotateAngleZ = 0;
 
+        dragon.getAnimator().setLook(netLookYaw, lookPitch);
         double health = dragon.getHealthRelative();
         for (int i = 0; i < NUMBER_OF_NECK_SEGMENTS; i++) {
             float vertMulti = (i + 1) / (float)NUMBER_OF_NECK_SEGMENTS;
@@ -93,7 +94,7 @@ public class DragonHeadPositionHelper {
         neck = currentSegment.getCopy();  // might not be required, not sure, so do it anyway...
 
         final float HEAD_TILT_DURING_BREATH = -0.1F;
-        head.rotateAngleX = MathX.toRadians(lookPitch) + (1 - speed) + breath * HEAD_TILT_DURING_BREATH;
+        head.rotateAngleX = MathX.toRadians(lookPitch) + (1 - speed); // + breath * HEAD_TILT_DURING_BREATH
         head.rotateAngleY = currentSegment.rotateAngleY;
         head.rotateAngleZ = currentSegment.rotateAngleZ * 0.2f;
 

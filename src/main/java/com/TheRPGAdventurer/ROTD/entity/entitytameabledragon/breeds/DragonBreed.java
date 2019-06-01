@@ -189,7 +189,7 @@ public abstract class DragonBreed {
 
     public SoundEvent getLivingSound(EntityTameableDragon dragon) {
         if (dragon.isHatchling()) {
-            return ModSounds.ENTITY_DRAGON_GROWL;
+            return ModSounds.ENTITY_DRAGON_HATCHLING_GROWL;
         } else {
             if (rand.nextInt(3)==0) {
                 return ModSounds.ENTITY_DRAGON_GROWL;

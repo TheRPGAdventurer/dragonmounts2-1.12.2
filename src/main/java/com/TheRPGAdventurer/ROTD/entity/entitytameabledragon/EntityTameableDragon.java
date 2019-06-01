@@ -1881,10 +1881,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase riding) {
-//        this.rotationYaw=((EntityPlayer) riding).rotationYawHead;
+        this.rotationYaw=((EntityPlayer) riding).rotationYawHead;
         this.rotationYawHead=((EntityPlayer) riding).rotationYawHead;
         this.prevRotationYawHead=((EntityPlayer) riding).prevRotationYawHead;
-//        this.prevRotationYaw=((EntityPlayer) riding).rotationYawHead;
+        this.prevRotationYaw=((EntityPlayer) riding).prevRotationYaw;
         this.rotationPitch=((EntityPlayer) riding).rotationPitch;
         this.prevRotationPitch=((EntityPlayer) riding).prevRotationPitch;
 //        MathX.clamp(rotationYaw, -120, 120);

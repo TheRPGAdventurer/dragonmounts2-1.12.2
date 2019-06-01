@@ -10,6 +10,7 @@
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -57,7 +58,7 @@ public class DragonBreedFire extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		if(dragon.isInLava()) doParticles(dragon);
+		if(dragon.isInLava() && dragon.world.isMaterialInBB(dragon.getEntityBoundingBox().grow(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.FIRE)) doParticles(dragon);
 	}
 	
     @SideOnly(Side.CLIENT)

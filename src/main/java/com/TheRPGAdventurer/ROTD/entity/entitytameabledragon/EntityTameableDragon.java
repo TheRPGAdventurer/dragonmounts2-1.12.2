@@ -210,9 +210,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         InitializeDragonInventory();
 
-        if (isClient()) {
-            addHelper(new DragonParticleHelper(this));
-        } else {
+        if (isServer()) {
             addHelper(new DragonBrain(this));
         }
 
@@ -945,11 +943,55 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && (!this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
+        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing == 0) { //  && (!this.isUsingBreathWeapon())
             equalizeYaw(getControllingPlayer());
         }
 
         super.onLivingUpdate();
+    }
+
+    public void spawnBodyParticle(EnumParticleTypes type) {
+        double ox, oy, oz;
+        float s = this.getScale() * 1.2f;
+
+        switch (type) {
+            case EXPLOSION_NORMAL:
+                ox = rand.nextGaussian() * s;
+                oy = rand.nextGaussian() * s;
+                oz = rand.nextGaussian() * s;
+                break;
+
+            case CLOUD:
+                ox = (rand.nextDouble() - 0.5) * 0.1;
+                oy = rand.nextDouble() * 0.2;
+                oz = (rand.nextDouble() - 0.5) * 0.1;
+                break;
+
+            case REDSTONE:
+                ox = 0.8;
+                oy = 0;
+                oz = 0.8;
+                break;
+
+            default:
+                ox = 0;
+                oy = 0;
+                oz = 0;
+        }
+
+        // use generic random box spawning
+        double x = this.posX + (rand.nextDouble() - 0.5) * this.width * s;
+        double y = this.posY + (rand.nextDouble() - 0.5) * this.height * s;
+        double z = this.posZ + (rand.nextDouble() - 0.5) * this.width * s;
+
+        this.world.spawnParticle(type, x, y, z, ox, oy, oz);
+    }
+
+    public void spawnBodyParticles(EnumParticleTypes type, int baseAmount) {
+        int amount = (int) (baseAmount * this.getScale());
+        for (int i = 0; i < amount; i++) {
+            spawnBodyParticle(type);
+        }
     }
 
     /**
@@ -964,6 +1006,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                     this.entityDropItem(itemstack, 0.0F);
                 }
             }
+        }
+
+        if (this.isClient() && !this.isEgg() && this.deathTime < this.getMaxDeathTime() - 20) {
+            spawnBodyParticles(EnumParticleTypes.CLOUD, 4);
         }
 
         if (isTamed()) {
@@ -1116,7 +1162,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
 
     public void roar() {
-        if (!isDead && getBreed().getRoarSoundEvent(this)!=null) {
+        if (!isDead && getBreed().getRoarSoundEvent(this)!=null && !isUsingBreathWeapon()) {
             this.roarTicks=0; // MathX.clamp(getScale(), 0.88f
             world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(this), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 2, 5), getPitch(), true);
         }
@@ -1754,10 +1800,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public DragonReproductionHelper getReproductionHelper() {
         return getHelper(DragonReproductionHelper.class);
-    }
-
-    public DragonParticleHelper getParticleHelper() {
-        return getHelper(DragonParticleHelper.class);
     }
 
     public DragonBreathHelper getBreathHelper() {

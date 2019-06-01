@@ -51,6 +51,7 @@ public class ItemDragonArmour extends ItemArmor {
 		ItemStack feet = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 
 		if(head.getItem() == ModArmour.forestDragonScaleCap && player.fishEntity != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 300,0, false, false));
+		if(head.getItem() == ModArmour.moonlightDragonScaleCap && !player.world.isDaytime() && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 300,0, false, false));
 		if(chest.getItem() == ModArmour.forestDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200,0, false, false));
 		if(chest.getItem() == ModArmour.iceDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 200,0, false, false));
 

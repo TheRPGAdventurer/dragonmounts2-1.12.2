@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.sound;
 
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStage;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 /**
@@ -7,7 +8,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
  *
  * Null sound (silent)
  */
-public class SoundEffectBreathWeaponNull extends SoundEffectBreathWeapon
+public class SoundEffectBreathWeaponNull extends SoundEffectBreathWeaponP
 {
   public SoundEffectBreathWeaponNull(SoundController i_soundController, WeaponSoundUpdateLink i_weaponSoundUpdateLink)
   {

@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.entity.breath;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeapon;
+import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeaponP;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -38,6 +39,12 @@ public class BreathAffectedArea {
   public BreathAffectedArea(BreathWeapon i_breathWeapon) {
     breathWeapon = i_breathWeapon;
   }
+
+  public BreathAffectedArea(BreathWeaponP i_breathWeapon) {  // dummy to enable compilation
+    //breathWeapon = i_breathWeapon;
+    throw new UnsupportedOperationException();
+  }
+
 
   /**
    * Tell BreathAffectedArea that breathing is ongoing.  Call once per tick before updateTick()

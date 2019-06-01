@@ -113,7 +113,7 @@ public class TargetHighlighter
         expansionamount = MathX.terp(EXPANSION_MAX, EXPANSION_MIN, 2 * (cyclePos - 0.5));
       }
     }
-    AxisAlignedBB expandedBox = aabb.expand(expansionamount, expansionamount, expansionamount);
+    AxisAlignedBB expandedBox = aabb.grow(expansionamount);
 
     try {
       GL11.glPushAttrib(GL11.GL_ENABLE_BIT);

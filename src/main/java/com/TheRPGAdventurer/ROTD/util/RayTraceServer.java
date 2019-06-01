@@ -44,8 +44,8 @@ public class RayTraceServer {
     final float EXPAND_SEARCH_BOX_BY = 1.0F;
     net.minecraft.util.math.AxisAlignedBB searchBox = entityPlayerSP.getEntityBoundingBox();
     Vec3d endOfLookDelta = endOfLook.subtract(positionEyes);
-    searchBox = searchBox.grow(endOfLookDelta.x, endOfLookDelta.y, endOfLookDelta.z); //add
-    searchBox = searchBox.expand(EXPAND_SEARCH_BOX_BY, EXPAND_SEARCH_BOX_BY, EXPAND_SEARCH_BOX_BY);
+    searchBox = searchBox.expand(endOfLookDelta.x, endOfLookDelta.y, endOfLookDelta.z); //add
+    searchBox = searchBox.grow(EXPAND_SEARCH_BOX_BY);
     List<Entity> nearbyEntities = world.getEntitiesWithinAABBExcludingEntity(
             entityPlayerSP, searchBox);
     Entity closestEntityHit = null;
@@ -63,7 +63,7 @@ public class RayTraceServer {
 
       float collisionBorderSize = entity.getCollisionBorderSize();
       net.minecraft.util.math.AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox()
-              .expand(collisionBorderSize, collisionBorderSize, collisionBorderSize);
+              .grow(collisionBorderSize);
       RayTraceResult movingobjectposition = axisalignedbb.calculateIntercept(positionEyes, endOfLook);
 
       if (axisalignedbb.contains(endOfLook)) {

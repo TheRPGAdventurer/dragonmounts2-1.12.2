@@ -18,6 +18,7 @@ import com.TheRPGAdventurer.ROTD.entity.ai.air.EntityAIAirPoint;
 import com.TheRPGAdventurer.ROTD.entity.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.entity.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelperP;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
@@ -1799,6 +1800,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public DragonBreathHelper getBreathHelper() {
         return getHelper(DragonBreathHelper.class);
     }
+
+    public DragonBreathHelperP getBreathHelperP() {  // enable compilation only
+        throw new UnsupportedOperationException();
+        return getHelper(DragonBreathHelperP.class);
+    }
+
 
     public DragonAnimator getAnimator() {
         return animator;

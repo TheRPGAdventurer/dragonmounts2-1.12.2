@@ -45,7 +45,7 @@ public class EntityAIDragonWatchLiving extends EntityAIDragonBase {
         watchedEntity = null;
         
         if (watchedEntity == null) {
-            AxisAlignedBB aabb = dragon.getEntityBoundingBox().expand(maxDist, dragon.height, maxDist);
+            AxisAlignedBB aabb = dragon.getEntityBoundingBox().grow(maxDist, dragon.height, maxDist);
             Class clazz = EntityLiving.class;
             watchedEntity = world.findNearestEntityWithinAABB(clazz, aabb, dragon);
         }

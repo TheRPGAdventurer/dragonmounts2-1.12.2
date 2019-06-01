@@ -1,9 +1,7 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
 
-import info.ata4.minecraft.dragon.client.sound.SoundEffectProjectile;
-import info.ata4.minecraft.dragon.server.entity.EntityTameableDragon;
-import info.ata4.minecraft.dragon.server.entity.helper.DragonLifeStage;
-import info.ata4.minecraft.dragon.util.math.MathX;
+import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -62,16 +60,16 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
     double yaw = MathX.calculateYaw(offset);
     double pitch = MathX.calculatePitch(offset);
 
-    this.setLocationAndAngles(origin.xCoord, origin.yCoord, origin.zCoord,
+    this.setLocationAndAngles(origin.x, origin.y, origin.z,
             (float)yaw, (float)pitch);
     this.motionX = this.motionY = this.motionZ = 0.0D;
 
     final double ACCELERATION_BLOCKS_PER_TICK_SQ = 0.2;
 
     Vec3d normalisedOffset = offset.normalize();
-    this.accelerationX = ACCELERATION_BLOCKS_PER_TICK_SQ * normalisedOffset.xCoord;
-    this.accelerationY = ACCELERATION_BLOCKS_PER_TICK_SQ * normalisedOffset.yCoord;
-    this.accelerationZ = ACCELERATION_BLOCKS_PER_TICK_SQ * normalisedOffset.zCoord;
+    this.accelerationX = ACCELERATION_BLOCKS_PER_TICK_SQ * normalisedOffset.x;
+    this.accelerationY = ACCELERATION_BLOCKS_PER_TICK_SQ * normalisedOffset.y;
+    this.accelerationZ = ACCELERATION_BLOCKS_PER_TICK_SQ * normalisedOffset.z;
 
     ticksToLive = getLifeTimeTicks(power);
   }
@@ -110,13 +108,13 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
   public void onUpdate() {
     BlockPos entityTilePos = new BlockPos(this);
 
-    if (!this.worldObj.isRemote && !this.worldObj.isBlockLoaded(entityTilePos)) {
+    if (!this.world.isRemote && !this.world.isBlockLoaded(entityTilePos)) {
       this.setDead();
     } else {
       super.onUpdate();
 
       if (this.inGround) {
-        if (this.worldObj.getBlockState(new BlockPos(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile) {
+        if (this.world.getBlockState(new BlockPos(this.xTile, this.yTile, this.zTile)).getBlock() == this.inTile) {
           ++this.ticksAlive;
 
           if (this.ticksAlive == 600) {
@@ -142,27 +140,27 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
       final boolean STOP_ON_LIQUID_FALSE = false;
       final boolean IGNORE_BLOCK_WITHOUT_BOUNDING_BOX_TRUE = true;
       final boolean RETURN_LAST_UNCOLLIDABLE_BLOCK_FALSE = false;
-      RayTraceResult movingobjectposition = this.worldObj.rayTraceBlocks(startPos, endPos,
+      RayTraceResult movingobjectposition = this.world.rayTraceBlocks(startPos, endPos,
                                                     STOP_ON_LIQUID_FALSE, IGNORE_BLOCK_WITHOUT_BOUNDING_BOX_TRUE,
                                                     RETURN_LAST_UNCOLLIDABLE_BLOCK_FALSE);
 
       if (movingobjectposition != null) {
-        endPos = new Vec3d(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord,
-                         movingobjectposition.hitVec.zCoord);
+        endPos = new Vec3d(movingobjectposition.hitVec.x, movingobjectposition.hitVec.y,
+                         movingobjectposition.hitVec.z);
       }
 
       Entity firstEntityStruck = null;
       double smallestCollisionDistance = Double.MAX_VALUE;
-      List collidingEntities = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()
-                                                                               .addCoord(this.motionX, this.motionY,
+      List collidingEntities = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()
+                                                                               .expand(this.motionX, this.motionY,
                                                                                          this.motionZ)
-                                                                               .expand(1.0D, 1.0D, 1.0D));
+                                                                               .grow(1.0D));
       for (Object entry : collidingEntities) {
         Entity collidingEntity = (Entity)entry;
         if (collidingEntity.canBeCollidedWith() &&
              (!collidingEntity.isEntityEqual(this.shootingEntity) || this.ticksInAir >= 25)) {
           final double f = 0.3F;
-          AxisAlignedBB axisalignedbb = collidingEntity.getEntityBoundingBox().expand(f, f, f);
+          AxisAlignedBB axisalignedbb = collidingEntity.getEntityBoundingBox().grow(f);
           RayTraceResult movingobjectposition1 = axisalignedbb.calculateIntercept(startPos, endPos);
 
           if (movingobjectposition1 != null) {

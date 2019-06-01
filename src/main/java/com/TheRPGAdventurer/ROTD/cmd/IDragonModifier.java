@@ -37,7 +37,7 @@ public interface IDragonModifier {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
             AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .expand(MODIFIER_RANGE, MODIFIER_RANGE, MODIFIER_RANGE);
+                .grow(MODIFIER_RANGE);
             
             List<EntityTameableDragon> dragons = player.world
                 .getEntitiesWithinAABB(EntityTameableDragon.class, aabb);

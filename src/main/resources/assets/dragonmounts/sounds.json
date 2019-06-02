@@ -36,10 +36,10 @@
     ]
   },
       
-  "mob.dragon.gender_switch": {
+  "item.gender_switch": {
   "category": "dragon_roar",
     "sounds": [
-      "dragonmounts:mob/dragon/gender_switch"
+      "dragonmounts:item/gender_switch"
     ]
   },
   
@@ -124,16 +124,16 @@
     "dragonmounts:mob/dragon/hatching2"
     ]
   },
-  "mob.dragon.whistle": {
+  "item.whistle": {
   "category": "dragon_whistle",
   "sounds": [
-      "dragonmounts:mob/dragon/whistle"
+      "dragonmounts:item/whistle"
     ]
   },
   "mob.dragon.whistle1": {
   "category": "dragon_whistle1",
   "sounds": [
-      "dragonmounts:mob/dragon/whistle1"
+      "dragonmounts:item/whistle1"
     ]
   },
   "mob.dragon.breathweapon.fire.adultbreathefirestart": {

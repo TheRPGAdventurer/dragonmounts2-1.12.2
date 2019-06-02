@@ -53,11 +53,11 @@ public class ModSounds {
 	@ObjectHolder("mob.dragon.hatching")
 	public static final SoundEvent DRAGON_HATCHING = createSoundEvent("mob.dragon.hatching");
 	
-	@ObjectHolder("mob.dragon.whistle")
-	public static final SoundEvent DRAGON_WHISTLE = createSoundEvent("mob.dragon.whistle");
+	@ObjectHolder("item.whistle")
+	public static final SoundEvent DRAGON_WHISTLE = createSoundEvent("item.whistle");
 	
-	@ObjectHolder("mob.dragon.whistle1")
-	public static final SoundEvent DRAGON_WHISTLE1 = createSoundEvent("mob.dragon.whistle1");
+	@ObjectHolder("item.whistle1")
+	public static final SoundEvent DRAGON_WHISTLE1 = createSoundEvent("item.whistle1");
 	
 	@ObjectHolder("mob.dragon.roar")
 	public static final SoundEvent DRAGON_ROAR = createSoundEvent("mob.dragon.roar");
@@ -65,8 +65,8 @@ public class ModSounds {
 	@ObjectHolder("mob.dragon.hatchlingroar")
 	public static final SoundEvent HATCHLING_DRAGON_ROAR = createSoundEvent("mob.dragon.hatchlingroar");
 
-	@ObjectHolder("mob.dragon.gender_switch")
-	public static final SoundEvent DRAGON_SWITCH = createSoundEvent("mob.dragon.gender_switch");
+	@ObjectHolder("item.gender_switch")
+	public static final SoundEvent DRAGON_SWITCH = createSoundEvent("item.gender_switch");
 	
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(DragonMounts.MODID, soundName);

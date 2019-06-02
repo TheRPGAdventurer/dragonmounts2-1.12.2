@@ -15,10 +15,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonBreedEgg extends ItemBlock {
+/*public class ItemDragonBreedEgg extends ItemBlock {
 
     public static ItemDragonBreedEgg DRAGON_BREED_EGG;
     
+    @Deprecated
     public ItemDragonBreedEgg() {
         super(BlockDragonBreedEgg.DRAGON_BREED_EGG);
         this.setMaxDamage(0);
@@ -50,3 +51,4 @@ public class ItemDragonBreedEgg extends ItemBlock {
         }
     }
 }
+*/

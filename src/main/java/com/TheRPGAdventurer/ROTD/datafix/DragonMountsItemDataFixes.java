@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD;
+package com.TheRPGAdventurer.ROTD.datafix;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;

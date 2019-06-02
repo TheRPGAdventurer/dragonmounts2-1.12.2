@@ -17,7 +17,7 @@ import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.network.*;
-import com.TheRPGAdventurer.ROTD.ServerProxy;
+import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.world.DragonMountsWorldGenerator;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
@@ -50,7 +50,7 @@ public class DragonMounts {
     public static final String LLIBRARY_VERSION="1.7.14";
     public static final String GUI_FACTORY="com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
 
-    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.client.ClientProxy")
+    @SidedProxy(serverSide="com.TheRPGAdventurer.ROTD.proxy.ServerProxy", clientSide="com.TheRPGAdventurer.ROTD.proxy.ClientProxy")
     public static ServerProxy proxy;
 
     @Instance(value=MODID)

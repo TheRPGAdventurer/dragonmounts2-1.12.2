@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.TheRPGAdventurer.ROTD.items.ItemDragonAmuletNEW;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 
 /**
  * Small item utility class.

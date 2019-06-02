@@ -10,9 +10,9 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
-import com.TheRPGAdventurer.ROTD.entity.entitycarriage.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
 
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;

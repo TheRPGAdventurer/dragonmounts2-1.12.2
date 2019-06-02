@@ -1,10 +1,10 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.items.ItemDiamondShears;
-import com.TheRPGAdventurer.ROTD.items.bow.*;
-import com.TheRPGAdventurer.ROTD.items.gemset.*;
+import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDiamondShears;
+import com.TheRPGAdventurer.ROTD.objects.items.bow.*;
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.*;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;

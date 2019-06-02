@@ -1,5 +1,4 @@
 package com.TheRPGAdventurer.ROTD.objects.items.specialset;
-
 import javax.annotation.Nullable;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
@@ -15,7 +14,6 @@ import net.minecraft.world.World;
 
 public class ItemWaterDragonArmour extends ItemDragonArmour {
 	
-
 	public ItemWaterDragonArmour(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, EnumItemBreedTypes type, @Nullable PotionEffect potionEffect) {
 		super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
 		this.setCreativeTab(DragonMounts.armoryTab);

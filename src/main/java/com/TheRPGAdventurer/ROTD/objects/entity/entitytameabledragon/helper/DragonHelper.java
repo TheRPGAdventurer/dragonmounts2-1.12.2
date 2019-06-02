@@ -16,7 +16,6 @@ import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 
-
 /**
  *
  * @author Nico Bergemann <barracuda415 at yahoo.de>

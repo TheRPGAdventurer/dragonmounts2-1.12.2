@@ -7,10 +7,9 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
-package com.TheRPGAdventurer.ROTD.client;
+package com.TheRPGAdventurer.ROTD.proxy;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.ServerProxy;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.RenderDM2Cape;
@@ -42,9 +41,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
-//import scala.actors.threadpool.Arrays;
 
 import java.util.Arrays;
+
+//import scala.actors.threadpool.Arrays;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -89,7 +89,8 @@ public class ClientProxy extends ServerProxy {
         		t.GREEN + "Wolf" + r + "-" + t.AQUA + "Second Coder, started making small fixes then started doing big ones, I hope his dreams of becoming t.AQUA computer engineer succeeds\n\n" +
         		t.GREEN + "FlaemWing" + r + "-" + t.AQUA + "for new nest block textures and dragonarmor item textures, new tool textures\n\n" + 
         		t.GREEN + "AlexThe666" + r + "-" + t.AQUA + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" +
-        		t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n";
+        		t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n" +
+        		t.GREEN + "TGG/TheGreyGhost" + r + "-" + t.AQUA + "old dm1 dev and prototype breath\n";
         metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD +""+ t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
         metadata.description =
         		"\nTips:\n" +

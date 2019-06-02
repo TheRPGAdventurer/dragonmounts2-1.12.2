@@ -1,14 +1,14 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
-import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.blocks.BlockDragonNest;
-import com.TheRPGAdventurer.ROTD.blocks.BlockDragonShulker;
-import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
-
-import net.minecraft.block.Block;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonNest;
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonShulker;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+
+import net.minecraft.block.Block;
 
 public class ModBlocks
 {

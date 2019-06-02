@@ -1,12 +1,13 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.items.ItemDragonArmor;
-import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonArmour;
-import com.TheRPGAdventurer.ROTD.items.specialset.ItemEnderDragonArmour;
-import com.TheRPGAdventurer.ROTD.items.specialset.ItemNetherDragonArmour;
-import com.TheRPGAdventurer.ROTD.items.specialset.ItemWaterDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonArmor;
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.ItemDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.specialset.ItemEnderDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.specialset.ItemNetherDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.specialset.ItemWaterDragonArmour;
+
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;

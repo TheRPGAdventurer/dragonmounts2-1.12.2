@@ -1,9 +1,9 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.entitycarriage.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.items.*;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.items.*;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

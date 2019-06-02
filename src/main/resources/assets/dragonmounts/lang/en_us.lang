@@ -25,22 +25,6 @@ entity.DragonMount.zombie.name=Zombie Dragon
 entity.DragonMount.terra.name=Terra Dragon
 entity.DragonMount.moonlight.name=Moonlight Dragon
 
-item.dragon.ice.name=Ice Dragon
-item.dragon.end.name=Ender Dragon
-item.dragon.aether.name=Sky Dragon
-item.dragon.forest.name=Forest Dragon
-item.dragon.sylphid.name=Water Dragon
-item.dragon.nether.name=Nether Dragon
-item.dragon.fire.name=Fire Dragon
-item.dragon.skeleton.name=Skeleton Dragon
-item.dragon.wither.name=Wither Dragon
-item.dragon.enchant.name=Enchantment Dragon
-item.dragon.sunlight.name=Sunlight Dragon
-item.dragon.storm.name=Storm Dragon
-item.dragon.zombie.name=Zombie Dragon
-item.dragon.terra.name=Terra Dragon
-item.dragon.moonlight.name=Moonlight Dragon
-
 #Breeds
 dragon.forest=Forest
 dragon.aether=Aether
@@ -77,7 +61,7 @@ dragon.adult=Adult
 item.diamond_shears.name=Diamond Shears
 item.dragonEgg.name=%s Egg
 item.dragon_gender.name=Dragon Gender Gem
-item.gui.dragon_gender=Left Click an owned dragon with the gem will switch its gender	w
+item.gui.dragon_gender=Left Click an owned dragon with the gem will switch its gender
 item.summon_egg.name=Spawn Dragon
 item.dragon_essence.name=Dragon Essence
 item.dragon_whistle.name=Dragon Whistle
@@ -111,7 +95,22 @@ item.dragonarmor_emerald.name=Emerald Dragon Armor
 # Tiles
 tile.pileofsticks.name=Nest Block
 tile.block_dragon_shulker.name=Dragon Core
-item.dragonEgg.name=%s Egg
+
+tile.storm_egg.name=Storm Dragon Egg
+tile.end_egg.name=Ender Dragon Egg
+tile.zombie_egg.name=Zombie Dragon Egg
+tile.sylphid_egg.name=Water Dragon Egg
+tile.nether_egg.name=Nether Dragon Egg
+tile.forest_egg.name=Forest Dragon Egg
+tile.aether_egg.name=Aether Dragon Egg
+tile.ice_egg.name=Ice Dragon Egg
+tile.fire_egg.name=Fire Dragon Egg
+tile.skeleton_egg.name=Skeleton Dragon Egg
+tile.wither_egg.name=Wither Dragon Egg
+tile.enchant_egg.name=Enchant Dragon Egg
+tile.sunlight_egg.name=Sunlight Dragon Egg
+tile.moonlight_egg.name=Moonlight Dragon Egg
+tile.terra_egg.name=Terra Dragon Egg
 
 # Item Info
 item.removeNBT=<Sneak + Right Click to unbind a Dragon>

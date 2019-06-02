@@ -12,7 +12,6 @@ package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
 import com.google.common.base.Optional;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -207,11 +206,6 @@ public class DragonReproductionHelper extends DragonHelper  {
 ////      dragon.getBreedHelper().inheritBreed(parent1, parent2)
 //        baby.setBreedType(inheritRandombreed(parent1, parent2));
 
-        ItemDragonBreedEgg egg= new ItemDragonBreedEgg();
-        egg.getMetadata(inheritRandombreed(parent1, parent2).getMeta());
-        if(!dragon.isMale()) {
-            dragon.dropItem(egg, 1);
-        }
 
         // increase reproduction counter
         parent1.getReproductionHelper().addReproduced();

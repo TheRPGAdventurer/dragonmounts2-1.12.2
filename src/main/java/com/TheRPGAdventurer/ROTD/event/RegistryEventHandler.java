@@ -11,6 +11,8 @@ import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityHandler;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import com.TheRPGAdventurer.ROTD.util.compat.OreDictionaryCompat;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -88,7 +90,7 @@ public class RegistryEventHandler {
 
     public static void initRegistries() {
         NetworkRegistry.INSTANCE.registerGuiHandler(DragonMounts.instance, new GuiHandler());
-        ModItems.register();
+        OreDictionaryCompat.registerOres();
         DMUtils.getLogger().info("Gui's Successfully Registered");
     }
 }

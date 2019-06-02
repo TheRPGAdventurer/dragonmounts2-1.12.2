@@ -5,9 +5,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.items.*;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,10 +124,4 @@ public class ModItems {
     public static final Item zombie_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
     public static final Item moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
     
-    /**
-     * @WolfShotz Registering OreDictionary for vanilla Fish, since Forge doesn't do it on its own for some stupid reason...
-     */
-    public static void register() {
-        OreDictionary.registerOre("listAllfishraw", Items.FISH);
-    }
 }

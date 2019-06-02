@@ -23,8 +23,6 @@ public class VanillaEggHandler {
 		
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock evt) {
-			//TODO DEBUG
-			System.out.println("Test");
 		World world = evt.getWorld();
 		BlockPos pos = evt.getPos();
 		if (world.getBlockState(pos).getBlock() != Blocks.DRAGON_EGG) return; //ignore all other blocks

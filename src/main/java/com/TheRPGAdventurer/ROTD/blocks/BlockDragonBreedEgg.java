@@ -33,12 +33,13 @@ import net.minecraft.world.World;
 
 
 /**
- *
+ * Handles a custom dragon egg block that on block activation, spawns a dragon entity at the egg lifestage. (Starts the hatching process)
+ * 
  * @author Nico Bergemann <barracuda415 at yahoo.de>
+ * @author WolfShotz
  */
 public class BlockDragonBreedEgg extends BlockDragonEgg implements IHasModel {
-    
-//    public static final PropertyEnum<EnumDragonBreed> BREED = PropertyEnum.create("breed", EnumDragonBreed.class);
+	
     private EnumDragonBreed breed;
     
     public BlockDragonBreedEgg(String name, EnumDragonBreed breed) {
@@ -54,12 +55,6 @@ public class BlockDragonBreedEgg extends BlockDragonEgg implements IHasModel {
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
-
-/*    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, BREED);
-    }
-*/
     
     /**
      * Called when the block is right clicked by a player.

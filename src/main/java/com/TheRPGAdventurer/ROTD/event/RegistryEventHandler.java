@@ -1,7 +1,6 @@
 package com.TheRPGAdventurer.ROTD.event;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds.EnumDragonBreed;
@@ -10,8 +9,6 @@ import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.items.ItemDragonAmuletNEW;
-import com.TheRPGAdventurer.ROTD.items.ItemDragonBreedEgg;
-import com.TheRPGAdventurer.ROTD.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.tileentities.TileEntityHandler;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
@@ -19,7 +16,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -48,16 +44,6 @@ public class RegistryEventHandler {
         event.getRegistry().registerAll(ModArmour.ARMOR); //Will work on this later
         
         DMUtils.getLogger().info("Item Registries Successfully Registered!");
-    }
-
-    @SubscribeEvent
-    public static void registerDragonEggItem(RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(ItemDragonBreedEgg.DRAGON_BREED_EGG.setRegistryName("dragon_egg"));
-    }
-
-    @SubscribeEvent
-    public static void registerDragonnEggBlock(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(BlockDragonBreedEgg.DRAGON_BREED_EGG.setRegistryName("dragon_egg"));
     }
 
     @SubscribeEvent
@@ -94,26 +80,6 @@ public class RegistryEventHandler {
 
         for (Item item : ModArmour.ARMOR) {
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName().toString(), "inventory"));
-        }
-
-        for (Item itemegg : ItemDragonBreedEgg.ITEM_EGG) {
-            // register item renderer for dragon egg item variants
-            ResourceLocation eggModelItemLoc = new ResourceLocation(DragonMounts.MODID, "dragon_egg");
-            Item itemBlockDragonEgg = Item.REGISTRY.getObject(eggModelItemLoc);
-            EnumDragonBreed.META_MAPPING.forEach((breed, meta) -> {
-                ModelResourceLocation eggModelLoc = new ModelResourceLocation(DragonMounts.MODID + ":dragon_egg", "breed=" + breed.getName());
-                ModelLoader.setCustomModelResourceLocation(itemBlockDragonEgg, meta, eggModelLoc);
-            });
-        }
-
-        for (Block blockegg : BlockDragonBreedEgg.BLOCK_EGG) {
-            // register item renderer for dragon egg block variants
-            ResourceLocation eggModelItemLoc = new ResourceLocation(DragonMounts.MODID, "dragon_egg");
-            Item itemBlockDragonEgg = Item.REGISTRY.getObject(eggModelItemLoc);
-            EnumDragonBreed.META_MAPPING.forEach((breed, meta) -> {
-                ModelResourceLocation eggModelLoc = new ModelResourceLocation(DragonMounts.MODID + ":dragon_egg", "breed=" + breed.getName());
-                ModelLoader.setCustomModelResourceLocation(itemBlockDragonEgg, meta, eggModelLoc);
-            });
         }
 
         DMUtils.getLogger().info("Models Sucessfully Registered");

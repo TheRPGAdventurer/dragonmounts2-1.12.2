@@ -183,7 +183,7 @@ public class DragonLifeStageHelper extends DragonHelper {
             dragon.dropItem(Items.SADDLE, 1);
         }
 
-        dragon.entityDropItem(new ItemStack(ModBlocks.),
+        dragon.entityDropItem(new ItemStack(dragon.getEggBlock(dragon.getBreedType())),
                 dragon.getBreedType().getMeta());
 
         dragon.setDead();

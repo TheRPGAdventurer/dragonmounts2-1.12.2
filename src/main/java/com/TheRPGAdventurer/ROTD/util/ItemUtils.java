@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 import com.TheRPGAdventurer.ROTD.items.ItemDragonAmuletNEW;
 
-
 /**
  * Small item utility class.
  *

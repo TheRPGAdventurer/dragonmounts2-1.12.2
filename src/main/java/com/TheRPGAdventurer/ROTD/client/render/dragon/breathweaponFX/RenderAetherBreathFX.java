@@ -65,7 +65,7 @@ public class RenderAetherBreathFX extends Render<AetherBreathFX> {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
         }
-        
+
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);

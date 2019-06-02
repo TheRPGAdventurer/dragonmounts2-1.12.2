@@ -9,17 +9,23 @@
  */
 package com.TheRPGAdventurer.ROTD.cmd;
 
-import net.minecraft.command.*;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.command.SyntaxErrorException;
+import net.minecraft.command.WrongUsageException;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
+
 
 /**
  *

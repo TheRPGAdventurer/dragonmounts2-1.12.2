@@ -44,7 +44,6 @@ public class DragonBreedNether extends DragonBreed {
 		
 	}
     
-    @Override
     public SoundEvent getLivingSound() {
         if (rand.nextInt(3) == 0) {
             return ModSounds.ENTITY_NETHER_DRAGON_GROWL;

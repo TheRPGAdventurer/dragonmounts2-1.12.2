@@ -28,7 +28,7 @@ public class DragonBreedSunlight extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		doParticles(dragon);
+		if (dragon.posY > dragon.world.getHeight() + 15 && dragon.world.isDaytime()) doParticles(dragon);
 	}
 	
     @SideOnly(Side.CLIENT)

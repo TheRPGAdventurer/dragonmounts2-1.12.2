@@ -42,9 +42,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
-import scala.actors.threadpool.Arrays;
+//import scala.actors.threadpool.Arrays;
 
-//import java.util.Arrays;
+import java.util.Arrays;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -56,7 +56,6 @@ public class ClientProxy extends ServerProxy {
     private int lockY = 0;
     private boolean followYaw=false;
     private boolean hover=false;
-    private ModMetadata metadata;
 
 	@Override
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -80,7 +79,7 @@ public class ClientProxy extends ServerProxy {
 
         //Override mcmod.info - This looks cooler :)
         TextFormatting t = null, r = TextFormatting.RESET;
-        metadata = event.getModMetadata();
+        ModMetadata metadata = event.getModMetadata();
         metadata.name = t.DARK_AQUA +""+ t.BOLD + "Dragon Mounts";
         metadata.credits = "\n" +
         		t.GREEN + "BarracudaATA4" + r + "-" + t.AQUA + "The Original Owner\n\n" +

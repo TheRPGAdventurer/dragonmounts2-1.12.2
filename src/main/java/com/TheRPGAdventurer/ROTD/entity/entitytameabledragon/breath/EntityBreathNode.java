@@ -1,18 +1,18 @@
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.EntityMoveAndResizeHelper;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.util.Pair;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 /**
  * Created by TGG on 31/07/2015.

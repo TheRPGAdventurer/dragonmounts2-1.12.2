@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDrago
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -33,7 +34,8 @@ public class DragonBreedTerra extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		doParticles(dragon);
+		boolean isMesa=BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.MESA);
+		if (isMesa) doParticles(dragon);
 	}
 	
     @SideOnly(Side.CLIENT)

@@ -22,12 +22,21 @@ public class ModSounds {
 	
 	@ObjectHolder("mob.dragon.growl")
 	public static final SoundEvent ENTITY_DRAGON_GROWL = createSoundEvent("mob.dragon.growl");
+
+	@ObjectHolder("mob.dragon.hatchlinggrowl")
+	public static final SoundEvent ENTITY_DRAGON_HATCHLING_GROWL = createSoundEvent("mob.dragon.hatchlinggrowl");
 	
 	@ObjectHolder("mob.dragon.nethergrowl")
 	public static final SoundEvent ENTITY_NETHER_DRAGON_GROWL = createSoundEvent("mob.dragon.nethergrowl");
-	
+
+	@ObjectHolder("mob.dragon.hatchlingnethergrowl")
+	public static final SoundEvent ENTITY_HATCHLING_NETHER_DRAGON_GROWL = createSoundEvent("mob.dragon.hatchlingnethergrowl");
+
 	@ObjectHolder("mob.dragon.skeletongrowl")
 	public static final SoundEvent ENTITY_SKELETON_DRAGON_GROWL = createSoundEvent("mob.dragon.skeletongrowl");
+
+	@ObjectHolder("mob.dragon.hatchlingskeletongrowl")
+	public static final SoundEvent ENTITY_HATCHLING_SKELETON_DRAGON_GROWL = createSoundEvent("mob.dragon.hatchlingskeletongrowl");
 	
 	@ObjectHolder("mob.dragon.zombiedeath")
 	public static final SoundEvent ZOMBIE_DRAGON_DEATH = createSoundEvent("mob.dragon.zombiedeath");
@@ -53,6 +62,9 @@ public class ModSounds {
 	@ObjectHolder("mob.dragon.roar")
 	public static final SoundEvent DRAGON_ROAR = createSoundEvent("mob.dragon.roar");
 
+	@ObjectHolder("mob.dragon.hatchlingroar")
+	public static final SoundEvent HATCHLING_DRAGON_ROAR = createSoundEvent("mob.dragon.hatchlingroar");
+
 	@ObjectHolder("mob.dragon.gender_switch")
 	public static final SoundEvent DRAGON_SWITCH = createSoundEvent("mob.dragon.gender_switch");
 	
@@ -72,6 +84,9 @@ public class ModSounds {
 					ENTITY_DRAGON_GROWL,
 					ENTITY_NETHER_DRAGON_GROWL,
 					ENTITY_SKELETON_DRAGON_GROWL,
+					ENTITY_DRAGON_HATCHLING_GROWL,
+					ENTITY_HATCHLING_NETHER_DRAGON_GROWL,
+					ENTITY_HATCHLING_SKELETON_DRAGON_GROWL,
 					ZOMBIE_DRAGON_GROWL,
 					ZOMBIE_DRAGON_DEATH,
 					DRAGON_SNEEZE,
@@ -80,6 +95,7 @@ public class ModSounds {
 					DRAGON_WHISTLE,
 					DRAGON_WHISTLE1,
 					DRAGON_ROAR,
+					HATCHLING_DRAGON_ROAR,
 					DRAGON_SWITCH
 			);
 		}

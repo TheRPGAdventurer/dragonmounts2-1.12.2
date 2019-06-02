@@ -59,7 +59,7 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.dragonshulker), 0);
+        DragonMounts.proxy.registerModel(Item.getItemFromBlock(ModBlocks.DRAGONSHULKER), 0);
         
         // Register item render for amulet item variants
         ModelLoader.setCustomMeshDefinition(ModItems.Amulet, new ItemDragonAmuletNEW());

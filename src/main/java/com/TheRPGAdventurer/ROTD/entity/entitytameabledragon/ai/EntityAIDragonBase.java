@@ -9,16 +9,16 @@
  */
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai;
 
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+
+import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
+
+import java.util.Random;
+
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.Random;
-
-import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
-
-import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 
 /**
  *

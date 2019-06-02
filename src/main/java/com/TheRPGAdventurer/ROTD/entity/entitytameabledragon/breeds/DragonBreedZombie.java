@@ -58,13 +58,8 @@ public class DragonBreedZombie extends DragonBreed {
     }
 
     @Override
-    public SoundEvent getLivingSound() {
-        return ModSounds.ENTITY_DRAGON_BREATHE;
-    }
-
-    @Override
-    public SoundEvent getRoarSoundEvent() {
-        return ModSounds.ZOMBIE_DRAGON_GROWL;
+    public SoundEvent getLivingSound(EntityTameableDragon dragon) {
+        return dragon.isHatchling() ?  ModSounds.ENTITY_DRAGON_HATCHLING_GROWL : ModSounds.ZOMBIE_DRAGON_GROWL;
     }
 
     @Override

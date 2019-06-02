@@ -9,12 +9,12 @@
  */
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
 
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.EntityDataManager;
 
 import java.util.Random;
 
-import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 
 /**
  *

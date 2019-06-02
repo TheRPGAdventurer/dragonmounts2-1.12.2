@@ -38,6 +38,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
         
         ModItems.ITEMS.add(this);
     }
+    
     /**
      * Called when the player has right clicked the itemstack on the ground
      */

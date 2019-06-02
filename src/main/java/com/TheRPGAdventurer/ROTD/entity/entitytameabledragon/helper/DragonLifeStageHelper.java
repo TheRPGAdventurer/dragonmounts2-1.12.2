@@ -12,7 +12,6 @@ package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
-import static com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage.*;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -31,6 +30,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper.EnumDragonLifeStage.*;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -340,6 +341,10 @@ public class DragonLifeStageHelper extends DragonHelper {
 
     public boolean isInfant() {
         return getLifeStage() == INFANT;
+    }
+
+    public boolean isPreJuvenile() {
+        return getLifeStage() == PREJUVENILE;
     }
 
     public boolean isJuvenile() {

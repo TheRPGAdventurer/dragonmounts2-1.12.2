@@ -106,9 +106,7 @@ public class DragonBreedIce extends DragonBreed {
 
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		if(dragon.isOverWater()) { 
-			freezeNearby(dragon, dragon.world, new BlockPos(dragon),  1);
-		}
+		if(dragon.isOverWater()) freezeNearby(dragon, dragon.world, new BlockPos(dragon),  1);
 		doParticles(dragon);
 	}
 	

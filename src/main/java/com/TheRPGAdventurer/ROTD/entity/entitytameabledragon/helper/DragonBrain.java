@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.air.EntityAIDrag
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.ai.ground.*;
 import com.TheRPGAdventurer.ROTD.util.EntityClassPredicate;
+
 import com.google.common.base.Predicate;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.*;
@@ -114,6 +115,7 @@ public class DragonBrain extends DragonHelper {
 
             if (dragon.isHatchling() && dragon.onGround) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.7F)); // mutex 1
+                tasks.addTask(6, new EntityAIFollowParent(dragon, 1.4f));
                 tasks.addTask(6, new EntityAITempt(dragon, 0.75, false, OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet()))); // mutex 2+1
             }
 

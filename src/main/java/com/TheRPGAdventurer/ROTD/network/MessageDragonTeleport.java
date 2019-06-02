@@ -1,5 +1,9 @@
 package com.TheRPGAdventurer.ROTD.network;
 
+import java.util.UUID;
+
+import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
+
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -18,10 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.UUID;
-
-import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 
 public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport> {
 	public UUID dragonId;
@@ -50,8 +50,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
     
     @Override
     @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {
-    }
+    public void onClientReceived(Minecraft client, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {}
 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {

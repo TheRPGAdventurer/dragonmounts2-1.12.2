@@ -54,7 +54,8 @@ public class GuiDragonWhistle extends GuiScreen {
 
         homePos=new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.homePos"));
 
-        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 35, 98, 20, I18n.format("gui.firesupport"));
+//        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 35, 98, 20, I18n.format("gui.firesupport"));
+        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, I18n.format("gui.firesupport"));
 
         sit=new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
 

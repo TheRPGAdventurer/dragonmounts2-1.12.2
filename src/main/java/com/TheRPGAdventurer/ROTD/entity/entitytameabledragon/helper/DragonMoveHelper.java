@@ -1,6 +1,5 @@
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.helper;
 
-
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.util.math.Vec3d;
@@ -12,7 +11,7 @@ import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDrago
 public class DragonMoveHelper extends EntityMoveHelper {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 12;
+    private final float YAW_SPEED = 50;
 
     public DragonMoveHelper(EntityTameableDragon dragon) {
         super(dragon);

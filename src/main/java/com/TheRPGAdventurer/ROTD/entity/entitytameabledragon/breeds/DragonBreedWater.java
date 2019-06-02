@@ -67,7 +67,6 @@ public class DragonBreedWater extends DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWaterDragon(world, power, tickCounter);
     }
-
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {

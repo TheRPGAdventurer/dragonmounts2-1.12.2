@@ -4,6 +4,7 @@ import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDrago
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathAffectedBlock;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathAffectedEntity;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
+
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

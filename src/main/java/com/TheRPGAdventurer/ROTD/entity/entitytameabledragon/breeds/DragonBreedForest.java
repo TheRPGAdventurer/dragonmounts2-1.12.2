@@ -1,13 +1,13 @@
 package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
 
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
-
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;;
 
 
 public class DragonBreedForest extends DragonBreed {
@@ -41,21 +41,15 @@ public class DragonBreedForest extends DragonBreed {
 
     @Override
     public void onDeath(EntityTameableDragon dragon) {}
-    
-	@Override
-	public void onLivingUpdate(EntityTameableDragon dragon) {
-		doParticles(dragon);
-	}
-	
-    @SideOnly(Side.CLIENT)
-    private void doParticles(EntityTameableDragon dragon) {
-        if (!dragon.isEgg() && !dragon.isHatchling()) {
-	        float s = dragon.getScale() * 1.2f;
-	        double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
-	        double y = dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;
-	        double z = dragon.posZ + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
-		        
-	        dragon.world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, x, y, z, 0, 0, 0);
+
+    @Override
+    public void onLivingUpdate(EntityTameableDragon dragon) {
+        if(dragon.isSheared()) {
+            net.minecraft.entity.item.EntityItem ent = dragon.entityDropItem(new ItemStack(
+                    Item.getItemFromBlock(Blocks.SAPLING.getBlockState().getBaseState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK).getBlock())), 1.0F);
+            ent.motionY += rand.nextFloat() * 0.05F;
+            ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
         }
     }
 }

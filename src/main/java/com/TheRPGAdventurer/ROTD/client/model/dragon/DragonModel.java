@@ -85,7 +85,7 @@ public class DragonModel extends AdvancedModelBase {
     private float[] wingForearmGlidef = new float[3];
     private float[] wingArmGroundf = new float[3];
     private float[] wingForearmGroundf = new float[3];
-*/    
+*/
 
     public float offsetX;
     public float offsetY;
@@ -191,18 +191,18 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     private void buildHead() {
-        head=new ModelPart(this, "head");
-        head.addBox("upperjaw", -6, 0, -9 + HEAD_OFS, 12, 5, 16);
-        head.addBox("mainhead", -8, -7, 4 + HEAD_OFS, 16, 16, 16); // 6
-        head.addBox("nostril", -5, -2, -7 + HEAD_OFS, 2, 2, 4);
-        head.mirror=true;
-        head.addBox("nostril", 3, -2, -7 + HEAD_OFS, 2, 2, 4);
+        head = new ModelPart(this, "head");
+        head.addBox("upperjaw",  -6, -1,   -8 + HEAD_OFS, 12,  5, 16);
+        head.addBox("mainhead", -8, -8,    6 + HEAD_OFS, 16, 16, 16); // 6
+        head.addBox("nostril",   -5, -3,   -6 + HEAD_OFS,  2,  2,  4);
+        head.mirror = true;
+        head.addBox("nostril",    3,  -3,  -6 + HEAD_OFS,  2,  2,  4);
 
         buildHorn(false);
         buildHorn(true);
 
-        jaw=head.addChildBox("lowerjaw", -6, -4, -17, 12, 4, 16);
-        jaw.setRotationPoint(0, 7, 8 + HEAD_OFS); // 4 rotationPointY
+        jaw = head.addChildBox("lowerjaw", -6, 0, -16, 12, 4, 16);
+        jaw.setRotationPoint(0, 4, 8 + HEAD_OFS);
     }
 
     private void buildHorn(boolean mirror) {
@@ -211,9 +211,9 @@ public class DragonModel extends AdvancedModelBase {
 
         float hornOfs=-(hornThick / 2f);
 
-        float hornPosX=-5;
-        float hornPosY=-7;
-        float hornPosZ=-2;
+        float hornPosX = -5;
+        float hornPosY = -8;
+        float hornPosZ = 0;
 
         float hornRotX=MathX.toRadians(30);
         float hornRotY=MathX.toRadians(-30);

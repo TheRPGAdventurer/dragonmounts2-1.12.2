@@ -3,8 +3,6 @@ package com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breeds;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
-
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -55,15 +53,13 @@ public class DragonBreedSkeleton extends DragonBreed {
 
     @Override
     public void onDeath(EntityTameableDragon dragon) {}
-    
-    @Override
-    public SoundEvent getLivingSound() {
-      return SoundEvents.ENTITY_SKELETON_AMBIENT;      
-    }
-    
-    @Override
-    public SoundEvent getRoarSoundEvent() {
-    	return ModSounds.ENTITY_SKELETON_DRAGON_GROWL;
+
+    public SoundEvent getLivingSound(EntityTameableDragon dragon) {
+        if (dragon.isHatchling()) {
+            return ModSounds.ENTITY_DRAGON_HATCHLING_GROWL;
+        } else {
+            return ModSounds.ENTITY_SKELETON_DRAGON_GROWL;
+        }
     }
     
 //	@Override

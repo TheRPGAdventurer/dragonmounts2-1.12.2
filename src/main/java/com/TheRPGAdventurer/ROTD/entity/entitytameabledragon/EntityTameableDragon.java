@@ -1209,7 +1209,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public SoundEvent getStepSound() {
-        return !isSitting() ? getBreed().getStepSound() : null;
+        return getBreed().getStepSound();
     }
 
     public SoundEvent getEatSound() {
@@ -1262,9 +1262,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return;
         }
 
-        if (isFlying()) {
-            return;
-        }
+        if (isFlying() || isSitting()) return;
 
         // override sound type if the top block is snowy
         SoundType soundType;
@@ -1276,13 +1274,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         // play stomping for bigger dragons
         SoundEvent stepSound;
-        if (isHatchling()) {
-            stepSound=soundType.getStepSound();
-        } else {
-            stepSound=getStepSound();
-        }
-
-        playSound(stepSound, soundType.getVolume(), soundType.getPitch());
+        if (isHatchling()) stepSound = soundType.getStepSound();
+        else stepSound = getStepSound();
+        playSound(stepSound, 1f, 1f, false);
     }
 
     public void playSound(SoundEvent sound, float volume, float pitch, boolean local) {

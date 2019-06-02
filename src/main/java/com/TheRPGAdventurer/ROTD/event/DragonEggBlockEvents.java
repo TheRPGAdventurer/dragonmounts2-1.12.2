@@ -48,14 +48,10 @@ public class DragonEggBlockEvents {
         if (world.provider.getDimensionType().getId() != 1) {
     	
         // don't interact with vanilla egg blocks if configured
-        if (DragonMountsConfig.isDisableBlockOverride() && block == Blocks.DRAGON_EGG) {
-            return;
-        }
+        if (DragonMountsConfig.isDisableBlockOverride() && block == Blocks.DRAGON_EGG) return;
         
         // ignore non-egg blocks
-        if (block != Blocks.DRAGON_EGG && block != BlockDragonBreedEgg.DRAGON_BREED_EGG) {
-            return;
-        }
+        if (block != Blocks.DRAGON_EGG && block != BlockDragonBreedEgg.DRAGON_BREED_EGG) return;
         
         // deny action
         evt.setResult(Event.Result.DENY);

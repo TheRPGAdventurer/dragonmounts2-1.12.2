@@ -1,6 +1,8 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectProjectile;
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -185,7 +187,7 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
       this.posX += this.motionX;
       this.posY += this.motionY;
       this.posZ += this.motionZ;
-      float motionLength = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+      float motionLength = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
       this.rotationYaw = (float) (Math.atan2(this.motionZ, this.motionX) * 180.0D / Math.PI) + 90.0F;
 
       for (this.rotationPitch = (float) (Math.atan2((double) motionLength, this.motionY) * 180.0D / Math.PI) - 90.0F;
@@ -213,7 +215,7 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
         inWaterUpdate();
         for (int j = 0; j < 4; ++j) {
           float f3 = 0.25F;
-          this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f3,
+          this.world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f3,
                                       this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3,
                                       this.motionX, this.motionY, this.motionZ, new int[0]);
         }
@@ -267,12 +269,12 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
     tagCompound.setDouble("accelerationY", accelerationY);
     tagCompound.setDouble("accelerationZ", accelerationZ);
     tagCompound.setInteger("ticksToLive", ticksToLive);
-    tagCompound.setDouble("originX", origin.xCoord);
-    tagCompound.setDouble("originY", origin.yCoord);
-    tagCompound.setDouble("originZ", origin.zCoord);
-    tagCompound.setDouble("destinationX", destination.xCoord);
-    tagCompound.setDouble("destinationY", destination.yCoord);
-    tagCompound.setDouble("destinationZ", destination.zCoord);
+    tagCompound.setDouble("originX", origin.x);
+    tagCompound.setDouble("originY", origin.y);
+    tagCompound.setDouble("originZ", origin.z);
+    tagCompound.setDouble("destinationX", destination.x);
+    tagCompound.setDouble("destinationY", destination.y);
+    tagCompound.setDouble("destinationZ", destination.z);
   }
 
   /**
@@ -337,12 +339,12 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
     buffer.writeFloat((float)accelerationX);
     buffer.writeFloat((float)accelerationY);
     buffer.writeFloat((float)accelerationZ);
-    buffer.writeDouble(origin.xCoord);
-    buffer.writeDouble(origin.yCoord);
-    buffer.writeDouble(origin.zCoord);
-    buffer.writeDouble(destination.xCoord);
-    buffer.writeDouble(destination.yCoord);
-    buffer.writeDouble(destination.zCoord);
+    buffer.writeDouble(origin.x);
+    buffer.writeDouble(origin.y);
+    buffer.writeDouble(origin.z);
+    buffer.writeDouble(destination.x);
+    buffer.writeDouble(destination.y);
+    buffer.writeDouble(destination.z);
     buffer.writeInt(parentDragon.getEntityId());
   }
 
@@ -409,7 +411,7 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
       EntityTameableDragon parentDragon = getParentDragon();
       if (parentDragon != null) {
         infoToUpdate.dragonMouthLocation = parentDragon.getPositionVector();
-        infoToUpdate.lifeStage = parentDragon.getLifeStageHelper().getLifeStage();
+        infoToUpdate.lifeStage = parentDragon.getLifeStageHelper().getLifeStageP();
       } else {
         infoToUpdate.dragonMouthLocation = new Vec3d(0,0,0);     //arbitrary fall-back values
         infoToUpdate.lifeStage = DragonLifeStage.HATCHLING;
@@ -428,7 +430,7 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
   {
     if (parentDragon != null) return parentDragon;
     if (parentDragonID == null) throw new IllegalStateException("parentDragonID not initialised yet");
-    Entity entityFromID = this.worldObj.getEntityByID(parentDragonID);
+    Entity entityFromID = this.world.getEntityByID(parentDragonID);
     if (entityFromID instanceof EntityTameableDragon) {
       parentDragon = (EntityTameableDragon)entityFromID;
     }

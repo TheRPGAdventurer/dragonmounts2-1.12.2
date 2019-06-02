@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.entity.breath.sound;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSound;
+import net.minecraft.client.multiplayer.WorldClient;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,28 +13,39 @@ import java.util.Map;
 * Date: 17/04/2014
  * Was intended to encapsulate sound effects.  Doesn't do anything at the moment.
 */
-public class SoundController {
-  public void playSound(PositionedSound sound) {
+public class SoundController
+{
+  public SoundController(WorldClient i_world)
+  {
+    worldClient = i_world;
+  }
+
+  public void playSound(PositionedSound sound)
+  {
     Minecraft.getMinecraft().getSoundHandler().playSound(sound);
   }
 
-  public void playSound(PositionedSound sound, SoundEffectTickLink soundEffectTickLink) {
+  public void playSound(PositionedSound sound, SoundEffectTickLink soundEffectTickLink)
+  {
     Minecraft.getMinecraft().getSoundHandler().playSound(sound);
     soundEffectsToTick.put(sound, soundEffectTickLink);
   }
 
-  public void stopSound(PositionedSound sound) {
+  public void stopSound(PositionedSound sound)
+  {
     Minecraft.getMinecraft().getSoundHandler().stopSound(sound);
     soundEffectsToTick.remove(sound);
   }
 
-  public boolean isSoundPlaying(PositionedSound sound) {
+  public boolean isSoundPlaying(PositionedSound sound)
+  {
     return Minecraft.getMinecraft().getSoundHandler().isSoundPlaying(sound);
   }
 
   /** tick all the sounds that need it
    */
-  public void onTick() {
+  public void onTick()
+  {
     Iterator<Map.Entry<PositionedSound, SoundEffectTickLink>> tickEntry = soundEffectsToTick.entrySet().iterator();
     while (tickEntry.hasNext()) {
       Map.Entry<PositionedSound, SoundEffectTickLink> entry = tickEntry.next();
@@ -60,4 +72,17 @@ public class SoundController {
 
   private HashMap<PositionedSound, SoundEffectTickLink> soundEffectsToTick = new HashMap<PositionedSound, SoundEffectTickLink>();
 
+//  public abstract class SoundControlLink
+//  {
+//    public abstract void startSound();
+//    public abstract void stopSound();
+//  }
+//
+//  private class SoundControlLinkDoNothing extends SoundControlLink
+//  {
+//    public  void startSound() {};
+//    public  void stopSound() {};
+//  }
+
+  private WorldClient worldClient;
 }

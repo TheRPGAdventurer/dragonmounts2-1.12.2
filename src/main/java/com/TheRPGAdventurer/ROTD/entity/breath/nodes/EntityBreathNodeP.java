@@ -25,7 +25,7 @@ import java.util.Random;
  * 2) call onUpdate() every tick to move and collide
  * 3) various getters for intensity, radius, and recent collisions.
   */
-class EntityBreathNodeP extends Entity implements IEntityParticle
+public class EntityBreathNodeP extends Entity implements IEntityParticle
 {
   public static EntityBreathNodeP createEntityBreathNodeServer(World world, double x, double y, double z,
                                                               double directionX, double directionY, double directionZ,

@@ -21,6 +21,7 @@ import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.network.*;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
+import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.LoggerLimit;
 import com.TheRPGAdventurer.ROTD.world.DragonMountsWorldGenerator;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
@@ -81,6 +82,7 @@ public class DragonMounts {
 
   // Add this field to your main class
     public static final Logger logger = LogManager.getLogger(DragonMounts.MODID);
+    public static final LoggerLimit loggerLimit = new LoggerLimit(logger);
 
     @EventHandler
     public void PreInitialization(FMLPreInitializationEvent event) {

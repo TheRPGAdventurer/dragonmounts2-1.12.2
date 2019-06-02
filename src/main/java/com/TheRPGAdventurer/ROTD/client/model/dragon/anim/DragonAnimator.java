@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
@@ -325,7 +326,7 @@ public class DragonAnimator {
                 break;
             }
             default: {
-                System.err.println("unexpected breathstate:" + breathState);
+                DragonMounts.loggerLimit.error_once("unexpected breathstate:" + breathState);
                 return;
             }
         }

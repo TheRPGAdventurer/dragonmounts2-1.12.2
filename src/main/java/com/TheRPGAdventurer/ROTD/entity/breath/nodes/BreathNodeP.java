@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathMode;
 import com.TheRPGAdventurer.ROTD.entity.breath.IEntityParticle;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -242,7 +243,7 @@ public abstract class BreathNodeP
       }
 
       default: {
-        System.err.println("Invalid power in setPower:" + newPower);
+        DragonMounts.loggerLimit.error_once("Invalid power in setPower:" + newPower);
       }
     }
   }

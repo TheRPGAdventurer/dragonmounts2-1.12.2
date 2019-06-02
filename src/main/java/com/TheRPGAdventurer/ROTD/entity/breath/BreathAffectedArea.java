@@ -1,8 +1,12 @@
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeFactory;
+import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeP;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeaponP;
+import com.TheRPGAdventurer.ROTD.entity.breath.nodes.EntityBreathNodeP;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -31,20 +35,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class BreathAffectedArea {
 
-  private ArrayList<EntityBreathNode> entityBreathNodes = new ArrayList<EntityBreathNode>();
+  private ArrayList<EntityBreathNode> entityBreathNodes = new ArrayList<>();
   private HashMap<Vec3i, BreathAffectedBlock> blocksAffectedByBeam = new HashMap<Vec3i, BreathAffectedBlock>();
   private HashMap<Integer, BreathAffectedEntity> entitiesAffectedByBeam = new HashMap<Integer, BreathAffectedEntity>();
   public BreathWeapon breathWeapon;
+
+  private ArrayList<EntityBreathNodeP> entityBreathNodesP = new ArrayList<>();
+  private BreathWeaponP breathWeaponP;
+  private DragonBreathMode dragonBreathMode;
+
 
   public BreathAffectedArea(BreathWeapon i_breathWeapon) {
     breathWeapon = i_breathWeapon;
   }
 
   public BreathAffectedArea(BreathWeaponP i_breathWeapon) {  // dummy to enable compilation
-    //breathWeapon = i_breathWeapon;
+    breathWeaponP = i_breathWeapon;
     throw new UnsupportedOperationException();
   }
-
 
   /**
    * Tell BreathAffectedArea that breathing is ongoing.  Call once per tick before updateTick()
@@ -63,10 +71,31 @@ public class BreathAffectedArea {
     entityBreathNodes.add(newNode);
   }
 
+  /**
+   * Tell BreathAffectedArea that breathing is ongoing.  Call once per tick before updateTick()
+   * @param world
+   * @param origin  the origin of the beam
+   * @param destination the destination of the beam, used to calculate direction
+   * @param power
+   */
+  public void continueBreathing(World world, Vec3d origin, Vec3d destination,
+                                BreathNodeFactory breathNodeFactory,  BreathNodeP.Power power, DragonBreathMode breathMode)
+  {
+    Vec3d direction = destination.subtract(origin).normalize();
+
+    EntityBreathNodeP newNode = EntityBreathNodeP.createEntityBreathNodeServer(
+            world, origin.x, origin.y, origin.z, direction.x, direction.y, direction.z,
+            breathNodeFactory, power, breathMode);
+
+    entityBreathNodesP.add(newNode);
+    throw new UnsupportedOperationException();
+  }
+
+
   /** updates the BreathAffectedArea, called once per tick
    */
   public void updateTick(World world) {
-    ArrayList<NodeLineSegment> segments = new ArrayList<NodeLineSegment>();
+    ArrayList<NodeLineSegment> segments = new ArrayList<>();
 
     // create a list of NodeLineSegments from the motion path of the BreathNodes
     Iterator<EntityBreathNode> it = entityBreathNodes.iterator();
@@ -90,7 +119,49 @@ public class BreathAffectedArea {
     decayBlockAndEntityHitDensities(blocksAffectedByBeam, entitiesAffectedByBeam);
   }
 
+  /** updates the BreathAffectedArea, called once per tick
+   */
+  public void updateTick(World world, DragonBreathMode new_dragonBreathMode) {
+    if (!new_dragonBreathMode.equals(dragonBreathMode)) {
+      dragonBreathMode = new_dragonBreathMode;
+      if (breathWeaponP.shouldResetOnBreathModeChange(dragonBreathMode)) {
+        entityBreathNodes.clear();
+        blocksAffectedByBeam.clear();
+        entitiesAffectedByBeam.clear();
+      }
+    }
+
+    ArrayList<NodeLineSegment> segments = new ArrayList<>();
+
+    // create a list of NodeLineSegments from the motion path of the BreathNodes
+    Iterator<EntityBreathNodeP> it = entityBreathNodesP.iterator();
+    while (it.hasNext()) {
+      EntityBreathNodeP entity = it.next();
+      if (entity.isDead) {
+        it.remove();
+      } else {
+        float radius = entity.getCurrentRadius();
+        Vec3d initialPosition = entity.getPositionVector();
+        entity.updateBreathMode(dragonBreathMode);
+        entity.onUpdate();
+        Collection<Pair<EnumFacing, AxisAlignedBB>> recentCollisions = entity.getRecentCollisions();
+        Vec3d finalPosition = entity.getPositionVector();
+        segments.add(new NodeLineSegment(initialPosition, finalPosition, radius, recentCollisions));
+      }
+    }
+
+    updateBlockAndEntityHitDensities(world, segments, entityBreathNodes, blocksAffectedByBeam, entitiesAffectedByBeam);
+
+    implementEffectsOnBlocksTick(world, blocksAffectedByBeam);
+    implementEffectsOnEntitiesTick(world, entitiesAffectedByBeam);
+
+    decayBlockAndEntityHitDensities(blocksAffectedByBeam, entitiesAffectedByBeam);
+  }
+
   private void implementEffectsOnBlocksTick(World world, HashMap<Vec3i, BreathAffectedBlock> affectedBlocks ) {
+    if (!DragonMounts.instance.getConfig().doBreathweaponsAffectBlocks()) {
+      return;
+    }
     for (Map.Entry<Vec3i, BreathAffectedBlock> blockInfo : affectedBlocks.entrySet()) {
       BreathAffectedBlock newHitDensity = breathWeapon.affectBlock(world, blockInfo.getKey(), blockInfo.getValue());
       blockInfo.setValue(newHitDensity);
@@ -227,4 +298,6 @@ public class BreathAffectedArea {
       }
     }
   }
+
+
 }

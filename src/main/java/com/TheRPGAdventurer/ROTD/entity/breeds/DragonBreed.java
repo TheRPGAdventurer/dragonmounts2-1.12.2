@@ -1,14 +1,12 @@
 package com.TheRPGAdventurer.ROTD.entity.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponFXEmitter;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeFactory;
 import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathProjectileFactory;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeaponNull;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.*;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeaponP;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
@@ -293,6 +291,7 @@ public abstract class DragonBreed {
                 soundEffectNames = juvenile;
                 break;
             default:
+              DragonMounts.loggerLimit.error_once("Invalid life stage:" + stage);
                 break;
         }
 
@@ -365,11 +364,10 @@ public abstract class DragonBreed {
    * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
    * @return
    */
-  public SoundEffectBreathWeapon getSoundEffectBreathWeapon(SoundController i_soundController,
-                                                            SoundEffectBreathWeapon.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+  public SoundEffectBreathWeaponP getSoundEffectBreathWeapon(SoundController i_soundController,
+                                                            SoundEffectBreathWeaponP.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
     return new SoundEffectBreathWeaponNull(i_soundController, i_weaponSoundUpdateLink);
   }
-
 
   private Pair<Float, Float> getBreathWeaponRangeDefault(DragonLifeStage dragonLifeStage) {
     float minAttackRange = 1.0F;
@@ -393,7 +391,7 @@ public abstract class DragonBreed {
         break;
       }
       default: {
-        System.err.println("Unknown lifestage:" + dragonLifeStage);
+        DragonMounts.loggerLimit.error_once("Unknown lifestage:" + dragonLifeStage);
         break;
       }
     }

@@ -75,7 +75,7 @@ public class DragonMountsConfig {
 
 	public static double ThirdPersonZoom = 20;
 
-	public static int dragonFolloOwnerFlyingHeight = 50;
+	public static int dragonFollowOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 
 	public static double maxFLightHeight = 40;
@@ -122,17 +122,14 @@ public class DragonMountsConfig {
   public static boolean isOrbTargetAutoLock() {verifyLoaded(); return true;} //todo update later if dragon orb gets reintroduced
   public static boolean isOrbHighlightTarget() {verifyLoaded(); return true;}
   public static boolean isPrototypeBreathweapons() {verifyLoaded(); return isDebug();} // turn off prototype breathweapons if not debugging
+	public static boolean doBreathweaponsAffectBlocks() {verifyLoaded(); return true;} // todo implement later
+
 
   private static void verifyLoaded() {
     if (configHasLoaded) return;
 
-    final int MAX_ERRORS = 3;
-    if (++configHasLoadedErrorCount < MAX_ERRORS) {
-      DragonMounts.logger.error("A DragonMountsConfig property was accessed before loading the configuration");
-    } else if (configHasLoadedErrorCount == MAX_ERRORS) {
-      DragonMounts.logger.error("A DragonMountsConfig property was accessed before loading the configuration, " +
-                                "Max Count reached: no further errors will be logged.");
-    }
+		DragonMounts.loggerLimit.error_once(
+							"One or more DragonMountsConfig properties were accessed before loading the configuration");
   }
 
   private static void syncconfigs(boolean loadFromConfigFile, boolean readFromConfig) {

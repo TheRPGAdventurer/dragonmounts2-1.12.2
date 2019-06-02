@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponEmitter;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
@@ -7,9 +8,11 @@ import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.*;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +43,9 @@ import org.apache.logging.log4j.Logger;
  */
 public class DragonBreathHelper extends DragonHelper {
 
-  private final DataParameter<String> dataParam;
+  private final DataParameter<String> dataParamBreathWeaponTarget;
+  private final DataParameter<Integer> dataParamBreathWeaponMode;
+
   private final int BREATH_START_DURATION = 5; // ticks
   private final int BREATH_STOP_DURATION = 5; // ticks
   private BreathState currentBreathState = BreathState.IDLE;
@@ -56,13 +61,16 @@ public class DragonBreathHelper extends DragonHelper {
   public BreathAffectedArea breathAffectedAreaPoison = null;
   private static final Logger L = LogManager.getLogger();
 
-  public DragonBreathHelper(EntityTameableDragon dragon, DataParameter<String> dataParam) {
+  public DragonBreathHelper(EntityTameableDragon dragon,
+                            DataParameter<String> i_dataParamBreathWeaponTarget,
+                            DataParameter<Integer> i_dataParamBreathWeaponMode) {
     super(dragon);
     if (dragon.isClient()) {
       breathWeaponEmitter = new BreathWeaponEmitter();
     }
-    this.dataParam = dataParam;
-    dataWatcher.register(dataParam, "");
+    dataParamBreathWeaponTarget = i_dataParamBreathWeaponTarget;
+    dataParamBreathWeaponMode = i_dataParamBreathWeaponMode;
+    //dataWatcher.register(dataParamBreathWeaponTarget, "");  //already registered by caller
     breathAffectedArea = new BreathAffectedArea(new BreathWeapon(dragon));
     breathAffectedAreaNether = new BreathAffectedArea(new BreathWeaponNether(dragon));
     breathAffectedAreaIce = new BreathAffectedArea(new BreathWeaponIce(dragon));
@@ -95,7 +103,7 @@ public class DragonBreathHelper extends DragonHelper {
         return MathHelper.clamp(ticksSpentStopping / (float) BREATH_STOP_DURATION, 0.0F, 1.0F);
       }
       default: {
-        System.err.println("Unknown currentBreathState:" + currentBreathState);
+        DragonMounts.loggerLimit.error_once("Unknown currentBreathState:" + currentBreathState);
         return 0.0F;
       }
     }
@@ -142,11 +150,8 @@ public class DragonBreathHelper extends DragonHelper {
       }
     }
 
-    if (soundController == null) {
-      soundController = new SoundController();
-    }
     if (soundEffectBreathWeapon == null) {
-      soundEffectBreathWeapon = new SoundEffectBreathWeapon(soundController, weaponInfoLink);
+      soundEffectBreathWeapon = new SoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);
     }
     soundEffectBreathWeapon.performTick(Minecraft.getMinecraft().player, dragon);
   }
@@ -183,10 +188,22 @@ public class DragonBreathHelper extends DragonHelper {
         break;
       }
       default: {
-        System.err.println("Unknown currentBreathState:" + currentBreathState);
+        DragonMounts.loggerLimit.error_once("Unknown currentBreathState:" + currentBreathState);
         return;
       }
     }
+  }
+
+  public SoundController getSoundController(World world)
+  {
+    if (!world.isRemote) {
+      throw new IllegalArgumentException("getSoundController() only valid for WorldClient");
+    }
+    if (soundController == null) {
+      soundController = new SoundController((WorldClient)world);
+    }
+
+    return soundController;
   }
 
   private SoundController soundController;

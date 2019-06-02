@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.sound;
 
-import info.ata4.minecraft.dragon.server.entity.helper.DragonLifeStage;
+import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStage;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
@@ -133,8 +134,9 @@ private final float HEAD_MIN_VOLUME = 0.02F;
           break;
         }
         default: {
-          System.err.printf("Illegal weaponSoundInfo.breathingState:" + weaponSoundInfo.breathingState + " in " + this
-                  .getClass());
+          DragonMounts.loggerLimit.error_once(
+                  "Illegal weaponSoundInfo.breathingState:" + weaponSoundInfo.breathingState + " in " + this
+                          .getClass());
         }
       }
       currentWeaponState = weaponSoundInfo.breathingState;
@@ -164,7 +166,7 @@ private final float HEAD_MIN_VOLUME = 0.02F;
         break;
       }
       default: {
-        System.err.printf("Unknown currentWeaponState:" + currentWeaponState);
+        DragonMounts.loggerLimit.error_once("Unknown currentWeaponState:" + currentWeaponState);
       }
     }
   }

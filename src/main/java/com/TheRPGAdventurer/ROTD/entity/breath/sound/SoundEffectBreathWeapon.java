@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.sound;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
@@ -148,8 +149,9 @@ public class SoundEffectBreathWeapon {
           break;
         }
         default: {
-          System.err.printf("Illegal weaponSoundInfo.breathingState:" + weaponSoundInfo.breathingState + " in " + this
-                  .getClass());
+          DragonMounts.loggerLimit.error_once(
+                  "Illegal weaponSoundInfo.breathingState:" + weaponSoundInfo.breathingState + " in " + this
+                          .getClass());
         }
       }
       currentWeaponState = weaponSoundInfo.breathingState;
@@ -178,7 +180,7 @@ public class SoundEffectBreathWeapon {
         break;
       }
       default: {
-        System.err.printf("Unknown currentWeaponState:" + currentWeaponState);
+        DragonMounts.loggerLimit.error_once("Unknown currentWeaponState:" + currentWeaponState);
       }
     }
   }

@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.entity.helper.util.Base64;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -153,9 +154,7 @@ public class BreathWeaponTarget
         return (entityPlayer == null) ? null : targetDirection(entityPlayer.getLook(1.0F));
       }
       default: {
-        if (printedError) return null;
-        printedError = true;
-        System.err.println("Unknown typeOfHit:" + movingObjectPosition.typeOfHit);
+        DragonMounts.loggerLimit.error_once("Unknown typeOfHit:" + movingObjectPosition.typeOfHit);
         return null;
       }
     }
@@ -193,9 +192,7 @@ public class BreathWeaponTarget
         break;
       }
       default: {
-        if (printedError) return;
-        printedError = true;
-        System.err.println("Unknown typeOfTarget:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("Unknown typeOfTarget:" + typeOfTarget);
         break;
       }
     }
@@ -225,9 +222,7 @@ public class BreathWeaponTarget
         break;
       }
       default: {
-        if (printedError) return;
-        printedError = true;
-        System.err.println("Unknown typeOfTarget:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("Unknown typeOfTarget:" + typeOfTarget);
         break;
       }
     }
@@ -258,9 +253,7 @@ public class BreathWeaponTarget
         return;
       }
       default: {
-        if (printedError) return;
-        printedError = true;
-        System.err.println("Unknown typeOfTarget:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("Unknown typeOfTarget:" + typeOfTarget);
         return;
       }
     }
@@ -326,9 +319,7 @@ public class BreathWeaponTarget
         return -1;
       }
       default: {
-        if (printedError) return -1;
-        printedError = true;
-        System.err.println("Unknown typeOfTarget:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("Unknown typeOfTarget:" + typeOfTarget);
         return -1;
       }
     }
@@ -360,7 +351,7 @@ public class BreathWeaponTarget
         break;
       }
       default: {
-        System.err.println("Unexpected target type:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("Unexpected target type:" + typeOfTarget);
         destination = null;
         break;
       }
@@ -387,9 +378,7 @@ public class BreathWeaponTarget
         break;
       }
       default: {
-        if (printedError) break;
-        printedError = true;
-        System.err.println("Unknown type of hit:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("Unknown type of hit:" + typeOfTarget);
         break;
       }
     }
@@ -462,9 +451,7 @@ public class BreathWeaponTarget
         return cosAngle > Math.cos(Math.toRadians(THRESHOLD_CHANGE_IN_ANGLE));
       }
       default: {
-        if (printedError) return false;
-        printedError = true;
-        System.err.println("invalid typeOfTarget:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("invalid typeOfTarget:" + typeOfTarget);
         return false;
       }
     }
@@ -490,9 +477,7 @@ public class BreathWeaponTarget
                 && this.coordinates.z == other.coordinates.z);
       }
       default: {
-        if (printedError) return false;
-        printedError = true;
-        System.err.println("invalid typeOfTarget:" + typeOfTarget);
+        DragonMounts.loggerLimit.error_once("invalid typeOfTarget:" + typeOfTarget);
         return false;
       }
     }
@@ -523,8 +508,6 @@ public class BreathWeaponTarget
     return retval + String.format(":[%.2f, %.2f, %.2f]",
             coordinates.x, coordinates.y, coordinates.z);
   }
-
-  private static boolean printedError = false;
 
   private BreathWeaponTarget(TypeOfTarget i_typeOfTarget)
   {

@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.entity.helper;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.BreathNode;
@@ -134,6 +135,11 @@ public class DragonLifeStageHelper extends DragonHelper {
     public EnumDragonLifeStage getLifeStage() {
         int age = getTicksSinceCreation();
         return EnumDragonLifeStage.fromTickCount(age);
+    }
+
+    public DragonLifeStage getLifeStageP() {
+        int age = getTicksSinceCreation();
+        return DragonLifeStage.getLifeStageFromTickCount(age);
     }
 
     public int getTicksSinceCreation() {
@@ -384,7 +390,7 @@ public class DragonLifeStageHelper extends DragonHelper {
                 return BreathNode.Power.LARGE;
             }
             default: {
-                L.error("Illegal lifestage in getScale():" + getLifeStage());
+                DragonMounts.loggerLimit.error_once("Illegal lifestage in getScale():" + getLifeStage());
                 return BreathNode.Power.SMALL;
             }
         }
@@ -404,7 +410,7 @@ public class DragonLifeStageHelper extends DragonHelper {
                 return BreathNodeP.Power.LARGE;
             }
             default: {
-                L.error("Illegal lifestage in getScale():" + getLifeStage());
+                DragonMounts.loggerLimit.error_once("Illegal lifestage in getScale():" + getLifeStage());
                 return BreathNodeP.Power.SMALL;
             }
         }

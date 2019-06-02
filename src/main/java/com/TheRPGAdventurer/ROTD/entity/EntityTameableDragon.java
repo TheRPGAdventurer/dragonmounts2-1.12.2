@@ -302,7 +302,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(FLUTTER_CANCELLED, false);
         dataManager.register(FOLLOW_YAW, true);
         dataManager.register(DATA_BREATH_WEAPON_TARGET, "");
-        dataManager.register(DATA_BREATH_WEAPON_MODE, "");
+        dataManager.register(DATA_BREATH_WEAPON_MODE, 0);
     }
 
     @Override
@@ -1228,7 +1228,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
         double r = 70;
         double x = midPoint.getX() + r * Math.cos(a * this.ticksExisted * 2.5);
-        double y = midPoint.getY() + DragonMountsConfig.dragonFolloOwnerFlyingHeight;
+        double y = midPoint.getY() + DragonMountsConfig.dragonFollowOwnerFlyingHeight;
         double z = midPoint.getZ() + r * Math.sin(a * this.ticksExisted * 2.5);
 
         return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
@@ -1803,7 +1803,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public DragonBreathHelperP getBreathHelperP() {  // enable compilation only
         throw new UnsupportedOperationException();
-        return getHelper(DragonBreathHelperP.class);
+        //return getHelper(DragonBreathHelperP.class);
     }
 
 

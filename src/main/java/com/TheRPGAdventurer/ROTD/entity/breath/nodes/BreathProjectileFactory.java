@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
 
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelperP;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -15,5 +16,5 @@ import net.minecraft.world.World;
 public interface BreathProjectileFactory {
   boolean spawnProjectile(World world, EntityTameableDragon dragon, Vec3d origin, Vec3d target,
                           BreathNodeP.Power i_power);
-  void updateTick(DragonBreathHelper.BreathState breathState);
+  void updateTick(DragonBreathHelperP.BreathState breathState);
 }

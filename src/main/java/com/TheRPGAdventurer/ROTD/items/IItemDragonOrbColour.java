@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.items;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemStack;
@@ -70,10 +71,7 @@ public class IItemDragonOrbColour implements IItemColor {
         return orbBrightness.getRGB();
       }
       default: {
-        if (!errorPrinted) {
-          System.out.println("invalid layer number");
-          errorPrinted = true;
-        }
+        DragonMounts.loggerLimit.error_once("Invalid layer number:" + layerNumber);
         return Color.WHITE.getRGB();
       }
     }

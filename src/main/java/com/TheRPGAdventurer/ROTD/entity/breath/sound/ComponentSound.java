@@ -1,6 +1,6 @@
 package com.TheRPGAdventurer.ROTD.entity.breath.sound;
 
-import info.ata4.minecraft.dragon.util.math.MathX;
+import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.util.SoundCategory;
@@ -182,9 +182,9 @@ class ComponentSound extends PositionedSound implements ITickableSound
     if (!soundSettings.playing) {
       this.volume = OFF_VOLUME;
     } else {
-      this.xPosF = (float) soundSettings.soundEpicentre.xCoord;
-      this.yPosF = (float) soundSettings.soundEpicentre.yCoord;
-      this.zPosF = (float) soundSettings.soundEpicentre.zCoord;
+      this.xPosF = (float) soundSettings.soundEpicentre.x;
+      this.yPosF = (float) soundSettings.soundEpicentre.y;
+      this.zPosF = (float) soundSettings.soundEpicentre.z;
       this.volume = soundSettings.masterVolume * volumeAdjustmentForDistance(soundSettings.playerDistanceToEpicentre);
     }
   }
@@ -200,7 +200,7 @@ class ComponentSound extends PositionedSound implements ITickableSound
       final float MINIMUM_VOLUME_DISTANCE = 40.0F;
       float fractionToMinimum = distanceToEpicentre / MINIMUM_VOLUME_DISTANCE;
       return MathX.clamp(MAXIMUM_VOLUME - fractionToMinimum * (MAXIMUM_VOLUME - MINIMUM_VOLUME),
-                      MINIMUM_VOLUME, MAXIMUM_VOLUME);
+                         MINIMUM_VOLUME, MAXIMUM_VOLUME);
     }
 
   }

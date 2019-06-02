@@ -1,12 +1,13 @@
 package com.TheRPGAdventurer.ROTD.entity.breath;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponFXEmitter;
 import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeFactory;
 import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeP;
 import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathProjectileFactory;
 import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeapon;
+import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeaponP;
 import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeaponP;
 import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
@@ -82,7 +83,8 @@ public class DragonBreathHelperP extends DragonHelper
         break;
       }
       default: {
-        System.err.println("Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
+        DragonMounts.loggerLimit.error_once(
+                "Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
         return;
       }
     }
@@ -121,7 +123,7 @@ public class DragonBreathHelperP extends DragonHelper
         return MathHelper.clamp(ticksSpentStopping / (float) BREATH_STOP_DURATION, 0.0F, 1.0F);
       }
       default: {
-        System.err.println("Unknown currentBreathState:" + currentBreathState);
+        DragonMounts.loggerLimit.error_once("Unknown currentBreathState:" + currentBreathState);
         return 0.0F;
       }
     }
@@ -144,9 +146,9 @@ public class DragonBreathHelperP extends DragonHelper
       if (updateDataWatcher) {
         lastBreathTargetSent = target;
         if (target == null) {
-          dataWatcher.set(DATA_BREATH_WEAPON_TARGET, "");
+          dataWatcher.set(dataParamBreathWeaponTarget, "");
         } else {
-          dataWatcher.set(DATA_BREATH_WEAPON_TARGET, target.toEncodedString());
+          dataWatcher.set(dataParamBreathWeaponTarget, target.toEncodedString());
         }
       }
     } else {
@@ -202,7 +204,7 @@ public class DragonBreathHelperP extends DragonHelper
   {
     if (dragon.isServer()) {
       breathWeaponMode = newMode;
-      breathWeaponMode.writeToDataWatcher(dataWatcher, DATA_BREATH_WEAPON_MODE);
+      breathWeaponMode.writeToDataWatcher(dataWatcher, dataParamBreathWeaponMode);
     } else {
       L.warn("setBreathMode is only valid on server");
     }
@@ -290,7 +292,7 @@ public class DragonBreathHelperP extends DragonHelper
         break;
       }
       default: {
-        System.err.println("Unknown currentBreathState:" + currentBreathState);
+        DragonMounts.loggerLimit.error_once("Unknown currentBreathState:" + currentBreathState);
         return;
       }
     }
@@ -316,19 +318,19 @@ public class DragonBreathHelperP extends DragonHelper
           Vec3d origin = dragon.getAnimator().getThroatPosition();
           Vec3d destination = target.getTargetedPoint(dragon.world, origin);
           if (destination != null && currentBreathState == BreathState.SUSTAIN) {
-            BreathNodeP.Power power = dragon.getLifeStageHelper().getBreathPower();
+            BreathNodeP.Power power = dragon.getLifeStageHelper().getBreathPowerP();
             breathAffectedArea.continueBreathing(dragon.getEntityWorld(), origin, destination, breathNodeFactory, power, dragonBreathMode);
           }
         }
-        breathAffectedArea.updateTick(dragon.worldObj, dragonBreathMode);
+        breathAffectedArea.updateTick(dragon.world, dragonBreathMode);
         break;
       }
       case PROJECTILE: {
         if (target != null) {
           Vec3d origin = dragon.getAnimator().getThroatPosition();
-          Vec3d destination = target.getTargetedPoint(dragon.worldObj, origin);
+          Vec3d destination = target.getTargetedPoint(dragon.world, origin);
           if (destination != null && currentBreathState == BreathState.SUSTAIN) {
-            BreathNodeP.Power power = dragon.getLifeStageHelper().getBreathPower();
+            BreathNodeP.Power power = dragon.getLifeStageHelper().getBreathPowerP();
             boolean spawned =  breathProjectileFactory.spawnProjectile(dragon.getEntityWorld(), dragon,  // may not spawn anything if a projectile was spawned recently...
                                                     origin, destination, power);
             if (spawned) {
@@ -340,7 +342,8 @@ public class DragonBreathHelperP extends DragonHelper
         break;
       }
       default: {
-        System.err.println("Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
+        DragonMounts.loggerLimit.error_once(
+                "Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
         return;
       }
     }
@@ -359,10 +362,10 @@ public class DragonBreathHelperP extends DragonHelper
 
         if (target != null) {
           Vec3d origin = dragon.getAnimator().getThroatPosition();
-          Vec3d destination = target.getTargetedPoint(dragon.worldObj, origin);
+          Vec3d destination = target.getTargetedPoint(dragon.world, origin);
           if (destination != null && currentBreathState == BreathState.SUSTAIN) {
             breathWeaponFXEmitter.setBeamEndpoints(origin, destination);
-            BreathNodeP.Power power = dragon.getLifeStageHelper().getBreathPower();
+            BreathNodeP.Power power = dragon.getLifeStageHelper().getBreathPowerP();
             breathWeaponFXEmitter.spawnBreathParticles(dragon.getEntityWorld(), power, tickCounter);
           }
         }
@@ -379,7 +382,8 @@ public class DragonBreathHelperP extends DragonHelper
         break;
       }
       default: {
-        System.err.println("Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
+        DragonMounts.loggerLimit.error_once(
+                "Unknown BreathWeaponSpawnType:" + dragon.getBreed().getBreathWeaponSpawnType(dragon));
         return;
       }
     }
@@ -400,30 +404,30 @@ public class DragonBreathHelperP extends DragonHelper
   }
 
   private SoundController soundController;
-  private SoundEffectBreathWeapon soundEffectBreathWeapon;
+  private SoundEffectBreathWeaponP soundEffectBreathWeapon;
   private WeaponInfoLink weaponInfoLink = new WeaponInfoLink();
 
   // Callback link to provide the Sound generator with state information
-  public class WeaponInfoLink implements SoundEffectBreathWeapon.WeaponSoundUpdateLink {
+  public class WeaponInfoLink implements SoundEffectBreathWeaponP.WeaponSoundUpdateLink {
 
     @Override
-    public boolean refreshWeaponSoundInfo(SoundEffectBreathWeapon.WeaponSoundInfo infoToUpdate) {
+    public boolean refreshWeaponSoundInfo(SoundEffectBreathWeaponP.WeaponSoundInfo infoToUpdate) {
       BreathWeaponTarget target = getTarget();
       Vec3d origin;
       origin = dragon.getAnimator().getThroatPosition();
       infoToUpdate.dragonHeadLocation = origin;
       infoToUpdate.relativeVolume = dragon.getScale();
-      infoToUpdate.lifeStage = dragon.getLifeStageHelper().getLifeStage();
+      infoToUpdate.lifeStage = dragon.getLifeStageHelper().getLifeStageP();
 
       boolean isBreathing = false;
       if (target != null) {
-        Vec3d destination = target.getTargetedPoint(dragon.worldObj, origin);
+        Vec3d destination = target.getTargetedPoint(dragon.world, origin);
         if (destination != null && currentBreathState == BreathState.SUSTAIN) {
           isBreathing = true;
         }
       }
-      infoToUpdate.breathingState = isBreathing ? SoundEffectBreathWeapon.WeaponSoundInfo.State.BREATHING
-                                                : SoundEffectBreathWeapon.WeaponSoundInfo.State.IDLE;
+      infoToUpdate.breathingState = isBreathing ? SoundEffectBreathWeaponP.WeaponSoundInfo.State.BREATHING
+                                                : SoundEffectBreathWeaponP.WeaponSoundInfo.State.IDLE;
 
       return true;
     }
@@ -438,7 +442,7 @@ public class DragonBreathHelperP extends DragonHelper
   private BreathWeaponTarget getTarget()
   {
     if (dragon.isClient()) {
-      String targetString = dataWatcher.get(DATA_BREATH_WEAPON_TARGET);
+      String targetString = dataWatcher.get(dataParamBreathWeaponTarget);
       BreathWeaponTarget target = BreathWeaponTarget.fromEncodedString(targetString);
       return target;
     } else {
@@ -446,8 +450,6 @@ public class DragonBreathHelperP extends DragonHelper
     }
   }
 
-  private final DataParameter<String> DATA_BREATH_WEAPON_TARGET;
-  private final DataParameter<Integer> DATA_BREATH_WEAPON_MODE;
 
   //  private final int DATA_WATCHER_BREATH_TARGET;
 //  private final int DATA_WATCHER_BREATH_MODE;

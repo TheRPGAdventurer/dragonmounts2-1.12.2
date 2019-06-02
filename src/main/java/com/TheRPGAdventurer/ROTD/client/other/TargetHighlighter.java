@@ -41,7 +41,7 @@ public class TargetHighlighter
 
     event.setCanceled(true);
 
-    if (DragonMountsConfig.isOrbHighlightTarget()) {
+    if (!DragonMountsConfig.isOrbHighlightTarget()) {
       return;
     }
 
@@ -64,8 +64,9 @@ public class TargetHighlighter
         return;
       }
       default: {
-        System.err.println("Unknown target type in blockHighlightDecider : " + targetToHighlight.getTypeOfTarget());
-        return;
+          DragonMounts.loggerLimit.error_once(
+                  "Unknown target type in blockHighlightDecider : " + targetToHighlight.getTypeOfTarget());
+          return;
       }
     }
   }
@@ -138,5 +139,4 @@ public class TargetHighlighter
     }
 
   }
-
 }

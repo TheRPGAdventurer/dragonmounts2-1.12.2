@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.proxy;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
+import com.TheRPGAdventurer.ROTD.event.VanillaEggHandler;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
@@ -20,6 +21,7 @@ import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -54,6 +56,7 @@ public class ServerProxy {
 
 
     public void Initialization(FMLInitializationEvent evt) {
+    	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
     }
 

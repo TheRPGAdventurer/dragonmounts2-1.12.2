@@ -17,7 +17,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.Enum
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -55,7 +54,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg implements IHasModel {
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
-    
+
     /**
      * Called when the block is right clicked by a player.
      */
@@ -68,7 +67,6 @@ public class BlockDragonBreedEgg extends BlockDragonEgg implements IHasModel {
     	}
     	
     	worldIn.setBlockToAir(pos);
-    	
     	EntityTameableDragon entityDragon = new EntityTameableDragon(worldIn);
     	entityDragon.setBreedType(breed);
     	entityDragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
@@ -84,5 +82,12 @@ public class BlockDragonBreedEgg extends BlockDragonEgg implements IHasModel {
 	public void RegisterModels() {
 		DragonMounts.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
-     
+
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+//        TextFormatting t = null;
+//        tooltip.add("id: " + t.GOLD + stack.getTagCompound().getString("inventory"));
+//        tooltip.add("id: " + t.GOLD + stack.getTagCompound().getString("id"));
+//    }
 }

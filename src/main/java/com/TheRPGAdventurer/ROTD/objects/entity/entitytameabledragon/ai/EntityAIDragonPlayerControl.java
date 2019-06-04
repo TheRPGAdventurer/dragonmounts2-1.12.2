@@ -34,8 +34,8 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     @Override
     public boolean shouldExecute() {
-        rider = dragon.getControllingPlayer();
-        return rider != null;
+        rider=dragon.getControllingPlayer();
+        return rider!=null;
     }
 
     @Override
@@ -44,54 +44,57 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     }
 
     private void updateIntendedRideRotation(EntityPlayer rider) {
-        boolean hasRider = dragon.hasControllingPlayer(rider);
-        if (hasRider && rider.moveStrafing == 0) {
-            dragon.rotationYaw = rider.rotationYaw;
-            dragon.rotationPitch = rider.rotationPitch;
+        boolean hasRider=dragon.hasControllingPlayer(rider);
+        if (hasRider && rider.moveStrafing==0) {
+            dragon.rotationYaw=rider.rotationYaw;
+            dragon.rotationPitch=rider.rotationPitch;
         }
     }
 
     @Override
     public void updateTask() {
-        Vec3d wp = rider.getLook(1.0F);
+        Vec3d wp=rider.getLook(1.0F);
 
-        double x = dragon.posX;
-        double y = dragon.posY;
-        double z = dragon.posZ;
+        double x=dragon.posX;
+        double y=dragon.posY;
+        double z=dragon.posZ;
 
-        if (dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
-            PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 200);
+        if (dragon.getBreedType()==EnumDragonBreed.SYLPHID) {
+            PotionEffect watereffect=new PotionEffect(MobEffects.WATER_BREATHING, 200);
             if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
                 rider.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
             }
         }
 
         // control direction with movement keys
-        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
+        if (rider.moveStrafing!=0 || rider.moveForward!=0) {
             if (rider.moveForward < 0) {
-                wp = wp.rotateYaw(MathX.PI_F);
+                wp=wp.rotateYaw(MathX.PI_F);
             } else if (rider.moveStrafing > 0) {
-                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
+                wp=wp.rotateYaw(MathX.PI_F * 0.5f);
             } else if (rider.moveStrafing < 0) {
-                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
+                wp=wp.rotateYaw(MathX.PI_F * -0.5f);
             }
 
-            x += wp.x * 10;
-            if(!dragon.isYLocked()) y += wp.y * 10;
-            z += wp.z * 10;
+            x+=wp.x * 10;
+            if (!dragon.isYLocked()) {
+                y+=wp.y * 10;
+            }
+            z+=wp.z * 10;
         }
 
         // lift off from a jump
-        if (!dragon.isFlying()) {
-            if (entityIsJumping(rider)) {
+
+        if (entityIsJumping(rider)) {
+            if (!dragon.isFlying()) {
                 dragon.liftOff();
+            } else {
+                y+=10;
             }
+        } else if (dragon.isGoingDown()) {
+            y-=10;
         }
 
-        if ((!dragon.isUsingBreathWeapon() && rider.moveStrafing == 0) || dragon.followYaw() && dragon.isFlying()) {
-            dragon.rotationYaw = rider.rotationYaw;
-//            dragon.rotationPitch = rider.rotationPitch;
-        }
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
 }

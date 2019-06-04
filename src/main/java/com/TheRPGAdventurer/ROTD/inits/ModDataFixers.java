@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.datafix.DragonMountsItemDataFixes;
+import com.TheRPGAdventurer.ROTD.datafix.DragonMountsBlockDataFixes;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -19,6 +19,6 @@ public class ModDataFixers {
     public static void registerDataFixers() {
         final ModFixs modFixs = FMLCommonHandler.instance().getDataFixer().init(DragonMounts.MODID, DATA_VERSION);
 
-        modFixs.registerFix(FixTypes.ITEM_INSTANCE, new DragonMountsItemDataFixes());
+        modFixs.registerFix(FixTypes.ITEM_INSTANCE, new DragonMountsBlockDataFixes());
     }
 }

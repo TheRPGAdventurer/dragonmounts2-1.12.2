@@ -77,7 +77,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -124,6 +123,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Boolean> GROWTH_PAUSED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_SADDLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_BREATHING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> GOING_DOWN=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CHESTED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> BOOSTING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -178,6 +178,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public DragonInventory dragonInv;
     private boolean hasChestVarChanged=false;
     private boolean isUsingBreathWeapon;
+    private boolean isGoingDown;
     private boolean isUnhovered;
     private boolean yLocked;
     private boolean followYaw;
@@ -249,6 +250,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_FLYING, false);
         dataManager.register(GROWTH_PAUSED, false);
         dataManager.register(DATA_BREATHING, false);
+        dataManager.register(GOING_DOWN, false);
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
@@ -300,6 +302,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean(NBT_CHESTED, this.isChested());
         nbt.setBoolean(NBT_SHEARED, this.isSheared());
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
+        nbt.setBoolean("down", this.isGoingDown());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
         nbt.setBoolean("unhovered", this.isUnHovered());
         nbt.setBoolean("followyaw", this.followYaw());
@@ -335,6 +338,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
         this.setArmor(nbt.getInteger(NBT_ARMOR));
         this.setMale(nbt.getBoolean(NBT_ISMALE));
+        this.setGoingDown(nbt.getBoolean("down"));
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setYLocked(nbt.getBoolean("ylocked"));
         this.setFollowYaw(nbt.getBoolean("followYaw"));
@@ -583,15 +587,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return isUsingBreathWeapon;
     }
 
-
-    public boolean allowedOtherPlayers() {
-        return this.dataManager.get(ALLOW_OTHERPLAYERS);
-    }
-
-    public void setToAllowedOtherPlayers(boolean allow) {
-        dataManager.set(ALLOW_OTHERPLAYERS, allow);
-    }
-
     /**
      * Set the breathing flag of the entity.
      */
@@ -600,6 +595,36 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!world.isRemote) {
             this.isUsingBreathWeapon=usingBreathWeapon;
         }
+    }
+
+    /**
+     * Returns true if the entity is breathing.
+     */
+    public boolean isGoingDown() {
+        if (world.isRemote) {
+            boolean goingdown=this.dataManager.get(GOING_DOWN);
+            this.isGoingDown=goingdown;
+            return isGoingDown;
+        }
+        return isGoingDown;
+    }
+
+    /**
+     * Set the breathing flag of the entity.
+     */
+    public void setGoingDown(boolean goingdown) {
+        this.dataManager.set(GOING_DOWN, goingdown);
+        if (!world.isRemote) {
+            this.isGoingDown=goingdown;
+        }
+    }
+
+    public boolean allowedOtherPlayers() {
+        return this.dataManager.get(ALLOW_OTHERPLAYERS);
+    }
+
+    public void setToAllowedOtherPlayers(boolean allow) {
+        dataManager.set(ALLOW_OTHERPLAYERS, allow);
     }
 
     public boolean isYLocked() {
@@ -716,11 +741,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player)) || (getOwner()!=null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting=ModKeys.BOOST.isKeyDown();
+            boolean isDown=ModKeys.DOWN.isKeyDown();
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
             boolean followyaw=ModKeys.FOLLOW_YAW.isPressed();
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
             n.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
-            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting));
+            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
         }
     }
 
@@ -944,7 +970,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing == 0) { //  && (!this.isUsingBreathWeapon())
+        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing==0) { //  && (!this.isUsingBreathWeapon())
             equalizeYaw(getControllingPlayer());
         }
 
@@ -953,44 +979,44 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public void spawnBodyParticle(EnumParticleTypes type) {
         double ox, oy, oz;
-        float s = this.getScale() * 1.2f;
+        float s=this.getScale() * 1.2f;
 
         switch (type) {
             case EXPLOSION_NORMAL:
-                ox = rand.nextGaussian() * s;
-                oy = rand.nextGaussian() * s;
-                oz = rand.nextGaussian() * s;
+                ox=rand.nextGaussian() * s;
+                oy=rand.nextGaussian() * s;
+                oz=rand.nextGaussian() * s;
                 break;
 
             case CLOUD:
-                ox = (rand.nextDouble() - 0.5) * 0.1;
-                oy = rand.nextDouble() * 0.2;
-                oz = (rand.nextDouble() - 0.5) * 0.1;
+                ox=(rand.nextDouble() - 0.5) * 0.1;
+                oy=rand.nextDouble() * 0.2;
+                oz=(rand.nextDouble() - 0.5) * 0.1;
                 break;
 
             case REDSTONE:
-                ox = 0.8;
-                oy = 0;
-                oz = 0.8;
+                ox=0.8;
+                oy=0;
+                oz=0.8;
                 break;
 
             default:
-                ox = 0;
-                oy = 0;
-                oz = 0;
+                ox=0;
+                oy=0;
+                oz=0;
         }
 
         // use generic random box spawning
-        double x = this.posX + (rand.nextDouble() - 0.5) * this.width * s;
-        double y = this.posY + (rand.nextDouble() - 0.5) * this.height * s;
-        double z = this.posZ + (rand.nextDouble() - 0.5) * this.width * s;
+        double x=this.posX + (rand.nextDouble() - 0.5) * this.width * s;
+        double y=this.posY + (rand.nextDouble() - 0.5) * this.height * s;
+        double z=this.posZ + (rand.nextDouble() - 0.5) * this.width * s;
 
         this.world.spawnParticle(type, x, y, z, ox, oy, oz);
     }
 
     public void spawnBodyParticles(EnumParticleTypes type, int baseAmount) {
-        int amount = (int) (baseAmount * this.getScale());
-        for (int i = 0; i < amount; i++) {
+        int amount=(int) (baseAmount * this.getScale());
+        for (int i=0; i < amount; i++) {
             spawnBodyParticle(type);
         }
     }
@@ -1275,8 +1301,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         // play stomping for bigger dragons
         SoundEvent stepSound;
-        if (isHatchling()) stepSound = soundType.getStepSound();
-        else stepSound = getStepSound();
+        if (isHatchling()) stepSound=soundType.getStepSound();
+        else stepSound=getStepSound();
         playSound(stepSound, 1f, 1f, false);
     }
 
@@ -1917,18 +1943,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
-    public void equalizeYaw(EntityLivingBase riding) {
-        this.rotationYaw=((EntityPlayer) riding).rotationYawHead;
-        this.rotationYawHead=((EntityPlayer) riding).rotationYawHead;
-        this.prevRotationYawHead=((EntityPlayer) riding).prevRotationYawHead;
-        this.prevRotationYaw=((EntityPlayer) riding).prevRotationYaw;
-        this.rotationPitch=((EntityPlayer) riding).rotationPitch;
-        this.prevRotationPitch=((EntityPlayer) riding).prevRotationPitch;
-//        MathX.clamp(rotationYaw, -120, 120);
-//        MathX.clamp(rotationYawHead, -120, 120);
-//        MathX.clamp(prevRotationYaw, -120, 120);
-//        MathX.clamp(rotationPitch, -120, 120);
-//        MathX.clamp(prevRotationPitch, -120, 120);
+    public void equalizeYaw(EntityLivingBase rider) {
+        if ((!this.isUsingBreathWeapon() && rider.moveStrafing==0) || this.followYaw() && this.isFlying()) {
+            this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
+            this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
+            this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
+            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+            this.rotationPitch=((EntityPlayer) rider).rotationPitch;
+            this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
+        }
     }
 
     public void updateRiding(Entity riding) {
@@ -2132,28 +2155,43 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean isEgg() {
         return getLifeStageHelper().isEgg();
     }
-    
+
     public Block getEggBlock(EnumDragonBreed breed) {
-    	switch (breed) {
-    	case AETHER: return ModBlocks.AETHER_DRAGONEGG;
-    	case ENCHANT: return ModBlocks.ENCHANT_DRAGONEGG;
-    	case END: return ModBlocks.ENDER_DRAGONEGG;
-    	case FIRE: return ModBlocks.FIRE_DRAGONEGG;
-    	case FOREST: return ModBlocks.FOREST_DRAGONEGG;
-    	case ICE: return ModBlocks.ICE_DRAGONEGG;
-    	case MOONLIGHT: return ModBlocks.MOONLIGHT_DRAGONEGG;
-    	case NETHER: return ModBlocks.NETHER_DRAGONEGG;
-    	case SKELETON: return ModBlocks.SKELETON_DRAGONEGG;
-    	case STORM: return ModBlocks.STORM_DRAGONEGG;
-    	case SUNLIGHT: return ModBlocks.SUNLIGHT_DRAGONEGG;
-    	case SYLPHID: return ModBlocks.SYLPHID_DRAGONEGG;
-    	case TERRA: return ModBlocks.TERRA_DRAGONEGG;
-    	case WITHER: return ModBlocks.WITHER_DRAGONEGG;
-    	case ZOMBIE: return ModBlocks.ZOMBIE_DRAGONEGG;
-		default:
-			L.error("getEggBlock called with invalid breed type!");
-			return null;
-    	}
+        switch (breed) {
+            case AETHER:
+                return ModBlocks.AETHER_DRAGONEGG;
+            case ENCHANT:
+                return ModBlocks.ENCHANT_DRAGONEGG;
+            case END:
+                return ModBlocks.ENDER_DRAGONEGG;
+            case FIRE:
+                return ModBlocks.FIRE_DRAGONEGG;
+            case FOREST:
+                return ModBlocks.FOREST_DRAGONEGG;
+            case ICE:
+                return ModBlocks.ICE_DRAGONEGG;
+            case MOONLIGHT:
+                return ModBlocks.MOONLIGHT_DRAGONEGG;
+            case NETHER:
+                return ModBlocks.NETHER_DRAGONEGG;
+            case SKELETON:
+                return ModBlocks.SKELETON_DRAGONEGG;
+            case STORM:
+                return ModBlocks.STORM_DRAGONEGG;
+            case SUNLIGHT:
+                return ModBlocks.SUNLIGHT_DRAGONEGG;
+            case SYLPHID:
+                return ModBlocks.SYLPHID_DRAGONEGG;
+            case TERRA:
+                return ModBlocks.TERRA_DRAGONEGG;
+            case WITHER:
+                return ModBlocks.WITHER_DRAGONEGG;
+            case ZOMBIE:
+                return ModBlocks.ZOMBIE_DRAGONEGG;
+            default:
+                L.error("getEggBlock called with invalid breed type!");
+                return null;
+        }
     }
 
     /**

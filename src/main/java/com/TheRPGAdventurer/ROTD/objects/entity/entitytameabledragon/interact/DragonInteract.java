@@ -81,6 +81,7 @@ public class DragonInteract extends DragonInteractBase {
              * Consume
              */
             if (DMUtils.hasEquippedFood(player)) {
+                dragon.setHunger(dragon.getHunger() + DMUtils.getFoodPoints(player));
 				if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
                     // Taming
                     if (!dragon.isTamed()) {

@@ -261,6 +261,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(HOVER_CANCELLED, false);
         dataManager.register(Y_LOCKED, false);
         dataManager.register(FOLLOW_YAW, true);
+        dataManager.register(HUNGER, 0);
     }
 
     @Override
@@ -298,6 +299,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean("followyaw", this.followYaw());
         //        nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
+        nbt.setInteger("hunger", this.getHunger());
         nbt.setBoolean("boosting", this.boosting());
         nbt.setBoolean("ylocked", this.isYLocked());
         nbt.setBoolean(NBT_ELDER, this.canBeElder());
@@ -324,6 +326,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setSaddled(nbt.getBoolean(NBT_SADDLED));
         this.setChested(nbt.getBoolean(NBT_CHESTED));
         this.setSheared(nbt.getBoolean(NBT_SHEARED));
+        this.setHunger(nbt.getInteger("hunger"));
         this.setUsingBreathWeapon(nbt.getBoolean(NBT_BREATHING));
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
         this.setArmor(nbt.getInteger(NBT_ARMOR));
@@ -2261,6 +2264,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         } else {
             dataManager.set(DRAGON_SCALES, Byte.valueOf((byte) (b0 & -17)));
         }
+    }
+
+    public int getHunger() {
+        return dataManager.get(HUNGER).intValue();
+    }
+
+    public void setHunger(int hunger) {
+        this.dataManager.set(HUNGER, Math.min(150, hunger));
     }
 
     @Override

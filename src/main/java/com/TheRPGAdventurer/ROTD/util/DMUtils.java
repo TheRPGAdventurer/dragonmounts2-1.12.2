@@ -77,6 +77,15 @@ public class DMUtils {
         return consumeEquipped(player, foodItems)!=null;
     }
 
+    public static int getFoodPoints(EntityPlayer player) {
+        Item item=player.getHeldItemMainhand().getItem();
+        if (item!=null && item instanceof ItemFood) {
+            int points= (((ItemFood) item).getHealAmount(new ItemStack(item)) * 10);
+            return points;
+        }
+        return  0;
+    }
+
     /**
      * @return True if fish is found in player hand
      * @WolfShotz Checks if held item is any kind of Fish (Registered under listAllfishraw in OreDict)

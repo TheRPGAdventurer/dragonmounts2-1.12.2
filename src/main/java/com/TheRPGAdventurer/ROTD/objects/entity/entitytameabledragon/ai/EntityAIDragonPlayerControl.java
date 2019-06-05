@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.Vec3d;
@@ -41,14 +40,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     @Override
     public void startExecuting() {
         dragon.getNavigator().clearPathEntity();
-    }
-
-    private void updateIntendedRideRotation(EntityPlayer rider) {
-        boolean hasRider=dragon.hasControllingPlayer(rider);
-        if (hasRider && rider.moveStrafing==0) {
-            dragon.rotationYaw=rider.rotationYaw;
-            dragon.rotationPitch=rider.rotationPitch;
-        }
     }
 
     @Override

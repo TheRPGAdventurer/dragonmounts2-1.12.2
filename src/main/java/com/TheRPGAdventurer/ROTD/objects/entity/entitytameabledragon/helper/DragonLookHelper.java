@@ -40,18 +40,18 @@ public class DragonLookHelper extends EntityLookHelper {
      * Sets position to look at using entity
      */
     @Override
-    public void setLookPositionWithEntity(Entity p_75651_1_, float p_75651_2_, float p_75651_3_) {
-        this.posX = p_75651_1_.posX;
+    public void setLookPositionWithEntity(Entity dragon, float lookYaw, float lookPitch) {
+        this.posX = dragon.posX;
 
-        if (p_75651_1_ instanceof EntityLivingBase) {
-            this.posY = p_75651_1_.posY + (double) p_75651_1_.getEyeHeight();
+        if (dragon instanceof EntityLivingBase) {
+            this.posY = dragon.posY + (double) dragon.getEyeHeight();
         } else {
-            this.posY = (p_75651_1_.getEntityBoundingBox().minY + p_75651_1_.getEntityBoundingBox().maxY) / 2.0D;
+            this.posY = (dragon.getEntityBoundingBox().minY + dragon.getEntityBoundingBox().maxY) / 2.0D;
         }
 
-        this.posZ = p_75651_1_.posZ;
-        this.deltaLookYaw = p_75651_2_;
-        this.deltaLookPitch = p_75651_3_;
+        this.posZ = dragon.posZ;
+        this.deltaLookYaw = lookYaw;
+        this.deltaLookPitch = lookPitch;
         this.isLooking = true;
     }
 
@@ -59,12 +59,12 @@ public class DragonLookHelper extends EntityLookHelper {
      * Sets position to look at
      */
     @Override
-    public void setLookPosition(double p_75650_1_, double p_75650_3_, double p_75650_5_, float p_75650_7_, float p_75650_8_) {
-        this.posX = p_75650_1_;
-        this.posY = p_75650_3_;
-        this.posZ = p_75650_5_;
-        this.deltaLookYaw = p_75650_7_;
-        this.deltaLookPitch = p_75650_8_;
+    public void setLookPosition(double x, double y, double z, float lookYaw, float lookPitch) {
+        this.posX = x;
+        this.posY = y;
+        this.posZ = z;
+        this.deltaLookYaw = lookYaw;
+        this.deltaLookPitch = lookPitch;
         this.isLooking = true;
     }
 

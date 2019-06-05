@@ -5,10 +5,12 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -45,15 +47,24 @@ public class ItemDragonArmour extends ItemArmor {
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		ItemStack head = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-		ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-		ItemStack legs = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
-		ItemStack feet = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+		Item head = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem();
+		Item chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem();
+		Item legs = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem();
+		Item feet = player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem();
 
-		if(head.getItem() == ModArmour.forestDragonScaleCap && player.fishEntity != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 300,0, false, false));
-		if(head.getItem() == ModArmour.moonlightDragonScaleCap && !player.world.isDaytime() && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 300,0, false, false));
-		if(chest.getItem() == ModArmour.forestDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200,0, false, false));
-		if(chest.getItem() == ModArmour.iceDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 200,0, false, false));
+		if(head == ModArmour.forestDragonScaleCap && player.fishEntity != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 300,0, false, false));
+		if(head == ModArmour.moonlightDragonScaleCap && !player.world.isDaytime() && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 300,0, false, false));
+		if(chest == ModArmour.forestDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200,0, false, false));
+		if(chest == ModArmour.iceDragonScaleTunic && player.getAttackingEntity() != null && new Random().nextInt(25) == 1) player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 200,0, false, false));
+
+		if((head == ModArmour.fireDragonScaleCap && chest == ModArmour.fireDragonScaleTunic && legs == ModArmour.fireDragonScaleLeggings && feet == ModArmour.fireDragonScaleBoots)
+		|| (head == ModArmour.fireDragonScaleCap2 && chest == ModArmour.fireDragonScaleTunic2 && legs == ModArmour.fireDragonScaleLeggings2 && feet == ModArmour.fireDragonScaleBoots2)
+		&& (player.isInLava() || player.world.isMaterialInBB(player.getEntityBoundingBox().grow(-0.10000000149011612D, -0.4000000059604645D, -0.10000000149011612D), Material.FIRE) || player.isBurning()))
+			player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 300,0, false, false));
+
+		if (head == ModArmour.waterDragonScaleCap && player.isInWater()) { // If the Potion isn't currently active,
+			player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 300,0, false, false));
+		}
 
 	}
 }

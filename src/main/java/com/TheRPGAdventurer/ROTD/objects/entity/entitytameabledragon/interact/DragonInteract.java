@@ -46,7 +46,6 @@ public class DragonInteract extends DragonInteractBase {
                 }
 
 
-
                 /*
                  * GUI
                  */

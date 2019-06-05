@@ -130,15 +130,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Integer> ARMOR=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> Y_LOCKED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FLUTTER_CANCELLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> FOLLOW_YAW=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> DATA_BREEDER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<String> DATA_BREED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_REPRO_COUNT=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    // unused as of now
-/*    private static final DataParameter<Integer> HUNGER = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-*/
+    private static final DataParameter<Integer> HUNGER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
     private static final DataParameter<String> DATA_BREATH_WEAPON=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
@@ -264,7 +260,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(SLEEP, false);
         dataManager.register(HOVER_CANCELLED, false);
         dataManager.register(Y_LOCKED, false);
-        dataManager.register(FLUTTER_CANCELLED, false);
         dataManager.register(FOLLOW_YAW, true);
     }
 
@@ -291,7 +286,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setUniqueId("IdAmulet", this.getUniqueID()); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
+        nbt.setUniqueId("IdAmulet", this.getUniqueID()); // doesnt save uuid i double checked i/f has this bug makes dragon duplication possible, also why whistle wont work after amulet
         nbt.setBoolean(NBT_SADDLED, isSaddled());
         nbt.setInteger(NBT_ARMOR, this.getArmor());
         nbt.setBoolean(NBT_CHESTED, this.isChested());
@@ -325,7 +320,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setUniqueId(nbt.getUniqueId("IdAmulet")); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
+        this.setUniqueId(nbt.getUniqueId("IdAmulet")); // doesnt save uuid i double checked i/f has this bug makes dragon duplication possible, also why whistle wont work after amulet
         this.setSaddled(nbt.getBoolean(NBT_SADDLED));
         this.setChested(nbt.getBoolean(NBT_CHESTED));
         this.setSheared(nbt.getBoolean(NBT_SHEARED));
@@ -965,7 +960,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing==0) { //  && (!this.isUsingBreathWeapon())
+        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing==0 && isFlying()) { //  && (!this.isUsingBreathWeapon())
             equalizeYaw(getControllingPlayer());
         }
 
@@ -1940,8 +1935,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void equalizeYaw(EntityLivingBase rider) {
         this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
         this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
-        this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
         this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+        this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
         this.rotationPitch=((EntityPlayer) rider).rotationPitch;
         this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
     }
@@ -2602,7 +2597,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //when killed with damage greater than 17 cause the game to crask
-        if (damage >= 17 && source!=DamageSource.GENERIC) {
+        if (damage >= 17 && (source!=DamageSource.GENERIC || source!=DamageSource.OUT_OF_WORLD)) {
             return damage==8.0f;
         }
 

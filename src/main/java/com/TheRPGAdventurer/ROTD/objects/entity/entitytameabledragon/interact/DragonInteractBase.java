@@ -13,7 +13,7 @@ import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
-import com.TheRPGAdventurer.ROTD.util.ItemUtils;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -33,11 +33,11 @@ public abstract class DragonInteractBase {
     public abstract boolean interact(EntityPlayer player, ItemStack item);
     
     protected boolean isAllowed(EntityPlayer player) {
-		ItemFood food = (ItemFood) ItemUtils.consumeEquipped(player, DragonBreed.getFoodItems());
-        if (!dragon.isTamed() && (food == null || !ItemUtils.consumeFish(player))) {
+		ItemFood food = (ItemFood) DMUtils.consumeEquipped(player, DragonBreed.getFoodItems());
+        if (!dragon.isTamed() && (food == null || !DMUtils.consumeFish(player))) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
             return dragon.isTamedFor(player);
-        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player) && (food == null || !ItemUtils.consumeFish(player)) && !ItemUtils.hasEquippedAmulet(player)) {
+        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player) && (food == null || !DMUtils.consumeFish(player)) && !DMUtils.hasEquippedAmulet(player)) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
             return dragon.isTamedFor(player);
         } else {
@@ -46,12 +46,12 @@ public abstract class DragonInteractBase {
     }
     
     public boolean hasInteractItemsEquipped(EntityPlayer player) {
-    	return	ItemUtils.hasEquippedUsable(player)
-    			|| ItemUtils.hasEquipped(player, ModTools.diamond_shears)
-    			|| ItemUtils.hasEquipped(player, ModItems.dragon_wand)
-    			|| ItemUtils.hasEquipped(player, ModItems.dragon_whistle)
-    			|| ItemUtils.hasEquipped(player, ModItems.Amulet)
-    			|| ItemUtils.hasEquipped(player, dragon.dragonEssence())
-    			|| ItemUtils.hasEquippedFood(player);
+    	return	DMUtils.hasEquippedUsable(player)
+    			|| DMUtils.hasEquipped(player, ModTools.diamond_shears)
+    			|| DMUtils.hasEquipped(player, ModItems.dragon_wand)
+    			|| DMUtils.hasEquipped(player, ModItems.dragon_whistle)
+    			|| DMUtils.hasEquipped(player, ModItems.Amulet)
+    			|| DMUtils.hasEquipped(player, dragon.dragonEssence())
+    			|| DMUtils.hasEquippedFood(player);
     }
 }

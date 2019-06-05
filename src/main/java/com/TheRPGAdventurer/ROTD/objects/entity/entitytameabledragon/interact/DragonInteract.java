@@ -13,7 +13,7 @@ import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
-import com.TheRPGAdventurer.ROTD.util.ItemUtils;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -50,14 +50,14 @@ public class DragonInteract extends DragonInteractBase {
                 /*
                  * GUI
                  */
-                if (player.isSneaking() && dragon.isTamedFor(player) && !ItemUtils.hasEquipped(player, ModItems.dragon_whistle)) {
+                if (player.isSneaking() && dragon.isTamedFor(player) && !DMUtils.hasEquipped(player, ModItems.dragon_whistle)) {
                     // Dragon Inventory
                     if (!dragon.isHatchling()) {
                         dragon.openGUI(player, GuiHandler.GUI_DRAGON);
                         return true;
                     } else player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
                     // Wand Gui
-/*        		if (ItemUtils.hasEquipped(player, ModItems.dragon_wand)) {
+/*        		if (DMUtils.hasEquipped(player, ModItems.dragon_wand)) {
 	            		dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
 	            		return true;
 	            	}
@@ -70,7 +70,7 @@ public class DragonInteract extends DragonInteractBase {
             /*
              * Sit
              */
-            if (dragon.isTamed() && (ItemUtils.hasEquipped(player, Items.STICK) || ItemUtils.hasEquipped(player, Items.BONE)) && dragon.onGround) {
+            if (dragon.isTamed() && (DMUtils.hasEquipped(player, Items.STICK) || DMUtils.hasEquipped(player, Items.BONE)) && dragon.onGround) {
                 dragon.getAISit().setSitting(!dragon.isSitting());
                 dragon.getNavigator().clearPathEntity();
                 return true;
@@ -81,8 +81,8 @@ public class DragonInteract extends DragonInteractBase {
             /*
              * Consume
              */
-            if (ItemUtils.hasEquippedFood(player)) {
-				if (ItemUtils.consumeFish(player) || ItemUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
+            if (DMUtils.hasEquippedFood(player)) {
+				if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
                     // Taming
                     if (!dragon.isTamed()) {
                         dragon.tamedFor(player, dragon.getRNG().nextInt(15)==0);
@@ -103,7 +103,7 @@ public class DragonInteract extends DragonInteractBase {
                 }
 
                 // Stop Growth
-                ItemFood shrinking=(ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
+                ItemFood shrinking=(ItemFood) DMUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
                 if (shrinking!=null) {
                     dragon.setGrowthPaused(true);
                     eatEvent(player);
@@ -111,7 +111,7 @@ public class DragonInteract extends DragonInteractBase {
                     return true;
                 }
                 // Continue growth
-                ItemFood growing=(ItemFood) ItemUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
+                ItemFood growing=(ItemFood) DMUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
                 if (growing!=null) {
                     dragon.setGrowthPaused(false);
                     eatEvent(player);
@@ -124,7 +124,7 @@ public class DragonInteract extends DragonInteractBase {
 
     private void eatEvent(EntityPlayer player) {
         dragon.playSound(dragon.getEatSound(), 0.6f, 0.75f);
-		spawnItemCrackParticles((ItemFood) ItemUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
+		spawnItemCrackParticles((ItemFood) DMUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
     }
 
     private void spawnItemCrackParticles(Item item) {

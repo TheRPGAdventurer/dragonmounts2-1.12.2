@@ -27,13 +27,12 @@ public class ModKeys {
     	DOWN = new KeyBinding("key.dragon.down",Keyboard.KEY_LMENU, KEY_CATEGORY);
         ClientRegistry.registerKeyBinding(KEY_BREATH);
         ClientRegistry.registerKeyBinding(KEY_HOVERCANCEL);
+        ClientRegistry.registerKeyBinding(FOLLOW_YAW);
+        ClientRegistry.registerKeyBinding(KEY_LOCKEDY);
         ClientRegistry.registerKeyBinding(dragon_change_view);
         ClientRegistry.registerKeyBinding(BOOST);
-        ClientRegistry.registerKeyBinding(FOLLOW_YAW);
         ClientRegistry.registerKeyBinding(DISMOUNT);
-        ClientRegistry.registerKeyBinding(KEY_LOCKEDY);
         ClientRegistry.registerKeyBinding(DOWN);
-
     	  
     }
     

@@ -30,7 +30,6 @@ import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
@@ -189,10 +188,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
-
-    public EntityPartDragon dragonPartHead;
-    public EntityPartDragon dragonPartNeck;
-    public EntityPartDragon dragonPartTail[];
 
     public EntityTameableDragon(World world) {
         super(world);
@@ -745,8 +740,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
             boolean followyaw=ModKeys.FOLLOW_YAW.isPressed();
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
-            n.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
-            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
         }
     }
 
@@ -1398,7 +1393,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return false;
         }
 
-        if (!ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.Amulet) && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE) && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player) && this.getScale() <= 0.35) {
+        if (!ModKeys.DISMOUNT.isKeyDown() && !DMUtils.hasEquipped(player, ModItems.Amulet) && !DMUtils.hasEquipped(player, Items.STICK) && !DMUtils.hasEquipped(player, Items.BONE) && !DMUtils.hasEquippedUsable(player) && this.isTamedFor(player) && this.getScale() <= 0.35) {
 
             this.setSitting(false);
             this.startRiding(player, true);
@@ -1594,7 +1589,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
-
     public ItemDragonEssence dragonEssence() {
         switch (getBreedType()) {
             case AETHER:
@@ -1748,7 +1742,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * 1 equals iron 2 equals gold 3 equals diamond
+     * 1 equals iron 2 equals gold 3 equals diamond 4 equals emerald
      *
      * @return 0 no armor
      */
@@ -1944,14 +1938,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        if ((!this.isUsingBreathWeapon() && rider.moveStrafing==0) || this.followYaw() && this.isFlying()) {
-            this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
-            this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
-            this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
-            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
-            this.rotationPitch=((EntityPlayer) rider).rotationPitch;
-            this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
-        }
+        this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
+        this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
+        this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
+        this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+        this.rotationPitch=((EntityPlayer) rider).rotationPitch;
+        this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
     }
 
     public void updateRiding(Entity riding) {

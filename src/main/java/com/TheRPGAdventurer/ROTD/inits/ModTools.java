@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDiamondShears;
 import com.TheRPGAdventurer.ROTD.objects.items.bow.*;
 import com.TheRPGAdventurer.ROTD.objects.items.gemset.*;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -187,7 +186,7 @@ public class ModTools {
     public static final Item terra_dragon_bow = new ItemDragonTerraBow(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
     public static final Item terra2_dragon_bow = new ItemDragonTerra2Bow(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
     public static final Item moonlight_dragon_bow = new ItemDragonMoonlightBow(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
-//    public static final Item skelton_dragon_bow = new ItemDragonSkeletonBow(EnumItemBreedTypes.SKELETON, Items.BONE);
+//    public static final Item skelton_dragon_bow = new ItemDragonSkelBow(EnumItemBreedTypes.SKELETON, Items.BONE);
     public static final Item zombie_dragon_bow = new ItemDragonZombieBow(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
 	
 	//Material Repairability Start

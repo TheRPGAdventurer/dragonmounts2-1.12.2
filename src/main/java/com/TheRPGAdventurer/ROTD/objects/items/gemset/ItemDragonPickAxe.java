@@ -3,8 +3,7 @@ package com.TheRPGAdventurer.ROTD.objects.items.gemset;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -34,7 +33,7 @@ public class ItemDragonPickAxe extends ItemPickaxe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+		tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
 	}
 	
 }

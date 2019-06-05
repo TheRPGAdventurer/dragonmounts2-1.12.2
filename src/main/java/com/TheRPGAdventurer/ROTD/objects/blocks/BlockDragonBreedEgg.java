@@ -10,13 +10,14 @@
 package com.TheRPGAdventurer.ROTD.objects.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -60,9 +61,9 @@ public class BlockDragonBreedEgg extends BlockDragonEgg implements IHasModel {
      */
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    	if (worldIn.isRemote) return false;
+    	if (worldIn.isRemote || DragonMountsConfig.isDisableBlockOverride()) return false;
     	if (worldIn.provider.getDimensionType() == DimensionType.THE_END) {
-    		playerIn.sendStatusMessage(new TextComponentTranslation(StatCollector.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
+    		playerIn.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
     		return false;
     	}
     	

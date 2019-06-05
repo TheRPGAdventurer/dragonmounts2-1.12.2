@@ -84,7 +84,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -135,6 +134,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> BOOSTING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_MALE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IS_ALBINO=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> ARMOR=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> Y_LOCKED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -165,6 +165,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final String NBT_CHESTED="Chested";
     private static final String NBT_BREATHING="Breathing";
     private static final String NBT_ISMALE="IsMale";
+    private static final String NBT_ISALBINO="IsAlbino";
     private static final String NBT_ELDER="Elder";
     private static final String NBT_ADJUCATOR="Adjucator";
 
@@ -256,6 +257,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
+        dataManager.register(IS_ALBINO, getRNG().nextInt(100) == 0);
         dataManager.register(DRAGON_SCALES, (byte) 0);
         dataManager.register(ARMOR, 0);
         dataManager.register(BANNER1, ItemStack.EMPTY);
@@ -304,6 +306,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean(NBT_SHEARED, this.isSheared());
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
+        
+        nbt.setBoolean(NBT_ISALBINO, this.isAlbino());
+        
         nbt.setBoolean("unhovered", this.isUnHovered());
         nbt.setBoolean("followyaw", this.followYaw());
         //        nbt.setBoolean("unFluttered", this.isUnFluttered());
@@ -338,6 +343,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
         this.setArmor(nbt.getInteger(NBT_ARMOR));
         this.setMale(nbt.getBoolean(NBT_ISMALE));
+        
+        this.setAlbino(nbt.getBoolean(NBT_ISALBINO));
+        	
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setYLocked(nbt.getBoolean("ylocked"));
         this.setFollowYaw(nbt.getBoolean("followYaw"));
@@ -524,6 +532,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public void setOppositeGender() {
         this.setMale(!this.isMale());
+    }
+    
+    public boolean isAlbino() {
+    	return dataManager.get(IS_ALBINO);
+    }
+    
+    public void setAlbino(boolean albino) {
+    	dataManager.set(IS_ALBINO, albino);
     }
 
     /**

@@ -6,7 +6,6 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,11 +23,7 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
 
     @Override
     public void doRenderLayer(EntityTameableDragon dragon, float moveTime, float moveSpeed, float partialTicks, float ticksExisted, float lookYaw, float lookPitch, float scale) {
-        if (dragon.getLifeStageHelper().getLifeStage()==EnumDragonLifeStage.HATCHLING) {
-            renderer.bindTexture(dragon.isMale() ? breedRenderer.getHMaleGlowTexture() : breedRenderer.getHFemaleGlowTexture());
-        } else {
-            renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture() : breedRenderer.getFemaleGlowTexture());
-        }
+    	renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture(dragon.isHatchling(), dragon.isAlbino()) : breedRenderer.getFemaleGlowTexture(dragon.isHatchling(), dragon.isAlbino()));
 
         GlStateManager.pushMatrix();
         GlStateManager.pushAttrib();

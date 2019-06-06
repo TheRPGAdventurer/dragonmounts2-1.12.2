@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemDragonSword extends ItemSword{
+public class ItemDragonSword extends ItemSword {
 
     public EnumItemBreedTypes type;
 
@@ -30,7 +30,7 @@ public class ItemDragonSword extends ItemSword{
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+        setNameColor();
         ModTools.TOOLS.add(this);
     }
 
@@ -38,6 +38,12 @@ public class ItemDragonSword extends ItemSword{
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
+    }
+
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     /**

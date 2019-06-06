@@ -26,8 +26,13 @@ public class ItemDragonAxe extends ItemAxe {
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 
-		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+		setNameColor();
 		ModTools.TOOLS.add(this);
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void setNameColor() {
+		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
 	}
 	
 	@Override

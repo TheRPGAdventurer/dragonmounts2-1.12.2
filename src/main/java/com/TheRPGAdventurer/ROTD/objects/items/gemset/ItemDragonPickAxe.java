@@ -26,10 +26,15 @@ public class ItemDragonPickAxe extends ItemPickaxe {
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 
-		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+		setNameColor();
 		ModTools.TOOLS.add(this);
 	}
-	
+
+	@SideOnly(Side.CLIENT)
+	private void setNameColor() {
+		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {

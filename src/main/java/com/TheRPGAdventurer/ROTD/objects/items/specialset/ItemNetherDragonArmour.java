@@ -32,9 +32,14 @@ public class ItemNetherDragonArmour extends ItemArmor {
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+		setNameColor();
 	}
-	
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+    }
+
 	@Override
 	public void onArmorTick(final World world, final EntityPlayer player, final ItemStack itemStack) {
 //		if (player.) { // If the Potion isn't currently active,

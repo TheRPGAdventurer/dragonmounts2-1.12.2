@@ -864,7 +864,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 this.setUnHovered(true);
             }
         }
-
+        if (this.ticksExisted % DragonMountsConfig.hungerDecrement==0) {
+            if (this.getHunger() > 0) {
+                this.setHunger(this.getHunger() - 1);
+            }
+        }
 
         if (this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
             EntityPlayerSP player=(EntityPlayerSP) this.getControllingPlayer();
@@ -960,11 +964,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
             world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
             world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);
-        }
-
-        //        // if we're breathing at a target, look at it
-        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing==0 && isFlying()) { //  && (!this.isUsingBreathWeapon())
-            equalizeYaw(getControllingPlayer());
         }
 
         super.onLivingUpdate();
@@ -1936,10 +1935,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
-        this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
-        this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
-        this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
+        if (isFlying()) {
+            this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
+            this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
+            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+            this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
+        }
         this.rotationPitch=((EntityPlayer) rider).rotationPitch;
         this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
     }
@@ -2267,7 +2268,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public int getHunger() {
-        return dataManager.get(HUNGER).intValue();
+        return dataManager.get(HUNGER);
     }
 
     public void setHunger(int hunger) {

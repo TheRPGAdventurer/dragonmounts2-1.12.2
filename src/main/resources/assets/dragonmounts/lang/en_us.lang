@@ -156,6 +156,7 @@ gui.locked.dragon=LOCK
 gui.unlocked.dragon=UNLOCK
 gui.sit=Sit
 gui.firesupport=Fire Support
+gui.dragon.hunger=Hunger
 container.dragon_shulker=Dragon Core
 
 #Controls

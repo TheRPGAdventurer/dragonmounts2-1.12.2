@@ -39,7 +39,13 @@ public class ItemDragonEssence extends Item implements IHasModel {
         this.maxStackSize = 1;
         this.type = type;
 
+        setNameColor();
         ModItems.ITEMS.add(this);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     @Override

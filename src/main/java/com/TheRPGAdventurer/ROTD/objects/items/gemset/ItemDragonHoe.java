@@ -18,22 +18,27 @@ import java.util.List;
 public class ItemDragonHoe extends ItemHoe {
 
     public EnumItemBreedTypes type;
-	
-	public ItemDragonHoe(ToolMaterial material, String name, EnumItemBreedTypes type) {
-		super(material);
-		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
-		this.setUnlocalizedName("dragon_hoe");
-		this.setCreativeTab(DragonMounts.armoryTab);
-		this.type = type;
 
-		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
-		ModTools.TOOLS.add(this);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
-	}
+    public ItemDragonHoe(ToolMaterial material, String name, EnumItemBreedTypes type) {
+        super(material);
+        this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
+        this.setUnlocalizedName("dragon_hoe");
+        this.setCreativeTab(DragonMounts.armoryTab);
+        this.type=type;
+
+        setNameColor();
+        ModTools.TOOLS.add(this);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
+    }
 
 }

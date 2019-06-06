@@ -2,8 +2,10 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonGui;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiSit;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -51,6 +53,7 @@ public class GuiDragon extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
+        this.fontRenderer.drawString(DMUtils.translateToLocal("gui.dragon.hunger") + dragon.getHunger() + "/150", 80, 6, 0Xe99e0c);
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
     }
 
@@ -112,8 +115,8 @@ public class GuiDragon extends GuiContainer {
     protected void actionPerformed(GuiButton button) throws IOException {
         boolean sit=button==this.sit;
         boolean lock=button==this.lock;
-        if(button != null)
-        DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getEntityId(), sit, lock));
+        if(lock) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiLock(dragon.getEntityId()));
+        if(sit) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiSit(dragon.getEntityId()));
     }
 
     public void updateScreen() {

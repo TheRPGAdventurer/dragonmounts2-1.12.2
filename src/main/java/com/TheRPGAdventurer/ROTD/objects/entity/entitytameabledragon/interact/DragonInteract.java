@@ -82,7 +82,7 @@ public class DragonInteract extends DragonInteractBase {
              */
             if (DMUtils.hasEquippedFood(player)) {
                 dragon.setHunger(dragon.getHunger() + DMUtils.getFoodPoints(player));
-				if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
+                if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems()) || dragon.getHunger() < 150) {
                     // Taming
                     if (!dragon.isTamed()) {
                         dragon.tamedFor(player, dragon.getRNG().nextInt(15)==0);
@@ -124,7 +124,7 @@ public class DragonInteract extends DragonInteractBase {
 
     private void eatEvent(EntityPlayer player) {
         dragon.playSound(dragon.getEatSound(), 0.6f, 0.75f);
-		spawnItemCrackParticles((ItemFood) DMUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
+        spawnItemCrackParticles((ItemFood) DMUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
     }
 
     private void spawnItemCrackParticles(Item item) {

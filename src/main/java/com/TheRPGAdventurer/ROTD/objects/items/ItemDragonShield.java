@@ -33,8 +33,14 @@ public class ItemDragonShield extends ItemShield implements IHasModel {
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
+        setNameColor();
         ModItems.ITEMS.add(this);
 
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     @Override

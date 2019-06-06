@@ -1,0 +1,26 @@
+{	
+    "forge_marker": 1,	
+    "defaults": {	
+        "textures": { "all": "minecraft:blocks/dragon_egg" },	
+        "model": "minecraft:dragon_egg"	
+    },	
+    "variants": {	
+        "breed": {	
+            "aether":           { "textures":{ "all": "dragonmounts:entities/dragon/aether/egg"               } },	
+            "end":              { "textures":{ "all": "dragonmounts:entities/dragon/ender/egg"                } },	
+            "forest":           { "textures":{ "all": "dragonmounts:entities/dragon/forest/egg"               } },	
+            "nether":           { "textures":{ "all": "dragonmounts:entities/dragon/nether/egg"               } },	
+            "sylphid":          { "textures":{ "all": "dragonmounts:entities/dragon/sylphid/egg"              } },	
+			"ice":              { "textures":{ "all": "dragonmounts:entities/dragon/ice/egg"                  } },	
+			"fire":             { "textures":{ "all": "dragonmounts:entities/dragon/fire/egg"                 } },	
+			"skeleton":         { "textures":{ "all": "dragonmounts:entities/dragon/skeleton/egg"             } },	
+			"wither":           { "textures":{ "all": "dragonmounts:entities/dragon/wither/egg"               } },	
+			"enchant":          { "textures":{ "all": "dragonmounts:entities/dragon/enchant/egg"              } },	
+			"sunlight":         { "textures":{ "all": "dragonmounts:entities/dragon/sunlight/egg"             } },	
+			"storm":            { "textures":{ "all": "dragonmounts:entities/dragon/storm/egg"                } },	
+			"zombie":           { "textures":{ "all": "dragonmounts:entities/dragon/zombie/egg"               } },	
+			"terra":            { "textures":{ "all": "dragonmounts:entities/dragon/terra/egg"                } },	
+			"moonlight":        { "textures":{ "all": "dragonmounts:entities/dragon/moonlight/egg"            } }	
+        }	
+    }	
+} 

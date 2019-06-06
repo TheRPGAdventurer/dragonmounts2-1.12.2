@@ -47,13 +47,6 @@ public abstract class DragonBreed {
         setImmunity(DamageSource.IN_FIRE);
         setImmunity(DamageSource.LAVA);
         setImmunity(DamageSource.HOT_FLOOR);
-        setImmunity(DamageSource.HOT_FLOOR);
-
-        // assume that cactus needles don't do much damage to animals with horned scales
-        setImmunity(DamageSource.CACTUS);
-
-        // ignore damage from vanilla ender dragon
-        setImmunity(DamageSource.DRAGON_BREATH); // I kinda disabled this because it would'nt make any sense, feel free to re enable
         setImmunity(DamageSource.CACTUS); // assume that cactus needles don't do much damage to animals with horned scales
         setImmunity(DamageSource.DRAGON_BREATH); // ignore damage from vanilla ender dragon. I kinda disabled this because it wouldn't make any sense, feel free to re enable
     }

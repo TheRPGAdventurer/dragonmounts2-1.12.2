@@ -54,7 +54,6 @@ public class ServerProxy {
         DragonMountsConfig.PreInit();
     }
 
-
     @SuppressWarnings("deprecation")
 	public void Initialization(FMLInitializationEvent evt) {
     	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
@@ -106,15 +105,15 @@ public class ServerProxy {
     public void setDragonFollowYaw(boolean yaw) {
     }
 
+    public boolean getDragonHover() {
+        return false;
+    }
+    
     public int getDragonLockY() {
         return 0;
     }
 
     public void setDragonLockY(int yaw) {
-    }
-
-    public boolean getDragonHover() {
-        return false;
     }
 
     public void setDragonHover(boolean hover) {

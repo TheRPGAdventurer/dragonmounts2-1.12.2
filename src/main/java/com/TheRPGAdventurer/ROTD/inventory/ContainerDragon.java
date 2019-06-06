@@ -16,13 +16,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ContainerDragon extends Container {
 	private final IInventory dragonInv;
 	private final EntityTameableDragon dragon;
-	private final EntityPlayer player;
 	public static final int chestStartIndex = 3;
 
 	public ContainerDragon(final EntityTameableDragon dragon, EntityPlayer player) {
 		this.dragonInv = dragon.dragonInv;
 		this.dragon = dragon;
-		this.player = player;
 		final int inventoryColumn = 9;
 		dragonInv.openInventory(player);
 
@@ -47,6 +45,7 @@ public class ContainerDragon extends Container {
 				return stack.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.getHasStack();
 			}
 
+			@Override
 			public void onSlotChanged() {
 				ContainerDragon.this.dragon.refreshInventory();
 			}
@@ -107,11 +106,10 @@ public class ContainerDragon extends Container {
 		for (int j = 0; j < 9; ++j) {
 			this.addSlotToContainer(new Slot(player.inventory, j, 8 + j * 18, 189));
 		}
-
 		// offhand
 		this.addSlotToContainer(new Slot(player.inventory, 40, -13, 189));
 	}
-
+		
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return this.dragonInv.isUsableByPlayer(playerIn) && this.dragon.isEntityAlive() && this.dragon.getDistanceToEntity(playerIn) < 8.0F;
 	}

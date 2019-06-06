@@ -12,6 +12,7 @@ import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,6 +27,7 @@ public class ItemDragonBowForest extends ItemDragonBow implements IHasModel {
 
     public ItemDragonBowForest(EnumItemBreedTypes type, Item repair) {
         String name = "dragon_bow_" + type.toString().toLowerCase();
+        this.setUnlocalizedName("dragon_bow");
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.type = type;
         this.repair = repair;

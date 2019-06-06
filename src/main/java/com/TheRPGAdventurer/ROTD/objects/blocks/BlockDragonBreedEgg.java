@@ -13,6 +13,12 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
+
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
+
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
@@ -101,6 +107,15 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     		playerIn.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
     		return false;
     	}
+    	    	
+    	EntityTameableDragon entityDragon = new EntityTameableDragon(worldIn);
+    	entityDragon.setBreedType(worldIn.getBlockState(pos).getValue(BlockDragonBreedEgg.BREED));
+    	worldIn.setBlockToAir(pos); // Set to air AFTER setting breed type
+    	entityDragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+    	entityDragon.getReproductionHelper().setBreeder(playerIn);
+    	entityDragon.setPosition(pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5);
+
+        worldIn.spawnEntity(entityDragon);
 
         return true;
         
@@ -109,6 +124,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     private void checkFall(World worldIn, BlockPos pos) {
         if (worldIn.isAirBlock(pos.down()) && BlockFalling.canFallThrough(worldIn.getBlockState(pos.down())) && pos.getY() >= 0) {
             int i = 32;
+
             if (!BlockFalling.fallInstantly && worldIn.isAreaLoaded(pos.add(-32, -32, -32), pos.add(32, 32, 32))) {
                 worldIn.spawnEntity(new EntityFallingBlock(worldIn, (double)((float)pos.getX() + 0.5F), (double)pos.getY(), (double)((float)pos.getZ() + 0.5F), this.getStateFromMeta(meta)));
             } else {
@@ -126,8 +142,4 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     
     public static final BlockDragonBreedEgg[] BLOCK_EGG = {DRAGON_BREED_EGG = new BlockDragonBreedEgg()};
      
-//	@Override
-//	public void RegisterModels() {
-//		DragonMounts.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-//	}
 }

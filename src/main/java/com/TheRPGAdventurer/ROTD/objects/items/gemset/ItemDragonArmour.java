@@ -37,10 +37,10 @@ public class ItemDragonArmour extends ItemArmor {
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type=type;
 
-
         new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
 
     }
+
 
     @Override
     @SideOnly(Side.CLIENT)

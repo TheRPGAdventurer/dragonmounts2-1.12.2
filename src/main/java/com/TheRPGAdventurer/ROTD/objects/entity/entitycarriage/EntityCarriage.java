@@ -27,6 +27,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class EntityCarriage extends Entity {
 
     private static final DataParameter<Float> DAMAGE=EntityDataManager.createKey(EntityCarriage.class, DataSerializers.FLOAT);

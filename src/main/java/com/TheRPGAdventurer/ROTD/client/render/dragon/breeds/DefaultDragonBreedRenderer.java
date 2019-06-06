@@ -35,13 +35,23 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     private final DragonModel model;
     
     private final ResourceLocation maleBodyTexture;
-    private final ResourceLocation femaleBodyTexture;
     private final ResourceLocation maleGlowTexture;
-    private final ResourceLocation femaleGlowTexture;
     private final ResourceLocation hmaleBodyTexture;
-    private final ResourceLocation hfemaleBodyTexture;
     private final ResourceLocation hmaleGlowTexture;
+    private final ResourceLocation aMaleBodyTexture;
+    private final ResourceLocation aMaleGlowTexture;
+    private final ResourceLocation a_hMaleBodyTexture;
+    private final ResourceLocation a_hMaleGlowTexture;
+    
+    private final ResourceLocation femaleBodyTexture;
+    private final ResourceLocation femaleGlowTexture;
+    private final ResourceLocation hfemaleBodyTexture;
     private final ResourceLocation hfemaleGlowTexture;
+    private final ResourceLocation aFemaleBodyTexture;
+    private final ResourceLocation aFemaleGlowTexture;
+    private final ResourceLocation a_hFemaleBodyTexture;
+    private final ResourceLocation a_hFemaleGlowTexture;
+    
     private final ResourceLocation glowAnimTexture;
     private final ResourceLocation saddleTexture;
     private final ResourceLocation eggTexture;
@@ -65,13 +75,23 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         // textures
         String skin = breed.getBreed().getSkin();
         maleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodym.png");
-        femaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodyfm.png");
         maleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowm.png");
-        femaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowfm.png");
         hmaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hbodym.png");
-        hfemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hbodyfm.png");
         hmaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hglowm.png");
+        aMaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/abodym.png");
+        aMaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/aglowm.png");
+        a_hMaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hbodym.png");
+        a_hMaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hglowm.png");
+        
+        femaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodyfm.png");
+        femaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowfm.png");
+        hfemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hbodyfm.png");
         hfemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hglowfm.png");
+        aFemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/abodyfm.png");
+        aFemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/aglowfm.png");
+        a_hFemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hbodyfm.png");
+        a_hFemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hglowfm.png");
+        
         glowAnimTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glow_anim.png");
         saddleTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/saddle.png");
         eggTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/egg.png");
@@ -93,46 +113,26 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     public DragonModel getModel() {
         return model;
     }
-
-    @Override
-    public ResourceLocation getMaleBodyTexture() {
-        return maleBodyTexture;
-    }
     
 	@Override
-	public ResourceLocation getFemaleBodyTexture() {
-		return femaleBodyTexture;
+	public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean albino) {
+		return hatchling ? (albino ? a_hMaleBodyTexture : hmaleBodyTexture) : albino ? aMaleBodyTexture : maleBodyTexture;
 	}
 
-    @Override
-    public ResourceLocation getHMaleBodyTexture() {
-        return hmaleBodyTexture;
-    }
+	@Override
+	public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean albino) {
+		return hatchling ? (albino ? a_hFemaleBodyTexture : hfemaleBodyTexture) : albino ? aFemaleBodyTexture : femaleBodyTexture;
+	}
 
-    @Override
-    public ResourceLocation getHFemaleBodyTexture() {
-        return hfemaleBodyTexture;
-    }
+	@Override
+	public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean albino) {
+		return hatchling ? (albino ? a_hMaleGlowTexture : hmaleGlowTexture) : albino ? aMaleGlowTexture : maleGlowTexture;
+	}
 
-    @Override
-    public ResourceLocation getMaleGlowTexture() {
-        return maleGlowTexture;
-    }
-    
-    @Override
-    public ResourceLocation getFemaleGlowTexture() {
-        return femaleGlowTexture;
-    }
-
-    @Override
-    public ResourceLocation getHMaleGlowTexture() {
-        return hmaleGlowTexture;
-    }
-
-    @Override
-    public ResourceLocation getHFemaleGlowTexture() {
-        return hfemaleGlowTexture;
-    }
+	@Override
+	public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean albino) {
+		return hatchling ? (albino ? a_hFemaleGlowTexture : hfemaleGlowTexture) : albino ? aFemaleGlowTexture : femaleGlowTexture;
+	}
 
     @Override
     public ResourceLocation getGlowAnimTexture() {

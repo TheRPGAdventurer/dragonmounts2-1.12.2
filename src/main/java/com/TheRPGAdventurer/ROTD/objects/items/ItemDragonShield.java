@@ -67,5 +67,4 @@ public class ItemDragonShield extends ItemShield implements IHasModel {
     public void RegisterModels() {
         DragonMounts.proxy.registerItemRenderer(this, 0, "inventory");
     }
-
 }

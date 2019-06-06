@@ -24,33 +24,34 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * Dragon Amulet Item for the use of carrying dragons in an item
- *
+ * 
  * @author WolfShotz
  * TODO Remove ItemDragonAmulet deprecated class and replace it with this one. Rename this to 'ItemDragonAmulet'
  */
 public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
 
-    private EnumItemBreedTypes type;
+	private EnumItemBreedTypes type;
 
     public ItemDragonAmuletNEW() {
-        String name="dragon_amulet";
+        String name = "dragon_amulet";
         this.setRegistryName(DragonMounts.MODID, name);
         this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.mainTab);
-
+        
         ModItems.ITEMS.add(this);
     }
 
     private boolean containsDragonEntity(ItemStack stack) {
         return !stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound().hasKey("breed");
     }
-
+    
     /**
      * Called when the player has right clicked an entity with the itemstack
      * <p> Writes the entity NBT data to the item stack, and then sets dead
@@ -79,7 +80,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     	target.setDead();
 		return true;
     }
-
+    
     /**
      * Called when the player has right clicked the ItemStack on a block
      * <p> Spawns an entity in the world with the given NBT data the ItemStack was storing
@@ -104,9 +105,9 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
     	return EnumActionResult.FAIL;
     }
-
+    
     /* Item Extras */
-
+   
     @SideOnly(Side.CLIENT)
     private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
         if (release) {
@@ -131,14 +132,13 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
 
     /**
      * Gets the Amulet Model According to breed type
-     *
      * @see com.TheRPGAdventurer.ROTD.event.RegistryEventHandler Amulet Model Registry Class
      */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ModelResourceLocation getModelLocation(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("breed")) {
-            return new ModelResourceLocation("dragonmounts:" + stack.getTagCompound().getString("breed") + "_dragon_amulet");
-        } else return new ModelResourceLocation("dragonmounts:dragon_amulet");
-    }
+	@Override
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getModelLocation(ItemStack stack) {
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("breed")) {
+			return new ModelResourceLocation("dragonmounts:" + stack.getTagCompound().getString("breed") + "_dragon_amulet");
+		} else return new ModelResourceLocation("dragonmounts:dragon_amulet");
+	}
 }

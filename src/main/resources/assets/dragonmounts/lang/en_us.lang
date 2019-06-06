@@ -10,7 +10,7 @@ itemGroup.armorytab=Dragon Mounts Armory
 entity.DragonMount.name=Dragon
 
 entity.DragonMount.ice.name=Ice Dragon
-entity.DragonMount.end.name=Ender Dragon
+entity.DragonMount.ender.name=Ender Dragon
 entity.DragonMount.aether.name=Aether Dragon
 entity.DragonMount.forest.name=Forest Dragon
 entity.DragonMount.sylphid.name=Water Dragon
@@ -130,7 +130,6 @@ dragon.notOwned=You do not own this dragon
 entity.dragon.tooYoung=Dragon is too young for that, let it grow
 egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
-entity.dragon.tooYounng=The dragon is too young to be saddled, let it grow.
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 

@@ -19,8 +19,7 @@ public class RenderEnderBreathFX extends Render<EnderBreathFX> {
 	
     private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_acid.png");
 
-    public RenderEnderBreathFX(RenderManager renderManagerIn)
-    {
+    public RenderEnderBreathFX(RenderManager renderManagerIn) {
         super(renderManagerIn); 
     }
 
@@ -69,8 +68,7 @@ public class RenderEnderBreathFX extends Render<EnderBreathFX> {
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EnderBreathFX entity)
-    {
+    protected ResourceLocation getEntityTexture(EnderBreathFX entity) {
         return DRAGON_FIREBALL_TEXTURE;
     }
 }

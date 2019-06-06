@@ -2,7 +2,6 @@ package com.TheRPGAdventurer.ROTD.event;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
-import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.inits.ModBlocks;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
@@ -10,7 +9,6 @@ import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
-import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityHandler;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -24,7 +22,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -36,7 +33,7 @@ public class RegistryEventHandler {
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
         TileEntityHandler.registerTileEntities();
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
+//        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDragonShulker.class, new TileEntityDragonShulkerRenderer());
         
         DMUtils.getLogger().info("Block Registries Successfully Registered");
     }
@@ -126,7 +123,6 @@ public class RegistryEventHandler {
 
     public static void initRegistries() {
         NetworkRegistry.INSTANCE.registerGuiHandler(DragonMounts.instance, new GuiHandler());
-        ModItems.register();
         DMUtils.getLogger().info("Gui's Successfully Registered");
     }
 }

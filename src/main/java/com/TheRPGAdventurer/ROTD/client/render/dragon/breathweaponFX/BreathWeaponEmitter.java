@@ -242,11 +242,11 @@ public class BreathWeaponEmitter {
       float partialTickHeadStart = i / (float)PARTICLES_PER_TICK;
       Vec3d interpDirection = interpolateVec(previousDirection, direction, partialTickHeadStart);
       Vec3d interpOrigin = interpolateVec(previousOrigin, origin, partialTickHeadStart);
-      AetherBreathFX iceBreathFX = AetherBreathFX.createAetherBreathFX(world, interpOrigin.x, interpOrigin.y, interpOrigin.z,
+      AetherBreathFX aetherBreathFX = AetherBreathFX.createAetherBreathFX(world, interpOrigin.x, interpOrigin.y, interpOrigin.z,
     		  interpDirection.x, interpDirection.y, interpDirection.z,
               power, partialTickHeadStart, dragon);
 
-      Minecraft.getMinecraft().world.spawnEntity(iceBreathFX);
+      Minecraft.getMinecraft().world.spawnEntity(aetherBreathFX);
     }
     previousDirection = direction;
     previousOrigin = origin;

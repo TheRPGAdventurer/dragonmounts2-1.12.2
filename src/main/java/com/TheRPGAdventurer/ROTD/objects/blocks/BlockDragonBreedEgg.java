@@ -12,7 +12,10 @@ package com.TheRPGAdventurer.ROTD.objects.blocks;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.util.StatCollector;
 
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
@@ -28,11 +31,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 
 /**
- *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
+ * Modified by WolfShotz <p>
+ * 
  */
 public class BlockDragonBreedEgg extends BlockDragonEgg {
     
@@ -92,7 +98,23 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
      */
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    	if (worldIn.isRemote) return false;
+    	if (worldIn.provider.getDimensionType() == DimensionType.THE_END) {
+    		playerIn.sendStatusMessage(new TextComponentTranslation(StatCollector.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
+    		return false;
+    	}
+    	    	
+    	EntityTameableDragon entityDragon = new EntityTameableDragon(worldIn);
+    	entityDragon.setBreedType(worldIn.getBlockState(pos).getValue(BlockDragonBreedEgg.BREED));
+    	worldIn.setBlockToAir(pos); // Set to air AFTER setting breed type
+    	entityDragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+    	entityDragon.getReproductionHelper().setBreeder(playerIn);
+    	entityDragon.setPosition(pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5);
+
+        worldIn.spawnEntity(entityDragon);
+
         return true;
+        
     }
     
     private void checkFall(World worldIn, BlockPos pos) {

@@ -1027,10 +1027,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        if (this.isClient() && !this.isEgg() && this.deathTime < this.getMaxDeathTime() - 20) {
-            spawnBodyParticles(EnumParticleTypes.CLOUD, 4);
-        }
-
         if (isTamed()) {
             ItemDragonEssence essence=dragonEssence();
             ItemStack essenceStack=new ItemStack(essence);
@@ -1074,6 +1070,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 setDead();
             }
         }
+
+
+        if (isClient() && !isEgg() && deathTime < getMaxDeathTime() - 20) {
+            spawnBodyParticles(EnumParticleTypes.CLOUD, 4);
+        }
+
         deathTime++;
     }
 

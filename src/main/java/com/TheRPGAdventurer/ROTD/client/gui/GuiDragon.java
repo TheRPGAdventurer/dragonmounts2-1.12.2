@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiSit;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -25,6 +24,8 @@ public class GuiDragon extends GuiContainer {
 
     private static final ResourceLocation texture=new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
     private static final ResourceLocation offhand=new ResourceLocation(DragonMounts.MODID, "textures/gui/offhand.png");
+    private static final ResourceLocation hunger_empty=new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_empty.png");
+    private static final ResourceLocation hunger_full=new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_full.png");
     private EntityTameableDragon dragon;
     private float mousePosX;
     private float mousePosY;
@@ -53,7 +54,7 @@ public class GuiDragon extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
-        this.fontRenderer.drawString(DMUtils.translateToLocal("gui.dragon.hunger") + dragon.getHunger() + "/150", 80, 6, 0Xe99e0c);
+//        this.fontRenderer.drawString(DMUtils.translateToLocal("gui.dragon.hunger") + dragon.getHunger() + "/150", 80, 6, 0Xe99e0c);
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
     }
 
@@ -65,6 +66,10 @@ public class GuiDragon extends GuiContainer {
         int y=(this.height - this.ySize) / 2;
 
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
+
+        this.mc.getTextureManager().bindTexture(hunger_empty);
+        drawModalRectWithCustomSizedTexture(x - 10, y + 20, 0.0F, 0.0F, 9, 9, 9, 9);
+
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
         }

@@ -54,8 +54,8 @@ public class ServerProxy {
         DragonMountsConfig.PreInit();
     }
 
-
-    public void Initialization(FMLInitializationEvent evt) {
+    @SuppressWarnings("deprecation")
+	public void Initialization(FMLInitializationEvent evt) {
     	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
     }

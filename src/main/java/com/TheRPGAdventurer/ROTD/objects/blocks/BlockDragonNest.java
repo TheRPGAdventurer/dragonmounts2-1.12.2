@@ -26,21 +26,21 @@ public class BlockDragonNest extends Block implements IHasModel {
 		this.setHardness(1);
 		this.setSoundType(SoundType.WOOD);
 		this.setCreativeTab(DragonMounts.mainTab);
-		
+
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-	} 
+	}
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
     	return Item.getItemFromBlock(this);
     }
-    
+
     @Override
     public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 30;
     }
-    
+
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return 77;

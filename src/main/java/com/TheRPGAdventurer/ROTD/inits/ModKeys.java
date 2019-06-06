@@ -13,6 +13,7 @@ public class ModKeys {
     public static KeyBinding KEY_LOCKEDY;
     public static KeyBinding BOOST;
     public static KeyBinding DISMOUNT;
+    public static KeyBinding DOWN;
     public static KeyBinding dragon_change_view;
     
     public static void init() {
@@ -23,14 +24,15 @@ public class ModKeys {
         dragon_change_view = new KeyBinding("key.dragon.f7", Keyboard.KEY_F7, KEY_CATEGORY);
     	BOOST=new KeyBinding("key.dragon.boost", Keyboard.KEY_LCONTROL, KEY_CATEGORY);
     	DISMOUNT = new KeyBinding("key.dragon.dismount",Keyboard.KEY_X, KEY_CATEGORY);
+    	DOWN = new KeyBinding("key.dragon.down",Keyboard.KEY_LMENU, KEY_CATEGORY);
         ClientRegistry.registerKeyBinding(KEY_BREATH);
         ClientRegistry.registerKeyBinding(KEY_HOVERCANCEL);
+        ClientRegistry.registerKeyBinding(FOLLOW_YAW);
+        ClientRegistry.registerKeyBinding(KEY_LOCKEDY);
         ClientRegistry.registerKeyBinding(dragon_change_view);
         ClientRegistry.registerKeyBinding(BOOST);
-        ClientRegistry.registerKeyBinding(FOLLOW_YAW);
         ClientRegistry.registerKeyBinding(DISMOUNT);
-        ClientRegistry.registerKeyBinding(KEY_LOCKEDY);
-
+        ClientRegistry.registerKeyBinding(DOWN);
     	  
     }
     

@@ -3,9 +3,8 @@ package com.TheRPGAdventurer.ROTD.objects.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,7 +43,7 @@ public class ItemDiamondShears extends ItemShears implements IHasModel
 	@SideOnly(Side.CLIENT) 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound nbt = stack.getTagCompound();
-		tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("item.diamondshears.info"));
+		tooltip.add(TextFormatting.GREEN + DMUtils.translateToLocal("item.diamondshears.info"));
 	}
 	
 	@Override

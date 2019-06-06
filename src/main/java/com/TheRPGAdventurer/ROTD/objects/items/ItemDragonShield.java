@@ -2,9 +2,8 @@ package com.TheRPGAdventurer.ROTD.objects.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
@@ -34,14 +33,20 @@ public class ItemDragonShield extends ItemShield implements IHasModel {
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
+        setNameColor();
         ModItems.ITEMS.add(this);
 
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+        tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
     }
     
     //Necessary because were extending from ItemShield, which creates its own displayname method

@@ -3,8 +3,7 @@ package com.TheRPGAdventurer.ROTD.objects.items.gemset;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -18,24 +17,28 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemDragonShovel extends ItemSpade {
-	
+
     public EnumItemBreedTypes type;
 
-	public ItemDragonShovel(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
-		super(material);
-		this.setUnlocalizedName("dragon_shovel");
-		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
-		this.setCreativeTab(DragonMounts.armoryTab);
-		this.type = type;
+    public ItemDragonShovel(ToolMaterial material, String unlocalizedName, EnumItemBreedTypes type) {
+        super(material);
+        this.setUnlocalizedName("dragon_shovel");
+        this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
+        this.setCreativeTab(DragonMounts.armoryTab);
+        this.type=type;
 
-		new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
-		ModTools.TOOLS.add(this);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.GRAY + StatCollector.translateToLocal("item.armoryitems.info") + " " + type.color + TextFormatting.BOLD + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
-	}
+        setNameColor();
+        ModTools.TOOLS.add(this);
+    }
 
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
+    }
 }

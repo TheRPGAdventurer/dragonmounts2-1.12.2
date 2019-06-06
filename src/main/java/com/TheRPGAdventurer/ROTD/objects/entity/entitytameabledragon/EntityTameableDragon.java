@@ -30,7 +30,6 @@ import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-import com.TheRPGAdventurer.ROTD.util.ItemUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 
@@ -130,6 +129,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Boolean> GROWTH_PAUSED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_SADDLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_BREATHING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> GOING_DOWN=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CHESTED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> BOOSTING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -138,12 +138,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Integer> ARMOR=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> Y_LOCKED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FLUTTER_CANCELLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> FOLLOW_YAW=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> DATA_BREEDER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<String> DATA_BREED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_REPRO_COUNT=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-//    private static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT); //unused as of now
+    private static final DataParameter<Integer> HUNGER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
     private static final DataParameter<String> DATA_BREATH_WEAPON=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
@@ -183,6 +182,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public DragonInventory dragonInv;
     private boolean hasChestVarChanged=false;
     private boolean isUsingBreathWeapon;
+    private boolean isGoingDown;
     private boolean isUnhovered;
     private boolean yLocked;
     private boolean followYaw;
@@ -193,10 +193,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
-
-    public EntityPartDragon dragonPartHead;
-    public EntityPartDragon dragonPartNeck;
-    public EntityPartDragon dragonPartTail[];
 
     public EntityTameableDragon(World world) {
         super(world);
@@ -254,6 +250,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_FLYING, false);
         dataManager.register(GROWTH_PAUSED, false);
         dataManager.register(DATA_BREATHING, false);
+        dataManager.register(GOING_DOWN, false);
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
@@ -273,8 +270,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 //        dataManager.register(SLEEP, false); //unused as of now
         dataManager.register(HOVER_CANCELLED, false);
         dataManager.register(Y_LOCKED, false);
-        dataManager.register(FLUTTER_CANCELLED, false);
         dataManager.register(FOLLOW_YAW, true);
+        dataManager.register(HUNGER, 0);
     }
 
     @Override
@@ -305,14 +302,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean(NBT_CHESTED, this.isChested());
         nbt.setBoolean(NBT_SHEARED, this.isSheared());
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
+        nbt.setBoolean("down", this.isGoingDown());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
-        
         nbt.setBoolean(NBT_ISALBINO, this.isAlbino());
-        
         nbt.setBoolean("unhovered", this.isUnHovered());
         nbt.setBoolean("followyaw", this.followYaw());
         //        nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
+        nbt.setInteger("hunger", this.getHunger());
         nbt.setBoolean("boosting", this.boosting());
         nbt.setBoolean("ylocked", this.isYLocked());
         nbt.setBoolean(NBT_ELDER, this.canBeElder());
@@ -339,13 +336,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setSaddled(nbt.getBoolean(NBT_SADDLED));
         this.setChested(nbt.getBoolean(NBT_CHESTED));
         this.setSheared(nbt.getBoolean(NBT_SHEARED));
+        this.setHunger(nbt.getInteger("hunger"));
         this.setUsingBreathWeapon(nbt.getBoolean(NBT_BREATHING));
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
         this.setArmor(nbt.getInteger(NBT_ARMOR));
-        this.setMale(nbt.getBoolean(NBT_ISMALE));
-        
+        this.setMale(nbt.getBoolean(NBT_ISMALE));        
         this.setAlbino(nbt.getBoolean(NBT_ISALBINO));
-        	
+        this.setGoingDown(nbt.getBoolean("down"));
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setYLocked(nbt.getBoolean("ylocked"));
         this.setFollowYaw(nbt.getBoolean("followYaw"));
@@ -603,15 +600,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return isUsingBreathWeapon;
     }
 
-
-    public boolean allowedOtherPlayers() {
-        return this.dataManager.get(ALLOW_OTHERPLAYERS);
-    }
-
-    public void setToAllowedOtherPlayers(boolean allow) {
-        dataManager.set(ALLOW_OTHERPLAYERS, allow);
-    }
-
     /**
      * Set the breathing flag of the entity.
      */
@@ -620,6 +608,36 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!world.isRemote) {
             this.isUsingBreathWeapon=usingBreathWeapon;
         }
+    }
+
+    /**
+     * Returns true if the entity is breathing.
+     */
+    public boolean isGoingDown() {
+        if (world.isRemote) {
+            boolean goingdown=this.dataManager.get(GOING_DOWN);
+            this.isGoingDown=goingdown;
+            return isGoingDown;
+        }
+        return isGoingDown;
+    }
+
+    /**
+     * Set the breathing flag of the entity.
+     */
+    public void setGoingDown(boolean goingdown) {
+        this.dataManager.set(GOING_DOWN, goingdown);
+        if (!world.isRemote) {
+            this.isGoingDown=goingdown;
+        }
+    }
+
+    public boolean allowedOtherPlayers() {
+        return this.dataManager.get(ALLOW_OTHERPLAYERS);
+    }
+
+    public void setToAllowedOtherPlayers(boolean allow) {
+        dataManager.set(ALLOW_OTHERPLAYERS, allow);
     }
 
     public boolean isYLocked() {
@@ -736,11 +754,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player)) || (getOwner()!=null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
             boolean isBoosting=ModKeys.BOOST.isKeyDown();
+            boolean isDown=ModKeys.DOWN.isKeyDown();
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
             boolean followyaw=ModKeys.FOLLOW_YAW.isPressed();
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
-            n.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
-            n.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
         }
     }
 
@@ -865,7 +884,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 this.setUnHovered(true);
             }
         }
-
+        if (this.ticksExisted % DragonMountsConfig.hungerDecrement==0) {
+            if (this.getHunger() > 0) {
+                this.setHunger(this.getHunger() - 1);
+            }
+        }
 
         if (this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
             EntityPlayerSP player=(EntityPlayerSP) this.getControllingPlayer();
@@ -963,52 +986,49 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 1, 1);
         }
 
-        // if we're breathing at a target, look at it
-        if (isUsingBreathWeapon() && getBreed().canUseBreathWeapon() && getControllingPlayer()!=null && this.moveStrafing == 0) equalizeYaw(getControllingPlayer());
-
         super.onLivingUpdate();
     }
 
     public void spawnBodyParticle(EnumParticleTypes type) {
         double ox, oy, oz;
-        float s = this.getScale() * 1.2f;
+        float s=this.getScale() * 1.2f;
 
         switch (type) {
             case EXPLOSION_NORMAL:
-                ox = rand.nextGaussian() * s;
-                oy = rand.nextGaussian() * s;
-                oz = rand.nextGaussian() * s;
+                ox=rand.nextGaussian() * s;
+                oy=rand.nextGaussian() * s;
+                oz=rand.nextGaussian() * s;
                 break;
 
             case CLOUD:
-                ox = (rand.nextDouble() - 0.5) * 0.1;
-                oy = rand.nextDouble() * 0.2;
-                oz = (rand.nextDouble() - 0.5) * 0.1;
+                ox=(rand.nextDouble() - 0.5) * 0.1;
+                oy=rand.nextDouble() * 0.2;
+                oz=(rand.nextDouble() - 0.5) * 0.1;
                 break;
 
             case REDSTONE:
-                ox = 0.8;
-                oy = 0;
-                oz = 0.8;
+                ox=0.8;
+                oy=0;
+                oz=0.8;
                 break;
 
             default:
-                ox = 0;
-                oy = 0;
-                oz = 0;
+                ox=0;
+                oy=0;
+                oz=0;
         }
 
         // use generic random box spawning
-        double x = this.posX + (rand.nextDouble() - 0.5) * this.width * s;
-        double y = this.posY + (rand.nextDouble() - 0.5) * this.height * s;
-        double z = this.posZ + (rand.nextDouble() - 0.5) * this.width * s;
+        double x=this.posX + (rand.nextDouble() - 0.5) * this.width * s;
+        double y=this.posY + (rand.nextDouble() - 0.5) * this.height * s;
+        double z=this.posZ + (rand.nextDouble() - 0.5) * this.width * s;
 
         this.world.spawnParticle(type, x, y, z, ox, oy, oz);
     }
 
     public void spawnBodyParticles(EnumParticleTypes type, int baseAmount) {
-        int amount = (int) (baseAmount * this.getScale());
-        for (int i = 0; i < amount; i++) {
+        int amount=(int) (baseAmount * this.getScale());
+        for (int i=0; i < amount; i++) {
             spawnBodyParticle(type);
         }
     }
@@ -1025,10 +1045,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                     this.entityDropItem(itemstack, 0.0F);
                 }
             }
-        }
-
-        if (this.isClient() && !this.isEgg() && this.deathTime < this.getMaxDeathTime() - 20) {
-            spawnBodyParticles(EnumParticleTypes.CLOUD, 4);
         }
 
         if (isTamed()) {
@@ -1068,6 +1084,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (isEgg()) setDead();
         else if (deathTime >= getMaxDeathTime()) setDead(); // actually delete entity after the time is up
+
+        if (isClient() && !isEgg() && deathTime < getMaxDeathTime() - 20) spawnBodyParticles(EnumParticleTypes.CLOUD, 4);
+
         deathTime++;
     }
 
@@ -1263,8 +1282,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         // play stomping for bigger dragons
         SoundEvent stepSound;
-        if (isHatchling()) stepSound = soundType.getStepSound();
-        else stepSound = getStepSound();
+        if (isHatchling()) stepSound=soundType.getStepSound();
+        else stepSound=getStepSound();
         playSound(stepSound, 1f, 1f, false);
     }
 
@@ -1357,7 +1376,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return false;
         }
 
-        if (!ModKeys.DISMOUNT.isKeyDown() && !ItemUtils.hasEquipped(player, ModItems.Amulet) && !ItemUtils.hasEquipped(player, Items.STICK) && !ItemUtils.hasEquipped(player, Items.BONE) && !ItemUtils.hasEquippedUsable(player) && this.isTamedFor(player) && this.getScale() <= 0.35) {
+        if (!ModKeys.DISMOUNT.isKeyDown() && !DMUtils.hasEquipped(player, ModItems.Amulet) && !DMUtils.hasEquipped(player, Items.STICK) && !DMUtils.hasEquipped(player, Items.BONE) && !DMUtils.hasEquippedUsable(player) && this.isTamedFor(player) && this.getScale() <= 0.35) {
 
             this.setSitting(false);
             this.startRiding(player, true);
@@ -1553,7 +1572,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
-
     public ItemDragonEssence dragonEssence() {
         switch (getBreedType()) {
             case AETHER:
@@ -1706,7 +1724,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * 1 equals iron 2 equals gold 3 equals diamond
+     * 1 equals iron 2 equals gold 3 equals diamond 4 equals emerald
      *
      * @return 0 no armor
      */
@@ -1900,12 +1918,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
-    public void equalizeYaw(EntityLivingBase riding) {
-        //        this.rotationYaw=((EntityPlayer) riding).rotationYawHead;
-        this.rotationYawHead=((EntityPlayer) riding).rotationYawHead;
-        this.prevRotationYaw=((EntityPlayer) riding).rotationYawHead;
-        this.rotationPitch=((EntityPlayer) riding).rotationPitch;
-        this.prevRotationPitch=((EntityPlayer) riding).prevRotationPitch;
+    public void equalizeYaw(EntityLivingBase rider) {
+        if (isFlying()) {
+            this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
+            this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
+            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+            this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
+        }
+        this.rotationPitch=((EntityPlayer) rider).rotationPitch;
+        this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
     }
 
     public void updateRiding(Entity riding) {
@@ -2230,6 +2251,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         } else {
             dataManager.set(DRAGON_SCALES, Byte.valueOf((byte) (b0 & -17)));
         }
+    }
+
+    public int getHunger() {
+        return dataManager.get(HUNGER);
+    }
+
+    public void setHunger(int hunger) {
+        this.dataManager.set(HUNGER, Math.min(150, hunger));
     }
 
     @Override
@@ -2584,7 +2613,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //when killed with damage greater than 17 cause the game to crask
-        if (damage >= 17 && source!=DamageSource.GENERIC) {
+        if (damage >= 17 && (source!=DamageSource.GENERIC || source!=DamageSource.OUT_OF_WORLD)) {
             return damage==8.0f;
         }
 

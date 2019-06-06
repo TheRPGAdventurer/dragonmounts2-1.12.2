@@ -52,6 +52,7 @@ public class DragonMountsConfig {
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
 	public static int REG_FACTOR  = 75;
+	public static int hungerDecrement  = 3000;
 
 	// chances
 	public static int FireNestRarity  = 50;
@@ -73,7 +74,7 @@ public class DragonMountsConfig {
 	public static int zombieNestRarerityInX = 28;
 	public static int zombieNestRarerityInZ = 28;
 
-	public static double ThirdPersonZoom = 10;
+	public static double ThirdPersonZoom = 8;
 
 	public static int dragonanderFromHomeDist = 50;
 
@@ -154,6 +155,11 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", REG_FACTOR);
 		prop.setComment("Higher numbers slower regen for dragons");
 		REG_FACTOR = prop.getInt();
+		propOrder.add(prop.getName());
+
+		prop = config.get(CATEGORY_MAIN, "Hunger Speed", hungerDecrement);
+		prop.setComment("Lower numbers slower hunger speed for dragons");
+		hungerDecrement = prop.getInt();
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "can dragons despawn", canDragonDespawn);

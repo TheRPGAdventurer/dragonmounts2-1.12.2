@@ -55,9 +55,9 @@ public class ItemDragonArmour extends ItemArmor {
         Item legs=player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem();
         Item feet=player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem();
 
-        int delay=0;
-        delay--;
-
+//        int delay=0;
+//        delay++;
+        boolean shouldGive = true;
 
         if (head==ModArmour.forestDragonScaleCap && player.fishEntity!=null && new Random().nextInt(25)==1)
             player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 300, 0, false, false));
@@ -67,9 +67,12 @@ public class ItemDragonArmour extends ItemArmor {
             player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, 0, false, false));
         if (chest==ModArmour.iceDragonScaleTunic && player.getAttackingEntity()!=null && new Random().nextInt(25)==1)
             player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 200, 0, false, false));
-        if (((head==ModArmour.fireDragonScaleCap || head==ModArmour.fireDragonScaleCap2) && (chest==ModArmour.fireDragonScaleTunic || chest==ModArmour.fireDragonScaleTunic2) && (legs==ModArmour.fireDragonScaleLeggings || legs==ModArmour.fireDragonScaleLeggings2) && (feet==ModArmour.fireDragonScaleBoots || feet==ModArmour.fireDragonScaleBoots2)) && (player.isInLava() || player.world.isMaterialInBB(player.getEntityBoundingBox().grow(-0.1, -0.4, -0.1), Material.FIRE))) {
-            delay=200;
-            if(delay>=200) player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
+        if (shouldGive) {
+            if (((head==ModArmour.fireDragonScaleCap || head==ModArmour.fireDragonScaleCap2) && (chest==ModArmour.fireDragonScaleTunic || chest==ModArmour.fireDragonScaleTunic2) && (legs==ModArmour.fireDragonScaleLeggings || legs==ModArmour.fireDragonScaleLeggings2) && (feet==ModArmour.fireDragonScaleBoots || feet==ModArmour.fireDragonScaleBoots2)) && (player.isInLava() || player.world.isMaterialInBB(player.getEntityBoundingBox().grow(-0.1, -0.4, -0.1), Material.FIRE))) {
+                player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
+//                delay=0;
+                shouldGive=false;
+            }
         }
         if (head==ModArmour.waterDragonScaleCap && player.isInWater()) {
             player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 300, 0, false, false));

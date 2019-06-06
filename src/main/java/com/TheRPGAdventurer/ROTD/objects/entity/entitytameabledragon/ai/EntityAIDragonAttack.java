@@ -23,7 +23,6 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
     /** The PathEntity of our entity. */
     Path entityPathEntity;
     private int delayCounter;
-    private int breathCooldown;
     private double targetX;
     private double targetY;
     private double targetZ;

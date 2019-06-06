@@ -24,6 +24,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -101,7 +102,7 @@ public class ClientProxy extends ServerProxy {
     @Override
     public void Initialization(FMLInitializationEvent evt) {
         super.Initialization(evt);
-
+        
         // Dragon Whistle String Color
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1) return stack.getTagCompound().getInteger("Color");
@@ -136,26 +137,21 @@ public class ClientProxy extends ServerProxy {
         thirdPersonViewDragon=view;
     }
 
-    public boolean getDragonFollowYaw() {
-        return followYaw;
-    }
-
     public void setDragonFollowYaw(boolean followYaw) {
         this.followYaw=followYaw;
     }
 
-    public int getDragonLockY() {
-        return lockY;
+    public boolean getDragonFollowYaw() {
+    	return followYaw;
     }
+
 
     public void setDragonLockY(int lockY) {
         this.lockY = lockY;
     }
 
     @Override
-    public boolean getDragonHover() {
-        return hover;
-    }
+    public boolean getDragonHover() { return hover; }
 
     @Override
     public void setDragonHover(boolean hover) {
@@ -163,6 +159,6 @@ public class ClientProxy extends ServerProxy {
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
+    	ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
     }
 }

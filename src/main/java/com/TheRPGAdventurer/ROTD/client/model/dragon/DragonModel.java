@@ -206,26 +206,26 @@ public class DragonModel extends AdvancedModelBase {
     }
 
     private void buildHorn(boolean mirror) {
-        int hornThick = 3;
-        int hornLength = 12;
+        int hornThick=3;
+        int hornLength=12;
 
-        float hornOfs = -(hornThick / 2f);
+        float hornOfs=-(hornThick / 2f);
 
         float hornPosX = -5;
         float hornPosY = -8;
         float hornPosZ = 0;
 
-        float hornRotX = MathX.toRadians(30);
-        float hornRotY = MathX.toRadians(-30);
-        float hornRotZ = 0;
+        float hornRotX=MathX.toRadians(30);
+        float hornRotY=MathX.toRadians(-30);
+        float hornRotZ=0;
 
         if (mirror) {
-            hornPosX *= -1;
-            hornRotY *= -1;
+            hornPosX*=-1;
+            hornRotY*=-1;
         }
 
-        head.mirror = mirror;
-        ModelPart horn = head.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
+        head.mirror=mirror;
+        ModelPart horn=head.addChildBox("horn", hornOfs, hornOfs, hornOfs, hornThick, hornThick, hornLength);
         horn.setRotationPoint(hornPosX, hornPosY, hornPosZ);
         horn.setAngles(hornRotX, hornRotY, hornRotZ);
 
@@ -321,7 +321,7 @@ public class DragonModel extends AdvancedModelBase {
     private void buildWing() {
         wingArm=new ModelPart(this, "wingarm");
         wingArm.setRotationPoint(-10, 5, 4);
-        wingArm.setRenderScale(1.1f);
+        wingArm.setRenderScale(1.1f); //1.1f
         wingArm.addBox("bone", -28, -3, -3, 28, 6, 6);
         wingArm.addBox("skin", -28, 0, 2, 28, 0, 24);
 

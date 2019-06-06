@@ -253,7 +253,6 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
         if (numPlayersUsing <= 0) {
             double d3 = (double) pos.getX() + 0.5D;
             double d0 = (double) pos.getZ() + 0.5D;
-            this.world.playSound((EntityPlayer) null, d3, (double) pos.getY() + 0.5D, d0, SoundEvents.BLOCK_SHULKER_BOX_CLOSE, SoundCategory.BLOCKS, 0.4F, this.world.rand.nextFloat() * 0.1F + 0.9F);
             this.world.playSound((EntityPlayer) null, d3, (double) pos.getY() + 0.5D, d0, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 0.3F, this.world.rand.nextFloat() * 0.1F + 0.3F);
             this.world.playSound((EntityPlayer) null, d3, (double) pos.getY() + 0.5D, d0, SoundEvents.ENTITY_ENDEREYE_DEATH, SoundCategory.NEUTRAL, 2.0F, this.world.rand.nextFloat() * 0.1F + 0.3F);
             this.world.playEvent(2003, this.getPos().up(), 0);

@@ -44,11 +44,12 @@ public class DragonBreedFire extends DragonBreed {
         dragon.getBrain().setAvoidsWater(true);
     }
     
-//    @Override
-//    public SoundEvent getLivingSound() {
-//       return SoundEvents.BLOCK_FIRE_AMBIENT;
-//    }
 
+/*    @Override
+    public SoundEvent getLivingSound() {
+       return SoundEvents.BLOCK_FIRE_AMBIENT;
+    }
+*/
     @Override
     public void onDisable(EntityTameableDragon dragon) {
         dragon.getBrain().setAvoidsWater(false);

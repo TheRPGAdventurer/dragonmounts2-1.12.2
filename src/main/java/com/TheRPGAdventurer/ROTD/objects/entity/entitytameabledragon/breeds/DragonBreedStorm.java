@@ -8,7 +8,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -87,19 +88,23 @@ public class DragonBreedStorm extends DragonBreed {
     		  if(random.nextInt(70) == 1 && dragon.world.isRaining()) {
     		     dragon.world.addWeatherEffect(new EntityLightningBolt(target.world, target.posX, target.posY, target.posZ, false)); 		   
     		}
-    	}
-    	
-		World world = dragon.world;
-		
-		if (world instanceof WorldServer && !dragon.isDead && !dragon.isEgg()) {
-			((WorldServer) world).spawnParticle(EnumParticleTypes.DRIP_WATER, dragon.posX,
-					dragon.posY + dragon.getEyeHeight(), dragon.posZ, 1, 0.5D, 0.25D, 0.5D, 0.0D);
-		}
-    	
-    //	if(!dragon.isPotionActive(new PotionEffect(MobEffects.STRENGTH).getPotion())) {
-    //		dragon.setBreedType(EnumDragonBreed.SYLPHID);
-    //	}
+    	} 
+    	doParticles(dragon);
 	}
+	
+    @SideOnly(Side.CLIENT)
+    private void doParticles(EntityTameableDragon dragon) {
+        if (!dragon.isEgg() && !dragon.isHatchling()) {
+	        float s = dragon.getScale() * 1.2f;
+	        for (double x1 = 0; x1 < s; ++x1) {
+		        double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
+		        double y = dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;
+		        double z = dragon.posZ + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
+		        
+		        dragon.world.spawnParticle(EnumParticleTypes.DRIP_WATER, x, y - 1, z, 0, 0, 0);
+	        }
+        }
+    }
 	
 	@Override
 	public EnumParticleTypes getSneezeParticle() {

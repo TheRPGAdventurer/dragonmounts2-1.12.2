@@ -50,9 +50,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
     
     @Override
     @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {
-
-    }
+    public void onClientReceived(Minecraft client, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {}
 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonTeleport message, EntityPlayer player, MessageContext messageContext) {

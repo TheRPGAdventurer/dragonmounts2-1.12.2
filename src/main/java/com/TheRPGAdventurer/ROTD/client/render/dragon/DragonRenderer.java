@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.client.render.dragon;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModelMode;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStageHelper;
@@ -175,8 +176,8 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
         BufferBuilder vb=tessellator.getBuffer();
         vb.begin(GL_QUADS, DefaultVertexFormats.BLOCK);
 
-        Block block=dragon.getEggBlock(dragon.getBreedType());
-        IBlockState iblockstate=block.getDefaultState();
+        Block block=BlockDragonBreedEgg.DRAGON_BREED_EGG;
+        IBlockState iblockstate=block.getDefaultState().withProperty(BlockDragonBreedEgg.BREED, dragon.getBreedType());
         BlockPos blockpos=dragon.getPosition();
 
         double tx=-blockpos.getX() - 0.5;

@@ -2131,29 +2131,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean isEgg() {
         return getLifeStageHelper().isEgg();
     }
-    
-    public Block getEggBlock(EnumDragonBreed breed) {
-    	switch (breed) {
-    	case AETHER: return ModBlocks.AETHER_DRAGONEGG;
-    	case ENCHANT: return ModBlocks.ENCHANT_DRAGONEGG;
-    	case END: return ModBlocks.ENDER_DRAGONEGG;
-    	case FIRE: return ModBlocks.FIRE_DRAGONEGG;
-    	case FOREST: return ModBlocks.FOREST_DRAGONEGG;
-    	case ICE: return ModBlocks.ICE_DRAGONEGG;
-    	case MOONLIGHT: return ModBlocks.MOONLIGHT_DRAGONEGG;
-    	case NETHER: return ModBlocks.NETHER_DRAGONEGG;
-    	case SKELETON: return ModBlocks.SKELETON_DRAGONEGG;
-    	case STORM: return ModBlocks.STORM_DRAGONEGG;
-    	case SUNLIGHT: return ModBlocks.SUNLIGHT_DRAGONEGG;
-    	case SYLPHID: return ModBlocks.SYLPHID_DRAGONEGG;
-    	case TERRA: return ModBlocks.TERRA_DRAGONEGG;
-    	case WITHER: return ModBlocks.WITHER_DRAGONEGG;
-    	case ZOMBIE: return ModBlocks.ZOMBIE_DRAGONEGG;
-		default:
-			L.error("getEggBlock called with invalid breed type!");
-			return null;
-    	}
-    }
 
     /**
      * Calls both hatchling and infant since infant is just another stage to reduce growth speed

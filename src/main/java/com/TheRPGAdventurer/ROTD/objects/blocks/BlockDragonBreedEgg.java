@@ -9,14 +9,10 @@
  */
 package com.TheRPGAdventurer.ROTD.objects.blocks;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
@@ -34,6 +30,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -128,8 +126,8 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     
     public static final BlockDragonBreedEgg[] BLOCK_EGG = {DRAGON_BREED_EGG = new BlockDragonBreedEgg()};
      
-	@Override
-	public void RegisterModels() {
-		DragonMounts.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-	}
+//	@Override
+//	public void RegisterModels() {
+//		DragonMounts.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+//	}
 }

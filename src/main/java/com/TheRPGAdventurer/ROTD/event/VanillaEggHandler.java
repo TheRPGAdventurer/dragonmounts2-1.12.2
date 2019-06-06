@@ -4,8 +4,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -29,7 +28,7 @@ public class VanillaEggHandler {
 		if (world.isRemote) return; //do nothing on client world
 		if (DragonMountsConfig.isDisableBlockOverride()) return; //do nothing if config is set
 		if (world.provider.getDimensionType() == DimensionType.THE_END) {
-			evt.getEntityPlayer().sendStatusMessage(new TextComponentTranslation(StatCollector.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
+			evt.getEntityPlayer().sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
 			return;  //cant hatch in the end
 		}
 	    	

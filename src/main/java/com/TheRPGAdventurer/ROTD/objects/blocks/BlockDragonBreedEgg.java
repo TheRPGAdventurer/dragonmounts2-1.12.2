@@ -12,10 +12,11 @@ package com.TheRPGAdventurer.ROTD.objects.blocks;
 import java.util.Random;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
@@ -92,15 +93,15 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
     	return;
     }
-    
+
     /**
      * Called when the block is right clicked by a player.
      */
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    	if (worldIn.isRemote) return false;
+    	if (worldIn.isRemote || DragonMountsConfig.isDisableBlockOverride()) return false;
     	if (worldIn.provider.getDimensionType() == DimensionType.THE_END) {
-    		playerIn.sendStatusMessage(new TextComponentTranslation(StatCollector.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
+    		playerIn.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
     		return false;
     	}
     	    	

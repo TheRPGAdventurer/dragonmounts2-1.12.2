@@ -3,8 +3,7 @@ package com.TheRPGAdventurer.ROTD.objects.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -69,7 +68,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     	NBTTagCompound tag = new NBTTagCompound();
     	tag.setString("breed", dragon.getBreedType().toString().toLowerCase());
     	this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-    	tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+    	tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
     	tag.setString("OwnerName", dragon.getOwner().getName());
 
     	target.writeToNBT(tag);
@@ -127,7 +126,7 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
     		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
     		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));
-    	} else tooltip.add(t.GREEN + StatCollector.translateToLocal("item.dragonamulet.info"));
+    	} else tooltip.add(t.GREEN + DMUtils.translateToLocal("item.dragonamulet.info"));
     }
 
     /**

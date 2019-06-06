@@ -1,11 +1,8 @@
 package com.TheRPGAdventurer.ROTD.objects.tileentities;
 
-import java.util.List;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragonShulker;
 import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonShulker;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.state.IBlockState;
@@ -25,6 +22,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 
+import java.util.List;
+
 /**
  * Dragon Core TileEntity
  *
@@ -32,6 +31,7 @@ import net.minecraft.util.math.AxisAlignedBB;
  */
 
 public class TileEntityDragonShulker extends TileEntityLockableLoot implements ITickable {
+
     private NonNullList<ItemStack> chestContents = NonNullList.<ItemStack>withSize(72, ItemStack.EMPTY);
     public int numPlayersUsing, ticksSinceSync;
     private float progress, progressOld;

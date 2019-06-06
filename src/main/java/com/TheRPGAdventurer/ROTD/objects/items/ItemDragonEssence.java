@@ -5,9 +5,8 @@ import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -40,7 +39,13 @@ public class ItemDragonEssence extends Item implements IHasModel {
         this.maxStackSize = 1;
         this.type = type;
 
+        setNameColor();
         ModItems.ITEMS.add(this);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     @Override
@@ -89,7 +94,7 @@ public class ItemDragonEssence extends Item implements IHasModel {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-    	tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+    	tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
         if (stack.getTagCompound() == null) {
             //Broken NBT, possibly cheated in, Warn the player...
             tooltip.add(TextFormatting.RED + "ERROR: Broken or Missing NBT Data");

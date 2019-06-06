@@ -4,9 +4,8 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonWhistle;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -71,8 +70,8 @@ public class ItemDragonWhistle extends Item implements IHasModel {
         nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
         
         EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-    	nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
-    	nbt.setString("Age", StatCollector.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
+    	nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+    	nbt.setString("Age", DMUtils.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
     	nbt.setString("OwnerName", dragon.getOwner().getName());
     	nbt.setInteger("Color", dragon.getBreed().getColor());
 
@@ -125,8 +124,8 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 			tooltip.add(TextFormatting.GRAY + "Name: " + stack.getTagCompound().getString("Name"));
 			tooltip.add(TextFormatting.GRAY + "Age: " + TextFormatting.AQUA + stack.getTagCompound().getString("Age"));
 			tooltip.add(TextFormatting.GRAY + "Owner: " + TextFormatting.GOLD + stack.getTagCompound().getString("OwnerName"));
-			tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + StatCollector.translateToLocal("item.removeNBT"));
-		} else tooltip.add(StatCollector.translateToLocal("item.whistle.info"));
+			tooltip.add(TextFormatting.GRAY + "" + TextFormatting.ITALIC + DMUtils.translateToLocal("item.removeNBT"));
+		} else tooltip.add(DMUtils.translateToLocal("item.whistle.info"));
 	}
 	
 	@Override

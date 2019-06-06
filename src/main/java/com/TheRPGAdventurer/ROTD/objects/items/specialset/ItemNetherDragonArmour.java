@@ -2,8 +2,7 @@ package com.TheRPGAdventurer.ROTD.objects.items.specialset;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.util.StatCollector;
-
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -33,9 +32,14 @@ public class ItemNetherDragonArmour extends ItemArmor {
 		this.setCreativeTab(DragonMounts.armoryTab);
 		this.type = type;
 
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+		setNameColor();
 	}
-	
+
+    @SideOnly(Side.CLIENT)
+    private void setNameColor() {
+        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
+    }
+
 	@Override
 	public void onArmorTick(final World world, final EntityPlayer player, final ItemStack itemStack) {
 //		if (player.) { // If the Potion isn't currently active,
@@ -112,7 +116,7 @@ public class ItemNetherDragonArmour extends ItemArmor {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(type.color + StatCollector.translateToLocal("dragon." + type.toString().toLowerCase()));
+		tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
 	}
 
 }

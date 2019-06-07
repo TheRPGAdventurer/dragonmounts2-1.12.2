@@ -3,11 +3,14 @@ package com.TheRPGAdventurer.ROTD.objects.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -24,9 +27,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Dragon Amulet Item for the use of carrying dragons in an item
@@ -141,4 +144,25 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
 			return new ModelResourceLocation("dragonmounts:" + stack.getTagCompound().getString("breed") + "_dragon_amulet");
 		} else return new ModelResourceLocation("dragonmounts:dragon_amulet");
 	}
+
+	/* INDESTRUCTIBLE */
+
+	@Nonnull
+	@Override
+	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+		EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
+		if (location instanceof EntityItem) {
+			// workaround for private access on that field >_>
+			NBTTagCompound tag = new NBTTagCompound();
+			location.writeToNBT(tag);
+			entity.setPickupDelay(tag.getShort("PickupDelay"));
+		}
+		entity.motionX = location.motionX;
+		entity.motionY = location.motionY;
+		entity.motionZ = location.motionZ;
+		return entity;
+	}
+
+	@Override
+	public boolean hasCustomEntity(ItemStack stack) { return true; }
 }

@@ -884,7 +884,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer()!=null && this.moveStrafing==0) { //  && (!this.isUsingBreathWeapon())
+        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer()!=null  &&
+                (this.isUsingBreathWeapon() && this.moveStrafing==0)) {
             this.equalizeYaw(this.getControllingPlayer());
         }
 
@@ -944,12 +945,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        int factor=DragonMountsConfig.REG_FACTOR;
-        if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor==0 && !isDead) {
-            int[] exclude={0};
-            int health=DMUtils.getRandomWithExclusionstatic(new Random(), 1, 3, exclude);
-            this.heal(health);
-        }
+//        int factor=DragonMountsConfig.REG_FACTOR;
+//        if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor==0 && !isDead) {
+//            int[] exclude={0};
+//            int health=DMUtils.getRandomWithExclusionstatic(new Random(), 1, 3, exclude);
+//            this.heal(health);
+//        }
 
         doBlockCollisions();
         List<Entity> list=this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
@@ -2281,7 +2282,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return max pitch speed in degrees per tick
      */
     public float getHeadPitchSpeed() {
-        return 50;
+        return this.getControllingPlayer()!=null ? 400 : 1;
     }
 
     @Override

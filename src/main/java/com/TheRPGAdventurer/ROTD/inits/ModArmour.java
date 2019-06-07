@@ -235,15 +235,15 @@ public class ModArmour {
             moonlightDragonScaleLeggings = new ItemDragonArmour(MoonlightDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "moonlight_dragonscale_leggings", EnumItemBreedTypes.MOONLIGHT),
             moonlightDragonScaleBoots = new ItemDragonArmour(MoonlightDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "moonlight_dragonscale_boots", EnumItemBreedTypes.MOONLIGHT),
 
-            ghostDragonScaleCap = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "ghost_dragonscale_cap", EnumItemBreedTypes.GHOST),
-            ghostDragonScaleTunic = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "ghost_dragonscale_tunic", EnumItemBreedTypes.GHOST),
-            ghostDragonScaleLeggings = new ItemDragonArmour(GhostDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "ghost_dragonscale_leggings", EnumItemBreedTypes.GHOST),
-            ghostDragonScaleBoots = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "ghost_dragonscale_boots", EnumItemBreedTypes.GHOST),
-
-            witherDragonScaleCap = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "wither_dragonscale_cap", EnumItemBreedTypes.WITHER),
-            witherDragonScaleTunic = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "wither_dragonscale_tunic", EnumItemBreedTypes.WITHER),
-            witherDragonScaleLeggings = new ItemDragonArmour(WitherDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "wither_dragonscale_leggings", EnumItemBreedTypes.WITHER),
-            witherDragonScaleBoots = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "wither_dragonscale_boots", EnumItemBreedTypes.WITHER),
+//            ghostDragonScaleCap = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "ghost_dragonscale_cap", EnumItemBreedTypes.GHOST),
+//            ghostDragonScaleTunic = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "ghost_dragonscale_tunic", EnumItemBreedTypes.GHOST),
+//            ghostDragonScaleLeggings = new ItemDragonArmour(GhostDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "ghost_dragonscale_leggings", EnumItemBreedTypes.GHOST),
+//            ghostDragonScaleBoots = new ItemDragonArmour(GhostDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "ghost_dragonscale_boots", EnumItemBreedTypes.GHOST),
+//
+//            witherDragonScaleCap = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "wither_dragonscale_cap", EnumItemBreedTypes.WITHER),
+//            witherDragonScaleTunic = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "wither_dragonscale_tunic", EnumItemBreedTypes.WITHER),
+//            witherDragonScaleLeggings = new ItemDragonArmour(WitherDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "wither_dragonscale_leggings", EnumItemBreedTypes.WITHER),
+//            witherDragonScaleBoots = new ItemDragonArmour(WitherDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "wither_dragonscale_boots", EnumItemBreedTypes.WITHER),
 
             dragonarmor_iron = new ItemDragonArmor("dragonarmor_iron"),
             dragonarmor_gold = new ItemDragonArmor("dragonarmor_gold"),

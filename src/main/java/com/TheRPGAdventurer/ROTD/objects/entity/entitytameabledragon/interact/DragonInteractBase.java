@@ -15,7 +15,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -33,16 +32,15 @@ public abstract class DragonInteractBase {
     public abstract boolean interact(EntityPlayer player, ItemStack item);
     
     protected boolean isAllowed(EntityPlayer player) {
-		ItemFood food = (ItemFood) DMUtils.consumeEquipped(player, DragonBreed.getFoodItems());
-        if (!dragon.isTamed() && (food == null || !DMUtils.consumeFish(player))) {
+		boolean hasFood = DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems()) || DMUtils.consumeFish(player);
+		
+        if (!dragon.isTamed() && !hasFood) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
             return dragon.isTamedFor(player);
-        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player) && (food == null || !DMUtils.consumeFish(player)) && !DMUtils.hasEquippedAmulet(player)) {
+        } else if (!dragon.allowedOtherPlayers() && !dragon.isTamedFor(player) && dragon.isTamed() && !(dragon.getHealthRelative() < 1 && hasFood)) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
             return dragon.isTamedFor(player);
-        } else {
-            return true;
-        }
+        } else return true;
     }
     
     public boolean hasInteractItemsEquipped(EntityPlayer player) {

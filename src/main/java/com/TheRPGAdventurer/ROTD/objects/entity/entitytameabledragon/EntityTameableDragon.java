@@ -25,6 +25,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.Drag
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.DragonInteractBase;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
@@ -794,6 +795,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public void onEntityUpdate() {
+    	
+    		if (getRNG().nextInt(100) == 0) L.info(getScale()); //TODO DEBUG
+    	
         if (getRNG().nextInt(800)==1 && !isEgg()) {
             roar();
         }
@@ -1368,16 +1372,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack item=player.getHeldItem(hand);
         // don't interact with eggs!
-        if (isEgg()) {
-            return !this.canBeLeashedTo(player);
-        }
+        if (isEgg()) return !this.canBeLeashedTo(player);
 
-        if (getHealth() <= 0) {
-            return false;
-        }
+        if (getHealth() <= 0) return false;
 
-        if (!ModKeys.DISMOUNT.isKeyDown() && !DMUtils.hasEquipped(player, ModItems.Amulet) && !DMUtils.hasEquipped(player, Items.STICK) && !DMUtils.hasEquipped(player, Items.BONE) && !DMUtils.hasEquippedUsable(player) && this.isTamedFor(player) && this.getScale() <= 0.35) {
-
+        if (this.isTamedFor(player) && this.getScale() <= 0.35 && !player.isSneaking()) {
             this.setSitting(false);
             this.startRiding(player, true);
             return true;
@@ -1728,21 +1727,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      *
      * @return 0 no armor
      */
-    public int getArmorResistance() {
-        if (getArmor()==1) {
-            return (int) 1.4;
-        }
-        if (getArmor()==2) {
-            return (int) 1.2;
-        }
-        if (getArmor()==3) {
-            return (int) 1.7;
-        }
-
-        if (getArmor()==4) {
-            return (int) 1.4;
-        }
-        return 0;
+    public double getArmorResistance() {
+    	switch (getArmor()) {
+    		case 1: return 1.4;
+    		case 2: return 1.2;
+    		case 3: return 1.7;
+    		case 4: return 1.4;
+    		default: return 0;
+    	}
     }
 
     /**
@@ -1897,21 +1889,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void updateRidden() {
         Entity entity=this.getRidingEntity();
-        if (this.isRiding() && !isRidingAboveGround(entity) && (ModKeys.DISMOUNT.isPressed() || entity.isDead) || this.getScale() > 0.35) this.dismountRidingEntity();
-        else {
-            this.motionX=0.0D;
-            this.motionY=0.0D;
-            this.motionZ=0.0D;
-            this.onUpdate();
-            if (this.isRiding()) {
-                this.updateRiding(entity);
-            }
-        }
+        this.motionX=0.0D;
+        this.motionY=0.0D;
+        this.motionZ=0.0D;
+        this.onUpdate();
+        if (this.isRiding()) this.updateRiding(entity);
     }
     
     public boolean isRidingAboveGround(Entity entity) {
-        BlockPos groundPos=world.getHeight(getPosition());
-        double altitude=entity.posY - groundPos.getY();
+        int groundPos=world.getHeight(getPosition()).getY();
+        double altitude=entity.posY - groundPos;
         return altitude > 2.0;
     }
 
@@ -1937,17 +1924,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             double extraX=(double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ=(double) (radius * MathHelper.cos(angle));
             double extraY=(riding.isSneaking() ? 1.0D : 1.4D) + (i==2 ? 0.4D : 0D);
-            equalizeYaw((EntityPlayer) riding);
-            //            Vec3d wp=riding.getLook(1.0F);
-            //            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
-            //            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
-            //            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+//            equalizeYaw((EntityPlayer) riding);
+            
+            Vec3d wp=riding.getLook(1.0F);
+            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
+            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);
+            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed() * 50, this.getHeadPitchSpeed() * 50);
 
             this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-            if (riding.isSneaking() && !this.boosting()) {
-                this.dismountRidingEntity();
-            }
-            this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying);
+            if (ModKeys.DISMOUNT.isKeyDown() || this.isDead || this.getScale() > 0.35) this.dismountRidingEntity();
+            this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying && !riding.onGround);
         }
     }
 
@@ -2618,7 +2604,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
 
-        float damageReduction=getArmorResistance() + 3.0F;
+        float damageReduction= (float) getArmorResistance() + 3.0F;
         if (getArmorResistance()!=0) {
             damage-=damageReduction;
         }

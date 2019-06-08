@@ -132,6 +132,8 @@ egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
+msg.dragon.toggleHover=Dragon Hover Toggle
+msg.dragon.toggleFollowYaw=Dragon Follow Yaw
 
 # Whistle
 whistle.msg.cleared=Dragon has been unbound

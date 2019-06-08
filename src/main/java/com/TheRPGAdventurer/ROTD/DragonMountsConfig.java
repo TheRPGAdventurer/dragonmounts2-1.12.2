@@ -10,6 +10,8 @@
 package com.TheRPGAdventurer.ROTD;
 
 import com.google.common.collect.Lists;
+
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -51,6 +53,7 @@ public class DragonMountsConfig {
 
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
+	public static double BASE_HEALTH = 85.0d;
 	public static int REG_FACTOR  = 75;
 	public static int hungerDecrement  = 3000;
 
@@ -150,6 +153,11 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "Damage", BASE_DAMAGE);
 		prop.setComment("Damage for dragon attack");
 		BASE_DAMAGE = prop.getDouble();
+		propOrder.add(prop.getName());
+		
+		prop = config.get(CATEGORY_MAIN, "Dragon Base Health", BASE_HEALTH);
+		prop.setComment("Dragon Base Health" + TextFormatting.ITALIC + " Note: Some Dragons have unique health values and are still affected by this");
+		BASE_HEALTH = prop.getDouble();
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "Health Regen Speed", REG_FACTOR);

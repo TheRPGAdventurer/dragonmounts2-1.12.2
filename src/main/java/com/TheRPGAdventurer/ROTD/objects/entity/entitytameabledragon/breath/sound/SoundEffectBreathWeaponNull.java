@@ -1,6 +1,6 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.sound;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound;
 
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import net.minecraft.client.entity.EntityPlayerSP;
 
 /**

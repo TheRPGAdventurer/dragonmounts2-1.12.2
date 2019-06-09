@@ -2,10 +2,10 @@
 package com.TheRPGAdventurer.ROTD.client.userinput;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.breath.BreathWeaponTarget;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTarget;
-import com.TheRPGAdventurer.ROTD.util.ItemUtils;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathWeaponTarget;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.RayTraceServer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -76,7 +76,7 @@ public class DragonOrbControl {
 
     boolean oldTriggerHeld = triggerHeld;
 
-    if (!ItemUtils.hasEquipped(entityPlayerSP, ModItems.dragon_orb)) {
+    if (!DMUtils.hasEquipped(entityPlayerSP, ModItems.dragon_orb)) {
       enableClickInterception(false);
       triggerHeld = false;
       targetBeingLookedAt = null;

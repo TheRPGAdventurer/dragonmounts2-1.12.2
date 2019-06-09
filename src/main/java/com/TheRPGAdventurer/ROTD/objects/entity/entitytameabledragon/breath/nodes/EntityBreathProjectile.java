@@ -1,8 +1,8 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectProjectile;
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectProjectile;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;

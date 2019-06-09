@@ -1,9 +1,10 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes;
 
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathMode;
-import com.TheRPGAdventurer.ROTD.entity.breath.IEntityParticle;
-import com.TheRPGAdventurer.ROTD.entity.helper.util.EntityMoveAndResizeHelper;
-import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
+
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathMode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.IEntityParticle;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.EntityMoveAndResizeHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

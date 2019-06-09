@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.entity.breath;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath;
 
 import net.minecraft.util.math.Vec3d;
 

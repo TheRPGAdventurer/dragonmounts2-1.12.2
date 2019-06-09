@@ -1,8 +1,8 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelperP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathHelperP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeP;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 

@@ -1,16 +1,16 @@
-package com.TheRPGAdventurer.ROTD.entity.breath;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponFXEmitter;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeFactory;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeP;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathProjectileFactory;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundController;
-import com.TheRPGAdventurer.ROTD.entity.breath.sound.SoundEffectBreathWeaponP;
-import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeaponP;
-import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
-import com.TheRPGAdventurer.ROTD.entity.helper.DragonHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeFactory;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathProjectileFactory;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundController;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectBreathWeaponP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.BreathWeaponP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;

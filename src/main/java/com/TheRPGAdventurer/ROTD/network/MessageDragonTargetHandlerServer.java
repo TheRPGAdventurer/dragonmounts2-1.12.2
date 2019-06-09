@@ -9,7 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.network;
 
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonOrbTargets;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonOrbTargets;
 import io.netty.channel.ChannelHandler.Sharable;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

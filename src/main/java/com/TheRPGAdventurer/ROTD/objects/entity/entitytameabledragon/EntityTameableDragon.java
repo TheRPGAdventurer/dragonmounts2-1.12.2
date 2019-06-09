@@ -22,6 +22,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.path.PathNavigateFlying;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathHelperP;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
@@ -32,7 +33,6 @@ import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -125,66 +125,37 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static int ticksShear;
 
     // data value IDs
-    private static final DataParameter<Boolean> DATA_FLYING = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> DATA_SADDLED = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> DATA_BREATHING = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> AGE_TICKS = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> CHESTED = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> BOOSTING = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IS_MALE = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> ARMOR = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> Y_LOCKED = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FLUTTER_CANCELLED = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FOLLOW_YAW = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-    private static final DataParameter<String> DATA_BREED = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
-    private static final DataParameter<Integer> DATA_REPRO_COUNT = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> HUNGER = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    private static final DataParameter<Byte> DRAGON_SCALES = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BYTE);
-//    private static final DataParameter<String> DATA_BREATH_WEAPON = EntityDataManager
-//            .createKey(EntityTameableDragon.class, DataSerializers.STRING);
-    private static final DataParameter<ItemStack> BANNER1 = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<ItemStack> BANNER2 = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<ItemStack> BANNER3 = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<ItemStack> BANNER4 = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<Boolean> HAS_ADJUCATOR_STONE = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> HAS_ELDER_STONE = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-    public static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BYTE);
-    public static final DataParameter<ItemStack> WHISTLE = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
-    private static final DataParameter<Boolean> SLEEP = EntityDataManager
-            .createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
-
-    private static final DataParameter<String> DATA_BREATH_WEAPON_TARGET = EntityDataManager
+    private static final DataParameter<Boolean> DATA_FLYING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> GROWTH_PAUSED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> DATA_SADDLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> DATA_BREATHING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> GOING_DOWN=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> CHESTED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> BOOSTING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> IS_MALE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> IS_ALBINO=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Integer> ARMOR=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+  private static final DataParameter<Boolean> HOVER_CANCELLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> Y_LOCKED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> FOLLOW_YAW=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Optional<UUID>> DATA_BREEDER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+  private static final DataParameter<String> DATA_BREED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
+  private static final DataParameter<Integer> DATA_REPRO_COUNT=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+  private static final DataParameter<Integer> HUNGER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+  private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+  private static final DataParameter<Byte> DRAGON_SCALES=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
+  private static final DataParameter<String> DATA_BREATH_WEAPON=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
+  private static final DataParameter<ItemStack> BANNER1=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+  private static final DataParameter<ItemStack> BANNER2=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+  private static final DataParameter<ItemStack> BANNER3=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+  private static final DataParameter<ItemStack> BANNER4=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+  private static final DataParameter<Boolean> HAS_ADJUCATOR_STONE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Boolean> HAS_ELDER_STONE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<Byte> WHISTLE_STATE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
+  private static final DataParameter<ItemStack> WHISTLE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+  private static final DataParameter<Boolean> SLEEP=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+  private static final DataParameter<String> DATA_BREATH_WEAPON_TARGET = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_BREATH_WEAPON_MODE = EntityDataManager
             .createKey(EntityTameableDragon.class, DataSerializers.VARINT);
@@ -1154,7 +1125,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     double x=midPoint.getX() + 0.5 - 12;
     double y=midPoint.getY() + 0.5 + 24;
     double z=midPoint.getZ() + 0.5 - offset;
-    this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+    this.setBoosting(this.getDistance(getOwner()) > 50);
     return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
   }
 
@@ -1171,7 +1142,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x=midPoint.getX() + 0.5 - 12;
         double y=midPoint.getY() + 0.5 + 24;
         double z=midPoint.getZ() + 0.5 - offset;
-        this.setBoosting(this.getDistanceToEntity(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 50);
         return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
     }
 

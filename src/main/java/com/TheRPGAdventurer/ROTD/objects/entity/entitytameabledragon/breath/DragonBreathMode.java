@@ -1,5 +1,4 @@
-package com.TheRPGAdventurer.ROTD.entity.breath;
-
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath;
 
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.EntityDataManager;

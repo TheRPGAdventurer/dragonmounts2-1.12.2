@@ -1,5 +1,6 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.sound;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound;
 
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectName;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 

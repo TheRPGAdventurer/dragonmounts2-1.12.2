@@ -1,9 +1,9 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathMode;
-import com.TheRPGAdventurer.ROTD.entity.breath.IEntityParticle;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeP;
-import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathMode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.IEntityParticle;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.Particle;

@@ -1,9 +1,5 @@
 package com.TheRPGAdventurer.ROTD.util.debugging.testclasses;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.BreathAffectedBlock;
-import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeapon;
-import com.TheRPGAdventurer.ROTD.entity.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.util.debugging.TestRunner;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

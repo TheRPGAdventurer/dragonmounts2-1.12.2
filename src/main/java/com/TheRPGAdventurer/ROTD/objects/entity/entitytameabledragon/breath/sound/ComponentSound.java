@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.sound;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound;
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.audio.ITickableSound;

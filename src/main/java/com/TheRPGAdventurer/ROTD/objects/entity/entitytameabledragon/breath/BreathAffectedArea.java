@@ -1,13 +1,13 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeFactory;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.BreathNodeP;
-import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeapon;
-import com.TheRPGAdventurer.ROTD.entity.breath.weapons.BreathWeaponP;
-import com.TheRPGAdventurer.ROTD.entity.breath.nodes.EntityBreathNodeP;
-import com.TheRPGAdventurer.ROTD.entity.helper.util.Pair;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeFactory;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.EntityBreathNodeP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.BreathWeapon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.BreathWeaponP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;

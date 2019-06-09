@@ -7,7 +7,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.soun
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectBreathWeapon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonHelper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.network.datasync.DataParameter;
@@ -150,6 +149,7 @@ public class DragonBreathHelper extends DragonHelper {
         BreathNode.Power power = dragon.getLifeStageHelper().getBreathPower();
         dragon.getBreed().spawnBreathParticles(dragon.getEntityWorld(), power, tickCounter, origin, endOfLook, dragon);
       }
+    }
 
     if (soundEffectBreathWeapon == null) {
       soundEffectBreathWeapon = new SoundEffectBreathWeapon(getSoundController(dragon.getEntityWorld()), weaponInfoLink);

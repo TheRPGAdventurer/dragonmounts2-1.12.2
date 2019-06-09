@@ -1,8 +1,8 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathMode;
-import com.TheRPGAdventurer.ROTD.entity.breath.IEntityParticle;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathMode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.IEntityParticle;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;

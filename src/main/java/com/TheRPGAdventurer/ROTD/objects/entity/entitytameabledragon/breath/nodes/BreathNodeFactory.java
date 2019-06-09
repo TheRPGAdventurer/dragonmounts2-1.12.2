@@ -1,6 +1,6 @@
-package com.TheRPGAdventurer.ROTD.entity.breath.nodes;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes;
 
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathMode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathMode;
 
 /**
  * Created by TGG on 14/12/2015.

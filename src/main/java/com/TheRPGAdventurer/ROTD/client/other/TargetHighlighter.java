@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.client.other;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.userinput.DragonOrbControl;
-import com.TheRPGAdventurer.ROTD.entity.breath.BreathWeaponTarget;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathWeaponTarget;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;

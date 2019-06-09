@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.util.math;
 
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
@@ -353,6 +354,65 @@ public class MathX {
 	    x = Float.intBitsToFloat(i);
 	    x *= (1.5f - xhalf * x * x);
 	    return x;
+  }
+
+  // calculate the yaw from the given direction
+  // returns from -180 to +180
+  public static double calculateYaw(Vec3d direction)
+  {
+    double yaw = (Math.atan2(direction.z, direction.x) * 180.0D / Math.PI) - 90.0F;
+    yaw = MathX.normDeg(yaw);
+    return yaw;
+  }
+
+  // calculate the pitch from the given direction
+  // returns from -90 to +90
+  public static double calculatePitch(Vec3d direction)
+  {
+    double xz_norm = MathHelper
+            .sqrt(direction.x * direction.x + direction.z * direction.z);
+    double pitch = -(Math.atan2(direction.y, xz_norm) * 180.0D / Math.PI);
+    return pitch;
+  }
+
+  /**
+   * Return a random integer in the given range
+   * @param random
+   * @param minValue minimum possible value (inclusive)
+   * @param maxValue maximum possible value (exclusive)
+   * @return the random value lying between [minimum, maximum]
+   */
+  public static int getRandomInRange(Random random, int minValue, int maxValue)
+  {
+    return random.nextInt(maxValue - minValue + 1) + minValue;
+  }
+
+  /**
+   * Return a random float in the given range
+   * @param random
+   * @param minValue minimum possible value (inclusive)
+   * @param maxValue maximum possible value (exclusive)
+   * @return the random value lying between [minimum, maximum]
+   */
+  public static float getRandomInRange(Random random, float minValue, float maxValue)
+  {
+    return random.nextFloat() * (maxValue - minValue) + minValue;
+  }
+
+  /**
+   * find the closest distance between the aabb to the given point
+   * @param aabb the aabb
+   * @param point the point to be measured to
+   * @return the distance squared
+   */
+  public static double getClosestDistanceSQ(AxisAlignedBB aabb, Vec3d point)
+  {
+    // because the aabb is aligned, we just need to figure out the distance in each cardinal axis and then
+    //  add them together
+    double dx = Math.max(Math.max(0, aabb.minX - point.x), point.x - aabb.maxX);
+    double dy = Math.max(Math.max(0, aabb.minY - point.y), point.y - aabb.maxY);
+    double dz = Math.max(Math.max(0, aabb.minZ - point.z), point.z - aabb.maxZ);
+    return dx*dx + dy*dy + dz*dz;
   }
 
 }

@@ -1,7 +1,7 @@
-package com.TheRPGAdventurer.ROTD.entity.breath;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.helper.util.Base64;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Base64;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;

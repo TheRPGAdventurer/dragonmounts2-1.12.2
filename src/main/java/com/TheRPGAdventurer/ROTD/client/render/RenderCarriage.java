@@ -2,7 +2,8 @@ package com.TheRPGAdventurer.ROTD.client.render;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.model.ModelDragonCarriage;
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

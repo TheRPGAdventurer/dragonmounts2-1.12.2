@@ -1,10 +1,10 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.items.ItemDiamondShears;
-import com.TheRPGAdventurer.ROTD.items.bow.*;
-import com.TheRPGAdventurer.ROTD.items.gemset.*;
+import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDiamondShears;
+import com.TheRPGAdventurer.ROTD.objects.items.bow.*;
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -19,7 +19,9 @@ public class ModTools {
 	//Bow Array - Separate for Bow Anim
     public static final List<Item> BOWS = new ArrayList<Item>();
 	
-	static float damage = 10.0F; static float speed = -2.8F; static float netherDamage = 12.0F; static float netherSpeed = -2.9F; static float enderDamage = 9.0F; static float enderSpeed = -2.9F;
+	static float damage = 10.0F; static float speed = -2.8F;
+	static float netherDamage = 12.0F; static float netherSpeed = -2.9F;
+	static float enderDamage = 9.0F; static float enderSpeed = -2.9F;
  
 	public static final ToolMaterial ForestDragonScaleMaterial	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":forestdragonscales",   4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial FireDragonScaleMaterial	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales",      4, 2700, 8.0F, 5.0F, 11);
@@ -186,7 +188,7 @@ public class ModTools {
     public static final Item terra_dragon_bow = new ItemDragonTerraBow(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
     public static final Item terra2_dragon_bow = new ItemDragonTerra2Bow(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
     public static final Item moonlight_dragon_bow = new ItemDragonMoonlightBow(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
-//    public static final Item skelton_dragon_bow = new ItemDragonSkeletonBow(EnumItemBreedTypes.SKELETON, Items.BONE);
+//    public static final Item skelton_dragon_bow = new ItemDragonSkelBow(EnumItemBreedTypes.SKELETON, Items.BONE);
     public static final Item zombie_dragon_bow = new ItemDragonZombieBow(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
 	
 	//Material Repairability Start

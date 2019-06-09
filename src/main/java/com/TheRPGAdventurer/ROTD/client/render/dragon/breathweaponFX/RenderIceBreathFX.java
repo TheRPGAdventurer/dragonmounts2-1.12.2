@@ -1,7 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.breath.effects.IceBreathFX;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.IceBreathFX;
+
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -33,9 +34,6 @@ public class RenderIceBreathFX extends Render<IceBreathFX> {
         GlStateManager.scale(entity.scale / 4, entity.scale / 4, entity.scale / 4);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        float f = 1.0F;
-        float f1 = 0.5F;
-        float f2 = 0.25F;
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 

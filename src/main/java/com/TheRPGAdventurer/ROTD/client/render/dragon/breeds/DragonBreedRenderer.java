@@ -11,7 +11,8 @@ package com.TheRPGAdventurer.ROTD.client.render.dragon.breeds;
 
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
@@ -23,17 +24,17 @@ import java.util.List;
  */
 public interface DragonBreedRenderer {
 
-    public ResourceLocation getMaleBodyTexture();
+    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean albino);
     
-    public ResourceLocation getFemaleBodyTexture();
+    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean albino);
 
     public ResourceLocation getDissolveTexture();
 
     public ResourceLocation getEggTexture();
 
-    public ResourceLocation getMaleGlowTexture();
+    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean albino);
     
-    public ResourceLocation getFemaleGlowTexture();
+    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean albino);
     
     public ResourceLocation getGlowAnimTexture();
 
@@ -48,5 +49,5 @@ public interface DragonBreedRenderer {
     public ResourceLocation getChestTexture();
     
     public ResourceLocation getArmorTexture();
-    
+
 }

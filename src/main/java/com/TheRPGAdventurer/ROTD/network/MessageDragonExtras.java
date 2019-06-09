@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.network;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -17,12 +18,16 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     public boolean isHoverCancel;
     public boolean isFollowYaw;
     public boolean locky;
+    public boolean isBoosting;
+    public boolean down;
 
-    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky) {
+    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky, boolean isBoosting, boolean down) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
         this.isFollowYaw = isFollowYaw;
         this.locky = locky;
+        this.isBoosting = isBoosting;
+        this.down = down;
     }
 
     public MessageDragonExtras() {}
@@ -33,6 +38,8 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         isHoverCancel = buf.readBoolean();
         isFollowYaw = buf.readBoolean();
         locky = buf.readBoolean();
+        isBoosting = buf.readBoolean();
+        down = buf.readBoolean();
 
     }
 
@@ -42,6 +49,8 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         buf.writeBoolean(isHoverCancel);
         buf.writeBoolean(isFollowYaw);
         buf.writeBoolean(locky);
+        buf.writeBoolean(isBoosting);
+        buf.writeBoolean(down);
 
     }
 
@@ -67,6 +76,18 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
             if(message.locky) {
                 dragon.setYLocked(!dragon.isYLocked());
             }
+
+            if(message.down) {
+                dragon.setGoingDown(true);
+            } else {
+                dragon.setGoingDown(false);
+            }
+            
+			if(message.isBoosting) {
+				dragon.setBoosting(true);
+			} else {
+				dragon.setBoosting(false);
+			}
         }
     }
 }

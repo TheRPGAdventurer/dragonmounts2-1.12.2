@@ -1,7 +1,8 @@
 package com.TheRPGAdventurer.ROTD.network;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -44,22 +46,31 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 		buf.writeByte(controlState);
 
 	}
-
-	@Override
+	
+	/**
+	 * Play Sound on the client only; dont let anyone else hear!
+	 * <p>
+	 * Doesnt seem to work in {@code onClientRecieved()}...
+	 * @param player
+	 */
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
-
+	private void clientWhistleSound(EntityPlayer player) {
+		player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 4, 1);
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {}
+
+	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
+		clientWhistleSound(player);
 		if (!player.world.isRemote) {
 			Entity entity = server.getEntityFromUuid(dragonId);
 			EntityTameableDragon dragon = (EntityTameableDragon) entity;
-			if (entity != null && entity instanceof EntityTameableDragon && dragon.isOwner(player)) {
-				dragon.setWhistleState(message.controlState);
-				player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 5, 1);
-			}
+			if (entity != null) {
+				if (entity instanceof EntityTameableDragon && dragon.isOwner(player)) dragon.setWhistleState(message.controlState);
+			} else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
 		}
 	}
 }

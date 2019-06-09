@@ -11,14 +11,13 @@ package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonBreathHelper;
-import com.TheRPGAdventurer.ROTD.entity.breath.DragonHeadPositionHelper;
-import com.TheRPGAdventurer.ROTD.entity.helper.SegmentSizePositionRotation;
-import com.TheRPGAdventurer.ROTD.entity.helper.util.Spline;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.SegmentSizePositionRotation;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Spline;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -30,7 +29,6 @@ public class DragonAnimator {
 
     private final DragonHeadPositionHelper dragonHeadPositionHelper;
     private SegmentSizePositionRotation[] tailSegments;
-    private DragonModel model;
     private SegmentSizePositionRotation tail = new SegmentSizePositionRotation();  //not required?  not sure.
 
     private boolean haveCalculatedAnimations = false;
@@ -44,7 +42,6 @@ public class DragonAnimator {
     private float lookPitch;
     private double prevRenderYawOffset;
     private double yawAbs;
-    private BlockPos pos;
 
     // timing vars
     private float animBase;
@@ -107,7 +104,7 @@ public class DragonAnimator {
     private final int NECK_SEGMENTS;
     private final int TAIL_SEGMENTS;
 
-    // final X rotation angles for ground
+/*    // final X rotation angles for ground
     private float[] xGround = {0, 0, 0, 0};
 
     // X rotation angles for ground
@@ -155,7 +152,7 @@ public class DragonAnimator {
 
     // Y rotation angles for air, thigh only
     private float[] yAirAll = {-0.1f, 0.1f};
-
+*/
     public DragonAnimator(EntityTameableDragon dragon) {
         this.dragon = dragon;
         WING_FINGERS = dragon.getBreedType().getNumberOfWingFingers();
@@ -182,9 +179,9 @@ public class DragonAnimator {
     }
 
     public void setLook(float lookYaw, float lookPitch) {
-        // don't twist the neck
+		// don't twist the neck
         this.lookYaw = MathX.clamp(lookYaw, -120, 120); // 120
-        this.lookPitch = MathX.clamp(lookPitch, -90, 90); // 90
+        this.lookPitch = MathX.clamp(lookPitch, -120, 120); // 90
     }
 
     /**
@@ -256,7 +253,7 @@ public class DragonAnimator {
 
         float speedMax = 0.05f;
         float speedEnt = (float) (dragon.motionX * dragon.motionX + dragon.motionZ * dragon.motionZ);
-        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 1f);
+        float speedMulti = MathX.clamp(speedEnt / speedMax, 0, 1);
 
         // update main animation timer
         float animAdd = 0.035f;
@@ -333,7 +330,7 @@ public class DragonAnimator {
 
         // update speed transition
         boolean nearGround = dragon.getAltitude() < dragon.height * 2;
-        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() >= 2 || dragon.isUnHovered() || dragon.boosting();
+        boolean speedFlag = speedEnt > speedMax || onGround || nearGround || dragon.getPassengers().size() > 1 || dragon.isUnHovered() || (speedEnt > speedMax && dragon.boosting()); 
         float speedValue = 0.05f;
         speedTimer.add(speedFlag ? speedValue : -speedValue);
 
@@ -369,8 +366,7 @@ public class DragonAnimator {
     }
 
     protected void animHeadAndNeck() {
-        dragonHeadPositionHelper.calculateHeadAndNeck(animBase, flutter, sit, walk, speed, ground,
-                lookYaw, lookPitch, breath);
+        dragonHeadPositionHelper.calculateHeadAndNeck(animBase, flutter, sit, walk, speed, ground, lookYaw, lookPitch, breath);
         final float BITE_ANGLE = 0.72F;
         final float ROAR_ANGLE = 0.58F;
         final float BREATH_ANGLE = 0.67F;
@@ -536,7 +532,7 @@ public class DragonAnimator {
         // do nothing - server doesn't need any of these positions so the DragonModel can do it all
     }
 
-    static public void splineArrays(float x, boolean shift, float[] result, float[]... nodes) {
+    public void splineArrays(float x, boolean shift, float[] result, float[]... nodes) {
         // uncomment to disable interpolation
 //        if (true) {
 //            if (shift) {
@@ -564,7 +560,7 @@ public class DragonAnimator {
         }
     }
 
-    static public void slerpArrays(float[] a, float[] b, float[] c, float x) {
+    public void slerpArrays(float[] a, float[] b, float[] c, float x) {
         if (a.length != b.length || b.length != c.length) {
             throw new IllegalArgumentException();
         }
@@ -591,9 +587,9 @@ public class DragonAnimator {
         float pitchMovingMax = 90;
         float pitchMoving = MathX.clamp(yTrail.get(pt, 5, 0) * 10, -pitchMovingMax, pitchMovingMax);
         float pitchHoverMax = 60;
-        boolean shouldChange = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
+        boolean unhover = dragon.dragonInv.getStackInSlot(33) != null || dragon.dragonInv.getStackInSlot(34) != null
                 || dragon.getPassengers().size() > 1 || dragon.isUnHovered() || dragon.boosting();
-        return Interpolation.smoothStep(pitchHoverMax, shouldChange ? 0 : pitchMoving, speed);
+        return Interpolation.smoothStep(pitchHoverMax, unhover ? 0 : pitchMoving, speed);
     }
 
     public float getModelOffsetX() {

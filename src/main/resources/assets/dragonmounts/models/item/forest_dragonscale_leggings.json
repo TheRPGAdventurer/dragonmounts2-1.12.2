@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/forest_dragonscale_leggings"
+	    "layer0": "dragonmounts:items/armor/forest/forest_dragonscale_leggings"
 	}
 }

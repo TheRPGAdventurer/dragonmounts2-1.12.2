@@ -7,9 +7,11 @@ itemGroup.armorytab=Dragon Mounts Armory
 ##
 # Dragon Names
 ##
+entity.DragonMount.name=Dragon
+
 entity.DragonMount.ice.name=Ice Dragon
 entity.DragonMount.ender.name=Ender Dragon
-entity.DragonMount.aether.name=Sky Dragon
+entity.DragonMount.aether.name=Aether Dragon
 entity.DragonMount.forest.name=Forest Dragon
 entity.DragonMount.sylphid.name=Water Dragon
 entity.DragonMount.nether.name=Nether Dragon
@@ -27,6 +29,7 @@ entity.DragonMount.moonlight.name=Moonlight Dragon
 dragon.forest=Forest
 dragon.aether=Aether
 dragon.ice=Ice
+dragon.sylphid=Water
 dragon.water=Water
 dragon.fire=Fire
 dragon.fire2=Fire
@@ -56,10 +59,9 @@ dragon.adult=Adult
 # Item Names
 ##
 item.diamond_shears.name=Diamond Shears
-item.structure_spawner.name=Structure Spawner (Debug)
 item.dragonEgg.name=%s Egg
-item.dragon_gender.name=Dragon Gender Switcher
-item.gui.dragon_gender=Left Click an owned dragon to change the gender of it
+item.dragon_gender.name=Dragon Gender Gem
+item.gui.dragon_gender=Left Click an owned dragon with the gem will switch its gender
 item.summon_egg.name=Spawn Dragon
 item.dragon_essence.name=Dragon Essence
 item.dragon_whistle.name=Dragon Whistle
@@ -81,6 +83,7 @@ item.dragon_axe.name=Dragon Axe
 item.dragon_shovel.name=Dragon Shovel
 item.dragon_hoe.name=Dragon Hoe
 item.dragon_shield.name=Dragon Shield
+item.dragon_bow.name=Dragon Bow
 item.dragonscale_head.name=Dragon Scale Cap
 item.dragonscale_chest.name=Dragon Scale Tunic
 item.dragonscale_legs.name=Dragon Scale Leggings
@@ -94,12 +97,29 @@ item.dragonarmor_emerald.name=Emerald Dragon Armor
 tile.pileofsticks.name=Nest Block
 tile.block_dragon_shulker.name=Dragon Core
 
+tile.storm_egg.name=Storm Dragon Egg
+tile.end_egg.name=Ender Dragon Egg
+tile.zombie_egg.name=Zombie Dragon Egg
+tile.sylphid_egg.name=Water Dragon Egg
+tile.nether_egg.name=Nether Dragon Egg
+tile.forest_egg.name=Forest Dragon Egg
+tile.aether_egg.name=Aether Dragon Egg
+tile.ice_egg.name=Ice Dragon Egg
+tile.fire_egg.name=Fire Dragon Egg
+tile.skeleton_egg.name=Skeleton Dragon Egg
+tile.wither_egg.name=Wither Dragon Egg
+tile.enchant_egg.name=Enchant Dragon Egg
+tile.sunlight_egg.name=Sunlight Dragon Egg
+tile.moonlight_egg.name=Moonlight Dragon Egg
+tile.terra_egg.name=Terra Dragon Egg
+
 # Item Info
-item.diamondshears.info=Use to get scales from tamed dragons without killing it. Untamed ones will attack
+item.removeNBT=<Sneak + Right Click to unbind a Dragon>
+item.armoryitems.info=Forged with the Scales of
+item.diamondshears.info=Used to get scales from tamed dragons without killing it. Untamed ones will attack
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (!WIP!)
-dragon.amulet=Right click a Dragon to store it
 
 
 ##
@@ -107,20 +127,21 @@ dragon.amulet=Right click a Dragon to store it
 ##
 dragon.locked=This Dragon has been locked by the Owner
 dragon.notTamed=This Dragon is not Tamed
+dragon.notOwned=You do not own this dragon
 entity.dragon.tooYoung=Dragon is too young for that, let it grow
 egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End
 dragon.growth.paused=Poisonous potatoes stops dragon growth, use carrots to continue growth
-entity.dragon.tooYounng=The dragon is too young to be saddled, let it grow.
 commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 
-#Whistle
-item.whistle.notOwned=You do not own this dragon
-item.whistle.hasDragon=Dragon Successfully Bound to Whistle
-item.whistle.unBound=You Must Bind a Dragon First
-item.whistle.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
-item.whistle.limit=One Whistle can only command 3 Dragons
-item.command.new_home=New HomePos at
+# Whistle
+whistle.msg.cleared=Dragon has been unbound
+whistle.msg.hasDragon=Dragon Successfully Bound to Whistle
+whistle.msg.unBound=You Must Bind a Dragon First
+whistle.msg.notOwned=You Do not Own This Dragon
+whistle.msg.noDragon=Dragon Whistle is not bound to a Dragon, Left Click an owned and tamed dragon first
+whistle.msg.fail=The Dragon can't hear the whistle...
+whistle.command.new_home=New HomePos at
 
 
 ##
@@ -134,6 +155,8 @@ gui.homePos=Teleport
 gui.locked.dragon=LOCK
 gui.unlocked.dragon=UNLOCK
 gui.sit=Sit
+gui.firesupport=Fire Support
+gui.dragon.hunger=Hunger
 container.dragon_shulker=Dragon Core
 
 #Controls
@@ -147,38 +170,4 @@ key.dragon.followYaw=Follow Yaw
 key.dragon.boost=Flight Boost
 key.dragon.dismount=Shoulder Dismount
 key.dragon.lockY=Lock Height
-key.dragon.cancelhover=Unhover
-
-#Shield
-item.dragon_shield_forest.name=Dragon Shield
-item.dragon_shield_aether.name=Dragon Shield
-item.dragon_shield_end.name=Dragon Shield
-item.dragon_shield_fire.name=Dragon Shield
-item.dragon_shield_fire2.name=Dragon Shield
-item.dragon_shield_ice.name=Dragon Shield
-item.dragon_shield_water.name=Dragon Shield
-item.dragon_shield_sunlight.name=Dragon Shield
-item.dragon_shield_sunlight2.name=Dragon Shield
-item.dragon_shield_enchant.name=Dragon Shield
-item.dragon_shield_forest.name=Dragon Shield
-item.dragon_shield_storm.name=Dragon Shield
-item.dragon_shield_terra.name=Dragon Shield
-item.dragon_shield_terra2.name=Dragon Shield
-item.dragon_shield_moonlight.name=Dragon Shield
-
-#Bows
-item.dragon_bow_forest.name=Dragon Bow
-item.dragon_bow_aether.name=Dragon Bow
-item.dragon_bow_end.name=Dragon Bow
-item.dragon_bow_fire.name=Dragon Bow
-item.dragon_bow_fire2.name=Dragon Bow
-item.dragon_bow_ice.name=Dragon Bow
-item.dragon_bow_water.name=Dragon Bow
-item.dragon_bow_sunlight.name=Dragon Bow
-item.dragon_bow_sunlight2.name=Dragon Bow
-item.dragon_bow_enchant.name=Dragon Bow
-item.dragon_bow_forest.name=Dragon Bow
-item.dragon_bow_storm.name=Dragon Bow
-item.dragon_bow_terra.name=Dragon Bow
-item.dragon_bow_terra2.name=Dragon Bow
-item.dragon_bow_moonlight.name=Dragon Bow
+key.dragon.down=Down

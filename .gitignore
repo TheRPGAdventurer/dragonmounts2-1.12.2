@@ -20,4 +20,11 @@ build
 # other
 eclipse
 run
+*.txt
+gradlew setupdecompworkspace idea
+classes/*
+config/*
+crash-reports/*
+llibrary/*
+logs/*
 libs

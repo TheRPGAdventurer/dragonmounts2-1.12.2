@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
 	"textures": {
-	    "layer0": "dragonmounts:items/summon_sunlight"
+	    "layer0": "dragonmounts:items/summon/summon_sunlight"
 	}
 }

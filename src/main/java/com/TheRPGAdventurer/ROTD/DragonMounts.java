@@ -14,7 +14,6 @@ import com.TheRPGAdventurer.ROTD.event.EventLiving;
 import com.TheRPGAdventurer.ROTD.event.IItemColorRegistration;
 import com.TheRPGAdventurer.ROTD.event.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
-import com.TheRPGAdventurer.ROTD.inits.ModDataFixers;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
@@ -23,6 +22,7 @@ import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.LoggerLimit;
 import com.TheRPGAdventurer.ROTD.world.DragonMountsWorldGenerator;
+
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,7 +35,11 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -49,12 +53,12 @@ import org.apache.logging.log4j.LogManager;
 @Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
-    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWand.class, MessageDragonWhistle.class, MessageDragonLock.class, MessageDragonGui.class, MessageDragonTeleport.class, MessageDragonExtras.class})
+    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWhistle.class, MessageDragonTeleport.class, MessageDragonExtras.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME="Dragon Mounts";
     public static final String MODID="dragonmounts";
-    public static final String VERSION="1.12.2-1.5.8";
+    public static final String VERSION="1.12.2-1.6.1";
     public static final String LLIBRARY_VERSION="1.7.14";
     public static final String GUI_FACTORY="com.TheRPGAdventurer.ROTD.DragonMountsConfigGuiFactory";
 
@@ -102,7 +106,6 @@ public class DragonMounts {
         proxy.render();
         ModTools.InitializaRepairs();
         ModArmour.InitializaRepairs();
-        ModDataFixers.registerDataFixers();
         EntityPropertiesHandler.INSTANCE.registerProperties(MiscPlayerProperties.class);
         GameRegistry.registerWorldGenerator(new DragonMountsWorldGenerator(), 0);
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());

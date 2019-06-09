@@ -1,12 +1,11 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.items.EnumItemBreedTypes;
-import com.TheRPGAdventurer.ROTD.items.ItemDragonArmor;
-import com.TheRPGAdventurer.ROTD.items.gemset.ItemDragonArmour;
-import com.TheRPGAdventurer.ROTD.items.specialset.ItemEnderDragonArmour;
-import com.TheRPGAdventurer.ROTD.items.specialset.ItemNetherDragonArmour;
-import com.TheRPGAdventurer.ROTD.items.specialset.ItemWaterDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonArmor;
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.ItemDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.specialset.ItemEnderDragonArmour;
+import com.TheRPGAdventurer.ROTD.objects.items.specialset.ItemNetherDragonArmour;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -59,10 +58,10 @@ public class ModArmour {
     public static ItemDragonArmour aetherDragonScaleLeggings;
     public static ItemDragonArmour aetherDragonScaleBoots;
 
-    public static ItemWaterDragonArmour waterDragonScaleCap;
-    public static ItemWaterDragonArmour waterDragonscaleChesplate;
-    public static ItemWaterDragonArmour waterDragonScaleLeggings;
-    public static ItemWaterDragonArmour waterDragonScaleBoots;
+    public static ItemDragonArmour waterDragonScaleCap;
+    public static ItemDragonArmour waterDragonscaleChesplate;
+    public static ItemDragonArmour waterDragonScaleLeggings;
+    public static ItemDragonArmour waterDragonScaleBoots;
 
     public static ItemDragonArmour iceDragonScaleCap;
     public static ItemDragonArmour iceDragonScaleTunic;
@@ -171,10 +170,10 @@ public class ModArmour {
             iceDragonScaleLeggings = new ItemDragonArmour(IceDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "ice_dragonscale_leggings", EnumItemBreedTypes.ICE),
             iceDragonScaleBoots = new ItemDragonArmour(IceDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "ice_dragonscale_boots", EnumItemBreedTypes.ICE),
 
-            waterDragonScaleCap = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "water_dragonscale_cap", EnumItemBreedTypes.WATER, new PotionEffect(MobEffects.WATER_BREATHING)),
-            waterDragonscaleChesplate = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "water_dragonscale_tunic", EnumItemBreedTypes.WATER, null),
-            waterDragonScaleLeggings = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "water_dragonscale_leggings", EnumItemBreedTypes.WATER, null),
-            waterDragonScaleBoots = new ItemWaterDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "water_dragonscale_boots", EnumItemBreedTypes.WATER, null),
+            waterDragonScaleCap = new ItemDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "water_dragonscale_cap", EnumItemBreedTypes.WATER),
+            waterDragonscaleChesplate = new ItemDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "water_dragonscale_tunic", EnumItemBreedTypes.WATER),
+            waterDragonScaleLeggings = new ItemDragonArmour(WaterDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "water_dragonscale_leggings", EnumItemBreedTypes.WATER),
+            waterDragonScaleBoots = new ItemDragonArmour(WaterDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "water_dragonscale_boots", EnumItemBreedTypes.WATER),
 
             netherDragonScaleCap = new ItemNetherDragonArmour(NetherDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "nether_dragonscale_cap", new PotionEffect(MobEffects.RESISTANCE, 2, 1, true, false), EnumItemBreedTypes.NETHER),
             netherDragonScaleTunic = new ItemNetherDragonArmour(NetherDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "nether_dragonscale_tunic", new PotionEffect(MobEffects.RESISTANCE, 2, 1, true, false), EnumItemBreedTypes.NETHER),

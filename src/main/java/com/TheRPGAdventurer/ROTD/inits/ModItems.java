@@ -1,12 +1,11 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.items.*;
-import net.minecraft.init.Items;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.items.*;
+
 import net.minecraft.item.Item;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 public class ModItems {
     public static final List<Item> ITEMS = new ArrayList<Item>();
 
-    //Scales Start //complete
+    //Scales Start
     public static final Item ForestDragonScales = new ItemDragonScales("forest_dragonscales", EnumItemBreedTypes.FOREST);
     public static final Item FireDragonScales = new ItemDragonScales("fire_dragonscales", EnumItemBreedTypes.FIRE);
     public static final Item FireDragonScales2 = new ItemDragonScales("fire2_dragonscales", EnumItemBreedTypes.FIRE);
@@ -35,7 +34,7 @@ public class ModItems {
     public static final Item MoonlightDragonScales = new ItemDragonScales("moonlight_dragonscales", EnumItemBreedTypes.MOONLIGHT);
     //Scales end
 
-    //Spawn eggs start //complete
+    //Spawn eggs start
     public static final Item SpawnForest = new ItemDragonSpawner(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST, DragonMounts.mainTab);
     public static final Item SpawnAether = new ItemDragonSpawner(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER, DragonMounts.mainTab);
     public static final Item SpawnFire = new ItemDragonSpawner(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE, DragonMounts.mainTab);
@@ -53,7 +52,7 @@ public class ModItems {
     public static final Item SpawnMoonlight = new ItemDragonSpawner(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT, DragonMounts.mainTab);
     //Spawn eggs end
 
-    //Essence Start //complete
+    //Essence Start
     public static final ItemDragonEssence EssenceForest = new ItemDragonEssence(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST);
     public static final ItemDragonEssence EssenceAether = new ItemDragonEssence(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER);
     public static final ItemDragonEssence EssenceFire = new ItemDragonEssence(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE);
@@ -71,8 +70,28 @@ public class ModItems {
     public static final ItemDragonEssence EssenceMoonlight = new ItemDragonEssence(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT);
     //Essence End
 
+    //Amulets Start
+    //TODO Remove These Registries in the future
+    public static final ItemDragonAmulet AmuletForest = new ItemDragonAmulet(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST);
+    public static final ItemDragonAmulet AmuletAether = new ItemDragonAmulet(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER);
+    public static final ItemDragonAmulet AmuletFire = new ItemDragonAmulet(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE);
+    public static final ItemDragonAmulet AmuletIce = new ItemDragonAmulet(EnumItemBreedTypes.ICE, EnumDragonBreed.ICE);
+    public static final ItemDragonAmulet AmuletWater = new ItemDragonAmulet(EnumItemBreedTypes.WATER, EnumDragonBreed.SYLPHID);
+    public static final ItemDragonAmulet AmuletSkeleton = new ItemDragonAmulet(EnumItemBreedTypes.SKELETON, EnumDragonBreed.SKELETON);
+    public static final ItemDragonAmulet AmuletWither = new ItemDragonAmulet(EnumItemBreedTypes.WITHER, EnumDragonBreed.WITHER);
+    public static final ItemDragonAmulet AmuletEnd = new ItemDragonAmulet(EnumItemBreedTypes.END, EnumDragonBreed.END);
+    public static final ItemDragonAmulet AmuletNether = new ItemDragonAmulet(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER);
+    public static final ItemDragonAmulet AmuletEnchant = new ItemDragonAmulet(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT);
+    public static final ItemDragonAmulet AmuletSunlight = new ItemDragonAmulet(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT);
+    public static final ItemDragonAmulet AmuletStorm = new ItemDragonAmulet(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM);
+    public static final ItemDragonAmulet AmuletZombie = new ItemDragonAmulet(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE);
+    public static final ItemDragonAmulet AmuletTerra = new ItemDragonAmulet(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA);
+    public static final ItemDragonAmulet AmuletMoonlight = new ItemDragonAmulet(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT);
+    
+    public static final ItemDragonAmuletNEW Amulet = new ItemDragonAmuletNEW();
+    //Amulets End
+    
     //Other Start
-    public static final ItemDragonAmulet Amulet = new ItemDragonAmulet();
     public static final Item dragon_wand = new ItemDragonWand("dragon_wand");
     public static final Item dragon_whistle = new ItemDragonWhistle();
     public static final Item gender = new ItemDragonGender("dragon_gender");
@@ -80,7 +99,7 @@ public class ModItems {
     public static final ItemTestRunner test_runner = new ItemTestRunner();
     //Other End
 
-    //Carriages Start //complete
+    //Carriages Start
     public static final Item carriage_oak = new ItemCarriage("carriage_", EntityCarriage.Type.OAK);
     public static final Item carriage_spruce = new ItemCarriage("carriage_", EntityCarriage.Type.SPRUCE);
     public static final Item carriage_birch = new ItemCarriage("carriage_", EntityCarriage.Type.BIRCH);
@@ -106,12 +125,5 @@ public class ModItems {
     public static final Item terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
     public static final Item zombie_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
     public static final Item moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
-
-//    public static final Item item_dragon_shulker = new ItemDragonShulker(ModBlocks.dragonshulker);
-    /**
-     * @WolfShotz Registering OreDictionary for vanilla Fish, since Forge doesn't do it on its own for some stupid reason...
-     */
-    public static void register() {
-        OreDictionary.registerOre("listAllfishraw", Items.FISH);
-    }
+    
 }

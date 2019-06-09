@@ -1,0 +1,9 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": {
+      "model": "minecraft:dragon_egg",
+      "textures": {"all" : "dragonmounts:entities/dragon/zombie/egg"}
+    }
+  }
+}

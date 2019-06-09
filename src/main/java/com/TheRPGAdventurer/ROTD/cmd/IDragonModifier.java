@@ -37,21 +37,21 @@ public interface IDragonModifier {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
             AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .grow(MODIFIER_RANGE);
+                .expand(MODIFIER_RANGE, MODIFIER_RANGE, MODIFIER_RANGE);
             
-            List<EntityTameableDragon> dragons = player.world
-                .getEntitiesWithinAABB(EntityTameableDragon.class, aabb);
+            // List all dragons in expanded player entity box
+            List<EntityTameableDragon> dragons = player
+            		.world
+            		.getEntitiesWithinAABB(EntityTameableDragon.class, aabb);
 
             // get closest dragon
             Optional<EntityTameableDragon> closestDragon = dragons.stream()
                 .min((dragon1, dragon2) -> Float.compare( // max
-                    dragon1.getDistance(player),
-                    dragon2.getDistance(player))
+                    dragon1.getDistanceToEntity(player),
+                    dragon2.getDistanceToEntity(player))
                 );
 
-            if (!closestDragon.isPresent()) {
-                throw new CommandException("commands.dragon.nodragons");
-            }
+            if (!closestDragon.isPresent()) throw new CommandException("commands.dragon.nodragons");
             
             modifier.accept(closestDragon.get());
         } else {

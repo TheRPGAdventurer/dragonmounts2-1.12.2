@@ -1,7 +1,8 @@
 package com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.entity.breath.effects.EnderBreathFX;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.EnderBreathFX;
+
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -18,8 +19,7 @@ public class RenderEnderBreathFX extends Render<EnderBreathFX> {
 	
     private static final ResourceLocation DRAGON_FIREBALL_TEXTURE = new ResourceLocation(DragonMounts.MODID, "textures/entities/breath_acid.png");
 
-    public RenderEnderBreathFX(RenderManager renderManagerIn)
-    {
+    public RenderEnderBreathFX(RenderManager renderManagerIn) {
         super(renderManagerIn); 
     }
 
@@ -34,9 +34,6 @@ public class RenderEnderBreathFX extends Render<EnderBreathFX> {
         GlStateManager.scale(entity.scale / 4, entity.scale / 4, entity.scale / 4);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        float f = 1.0F;
-        float f1 = 0.5F;
-        float f2 = 0.25F;
         GlStateManager.rotate(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate((float)(this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * -this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 
@@ -71,8 +68,7 @@ public class RenderEnderBreathFX extends Render<EnderBreathFX> {
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EnderBreathFX entity)
-    {
+    protected ResourceLocation getEntityTexture(EnderBreathFX entity) {
         return DRAGON_FIREBALL_TEXTURE;
     }
 }

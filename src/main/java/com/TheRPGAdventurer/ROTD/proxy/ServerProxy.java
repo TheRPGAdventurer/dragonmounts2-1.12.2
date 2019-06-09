@@ -12,21 +12,20 @@ package com.TheRPGAdventurer.ROTD.proxy;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.event.DragonEggBlockEvents;
-import com.TheRPGAdventurer.ROTD.items.entity.ImmuneEntityItem;
-import com.TheRPGAdventurer.ROTD.items.ItemTestRunner;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonControl;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonTarget;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonTargetHandlerServer;
-import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
+import com.TheRPGAdventurer.ROTD.event.VanillaEggHandler;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -60,8 +59,9 @@ public class ServerProxy {
         StartupDebugCommon.preInitCommon();
     }
 
-    public void Initialization(FMLInitializationEvent evt) {
-        MinecraftForge.EVENT_BUS.register(new DragonEggBlockEvents());
+    @SuppressWarnings("deprecation")
+	public void Initialization(FMLInitializationEvent evt) {
+    	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
 //      network.registerMessage(DragonControlMessageHandler.class, MessageDragonControl.class,
 //              DCM_DISCRIMINATOR_ID, Side.SERVER);
@@ -118,15 +118,15 @@ public class ServerProxy {
     public void setDragonFollowYaw(boolean yaw) {
     }
 
+    public boolean getDragonHover() {
+        return false;
+    }
+    
     public int getDragonLockY() {
         return 0;
     }
 
     public void setDragonLockY(int yaw) {
-    }
-
-    public boolean getDragonHover() {
-        return false;
     }
 
     public void setDragonHover(boolean hover) {

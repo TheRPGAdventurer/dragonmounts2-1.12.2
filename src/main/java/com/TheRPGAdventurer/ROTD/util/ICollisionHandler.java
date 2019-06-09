@@ -19,7 +19,8 @@
 
 package com.TheRPGAdventurer.ROTD.util;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityCarriage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 

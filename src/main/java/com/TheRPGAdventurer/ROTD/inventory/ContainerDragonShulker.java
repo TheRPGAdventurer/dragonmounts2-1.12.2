@@ -1,7 +1,7 @@
 package com.TheRPGAdventurer.ROTD.inventory;
 
+import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 
-import com.TheRPGAdventurer.ROTD.blocks.tileentities.TileEntityDragonShulker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.network;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -15,13 +16,11 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 
 	private int dragonId;
 	public boolean isBreathing;
-	public boolean isBoosting;
 	
 
-	public MessageDragonBreath(int dragonId, boolean isBreathing, boolean isBoosting) {
+	public MessageDragonBreath(int dragonId, boolean isBreathing) {
 		this.dragonId = dragonId;
 		this.isBreathing = isBreathing;
-		this.isBoosting = isBoosting;
 	}
 
 	public MessageDragonBreath() {}
@@ -30,16 +29,12 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 	public void fromBytes(ByteBuf buf) {
 		dragonId = buf.readInt();
 		isBreathing = buf.readBoolean();
-		isBoosting = buf.readBoolean();
-
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(dragonId);
 		buf.writeBoolean(isBreathing);
-		buf.writeBoolean(isBoosting);
-
 	}
 
 	@Override
@@ -57,12 +52,6 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 				dragon.setUsingBreathWeapon(true);
 			} else {
 				dragon.setUsingBreathWeapon(false);
-			}
-			
-			if(message.isBoosting) {
-				dragon.setBoosting(true);
-			} else {
-				dragon.setBoosting(false);
 			}
 		} 
 	}

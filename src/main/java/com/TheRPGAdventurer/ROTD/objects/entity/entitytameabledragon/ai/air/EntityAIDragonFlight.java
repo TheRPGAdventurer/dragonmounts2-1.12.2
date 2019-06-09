@@ -61,7 +61,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         landingPos = landingPos.add(ox, 0, oz);
 
         if (dragon.isTamed() && dragon.getOwner() != null && (dragon.getOwner().onGround || dragon.getOwner().isInWater())
-                && dragon.getDistanceToEntity(dragon.getOwner()) > 3 && dragon.getAttackingEntity() == null) {
+                && dragon.getDistance(dragon.getOwner()) > 3 && dragon.getAttackingEntity() == null) {
             landingPos = dragon.getOwner().getPosition();
             return landingPos != null;
         } else {

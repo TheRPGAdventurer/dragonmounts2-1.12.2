@@ -6,7 +6,6 @@ import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breeds.DefaultDragonBreedRenderer;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
@@ -42,7 +41,7 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
         GlStateManager.popAttrib();
         GlStateManager.popMatrix();
 
-        if (dragon.getBreedType()==EnumDragonBreed.ENCHANT) {
+        if(dragon.getBreedType() == EnumDragonBreed.ENCHANT) {
             renderEnchantedGlint(this.renderer, dragon, model, moveTime, moveSpeed, partialTicks, ticksExisted, lookYaw, lookPitch, scale);
         }
     }

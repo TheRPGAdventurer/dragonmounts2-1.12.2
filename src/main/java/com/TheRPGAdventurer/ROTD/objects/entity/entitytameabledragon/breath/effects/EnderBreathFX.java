@@ -79,7 +79,7 @@ public class EnderBreathFX extends Entity {
     prevPosZ = posZ;
     entityMoveAndResizeHelper.moveAndResizeEntity(motionX, motionY, motionZ, newAABBDiameter, newAABBDiameter);
 
-    if (isCollided && onGround) {
+    if (collided && onGround) {
         motionY -= 0.01F;         // ensure that we hit the ground next time too
     }
     breathNode.updateAge(this);

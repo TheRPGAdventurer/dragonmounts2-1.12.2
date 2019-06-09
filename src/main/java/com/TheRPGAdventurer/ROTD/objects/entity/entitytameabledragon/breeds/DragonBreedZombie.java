@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -73,10 +72,9 @@ public class DragonBreedZombie extends DragonBreed {
 //	}
 
     public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+
         final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-
         return soundEffectNames;
-
     }
 
     @Override

@@ -61,9 +61,7 @@ public class DragonBreedStorm extends DragonBreed {
 
 	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
 		final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
-
 		return soundEffectNames;
-
 	}
 	
 	@Override

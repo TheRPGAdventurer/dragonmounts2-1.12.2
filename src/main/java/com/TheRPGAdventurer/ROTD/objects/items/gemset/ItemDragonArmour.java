@@ -6,8 +6,6 @@ import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -173,7 +171,7 @@ public class ItemDragonArmour extends ItemArmor {
 	        double oz=(rand.nextDouble() - 0.3) * 2;
         	player.world.spawnParticle(EnumParticleTypes.BLOCK_DUST, px, py + 1, pz, ox, oy, oz, 79); //79
 		}
-		List<net.minecraft.entity.Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(3));
+		List<net.minecraft.entity.Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(5));
 		for (net.minecraft.entity.Entity mobs : entities)
 			if (mobs instanceof EntityLivingBase) { 
 				((EntityLivingBase) mobs).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 500, 1));
@@ -182,5 +180,4 @@ public class ItemDragonArmour extends ItemArmor {
 		iceCooldown = 350;
 		
 	}
-	
 }

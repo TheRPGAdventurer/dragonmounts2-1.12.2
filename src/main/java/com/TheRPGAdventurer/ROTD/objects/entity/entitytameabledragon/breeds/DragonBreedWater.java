@@ -67,8 +67,7 @@ public class DragonBreedWater extends DragonBreed {
         dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWaterDragon(world, power, tickCounter);
     }
-	
-	@Override
+
 	public void onLivingUpdate(EntityTameableDragon dragon) {
 		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10, 0, false,false);
     	if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,

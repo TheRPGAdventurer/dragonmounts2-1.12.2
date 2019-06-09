@@ -39,7 +39,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     @Override
     public void startExecuting() {
-        dragon.getNavigator().clearPathEntity();
+        dragon.getNavigator().clearPath();
     }
 
     @Override
@@ -75,20 +75,14 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         }
 
         // lift off from a jump
-
         if (entityIsJumping(rider)) {
             if (!dragon.isFlying()) {
                 dragon.liftOff();
             } else {
-                y+=10;
+                y+=15;
             }
         } else if (dragon.isGoingDown()) {
-            y-=10;
-        }
-
-        //        // if we're breathing at a target, look at it
-        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() && dragon.getControllingPlayer()!=null && dragon.moveStrafing==0) { //  && (!this.isUsingBreathWeapon())
-            dragon.equalizeYaw(dragon.getControllingPlayer());
+            y-=15;
         }
 
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);

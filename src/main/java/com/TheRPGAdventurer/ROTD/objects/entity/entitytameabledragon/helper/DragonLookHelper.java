@@ -89,7 +89,7 @@ public class DragonLookHelper extends EntityLookHelper {
             this.entity.rotationYawHead = this.updateRotation(this.entity.rotationYawHead, this.entity.renderYawOffset, 10.0F);
         }
 
-        float f2 = MathX.wrapAngleTo180(this.entity.rotationYawHead - this.entity.renderYawOffset);
+        float f2 = MathX.normDeg(this.entity.rotationYawHead - this.entity.renderYawOffset);
 
         if (!this.entity.getNavigator().noPath()) {
             if (f2 < -75.0F) {
@@ -103,7 +103,7 @@ public class DragonLookHelper extends EntityLookHelper {
     }
 
     private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
-        float f3 = MathX.wrapAngleTo180(p_75652_2_ - p_75652_1_);
+        float f3 = MathX.normDeg(p_75652_2_ - p_75652_1_);
 
         if (f3 > p_75652_3_) {
             f3 = p_75652_3_;

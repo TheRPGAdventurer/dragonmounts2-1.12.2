@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.EntityBodyHelper;
+import net.minecraft.network.datasync.DataParameter;
 
 /**
  *

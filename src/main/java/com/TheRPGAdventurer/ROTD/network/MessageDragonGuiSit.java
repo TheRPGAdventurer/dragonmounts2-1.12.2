@@ -27,6 +27,7 @@ public class MessageDragonGuiSit extends AbstractMessage<MessageDragonGuiSit> {
 
     @Override
     public void toBytes(ByteBuf buf) {
+        buf.writeInt(dragonId);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class MessageDragonGuiSit extends AbstractMessage<MessageDragonGuiSit> {
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon=(EntityTameableDragon) entity;
             dragon.getAISit().setSitting(!dragon.isSitting());
-            dragon.getNavigator().clearPathEntity();
+            dragon.getNavigator().clearPath();
         }
     }
 }

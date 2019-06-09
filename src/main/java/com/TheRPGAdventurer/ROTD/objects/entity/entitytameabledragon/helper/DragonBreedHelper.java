@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.util.math.MathX;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -227,7 +226,7 @@ public class DragonBreedHelper extends DragonHelper {
     public void getBreedHealth() {
     	
     	IAttributeInstance health = dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-    	double base = DragonMountsConfig.BASE_HEALTH; //85d;
+    	double base = DragonMountsConfig.BASE_HEALTH; //85d
     	
         switch (getBreedType()) {
         	case NETHER:

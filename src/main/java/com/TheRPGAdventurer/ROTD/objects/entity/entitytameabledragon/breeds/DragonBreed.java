@@ -1,11 +1,21 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.BreathWeaponFXEmitter;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeFactory;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathProjectileFactory;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundController;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectBreathWeaponNull;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectBreathWeaponP;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.BreathWeaponP;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Items;
@@ -270,6 +280,7 @@ public abstract class DragonBreed {
                 soundEffectNames=juvenile;
                 break;
             default:
+              DragonMounts.loggerLimit.error_once("Invalid life stage:" + stage);
                 break;
         }
 
@@ -301,6 +312,90 @@ public abstract class DragonBreed {
     public EnumParticleTypes getSneezeParticle() {
         return EnumParticleTypes.SMOKE_LARGE;
     }
+
+  public enum BreathWeaponSpawnType {PROJECTILE, NODES}
+  // PROJECTILE = spawn a single Entity, similar to EntityFIreball for ghast
+  // NODES = continuous stream of small nodes
+
+  public BreathWeaponSpawnType getBreathWeaponSpawnType(EntityTameableDragon dragon) // todo make abstract
+    {
+      throw new UnsupportedOperationException();
+    }
+
+  /** return a new Breath Weapon FX Emitter based on breed
+   * @return
+   */
+  public BreathWeaponFXEmitter getBreathWeaponFXEmitter(EntityTameableDragon dragon)
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  /** return a new BreathWeapon based on breed
+   * @return
+   */
+  public BreathWeaponP getBreathWeapon(EntityTameableDragon dragon)  //todo make abstract
+    {
+        throw new UnsupportedOperationException();
+    }
+
+  public BreathNodeFactory getBreathNodeFactory(EntityTameableDragon dragon)
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  public BreathProjectileFactory getBreathProjectileFactory(EntityTameableDragon dragon)
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * returns the range of the breath weapon
+   * @param dragonLifeStage
+   * @return  minimum range, maximum range, in blocks
+   */
+  public Pair<Float, Float> getBreathWeaponRange(DragonLifeStage dragonLifeStage)
+  {
+    return getBreathWeaponRangeDefault(dragonLifeStage);
+  }
+
+  /**
+   * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
+   * @return
+   */
+  public SoundEffectBreathWeaponP getSoundEffectBreathWeapon(SoundController i_soundController,
+                                                            SoundEffectBreathWeaponP.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+    return new SoundEffectBreathWeaponNull(i_soundController, i_weaponSoundUpdateLink);
+  }
+
+  private Pair<Float, Float> getBreathWeaponRangeDefault(DragonLifeStage dragonLifeStage) {
+    float minAttackRange = 1.0F;
+    float maxAttackRange = 1.0F;
+    switch (dragonLifeStage) {
+      case EGG:
+        break;
+      case HATCHLING: {
+        minAttackRange = 2.0F;
+        maxAttackRange = 4.0F;
+        break;
+      }
+      case JUVENILE: {
+        minAttackRange = 3.0F;
+        maxAttackRange = 8.0F;
+        break;
+      }
+      case ADULT: {
+        minAttackRange = 5.0F;
+        maxAttackRange = 25.0F;
+        break;
+      }
+      default: {
+        DragonMounts.loggerLimit.error_once("Unknown lifestage:" + dragonLifeStage);
+        break;
+      }
+    }
+    return new Pair<Float, Float>(minAttackRange, maxAttackRange);
+  }
+
 
 }
 

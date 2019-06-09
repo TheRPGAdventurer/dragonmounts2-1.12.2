@@ -5,7 +5,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;

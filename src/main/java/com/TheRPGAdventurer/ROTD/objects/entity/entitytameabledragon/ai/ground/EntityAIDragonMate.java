@@ -86,7 +86,7 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
         double followRange = getFollowRange();
         List<EntityTameableDragon> nearbyDragons = world.getEntitiesWithinAABB(
             EntityTameableDragon.class,
-            dragon.getEntityBoundingBox().expand(followRange, followRange, followRange)
+            dragon.getEntityBoundingBox().grow(followRange)
         );
         
         for (EntityTameableDragon nearbyDragon : nearbyDragons) {

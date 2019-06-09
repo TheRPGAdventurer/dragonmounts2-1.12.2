@@ -77,9 +77,10 @@ public class FlameBreathFX extends Entity {
     prevPosZ = posZ;
     entityMoveAndResizeHelper.moveAndResizeEntity(motionX, motionY, motionZ, newAABBDiameter, newAABBDiameter);
 
-    // ensure that we hit the ground next time too
-    if (isCollided && onGround) motionY -= 0.01F;
-    
+    if (collided && onGround) {
+        motionY -= 0.01F;         // ensure that we hit the ground next time too
+    }
+
     breathNode.updateAge(this);
     if (breathNode.isDead()) setDead();
   }

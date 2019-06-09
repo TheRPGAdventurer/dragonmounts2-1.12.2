@@ -480,7 +480,7 @@ public class EntityCarriage extends Entity {
                 this.setForwardDirection(-this.getForwardDirection());
                 this.setTimeSinceHit(10);
                 this.setDamage(this.getDamage() + amount * 10.0F);
-                this.setBeenAttacked();
+                this.markVelocityChanged();
                 boolean flag=source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer) source.getTrueSource()).capabilities.isCreativeMode;
 
                 if (flag || this.getDamage() > 40.0F) {

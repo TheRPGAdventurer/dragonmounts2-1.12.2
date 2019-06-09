@@ -13,10 +13,12 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
 import com.TheRPGAdventurer.ROTD.event.VanillaEggHandler;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonTarget;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonTargetHandlerServer;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
-
+import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
@@ -30,6 +32,11 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.server.FMLServerHandler;
+
+import java.io.File;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -52,17 +59,26 @@ public class ServerProxy {
 
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsConfig.PreInit();
+        StartupDebugCommon.preInitCommon();
     }
 
     @SuppressWarnings("deprecation")
 	public void Initialization(FMLInitializationEvent evt) {
     	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
+//      network.registerMessage(DragonControlMessageHandler.class, MessageDragonControl.class,
+//              DCM_DISCRIMINATOR_ID, Side.SERVER);
+      network.registerMessage(MessageDragonTargetHandlerServer.class, MessageDragonTarget.class,
+              DOT_DISCRIMINATOR_ID, Side.SERVER);
+
+        StartupDebugCommon.initCommon();
     }
 
     public void PostInitialization(FMLPostInitializationEvent event) {
         registerEntities();
-
+      if (DragonMountsConfig.isDebug()) {
+        StartupDebugCommon.postInitCommon();
+      }
     }
 
     public void ServerStarting(FMLServerStartingEvent evt) {
@@ -126,5 +142,12 @@ public class ServerProxy {
     public void registerItemRenderer(Item item, int meta, String id)
     {
     }
+
+    // get the directory on disk used for storing the game files
+    // is different for dedicated server vs client
+    public File getDataDirectory() {
+    return FMLServerHandler.instance().getSavesDirectory();
+  }
+
 
 }

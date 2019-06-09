@@ -170,20 +170,6 @@ public class MathX {
         return (value < min ? min : (value > max ? max : value));
     }
 
-    /**
-     * Numeric Integer Clamps
-     * @param value
-     * @param min
-     * @param max
-     * @return
-     * {@code min} if {@code value} is less than {@code min} <p>
-     * {@code max} if {@code value} is greater than or equal to {@code max} </p>
-     * if neither fit the parameters, just return  {@code value}
-     */
-    public static int clamps(int value, int min, int max) {
-        return (value < min ? min : (value >= max ? max : value));
-    }
-    
     public static float updateRotation(float r1, float r2, float step) {
         return r1 + clamp(normDeg(r2 - r1), -step, step);
     }
@@ -225,8 +211,14 @@ public class MathX {
             return b;
         }
         
-//        return lerp(a, b, x * x * (3 - 2 * x)); im stupid ik
-        return lerp(a, b, x * x * x);
+        return lerp(a, b, x * x * (3 - 2 * x)); //original version // im stupid ik ?
+//        return lerp(a, b, x * x * x);  modified?
+        //todo: what was the reason for changing?  the shape of the interpolation (between 0 and 1) is very different now
+      //  the original gives a smooth curve between x=0 and x = 1, with zero rate of change at x=0 and x=1
+      //  the modified gives maximum rate of change at x=1 which I don't think it what the function is supposed to do
+      // try the two equations in this visualisation tool: https://www.desmos.com/calculator
+      //  original version: y = x * x * (3 - 2 * x)
+      //  modified version: y = x * x * x
     }
     
     /**
@@ -309,46 +301,51 @@ public class MathX {
   
   /**
    * [FLOAT] The angle is reduced to an angle between -180 and +180 by mod, and a 360 check
-   * @param p_76142_0_
+   * @param angle
    * @return
    */
-  public static float wrapAngleTo180(float p_76142_0_)
+  public static float wrapAngleTo180(float angle)
   {
-      p_76142_0_ %= 360.0F;
+      angle %= 360.0F;
 
-      if (p_76142_0_ >= 180.0F)
+      if (angle >= 180.0F)
       {
-          p_76142_0_ -= 360.0F;
+          angle -= 360.0F;
       }
 
-      if (p_76142_0_ < -180.0F)
+      if (angle < -180.0F)
       {
-          p_76142_0_ += 360.0F;
+          angle += 360.0F;
       }
 
-      return p_76142_0_;
+      return angle;
   }
 
   /**
    * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
    */
-  public static double wrapAngleTo180(double p_76138_0_)
+  public static double wrapAngleTo180(double angle)
   {
-      p_76138_0_ %= 360.0D;
+      angle %= 360.0D;
 
-      if (p_76138_0_ >= 180.0D)
+      if (angle >= 180.0D)
       {
-          p_76138_0_ -= 360.0D;
+          angle -= 360.0D;
       }
 
-      if (p_76138_0_ < -180.0D)
+      if (angle < -180.0D)
       {
-          p_76138_0_ += 360.0D;
+          angle += 360.0D;
       }
 
-      return p_76138_0_;
+      return angle;
   }
-  
+
+  /**
+   * Calculates the inverted square root
+   * @param x
+   * @return
+   */
   public static float invSqrt(float x) {
 	    float xhalf = 0.5f * x;
 	    int i = Float.floatToIntBits(x);

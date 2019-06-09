@@ -9,7 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.cmd;
 
-import com.TheRPGAdventurer.ROTD.entity.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -30,14 +30,15 @@ import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
  */
 public interface IDragonModifier {
     
-    static final double MODIFIER_RANGE = 64;
-    
+  static final double MODIFIER_RANGE_XZ =16;
+  static final double MODIFIER_RANGE_Y = 5;
+
     default void applyModifier(MinecraftServer server, ICommandSender sender, Consumer<EntityTameableDragon> modifier) throws CommandException {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
             AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .expand(MODIFIER_RANGE, MODIFIER_RANGE, MODIFIER_RANGE);
+                .expand(MODIFIER_RANGE_XZ, MODIFIER_RANGE_Y, MODIFIER_RANGE_XZ);
             
             // List all dragons in expanded player entity box
             List<EntityTameableDragon> dragons = player
@@ -47,8 +48,8 @@ public interface IDragonModifier {
             // get closest dragon
             Optional<EntityTameableDragon> closestDragon = dragons.stream()
                 .min((dragon1, dragon2) -> Float.compare( // max
-                    dragon1.getDistanceToEntity(player),
-                    dragon2.getDistanceToEntity(player))
+                    dragon1.getDistance(player),
+                                dragon2.getDistance(player))
                 );
 
             if (!closestDragon.isPresent()) throw new CommandException("commands.dragon.nodragons");

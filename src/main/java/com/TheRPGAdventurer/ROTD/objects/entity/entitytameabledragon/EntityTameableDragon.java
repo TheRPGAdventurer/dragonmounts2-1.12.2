@@ -884,8 +884,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer()!=null  &&
-                (this.isUsingBreathWeapon() && this.moveStrafing==0)) {
+        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer()!=null && (this.isUsingBreathWeapon())) {
             this.equalizeYaw(this.getControllingPlayer());
         }
 
@@ -912,6 +911,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (ticksShear >= 0) {
             ticksShear--;
+        }
+
+        if (this.isPotionActive(MobEffects.WEAKNESS)) {
+            this.removePotionEffect(MobEffects.WEAKNESS);
         }
 
         if (!isDead) {
@@ -945,12 +948,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-//        int factor=DragonMountsConfig.REG_FACTOR;
-//        if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor==0 && !isDead) {
-//            int[] exclude={0};
-//            int health=DMUtils.getRandomWithExclusionstatic(new Random(), 1, 3, exclude);
-//            this.heal(health);
-//        }
+        //        int factor=DragonMountsConfig.REG_FACTOR;
+        //        if (!isEgg() && this.getHealth() < this.getMaxHealth() && this.ticksExisted % factor==0 && !isDead) {
+        //            int[] exclude={0};
+        //            int health=DMUtils.getRandomWithExclusionstatic(new Random(), 1, 3, exclude);
+        //            this.heal(health);
+        //        }
 
         doBlockCollisions();
         List<Entity> list=this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
@@ -1729,16 +1732,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public int getArmorResistance() {
         if (getArmor()==1) {
-            return (int) 1.4;
+            return (int) 1.6;
         }
         if (getArmor()==2) {
-            return (int) 1.2;
+            return (int) 1.4;
         }
         if (getArmor()==3) {
-            return (int) 1.7;
+            return (int) 2;
         }
 
-        if (getArmor()==4) {
+        if (getArmor()==6) {
             return (int) 1.4;
         }
         return 0;
@@ -1904,7 +1907,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.motionZ=0.0D;
             this.onUpdate();
             if (this.isRiding()) {
-                this.updateRiding(entity);
+                this.updateRiding((EntityLivingBase) entity);
             }
         }
     }
@@ -1919,8 +1922,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        if (isFlying()) {
-            this.rotationYaw=((EntityPlayer) rider).rotationYawHead;
+        if (isFlying() && this.moveStrafing==0) {
+            this.rotationYaw=((EntityPlayer) rider).rotationYaw;
             this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
         }
         this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
@@ -1929,7 +1932,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
     }
 
-    public void updateRiding(Entity riding) {
+    public void updateRiding(EntityLivingBase riding) {
         if (riding!=null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
             int i=riding.getPassengers().indexOf(this);
             float radius=(i==2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
@@ -1938,6 +1941,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             double extraZ=(double) (radius * MathHelper.cos(angle));
             double extraY=(riding.isSneaking() ? 1.0D : 1.4D) + (i==2 ? 0.4D : 0D);
             equalizeYaw((EntityPlayer) riding);
+            this.rotationYaw=riding.rotationYaw;
+            this.prevRotationYaw=riding.prevRotationYaw;
+            this.rotationYawHead=riding.rotationYawHead;
+            this.prevRotationYawHead=riding.prevRotationYawHead;
+            this.rotationPitch=riding.rotationPitch;
+            this.prevRotationPitch=riding.prevRotationPitch;
             //            Vec3d wp=riding.getLook(1.0F);
             //            Vec3d dragonEyePos=getPositionVector().addVector(0, getEyeHeight(), 0);
             //            Vec3d endOfLook=dragonEyePos.addVector(wp.x, wp.y, wp.z);

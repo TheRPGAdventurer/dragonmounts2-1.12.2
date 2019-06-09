@@ -75,15 +75,14 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         }
 
         // lift off from a jump
-
         if (entityIsJumping(rider)) {
             if (!dragon.isFlying()) {
                 dragon.liftOff();
             } else {
-                y+=10;
+                y+=15;
             }
         } else if (dragon.isGoingDown()) {
-            y-=10;
+            y-=15;
         }
 
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);

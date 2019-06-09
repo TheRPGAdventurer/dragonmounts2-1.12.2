@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -115,7 +116,7 @@ public class RegistryEventHandler {
 			});
 		}
 
-        DMUtils.getLogger().info("Models Sucessfully Registered");
+      DMUtils.getLogger().info("Models Sucessfully Registered");
     }
 
     public static void preInitRegistries() {

@@ -71,7 +71,7 @@ public class DragonInteract extends DragonInteractBase {
              */
             if (dragon.isTamed() && (DMUtils.hasEquipped(player, Items.STICK) || DMUtils.hasEquipped(player, Items.BONE)) && dragon.onGround) {
                 dragon.getAISit().setSitting(!dragon.isSitting());
-                dragon.getNavigator().clearPathEntity();
+                dragon.getNavigator().clearPath();
                 return true;
             }
 

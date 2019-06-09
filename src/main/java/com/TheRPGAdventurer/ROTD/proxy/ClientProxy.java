@@ -11,11 +11,13 @@ package com.TheRPGAdventurer.ROTD.proxy;
 
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
+import com.TheRPGAdventurer.ROTD.client.other.TargetHighlighter;
 import com.TheRPGAdventurer.ROTD.client.render.RenderCarriage;
 import com.TheRPGAdventurer.ROTD.client.render.RenderDM2Cape;
 import com.TheRPGAdventurer.ROTD.client.render.TileEntityDragonShulkerRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.breathweaponFX.*;
+import com.TheRPGAdventurer.ROTD.client.userinput.DragonOrbControl;
 import com.TheRPGAdventurer.ROTD.event.DragonViewEvent;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
@@ -24,7 +26,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
-
+import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugClientOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -33,6 +35,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -40,7 +43,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
-
+import java.io.File;
 import java.util.Arrays;
 
 //import scala.actors.threadpool.Arrays;
@@ -102,7 +105,11 @@ public class ClientProxy extends ServerProxy {
     @Override
     public void Initialization(FMLInitializationEvent evt) {
         super.Initialization(evt);
-        
+      if (DragonMountsConfig.isDebug()) {
+        MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+      }
+      StartupDebugClientOnly.initClientOnly();
+
         // Dragon Whistle String Color
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1) return stack.getTagCompound().getInteger("Color");
@@ -117,7 +124,17 @@ public class ClientProxy extends ServerProxy {
         if (DragonMountsConfig.isDebug()) {
             MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
         }
-        MinecraftForge.EVENT_BUS.register(new ModKeys());
+      StartupDebugClientOnly.postInitClientOnly();
+
+      if (DragonMountsConfig.isPrototypeBreathweapons()) {
+        DragonOrbControl.createSingleton(getNetwork());
+        DragonOrbControl.initialiseInterceptors();
+        MinecraftForge.EVENT_BUS.register(DragonOrbControl.getInstance());
+        MinecraftForge.EVENT_BUS.register(new TargetHighlighter());
+ //       FMLCommonHandler.instance().bus().register(new DragonEntityWatcher());  todo not required?
+      }
+
+      MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
         MinecraftForge.EVENT_BUS.register(new RenderDM2Cape());
         MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);
@@ -161,4 +178,10 @@ public class ClientProxy extends ServerProxy {
     public void registerItemRenderer(Item item, int meta, String id) {
     	ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
     }
+
+  @Override
+  public File getDataDirectory()
+  {
+    return Minecraft.getMinecraft().mcDataDir;
+  }
 }

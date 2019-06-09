@@ -39,7 +39,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     @Override
     public void startExecuting() {
-        dragon.getNavigator().clearPathEntity();
+        dragon.getNavigator().clearPath();
     }
 
     @Override

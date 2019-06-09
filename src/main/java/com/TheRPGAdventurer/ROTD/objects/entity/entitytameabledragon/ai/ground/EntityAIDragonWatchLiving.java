@@ -46,8 +46,8 @@ public class EntityAIDragonWatchLiving extends EntityAIDragonBase {
         watchedEntity = null;
         
         if (watchedEntity == null) {
-            AxisAlignedBB aabb = dragon.getEntityBoundingBox().expand(maxDist, dragon.height, maxDist);
-            Class<EntityLiving> clazz = EntityLiving.class;
+            AxisAlignedBB aabb = dragon.getEntityBoundingBox().grow(maxDist, dragon.height, maxDist);
+            Class clazz = EntityLiving.class;
             watchedEntity = world.findNearestEntityWithinAABB(clazz, aabb, dragon);
         }
 
@@ -71,8 +71,9 @@ public class EntityAIDragonWatchLiving extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldContinueExecuting() {
+
         if (!watchedEntity.isEntityAlive()) return false;
-        if (dragon.getDistanceSqToEntity(watchedEntity) > maxDist * maxDist) return false;
+        if (dragon.getDistanceSq(watchedEntity) > maxDist * maxDist) return false;
         else return watchTicks > 2;
     }
 

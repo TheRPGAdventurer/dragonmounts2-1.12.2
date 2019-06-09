@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.client.model.dragon.anim;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonBreathHelper;
@@ -275,7 +276,7 @@ public class DragonAnimator {
         groundTimer.set(groundVal);
 
         // update Flutter transition
-        boolean FlutterFlag = !onGround && (dragon.isCollided
+        boolean FlutterFlag = !onGround && (dragon.collided
                 || dragon.motionY > -0.1 || speedEnt < speedMax);
         FlutterTimer.add(FlutterFlag ? 0.1f : -0.1f);
 
@@ -322,7 +323,7 @@ public class DragonAnimator {
                 break;
             }
             default: {
-                System.err.println("unexpected breathstate:" + breathState);
+                DragonMounts.loggerLimit.error_once("unexpected breathstate:" + breathState);
                 return;
             }
         }

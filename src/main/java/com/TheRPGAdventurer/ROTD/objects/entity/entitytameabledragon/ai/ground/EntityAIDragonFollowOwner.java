@@ -63,8 +63,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
             if (((EntityPlayer) ownerCurrent).isSpectator()) return false;
         if (dragon.isSitting()) return false;
         if (!dragon.nothing()) return false;
-        if (dragon.getDistanceToEntity(ownerCurrent) < minDist && dragon.isAdult()) return false;
-
+        if (dragon.getDistance(ownerCurrent) < minDist && dragon.isAdult()) return false;
         owner = ownerCurrent;
 
         return dragon.nothing();
@@ -75,10 +74,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldContinueExecuting() {
+
         if (nav.noPath()) return false;
         if (dragon.isSitting()) return false;
-        if (dragon.getDistanceToEntity(owner) < minDist) return false;
-
+        if (dragon.getDistance(owner) < minDist) return false;
         return true;
     }
 
@@ -108,7 +107,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     @Override
     public void resetTask() {
         owner = null;
-        nav.clearPathEntity();
+        nav.clearPath();
         PathNavigate pathNavigate = dragon.getNavigator();
         if (pathNavigate instanceof PathNavigateGround) {
             PathNavigateGround pathNavigateGround = (PathNavigateGround) pathNavigate;
@@ -143,7 +142,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
 
                 if (!dragon.getNavigator().tryMoveToEntityLiving(this.owner, this.speed)) {
                     if (!this.dragon.getLeashed() && !this.dragon.isRiding()) {
-                        if (this.dragon.getDistanceSqToEntity(this.owner) >= 144.0D) {
+                        if (this.dragon.getDistanceSq(this.owner) >= 144.0D) {
                             int i = MathHelper.floor(this.owner.posX) - 2;
                             int j = MathHelper.floor(this.owner.posZ) - 2;
                             int k = MathHelper.floor(this.owner.getEntityBoundingBox().minY);
@@ -152,7 +151,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
                                 for (int i1 = 0; i1 <= 4; ++i1) {
                                     if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.isTeleportFriendlyBlock(i, j, k, l, i1)) {
                                         dragon.setLocationAndAngles((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.dragon.rotationYaw, this.dragon.rotationPitch);
-                                        dragon.getNavigator().clearPathEntity();
+                                        dragon.getNavigator().clearPath();
                                         return;
                                     }
                                 }

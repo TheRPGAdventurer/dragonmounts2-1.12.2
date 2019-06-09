@@ -76,6 +76,7 @@ public class DragonMountsConfig {
 
 	public static double ThirdPersonZoom = 8;
 
+	public static int dragonFollowOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 
 	public static double maxFLightHeight = 40;
@@ -87,6 +88,10 @@ public class DragonMountsConfig {
 
 	public static boolean useDimensionBlackList = true;
 
+  private static boolean configHasLoaded = false; // used to detect code which tries to access a property before the config has been loaded
+      // can be caused by static instantiation of classes especially Items Blocks and similar
+  private static int configHasLoadedErrorCount = 0; // used to detect code which tries to access a property before the config has been loaded
+
 	public static void PreInit() {
 		File configFile = new File(Loader.instance().getConfigDir(), DragonMounts.MODID + ".cfg");
 		config = new Configuration(configFile);
@@ -94,7 +99,7 @@ public class DragonMountsConfig {
 	}
 
 	public static void clientPreInit() {
-		MinecraftForge.EVENT_BUS.register(new ConfigEventHadler());
+		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
 	}
 
 	public static void syncFromFiles() {
@@ -111,13 +116,24 @@ public class DragonMountsConfig {
 
 	public static Configuration getConfig() {return config;}
 
-	public static boolean isDebug() {return debug;}
+	public static boolean isDebug() {verifyLoaded(); return debug;}
 
-	public static boolean isDisableBlockOverride() {
-		return disableBlockOverride;
-	}
+	public static boolean isDisableBlockOverride() {verifyLoaded(); return disableBlockOverride;}
 
-	private static void syncconfigs(boolean loadFromConfigFile, boolean readFromConfig) {
+  public static boolean isOrbTargetAutoLock() {verifyLoaded(); return true;} //todo update later if dragon orb gets reintroduced
+  public static boolean isOrbHighlightTarget() {verifyLoaded(); return true;}
+  public static boolean isPrototypeBreathweapons() {verifyLoaded(); return isDebug();} // turn off prototype breathweapons if not debugging
+	public static boolean doBreathweaponsAffectBlocks() {verifyLoaded(); return true;} // todo implement later
+
+
+  private static void verifyLoaded() {
+    if (configHasLoaded) return;
+
+		DragonMounts.loggerLimit.error_once(
+							"One or more DragonMountsConfig properties were accessed before loading the configuration");
+  }
+
+  private static void syncconfigs(boolean loadFromConfigFile, boolean readFromConfig) {
 		if(loadFromConfigFile)
 			config.load();
 
@@ -128,7 +144,7 @@ public class DragonMountsConfig {
 		 *  MAIN
 		 */
 		prop = config.get(CATEGORY_MAIN, "debug", debug);
-		prop.setComment("Debug mode. Unless you're a developer or are told to activate it, you don't want to set this to true.");
+		prop.setComment("Debug mode. You need to restart Minecraft for the change to take effect.  Unless you're a developer or are told to activate it, you don't want to set this to true.");
 		debug = prop.getBoolean();
 		propOrder.add(prop.getName());
 
@@ -306,6 +322,7 @@ public class DragonMountsConfig {
 		netherNestRarerityInZ = prop.getInt();
 		propOrder.add(prop.getName());
 
+    configHasLoaded = true;
 
 		config.setCategoryPropertyOrder(CATEGORY_WORLDGEN, propOrder);
 		config.save();
@@ -315,7 +332,7 @@ public class DragonMountsConfig {
 		}
 	}
 
-	public static class ConfigEventHadler {
+	public static class ConfigEventHandler {
 
 		@SubscribeEvent(priority = EventPriority.LOWEST)
 		public void onEvent(ConfigChangedEvent.OnConfigChangedEvent event) {

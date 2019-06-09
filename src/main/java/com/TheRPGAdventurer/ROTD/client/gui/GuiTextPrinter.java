@@ -36,6 +36,7 @@ public class GuiTextPrinter {
     }
     
     public void print(String text) {
+        if (fr == null) return;  //  just in case...
         String[] lines = text.split("\n", -1);
         if (lines.length > 1) {
             for (int i = 0; i < lines.length; i++) {

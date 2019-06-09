@@ -30,22 +30,27 @@ import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
  */
 public interface IDragonModifier {
     
+  static final double MODIFIER_RANGE_XZ =16;
+  static final double MODIFIER_RANGE_Y = 5;
+
     default void applyModifier(MinecraftServer server, ICommandSender sender, Consumer<EntityTameableDragon> modifier) throws CommandException {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
-            // Get the players bounding box and expand it
-            AxisAlignedBB aabb = player.getEntityBoundingBox().grow(16, 5, 16); //Modifier Range. Defaults: XZ Plane: 16; Y Plane: 5
+            AxisAlignedBB aabb = player.getEntityBoundingBox()
+                .expand(MODIFIER_RANGE_XZ, MODIFIER_RANGE_Y, MODIFIER_RANGE_XZ);
             
             // List all dragons in expanded player entity box
             List<EntityTameableDragon> dragons = player
             		.world
             		.getEntitiesWithinAABB(EntityTameableDragon.class, aabb);
 
-            // Get the closest dragon if theres more than 1
-            Optional<EntityTameableDragon> closestDragon = dragons
-            		.stream()
-            		.min( (dragon1, dragon2) -> Float.compare(dragon1.getDistanceToEntity(player), dragon2.getDistanceToEntity(player)) );
+            // get closest dragon
+            Optional<EntityTameableDragon> closestDragon = dragons.stream()
+                .min((dragon1, dragon2) -> Float.compare( // max
+                    dragon1.getDistance(player),
+                                dragon2.getDistance(player))
+                );
 
             if (!closestDragon.isPresent()) throw new CommandException("commands.dragon.nodragons");
             

@@ -9,10 +9,12 @@
  */
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.nodes.BreathNodeP;
 import com.TheRPGAdventurer.ROTD.util.ClientServerSynchronisedTickCount;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -124,6 +126,11 @@ public class DragonLifeStageHelper extends DragonHelper {
     public EnumDragonLifeStage getLifeStage() {
         int age = getTicksSinceCreation();
         return EnumDragonLifeStage.fromTickCount(age);
+    }
+
+    public DragonLifeStage getLifeStageP() {
+        int age = getTicksSinceCreation();
+        return DragonLifeStage.getLifeStageFromTickCount(age);
     }
 
     public int getTicksSinceCreation() {
@@ -378,9 +385,30 @@ public class DragonLifeStageHelper extends DragonHelper {
                 return BreathNode.Power.LARGE;
             }
             default: {
-                L.error("Illegal lifestage in getScale():" + getLifeStage());
+                DragonMounts.loggerLimit.error_once("Illegal lifestage in getScale():" + getLifeStage());
                 return BreathNode.Power.SMALL;
             }
         }
     }
+    public BreathNodeP.Power getBreathPowerP() {
+        switch (getLifeStage()) {
+            case EGG: {
+                return BreathNodeP.Power.SMALL; //  dummy
+            }
+            case HATCHLING: {
+                return BreathNodeP.Power.SMALL;
+            }
+            case JUVENILE: {
+                return BreathNodeP.Power.MEDIUM;
+            }
+            case ADULT: {
+                return BreathNodeP.Power.LARGE;
+            }
+            default: {
+                DragonMounts.loggerLimit.error_once("Illegal lifestage in getScale():" + getLifeStage());
+                return BreathNodeP.Power.SMALL;
+            }
+        }
+    }
+
 }

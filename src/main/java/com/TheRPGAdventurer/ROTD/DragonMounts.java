@@ -11,6 +11,7 @@ package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.event.EventLiving;
+import com.TheRPGAdventurer.ROTD.event.IItemColorRegistration;
 import com.TheRPGAdventurer.ROTD.event.RegistryEventHandler;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
@@ -19,13 +20,16 @@ import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.network.*;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
+import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.LoggerLimit;
 import com.TheRPGAdventurer.ROTD.world.DragonMountsWorldGenerator;
 
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.client.ForgeClientHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -39,6 +43,9 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Main control class for Forge.
@@ -77,11 +84,19 @@ public class DragonMounts {
 
     public static DamageSource dragons_fire;
 
+  // Add this field to your main class
+    public static final Logger logger = LogManager.getLogger(DragonMounts.MODID);
+    public static final LoggerLimit loggerLimit = new LoggerLimit(logger);
+
     @EventHandler
     public void PreInitialization(FMLPreInitializationEvent event) {
         DragonMountsLootTables.registerLootTables();
         MinecraftForge.EVENT_BUS.register(new EventLiving());
-        proxy.PreInitialization(event);
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT)
+        {
+          MinecraftForge.EVENT_BUS.register(IItemColorRegistration.class);
+        }
+      proxy.PreInitialization(event);
         metadata=event.getModMetadata();
     }
 

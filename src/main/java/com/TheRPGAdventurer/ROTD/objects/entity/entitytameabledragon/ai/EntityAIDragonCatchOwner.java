@@ -62,7 +62,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         	return false;
         }
         
-        dragon.setBoosting(dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale());
+        dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
         
         // don't catch if owner has a working Elytra equipped
         // note: isBroken() is misleading, it actually checks if the items is usable
@@ -89,11 +89,11 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         
         // don't catch if owner is too far away
         double followRange = getFollowRange();
-        if (dragon.getDistanceToEntity(owner) < followRange) {
+        if (dragon.getDistance(owner) < followRange) {
           // mount owner if close enough, otherwise move to owner
-           if (dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale()) {
+           if (dragon.getDistance(owner) < dragon.width + dragon.getScale()) {
               owner.startRiding(dragon);
-              dragon.setBoosting(dragon.getDistanceToEntity(owner) < dragon.width + dragon.getScale());
+              dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
            } else {
               dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
            }

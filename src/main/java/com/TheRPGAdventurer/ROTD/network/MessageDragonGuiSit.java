@@ -39,7 +39,7 @@ public class MessageDragonGuiSit extends AbstractMessage<MessageDragonGuiSit> {
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon=(EntityTameableDragon) entity;
             dragon.getAISit().setSitting(!dragon.isSitting());
-            dragon.getNavigator().clearPathEntity();
+            dragon.getNavigator().clearPath();
         }
     }
 }

@@ -10,7 +10,6 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
-import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -49,18 +48,10 @@ public class DragonInteract extends DragonInteractBase {
                 /*
                  * GUI
                  */
-                if (player.isSneaking() && dragon.isTamedFor(player) && !DMUtils.hasEquipped(player, ModItems.dragon_whistle)) {
+                if (player.isSneaking() && dragon.isTamedFor(player) && !hasInteractItemsEquipped(player)) {
                     // Dragon Inventory
-                    if (!dragon.isHatchling()) {
-                        dragon.openGUI(player, GuiHandler.GUI_DRAGON);
-                        return true;
-                    } else player.sendStatusMessage(new TextComponentTranslation("entity.dragon.tooYoung"), true);
-                    // Wand Gui
-/*        		if (DMUtils.hasEquipped(player, ModItems.dragon_wand)) {
-	            		dragon.openGUI(player, GuiHandler.GUI_DRAGON_WAND);
-	            		return true;
-	            	}
-*/
+                	dragon.openGUI(player, GuiHandler.GUI_DRAGON);
+                	return true;
                 }
             }
 

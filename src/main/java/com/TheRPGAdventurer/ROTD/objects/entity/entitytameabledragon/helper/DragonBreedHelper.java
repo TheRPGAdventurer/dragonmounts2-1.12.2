@@ -232,13 +232,13 @@ public class DragonBreedHelper extends DragonHelper {
         		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
         		break;
         	case SKELETON:
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(75.0D);
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
         		break;
         	case WITHER:
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
         		break;
         	default: //All Dragons without special health parameters
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);
         		break;
         }
     }

@@ -27,6 +27,7 @@ public class MessageDragonGuiLock extends AbstractMessage<MessageDragonGuiLock> 
 
     @Override
     public void toBytes(ByteBuf buf) {
+        buf.writeInt(dragonId);
     }
 
     @Override

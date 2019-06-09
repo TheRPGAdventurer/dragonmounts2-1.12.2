@@ -1,15 +1,10 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import java.io.IOException;
-
-import org.lwjgl.input.Keyboard;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiSit;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -20,6 +15,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {
@@ -28,7 +26,7 @@ public class GuiDragon extends GuiContainer {
     private static final ResourceLocation offhand=new ResourceLocation(DragonMounts.MODID, "textures/gui/offhand.png");
     private static final ResourceLocation hunger_empty=new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_empty.png");
     private static final ResourceLocation hunger_full=new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_full.png");
-    
+
     private EntityTameableDragon dragon;
     private float mousePosX;
     private float mousePosY;
@@ -57,7 +55,7 @@ public class GuiDragon extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
-//        this.fontRenderer.drawString(DMUtils.translateToLocal("gui.dragon.hunger") + dragon.getHunger() + "/150", 80, 6, 0Xe99e0c);
+        //        this.fontRenderer.drawString(DMUtils.translateToLocal("gui.dragon.hunger") + dragon.getHunger() + "/150", 80, 6, 0Xe99e0c);
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
     }
 
@@ -70,12 +68,14 @@ public class GuiDragon extends GuiContainer {
 
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
-        this.mc.getTextureManager().bindTexture(hunger_empty);
+
         drawModalRectWithCustomSizedTexture(x - 10, y + 20, 0.0F, 0.0F, 9, 9, 9, 9);
 
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
         }
+
+        this.mc.getTextureManager().bindTexture(hunger_empty);
 /*            // Draw Player Entity
             GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x - 38 - this.mousePosX, y + 90 - this.mousePosY, this.player);
             this.mc.getTextureManager().bindTexture(texture1);
@@ -122,8 +122,8 @@ public class GuiDragon extends GuiContainer {
     protected void actionPerformed(GuiButton button) throws IOException {
         boolean sit=button==this.sit;
         boolean lock=button==this.lock;
-        if(lock) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiLock(dragon.getEntityId()));
-        if(sit) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiSit(dragon.getEntityId()));
+        if (lock) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiLock(dragon.getEntityId()));
+        if (sit) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiSit(dragon.getEntityId()));
     }
 
     public void updateScreen() {

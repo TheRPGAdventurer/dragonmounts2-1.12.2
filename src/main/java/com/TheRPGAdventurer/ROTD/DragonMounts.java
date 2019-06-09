@@ -53,7 +53,7 @@ import org.apache.logging.log4j.LogManager;
 @Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
-    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWhistle.class, MessageDragonTeleport.class, MessageDragonExtras.class})
+    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonWhistle.class, MessageDragonGuiSit.class, MessageDragonGuiLock.class, MessageDragonTeleport.class, MessageDragonExtras.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME="Dragon Mounts";

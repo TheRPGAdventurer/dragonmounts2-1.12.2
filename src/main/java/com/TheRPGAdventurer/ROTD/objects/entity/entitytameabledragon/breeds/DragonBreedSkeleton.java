@@ -4,6 +4,7 @@ import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -17,7 +18,8 @@ public class DragonBreedSkeleton extends DragonBreed {
 
     DragonBreedSkeleton() {
         super("skeleton", 0xffffff);
-        
+
+        setHabitatBlock(Blocks.BONE_BLOCK);
         setImmunity(DamageSource.LIGHTNING_BOLT);
         setImmunity(DamageSource.WITHER);
     }

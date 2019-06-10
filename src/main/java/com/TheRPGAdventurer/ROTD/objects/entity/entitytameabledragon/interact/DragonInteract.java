@@ -64,8 +64,6 @@ public class DragonInteract extends DragonInteractBase {
                 }
             }
 
-
-
             /*
              * Sit
              */
@@ -74,8 +72,6 @@ public class DragonInteract extends DragonInteractBase {
                 dragon.getNavigator().clearPath();
                 return true;
             }
-
-
 
             /*
              * Consume

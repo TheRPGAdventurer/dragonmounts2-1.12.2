@@ -123,6 +123,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Boolean> GROWTH_PAUSED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_SADDLED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DATA_BREATHING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> DATA_ALT_BREATHING=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> GOING_DOWN=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CHESTED=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> ALLOW_OTHERPLAYERS=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -139,7 +140,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Integer> HUNGER=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
-    private static final DataParameter<String> DATA_BREATH_WEAPON=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<ItemStack> BANNER1=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER2=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER3=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
@@ -178,6 +178,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public DragonInventory dragonInv;
     private boolean hasChestVarChanged=false;
     private boolean isUsingBreathWeapon;
+    private boolean altBreathing;
     private boolean isGoingDown;
     private boolean isUnhovered;
     private boolean yLocked;
@@ -246,6 +247,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_FLYING, false);
         dataManager.register(GROWTH_PAUSED, false);
         dataManager.register(DATA_BREATHING, false);
+        dataManager.register(DATA_ALT_BREATHING, false);
         dataManager.register(GOING_DOWN, false);
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
@@ -301,6 +303,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean(NBT_CHESTED, this.isChested());
         nbt.setBoolean(NBT_SHEARED, this.isSheared());
         nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
+        nbt.setBoolean("alt_breathing", this.isUsingAltBreathWeapon());
         nbt.setBoolean("down", this.isGoingDown());
         nbt.setBoolean(NBT_ISMALE, this.isMale());
         nbt.setBoolean(NBT_ISALBINO, this.isAlbino());
@@ -337,6 +340,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setSheared(nbt.getBoolean(NBT_SHEARED));
         this.setHunger(nbt.getInteger("hunger"));
         this.setUsingBreathWeapon(nbt.getBoolean(NBT_BREATHING));
+        this.setUsingAltBreathWeapon(nbt.getBoolean("alt_breathing"));
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
         this.setArmor(nbt.getInteger(NBT_ARMOR));
         this.setMale(nbt.getBoolean(NBT_ISMALE));
@@ -357,6 +361,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
         readDragonInventory(nbt);
         helpers.values().forEach(helper -> helper.readFromNBT(nbt));
+
 
     }
 
@@ -612,6 +617,28 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Returns true if the entity is breathing.
      */
+    public boolean isUsingAltBreathWeapon() {
+        if (world.isRemote) {
+            boolean usingBreathWeapon=this.dataManager.get(DATA_ALT_BREATHING);
+            this.altBreathing=altBreathing;
+            return altBreathing;
+        }
+        return altBreathing;
+    }
+
+    /**
+     * Set the breathing flag of the entity.
+     */
+    public void setUsingAltBreathWeapon(boolean altBreathing) {
+        this.dataManager.set(DATA_ALT_BREATHING, altBreathing);
+        if (!world.isRemote) {
+            this.altBreathing=altBreathing;
+        }
+    }
+
+    /**
+     * Returns true if the entity is breathing.
+     */
     public boolean isGoingDown() {
         if (world.isRemote) {
             boolean goingdown=this.dataManager.get(GOING_DOWN);
@@ -752,12 +779,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Minecraft mc=Minecraft.getMinecraft();
         if ((hasControllingPlayer(mc.player) && getControllingPlayer()!=null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity()!=null && this.getRidingEntity().equals(mc.player)) || (getOwner()!=null && firesupport())) {
             boolean isBreathing=ModKeys.KEY_BREATH.isKeyDown();
+            boolean projectile=ModKeys.KEY_LOCKEDY.isPressed();
             boolean isBoosting=ModKeys.BOOST.isKeyDown();
             boolean isDown=ModKeys.DOWN.isKeyDown();
             boolean unhover=ModKeys.KEY_HOVERCANCEL.isPressed();
             boolean followyaw=ModKeys.FOLLOW_YAW.isPressed();
             boolean locky=ModKeys.KEY_LOCKEDY.isPressed();
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing, projectile));
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
         }
     }
@@ -1816,7 +1845,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         throw new UnsupportedOperationException();
         //return getHelper(DragonBreathHelperP.class);
     }
-
 
     public DragonAnimator getAnimator() {
         return animator;

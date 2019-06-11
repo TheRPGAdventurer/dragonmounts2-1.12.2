@@ -107,8 +107,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_DAMAGE=DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR=DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS=30.0D;
-    public static final float BASE_WIDTH=1.88f;
-    public static final float BASE_HEIGHT=1.88f;
+    public static final float BASE_WIDTH=2.1f;
+    public static final float BASE_HEIGHT=2.1f;
     public static final float RESISTANCE=10.0f;
     public static final double BASE_FOLLOW_RANGE=70;
     public static final double BASE_FOLLOW_RANGE_FLYING=BASE_FOLLOW_RANGE * 2;
@@ -190,6 +190,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public int roarTicks;
     public BlockPos homePos;
     public BlockPos airPoint;
+    /** The food object of the player, the general hunger logic. */
+    protected EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
 
     public EntityTameableDragon(World world) {
         super(world);
@@ -325,6 +327,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             nbt.setInteger("HomeAreaZ", homePos.getZ());
         }
         writeDragonInventory(nbt);
+        dragonStats.writeNBT(nbt);
         helpers.values().forEach(helper -> helper.writeToNBT(nbt));
     }
 
@@ -359,6 +362,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (hasHomePosition && nbt.getInteger("HomeAreaX")!=0 && nbt.getInteger("HomeAreaY")!=0 && nbt.getInteger("HomeAreaZ")!=0) {
             homePos=new BlockPos(nbt.getInteger("HomeAreaX"), nbt.getInteger("HomeAreaY"), nbt.getInteger("HomeAreaZ"));
         }
+        dragonStats.readNBT(nbt);
         readDragonInventory(nbt);
         helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 
@@ -796,6 +800,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         super.onUpdate();
         if (world.isRemote) {
             this.updateKeys();
+            dragonStats.onUpdate(this);
         }
     }
 
@@ -1471,58 +1476,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         return eyeHeight;
-    }
-
-    /**
-     * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
-     */
-    @Override
-    public void setPositionAndRotation(double x, double y, double z, float yaw, float pitch) {
-        this.posX=MathHelper.clamp(x, -3.0E7D, 3.0E7D);
-        this.posY=y;
-        this.posZ=MathHelper.clamp(z, -3.0E7D, 3.0E7D);
-        this.prevPosX=this.posX;
-        this.prevPosY=this.posY;
-        this.prevPosZ=this.posZ;
-        pitch=MathHelper.clamp(pitch, -140.0F, 140.0F); // attempt for the head pitch turn() wont work
-        this.rotationYaw=yaw;
-        this.rotationPitch=pitch;
-        this.prevRotationYaw=this.rotationYaw;
-        this.prevRotationPitch=this.rotationPitch;
-        double d0=(double) (this.prevRotationYaw - yaw);
-
-        if (d0 < -180.0D) {
-            this.prevRotationYaw+=360.0F;
-        }
-
-        if (d0 >= 180.0D) {
-            this.prevRotationYaw-=360.0F;
-        }
-
-        if (!this.world.isRemote)
-            this.world.getChunkFromChunkCoords((int) Math.floor(this.posX) >> 4, (int) Math.floor(this.posZ) >> 4); // Forge - ensure target chunk is loaded.
-        this.setPosition(this.posX, this.posY, this.posZ);
-        this.setRotation(yaw, pitch);
-    }
-
-    /**
-     * Adds 15% to the entity's yaw and subtracts 15% from the pitch. Clamps pitch from -90 to 90. Both arguments in
-     * degrees.
-     */
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void turn(float yaw, float pitch) {
-        float f=this.rotationPitch;
-        float f1=this.rotationYaw;
-        this.rotationYaw=(float) ((double) this.rotationYaw + (double) yaw * 0.15D);
-        this.rotationPitch=(float) ((double) this.rotationPitch + (double) pitch * 0.15D); // attempt for the head pitch
-        this.rotationPitch=MathHelper.clamp(this.rotationPitch, -280.0F, 280.0F); // attempt for the head pitch
-        this.prevRotationPitch+=this.rotationPitch + f;
-        this.prevRotationYaw+=this.rotationYaw + f1;
-
-        if (this.getRidingEntity()!=null) {
-            this.getRidingEntity().applyOrientationToEntity(this);
-        }
     }
 
     /**
@@ -2374,6 +2327,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 35 * 20));
+    }
+
+    /**
+     * Checks if the dragon's health is not full and not zero.
+     */
+    public boolean shouldHeal() {
+        return this.getHealth() > 0.0F && this.getHealth() < this.getMaxHealth();
     }
 
     @Override

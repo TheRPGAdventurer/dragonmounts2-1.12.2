@@ -55,8 +55,18 @@ public class GuiDragon extends GuiContainer {
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
-        //        this.fontRenderer.drawString(DMUtils.translateToLocal("gui.dragon.hunger") + dragon.getHunger() + "/150", 80, 6, 0Xe99e0c);
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
+        renderHunger();
+    }
+
+    private void renderHunger() {
+        GlStateManager.scale(0.6,0.6,0.6);
+        this.fontRenderer.drawString(dragon.getHunger() + "/150", 60, 106, 0Xe99e0c);
+    }
+
+    private void hunger(int x, int y) {
+        this.mc.getTextureManager().bindTexture(hunger_full);
+        drawModalRectWithCustomSizedTexture(x + 26, y + 60, 0.0F, 0.0F, 9, 9, 9, 9);
     }
 
     @Override
@@ -69,14 +79,10 @@ public class GuiDragon extends GuiContainer {
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
 
-        drawModalRectWithCustomSizedTexture(x - 10, y + 20, 0.0F, 0.0F, 9, 9, 9, 9);
 
         if (dragon.isChested()) {
-            this.drawTexturedModalRect(x + 0, y + 73, 0, 130, 170, 55);
+            this.drawTexturedModalRect(x, y + 73, 0, 130, 170, 55);
         }
-
-        this.mc.getTextureManager().bindTexture(hunger_empty);
-        drawModalRectWithCustomSizedTexture(x - 10, y + 20, 0.0F, 0.0F, 9, 9, 9, 9);
 
 /*            // Draw Player Entity
             GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x - 38 - this.mousePosX, y + 90 - this.mousePosY, this.player);
@@ -102,7 +108,7 @@ public class GuiDragon extends GuiContainer {
 */
         this.mc.getTextureManager().bindTexture(offhand);
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
-
+        hunger(x,y);
         //draw dragon entity
         GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
     }

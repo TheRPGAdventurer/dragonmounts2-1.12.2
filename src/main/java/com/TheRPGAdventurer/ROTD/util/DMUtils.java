@@ -80,7 +80,7 @@ public class DMUtils {
     public static int getFoodPoints(EntityPlayer player) {
         Item item=player.getHeldItemMainhand().getItem();
         if (item!=null && item instanceof ItemFood) {
-            int points= (((ItemFood) item).getHealAmount(new ItemStack(item)) * 10);
+            int points= (((ItemFood) item).getHealAmount(new ItemStack(item)));
             return points;
         }
         return  0;

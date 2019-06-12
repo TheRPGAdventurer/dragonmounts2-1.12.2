@@ -78,6 +78,5 @@ public class Interpolation {
         }
     }
 
-    private Interpolation() {
-    }
+    private Interpolation() {}
 }

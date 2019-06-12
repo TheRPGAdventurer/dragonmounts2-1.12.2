@@ -1,0 +1,15 @@
+Warning
+todo AxisAlignedBB methods grow and expand have swapped method names between 1.10 and 1.12; manually check!
+This bug is also present in net.ilexiconn.library.server.entity.multipart.PartEntity:
+    public void collideWithNearbyEntities() {
+        List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+        entities.stream().filter(entity -> entity != this.parent && !(entity instanceof PartEntity) && entity.canBePushed()).forEach(entity -> entity.applyEntityCollision(this.parent));
+    }
+func_72314_b - grow in 1.11 (stable 31)
+func_72314_b - expand in 1.10.2 (stable 29)
+
+
+
+
+P added to end of name means Prototype duplicate of existing class
+

@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
 	"textures": {
-	    "layer0": "dragonmounts:items/water_dragon_axe"
+	    "layer0": "dragonmounts:items/tools/axe/water_dragon_axe"
 	}
-}z
+}

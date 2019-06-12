@@ -9,20 +9,12 @@
  */
 package com.TheRPGAdventurer.ROTD.client.gui;
 
-import java.text.DecimalFormat;
-import java.util.Collection;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.lwjgl.input.Keyboard;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.server.entity.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.server.entity.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonLifeStageHelper;
-import com.TheRPGAdventurer.ROTD.server.entity.helper.DragonReproductionHelper;
-import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonBreedHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStageHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonReproductionHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -36,19 +28,23 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.lwjgl.input.Keyboard;
+
+import java.text.DecimalFormat;
+import java.util.Collection;
 
 /**
  * @TheRPGAdventurer NOT affiliated with GuiDragon.class
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class GuiDragonDebug extends Gui implements PrivateAccessor {
+public class GuiDragonDebug extends Gui {
     
     private static final int WHITE = 0xFFFFFF;
     private static final int GREY = 0xAAAAAA;
@@ -66,8 +62,6 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
     private ScaledResolution res;
     private EntityTameableDragon dragonClient;
     private EntityTameableDragon dragonServer;
-    
-    private BlockPos pos;
     
     public GuiDragonDebug() {
         fr = mc.fontRenderer;
@@ -199,7 +193,10 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String px = dfShort.format(dragon.posX);
         String py = dfShort.format(dragon.posY);
         String pz = dfShort.format(dragon.posZ);
-        text.printf("x: %s y: %s z: %s\n", px, py, pz);
+        String mx = dfShort.format(dragon.motionX);
+        String my = dfShort.format(dragon.motionY);
+        String mz = dfShort.format(dragon.motionZ);
+        text.printf("x: %s y: %s z: %s\n", px, py, pz, mx, my, mz);
         
         // rotation
         String pitch = dfShort.format(dragon.rotationPitch);
@@ -211,7 +208,11 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         String health = dfShort.format(dragon.getHealth());
         String healthMax = dfShort.format(dragon.getMaxHealth());
         String healthRel = dfShort.format(dragon.getHealthRelative() * 100);
-        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel);
+        String airTicks = dfShort.format(dragon.inAirTicks);
+    //    String airTargetX = dfShort.format(dragon.airTarget.getX());
+    //    String airTargetY = dfShort.format(dragon.airTarget.getY());
+    //    String airTargetZ = dfShort.format(dragon.airTarget.getZ());
+        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel, airTicks);
         
         // breed
         text.print("Breed: ");
@@ -247,6 +248,15 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         }
         text.println("Tamed: " + tamedString);
         
+        String allowOthersString;
+        if (dragon.allowedOtherPlayers()) {
+        	allowOthersString = "yes"; 
+        } else {
+        	allowOthersString = "no";
+        }
+        text.println("AllowedOthers: " + allowOthersString);
+
+        
         // breeder name
         DragonReproductionHelper reproduction = dragon.getReproductionHelper();
         EntityPlayer breeder = reproduction.getBreeder();
@@ -259,6 +269,8 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         text.println("Breeder: " + breederName);
         text.println("Reproduced: " + reproduction.getReproCount());
         text.println("Saddled: " + dragon.isSaddled());
+
+        text.printf("Command:" + dragon.getWhistleState());
     }
     
     private void renderAttributes() {
@@ -276,7 +288,7 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         Collection<IAttributeInstance> attribs = dragon.getAttributeMap().getAllAttributes();
         
         attribs.forEach(attrib -> {
-            String attribName = I18n.translateToLocal("attribute.name." + attrib.getAttribute().getName());
+            String attribName = net.minecraft.util.text.translation.I18n.translateToLocal("attribute.name." + attrib.getAttribute().getName());
             String attribValue = dfShort.format(attrib.getAttributeValue());
             String attribBase = dfShort.format(attrib.getBaseValue());
             text.println(attribName + " = " + attribValue + " (" + attribBase + ")");
@@ -285,20 +297,20 @@ public class GuiDragonDebug extends Gui implements PrivateAccessor {
         text.println();
     }
     
-    private void renderBreedPoints() {
-        if (dragonServer == null) {
-            return;
-        }
+  private void renderBreedPoints() {
+     if (dragonServer == null) {
+         return;
+     }
         
-        text.setColor(YELLOW);
-        text.println("Breed points");
-        text.setColor(WHITE);
+     text.setColor(YELLOW);
+     text.println("Breed points");
+     text.setColor(WHITE);
         
-        DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
-        breedHelper.getBreedPoints().forEach((breedType, points) -> {
-            text.setColor(breedType.getBreed().getColor());
-            text.printf("%s: %d\n", breedType, points.get());
-        });
+      DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
+      breedHelper.getBreedPoints().forEach((breedType, points) -> {
+        text.setColor(breedType.getBreed().getColor());
+        text.printf("%s: %d\n", breedType, points.get());
+      });
     }
 
     private void renderNavigation() {

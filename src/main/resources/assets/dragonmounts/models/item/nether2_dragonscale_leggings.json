@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/armor/nether2/nether2_dragonscale_leggings"
+	}
+}
+

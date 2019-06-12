@@ -2,7 +2,11 @@ buildscript {
     repositories {
 	   mavenCentral()
        jcenter()
+<<<<<<< HEAD
        maven { url = "http://files.minecraftforge.net/maven" }
+=======
+       maven { url = "https://files.minecraftforge.net/maven" }
+>>>>>>> 1.6.1
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -22,6 +26,7 @@ minecraft {
     version = "1.12.2-14.23.5.2768"
     runDir = "run"
     mappings = "snapshot_20170624"
+>>>>>>> 1.6.1
     makeObfSourceJar = false 
 }
 

@@ -9,10 +9,11 @@
  */
 package com.TheRPGAdventurer.ROTD.util.math;
 
-import java.util.Random;
-
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.Random;
 
 /**
  * Math helper class.
@@ -128,36 +129,81 @@ public class MathX {
         return (float) Math.sqrt(f);
     }
     
-    // numeric float clamp
+    /**
+     * Numeric Float Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static float clamp(float value, float min, float max) {
         return (value < min ? min : (value > max ? max : value));
     }
     
-    // numeric double clamp
+    /**
+     * Numeric Double Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static double clamp(double value, double min, double max) {
         return (value < min ? min : (value > max ? max : value));
     }
     
-    // numeric integer clamp
+    /**
+     * Numeric Integer Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
     public static int clamp(int value, int min, int max) {
         return (value < min ? min : (value > max ? max : value));
     }
-    
+
     public static float updateRotation(float r1, float r2, float step) {
         return r1 + clamp(normDeg(r2 - r1), -step, step);
     }
     
-    // float linear interpolation
+    /**
+     * Float Linear Interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static float lerp(float a, float b, float x) {
         return a * (1 - x) + b * x;
     }
     
-    // double linear interpolation
+    /**
+     * Double Linear Interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static double lerp(double a, double b, double x) {
         return a * (1 - x) + b * x;
     }
     
-    // smoothed float linear interpolation, similar to terp() but faster
+    /**
+     * Smoothed float linear interpolation, similar to terp() but faster
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static float slerp(float a, float b, float x) {
         if (x <= 0) {
             return a;
@@ -166,10 +212,23 @@ public class MathX {
             return b;
         }
         
-        return lerp(a, b, x * x * (3 - 2 * x));
+        return lerp(a, b, x * x * (3 - 2 * x)); //original version // im stupid ik ?
+//        return lerp(a, b, x * x * x);  modified?
+        //todo: what was the reason for changing?  the shape of the interpolation (between 0 and 1) is very different now
+      //  the original gives a smooth curve between x=0 and x = 1, with zero rate of change at x=0 and x=1
+      //  the modified gives maximum rate of change at x=1 which I don't think it what the function is supposed to do
+      // try the two equations in this visualisation tool: https://www.desmos.com/calculator
+      //  original version: y = x * x * (3 - 2 * x)
+      //  modified version: y = x * x * x
     }
     
- // float trigonometric interpolation
+    /**
+     * Float trigonometric interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static float terp(float a, float b, float x) {
         if (x <= 0) {
             return a;
@@ -182,7 +241,13 @@ public class MathX {
         return a * (1 - mu2) + b * mu2;
     }
     
-    // double trigonometric interpolation
+    /**
+     * Double trigonometric interpolation
+     * @param a
+     * @param b
+     * @param x
+     * @return
+     */
     public static double terp(double a, double b, double x) {
         if (x <= 0) {
             return a;
@@ -195,7 +260,8 @@ public class MathX {
         return a * (1 - mu2) + b * mu2;
     }
 
-    /** clamp the target angle to within a given range of the centre angle
+    /**
+     * Clamp the target angle to within a given range of the centre angle
      * @param targetAngle the desired angle (degrees)
      * @param centreAngle the centre angle to clamp to (degrees)
      * @param maximumDifference the maximum allowable difference between the target and the centre (degrees)
@@ -205,22 +271,25 @@ public class MathX {
         return centreAngle + clamp(normDeg(targetAngle - centreAngle), -maximumDifference, maximumDifference);
     }
 
-    public static Vec3d multiply(Vec3d source, double multiplier)
-    {
+    /**
+     * Calculate a Vec3d with a given multiplier
+     * @param source
+     * @param multiplier
+     * @return
+     */
+    public static Vec3d multiply(Vec3d source, double multiplier) {
       return new Vec3d(source.x * multiplier, source.y * multiplier, source.z * multiplier);
     }
 
     public final static double MINIMUM_SIGNIFICANT_DIFFERENCE = 1e-3;
 
     public static boolean isApproximatelyEqual(double x1, double x2) {
-
-      return Math.abs(x1 - x2) <= MINIMUM_SIGNIFICANT_DIFFERENCE;
+    	return Math.abs(x1 - x2) <= MINIMUM_SIGNIFICANT_DIFFERENCE;
     }
 
-  public static boolean isSignificantlyDifferent(double x1, double x2)
-  {
-    return Math.abs(x1 - x2) > MINIMUM_SIGNIFICANT_DIFFERENCE;
-  }
+	public static boolean isSignificantlyDifferent(double x1, double x2) {
+	  return Math.abs(x1 - x2) > MINIMUM_SIGNIFICANT_DIFFERENCE;
+	}
 
     /** return the modulus (always positive)
      * @param numerator
@@ -232,43 +301,118 @@ public class MathX {
   }
   
   /**
-   * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
+   * [FLOAT] The angle is reduced to an angle between -180 and +180 by mod, and a 360 check
+   * @param angle
+   * @return
    */
-  public static float wrapAngleTo180(float p_76142_0_)
+  public static float wrapAngleTo180(float angle)
   {
-      p_76142_0_ %= 360.0F;
+      angle %= 360.0F;
 
-      if (p_76142_0_ >= 180.0F)
+      if (angle >= 180.0F)
       {
-          p_76142_0_ -= 360.0F;
+          angle -= 360.0F;
       }
 
-      if (p_76142_0_ < -180.0F)
+      if (angle < -180.0F)
       {
-          p_76142_0_ += 360.0F;
+          angle += 360.0F;
       }
 
-      return p_76142_0_;
+      return angle;
   }
 
   /**
    * the angle is reduced to an angle between -180 and +180 by mod, and a 360 check
    */
-  public static double wrapAngleTo180(double p_76138_0_)
+  public static double wrapAngleTo180(double angle)
   {
-      p_76138_0_ %= 360.0D;
+      angle %= 360.0D;
 
-      if (p_76138_0_ >= 180.0D)
+      if (angle >= 180.0D)
       {
-          p_76138_0_ -= 360.0D;
+          angle -= 360.0D;
       }
 
-      if (p_76138_0_ < -180.0D)
+      if (angle < -180.0D)
       {
-          p_76138_0_ += 360.0D;
+          angle += 360.0D;
       }
 
-      return p_76138_0_;
+      return angle;
+  }
+
+  /**
+   * Calculates the inverted square root
+   * @param x
+   * @return
+   */
+  public static float invSqrt(float x) {
+	    float xhalf = 0.5f * x;
+	    int i = Float.floatToIntBits(x);
+	    i = 0x5f3759df - (i >> 1);
+	    x = Float.intBitsToFloat(i);
+	    x *= (1.5f - xhalf * x * x);
+	    return x;
+  }
+
+  // calculate the yaw from the given direction
+  // returns from -180 to +180
+  public static double calculateYaw(Vec3d direction)
+  {
+    double yaw = (Math.atan2(direction.z, direction.x) * 180.0D / Math.PI) - 90.0F;
+    yaw = MathX.normDeg(yaw);
+    return yaw;
+  }
+
+  // calculate the pitch from the given direction
+  // returns from -90 to +90
+  public static double calculatePitch(Vec3d direction)
+  {
+    double xz_norm = MathHelper
+            .sqrt(direction.x * direction.x + direction.z * direction.z);
+    double pitch = -(Math.atan2(direction.y, xz_norm) * 180.0D / Math.PI);
+    return pitch;
+  }
+
+  /**
+   * Return a random integer in the given range
+   * @param random
+   * @param minValue minimum possible value (inclusive)
+   * @param maxValue maximum possible value (exclusive)
+   * @return the random value lying between [minimum, maximum]
+   */
+  public static int getRandomInRange(Random random, int minValue, int maxValue)
+  {
+    return random.nextInt(maxValue - minValue + 1) + minValue;
+  }
+
+  /**
+   * Return a random float in the given range
+   * @param random
+   * @param minValue minimum possible value (inclusive)
+   * @param maxValue maximum possible value (exclusive)
+   * @return the random value lying between [minimum, maximum]
+   */
+  public static float getRandomInRange(Random random, float minValue, float maxValue)
+  {
+    return random.nextFloat() * (maxValue - minValue) + minValue;
+  }
+
+  /**
+   * find the closest distance between the aabb to the given point
+   * @param aabb the aabb
+   * @param point the point to be measured to
+   * @return the distance squared
+   */
+  public static double getClosestDistanceSQ(AxisAlignedBB aabb, Vec3d point)
+  {
+    // because the aabb is aligned, we just need to figure out the distance in each cardinal axis and then
+    //  add them together
+    double dx = Math.max(Math.max(0, aabb.minX - point.x), point.x - aabb.maxX);
+    double dy = Math.max(Math.max(0, aabb.minY - point.y), point.y - aabb.maxY);
+    double dz = Math.max(Math.max(0, aabb.minZ - point.z), point.z - aabb.maxZ);
+    return dx*dx + dy*dy + dz*dz;
   }
 
 }

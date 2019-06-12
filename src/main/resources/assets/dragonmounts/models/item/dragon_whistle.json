@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/tools/etc/dragon_whistle_1",
+	    "layer1": "dragonmounts:items/tools/etc/dragon_whistle_2"
+	}
+}

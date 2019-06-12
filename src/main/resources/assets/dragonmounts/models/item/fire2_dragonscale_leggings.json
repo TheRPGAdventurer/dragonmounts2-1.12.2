@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/armor/fire2/fire2_dragonscale_leggings"
+	}
+}

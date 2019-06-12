@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/scales/enchant_dragon_scales"
+	}
+}

@@ -52,7 +52,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             GlStateManager.rotate(-dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
             GlStateManager.scale(0.625F, -0.625F, -0.625F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
-            //            mc.getItemRenderer().renderItem(dragon, itemstack1, ItemCameraTransforms.TransformType.HEAD);
             renderer.bindTexture(resourcelocation1);
             bannerModel.bannerStand.showModel=false;
             bannerModel.renderBanner();
@@ -78,7 +77,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             GlStateManager.rotate(dragon.getBodyPitch(), 0.0F, 0.0F, 1.0F);
             GlStateManager.scale(0.625F, -0.625F, -0.625F);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
-//            mc.getItemRenderer().renderItem(dragon, itemstack2, ItemCameraTransforms.TransformType.HEAD);
             renderer.bindTexture(resourcelocation2);
             bannerModel.bannerStand.showModel=false;
             bannerModel.renderBanner();
@@ -100,7 +98,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(0.525F, -0.625F, -0.625F);
-            //            mc.getItemRenderer().renderItem(dragon, itemstack3, ItemCameraTransforms.TransformType.HEAD);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
             renderer.bindTexture(resourcelocation3);
             bannerModel.bannerStand.showModel=false;
@@ -122,7 +119,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(dragon.getBodyPitch(), 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(0.525F, -0.625F, -0.625F);
-            //            mc.getItemRenderer().renderItem(dragon, itemstack4, ItemCameraTransforms.TransformType.HEAD);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1);
             renderer.bindTexture(resourcelocation4);
             bannerModel.bannerStand.showModel=false;

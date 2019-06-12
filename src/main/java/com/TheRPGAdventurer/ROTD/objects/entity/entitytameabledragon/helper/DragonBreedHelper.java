@@ -16,6 +16,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.Enum
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.DamageSource;
@@ -224,21 +225,24 @@ public class DragonBreedHelper extends DragonHelper {
 
     public void getBreedHealth() {
     	
+    	IAttributeInstance health = dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+    	double base = DragonMountsConfig.BASE_HEALTH; //85d
+    	
         switch (getBreedType()) {
         	case NETHER:
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);
+        		health.setBaseValue(base + 10d);
         		break;
         	case END:
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+        		health.setBaseValue(base + 15d);
         		break;
         	case SKELETON:
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        		health.setBaseValue(base - (base < 11d ? 0d : 10d)); // Cant have 0 health!
         		break;
         	case WITHER:
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(85.0D);
+        		health.setBaseValue(base - (base < 6d ? 0d : 5d)); // Cant have 0 health!
         		break;
         	default: //All Dragons without special health parameters
-        		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);
+        		health.setBaseValue(base);
         		break;
         }
     }

@@ -16,7 +16,12 @@ import com.TheRPGAdventurer.ROTD.event.VanillaEggHandler;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+<<<<<<< Updated upstream
 
+=======
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourEnchant;
+import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
+>>>>>>> Stashed changes
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
@@ -30,6 +35,13 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+<<<<<<< Updated upstream
+=======
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.server.FMLServerHandler;
+
+import java.io.File;
+>>>>>>> Stashed changes
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -57,6 +69,7 @@ public class ServerProxy {
     @SuppressWarnings("deprecation")
 	public void Initialization(FMLInitializationEvent evt) {
     	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
+    	MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
     }
 

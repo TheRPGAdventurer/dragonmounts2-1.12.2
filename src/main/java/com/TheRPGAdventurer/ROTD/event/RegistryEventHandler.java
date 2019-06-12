@@ -43,7 +43,7 @@ public class RegistryEventHandler {
         event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));
         event.getRegistry().registerAll(ModTools.BOWS.toArray(new Item[0]));
         event.getRegistry().registerAll(ModTools.TOOLS.toArray(new Item[0]));
-        event.getRegistry().registerAll(ModArmour.ARMOR); //Will work on this later
+        event.getRegistry().registerAll(ModArmour.ARMOR.toArray(new Item[0]));
         
         DMUtils.getLogger().info("Item Registries Successfully Registered!");
     }

@@ -1,7 +1,8 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+	   mavenCentral()
+       jcenter()
+       maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -15,34 +16,48 @@ def mod_file = getModFile()
 version = getModField("VERSION", mod_file)
 group = "com.TheRPGAdventurer.ROTD" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "DragonMounts"
-
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
 
 minecraft {
-    version = "1.12.2-14.23.3.2698"
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
-    
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = "snapshot_20170624"
-    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    makeObfSourceJar = false 
 }
 
-//repositories {
-//    maven {
-//        url = "http://maven.ilexiconn.net"
+repositories {
+    mavenCentral()
+    maven {
+        url "http://maven.mcmoddev.com/"
+    }
+	
+	//maven {
+   //   name = "Mobius Repo"
+ //     url = "http://tehnut.info/maven"
 //    }
-//}
+   
+  //  maven {
+   //   name = "JEI"
+   //   url = "http://dvs1.progwml6.com/files/maven"
+  //  }
+ 
+    maven {
+      name = "gegy1000"
+      url = "https://maven.gegy1000.net"
+    }
+	
+	maven {
+		url 'https://jitpack.io'
+    }
+}
 
 dependencies {
-//    compile "net.ilexiconn:llibrary:1.7.9-1.12:dev"
-//}
+   deobfCompile "net.ilexiconn:llibrary:1.7.14-1.12.2"
+   compile "com.azanor:thaumcraft-api:6.1-beta23"
+  // deobfCompile "com.github.azanor:Baubles:${baubles_version}"
+  // deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
+  // runtime "mezz.jei:jei_1.12.2:4.9.1.181"   
+}
 
 processResources {
     // this will ensure that this task is redone when the versions change.

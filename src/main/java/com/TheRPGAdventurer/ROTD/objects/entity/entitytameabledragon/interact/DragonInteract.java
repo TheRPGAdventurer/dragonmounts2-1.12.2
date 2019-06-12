@@ -85,9 +85,8 @@ public class DragonInteract extends DragonInteractBase {
                     }
                     //  hunger
                     if (dragon.getHunger() < 150) {
-                        dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
-                        player.getFoodStats().addStats((ItemFood) item.getItem(), item);
                         eatEvent(player);
+                        dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
                     }
 
                     // breed

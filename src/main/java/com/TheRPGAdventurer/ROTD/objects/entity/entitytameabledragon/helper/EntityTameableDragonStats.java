@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.FoodStats;
 import net.minecraft.world.EnumDifficulty;
 
 public class EntityTameableDragonStats {
@@ -19,18 +18,29 @@ public class EntityTameableDragonStats {
      * The player's food timer value.
      */
     private int foodTimer;
-    private int prevFoodLevel=20;
+
 
     public void onUpdate(EntityTameableDragon dragon) {
         EnumDifficulty enumdifficulty=dragon.world.getDifficulty();
+        int foodLevel = dragon.getHunger();
+        if (this.foodExhaustionLevel > 4.0F) {
+            this.foodExhaustionLevel-=4.0F;
 
-        if (foodSaturationLevel > 0 && dragon.shouldHeal() && dragon.getHunger() >= 150) {
+            if (this.foodSaturationLevel > 0.0F) {
+                this.foodSaturationLevel=Math.max(this.foodSaturationLevel - 1.0F, 0.0F);
+            } else if (enumdifficulty!=EnumDifficulty.PEACEFUL) {
+
+                foodLevel=Math.max(foodLevel - 1, 0);
+            }
+        }
+
+        if (foodSaturationLevel > 0 && dragon.shouldHeal() && foodLevel >= 150) {
             ++foodTimer;
             float f=Math.min(this.foodSaturationLevel, 6.0F);
             dragon.heal(f / 6.0F);
             this.addExhaustion(f);
             this.foodTimer=0;
-        } else if (dragon.getHunger() >= 18 && dragon.shouldHeal()) {
+        } else if (foodLevel >= 18 && dragon.shouldHeal()) {
             ++this.foodTimer;
 
             if (this.foodTimer >= 80) {
@@ -38,7 +48,7 @@ public class EntityTameableDragonStats {
                 this.addExhaustion(6.0F);
                 this.foodTimer=0;
             }
-        } else if (dragon.getHunger() <= 0) {
+        } else if (foodLevel <= 0) {
             ++this.foodTimer;
 
             if (this.foodTimer >= 80) {

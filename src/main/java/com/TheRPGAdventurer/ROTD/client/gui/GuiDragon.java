@@ -8,8 +8,11 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
@@ -60,7 +63,7 @@ public class GuiDragon extends GuiContainer {
     }
 
     private void renderHunger() {
-        GlStateManager.scale(0.6,0.6,0.6);
+        GlStateManager.scale(0.6, 0.6, 0.6);
         this.fontRenderer.drawString(dragon.getHunger() + "/150", 60, 106, 0Xe99e0c);
     }
 
@@ -78,7 +81,7 @@ public class GuiDragon extends GuiContainer {
 
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
-
+        hunger(x, y);
 
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x, y + 73, 0, 130, 170, 55);
@@ -108,9 +111,54 @@ public class GuiDragon extends GuiContainer {
 */
         this.mc.getTextureManager().bindTexture(offhand);
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
-        hunger(x,y);
+
         //draw dragon entity
-        GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
+        //        GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
+        drawDragonOnScreen(x + 90, y + 60, (int) (13 / dragon.getScale()), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
+    }
+
+    /**
+     * Draws an entity on the screen looking toward the cursor.
+     */
+    public static void drawDragonOnScreen(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
+        GlStateManager.enableColorMaterial();
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.translate((float) posX, (float) posY, 50.0F);
+        GlStateManager.scale((float) (-scale), (float) scale, (float) scale);
+        GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+        float f=ent.renderYawOffset;
+        float f1=ent.rotationYaw;
+        float f2=ent.rotationPitch;
+//        float f3=ent.prevRotationYawHead;
+//        float f4=ent.rotationYawHead;
+        GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F);
+        RenderHelper.enableStandardItemLighting();
+        GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(-((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+        ent.renderYawOffset=(float) Math.atan((double) (mouseX / 40.0F)) * 20.0F;
+        ent.rotationYaw=(float) Math.atan((double) (mouseX / 40.0F)) * 40.0F;
+        ent.rotationPitch=-((float) Math.atan((double) (mouseY / 40.0F))) * 20.0F;
+//        ent.rotationYawHead=ent.rotationYaw;
+//        ent.prevRotationYawHead=ent.rotationYaw;
+        GlStateManager.translate(0.0F, 0.0F, 0.0F);
+        RenderManager rendermanager=Minecraft.getMinecraft().getRenderManager();
+        rendermanager.setPlayerViewY(180.0F);
+        rendermanager.setRenderShadow(false);
+        rendermanager.renderEntity(ent, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
+        rendermanager.setRenderShadow(true);
+        ent.renderYawOffset=f;
+        ent.rotationYaw=f1;
+        ent.rotationPitch=f2;
+//        ent.prevRotationYawHead=f3;
+//        ent.rotationYawHead=f4;
+        GlStateManager.popMatrix();
+        GlStateManager.disableBlend();
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.disableTexture2D();
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 
     @Override

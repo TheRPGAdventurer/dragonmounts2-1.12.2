@@ -107,7 +107,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_DAMAGE=DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR=DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS=30.0D;
-    public static final float BASE_WIDTH=2.1f;
+    public static final float BASE_WIDTH=2.4f;
     public static final float BASE_HEIGHT=2.1f;
     public static final float RESISTANCE=10.0f;
     public static final double BASE_FOLLOW_RANGE=70;
@@ -152,27 +152,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<String> DATA_BREATH_WEAPON_TARGET=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_BREATH_WEAPON_MODE=EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
 
-    // data NBT IDs
-    private static final String NBT_ARMOR="Armor";
-    private static final String NBT_ALLOWOTHERPLAYERS="AllowOtherPlayers";
-    private static final String NBT_SADDLED="Saddle";
-    private static final String NBT_SHEARED="Sheared";
-    private static final String NBT_CHESTED="Chested";
-    private static final String NBT_BREATHING="Breathing";
-    private static final String NBT_ISMALE="IsMale";
-    private static final String NBT_ISALBINO="IsAlbino";
-    private static final String NBT_ELDER="Elder";
-    private static final String NBT_ADJUCATOR="Adjucator";
-
     // server/client delegates
     private final Map<Class, DragonHelper> helpers=new HashMap<>();
 
     // client-only delegates
     private final DragonBodyHelper dragonBodyHelper=new DragonBodyHelper(this);
-
-    // server-only flags //unused
-    //    private BitSet controlFlags;
-    //    private BitSet dragonWhistle;
 
     public EntityEnderCrystal healingEnderCrystal;
     public DragonInventory dragonInv;
@@ -189,9 +173,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean hasHomePosition=false;
     public int roarTicks;
     public BlockPos homePos;
-    public BlockPos airPoint;
-    /** The food object of the player, the general hunger logic. */
-    protected EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
+    public EntityTameableDragonStats dragonStats=new EntityTameableDragonStats();
 
     public EntityTameableDragon(World world) {
         super(world);
@@ -300,15 +282,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
         //        nbt.setUniqueId("IdAmulet", this.getUniqueID()); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
-        nbt.setBoolean(NBT_SADDLED, isSaddled());
-        nbt.setInteger(NBT_ARMOR, this.getArmor());
-        nbt.setBoolean(NBT_CHESTED, this.isChested());
-        nbt.setBoolean(NBT_SHEARED, this.isSheared());
-        nbt.setBoolean(NBT_BREATHING, this.isUsingBreathWeapon());
+        nbt.setBoolean("Saddle", isSaddled());
+        nbt.setInteger("Armor", this.getArmor());
+        nbt.setBoolean("Chested", this.isChested());
+        nbt.setBoolean("Sheared", this.isSheared());
+        nbt.setBoolean("Breathing", this.isUsingBreathWeapon());
         nbt.setBoolean("alt_breathing", this.isUsingAltBreathWeapon());
         nbt.setBoolean("down", this.isGoingDown());
-        nbt.setBoolean(NBT_ISMALE, this.isMale());
-        nbt.setBoolean(NBT_ISALBINO, this.isAlbino());
+        nbt.setBoolean("IsMale", this.isMale());
+        nbt.setBoolean("IsAlbino", this.isAlbino());
         nbt.setBoolean("unhovered", this.isUnHovered());
         nbt.setBoolean("followyaw", this.followYaw());
         //        nbt.setBoolean("unFluttered", this.isUnFluttered());
@@ -316,9 +298,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setInteger("hunger", this.getHunger());
         nbt.setBoolean("boosting", this.boosting());
         nbt.setBoolean("ylocked", this.isYLocked());
-        nbt.setBoolean(NBT_ELDER, this.canBeElder());
-        nbt.setBoolean(NBT_ADJUCATOR, this.canBeAdjucator());
-        nbt.setBoolean(NBT_ALLOWOTHERPLAYERS, this.allowedOtherPlayers());
+        nbt.setBoolean("Elder", this.canBeElder());
+        nbt.setBoolean("Adjucator", this.canBeAdjucator());
+        nbt.setBoolean("AllowOtherPlayers", this.allowedOtherPlayers());
         //        nbt.setBoolean("sleeping", this.isSleeping()); //unused as of now
         nbt.setBoolean("HasHomePosition", this.hasHomePosition);
         if (homePos!=null && this.hasHomePosition) {
@@ -338,16 +320,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
         //        this.setUniqueId(nbt.getUniqueId("IdAmulet")); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
-        this.setSaddled(nbt.getBoolean(NBT_SADDLED));
-        this.setChested(nbt.getBoolean(NBT_CHESTED));
-        this.setSheared(nbt.getBoolean(NBT_SHEARED));
+        this.setSaddled(nbt.getBoolean("Saddle"));
+        this.setChested(nbt.getBoolean("Chested"));
+        this.setSheared(nbt.getBoolean("Sheared"));
         this.setHunger(nbt.getInteger("hunger"));
-        this.setUsingBreathWeapon(nbt.getBoolean(NBT_BREATHING));
+        this.setUsingBreathWeapon(nbt.getBoolean("Breathing"));
         this.setUsingAltBreathWeapon(nbt.getBoolean("alt_breathing"));
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
-        this.setArmor(nbt.getInteger(NBT_ARMOR));
-        this.setMale(nbt.getBoolean(NBT_ISMALE));
-        this.setAlbino(nbt.getBoolean(NBT_ISALBINO));
+        this.setArmor(nbt.getInteger("Armor"));
+        this.setMale(nbt.getBoolean("IsMale"));
+        this.setAlbino(nbt.getBoolean("IsAlbino"));
         this.setGoingDown(nbt.getBoolean("down"));
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setYLocked(nbt.getBoolean("ylocked"));
@@ -355,9 +337,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         //        this.setUnFluttered(nbt.getBoolean("unFluttered"));
         this.setBoosting(nbt.getBoolean("boosting"));
         //        this.setSleeping(nbt.getBoolean("sleeping")); //unused as of now
-        this.setCanBeElder(nbt.getBoolean(NBT_ELDER));
-        this.setCanBeAdjucator(nbt.getBoolean(NBT_ADJUCATOR));
-        this.setToAllowedOtherPlayers(nbt.getBoolean(NBT_ALLOWOTHERPLAYERS));
+        this.setCanBeElder(nbt.getBoolean("Elder"));
+        this.setCanBeAdjucator(nbt.getBoolean("Adjucator"));
+        this.setToAllowedOtherPlayers(nbt.getBoolean("AllowOtherPlayers"));
         this.hasHomePosition=nbt.getBoolean("HasHomePosition");
         if (hasHomePosition && nbt.getInteger("HomeAreaX")!=0 && nbt.getInteger("HomeAreaY")!=0 && nbt.getInteger("HomeAreaZ")!=0) {
             homePos=new BlockPos(nbt.getInteger("HomeAreaX"), nbt.getInteger("HomeAreaY"), nbt.getInteger("HomeAreaZ"));
@@ -924,7 +906,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         //        // if we're breathing at a target, look at it
-        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer()!=null && (this.isUsingBreathWeapon())) {
+        if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer()!=null) {
             this.equalizeYaw(this.getControllingPlayer());
         }
 
@@ -1227,7 +1209,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void roar() {
         if (!isDead && getBreed().getRoarSoundEvent(this)!=null && !isUsingBreathWeapon()) {
             this.roarTicks=0; // MathX.clamp(getScale(), 0.88f
-            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(this), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 2, 5), getPitch(), true);
+            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(this), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 2, 5), getSoundPitch(), true);
         }
     }
 
@@ -1335,7 +1317,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         volume*=getVolume(sound);
-        pitch*=getPitch();
+        pitch*=getSoundPitch();
 
         if (local) world.playSound(posX, posY, posZ, sound, getSoundCategory(), volume, pitch, false);
         else world.playSound(null, posX, posY, posZ, sound, getSoundCategory(), volume, pitch);
@@ -1350,14 +1332,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     public float getVolume(SoundEvent sound) {
         return MathX.clamp(getScale(), 0, 2);
-    }
-
-
-    /**
-     * Gets the pitch of living sounds in living entities.
-     */
-    public float getPitch() {
-        return 1;
     }
 
     /**
@@ -1915,10 +1889,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
+
     public void equalizeYaw(EntityLivingBase rider) {
-        if (isFlying() && this.moveStrafing==0) {
+        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing==0)) {
             this.rotationYaw=((EntityPlayer) rider).rotationYaw;
             this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+            //            Vec3d dragonEyePos=this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+            //            Vec3d lookDirection=rider.getLook(1.0F);
+            //            Vec3d endOfLook=dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -90, 90), lookDirection.z);
+            //            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
         }
         this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
         this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
@@ -2285,7 +2264,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return max pitch speed in degrees per tick
      */
     public float getHeadPitchSpeed() {
-        return this.getControllingPlayer()!=null ? 400 : 1;
+        return this.getControllingPlayer()!=null ? 30 : 1;
     }
 
     @Override

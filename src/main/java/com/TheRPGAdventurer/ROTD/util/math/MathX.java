@@ -171,6 +171,20 @@ public class MathX {
         return (value < min ? min : (value > max ? max : value));
     }
 
+    /**
+     * Numeric Integer Clamp
+     * @param value
+     * @param min
+     * @param max
+     * @return
+     * {@code min} if {@code value} is less than {@code min} <p>
+     * {@code max} if {@code value} is greater than {@code max} </p>
+     * if neither fit the parameters, just return  {@code value}
+     */
+    public static int clamps(int value, int min, int max) {
+        return (value < min ? min : (value >= max ? max : value));
+    }
+
     public static float updateRotation(float r1, float r2, float step) {
         return r1 + clamp(normDeg(r2 - r1), -step, step);
     }

@@ -8,7 +8,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,14 +25,8 @@ public class ItemDragonShovel extends ItemSpade {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type=type;
-
-        setNameColor();
+        
         ModTools.TOOLS.add(this);
-    }
-
-    @SideOnly(Side.CLIENT)
-    private void setNameColor() {
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     @Override

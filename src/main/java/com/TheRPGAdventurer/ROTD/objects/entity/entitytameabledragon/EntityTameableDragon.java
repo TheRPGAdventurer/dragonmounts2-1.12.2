@@ -26,19 +26,16 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.Drag
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.DragonInteractBase;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ElytraSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -794,9 +791,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public void onEntityUpdate() {
-    	
-    		if (getRNG().nextInt(100) == 0) L.info(getScale()); //TODO DEBUG
-    	
         if (getRNG().nextInt(800)==1 && !isEgg()) {
             roar();
         }
@@ -900,7 +894,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
             EntityPlayerSP player=(EntityPlayerSP) this.getControllingPlayer();
-            Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(player));
+//            Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(player));
         }
 
         if (hasChestVarChanged && dragonInv!=null && !this.isChested()) {

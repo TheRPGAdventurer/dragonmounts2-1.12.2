@@ -39,15 +39,9 @@ public class ItemDragonEssence extends Item implements IHasModel {
         this.maxStackSize = 1;
         this.type = type;
 
-        setNameColor();
         ModItems.ITEMS.add(this);
     }
-
-    @SideOnly(Side.CLIENT)
-    private void setNameColor() {
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
-    }
-
+    
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float x, float y, float z) {
     	if (world.isRemote || !player.isServerWorld()) return EnumActionResult.FAIL;

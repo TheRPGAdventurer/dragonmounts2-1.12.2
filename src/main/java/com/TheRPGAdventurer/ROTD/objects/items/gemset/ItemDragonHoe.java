@@ -26,13 +26,7 @@ public class ItemDragonHoe extends ItemHoe {
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type=type;
 
-        setNameColor();
         ModTools.TOOLS.add(this);
-    }
-
-    @SideOnly(Side.CLIENT)
-    private void setNameColor() {
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     @Override

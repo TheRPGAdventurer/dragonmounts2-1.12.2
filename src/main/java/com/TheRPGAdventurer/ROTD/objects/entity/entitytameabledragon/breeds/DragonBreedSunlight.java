@@ -4,8 +4,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DragonBreedSunlight extends DragonBreed {
 
@@ -31,7 +29,6 @@ public class DragonBreedSunlight extends DragonBreed {
 		if(dragon.posY > dragon.world.getHeight() + 8 && dragon.world.isDaytime()) doParticles(dragon);
 	}
 	
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
 	        float s = dragon.getScale() * 1.2f;

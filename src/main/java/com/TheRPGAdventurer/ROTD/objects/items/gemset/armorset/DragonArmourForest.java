@@ -24,9 +24,10 @@ public class DragonArmourForest extends DragonArmourBase {
 		super.onArmorTick(world, player, itemStack);
 		if (!(head == ModArmour.forestDragonScaleCap && chest == ModArmour.forestDragonScaleTunic && legs == ModArmour.forestDragonScaleLeggings && feet == ModArmour.forestDragonScaleBoots))
 			return;
-		player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 210, 0, false, false));
-		if (!(effectCooldown <= 0) && !(player.getHealth() < 10f)) return; // check this after because luck is a perma effect
-		
+		if(player.fishEntity != null && !isActive(MobEffects.LUCK, player))player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 210, 0, false, false));
+		if (!(effectCooldown <= 0) && (player.getHealth() < 10f)) return; // check this after because luck is a perma effect
+
+		if(player.hurtTime > 0 && !isActive(MobEffects.REGENERATION, player))
 		player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, 1, false, true));
 		player.getCooldownTracker().setCooldown(this, 3260); //Relatively high because this is op af
 	}

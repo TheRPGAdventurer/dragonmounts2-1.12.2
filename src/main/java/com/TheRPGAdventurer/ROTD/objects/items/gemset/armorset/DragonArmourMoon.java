@@ -18,7 +18,7 @@ public class DragonArmourMoon extends DragonArmourBase {
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		if (player.getCooldownTracker().getCooldown(this, 0) > 0) return;
+		if (player.getCooldownTracker().getCooldown(this, 0) > 0 && !isActive(MobEffects.NIGHT_VISION, player)) return;
 		super.onArmorTick(world, player, itemStack);
 		if (!(head == ModArmour.moonlightDragonScaleCap && chest == ModArmour.moonlightDragonScaleTunic && legs == ModArmour.moonlightDragonScaleLeggings && feet == ModArmour.moonlightDragonScaleBoots))
 			return;

@@ -24,7 +24,7 @@ public class DragonArmourTerra extends DragonArmourBase {
 		if (!((head == ModArmour.terraDragonScaleCap && chest == ModArmour.terraDragonScaleTunic && legs == ModArmour.terraDragonScaleLeggings && feet == ModArmour.terraDragonScaleBoots) ||
 			  (head == ModArmour.terra2DragonScaleCap && chest == ModArmour.terra2DragonScaleTunic && legs == ModArmour.terra2DragonScaleLeggings && feet == ModArmour.terra2DragonScaleBoots)))
 			return;
-		if (!(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe)) return;
+		if (!(player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) && !isActive(MobEffects.HASTE, player)) return;
 		
 		player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 72));
 		player.getCooldownTracker().setCooldown(this, 70);

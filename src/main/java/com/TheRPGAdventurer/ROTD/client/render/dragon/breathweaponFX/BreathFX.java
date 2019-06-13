@@ -59,9 +59,9 @@ public class BreathFX extends Particle implements IEntityParticle {
     double wDYneg = -wDYplus;
     double wDZneg = -wDZplus;
 
-    AxisAlignedBB collisionZone = entityAABB.expand(wDXneg, wDYneg, wDZneg)
-                                            .expand(wDXplus, wDYplus, wDZplus)
-                                            .expand(dx, dy, dz);
+    AxisAlignedBB collisionZone = entityAABB.grow(wDXneg, wDYneg, wDZneg)
+                                            .grow(wDXplus, wDYplus, wDZplus)
+                                            .grow(dx, dy, dz);
     List<AxisAlignedBB> collidingAABB = world.getCollisionBoxes(null, collisionZone);
 
     if (MathX.isSignificantlyDifferent(newHeight, height)) {

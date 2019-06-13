@@ -23,7 +23,7 @@ public class DragonArmourFire extends DragonArmourBase {
 		if (!((head == ModArmour.fireDragonScaleCap && chest == ModArmour.fireDragonScaleTunic && legs == ModArmour.fireDragonScaleLeggings && feet == ModArmour.fireDragonScaleBoots) ||
 		      (head == ModArmour.fireDragonScaleCap2 && chest == ModArmour.fireDragonScaleTunic2 && legs == ModArmour.fireDragonScaleLeggings2 && feet == ModArmour.fireDragonScaleBoots2)))
 			return;
-		if (!player.isBurning()) return;
+		if (!player.isBurning() && !isActive(MobEffects.FIRE_RESISTANCE, player)) return;
 		
 		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
 		player.getCooldownTracker().setCooldown(this, 1160);

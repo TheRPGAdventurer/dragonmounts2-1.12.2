@@ -57,12 +57,12 @@ public class GuiDragon extends GuiContainer {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
         renderHunger();
+        GlStateManager.scale(1, 1, 1);
     }
 
     private void renderHunger() {
         GlStateManager.scale(0.6, 0.6, 0.6);
         this.fontRenderer.drawString(dragon.getHunger() + "/150", 60, 106, 0Xe99e0c);
-        GlStateManager.scale(1, 1, 1);
     }
 
     private void hunger(int x, int y) {
@@ -79,11 +79,11 @@ public class GuiDragon extends GuiContainer {
 
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
-        hunger(x, y);
-
         if (dragon.isChested()) {
             this.drawTexturedModalRect(x, y + 73, 0, 130, 170, 55);
         }
+
+        hunger(x, y);
 
 /*            // Draw Player Entity
             GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x - 38 - this.mousePosX, y + 90 - this.mousePosY, this.player);

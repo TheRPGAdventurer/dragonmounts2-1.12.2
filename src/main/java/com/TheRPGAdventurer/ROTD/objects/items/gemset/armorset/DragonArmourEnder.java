@@ -36,7 +36,7 @@ public class DragonArmourEnder extends DragonArmourBase {
         super.onArmorTick(world, player, itemStack);
 		if (!(head == ModArmour.enderDragonScaleCap && chest == ModArmour.enderDragonScaleTunic && legs == ModArmour.enderDragonScaleLeggings && feet == ModArmour.enderDragonScaleBoots))
 			return;
-        if (player.getHealth() >= 5f) return;
+        if (player.getHealth() >= 5f && isActive(MobEffects.RESISTANCE, player) && isActive(MobEffects.STRENGTH, player)) return;
         
         player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 2, false, false));
         player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 300, 0, false, false));

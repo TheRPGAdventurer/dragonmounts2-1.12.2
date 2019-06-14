@@ -55,7 +55,7 @@ public class DragonMountsConfig {
 	public static double BASE_DAMAGE  = 5.0F;
 	public static double BASE_HEALTH = 85.0d;
 	public static int REG_FACTOR  = 75;
-	public static int hungerDecrement  = 1000;
+	public static int hungerDecrement  = 3000;
 
 	// chances
 	public static int FireNestRarity  = 50;
@@ -69,7 +69,7 @@ public class DragonMountsConfig {
 	public static int WaterNestRarity  = 150;
 	public static int IceNestRarity  = 200;
 
-	public static int netherNestRarity = 300;
+	public static int netherNestRarity = 200;
 	public static int netherNestRarerityInX = 32;
 	public static int netherNestRarerityInZ = 32;
 

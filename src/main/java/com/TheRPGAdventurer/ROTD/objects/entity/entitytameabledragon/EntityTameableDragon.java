@@ -1876,52 +1876,27 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * Creates a Vec3 using the pitch and yaw of the entities rotation.
-     */
-    protected Vec3d getVec1(float pitch, float yaw) {
-        float f = MathHelper.cos(-yaw * ((float)Math.PI / 180) - (float) Math.PI);
-        float f1 = MathHelper.sin(-yaw * ((float)Math.PI / 180) - (float) Math.PI);
-        float f2 = -MathHelper.cos(-pitch * ((float)Math.PI / 90));
-        float f3 = MathHelper.sin(-pitch * ((float)Math.PI / 90));
-        return new Vec3d((double) (f1 * f2), (double) f3, (double) (f * f2));
-    }
-    /**
-     * Creates a Vec3 using the pitch and yaw of the entities rotation.
-     */
-    protected Vec3d getVec(float pitch, float yaw) {
-        float f = MathHelper.cos(-yaw);
-        float f1 = MathHelper.sin(-yaw);
-        float f2 = -MathHelper.cos(-pitch);
-        float f3 = MathHelper.sin(-pitch);
-        return new Vec3d((double) (f1 * f2), (double) f3, (double) (f * f2));
-    }
-
-    /**
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
         if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
-//            this.rotationYaw=((EntityPlayer) rider).rotationYaw;
-//            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
-            Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-            Vec3d lookDirection = getVec(rider.rotationPitch, rider.rotationYaw);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -90, 90), lookDirection.z);
-            this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+            this.rotationYaw=((EntityPlayer) rider).rotationYaw;
+            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
         }
-//        this.rotationYawHead=((EntityPlayer) rider).rotationYawHead;
-//        this.prevRotationYawHead=((EntityPlayer) rider).prevRotationYawHead;
-//        this.rotationPitch=((EntityPlayer) rider).rotationPitch;
-//        this.prevRotationPitch=((EntityPlayer) rider).prevRotationPitch;
+        this.rotationYawHead = rider.rotationYawHead;
+        this.prevRotationYawHead = rider.prevRotationYawHead;
+        this.rotationPitch = rider.rotationPitch;
+        this.prevRotationPitch = rider.prevRotationPitch;
     }
 
     public void updateRiding(EntityLivingBase riding) {
         if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
             int i = riding.getPassengers().indexOf(this);
             float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
-            float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
+            float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -120 : i == 0 ? 120 : 0); // 90 not 120
             double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ = (double) (radius * MathHelper.cos(angle));
-            double extraY = (riding.isSneaking() ? 1.2D : 1.4D) + (i == 2 ? 0.4D : 0D);
+            double extraY = (riding.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
             equalizeYaw((EntityPlayer) riding);
             this.rotationYaw = riding.rotationYaw;
             this.prevRotationYaw = riding.prevRotationYaw;

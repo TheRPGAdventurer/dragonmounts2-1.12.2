@@ -76,8 +76,10 @@ public class ItemDragonAmuletNEW extends Item {
     	stack.setTagCompound(tag);
 
     	player.setHeldItem(hand, stack);
+    	if (dragon.getLeashed()) dragon.clearLeashed(true, true); // Fix Lead Dupe exploit
     	target.setDead();
         player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
+		stack.setStackDisplayName(type.color + stack.getDisplayName());
 		return true;
     }
     
@@ -101,6 +103,7 @@ public class ItemDragonAmuletNEW extends Item {
     		player.setHeldItem(hand, stack);
     		world.spawnEntity(entityDragon);
             player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
+            stack.clearCustomName();
     		return EnumActionResult.SUCCESS;
     	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
     	return EnumActionResult.FAIL;
@@ -113,7 +116,6 @@ public class ItemDragonAmuletNEW extends Item {
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {
 		TextFormatting t = null;
     	if (containsDragonEntity(stack)) {
-    		stack.setStackDisplayName(type.color + stack.getDisplayName());
     		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
     		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
     		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));

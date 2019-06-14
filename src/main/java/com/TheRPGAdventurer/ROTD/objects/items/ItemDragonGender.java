@@ -38,7 +38,7 @@ public class ItemDragonGender extends Item implements IHasModel
             if (dragon.isTamedFor(player)) {
                 dragon.setOppositeGender();
                 dragon.world.playSound(null, player.getPosition(), ModSounds.DRAGON_SWITCH, SoundCategory.PLAYERS, 1, 1);
-                stack.shrink(1);
+                if (!player.isCreative()) stack.shrink(1);
                 return true;
             }
         }

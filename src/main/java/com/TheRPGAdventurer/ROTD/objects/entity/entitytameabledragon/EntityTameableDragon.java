@@ -776,6 +776,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    /**
+     * interpolated look vector
+     */
+    public Vec3d getLook(float partialTicks)
+    {
+        return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
+    }
+
+
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -803,7 +812,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private boolean isBlockSolid(double xcoord, double ycoord, double zcoord) {
         BlockPos pos = new BlockPos(xcoord, ycoord, zcoord);
         IBlockState state = world.getBlockState(pos);
-        return state.getMaterial().isSolid();
+        return state.getMaterial().isSolid() || (this.getControllingPlayer() != null && (this.isInWater() || this.isInLava()));
     }
 
     @Override
@@ -1145,7 +1154,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x = midPoint.getX() + 0.5 - 12;
         double y = midPoint.getY() + 0.5 + 24;
         double z = midPoint.getZ() + 0.5 - offset;
-        this.setBoosting(this.getDistance(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 80);
         return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
     }
 
@@ -1159,7 +1168,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double x = midPoint.getX() + 0.5 - 12;
         double y = midPoint.getY() + 0.5 + 24;
         double z = midPoint.getZ() + 0.5 - offset;
-        this.setBoosting(this.getDistance(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 80);
         return this.getNavigator().tryMoveToXYZ(x, y, z, 1);
     }
 
@@ -1173,7 +1182,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        this.setBoosting(this.getDistance(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 80);
 
         if (this.getControllingPlayer() != null) return false;
 
@@ -1185,7 +1194,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
         int directionInt = direction ? 1 : -1;
-        this.setBoosting(this.getDistance(getOwner()) > 50);
+        this.setBoosting(this.getDistance(getOwner()) > 80);
         return this.getNavigator().tryMoveToXYZ(target.getX() + radius * Math.cos(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), DragonMountsConfig.maxFLightHeight + target.getY(), target.getZ() + radius * Math.sin(directionInt * this.ticksExisted * 0.5 * speed / radius + offset), speed * moveSpeedMultiplier);
 
     }
@@ -1199,7 +1208,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
+        double r = 40;  // DragonMountsConfig.dragonFlightHeight
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 3.5);
         double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 3.5);
@@ -1879,14 +1888,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
-            this.rotationYaw=((EntityPlayer) rider).rotationYaw;
-            this.prevRotationYaw=((EntityPlayer) rider).prevRotationYaw;
+        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0 && this.moveForward > 0)) {
+            this.rotationYaw = ((EntityPlayer) rider).rotationYaw;
+            this.prevRotationYaw = ((EntityPlayer) rider).prevRotationYaw;
         }
-        this.rotationYawHead = rider.rotationYawHead;
-        this.prevRotationYawHead = rider.prevRotationYawHead;
-        this.rotationPitch = rider.rotationPitch;
-        this.prevRotationPitch = rider.prevRotationPitch;
+        this.rotationYawHead = ((EntityPlayer) rider).rotationYawHead;
+        this.prevRotationYawHead = ((EntityPlayer) rider).prevRotationYawHead;
+        this.rotationPitch = ((EntityPlayer) rider).rotationPitch;
+        this.prevRotationPitch = ((EntityPlayer) rider).prevRotationPitch;
     }
 
     public void updateRiding(EntityLivingBase riding) {
@@ -2237,7 +2246,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return max yaw speed in degrees per tick
      */
     public float getHeadYawSpeed() {
-        return this.getControllingPlayer() != null ? 400 : 1;
+        return this.getControllingPlayer() != null ? 30 : 1;
     }
 
     /**

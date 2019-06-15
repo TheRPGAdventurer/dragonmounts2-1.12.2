@@ -38,6 +38,7 @@ public class DragonInteract extends DragonInteractBase {
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer()) {
             if (isAllowed(player)) {
+
                 /*
                  * Turning it to block
                  */

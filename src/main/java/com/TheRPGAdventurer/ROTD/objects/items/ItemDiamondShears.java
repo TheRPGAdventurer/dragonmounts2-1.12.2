@@ -60,7 +60,7 @@ public class ItemDiamondShears extends ItemShears implements IHasModel {
                         EnchantmentHelper.getEnchantmentLevel(net.minecraft.init.Enchantments.FORTUNE, itemstack));
 
                 for (ItemStack stack : drops) {
-                    boolean flag = player.inventory.addItemStackToInventory(itemstack);
+                    boolean flag = player.inventory.addItemStackToInventory(stack);
 
                     if (flag) {
                         player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
@@ -75,7 +75,7 @@ public class ItemDiamondShears extends ItemShears implements IHasModel {
                             entityitem1.makeFakeItem();
                         }
                     } else {
-                        EntityItem entityitem = player.dropItem(stack, false);
+                        EntityItem entityitem = player.entityDropItem(stack, 1F);
 
                         if (entityitem != null) {
                             entityitem.setNoPickupDelay();
@@ -85,7 +85,6 @@ public class ItemDiamondShears extends ItemShears implements IHasModel {
                 }
 
                 target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
-
                 itemstack.damageItem(20, target);
             }
 

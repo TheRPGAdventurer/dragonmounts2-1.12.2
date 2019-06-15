@@ -128,7 +128,7 @@ public class DragonInteract extends DragonInteractBase {
             double hy=pos.y;
             double hz=pos.z;
             // Spawn calculated particles
-            dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[]{Item.getIdFromItem(item)});
+            dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[] { Item.getIdFromItem(item) });
         }
     }
 }    

@@ -20,7 +20,6 @@ import com.TheRPGAdventurer.ROTD.network.MessageDragonTargetHandlerServer;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourEnchant;
 import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
 
 import net.minecraft.command.ServerCommandManager;
@@ -111,15 +110,13 @@ public class ServerProxy {
         return 0;
     }
 
-    public void setDragon3rdPersonView(int view) {
-    }
+    public void setDragon3rdPersonView(int view) {}
 
     public boolean getDragonFollowYaw() {
         return false;
     }
 
-    public void setDragonFollowYaw(boolean yaw) {
-    }
+    public void setDragonFollowYaw(boolean yaw) {}
 
     public boolean getDragonHover() {
         return false;
@@ -129,19 +126,15 @@ public class ServerProxy {
         return 0;
     }
 
-    public void setDragonLockY(int yaw) {
-    }
+    public void setDragonLockY(int yaw) {}
 
-    public void setDragonHover(boolean hover) {
-    }
+    public void setDragonHover(boolean hover) {}
 
-    public void registerModel(Item item, int metadata)
-    {
-    }
+    public void registerModel(Item item, int metadata) {}
 
-    public void registerItemRenderer(Item item, int meta, String id)
-    {
-    }
+    public void registerItemRenderer(Item item, int meta, String id) {}
+    
+    public void registerAmuletRenderer() {}
 
     // get the directory on disk used for storing the game files
     // is different for dedicated server vs client

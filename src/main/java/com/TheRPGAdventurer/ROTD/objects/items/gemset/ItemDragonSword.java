@@ -30,7 +30,6 @@ public class ItemDragonSword extends ItemSword {
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;
 
-        setNameColor();
         ModTools.TOOLS.add(this);
     }
 
@@ -38,12 +37,6 @@ public class ItemDragonSword extends ItemSword {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(type.color + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    private void setNameColor() {
-        new ItemStack(this).setStackDisplayName(type.color + new ItemStack(this).getDisplayName());
     }
 
     /**

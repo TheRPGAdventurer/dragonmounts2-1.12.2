@@ -5,8 +5,6 @@ import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DragonBreedTerra extends DragonBreed {
 
@@ -40,7 +38,6 @@ public class DragonBreedTerra extends DragonBreed {
         if (isMesa && dragon.posY > dragon.world.getHeight() + 8) doParticles(dragon);
     }
 
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
             float s=dragon.getScale() * 1.2f;

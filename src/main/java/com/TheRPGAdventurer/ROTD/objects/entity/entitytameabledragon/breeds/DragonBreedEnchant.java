@@ -5,8 +5,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DragonBreedEnchant extends DragonBreed {
 
@@ -36,7 +34,6 @@ public class DragonBreedEnchant extends DragonBreed {
 		doParticles(dragon);
 	}
 	
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
 	        float s = dragon.getScale() * 1.2f;

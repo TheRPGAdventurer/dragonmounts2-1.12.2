@@ -12,9 +12,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 
 public class DragonBreedNether extends DragonBreed {
 
@@ -81,7 +78,6 @@ public class DragonBreedNether extends DragonBreed {
         }
     }
 
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon, EnumParticleTypes types) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
             float s = dragon.getScale(); //  * 1.2f

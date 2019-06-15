@@ -10,8 +10,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DragonBreedAir extends DragonBreed {
 	
@@ -57,7 +55,6 @@ public class DragonBreedAir extends DragonBreed {
         if(dragon.posY > dragon.world.getHeight() * 1.2 && dragon.world.isDaytime()) doParticles(dragon);
     }
 
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
 	        float s = dragon.getScale() * 1.2f;

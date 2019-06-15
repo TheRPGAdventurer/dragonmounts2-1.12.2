@@ -11,11 +11,9 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.DimensionType;
 
 /**
  * Dragon AI for instant landing, if left unmounted in air.
@@ -34,14 +32,10 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
     }
 
     public BlockPos findLandingArea(BlockPos pos) {
-        for (int Y = 1; Y <= 2; Y++)
-        {
-            for (int Z = 1; Z <= 2; Z++)
-            {
-                for (int X = 1; X <= 2; X++)
-                {
-                    world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid();
-                    {
+        for (int Y = 1; Y <= 2; Y++) {
+            for (int Z = 1; Z <= 2; Z++) {
+                for (int X = 1; X <= 2; X++) {
+                    if (world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid()|| world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER) {
                         pos = pos.down();
                     }
                 }
@@ -60,13 +54,13 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         int oz = followRange - random.nextInt(followRange) * 2;
         landingPos = landingPos.add(ox, 0, oz);
 
-        if (dragon.isTamed() && dragon.getOwner() != null && (dragon.getOwner().onGround || dragon.getOwner().isInWater())
+        if (dragon.isTamed() && dragon.getOwner() != null
                 && dragon.getDistance(dragon.getOwner()) > 3 && dragon.getAttackingEntity() == null) {
             landingPos = dragon.getOwner().getPosition();
             return landingPos != null;
         } else {
             // get ground block
-            landingPos = dragon.world.provider.getDimensionType() == DimensionType.NETHER ? findLandingArea(landingPos) : dragon.world.getHeight(landingPos);
+            landingPos = findLandingArea(landingPos);
             // make sure the block below is solid
             return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER;
 
@@ -76,7 +70,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
     @Override
     public boolean shouldExecute() {
         return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-                && findLandingBlock() && dragon.getRevengeTarget() == null && dragon.nothing();
+                && findLandingBlock() && dragon.getAttackTarget() == null && dragon.nothing();
     }
 
     @Override

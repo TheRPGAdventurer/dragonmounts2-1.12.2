@@ -10,7 +10,6 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -22,80 +21,68 @@ import net.minecraft.item.ItemStack;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
-    
+
     protected EntityPlayer owner;
-    
+
     public EntityAIDragonCatchOwner(EntityTameableDragon dragon) {
         super(dragon);
     }
 
     @Override
-    public boolean shouldExecute() {        
+    public boolean shouldExecute() {
         // don't catch if leashed
         if (dragon.getLeashed()) {
             return false;
         }
-        
-        if(!dragon.isSaddled()) {
-        	return false;
-        }
-        
+
         owner = (EntityPlayer) dragon.getOwner();
-        
-        // don't catch if ownerless 
-        if (owner == null) {
-            return false;
-        }
-        
-        // no point in catching players in creative mode
+
+//         no point in catching players in creative mode
         if (owner.capabilities.isCreativeMode) {
             return false;
         }
-        
+
         // don't catch if already being ridden
         if (dragon.isPassenger(owner)) {
             return false;
         }
-        
+
         // don't follow if sitting
         if (dragon.isSitting()) {
         	return false;
         }
-        
-        dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
-        
+
         // don't catch if owner has a working Elytra equipped
         // note: isBroken() is misleading, it actually checks if the items is usable
         ItemStack itemStack = owner.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (itemStack != null && itemStack.getItem() == Items.ELYTRA && ItemElytra.isUsable(itemStack)) {
             return false;
-        }    
-                
-        return false;
+        }
+
+        return dragon.isSaddled();
     }
 
     @Override
     public boolean shouldContinueExecuting() {
-        return shouldExecute() && !dragon.getNavigator().noPath();
+        return shouldExecute();
     }
-    
+
     @Override
     public void updateTask() {
-    	
         // catch owner in flight if possible
         if (!dragon.isFlying()) {
             dragon.liftOff();
         }
-        
+
         // don't catch if owner is too far away
         double followRange = getFollowRange();
-        if (dragon.getDistance(owner) < followRange + 3) {
+        if (dragon.getDistance(owner) < followRange) {
+            dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
           // mount owner if close enough, otherwise move to owner
-           if (dragon.getDistance(owner) < dragon.width + dragon.getScale()) {
+           if (dragon.getDistance(owner) <= dragon.width * dragon.getScale() || dragon.getDistance(owner) <= dragon.height * dragon.getScale()) {
               owner.startRiding(dragon);
-              dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
            } else {
-              dragon.getNavigator().tryMoveToEntityLiving(owner, 5);
+              dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
            }
         }
     }

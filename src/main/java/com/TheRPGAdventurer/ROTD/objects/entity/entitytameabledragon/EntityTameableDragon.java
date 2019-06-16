@@ -33,6 +33,8 @@ import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -1208,7 +1210,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 40;  // DragonMountsConfig.dragonFlightHeight
+        double r = 50 * this.getScale();  // DragonMountsConfig.dragonFlightHeight
         double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 3.5);
         double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 3.5);
@@ -1888,7 +1890,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0 && this.moveForward > 0)) {
+        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
             this.rotationYaw = ((EntityPlayer) rider).rotationYaw;
             this.prevRotationYaw = ((EntityPlayer) rider).prevRotationYaw;
         }
@@ -2271,6 +2273,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         ticksShear = 3600;
         playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
         playSound(ModSounds.ENTITY_DRAGON_GROWL, 1.0F, 1.0F);
+
+        if(this.getBreedType()==EnumDragonBreed.FOREST) {
+            net.minecraft.entity.item.EntityItem ent = this.entityDropItem(new ItemStack(
+                    Item.getItemFromBlock(Blocks.SAPLING.getBlockState().getBaseState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK).getBlock())), 1.0F);
+            ent.motionY += rand.nextFloat() * 0.05F;
+            ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            return ret;
+        }
 
         return ret;
     }

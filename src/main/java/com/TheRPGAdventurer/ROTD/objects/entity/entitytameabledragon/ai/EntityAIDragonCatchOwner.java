@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
  */
 public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
 
-    protected EntityPlayer owner;
+    protected EntityPlayer owner = (EntityPlayer) dragon.getOwner();
 
     public EntityAIDragonCatchOwner(EntityTameableDragon dragon) {
         super(dragon);
@@ -30,17 +30,18 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
 
     @Override
     public boolean shouldExecute() {
+        if(owner == null) {
+            return false;
+        }
+
         // don't catch if leashed
         if (dragon.getLeashed()) {
             return false;
         }
-
-        owner = (EntityPlayer) dragon.getOwner();
-
 //         no point in catching players in creative mode
-        if (owner.capabilities.isCreativeMode) {
-            return false;
-        }
+//        if (owner.capabilities.isCreativeMode) {
+//            return false;
+//        }
 
         // don't catch if already being ridden
         if (dragon.isPassenger(owner)) {

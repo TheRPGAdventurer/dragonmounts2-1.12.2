@@ -70,8 +70,8 @@ public class DragonMountsConfig {
 	public static int IceNestRarity  = 200;
 
 	public static int netherNestRarity = 200;
-	public static int netherNestRarerityInX = 32;
-	public static int netherNestRarerityInZ = 32;
+	public static int netherNestRarerityInX = 16;
+	public static int netherNestRarerityInZ = 16;
 
 	public static int zombieNestRarity = 500;
 	public static int zombieNestRarerityInX = 28;

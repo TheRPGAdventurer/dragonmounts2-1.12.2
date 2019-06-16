@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
  */
 public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     
-    protected EntityPlayer owner;
+    protected EntityPlayer owner = (EntityPlayer) dragon.getOwner();
 
     public EntityAIDragonFollowOwnerElytraFlying(EntityTameableDragon dragon) {
         super(dragon);
@@ -42,8 +42,6 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
            return false;
         }
         
-        owner = (EntityPlayer) dragon.getOwner();
-        
         // don't follow if ownerless 
         if (owner == null) {
             return false;
@@ -60,7 +58,17 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     
     @Override
     public void updateTask() {
-        dragon.getNavigator().tryMoveToXYZ(owner.posX, owner.posY, owner.posZ - 25, 1);
+        // liffoff
+        if (!dragon.isFlying()) {
+            dragon.liftOff();
+        }
+
+        // mount owner if close enough, otherwise move to owner
+        if (dragon.getDistance(owner) <= dragon.width * dragon.getScale() || dragon.getDistance(owner) <= dragon.height * dragon.getScale()) {
+            owner.startRiding(dragon);
+        }
+
+        dragon.getNavigator().tryMoveToXYZ(owner.posX, owner.posY, owner.posZ, 1);
         dragon.setBoosting(dragon.getDistance(owner) > 18);
     }
 }

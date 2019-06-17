@@ -29,7 +29,7 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
         GlStateManager.blendFunc(GL_ONE, GL_ONE);
         GlStateManager.color(1, 1, 1, 1);
 
-        disableLighting();
+        /*if (!dragon.isAsleep)*/ disableLighting();
         model.setMode(DragonModelMode.FULL);
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
         model.render(dragon, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);

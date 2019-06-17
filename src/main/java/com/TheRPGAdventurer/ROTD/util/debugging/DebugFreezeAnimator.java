@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.util.debugging;
 
-import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -12,6 +13,6 @@ public class DebugFreezeAnimator
 {
   public static boolean isFrozen()
   {
-    return DragonMounts.instance.getConfig().isDebug() && Keyboard.isKeyDown(Keyboard.KEY_SCROLL);
+	return DragonMountsConfig.isDebug() && Keyboard.isKeyDown(Keyboard.KEY_SCROLL);
   }
 }

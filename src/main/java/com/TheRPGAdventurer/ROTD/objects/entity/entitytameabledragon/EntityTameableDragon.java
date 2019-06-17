@@ -206,19 +206,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
         addHelper(new DragonInteractHelper(this));
+        if (isServer()) addHelper(new DragonBrain(this));
+        
+        // init helpers
+        moveHelper=new DragonMoveHelper(this);
+        aiSit=new EntityAIDragonSit(this);
+        helpers.values().forEach(DragonHelper::applyEntityAttributes);
+        animator=new DragonAnimator(this);
 
         InitializeDragonInventory();
 
-        if (isServer()) {
-            addHelper(new DragonBrain(this));
-        }
-
-        moveHelper=new DragonMoveHelper(this);
-        aiSit=new EntityAIDragonSit(this);
-
-        // init helpers
-        helpers.values().forEach(DragonHelper::applyEntityAttributes);
-        animator=new DragonAnimator(this);
         resetParts(1);
     }
 

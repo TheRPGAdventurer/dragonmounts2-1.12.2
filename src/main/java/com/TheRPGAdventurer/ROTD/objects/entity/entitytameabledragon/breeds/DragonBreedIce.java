@@ -30,8 +30,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -111,7 +109,6 @@ public class DragonBreedIce extends DragonBreed {
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforIceDragon(world, power, tickCounter);
     }
 
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
             float s=dragon.getScale() * 1.2f;

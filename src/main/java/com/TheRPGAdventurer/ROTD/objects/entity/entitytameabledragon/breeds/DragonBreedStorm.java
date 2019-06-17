@@ -8,8 +8,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -90,7 +88,6 @@ public class DragonBreedStorm extends DragonBreed {
     	doParticles(dragon);
 	}
 	
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
 	        float s = dragon.getScale() * 1.2f;

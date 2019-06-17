@@ -25,6 +25,23 @@ entity.DragonMount.zombie.name=Zombie Dragon
 entity.DragonMount.terra.name=Terra Dragon
 entity.DragonMount.moonlight.name=Moonlight Dragon
 
+entity.DragonMounts.dragon.ice.name=Ice Dragon
+entity.DragonMounts.dragon.ender.name=Ender Dragon
+entity.DragonMounts.dragon.aether.name=Aether Dragon
+entity.DragonMounts.dragon.forest.name=Forest Dragon
+entity.DragonMounts.dragon.sylphid.name=Water Dragon
+entity.DragonMounts.dragon.nether.name=Nether Dragon
+entity.DragonMounts.dragon.fire.name=Fire Dragon
+entity.DragonMounts.dragon.skeleton.name=Skeleton Dragon
+entity.DragonMounts.dragon.wither.name=Wither Dragon
+entity.DragonMounts.dragon.enchant.name=Enchantment Dragon
+entity.DragonMounts.dragon.sunlight.name=Sunlight Dragon
+entity.DragonMounts.dragon.storm.name=Storm Dragon
+entity.DragonMounts.dragon.zombie.name=Zombie Dragon
+entity.DragonMounts.dragon.terra.name=Terra Dragon
+entity.DragonMounts.dragon.moonlight.name=Moonlight Dragon
+
+
 #Breeds
 dragon.forest=Forest
 dragon.aether=Aether

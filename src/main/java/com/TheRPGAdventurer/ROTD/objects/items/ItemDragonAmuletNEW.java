@@ -4,9 +4,6 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,7 +34,7 @@ import java.util.List;
  * @author WolfShotz
  * TODO Remove ItemDragonAmulet deprecated class and replace it with this one. Rename this to 'ItemDragonAmulet'
  */
-public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
+public class ItemDragonAmuletNEW extends Item {
 
 	private EnumItemBreedTypes type;
 
@@ -72,15 +69,17 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     	NBTTagCompound tag = new NBTTagCompound();
     	tag.setString("breed", dragon.getBreedType().toString().toLowerCase());
     	this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-    	tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+    	tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : new TextComponentTranslation("dragon." + type.toString().toLowerCase()).getUnformattedText() + " Dragon"));
     	tag.setString("OwnerName", dragon.getOwner().getName());
 
     	target.writeToNBT(tag);
     	stack.setTagCompound(tag);
 
-    	doAmuletExtras(player, stack, false);
     	player.setHeldItem(hand, stack);
+    	if (dragon.getLeashed()) dragon.clearLeashed(true, true); // Fix Lead Dupe exploit
     	target.setDead();
+        player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
+		stack.setStackDisplayName(type.color + stack.getDisplayName());
 		return true;
     }
     
@@ -101,26 +100,16 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     		BlockPos blockPos = pos.offset(facing);
     		entityDragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
     		stack.setTagCompound(null);
-    		doAmuletExtras(player, stack, true);
     		player.setHeldItem(hand, stack);
     		world.spawnEntity(entityDragon);
+            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
+            stack.clearCustomName();
     		return EnumActionResult.SUCCESS;
     	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
     	return EnumActionResult.FAIL;
     }
     
     /* Item Extras */
-   
-    @SideOnly(Side.CLIENT)
-    private void doAmuletExtras(EntityPlayer player, ItemStack stack, boolean release) {
-        if (release) {
-            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
-            stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
-        } else {
-            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
-            stack.setStackDisplayName(type.color + stack.getDisplayName());
-        }
-    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -130,20 +119,11 @@ public class ItemDragonAmuletNEW extends Item implements ItemMeshDefinition {
     		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
     		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
     		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));
-    	} else tooltip.add(t.GREEN + DMUtils.translateToLocal("item.dragonamulet.info"));
+    	} else {
+    		tooltip.add(t.GREEN + new TextComponentTranslation("item.dragonamulet.info").getUnformattedText());
+            stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
+    	}
     }
-
-    /**
-     * Gets the Amulet Model According to breed type
-     * @see com.TheRPGAdventurer.ROTD.event.RegistryEventHandler Amulet Model Registry Class
-     */
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ModelResourceLocation getModelLocation(ItemStack stack) {
-		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("breed")) {
-			return new ModelResourceLocation("dragonmounts:" + stack.getTagCompound().getString("breed") + "_dragon_amulet");
-		} else return new ModelResourceLocation("dragonmounts:dragon_amulet");
-	}
 
 	/* INDESTRUCTIBLE */
 

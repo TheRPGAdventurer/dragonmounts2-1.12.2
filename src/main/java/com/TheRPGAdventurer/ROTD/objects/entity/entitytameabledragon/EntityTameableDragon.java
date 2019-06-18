@@ -817,11 +817,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         helpers.values().forEach(DragonHelper::onLivingUpdate);
         getBreed().onLivingUpdate(this);
 
-        if (this.isServerWorld() && !this.isMovementBlocked()) {
+        //FIXME:  @WolfShotz - This crashes the game, will work on it later.
+/*        if (this.isServerWorld() && !this.isMovementBlocked()) {
             ++this.idleTime;
             dragonLookHelper.onUpdateLook();
         }
-
+*/
         if (isServer()) {
             final float DUMMY_MOVETIME = 0;
             final float DUMMY_MOVESPEED = 0;

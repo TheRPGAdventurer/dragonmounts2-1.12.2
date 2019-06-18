@@ -206,11 +206,7 @@ public class DragonReproductionHelper extends DragonHelper  {
 ////      dragon.getBreedHelper().inheritBreed(parent1, parent2)
 //        baby.setBreedType(inheritRandombreed(parent1, parent2));
 
-        if(!dragon.isMale()) {
-//            dragon.dropItem(Item.getItemFromBlock(new BlockDragonBreedEgg()),1);
-        } else {
-
-        }
+        
 
         // increase reproduction counter
         parent1.getReproductionHelper().addReproduced();

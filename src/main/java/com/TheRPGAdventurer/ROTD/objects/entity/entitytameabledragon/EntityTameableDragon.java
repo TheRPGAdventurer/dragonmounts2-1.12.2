@@ -174,6 +174,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean hasHomePosition = false;
     public int roarTicks;
     public BlockPos homePos;
+    public DragonLookHelper dragonLookHelper;
     public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
 
     public EntityTameableDragon(World world) {
@@ -200,6 +201,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         moveHelper = new DragonMoveHelper(this);
         aiSit = new EntityAIDragonSit(this);
+        dragonLookHelper=new DragonLookHelper(this);
 
         // init helpers
         helpers.values().forEach(DragonHelper::applyEntityAttributes);
@@ -781,12 +783,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * interpolated look vector
      */
-    public Vec3d getLook(float partialTicks)
-    {
-        return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
-    }
-
-
+//    public Vec3d getLook(float partialTicks)
+//    {
+//        return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
+//    }
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -814,7 +814,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private boolean isBlockSolid(double xcoord, double ycoord, double zcoord) {
         BlockPos pos = new BlockPos(xcoord, ycoord, zcoord);
         IBlockState state = world.getBlockState(pos);
-        return state.getMaterial().isSolid() || (this.getControllingPlayer() != null && (this.isInWater() || this.isInLava()));
+        return state.getMaterial().isSolid() || (this.getControllingPlayer() == null && (this.isInWater() || this.isInLava()));
     }
 
     @Override
@@ -1447,7 +1447,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      */
     @Override
     public float getEyeHeight() {
-        float eyeHeight = height * 0.85F;
+        float eyeHeight = height * 0.85F; // todo height * 0.85F
 
         if (isSitting()) {
             eyeHeight *= 0.8f;
@@ -1886,29 +1886,84 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return altitude > 2.0;
     }
 
+
+    private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
+        float f = MathX.wrapDegrees(p_75652_2_ - p_75652_1_);
+
+        if (f > p_75652_3_) {
+            f = p_75652_3_;
+        }
+
+        if (f < -p_75652_3_) {
+            f = -p_75652_3_;
+        }
+
+        return p_75652_1_ + f;
+    }
+
     /**
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
-            this.rotationYaw = ((EntityPlayer) rider).rotationYaw;
-            this.prevRotationYaw = ((EntityPlayer) rider).prevRotationYaw;
+        if ((this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
+            rotationYaw = ((EntityPlayer) rider).rotationYaw;
         }
-        this.rotationYawHead = ((EntityPlayer) rider).rotationYawHead;
-        this.prevRotationYawHead = ((EntityPlayer) rider).prevRotationYawHead;
-        this.rotationPitch = ((EntityPlayer) rider).rotationPitch;
-        this.prevRotationPitch = ((EntityPlayer) rider).prevRotationPitch;
+
+//        this.rotationPitch = 0.0F;
+//
+//         todo continue fixing the limit
+//        Vec3d lookDirection = rider.getLook(1.0F);
+//        double d0 = lookDirection.x - this.posX;
+//        double d1 = lookDirection.y - (this.posY + (double) this.getEyeHeight());
+//        double d2 = lookDirection.z - this.posZ;
+//        double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
+//        float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F; // try removing -90
+//        float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI))); // used to be 180
+//        this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 50);
+//        this.rotationYawHead = this.updateRotation(this.rotationYawHead, f, 50);
+//
+//        float f2 = MathX.wrapDegrees(this.rotationYawHead - this.renderYawOffset);
+//
+//        if (!this.getNavigator().noPath()) {
+//            if (f2 < -75.0F) {
+//                this.rotationYawHead = this.renderYawOffset - 75.0F;
+//            }
+//
+//            if (f2 > 75.0F) {
+//                this.rotationYawHead = this.renderYawOffset + 75.0F;
+//            }
+//        }
+//
+        Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+        Vec3d lookDirection = rider.getLook(1.0F);
+        Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the limitations
+        this.dragonLookHelper.setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
+                100, this.getHeadPitchSpeed());
+
+//        Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+//        Vec3d lookDirection = rider.getLook(1.0F);
+//        Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the limitations
+//        this.getLookHelper().setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
+//                100, this.getHeadPitchSpeed());
+
+//        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
+//            this.rotationYaw = ((EntityPlayer) rider).rotationYaw;
+//            this.prevRotationYaw = ((EntityPlayer) rider).prevRotationYaw;
+//        }
+//        this.rotationYawHead = ((EntityPlayer) rider).rotationYawHead;
+//        this.prevRotationYawHead = ((EntityPlayer) rider).prevRotationYawHead;
+//        this.rotationPitch = ((EntityPlayer) rider).rotationPitch;
+//        this.prevRotationPitch = ((EntityPlayer) rider).prevRotationPitch;
     }
 
     public void updateRiding(EntityLivingBase riding) {
         if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
             int i = riding.getPassengers().indexOf(this);
             float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
-            float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -120 : i == 0 ? 120 : 0); // 90 not 120
+            float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0); // 90 not 120
             double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ = (double) (radius * MathHelper.cos(angle));
             double extraY = (riding.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
-            equalizeYaw((EntityPlayer) riding);
             this.rotationYaw = riding.rotationYaw;
             this.prevRotationYaw = riding.prevRotationYaw;
             this.rotationYawHead = riding.rotationYawHead;
@@ -2274,7 +2329,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
         playSound(ModSounds.ENTITY_DRAGON_GROWL, 1.0F, 1.0F);
 
-        if(this.getBreedType()==EnumDragonBreed.FOREST) {
+        if (this.getBreedType() == EnumDragonBreed.FOREST) {
             net.minecraft.entity.item.EntityItem ent = this.entityDropItem(new ItemStack(
                     Item.getItemFromBlock(Blocks.SAPLING.getBlockState().getBaseState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK).getBlock())), 1.0F);
             ent.motionY += rand.nextFloat() * 0.05F;

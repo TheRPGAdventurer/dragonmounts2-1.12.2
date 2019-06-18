@@ -80,7 +80,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         if (dragon.getDistance(owner) < followRange) {
             dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
           // mount owner if close enough, otherwise move to owner
-           if (dragon.getDistance(owner) <= dragon.width * dragon.getScale() || dragon.getDistance(owner) <= dragon.height * dragon.getScale()) {
+           if (dragon.getDistance(owner) <= dragon.width * dragon.getScale() || dragon.getDistance(owner) <= dragon.height * dragon.getScale()&&!owner.isSneaking()) {
               owner.startRiding(dragon);
            } else {
               dragon.getNavigator().tryMoveToEntityLiving(owner, 1);

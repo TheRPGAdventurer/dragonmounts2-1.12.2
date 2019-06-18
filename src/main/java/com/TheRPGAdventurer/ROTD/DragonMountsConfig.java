@@ -182,7 +182,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "Hunger Speed", hungerDecrement);
-		prop.setComment("Lower numbers slower hunger speed for dragons");
+		prop.setComment("More numbers slower, i.e. gets a number from the factor of (3000 * 5) to 1 per millisecond if it equals to 1 reduce hunger, set to zero for no hunger");
 		hungerDecrement = prop.getInt();
 		propOrder.add(prop.getName());
 

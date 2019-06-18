@@ -24,7 +24,7 @@ public class DragonArmourZombie extends DragonArmourBase {
         if (world.isDaytime() && isActive(MobEffects.STRENGTH, player)) return;
 
         player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 300, 0, true, false));
-        player.getCooldownTracker().setCooldown(this, 500);
+        player.getCooldownTracker().setCooldown(this, 400);
     }
 
 }

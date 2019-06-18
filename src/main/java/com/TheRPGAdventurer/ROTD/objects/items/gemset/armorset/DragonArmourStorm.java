@@ -22,15 +22,15 @@ public class DragonArmourStorm extends DragonArmourBase {
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		super.onArmorTick(world, player, itemStack);
-		if (!((head == ModArmour.stormDragonScaleCap && chest == ModArmour.stormDragonScaleTunic && legs == ModArmour.stormDragonScaleLeggings && feet == ModArmour.stormDragonScaleBoots) ||
-			  (head == ModArmour.stormDragonScaleCap2 && chest == ModArmour.stormDragonScaleTunic2 && legs == ModArmour.stormDragonScaleLeggings2 && feet == ModArmour.stormDragonScaleBoots2)))
+		if (!((head == ModArmour.stormDragonScaleCap|| head == ModArmour.stormDragonScaleCap2) && (chest == ModArmour.stormDragonScaleTunic|| chest == ModArmour.stormDragonScaleTunic2)
+				&& (legs == ModArmour.stormDragonScaleLeggings||legs == ModArmour.stormDragonScaleLeggings2) && (feet == ModArmour.stormDragonScaleBoots|| feet == ModArmour.stormDragonScaleBoots2)))
 			return;
-		if (player.getAttackingEntity() == null) return;
 		if (rand.nextInt(20) != 0) { player.setLastAttackedEntity(null); return; }
-		
+		if(player.getLastAttackedEntity()==null) return;
+
 		BlockPos pos = player.getLastAttackedEntity().getPosition();
 		world.addWeatherEffect(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
-//		player.setLastAttackedEntity(null); only entities fighting back
+		player.setLastAttackedEntity(null);
 	}
 	
 }

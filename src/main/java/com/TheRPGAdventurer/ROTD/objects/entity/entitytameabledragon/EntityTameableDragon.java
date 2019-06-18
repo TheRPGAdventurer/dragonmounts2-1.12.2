@@ -18,6 +18,7 @@ import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonBreath;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonExtras;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonInventory;
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground.EntityAIDragonSit;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.path.PathNavigateFlying;
@@ -187,7 +188,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         stepHeight = 1;
 
         // create entity delegates
-        addHelper(new DragonBreedHelper(this, DATA_BREED));
+        addHelper(new com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper(this, DATA_BREED));
         addHelper(new DragonLifeStageHelper(this, DATA_TICKS_SINCE_CREATION));
         addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
@@ -201,7 +202,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         moveHelper = new DragonMoveHelper(this);
         aiSit = new EntityAIDragonSit(this);
-        dragonLookHelper=new DragonLookHelper(this);
+        dragonLookHelper = new DragonLookHelper(this);
 
         // init helpers
         helpers.values().forEach(DragonHelper::applyEntityAttributes);
@@ -239,7 +240,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
-        dataManager.register(IS_ALBINO, getRNG().nextInt(100) == 0);
+        dataManager.register(IS_ALBINO, getRNG().nextInt(40) == 0);
         dataManager.register(DRAGON_SCALES, (byte) 0);
         dataManager.register(ARMOR, 0);
         dataManager.register(BANNER1, ItemStack.EMPTY);
@@ -780,13 +781,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
-    /**
-     * interpolated look vector
-     */
-//    public Vec3d getLook(float partialTicks)
-//    {
-//        return this.getVectorForRotation(this.rotationPitch, this.rotationYaw);
-//    }
     @Override
     public void onUpdate() {
         super.onUpdate();
@@ -832,6 +826,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void onLivingUpdate() {
         helpers.values().forEach(DragonHelper::onLivingUpdate);
         getBreed().onLivingUpdate(this);
+
+        if (this.isServerWorld() && !this.isMovementBlocked()) {
+            ++this.idleTime;
+            dragonLookHelper.onUpdateLook();
+        }
 
         if (isServer()) {
             final float DUMMY_MOVETIME = 0;
@@ -912,7 +911,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 this.setUnHovered(true);
             }
         }
-        if (this.ticksExisted % DragonMountsConfig.hungerDecrement == 0) {
+        if (this.ticksExisted % (DragonMountsConfig.hungerDecrement * 7) == 1) {
             if (this.getHunger() > 0) {
                 this.setHunger(this.getHunger() - 1);
             }
@@ -1397,7 +1396,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack item = player.getHeldItem(hand);
         // don't interact with eggs!
-        if (isEgg()) return !this.canBeLeashedTo(player);
+//        if (isEgg()) {
+//            return !this.canBeLeashedTo(player);
+//        } else {
+        /*
+         * Turning it to block
+         */
+        if (isEgg() && player.isSneaking()) {
+            world.playSound(player, getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1, 1);
+            world.setBlockState(getPosition(), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(getBreedType().getMeta()));
+            setDead();
+        }
+//        }
 
         if (getHealth() <= 0) return false;
 
@@ -1405,6 +1415,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.setSitting(false);
             this.startRiding(player, true);
             return true;
+        }
+
+        if (player.isPassenger(this)) {
+            return false;
         }
 
         // inherited interaction no inheritance they block taming for younger mobs
@@ -1758,8 +1772,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return (T) helpers.get(clazz);
     }
 
-    public DragonBreedHelper getBreedHelper() {
-        return getHelper(DragonBreedHelper.class);
+    public com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper getBreedHelper() {
+        return getHelper(com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper.class);
     }
 
     public DragonLifeStageHelper getLifeStageHelper() {
@@ -1905,55 +1919,15 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
      */
     public void equalizeYaw(EntityLivingBase rider) {
-        if ((this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
+        if ((this.isUsingBreathWeapon() && this.moveStrafing == 0) && isFlying()) {
             rotationYaw = ((EntityPlayer) rider).rotationYaw;
         }
 
-//        this.rotationPitch = 0.0F;
-//
-//         todo continue fixing the limit
-//        Vec3d lookDirection = rider.getLook(1.0F);
-//        double d0 = lookDirection.x - this.posX;
-//        double d1 = lookDirection.y - (this.posY + (double) this.getEyeHeight());
-//        double d2 = lookDirection.z - this.posZ;
-//        double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
-//        float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F; // try removing -90
-//        float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI))); // used to be 180
-//        this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 50);
-//        this.rotationYawHead = this.updateRotation(this.rotationYawHead, f, 50);
-//
-//        float f2 = MathX.wrapDegrees(this.rotationYawHead - this.renderYawOffset);
-//
-//        if (!this.getNavigator().noPath()) {
-//            if (f2 < -75.0F) {
-//                this.rotationYawHead = this.renderYawOffset - 75.0F;
-//            }
-//
-//            if (f2 > 75.0F) {
-//                this.rotationYawHead = this.renderYawOffset + 75.0F;
-//            }
-//        }
-//
         Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
         Vec3d lookDirection = rider.getLook(1.0F);
         Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the limitations
-        this.dragonLookHelper.setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
-                100, this.getHeadPitchSpeed());
-
-//        Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-//        Vec3d lookDirection = rider.getLook(1.0F);
-//        Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the limitations
-//        this.getLookHelper().setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
-//                100, this.getHeadPitchSpeed());
-
-//        if (isFlying() && (this.isUsingBreathWeapon() && this.moveStrafing == 0)) {
-//            this.rotationYaw = ((EntityPlayer) rider).rotationYaw;
-//            this.prevRotationYaw = ((EntityPlayer) rider).prevRotationYaw;
-//        }
-//        this.rotationYawHead = ((EntityPlayer) rider).rotationYawHead;
-//        this.prevRotationYawHead = ((EntityPlayer) rider).prevRotationYawHead;
-//        this.rotationPitch = ((EntityPlayer) rider).rotationPitch;
-//        this.prevRotationPitch = ((EntityPlayer) rider).prevRotationPitch;
+        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
+                this.getHeadYawSpeed(), this.getHeadPitchSpeed());
     }
 
     public void updateRiding(EntityLivingBase riding) {
@@ -2303,7 +2277,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return max yaw speed in degrees per tick
      */
     public float getHeadYawSpeed() {
-        return this.getControllingPlayer() != null ? 30 : 1;
+        return this.getControllingPlayer() != null ? 77 : 1;
     }
 
     /**
@@ -2312,7 +2286,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * @return max pitch speed in degrees per tick
      */
     public float getHeadPitchSpeed() {
-        return this.getControllingPlayer() != null ? 30 : 1;
+        return this.getControllingPlayer() != null ? 77 : 1;
     }
 
     @Override

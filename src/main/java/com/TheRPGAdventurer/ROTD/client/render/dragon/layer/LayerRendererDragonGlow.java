@@ -23,7 +23,6 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
     public void doRenderLayer(EntityTameableDragon dragon, float moveTime, float moveSpeed, float partialTicks, float ticksExisted, float lookYaw, float lookPitch, float scale) {
     	renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture(dragon.isHatchling(), dragon.isAlbino()) : breedRenderer.getFemaleGlowTexture(dragon.isHatchling(), dragon.isAlbino()));
 
-        GlStateManager.pushAttrib();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL_ONE, GL_ONE);
         GlStateManager.color(1, 1, 1, 1);
@@ -34,7 +33,6 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
         enableLighting(dragon.getBrightnessForRender());
 
         GlStateManager.disableBlend();
-        GlStateManager.popAttrib();
 
         if(dragon.getBreedType() == EnumDragonBreed.ENCHANT) {
             renderEnchantedGlint(this.renderer, dragon, model, moveTime, moveSpeed, partialTicks, ticksExisted, lookYaw, lookPitch, scale);

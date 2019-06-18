@@ -10,18 +10,15 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
-import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -37,16 +34,7 @@ public class DragonInteract extends DragonInteractBase {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer()) {
-            if (isAllowed(player)) {
-
-                /*
-                 * Turning it to block
-                 */
-                if (dragon.isEgg() && player.isSneaking()) {
-                    dragon.world.playSound(player, dragon.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1, 1);
-                    dragon.world.setBlockState(dragon.getPosition(), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(dragon.getBreedType().getMeta()));
-                    dragon.setDead();
-                }
+            if (isAllowed(player) && !dragon.isEgg()) {
 
                 /*
                  * Riding
@@ -83,11 +71,11 @@ public class DragonInteract extends DragonInteractBase {
                 if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
                     // Taming
                     if (!dragon.isTamed()) {
-                        dragon.tamedFor(player, dragon.getRNG().nextInt(15) == 0);
+                        dragon.tamedFor(player, dragon.getRNG().nextInt(6) == 0);
                         eatEvent(player);
                     }
                     //  hunger
-                    if (dragon.getHunger() < 150) {
+                    if (dragon.getHunger() < 0) {
                         eatEvent(player);
                         dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
                     }

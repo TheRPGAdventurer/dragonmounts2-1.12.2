@@ -672,7 +672,6 @@ public class DragonModel extends AdvancedModelBase {
 
     public void render(EntityTameableDragon dragon, float moveTime, float moveSpeed, float ticksExisted, float lookYaw, float lookPitch, float scale) {
         DragonAnimator animator=dragon.getAnimator();
-        float speed=MathX.clamp(dragon.getScale(), 0.33f, 0.44f);
         animator.setMovement(moveTime, moveSpeed * 1);
         animator.setLook(lookYaw, lookPitch);
         animator.animate();

@@ -12,10 +12,8 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonBreedHelper;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStageHelper;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonReproductionHelper;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -306,7 +304,7 @@ public class GuiDragonDebug extends Gui {
      text.println("Breed points");
      text.setColor(WHITE);
         
-      DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
+      com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper breedHelper = dragonServer.getBreedHelper();
       breedHelper.getBreedPoints().forEach((breedType, points) -> {
         text.setColor(breedType.getBreed().getColor());
         text.printf("%s: %d\n", breedType, points.get());

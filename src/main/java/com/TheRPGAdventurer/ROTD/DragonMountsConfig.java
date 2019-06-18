@@ -69,9 +69,9 @@ public class DragonMountsConfig {
 	public static int WaterNestRarity  = 150;
 	public static int IceNestRarity  = 200;
 
-	public static int netherNestRarity = 300;
-	public static int netherNestRarerityInX = 32;
-	public static int netherNestRarerityInZ = 32;
+	public static int netherNestRarity = 200;
+	public static int netherNestRarerityInX = 16;
+	public static int netherNestRarerityInZ = 16;
 
 	public static int zombieNestRarity = 500;
 	public static int zombieNestRarerityInX = 28;
@@ -182,7 +182,7 @@ public class DragonMountsConfig {
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "Hunger Speed", hungerDecrement);
-		prop.setComment("Lower numbers slower hunger speed for dragons");
+		prop.setComment("More numbers slower, i.e. gets a number from the factor of (3000 * 5) to 1 per millisecond if it equals to 1 reduce hunger, set to zero for no hunger");
 		hungerDecrement = prop.getInt();
 		propOrder.add(prop.getName());
 

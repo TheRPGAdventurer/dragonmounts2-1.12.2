@@ -31,14 +31,14 @@ import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 public interface IDragonModifier {
     
   static final double MODIFIER_RANGE_XZ =16;
-  static final double MODIFIER_RANGE_Y = 5;
+  static final double MODIFIER_RANGE_Y =12;
 
     default void applyModifier(MinecraftServer server, ICommandSender sender, Consumer<EntityTameableDragon> modifier) throws CommandException {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
             AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .expand(MODIFIER_RANGE_XZ, MODIFIER_RANGE_Y, MODIFIER_RANGE_XZ);
+                .grow(MODIFIER_RANGE_XZ, MODIFIER_RANGE_Y, MODIFIER_RANGE_XZ);
             
             // List all dragons in expanded player entity box
             List<EntityTameableDragon> dragons = player

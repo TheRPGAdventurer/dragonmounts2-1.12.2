@@ -7,6 +7,7 @@ import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityDragonFireball;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,11 +17,12 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 
 	private int dragonId;
 	public boolean isBreathing;
-	
+	public boolean isProjectile;
 
-	public MessageDragonBreath(int dragonId, boolean isBreathing) {
+	public MessageDragonBreath(int dragonId, boolean isBreathing, boolean isProjectile) {
 		this.dragonId = dragonId;
 		this.isBreathing = isBreathing;
+		this.isProjectile=isProjectile;
 	}
 
 	public MessageDragonBreath() {}
@@ -29,12 +31,14 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 	public void fromBytes(ByteBuf buf) {
 		dragonId = buf.readInt();
 		isBreathing = buf.readBoolean();
+		isProjectile = buf.readBoolean();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(dragonId);
 		buf.writeBoolean(isBreathing);
+		buf.writeBoolean(isProjectile);
 	}
 
 	@Override
@@ -52,6 +56,12 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 				dragon.setUsingBreathWeapon(true);
 			} else {
 				dragon.setUsingBreathWeapon(false);
+			}
+
+			if(message.isProjectile) {
+				dragon.setUsingAltBreathWeapon(true);
+			} else {
+				dragon.setUsingAltBreathWeapon(false);
 			}
 		} 
 	}

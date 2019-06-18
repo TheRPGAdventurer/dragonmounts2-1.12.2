@@ -46,7 +46,7 @@ public class EntityMoveAndResizeHelper {
         double wDYneg=-wDYplus;
         double wDZneg=-wDZplus;
 
-        AxisAlignedBB collisionZone=entityAABB.expand(wDXneg, wDYneg, wDZneg).expand(wDXplus, wDYplus, wDZplus).expand(dx, dy, dz);
+        AxisAlignedBB collisionZone=entityAABB.grow(wDXneg, wDYneg, wDZneg).grow(wDXplus, wDYplus, wDZplus).grow(dx, dy, dz);
         List<AxisAlignedBB> collidingAABB=entity.world.getCollisionBoxes(entity, collisionZone);
 
         if (MathX.isSignificantlyDifferent(newHeight, entity.height)) {

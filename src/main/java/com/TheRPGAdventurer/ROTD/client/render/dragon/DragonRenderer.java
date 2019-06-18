@@ -163,7 +163,6 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
         
         // prepare GL states
         GlStateManager.pushMatrix();
-        GlStateManager.pushAttrib();
         GlStateManager.translate(x, y /*+ (lev ? l : 0)*/, z);
         GlStateManager.rotate(rotX, 1, 0, 0);
         GlStateManager.rotate(rotZ, 0, 0, 1);
@@ -197,7 +196,6 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
         // restore GL state
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
-        GlStateManager.popAttrib();
     }
 
     @Override

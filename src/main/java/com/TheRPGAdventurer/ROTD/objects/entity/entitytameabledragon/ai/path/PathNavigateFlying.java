@@ -22,9 +22,9 @@ import net.minecraft.world.World;
  */
 public class PathNavigateFlying extends PathNavigateSwimmer {
 	
-	public int posX;
-    public int posY;
-    public int posZ;
+	public double posX;
+    public double posY;
+    public double posZ;
 
     public PathNavigateFlying(EntityLiving entitylivingIn, World worldIn) {
         super(entitylivingIn, worldIn);
@@ -41,9 +41,9 @@ public class PathNavigateFlying extends PathNavigateSwimmer {
     }
 
     public void setVector(Vec3d vec) {
-        posX = (int) vec.x;
-        posY = (int) vec.y;
-        posZ = (int) vec.z;
+        posX = vec.x;
+        posY = vec.y;
+        posZ = vec.z;
     }
 
 }

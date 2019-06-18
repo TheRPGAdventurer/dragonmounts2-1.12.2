@@ -25,6 +25,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourEnchant;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugClientOnly;
 import net.minecraft.client.Minecraft;
@@ -35,7 +36,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -43,6 +43,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -131,11 +132,12 @@ public class ClientProxy extends ServerProxy {
         DragonOrbControl.initialiseInterceptors();
         MinecraftForge.EVENT_BUS.register(DragonOrbControl.getInstance());
         MinecraftForge.EVENT_BUS.register(new TargetHighlighter());
- //       FMLCommonHandler.instance().bus().register(new DragonEntityWatcher());  todo not required?
+ //       FMLCommonHandler.instance().bus().register(new DragonEntityWatcher());  todo not required? if i remember correctly this is used to make a zoom in, thridpersonview i unused now now uing DragonViewEvent rpg
       }
 
       MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
+        MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus());
         MinecraftForge.EVENT_BUS.register(new RenderDM2Cape());
         MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);
     }

@@ -1,25 +1,24 @@
 package com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class DragonArmourBase extends ItemArmor implements IHasModel  {
 
@@ -37,6 +36,10 @@ public class DragonArmourBase extends ItemArmor implements IHasModel  {
 		this.type = type;
 		
 		ModArmour.ARMOR.add(this);
+	}
+
+	protected boolean isActive(Potion effects, EntityPlayer player) {
+		return  !player.isPotionActive(effects);
 	}
 
 	@Override

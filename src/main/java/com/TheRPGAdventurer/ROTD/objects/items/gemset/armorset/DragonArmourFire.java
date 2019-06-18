@@ -20,12 +20,12 @@ public class DragonArmourFire extends DragonArmourBase {
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
 		if (player.getCooldownTracker().getCooldown(this, 0) > 0) return;
 		super.onArmorTick(world, player, itemStack);
-		if (!((head == ModArmour.fireDragonScaleCap && chest == ModArmour.fireDragonScaleTunic && legs == ModArmour.fireDragonScaleLeggings && feet == ModArmour.fireDragonScaleBoots) ||
-		      (head == ModArmour.fireDragonScaleCap2 && chest == ModArmour.fireDragonScaleTunic2 && legs == ModArmour.fireDragonScaleLeggings2 && feet == ModArmour.fireDragonScaleBoots2)))
+		if (!((head == ModArmour.fireDragonScaleCap|| head == ModArmour.fireDragonScaleCap2) && (chest == ModArmour.fireDragonScaleTunic|| chest == ModArmour.fireDragonScaleTunic2)
+				&& (legs == ModArmour.fireDragonScaleLeggings||legs == ModArmour.fireDragonScaleLeggings2) && (feet == ModArmour.fireDragonScaleBoots|| feet == ModArmour.fireDragonScaleBoots2)))
 			return;
 		if (!player.isBurning() && isActive(MobEffects.FIRE_RESISTANCE, player)) return;
 		
-		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 300, 0, false, false));
+		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 400, 0, false, false));
 		player.getCooldownTracker().setCooldown(this, 1160);
 	}
 	

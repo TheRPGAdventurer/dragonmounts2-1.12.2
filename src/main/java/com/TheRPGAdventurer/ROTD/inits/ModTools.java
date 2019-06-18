@@ -182,6 +182,7 @@ public class ModTools {
     public static final Item sunlight2_dragon_bow = new ItemDragonSunlight2Bow(EnumItemBreedTypes.SUNLIGHT2, ModItems.SunlightDragonScales2);
     public static final Item enchant_dragon_bow = new ItemDragonEnchantBow(EnumItemBreedTypes.ENCHANT, ModItems.EnchantDragonScales);
     public static final Item storm_dragon_bow = new ItemDragonStormBow(EnumItemBreedTypes.STORM, ModItems.StormDragonScales);
+    public static final Item storm_dragon_bow2 = new ItemDragonStorm2Bow(EnumItemBreedTypes.STORM2, ModItems.StormDragonScales2);
     public static final Item nether_dragon_bow = new ItemDragonNetherBow(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales);
     public static final Item nether2_dragon_bow = new ItemDragonNether2Bow(EnumItemBreedTypes.NETHER2, ModItems.NetherDragonScales2);
     public static final Item ender_dragon_bow = new ItemDragonEndBow(EnumItemBreedTypes.END, ModItems.EnderDragonScales);

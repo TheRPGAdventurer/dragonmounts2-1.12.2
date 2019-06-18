@@ -1,10 +1,7 @@
 package com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset;
 
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -14,6 +11,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class DragonArmourEnder extends DragonArmourBase {
 
@@ -37,7 +36,7 @@ public class DragonArmourEnder extends DragonArmourBase {
         super.onArmorTick(world, player, itemStack);
 		if (!(head == ModArmour.enderDragonScaleCap && chest == ModArmour.enderDragonScaleTunic && legs == ModArmour.enderDragonScaleLeggings && feet == ModArmour.enderDragonScaleBoots))
 			return;
-        if (player.getHealth() > 5f) return;
+        if (player.getHealth() >= 5f && isActive(MobEffects.RESISTANCE, player) && isActive(MobEffects.STRENGTH, player)) return;
         
         player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 2, false, false));
         player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 300, 0, false, false));

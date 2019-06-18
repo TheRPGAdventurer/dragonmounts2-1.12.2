@@ -300,7 +300,7 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 
         if (template!=null) {
             IBlockState iblockstate=world.getBlockState(pos);
-            world.notifyBlockUpdate(pos, iblockstate, iblockstate, 3);
+            world.notifyBlockUpdate(pos, iblockstate, iblockstate, 2);
             PlacementSettings placementsettings=(new PlacementSettings()).setIgnoreEntities(false).setChunk(null).setReplacedBlock(null).setIgnoreStructureBlock(true);
 
             template.addBlocksToWorldChunk(world, pos.add(-1 * template.getSize().getX() / 2, 1, -1 * template.getSize().getZ() / 2), placementsettings);

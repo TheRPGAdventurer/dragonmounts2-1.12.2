@@ -47,13 +47,13 @@ public class BreathWeapon {
 
     protected EntityTameableDragon dragon;
 
-    protected float FIRE_DAMAGE = 1F;
-    protected float ENDER_DAMAGE = 1.2F;
-    protected float HYDRO_DAMAGE = 1F;
-    protected float ICE_DAMAGE = 1F;
-    protected float NETHER_DAMAGE = 1.2F;
-    protected float POISON_DAMAGE = 1F;
-    protected float WITHER_DAMAGE = 1F;
+    protected float FIRE_DAMAGE = 0.2F;
+    protected float ENDER_DAMAGE = 0.3F;
+    protected float HYDRO_DAMAGE = 0.2F;
+    protected float ICE_DAMAGE = 0.2F;
+    protected float NETHER_DAMAGE = 0.4F;
+    protected float POISON_DAMAGE = 0.2F;
+    protected float WITHER_DAMAGE = 0.2F;
 
     public BreathWeapon(EntityTameableDragon i_dragon) {
         dragon = i_dragon;

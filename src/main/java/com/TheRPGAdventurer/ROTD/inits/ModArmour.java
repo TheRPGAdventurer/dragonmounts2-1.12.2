@@ -51,7 +51,6 @@ public class ModArmour {
     public static final ArmorMaterial GhostDragonScaleMaterial = EnumHelper.addArmorMaterial("ghost", DragonMounts.MODID + ":ghost", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial WitherDragonScaleMaterial = EnumHelper.addArmorMaterial("wither", DragonMounts.MODID + ":wither", 50, new int[]{3, 7, 8, 3}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
 
-    // for dragon
     public static final Item dragonarmor_iron = new ItemDragonArmor("dragonarmor_iron");
     public static final Item dragonarmor_gold = new ItemDragonArmor("dragonarmor_gold");
     public static final Item dragonarmor_diamond = new ItemDragonArmor("dragonarmor_diamond");

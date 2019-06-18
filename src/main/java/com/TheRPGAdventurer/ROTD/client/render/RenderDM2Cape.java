@@ -16,11 +16,11 @@ import java.util.UUID;
 
 @SideOnly(Side.CLIENT)
 public class RenderDM2Cape {
-    public ResourceLocation suntex = new ResourceLocation(DragonMounts.MODID, "textures/models/sun_cape.png");
-    public ResourceLocation icetex = new ResourceLocation(DragonMounts.MODID, "textures/models/ice_cape.png");
-    public ResourceLocation stormtex = new ResourceLocation(DragonMounts.MODID, "textures/models/storm_cape.png");
-    public ResourceLocation nethertex = new ResourceLocation(DragonMounts.MODID, "textures/models/nether_cape.png");
-    public ResourceLocation foresttex = new ResourceLocation(DragonMounts.MODID, "textures/models/forest_cape.png");
+    public ResourceLocation suntex = new ResourceLocation(DragonMounts.MODID, "textures/models/misc/sun_cape.png");
+    public ResourceLocation icetex = new ResourceLocation(DragonMounts.MODID, "textures/models/misc/ice_cape.png");
+    public ResourceLocation stormtex = new ResourceLocation(DragonMounts.MODID, "textures/models/misc/storm_cape.png");
+    public ResourceLocation nethertex = new ResourceLocation(DragonMounts.MODID, "textures/models/misc/nether_cape.png");
+    public ResourceLocation foresttex = new ResourceLocation(DragonMounts.MODID, "textures/models/misc/forest_cape.png");
 
     public UUID[] sun = new UUID[] {
       /*GundunUkan */    UUID.fromString("003b050f-f6fd-43b5-9738-669b23c3452f")

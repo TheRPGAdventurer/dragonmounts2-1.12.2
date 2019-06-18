@@ -34,7 +34,7 @@ public class DragonInteract extends DragonInteractBase {
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
         if (dragon.isServer()) {
-            if (isAllowed(player)) {
+            if (isAllowed(player) && !dragon.isEgg()) {
 
                 /*
                  * Riding
@@ -50,12 +50,10 @@ public class DragonInteract extends DragonInteractBase {
                  */
                 if (player.isSneaking() && dragon.isTamedFor(player) && !hasInteractItemsEquipped(player)) {
                     // Dragon Inventory
-                	dragon.openGUI(player, GuiHandler.GUI_DRAGON);
-                	return true;
+                    dragon.openGUI(player, GuiHandler.GUI_DRAGON);
+                    return true;
                 }
             }
-
-
 
             /*
              * Sit
@@ -66,23 +64,20 @@ public class DragonInteract extends DragonInteractBase {
                 return true;
             }
 
-
-
             /*
              * Consume
              */
             if (DMUtils.hasEquippedFood(player)) {
-                dragon.setHunger(dragon.getHunger() + DMUtils.getFoodPoints(player));
-                if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems()) || dragon.getHunger() < 150) {
+                if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
                     // Taming
                     if (!dragon.isTamed()) {
-                        dragon.tamedFor(player, dragon.getRNG().nextInt(15)==0);
+                        dragon.tamedFor(player, dragon.getRNG().nextInt(6) == 0);
                         eatEvent(player);
                     }
-                    // Healing (if Hurt)
-                    if (dragon.getHealthRelative() < 1) {
-                        dragon.heal(22F / dragon.getScale());
+                    //  hunger
+                    if (dragon.getHunger() < 0) {
                         eatEvent(player);
+                        dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
                     }
 
                     // breed
@@ -94,16 +89,16 @@ public class DragonInteract extends DragonInteractBase {
                 }
 
                 // Stop Growth
-                ItemFood shrinking=(ItemFood) DMUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
-                if (shrinking!=null) {
+                ItemFood shrinking = (ItemFood) DMUtils.consumeEquipped(player, dragon.getBreed().getShrinkingFood());
+                if (shrinking != null) {
                     dragon.setGrowthPaused(true);
                     eatEvent(player);
                     player.sendStatusMessage(new TextComponentTranslation("dragon.growth.paused"), true);
                     return true;
                 }
                 // Continue growth
-                ItemFood growing=(ItemFood) DMUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
-                if (growing!=null) {
+                ItemFood growing = (ItemFood) DMUtils.consumeEquipped(player, dragon.getBreed().getGrowingFood());
+                if (growing != null) {
                     dragon.setGrowthPaused(false);
                     eatEvent(player);
                     return true;
@@ -119,14 +114,14 @@ public class DragonInteract extends DragonInteractBase {
     }
 
     private void spawnItemCrackParticles(Item item) {
-        for (int i=0; i < 15; i++) {
-            double motionX=dragon.getRNG().nextGaussian() * 0.07D;
-            double motionY=dragon.getRNG().nextGaussian() * 0.07D;
-            double motionZ=dragon.getRNG().nextGaussian() * 0.07D;
-            Vec3d pos=dragon.getAnimator().getThroatPosition();
-            double hx=pos.x;
-            double hy=pos.y;
-            double hz=pos.z;
+        for (int i = 0; i < 15; i++) {
+            double motionX = dragon.getRNG().nextGaussian() * 0.07D;
+            double motionY = dragon.getRNG().nextGaussian() * 0.07D;
+            double motionZ = dragon.getRNG().nextGaussian() * 0.07D;
+            Vec3d pos = dragon.getAnimator().getThroatPosition();
+            double hx = pos.x;
+            double hy = pos.y;
+            double hz = pos.z;
             // Spawn calculated particles
             dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[] { Item.getIdFromItem(item) });
         }

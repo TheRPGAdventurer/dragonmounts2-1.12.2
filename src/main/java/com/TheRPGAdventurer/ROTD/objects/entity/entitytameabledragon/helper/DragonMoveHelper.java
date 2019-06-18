@@ -1,12 +1,11 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.util.math.Vec3d;
 
 import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
-
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 
 public class DragonMoveHelper extends EntityMoveHelper {
 
@@ -44,7 +43,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
                 dragon.motionY = dir.y * flySpeed;
                 dragon.motionZ = dir.z * flySpeed;
 
-            } else {
+            } else if (dragon.getControllingPlayer() != null) {
                 // just slow down and hover at current location
                 dragon.motionX *= 0.8;
                 dragon.motionY *= 0.8;
@@ -57,7 +56,7 @@ public class DragonMoveHelper extends EntityMoveHelper {
             if (dist > 2.5E-7) {
                 float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
                 dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
-                entity.setAIMoveSpeed((float)(speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
+                entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));
             }
 
             // apply movement

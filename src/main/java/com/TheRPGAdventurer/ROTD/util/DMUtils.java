@@ -25,8 +25,8 @@ public class DMUtils {
     private static Logger logger;
 
     public static Logger getLogger() {
-        if (logger==null) {
-            logger=LogManager.getFormatterLogger(DragonMounts.MODID);
+        if (logger == null) {
+            logger = LogManager.getFormatterLogger(DragonMounts.MODID);
         }
         return logger;
     }
@@ -46,16 +46,16 @@ public class DMUtils {
      * @return the consumed item type or null if no matching item was equipped.
      */
     public static Item consumeEquipped(EntityPlayer player, Item... items) {
-        ItemStack itemStack=player.getHeldItemMainhand();
+        ItemStack itemStack = player.getHeldItemMainhand();
 
-        if (itemStack==null) {
+        if (itemStack == null) {
             return null;
         }
 
-        Item equippedItem=itemStack.getItem();
+        Item equippedItem = itemStack.getItem();
 
         for (Item item : items) {
-            if (item==equippedItem) {
+            if (item == equippedItem) {
                 // don't reduce stack in creative mode
                 if (!player.capabilities.isCreativeMode) {
                     itemStack.shrink(1);
@@ -74,20 +74,20 @@ public class DMUtils {
     }
 
     public static boolean consumeEquipped(EntityPlayer player, Item item) {
-        return consumeEquipped(player, new Item[]{item})!=null;
+        return consumeEquipped(player, new Item[]{item}) != null;
     }
 
     public static boolean consumeEquippedArray(EntityPlayer player, Item[] foodItems) {
-        return consumeEquipped(player, foodItems)!=null;
+        return consumeEquipped(player, foodItems) != null;
     }
 
     public static int getFoodPoints(EntityPlayer player) {
-        Item item=player.getHeldItemMainhand().getItem();
-        if (item!=null && item instanceof ItemFood) {
-            int points= (((ItemFood) item).getHealAmount(new ItemStack(item)) * 10);
+        Item item = player.getHeldItemMainhand().getItem();
+        if (item != null && item instanceof ItemFood) {
+            int points = ((ItemFood) item).getHealAmount(new ItemStack(item)) * 6;
             return points;
         }
-        return  0;
+        return 0;
     }
 
     /**
@@ -96,9 +96,9 @@ public class DMUtils {
      * This allows other mods' fishes to be used with dragon taming
      */
     public static boolean consumeFish(EntityPlayer player) {
-        Set<Item> consumeFish=OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet());
-        ItemStack itemstack=player.getHeldItemMainhand();
-        if (itemstack.getItem()!=null) {
+        Set<Item> consumeFish = OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet());
+        ItemStack itemstack = player.getHeldItemMainhand();
+        if (itemstack.getItem() != null) {
             if (consumeFish.contains(itemstack.getItem())) return true;
         }
         return false;
@@ -111,9 +111,9 @@ public class DMUtils {
      * @return true if the player has a food item selected
      */
     public static boolean hasEquippedFood(EntityPlayer player) {
-        ItemStack itemStack=player.getHeldItemMainhand();
+        ItemStack itemStack = player.getHeldItemMainhand();
 
-        if (itemStack==null) {
+        if (itemStack == null) {
             return false;
         }
 
@@ -128,13 +128,13 @@ public class DMUtils {
      * @return true if the player has an usable item equipped
      */
     public static boolean hasEquippedUsable(EntityPlayer player) {
-        ItemStack itemStack=player.getHeldItemMainhand();
+        ItemStack itemStack = player.getHeldItemMainhand();
 
-        if (itemStack==null) {
+        if (itemStack == null) {
             return false;
         }
 
-        return itemStack.getItemUseAction()!=EnumAction.NONE;
+        return itemStack.getItemUseAction() != EnumAction.NONE;
     }
 
     /**
@@ -145,15 +145,15 @@ public class DMUtils {
      * @return true if the player has the given item equipped
      */
     public static boolean hasEquipped(EntityPlayer player, Item item) {
-        ItemStack itemStack=player.getHeldItemMainhand();
-        if (itemStack==null) return false;
+        ItemStack itemStack = player.getHeldItemMainhand();
+        if (itemStack == null) return false;
         //found item in mainHand, check if its specified item
-        return itemStack.getItem()==item;
+        return itemStack.getItem() == item;
     }
 
     public static boolean hasEquippedAmulet(EntityPlayer player) {
-        ItemStack itemStack=player.getHeldItemMainhand();
-        if (itemStack==null) return false;
+        ItemStack itemStack = player.getHeldItemMainhand();
+        if (itemStack == null) return false;
         //found amulet in mainHand
         return itemStack.getItem() instanceof ItemDragonAmuletNEW;
     }
@@ -168,7 +168,7 @@ public class DMUtils {
      * @return
      */
     public int getRandomWithExclusion(Random rnd, int start, int end, int... exclude) {
-        int random=start + rnd.nextInt(end - start + 1 - exclude.length);
+        int random = start + rnd.nextInt(end - start + 1 - exclude.length);
         for (int ex : exclude) {
             if (random < ex) {
                 break;
@@ -188,7 +188,7 @@ public class DMUtils {
      * @return
      */
     public static int getRandomWithExclusionstatic(Random rnd, int start, int end, int... exclude) {
-        int random=start + rnd.nextInt(end - start + 1 - exclude.length);
+        int random = start + rnd.nextInt(end - start + 1 - exclude.length);
         for (int ex : exclude) {
             if (random < ex) {
                 break;

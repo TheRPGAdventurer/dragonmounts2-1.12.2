@@ -9,7 +9,6 @@ public class CommandDragonWhistle extends CommandBaseDragon {
 
 	public CommandDragonWhistle(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -19,7 +18,6 @@ public class CommandDragonWhistle extends CommandBaseDragon {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

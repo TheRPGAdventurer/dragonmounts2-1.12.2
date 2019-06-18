@@ -39,7 +39,7 @@ public class ContainerDragon extends Container {
 		});
 
 		// location of the slot for chest in the dragon inventory
-		this.addSlotToContainer(new Slot(dragonInv, 1, 8, 36) {
+		this.addSlotToContainer(new Slot(dragonInv, 1, 8, 35) {
 
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !this.getHasStack();
@@ -82,7 +82,7 @@ public class ContainerDragon extends Container {
 		// Build Chest Inventory Slots
 		for (int k = 0; k < 3; ++k) {
 			for (int l = 0; l < 9; ++l) {
-				this.addSlotToContainer(new Slot(dragonInv, chestStartIndex + l + k * inventoryColumn, 8 + l * 18, 75 + k * 18) {
+				this.addSlotToContainer(new Slot(dragonInv, chestStartIndex + l + k * inventoryColumn, 8 + l * 18, 74 + k * 18) {
 
 					@SideOnly(Side.CLIENT)
 					public boolean isEnabled() {

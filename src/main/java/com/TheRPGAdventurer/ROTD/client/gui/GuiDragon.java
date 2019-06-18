@@ -54,15 +54,9 @@ public class GuiDragon extends GuiContainer {
      * items)
      */
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
-        this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 160, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
-        renderHunger();
-        GlStateManager.scale(1, 1, 1);
-    }
-
-    private void renderHunger() {
-        GlStateManager.scale(0.6, 0.6, 0.6);
-        this.fontRenderer.drawString(dragon.getHunger() + "/150", 60, 106, 0Xe99e0c);
+        drawString(fontRenderer, dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
+        drawString(fontRenderer, dragon.isMale() ? "M" : "FM", 155, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
+        drawString(fontRenderer, dragon.getHunger() + "/150", 37, 60, 0xe99e0c);
     }
 
     private void hunger(int x, int y) {
@@ -79,9 +73,7 @@ public class GuiDragon extends GuiContainer {
 
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
 
-        if (dragon.isChested()) {
-            this.drawTexturedModalRect(x, y + 73, 0, 130, 170, 55);
-        }
+        if (dragon.isChested()) this.drawTexturedModalRect(x, y + 73, 0, 130, 170, 55);
 
         hunger(x, y);
 

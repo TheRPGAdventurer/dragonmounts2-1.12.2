@@ -5,19 +5,14 @@ import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityLookHelper;
 import net.minecraft.util.math.MathHelper;
 
 /**
  * For debugging.  Just copied the base class (too many private fields!)
  * Created by TGG on 22/07/2015.
  */
-public class DragonLookHelper extends EntityLookHelper {
+public class DragonLookHelper {
 
-    public DragonLookHelper(EntityTameableDragon i_dragon) {
-        super(i_dragon);
-        entity = i_dragon;
-    }
 
     private EntityLiving entity;
     /**
@@ -36,10 +31,13 @@ public class DragonLookHelper extends EntityLookHelper {
     private double posY;
     private double posZ;
 
+    public DragonLookHelper(EntityTameableDragon i_dragon) {
+//        super(i_dragon);
+        entity = i_dragon;
+    }
     /**
      * Sets position to look at using entity
      */
-    @Override
     public void setLookPositionWithEntity(Entity dragon, float lookYaw, float lookPitch) {
         this.posX = dragon.posX;
 
@@ -58,7 +56,6 @@ public class DragonLookHelper extends EntityLookHelper {
     /**
      * Sets position to look at
      */
-    @Override
     public void setLookPosition(double x, double y, double z, float lookYaw, float lookPitch) {
         this.posX = x;
         this.posY = y;
@@ -71,7 +68,6 @@ public class DragonLookHelper extends EntityLookHelper {
     /**
      * Updates look
      */
-    @Override
     public void onUpdateLook() {
         this.entity.rotationPitch = 0.0F;
 
@@ -89,7 +85,7 @@ public class DragonLookHelper extends EntityLookHelper {
             this.entity.rotationYawHead = this.updateRotation(this.entity.rotationYawHead, this.entity.renderYawOffset, 10.0F);
         }
 
-        float f2 = MathX.normDeg(this.entity.rotationYawHead - this.entity.renderYawOffset);
+        float f2 = MathX.wrapDegrees(this.entity.rotationYawHead - this.entity.renderYawOffset);
 
         if (!this.entity.getNavigator().noPath()) {
             if (f2 < -75.0F) {
@@ -103,7 +99,7 @@ public class DragonLookHelper extends EntityLookHelper {
     }
 
     private float updateRotation(float p_75652_1_, float p_75652_2_, float p_75652_3_) {
-        float f3 = MathX.normDeg(p_75652_2_ - p_75652_1_);
+        float f3 = MathX.wrapDegrees(p_75652_2_ - p_75652_1_);
 
         if (f3 > p_75652_3_) {
             f3 = p_75652_3_;
@@ -116,22 +112,18 @@ public class DragonLookHelper extends EntityLookHelper {
         return p_75652_1_ + f3;
     }
 
-    @Override
     public boolean getIsLooking() {
         return this.isLooking;
     }
 
-    @Override
     public double getLookPosX() {
         return this.posX;
     }
 
-    @Override
     public double getLookPosY() {
         return this.posY;
     }
 
-    @Override
     public double getLookPosZ() {
         return this.posZ;
     }

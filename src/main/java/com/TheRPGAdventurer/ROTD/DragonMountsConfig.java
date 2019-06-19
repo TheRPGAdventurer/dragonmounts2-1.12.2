@@ -53,7 +53,7 @@ public class DragonMountsConfig {
 
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static double BASE_HEALTH = 85.0d;
+	public static double BASE_HEALTH = 90.0d;
 	public static int REG_FACTOR  = 75;
 	public static int hungerDecrement  = 3000;
 
@@ -82,7 +82,7 @@ public class DragonMountsConfig {
 	public static int dragonFollowOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 
-	public static double maxFLightHeight = 40;
+	public static double maxFLightHeight = 20;
 
 	public static int[] dragonBlacklistedDimensions = new int[]{1, -1};
 	public static int[] dragonWhitelistedDimensions = new int[]{0};

@@ -79,10 +79,10 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             if (!dragon.isFlying()) {
                 dragon.liftOff();
             } else {
-                y+=15;
+                y+=8;
             }
         } else if (dragon.isGoingDown()) {
-            y-=15;
+            y-=8;
         }
 
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);

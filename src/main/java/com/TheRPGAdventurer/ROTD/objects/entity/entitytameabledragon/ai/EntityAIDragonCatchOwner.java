@@ -17,7 +17,6 @@ import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 
 /**
- *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
@@ -30,7 +29,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
 
     @Override
     public boolean shouldExecute() {
-        if(owner == null) {
+        if (owner == null) {
             return false;
         }
 
@@ -48,9 +47,13 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
+        if (!dragon.isFlying() && owner.onGround) {
+            return false;
+        }
+
         // don't follow if sitting
         if (dragon.isSitting()) {
-        	return false;
+            return false;
         }
 
         // don't catch if owner has a working Elytra equipped
@@ -60,7 +63,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
-        return dragon.isSaddled();
+        return false; //  dragon.isSaddled()
     }
 
     @Override
@@ -79,12 +82,13 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         double followRange = getFollowRange();
         if (dragon.getDistance(owner) < followRange) {
             dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
-          // mount owner if close enough, otherwise move to owner
-           if (dragon.getDistance(owner) <= dragon.width * dragon.getScale() || dragon.getDistance(owner) <= dragon.height * dragon.getScale()&&!owner.isSneaking()) {
-              owner.startRiding(dragon);
-           } else {
-              dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
-           }
+            // mount owner if close enough, otherwise move to owner
+            if (dragon.getDistance(owner) <= dragon.width|| dragon.getDistance(owner) <= dragon.height&& !owner.isSneaking()) {
+                owner.startRiding(dragon);
+            } else {
+                if (dragon.nothing())
+                    dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
+            }
         }
     }
 }

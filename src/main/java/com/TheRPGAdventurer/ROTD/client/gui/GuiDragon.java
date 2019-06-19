@@ -62,7 +62,7 @@ public class GuiDragon extends GuiContainer {
 
     private void renderHunger() {
         GlStateManager.scale(0.6, 0.6, 0.6);
-        this.fontRenderer.drawString(dragon.getHunger() + "/150", 60, 106, 0Xe99e0c);
+        this.fontRenderer.drawString(dragon.getHunger() + "/100", 60, 106, 0Xe99e0c);
     }
 
     private void hunger(int x, int y) {

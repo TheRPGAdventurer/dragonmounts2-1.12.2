@@ -188,7 +188,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         stepHeight = 1;
 
         // create entity delegates
-        addHelper(new com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper(this, DATA_BREED));
+        addHelper(new DragonBreedHelper(this, DATA_BREED));
         addHelper(new DragonLifeStageHelper(this, DATA_TICKS_SINCE_CREATION));
         addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
@@ -911,13 +911,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 this.setUnHovered(true);
             }
         }
-        if (this.ticksExisted % (DragonMountsConfig.hungerDecrement * 7) == 1) {
+        if (this.ticksExisted % (DragonMountsConfig.hungerDecrement) == 1) {
             if (this.getHunger() > 0) {
                 this.setHunger(this.getHunger() - 1);
             }
         }
 
-        //        // if we're breathing at a target, look at it
+        // if we're breathing at a target, look at it
         if (this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer() != null) {
             this.equalizeYaw(this.getControllingPlayer());
         }
@@ -1189,7 +1189,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (!isFlying() && dist >= 5) this.liftOff();
 
-        if (isFlying()) return this.getNavigator().tryMoveToXYZ(point.getX() + 2, point.getY() - 1, point.getZ(), 1);
+        if (isFlying()) return this.getNavigator().tryMoveToXYZ(point.getX(), point.getY(), point.getZ(), 1);
         else return false;
     }
 
@@ -1204,17 +1204,21 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean circleTarget1(BlockPos midPoint) {
         if (this.getControllingPlayer() != null) return false;
 
-        Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-        Vec3d vec2 = new Vec3d(0, 0, 1);
+//        Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
+//        Vec3d vec2 = new Vec3d(0, 0, 1);
+//
+//        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+//        double r = 50 * this.getScale();  // DragonMountsConfig.dragonFlightHeight
+//        double r = 0.9 * 30;;  // DragonMountsConfig.dragonFlightHeight
+//        double x = midPoint.getX() + r * Math.cos(1 * a * this.ticksExisted * 3.5);
+//        double y = midPoint.getY() + 20; // DragonMountsConfig.dragonFlightHeight
+//        double z = midPoint.getZ() + r * Math.sin(1 * a * this.ticksExisted * 3.5);
+//
+//        return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
+//        int directionInt = direction ? 1 : -1;
+        this.setBoosting(this.getDistance(getOwner()) > 80);
+        return this.getNavigator().tryMoveToXYZ(midPoint.getX() + 10 * Math.cos(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), DragonMountsConfig.maxFLightHeight + midPoint.getY(), midPoint.getZ() + 10 * Math.sin(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), 1);
 
-        int directionInt = this.getRNG().nextInt(450) == 1 ? 1 : -1;
-        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 50 * this.getScale();  // DragonMountsConfig.dragonFlightHeight
-        double x = midPoint.getX() + r * Math.cos(directionInt * a * this.ticksExisted * 3.5);
-        double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
-        double z = midPoint.getZ() + r * Math.sin(directionInt * a * this.ticksExisted * 3.5);
-
-        return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
     }
 
 
@@ -1395,10 +1399,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack item = player.getHeldItem(hand);
-        // don't interact with eggs!
-//        if (isEgg()) {
-//            return !this.canBeLeashedTo(player);
-//        } else {
         /*
          * Turning it to block
          */
@@ -1772,8 +1772,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return (T) helpers.get(clazz);
     }
 
-    public com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper getBreedHelper() {
-        return getHelper(com.TheRPGAdventurer.ROTD.server.entity.helper.DragonBreedHelper.class);
+    public DragonBreedHelper getBreedHelper() {
+        return getHelper(DragonBreedHelper.class);
     }
 
     public DragonLifeStageHelper getLifeStageHelper() {
@@ -1926,8 +1926,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
         Vec3d lookDirection = rider.getLook(1.0F);
         Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the limitations
-        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                this.getHeadYawSpeed(), this.getHeadPitchSpeed());
+        this.getLookHelper().setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
+                120, 90);
     }
 
     public void updateRiding(EntityLivingBase riding) {
@@ -2262,7 +2262,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public void setHunger(int hunger) {
-        this.dataManager.set(HUNGER, Math.min(150, hunger));
+        this.dataManager.set(HUNGER, Math.min(100, hunger));
     }
 
     @Override

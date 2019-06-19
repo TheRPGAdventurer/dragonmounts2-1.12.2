@@ -124,7 +124,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.isSitting()) return;
         
         // look towards owner
-        dragon.getLookHelper().setLookPositionWithEntity(owner, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+        dragon.getLookHelper().setLookPositionWithEntity(owner, 120, 90);
 
         // update every 10 ticks only from here
         if (--updateTicks > 0) return;

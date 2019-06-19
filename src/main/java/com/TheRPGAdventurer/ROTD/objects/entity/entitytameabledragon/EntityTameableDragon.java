@@ -1216,7 +1216,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 //
 //        return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
 //        int directionInt = direction ? 1 : -1;
-        this.setBoosting(this.getDistance(getOwner()) > 80);
+        this.setBoosting(this.getDistance(getOwner()) > 80); // todo fix the rotation
         return this.getNavigator().tryMoveToXYZ(midPoint.getX() + 10 * Math.cos(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), DragonMountsConfig.maxFLightHeight + midPoint.getY(), midPoint.getZ() + 10 * Math.sin(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), 1);
 
     }
@@ -1925,7 +1925,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
         Vec3d lookDirection = rider.getLook(1.0F);
-        Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the limitations
+        Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the head looking down
         this.getLookHelper().setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
                 120, 90);
     }

@@ -157,10 +157,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public EntityEnderCrystal healingEnderCrystal;
     public DragonInventory dragonInv;
     public int inAirTicks;
+    public int boostTicks;
     public boolean hasHomePosition = false;
     public int roarTicks;
     public BlockPos homePos;
-    public DragonLookHelper dragonLookHelper;
     public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
     protected int ticksSinceLastAttack;
     private boolean hasChestVarChanged = false;
@@ -197,7 +197,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         moveHelper = new DragonMoveHelper(this);
         aiSit = new EntityAIDragonSit(this);
-        dragonLookHelper = new DragonLookHelper(this);
 
         // init helpers
         helpers.values().forEach(DragonHelper::applyEntityAttributes);
@@ -808,11 +807,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         helpers.values().forEach(DragonHelper::onLivingUpdate);
         getBreed().onLivingUpdate(this);
 
-        if (this.isServerWorld() && !this.isMovementBlocked()) {
-            ++this.idleTime;
-            dragonLookHelper.onUpdateLook();
-        }
-
         if (isServer()) {
             final float DUMMY_MOVETIME = 0;
             final float DUMMY_MOVESPEED = 0;
@@ -835,6 +829,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 inAirTicks = 0;
             } else {
                 inAirTicks++;
+            }
+
+            if(boosting()) {
+                boostTicks++;
+            } else {
+                boostTicks--;
             }
 
             boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);

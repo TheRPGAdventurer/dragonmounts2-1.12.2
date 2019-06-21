@@ -27,28 +27,32 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     @Override
     public boolean shouldExecute() {
 
-        if (!dragon.canFly()) {
+        if (!dragon.canFly())
             return false;
-        }
+
 
         // don't follow if sitting
-        if (dragon.isSitting()) {
+        if (dragon.isSitting())
             return false;
-        }
 
-        if (dragon.getLeashed()) {
+
+        if (dragon.getLeashed())
             return false;
-        }
+
 
         // don't follow if ownerless 
-        if (owner == null) {
+        if (owner == null)
             return false;
-        }
+
 
         // don't follow if already being ridden
-        if (dragon.isPassenger(owner)) {
+        if (dragon.isPassenger(owner))
             return false;
-        }
+
+
+        if (!dragon.nothing())
+            return false;
+
 
         // follow only if the owner is using an Elytra
         return owner.isElytraFlying();
@@ -57,14 +61,14 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
     @Override
     public void updateTask() {
         // liffoff
-        if (!dragon.isFlying()) {
+        if (!dragon.isFlying())
             dragon.liftOff();
-        }
+
 
         // mount owner if close enough, otherwise move to owner
-        if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && owner.isSneaking()) {
+        if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && owner.isSneaking())
             owner.startRiding(dragon);
-        }
+
 
         dragon.getNavigator().tryMoveToXYZ(owner.posX, owner.posY, owner.posZ, 1);
         dragon.setBoosting(dragon.getDistance(owner) > 18);

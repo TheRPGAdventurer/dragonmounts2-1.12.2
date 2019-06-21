@@ -11,14 +11,10 @@ package com.TheRPGAdventurer.ROTD.objects.blocks;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
-
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
@@ -28,10 +24,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DimensionType;
@@ -93,7 +91,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     }
     
     @Override
-    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
+    public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer player) {
     	return;
     }
 
@@ -101,21 +99,23 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
      * Called when the block is right clicked by a player.
      */
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     	if (worldIn.isRemote || DragonMountsConfig.isDisableBlockOverride()) return false;
     	if (worldIn.provider.getDimensionType() == DimensionType.THE_END) {
-    		playerIn.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
+    		player.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("egg.cantHatchEnd.DragonMounts")), true);
     		return false;
     	}
-    	    	
-    	EntityTameableDragon entityDragon = new EntityTameableDragon(worldIn);
-    	entityDragon.setBreedType(worldIn.getBlockState(pos).getValue(BlockDragonBreedEgg.BREED));
-    	worldIn.setBlockToAir(pos); // Set to air AFTER setting breed type
-    	entityDragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
-    	entityDragon.getReproductionHelper().setBreeder(playerIn);
-    	entityDragon.setPosition(pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5);
 
-        worldIn.spawnEntity(entityDragon);
+    	EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+    	dragon.setBreedType(worldIn.getBlockState(pos).getValue(BlockDragonBreedEgg.BREED));
+    	worldIn.setBlockToAir(pos); // Set to air AFTER setting breed type
+    	dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+    	dragon.getReproductionHelper().setBreeder(player);
+    	dragon.setPosition(pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5);
+        if(worldIn.isRemote) dragon.world.playSound(player, dragon.getPosition(), SoundEvents.BLOCK_WOOD_HIT, SoundCategory.PLAYERS, 1, 1);
+
+
+        worldIn.spawnEntity(dragon);
 
         return true;
         

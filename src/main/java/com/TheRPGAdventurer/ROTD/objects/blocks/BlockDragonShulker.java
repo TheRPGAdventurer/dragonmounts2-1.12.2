@@ -44,7 +44,6 @@ public class BlockDragonShulker extends BlockContainer {
         super(Material.ROCK);
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(DragonMounts.mainTab);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         ModBlocks.BLOCKS.add(this);
         setHardness(2000);

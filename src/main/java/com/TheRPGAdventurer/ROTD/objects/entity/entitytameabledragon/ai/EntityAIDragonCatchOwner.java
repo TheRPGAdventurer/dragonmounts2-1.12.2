@@ -47,12 +47,12 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
-        if (!dragon.isFlying() && owner.onGround) {
+        // don't follow if sitting
+        if (dragon.isSitting()) {
             return false;
         }
 
-        // don't follow if sitting
-        if (dragon.isSitting()) {
+        if (!dragon.nothing()) {
             return false;
         }
 
@@ -63,7 +63,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
-        return false; //  dragon.isSaddled()
+        return dragon.isSaddled();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
         if (dragon.getDistance(owner) < followRange) {
             dragon.setBoosting(dragon.getDistance(owner) < dragon.width + dragon.getScale());
             // mount owner if close enough, otherwise move to owner
-            if (dragon.getDistance(owner) <= dragon.width|| dragon.getDistance(owner) <= dragon.height&& !owner.isSneaking()) {
+            if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && !owner.isSneaking() && dragon.isFlying()) {
                 owner.startRiding(dragon);
             } else {
                 if (dragon.nothing())

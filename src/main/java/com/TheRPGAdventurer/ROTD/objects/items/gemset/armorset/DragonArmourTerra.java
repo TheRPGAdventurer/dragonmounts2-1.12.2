@@ -23,7 +23,6 @@ public class DragonArmourTerra extends DragonArmourBase {
                 && (legs == ModArmour.terraDragonScaleLeggings || legs == ModArmour.terra2DragonScaleLeggings) && (feet == ModArmour.terraDragonScaleBoots || feet == ModArmour.terra2DragonScaleBoots)))
             return;
 
-        // TODO fix the work of actually calling if is breaking block if buggy
         if ((player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) && !isActive(MobEffects.HASTE, player))
             player.addPotionEffect(new PotionEffect(MobEffects.HASTE));
     }

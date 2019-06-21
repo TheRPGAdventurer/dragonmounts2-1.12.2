@@ -146,6 +146,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
     private static final DataParameter<ItemStack> WHISTLE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<Boolean> SLEEP = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> FIRE_SUPPORT = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<String> DATA_BREATH_WEAPON_TARGET = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_BREATH_WEAPON_MODE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     public static int ticksShear;
@@ -230,6 +231,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(BANNER4, ItemStack.EMPTY);
         dataManager.register(HAS_ELDER_STONE, false);
         dataManager.register(HAS_ADJUCATOR_STONE, false);
+        dataManager.register(FIRE_SUPPORT, false);
         dataManager.register(ALLOW_OTHERPLAYERS, false);
         dataManager.register(BOOSTING, false);
         dataManager.register(WHISTLE_STATE, (byte) 0);
@@ -278,6 +280,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean("IsAlbino", this.isAlbino());
         nbt.setBoolean("unhovered", this.isUnHovered());
         nbt.setBoolean("followyaw", this.followYaw());
+        nbt.setBoolean("firesupport", this.firesupport());
         //        nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
         nbt.setInteger("hunger", this.getHunger());
@@ -310,6 +313,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setChested(nbt.getBoolean("Chested"));
         this.setSheared(nbt.getBoolean("Sheared"));
         this.setHunger(nbt.getInteger("hunger"));
+        this.setfiresupport(nbt.getBoolean("firesupport"));
         this.setGrowthPaused(nbt.getBoolean("growthpause"));
         this.setUsingBreathWeapon(nbt.getBoolean("Breathing"));
         this.setUsingAltBreathWeapon(nbt.getBoolean("alt_breathing"));
@@ -462,7 +466,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public boolean firesupport() {
-        return (dataManager.get(WHISTLE_STATE)) == 6;
+        return dataManager.get(FIRE_SUPPORT);
+    }
+
+    public void setfiresupport(boolean firesupport) {
+        dataManager.set(FIRE_SUPPORT, firesupport);
     }
 
     public void setnothing(boolean nothing) {

@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground.*;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.whistlestates.AIWhistle_ComeToPlayer;
 import com.TheRPGAdventurer.ROTD.util.EntityClassPredicate;
 
 import com.google.common.base.Predicate;
@@ -90,10 +91,11 @@ public class DragonBrain extends DragonHelper {
             return;
         }
         
-        tasks.addTask(0, new EntityAIDragonCatchOwner(dragon)); // mutex all
+//        tasks.addTask(0, new EntityAIDragonCatchOwner(dragon)); // mutex all
         tasks.addTask(1, new EntityAIDragonPlayerControl(dragon)); // mutex all
         tasks.addTask(2, dragon.getAISit()); // mutex 4+1
         tasks.addTask(3, new EntityAIDragonWhistle(dragon));
+        tasks.addTask(3, new AIWhistle_ComeToPlayer(dragon));
         tasks.addTask(3, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex all
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(dragon, 1)); // mutex 1
      //   tasks.addTask(5, new EntityAIFlyAround(dragon));
@@ -103,7 +105,7 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(6, new EntityAIDragonFlight(dragon, 1)); // mutex 1
         } else {
             tasks.addTask(2, new EntityAISwimming(dragon)); // mutex 4
-            tasks.addTask(7, new  EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
+            tasks.addTask(7, new EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 14, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
             tasks.addTask(10, new EntityAIWanderOld(dragon, 1)); // mutex 1

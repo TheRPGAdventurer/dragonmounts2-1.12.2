@@ -15,6 +15,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentTranslation;
 
@@ -25,8 +26,8 @@ public abstract class DragonInteractBase {
 
     protected final EntityTameableDragon dragon;
 
-    public DragonInteractBase(EntityTameableDragon dragon) {
-        this.dragon = dragon;
+	public DragonInteractBase(EntityTameableDragon dragon) {
+    	this.dragon = dragon;
     }
 
     public abstract boolean interact(EntityPlayer player, ItemStack item);
@@ -43,13 +44,15 @@ public abstract class DragonInteractBase {
         } else return true;
     }
     
-    public boolean hasInteractItemsEquipped(EntityPlayer player) {
-    	return	DMUtils.hasEquippedUsable(player)
+    public static boolean hasInteractItemsEquipped(EntityPlayer player) {
+    	return DMUtils.hasEquippedUsable(player)
     			|| DMUtils.hasEquipped(player, ModTools.diamond_shears)
     			|| DMUtils.hasEquipped(player, ModItems.dragon_wand)
     			|| DMUtils.hasEquipped(player, ModItems.dragon_whistle)
     			|| DMUtils.hasEquipped(player, ModItems.Amulet)
-    			|| DMUtils.hasEquipped(player, dragon.dragonEssence())
+    			|| DMUtils.hasEquipped(player, Items.BONE)
+    			|| DMUtils.hasEquipped(player, Items.STICK)
     			|| DMUtils.hasEquippedFood(player);
     }
+    
 }

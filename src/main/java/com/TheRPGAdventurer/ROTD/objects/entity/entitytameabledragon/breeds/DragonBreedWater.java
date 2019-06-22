@@ -21,8 +21,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -69,15 +67,15 @@ public class DragonBreedWater extends DragonBreed {
         dragon.getBreathHelper().getEmitter().spawnBreathParticlesforWaterDragon(world, power, tickCounter);
     }
 
-    public void onLivingUpdate(EntityTameableDragon dragon) {
-        PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20 * 10, 0, false, false);
-        if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,
-            dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
-        }
-        doParticles(dragon);
-    }
+	public void onLivingUpdate(EntityTameableDragon dragon) {
+		PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 20*10, 0, false,false);
+    	if (!dragon.isPotionActive(watereffect.getPotion()) && dragon.isInWater()) { // If the Potion isn't currently active,
+    		dragon.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
+		}
+    	doParticles(dragon);
+	}
+	
 
-    @SideOnly(Side.CLIENT)
     private void doParticles(EntityTameableDragon dragon) {
         if (!dragon.isEgg() && !dragon.isHatchling()) {
             float s = dragon.getScale() * 1.2f;

@@ -37,8 +37,7 @@ public interface IDragonModifier {
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = getCommandSenderAsPlayer(sender);
             
-            AxisAlignedBB aabb = player.getEntityBoundingBox()
-                .grow(MODIFIER_RANGE_XZ, MODIFIER_RANGE_Y, MODIFIER_RANGE_XZ);
+            AxisAlignedBB aabb = player.getEntityBoundingBox().grow(MODIFIER_RANGE_XZ, MODIFIER_RANGE_Y, MODIFIER_RANGE_XZ);
             
             // List all dragons in expanded player entity box
             List<EntityTameableDragon> dragons = player

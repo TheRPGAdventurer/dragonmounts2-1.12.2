@@ -147,27 +147,31 @@ public class DragonBreedHelper extends DragonHelper {
         }
     }
 
+    /**
+     * Get's the health of the dragon per breed, doubles
+     * when it turns into an adult
+     */
     public void getBreedHealth() {
-
-        IAttributeInstance health = dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-        double base = DragonMountsConfig.BASE_HEALTH; //85d
+    	
+    	IAttributeInstance health = dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+    	double base = DragonMountsConfig.BASE_HEALTH; //90d
 
         switch (getBreedType()) {
-            case NETHER:
-                health.setBaseValue(base + 10d);
-                break;
-            case END:
-                health.setBaseValue(base + 15d);
-                break;
-            case SKELETON:
-                health.setBaseValue(base - (base < 11d ? 0d : 10d)); // Cant have 0 health!
-                break;
-            case WITHER:
-                health.setBaseValue(base - (base < 6d ? 0d : 5d)); // Cant have 0 health!
-                break;
-            default: //All Dragons without special health parameters
-                health.setBaseValue(base);
-                break;
+        	case NETHER:
+        		health.setBaseValue(base + 5d);
+        		break;
+        	case END:
+        		health.setBaseValue(base + 10d);
+        		break;
+        	case SKELETON:
+        		health.setBaseValue(base - (base < 16d ? 0d : 15d)); // Cant have 0 health!
+        		break;
+        	case WITHER:
+        		health.setBaseValue(base - (base < 6d ? 0d : 10d)); // Cant have 0 health!
+        		break;
+        	default: //All Dragons without special health parameters
+        		health.setBaseValue(base);
+        		break;
         }
     }
 

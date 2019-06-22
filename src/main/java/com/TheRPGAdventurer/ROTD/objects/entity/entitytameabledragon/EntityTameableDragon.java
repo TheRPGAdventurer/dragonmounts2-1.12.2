@@ -27,6 +27,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.Drag
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.DragonInteractBase;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.DragonInteractHelper;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
@@ -39,8 +40,6 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ElytraSound;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -188,19 +187,29 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
         addHelper(new DragonInteractHelper(this));
+        if (isServer()) addHelper(new DragonBrain(this));
+        
+        // init helpers
+        moveHelper=new DragonMoveHelper(this);
+        aiSit=new EntityAIDragonSit(this);
+        helpers.values().forEach(DragonHelper::applyEntityAttributes);
+        animator=new DragonAnimator(this);
 
         InitializeDragonInventory();
 
-        if (isServer()) {
-            addHelper(new DragonBrain(this));
-        }
+        resetParts(1);
+    }
 
-        moveHelper = new DragonMoveHelper(this);
-        aiSit = new EntityAIDragonSit(this);
+    public void resetParts(float scale) {
+        //	dragonPartHead = new EntityPartDragon(this, 4.55F * scale, 0, 3.4F * scale, 1.2F * scale, 1.2F * scale, 1.5F * scale);
+    }
 
-        // init helpers
-        helpers.values().forEach(DragonHelper::applyEntityAttributes);
-        animator = new DragonAnimator(this);
+    public void removeParts() {
+        //	if(dragonPartHead != null) world.removeEntityDangerously(dragonPartHead);
+    }
+
+    public void updateParts() {
+        //	dragonPartHead.onUpdate();
     }
 
     @Override
@@ -794,10 +803,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public void onEntityUpdate() {
-
-        if (getRNG().nextInt(800) == 1 && !isEgg()) {
-            roar();
-        }
+        if (getRNG().nextInt(800)==1 && !isEgg()) roar();
         super.onEntityUpdate();
     }
 
@@ -910,13 +916,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                     120, 90);
         }
 
-        if (this.boosting() && this.getControllingPlayer() instanceof EntityPlayerSP) {
-            EntityPlayerSP player = (EntityPlayerSP) this.getControllingPlayer();
-            Minecraft.getMinecraft().getSoundHandler().playSound(new ElytraSound(player));
-        }
-
-        if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
-            for (int i = ContainerDragon.chestStartIndex; i < 30; i++) {
+        if (hasChestVarChanged && dragonInv!=null && !this.isChested()) {
+            for (int i=ContainerDragon.chestStartIndex; i < 30; i++) {
                 if (!dragonInv.getStackInSlot(i).isEmpty()) {
                     if (!world.isRemote) {
                         this.entityDropItem(dragonInv.getStackInSlot(i), 1);
@@ -1394,7 +1395,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (getHealth() <= 0) return false;
 
-        if (this.isTamedFor(player) && this.getScale() <= 0.35 && !player.isSneaking()) {
+        if (this.isTamedFor(player) && this.getScale() <= 0.35 && !player.isSneaking() && !DragonInteractBase.hasInteractItemsEquipped(player)) {
             this.setSitting(false);
             this.startRiding(player, true);
             return true;

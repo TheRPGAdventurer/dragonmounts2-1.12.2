@@ -27,7 +27,7 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
         GlStateManager.blendFunc(GL_ONE, GL_ONE);
         GlStateManager.color(1, 1, 1, 1);
 
-        disableLighting();
+        /*if (!dragon.isAsleep)*/ disableLighting();
         model.setMode(DragonModelMode.FULL);
         model.render(dragon, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);
         enableLighting(dragon.getBrightnessForRender());

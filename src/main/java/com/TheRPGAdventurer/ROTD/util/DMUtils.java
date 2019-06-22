@@ -1,6 +1,9 @@
 package com.TheRPGAdventurer.ROTD.util;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.inits.ModItems;
+import com.TheRPGAdventurer.ROTD.inits.ModTools;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 
 public class DMUtils {
 
+	private EntityTameableDragon dragon;
     private static Logger logger;
 
     public static Logger getLogger() {
@@ -153,8 +157,7 @@ public class DMUtils {
         //found amulet in mainHand
         return itemStack.getItem() instanceof ItemDragonAmuletNEW;
     }
-
-
+    
     /**
      * taken from stackoverflow
      *

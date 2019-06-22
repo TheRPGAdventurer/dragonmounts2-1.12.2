@@ -27,8 +27,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 public class EntityCarriage extends Entity {
 
     private static final DataParameter<Float> DAMAGE=EntityDataManager.createKey(EntityCarriage.class, DataSerializers.FLOAT);
@@ -54,7 +52,7 @@ public class EntityCarriage extends Entity {
     public EntityCarriage(World worldIn) {
         super(worldIn);
         this.preventEntitySpawning=true;
-        this.setSize(0.7F, 1.2F);
+        this.setSize(1.5F, 0.5F);
     }
 
     public EntityCarriage(World worldIn, double x, double y, double z) {
@@ -338,7 +336,7 @@ public class EntityCarriage extends Entity {
 
     @Override
     public boolean isEntityInvulnerable(DamageSource source) {
-        return source==DamageSource.FALL && source==DamageSource.DROWN && super.isEntityInvulnerable(source) && isRiding();
+        return super.isEntityInvulnerable(source);
     }
 
     @Override
@@ -349,7 +347,6 @@ public class EntityCarriage extends Entity {
         passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
 
         if (!(passenger instanceof EntityPlayer)) {
-            passenger.setEntityInvulnerable(true);
             passenger.rotationYaw=this.rotationYaw;
             passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
             this.applyYawToEntity(passenger);

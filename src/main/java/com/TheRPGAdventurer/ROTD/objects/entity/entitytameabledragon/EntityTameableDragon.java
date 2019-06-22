@@ -273,6 +273,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
@@ -1873,7 +1874,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         double altitude = entity.posY - groundPos;
         return altitude > 2.0;
     }
-
 
     public void updateRiding(EntityLivingBase riding) {
         if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {

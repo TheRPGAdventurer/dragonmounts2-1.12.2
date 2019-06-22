@@ -11,7 +11,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccessor {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 7;
+    private final float YAW_SPEED = 40;
 
     public DragonMoveHelper(EntityTameableDragon dragon) {
         super(dragon);
@@ -63,7 +63,6 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
             // apply movement
             dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
 
-        }
-        super.onUpdateMoveHelper();
+        } else super.onUpdateMoveHelper();
     }
 }

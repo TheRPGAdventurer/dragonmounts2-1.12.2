@@ -16,8 +16,6 @@ import java.util.List;
 public class ModTools {
 	//Tool Array
 	public static final List<Item> TOOLS = new ArrayList<Item>();
-	//Bow Array - Separate for Bow Anim
-    public static final List<Item> BOWS = new ArrayList<Item>();
 	
 	static float damage = 10.0F; static float speed = -2.8F;
 	static float netherDamage = 12.0F; static float netherSpeed = -2.9F;

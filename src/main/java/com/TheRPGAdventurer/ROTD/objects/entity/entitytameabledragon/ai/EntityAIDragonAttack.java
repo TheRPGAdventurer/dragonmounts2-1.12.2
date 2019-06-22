@@ -209,7 +209,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
         } else if (shouldUseRange) {
             this.attackTick = 20;
             dragon.setUsingBreathWeapon(target.isEntityAlive());
-            dragon.getLookHelper().setLookPositionWithEntity(target, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+            dragon.getLookHelper().setLookPositionWithEntity(target, 120, 90);
         }
     }
 

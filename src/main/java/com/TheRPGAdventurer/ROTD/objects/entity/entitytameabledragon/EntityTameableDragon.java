@@ -903,11 +903,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        // if we're breathing at a target, look at it
-        if ((this.isUsingBreathWeapon() && this.getBreed().canUseBreathWeapon() && this.getControllingPlayer() != null)) {
-            this.lookAtTarget(this.getControllingPlayer());
-        }
-
         if (getOwner() != null && firesupport()) {
             Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
             Vec3d lookDirection = getOwner().getLook(1.0F);
@@ -1879,20 +1874,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return altitude > 2.0;
     }
 
-    /**
-     * method used to fix the head rotation, call it on onlivingbase or riding ai to trigger
-     */
-    public void lookAtTarget(EntityLivingBase rider) {
-        if ((this.isUsingBreathWeapon() && this.moveStrafing == 0) && isFlying()) {
-            rotationYaw = ((EntityPlayer) rider).rotationYaw;
-        }
-
-        Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-        Vec3d lookDirection = rider.getLook(1.0F);
-        Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the head looking down
-        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                120, 90);
-    }
 
     public void updateRiding(EntityLivingBase riding) {
         if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {

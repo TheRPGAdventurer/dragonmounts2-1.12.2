@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
@@ -32,9 +33,9 @@ public class GuiDragonWhistle extends GuiScreen {
 
     public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
         super();
-        this.whistle=whistle;
-        this.world=world;
-        this.uuid=uuid;
+        this.whistle = whistle;
+        this.world = world;
+        this.uuid = uuid;
     }
 
     @Override
@@ -44,20 +45,20 @@ public class GuiDragonWhistle extends GuiScreen {
 
         Keyboard.enableRepeatEvents(true);
 
-        nothing=new GuiButton(0, width / 2 - 50, height / 2 - 60, 98, 20, I18n.format("gui.nothing"));
+        nothing = new GuiButton(0, width / 2 - 50, height / 2 - 60, 98, 20, I18n.format("gui.nothing"));
 
-        circle=new GuiButton(0, width / 2, height / 2 + 15, 98, 20, I18n.format("gui.circle"));
+        circle = new GuiButton(0, width / 2, height / 2 + 15, 98, 20, I18n.format("gui.circle"));
 
-        followFlying=new GuiButton(0, width / 2 - 100, height / 2 + 15, 98, 20, I18n.format("gui.followFlying"));
+        followFlying = new GuiButton(0, width / 2 - 100, height / 2 + 15, 98, 20, I18n.format("gui.followFlying"));
 
-        come=new GuiButton(0, width / 2 - 50, height / 2 - 10, 98, 20, I18n.format("gui.goToPlayer"));
+        come = new GuiButton(0, width / 2 - 50, height / 2 - 10, 98, 20, I18n.format("gui.goToPlayer"));
 
-        homePos=new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.homePos"));
+        homePos = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.homePos"));
 
 //        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 35, 98, 20, I18n.format("gui.firesupport"));
-        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, I18n.format("gui.firesupport"));
+        firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, I18n.format(TextFormatting.RED + "gui.firesupport"));
 
-        sit=new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
+        sit = new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
 
         buttonList.add(nothing);
         buttonList.add(circle);
@@ -80,11 +81,11 @@ public class GuiDragonWhistle extends GuiScreen {
        3 come
      */
     private void setStateField(int state, boolean newState) {
-        byte prevState=getState();
+        byte prevState = getState();
         if (newState) {
-            this.state=(byte) state;
+            this.state = (byte) state;
         } else {
-            this.state=prevState;
+            this.state = prevState;
         }
     }
 
@@ -112,27 +113,23 @@ public class GuiDragonWhistle extends GuiScreen {
         setStateField(5, sit);
     }
 
-    public void firesupport(boolean firesupport) {
-        setStateField(6, firesupport);
-    }
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        if (uuid!=null) {
-            byte previousState=getState();
-            nothing(button==nothing);
-            follow(button==followFlying);
-            come(button==come);
-            circle(button==circle);
-            sit(button==sit);
-            firesupport(button==firesupport);
-            byte controlState=getState();
+        if (uuid != null) {
+            byte previousState = getState();
+            nothing(button == nothing);
+            follow(button == followFlying);
+            come(button == come);
+            circle(button == circle);
+            sit(button == sit);
+            byte controlState = getState();
 
-            if (controlState!=previousState) {
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
+            if (controlState != previousState) {
+                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState, button == firesupport));
             }
 
-            if (button==homePos) {
+            if (button == homePos) {
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
             }
             //Close GUI when option is selected

@@ -61,7 +61,6 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             } else if (dragon.nothing()) {
                 return;
             } else if(dragon.firesupport()) {
-                dragon.fireSupport(dragon, dragon.getOwner());
                 dragon.getAISit().setSitting(false);
             }
 

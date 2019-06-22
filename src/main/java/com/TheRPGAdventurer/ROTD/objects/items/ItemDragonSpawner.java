@@ -57,7 +57,7 @@ public class ItemDragonSpawner extends Item implements IHasModel {
             dragon.rotationYawHead=dragon.rotationYaw;
             dragon.renderYawOffset=dragon.rotationYaw;
             dragon.setBreedType(breed);
-            dragon.setHealth(dragon.getMaxHealth());
+            dragon.heal(200);
             return dragon;
         } catch (Exception e) {
             e.printStackTrace();

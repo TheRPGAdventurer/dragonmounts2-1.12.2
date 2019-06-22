@@ -1,10 +1,8 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -71,17 +69,17 @@ public class DragonBreedAir extends DragonBreed {
         }
     }
     
-    @Override
-    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
-        dragon.getBreathHelper().getbreathAffectedAreaAether().continueBreathing(world, origin, endOfLook, power, dragon);
-        dragon.getBreathHelper().getbreathAffectedAreaAether().updateTick(world);
-    }
-
-    @Override
-    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
-        dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
-        dragon.getBreathHelper().getEmitter().spawnBreathParticlesforAetherDragon(world, power, tickCounter);
-    }
+//    @Override
+//    public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
+//        dragon.getBreathHelper().getbreathAffectedAreaAether().continueBreathing(world, origin, endOfLook, power, dragon);
+//        dragon.getBreathHelper().getbreathAffectedAreaAether().updateTick(world);
+//    }
+//
+//    @Override
+//    public void spawnBreathParticles(World world, BreathNode.Power power, int tickCounter, Vec3d origin, Vec3d endOfLook, EntityTameableDragon dragon) {
+//        dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
+//        dragon.getBreathHelper().getEmitter().spawnBreathParticlesforAetherDragon(world, power, tickCounter);
+//    }
 
     public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
         final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_AIR_START, SoundEffectNames.ADULT_BREATHE_AIR_LOOP, SoundEffectNames.ADULT_BREATHE_AIR_STOP};

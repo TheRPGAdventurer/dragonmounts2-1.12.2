@@ -5,11 +5,11 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -21,58 +21,58 @@ public class DragonViewEvent {
      */
     @SubscribeEvent
     public void thirdPersonCameraFix(EntityViewRenderEvent.CameraSetup event) {
-        EntityPlayer player=Minecraft.getMinecraft().player;
-        int currentView=DragonMounts.proxy.getDragon3rdPersonView();
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        int currentView = DragonMounts.proxy.getDragon3rdPersonView();
 
         if (player.getRidingEntity() instanceof EntityTameableDragon) {
-            EntityTameableDragon dragon=(EntityTameableDragon) player.getRidingEntity();
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView==0) {
+            EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
+            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                 GlStateManager.translate(0F, -0.6F * dragon.getScale(), 0);
             }
 
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView==1) {
-                if (currentView==0) {
+            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
+                if (currentView == 0) {
                     GlStateManager.translate(0F, -1.3F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                } else if (currentView==1) {
+                } else if (currentView == 1) {
                     GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                } else if (currentView==2) {
+                } else if (currentView == 2) {
                     GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 }
             }
 
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView==2) {
-                if (currentView==0) {
+            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+                if (currentView == 0) {
                     GlStateManager.translate(0F, -1.3F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                } else if (currentView==1) {
+                } else if (currentView == 1) {
                     GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                } else if (currentView==2) {
+                } else if (currentView == 2) {
                     GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                 }
             }
         } else if (player.getRidingEntity() instanceof EntityCarriage) {
-            EntityCarriage carriage=(EntityCarriage) player.getRidingEntity();
+            EntityCarriage carriage = (EntityCarriage) player.getRidingEntity();
             if (carriage.getRidingEntity() instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon=(EntityTameableDragon) carriage.getRidingEntity();
-                if (Minecraft.getMinecraft().gameSettings.thirdPersonView==0) {
+                EntityTameableDragon dragon = (EntityTameableDragon) carriage.getRidingEntity();
+                if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                     GlStateManager.translate(0F, -0.9F, 0);
                 }
 
-                if (Minecraft.getMinecraft().gameSettings.thirdPersonView==1) {
-                    if (currentView==0) {
+                if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
+                    if (currentView == 0) {
                         GlStateManager.translate(0F, -1.3F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                    } else if (currentView==1) {
+                    } else if (currentView == 1) {
                         GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                    } else if (currentView==2) {
+                    } else if (currentView == 2) {
                         GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     }
                 }
 
-                if (Minecraft.getMinecraft().gameSettings.thirdPersonView==2) {
-                    if (currentView==0) {
+                if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+                    if (currentView == 0) {
                         GlStateManager.translate(0F, -1.3F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                    } else if (currentView==1) {
+                    } else if (currentView == 1) {
                         GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
-                    } else if (currentView==2) {
+                    } else if (currentView == 2) {
                         GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     }
                 }
@@ -82,41 +82,23 @@ public class DragonViewEvent {
         }
     }
 
-    //    @SubscribeEvent
-    //    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
-    //        if (event.getEntityLiving() instanceof EntityPlayer) {
-    //            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-    //            if (player.world.isRemote) {
-    //                if (ModKeys.dragon_change_view.isPressed()) {
-    //                    int currentView = DragonMounts.proxy.getDragon3rdPersonView();
-    //                    if (currentView + 1 > 2) {
-    //                        currentView = 0;
-    //                    } else {
-    //                        currentView++;
-    //                    }
-    //
-    //                    DragonMounts.proxy.setDragon3rdPersonView(currentView);
-    //
-    //                } else if (ModKeys.FOLLOW_YAW.isPressed()) {
-    //                    DragonMounts.proxy.setDragonFollowYaw(!DragonMounts.proxy.getDragonFollowYaw());
-    //                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-    //                	DragonMounts.proxy.setDragonHover(!DragonMounts.proxy.getDragonHover());
-    //                }
-    //            }
-    //        }
-    //    }
+    @SubscribeEvent
+    public void rideDragonGameOverlay(RenderGameOverlayEvent.Post event) {
+//        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) return;
+//        new GuiDragonRide();
+    }
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player=(EntityPlayer) event.getEntityLiving();
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             if (player.getRidingEntity() instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon=(EntityTameableDragon) player.getRidingEntity();
+                EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
                 //            if (player.world.isRemote) {
                 if (ModKeys.dragon_change_view.isPressed()) {
-                    int currentView=DragonMounts.proxy.getDragon3rdPersonView();
+                    int currentView = DragonMounts.proxy.getDragon3rdPersonView();
                     if (currentView + 1 > 2) {
-                        currentView=0;
+                        currentView = 0;
                     } else {
                         currentView++;
                     }
@@ -124,14 +106,6 @@ public class DragonViewEvent {
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
 
                 }
-
-//                else if (ModKeys.FOLLOW_YAW.isPressed()) {
-//                    dragon.setFollowYaw(!dragon.followYaw());
-//                } else if (ModKeys.KEY_HOVERCANCEL.isPressed()) {
-//                    dragon.setUnHovered(!dragon.isUnHovered());
-//                } else if (ModKeys.KEY_LOCKEDY.isPressed()) {
-//                    dragon.setYLocked(!dragon.isYLocked());
-//                }
             }
         }
     }

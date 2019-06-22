@@ -152,6 +152,7 @@ commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 msg.dragon.toggleHover=Dragon Hover Toggle
 msg.dragon.toggleFollowYaw=Dragon Follow Yaw
+msg.dragon.toggleYLock=Height Lock
 
 # Whistle
 whistle.msg.cleared=Dragon has been unbound

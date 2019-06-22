@@ -73,12 +73,12 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
 
             if(message.isFollowYaw) {
                 dragon.setFollowYaw(!dragon.followYaw());
-                player.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("msg.dragon.togglefollowYaw") + (dragon.followYaw() ? ": On" : ": Off")), false);
+                player.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("msg.dragon.toggleFollowYaw") + (dragon.followYaw() ? ": On" : ": Off")), false);
             }
 
             if(message.locky) {
                 dragon.setYLocked(!dragon.isYLocked());
-                player.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("msg.dragon.toggleYLock") + (dragon.followYaw() ? ": On" : ": Off")), false);
+                player.sendStatusMessage(new TextComponentTranslation(DMUtils.translateToLocal("msg.dragon.toggleYLock") + (dragon.isYLocked() ? ": On" : ": Off")), false);
             }
 
             if(message.down) dragon.setGoingDown(true);

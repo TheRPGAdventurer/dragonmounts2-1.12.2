@@ -56,6 +56,10 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
+        if (!dragon.isSaddled()) {
+            return false;
+        }
+
         // don't catch if owner has a working Elytra equipped
         // note: isBroken() is misleading, it actually checks if the items is usable
         ItemStack itemStack = owner.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
@@ -63,7 +67,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
-        return dragon.isSaddled();
+        return owner.fallDistance>4;
     }
 
     @Override

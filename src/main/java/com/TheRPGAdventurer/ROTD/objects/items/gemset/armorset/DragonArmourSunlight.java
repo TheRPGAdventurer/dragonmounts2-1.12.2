@@ -26,7 +26,7 @@ public class DragonArmourSunlight extends DragonArmourBase {
         if (player.getCooldownTracker().getCooldown(this, 0) > 0 && (player.getFoodStats().getFoodLevel() < 10f))
             return; // check this after because luck should not be a perma effect
 
-        if (player.hurtTime > 0 && !isActive(MobEffects.SATURATION, player) && world.isDaytime()) {
+        if (!isActive(MobEffects.SATURATION, player) && world.isDaytime()) {
             player.addPotionEffect(new PotionEffect(MobEffects.SATURATION, 200, 1, false, true));
             player.getCooldownTracker().setCooldown(this, 1160); // you could survive without eating with this one
         }

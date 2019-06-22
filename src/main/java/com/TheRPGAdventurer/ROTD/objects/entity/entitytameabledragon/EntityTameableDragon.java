@@ -114,6 +114,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double IN_AIR_THRESH = 10;
     private static final Logger L = LogManager.getLogger();
     private static final SimpleNetworkWrapper n = DragonMounts.NETWORK_WRAPPER;
+
     // data value IDs
     private static final DataParameter<Boolean> DATA_FLYING = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> GROWTH_PAUSED = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -230,7 +231,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
-        dataManager.register(IS_ALBINO, getRNG().nextInt(40) == 0);
+        dataManager.register(IS_ALBINO, getRNG().nextInt(20) == 0);
         dataManager.register(DRAGON_SCALES, (byte) 0);
         dataManager.register(ARMOR, 0);
         dataManager.register(BANNER1, ItemStack.EMPTY);
@@ -250,8 +251,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(FOLLOW_YAW, true);
         dataManager.register(DATA_BREATH_WEAPON_TARGET, "");
         dataManager.register(DATA_BREATH_WEAPON_MODE, 0);
-
-        dataManager.register(HUNGER, 0);
+        dataManager.register(HUNGER, 100);
     }
 
     @Override
@@ -1265,7 +1265,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!isInWater() && isFlying()) {
             // play wing sounds
             float pitch = (1);
-            float volume = 1f + (1 - speed);
+            float volume = 0.5f + (1 - speed);
             playSound(getWingsSound(), volume, pitch, false);
         }
     }
@@ -1312,7 +1312,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * Returns the volume for a sound to play.
      */
     public float getVolume(SoundEvent sound) {
-        return MathX.clamp(getScale(), 0, 1.2F);
+        return MathX.clamp(getScale(), 0, 1F);
     }
 
     /**

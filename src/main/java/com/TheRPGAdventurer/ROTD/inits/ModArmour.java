@@ -1,24 +1,8 @@
 package com.TheRPGAdventurer.ROTD.inits;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonArmor;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourAether;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourEnchant;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourEnder;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourFire;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourForest;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourIce;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourMoon;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourNether;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourStorm;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourSunlight;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourTerra;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourWater;
-import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourZombie;
-
+import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.*;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -26,11 +10,15 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModArmour {
 	
 	public static final List<Item> ARMOR = new ArrayList<Item>();
 
     public static final ArmorMaterial ForestDragonScaleMaterial = EnumHelper.addArmorMaterial("forest", DragonMounts.MODID + ":forest", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
+    public static final ArmorMaterial ForestDragonScaleMaterial2 = EnumHelper.addArmorMaterial("forest2", DragonMounts.MODID + ":forest2", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial FireDragonScaleMaterial = EnumHelper.addArmorMaterial("fire", DragonMounts.MODID + ":fire", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial FireDragonScaleMaterial2 = EnumHelper.addArmorMaterial("fire2", DragonMounts.MODID + ":fire2", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
     public static final ArmorMaterial AetherDragonScaleMaterial = EnumHelper.addArmorMaterial("aether", DragonMounts.MODID + ":aether", 50, new int[]{4, 7, 8, 4}, 11, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 7.0F);
@@ -60,6 +48,11 @@ public class ModArmour {
     public static final Item forestDragonScaleTunic = new DragonArmourForest(ForestDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "forest_dragonscale_tunic");
     public static final Item forestDragonScaleLeggings = new DragonArmourForest(ForestDragonScaleMaterial, 2, EntityEquipmentSlot.LEGS, "forest_dragonscale_leggings");
     public static final Item forestDragonScaleBoots = new DragonArmourForest(ForestDragonScaleMaterial, 1, EntityEquipmentSlot.FEET, "forest_dragonscale_boots");
+
+    public static final Item forestDragonScaleCap2 = new DragonArmourForest(ForestDragonScaleMaterial2, 1, EntityEquipmentSlot.HEAD, "forest2_dragonscale_cap");
+    public static final Item forestDragonScaleTunic2 = new DragonArmourForest(ForestDragonScaleMaterial2, 1, EntityEquipmentSlot.CHEST, "forest2_dragonscale_tunic");
+    public static final Item forestDragonScaleLeggings2 = new DragonArmourForest(ForestDragonScaleMaterial2, 2, EntityEquipmentSlot.LEGS, "forest2_dragonscale_leggings");
+    public static final Item forestDragonScaleBoots2 = new DragonArmourForest(ForestDragonScaleMaterial2, 1, EntityEquipmentSlot.FEET, "forest2_dragonscale_boots");
 
 	public static final Item fireDragonScaleCap = new DragonArmourFire(FireDragonScaleMaterial, 1, EntityEquipmentSlot.HEAD, "fire_dragonscale_cap");
 	public static final Item fireDragonScaleTunic = new DragonArmourFire(FireDragonScaleMaterial, 1, EntityEquipmentSlot.CHEST, "fire_dragonscale_tunic");

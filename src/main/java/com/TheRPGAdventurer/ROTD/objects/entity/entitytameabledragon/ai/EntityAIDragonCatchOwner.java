@@ -43,7 +43,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
 //        }
 
         // don't catch if already being ridden
-        if (dragon.isPassenger(owner)) {
+        if (dragon.getControllingPlayer() != null) {
             return false;
         }
 
@@ -86,8 +86,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && !owner.isSneaking() && dragon.isFlying()) {
                 owner.startRiding(dragon);
             } else {
-                if (dragon.nothing())
-                    dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
+                if (dragon.nothing()) dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
             }
         }
     }

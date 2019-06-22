@@ -739,7 +739,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
-
     @Override
     protected float getJumpUpwardsMotion() {
         // stronger jumps for easier lift-offs
@@ -759,7 +758,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             boolean locky = ModKeys.KEY_LOCKEDY.isPressed();
 
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing, projectile));
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followYaw, locky, isBoosting, isDown));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
         }
     }
 
@@ -831,7 +830,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 inAirTicks++;
             }
 
-            if(boosting()) {
+            if (boosting()) {
                 boostTicks++;
             } else {
                 boostTicks--;
@@ -1377,7 +1376,21 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             world.setBlockState(getPosition(), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(getBreedType().getMeta()));
             setDead();
         }
-//        }
+
+        ItemStack itemstack = player.getHeldItem(hand);
+
+        if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild()&& DragonMountsConfig.canMilk) {
+            player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
+            itemstack.shrink(1);
+
+            if (itemstack.isEmpty()) {
+                player.setHeldItem(hand, new ItemStack(Items.MILK_BUCKET));
+            } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.MILK_BUCKET))) {
+                player.dropItem(new ItemStack(Items.MILK_BUCKET), false);
+            }
+
+            return true;
+        }
 
         if (getHealth() <= 0) return false;
 

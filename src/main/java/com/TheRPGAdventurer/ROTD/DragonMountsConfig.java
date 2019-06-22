@@ -36,6 +36,7 @@ public class DragonMountsConfig {
 	private static boolean debug = false;
 	public static boolean shouldChangeBreedViaHabitatOrBlock = true;
 	public static boolean canDragonDespawn = true;
+	public static boolean canMilk = true;
 
 	public static boolean canIceBreathBePermanent = false;
 	public static boolean canFireBreathAffectBlocks = true;
@@ -191,6 +192,11 @@ public class DragonMountsConfig {
 		canDragonDespawn = prop.getBoolean();
 		propOrder.add(prop.getName());
 
+		prop = config.get(CATEGORY_MAIN, "Milk Dregons", canMilk);
+		prop.setComment("Joke Feature: makes dragons milkable like cows");
+		canMilk = prop.getBoolean();
+		propOrder.add(prop.getName());
+
 		prop = config.get(CATEGORY_MAIN, "can ice breath be permanent", canIceBreathBePermanent);
 		prop.setComment("refers to the ice breath for the dragon in water, set true if you want the ice block to be permanent. false otherwise.");
 		canIceBreathBePermanent = prop.getBoolean();
@@ -235,6 +241,7 @@ public class DragonMountsConfig {
 		 *  WORLDGEN
 		 */
 
+		// thanks i/f
 		dragonBlacklistedDimensions = config.get("all", "Blacklisted Dragon Dimensions", new int[]{-1, 1}, "Dragons cannot spawn in these dimensions' IDs").getIntList();
 		dragonWhitelistedDimensions = config.get("all", "Whitelisted Dragon Dimensions", new int[]{0}, "Dragons can only spawn in these dimensions' IDs").getIntList();
 		useDimensionBlackList = config.getBoolean("use Dimension Blacklist", "all", true, "true to use dimensional blacklist, false to use the whitelist.");

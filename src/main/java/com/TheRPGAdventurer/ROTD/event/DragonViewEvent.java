@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -79,6 +80,12 @@ public class DragonViewEvent {
                 GlStateManager.translate(0F, -0.5F, -5);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void rideDragonGameOverlay(RenderGameOverlayEvent.Post event) {
+//        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) return;
+//        new GuiDragonRide();
     }
 
     @SubscribeEvent

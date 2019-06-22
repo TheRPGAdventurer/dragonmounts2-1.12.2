@@ -7,14 +7,15 @@
  **    May you find forgiveness for yourself and forgive others.
  **    May you share freely, never taking more than you give.
  */
-package com.TheRPGAdventurer.ROTD.server.entity.helper;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.DamageSource;
@@ -146,27 +147,28 @@ public class DragonBreedHelper extends DragonHelper {
         }
     }
 
-    /**
-     * Get's the health of the dragon per breed, doubles
-     * when it turns into an adult
-     * @TheRPGAdventurer
-     */
     public void getBreedHealth() {
-        EnumDragonBreed currentType = getBreedType();
-        SharedMonsterAttributes att = new SharedMonsterAttributes();
-        if (currentType == EnumDragonBreed.NETHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(95.0D);}
-        if (currentType == EnumDragonBreed.END) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);}
-        if (currentType == EnumDragonBreed.FIRE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.FOREST) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.ICE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.SYLPHID) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.AETHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.SKELETON) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(65.0D);}
-        if (currentType == EnumDragonBreed.WITHER) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);}
-        if (currentType == EnumDragonBreed.ENCHANT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.SUNLIGHT) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.STORM) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
-        if (currentType == EnumDragonBreed.ZOMBIE) {dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(90.0D);}
+
+        IAttributeInstance health = dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
+        double base = DragonMountsConfig.BASE_HEALTH; //85d
+
+        switch (getBreedType()) {
+            case NETHER:
+                health.setBaseValue(base + 10d);
+                break;
+            case END:
+                health.setBaseValue(base + 15d);
+                break;
+            case SKELETON:
+                health.setBaseValue(base - (base < 11d ? 0d : 10d)); // Cant have 0 health!
+                break;
+            case WITHER:
+                health.setBaseValue(base - (base < 6d ? 0d : 5d)); // Cant have 0 health!
+                break;
+            default: //All Dragons without special health parameters
+                health.setBaseValue(base);
+                break;
+        }
     }
 
     @Override

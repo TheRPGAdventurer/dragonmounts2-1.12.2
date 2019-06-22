@@ -36,6 +36,7 @@ public class DragonMountsConfig {
 	private static boolean debug = false;
 	public static boolean shouldChangeBreedViaHabitatOrBlock = true;
 	public static boolean canDragonDespawn = true;
+	public static boolean canMilk = true;
 
 	public static boolean canIceBreathBePermanent = false;
 	public static boolean canFireBreathAffectBlocks = true;
@@ -53,7 +54,7 @@ public class DragonMountsConfig {
 
 	public static double ARMOR  = 8F;
 	public static double BASE_DAMAGE  = 5.0F;
-	public static double BASE_HEALTH = 85.0d;
+	public static double BASE_HEALTH = 90.0d;
 	public static int REG_FACTOR  = 75;
 	public static int hungerDecrement  = 3000;
 
@@ -82,7 +83,7 @@ public class DragonMountsConfig {
 	public static int dragonFollowOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;
 
-	public static double maxFLightHeight = 40;
+	public static double maxFLightHeight = 20;
 
 	public static int[] dragonBlacklistedDimensions = new int[]{1, -1};
 	public static int[] dragonWhitelistedDimensions = new int[]{0};
@@ -191,6 +192,11 @@ public class DragonMountsConfig {
 		canDragonDespawn = prop.getBoolean();
 		propOrder.add(prop.getName());
 
+		prop = config.get(CATEGORY_MAIN, "Milk Dregons", canMilk);
+		prop.setComment("Joke Feature: makes dragons milkable like cows");
+		canMilk = prop.getBoolean();
+		propOrder.add(prop.getName());
+
 		prop = config.get(CATEGORY_MAIN, "can ice breath be permanent", canIceBreathBePermanent);
 		prop.setComment("refers to the ice breath for the dragon in water, set true if you want the ice block to be permanent. false otherwise.");
 		canIceBreathBePermanent = prop.getBoolean();
@@ -235,6 +241,7 @@ public class DragonMountsConfig {
 		 *  WORLDGEN
 		 */
 
+		// thanks i/f
 		dragonBlacklistedDimensions = config.get("all", "Blacklisted Dragon Dimensions", new int[]{-1, 1}, "Dragons cannot spawn in these dimensions' IDs").getIntList();
 		dragonWhitelistedDimensions = config.get("all", "Whitelisted Dragon Dimensions", new int[]{0}, "Dragons can only spawn in these dimensions' IDs").getIntList();
 		useDimensionBlackList = config.getBoolean("use Dimension Blacklist", "all", true, "true to use dimensional blacklist, false to use the whitelist.");

@@ -62,7 +62,6 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (ownerCurrent instanceof EntityPlayer)
             if (((EntityPlayer) ownerCurrent).isSpectator()) return false;
         if (dragon.isSitting()) return false;
-        if (!dragon.nothing()) return false;
         if (dragon.getDistance(ownerCurrent) < minDist && dragon.isAdult()) return false;
         owner = ownerCurrent;
 
@@ -122,9 +121,10 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     public void updateTask() {
         // don't move when sitting
         if (dragon.isSitting()) return;
-        
+        if (dragon.getControllingPlayer() != null) return;
+
         // look towards owner
-        dragon.getLookHelper().setLookPositionWithEntity(owner, dragon.getHeadYawSpeed(), dragon.getHeadPitchSpeed());
+        dragon.getLookHelper().setLookPositionWithEntity(owner, 120, 90);
 
         // update every 10 ticks only from here
         if (--updateTicks > 0) return;

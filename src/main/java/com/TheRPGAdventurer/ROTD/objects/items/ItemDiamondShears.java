@@ -14,7 +14,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -84,7 +83,7 @@ public class ItemDiamondShears extends ItemShears implements IHasModel {
                     }
                 }
 
-                target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
+//                target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
                 itemstack.damageItem(20, target);
             }
 

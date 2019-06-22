@@ -10,17 +10,22 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
+import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -33,8 +38,17 @@ public class DragonInteract extends DragonInteractBase {
 
     @Override
     public boolean interact(EntityPlayer player, ItemStack item) {
-        if (dragon.isServer()) {
-            if (isAllowed(player) && !dragon.isEgg()) {
+        if (dragon.isServer() && !dragon.isEgg()) {
+            if (isAllowed(player)) {
+
+                /*
+                 * Turning it to block
+                 */
+                if (dragon.isEgg() && player.isSneaking()) {
+                    dragon.world.playSound(player, dragon.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1, 1);
+                    dragon.world.setBlockState(dragon.getPosition(), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(dragon.getBreedType().getMeta()));
+                    dragon.setDead();
+                }
 
                 /*
                  * Riding
@@ -71,19 +85,22 @@ public class DragonInteract extends DragonInteractBase {
                 if (DMUtils.consumeFish(player) || DMUtils.consumeEquippedArray(player, DragonBreed.getFoodItems())) {
                     // Taming
                     if (!dragon.isTamed()) {
-                        dragon.tamedFor(player, dragon.getRNG().nextInt(6) == 0);
+                        dragon.tamedFor(player, dragon.getRNG().nextInt(5) == 0);
                         eatEvent(player);
+                        return true;
                     }
                     //  hunger
-                    if (dragon.getHunger() < 0) {
+                    if (dragon.getHunger() < 100) {
                         eatEvent(player);
                         dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
+                        return true;
                     }
 
                     // breed
                     if (dragon.isBreedingItem(item) && dragon.isAdult() && !dragon.isInLove()) {
                         eatEvent(player);
                         dragon.setInLove(player);
+                        return true;
                     }
                     return true;
                 }
@@ -108,9 +125,10 @@ public class DragonInteract extends DragonInteractBase {
         return false;
     }
 
+    @SideOnly(Side.CLIENT)
     private void eatEvent(EntityPlayer player) {
         dragon.playSound(dragon.getEatSound(), 0.6f, 0.75f);
-        spawnItemCrackParticles((ItemFood) DMUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
+        spawnItemCrackParticles(DMUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
     }
 
     private void spawnItemCrackParticles(Item item) {
@@ -123,7 +141,7 @@ public class DragonInteract extends DragonInteractBase {
             double hy = pos.y;
             double hz = pos.z;
             // Spawn calculated particles
-            dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, new int[]{Item.getIdFromItem(item)});
+            dragon.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, hx, hy, hz, motionX, motionY, motionZ, Item.getIdFromItem(item));
         }
     }
 }    

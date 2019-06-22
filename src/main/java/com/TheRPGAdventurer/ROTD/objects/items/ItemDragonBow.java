@@ -1,6 +1,10 @@
 package com.TheRPGAdventurer.ROTD.objects.items;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.inits.ModTools;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
+import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,30 +12,56 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemArrow;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemDragonBow extends ItemBow {
+import javax.annotation.Nullable;
+import java.util.List;
 
-    public ItemDragonBow() {
-        this.setMaxDamage(725);
-        this.setUnlocalizedName("dragon_bow");
-        this.setCreativeTab(DragonMounts.armoryTab);
+public class ItemDragonBow extends ItemBow implements IHasModel {
+
+    private EnumItemBreedTypes type;
+    private Item repair;
+
+    public ItemDragonBow(EnumItemBreedTypes type, Item repair) {
+        this.type = type;
+        this.repair = repair;
+
+        setMaxDamage(725);
+        setUnlocalizedName("dragon_bow");
+        setCreativeTab(DragonMounts.armoryTab);
+        setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_bow_" + type.toString().toLowerCase()));
+
+        addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
+        {
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                if (entityIn == null) return 0.0F;
+                else return entityIn.getActiveItemStack().getItem() instanceof ItemDragonBow ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
+            }
+        });
+        addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
+        {
+            @SideOnly(Side.CLIENT)
+            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+                return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+            }
+        });
+        ModTools.TOOLS.add(this);
     }
 
     /**
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration(ItemStack stack)
-    {
-        return 67000;
-    }
+    public int getMaxItemUseDuration(ItemStack stack) { return 67000; }
 
     private ItemStack findAmmo(EntityPlayer player) {
         if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND))) {
@@ -109,7 +139,7 @@ public class ItemDragonBow extends ItemBow {
                         worldIn.spawnEntity(entityarrow);
                     }
 
-                    worldIn.playSound((EntityPlayer) null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
                     if (!flag1 && !entityplayer.capabilities.isCreativeMode) {
                         itemstack.shrink(1);
@@ -138,4 +168,21 @@ public class ItemDragonBow extends ItemBow {
 
         return f;
     }
+
+    public boolean getIsRepairable(ItemStack toRepair, ItemStack item) {
+        return item.getItem() == repair ? true : super.getIsRepairable(toRepair, new ItemStack(repair));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public String getItemStackDisplayName(ItemStack stack) { return type.color + super.getItemStackDisplayName(stack); }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(DMUtils.translateToLocal("item.armoryitems.info") + type.color +" "+ TextFormatting.BOLD + DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()));
+    }
+
+    @Override
+    public void RegisterModels() { DragonMounts.proxy.registerItemRenderer(this, 0, "inventory"); }
 }

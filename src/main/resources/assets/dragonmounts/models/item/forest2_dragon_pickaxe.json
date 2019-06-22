@@ -1,20 +1,6 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XXX",
-    " # ",
-    " # "
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "X": {
-      "item": "dragonmounts:forest2_dragonscales"
-    }
-  },
-  "result": {
-    "item": "dragonmounts:forest2_dragon_pickaxe"
-  }
+    "parent": "item/handheld",
+	"textures": {
+	    "layer0": "dragonmounts:items/tools/pickaxe/forest2_dragon_pickaxe"
+	}
 }
-

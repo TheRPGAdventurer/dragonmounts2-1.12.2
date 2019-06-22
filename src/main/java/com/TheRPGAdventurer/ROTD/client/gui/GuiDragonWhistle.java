@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonFireSupport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
 import net.minecraft.client.Minecraft;
@@ -126,7 +127,11 @@ public class GuiDragonWhistle extends GuiScreen {
             byte controlState = getState();
 
             if (controlState != previousState) {
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState, button == firesupport));
+                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
+            }
+
+            if(button==firesupport) {
+                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonFireSupport(uuid));
             }
 
             if (button == homePos) {

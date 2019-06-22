@@ -1,20 +1,6 @@
-{
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "XX",
-    " #",
-    " #"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:stick"
-    },
-    "X": {
-      "item": "dragonmounts:forest2_dragonscales"
-    }
-  },
-  "result": {
-    "item": "dragonmounts:forest2_dragon_hoe"
-  }
+{ 
+    "parent": "item/handheld",
+	"textures": {
+	    "layer0": "dragonmounts:items/tools/hoe/forest2_dragon_hoe"
+	}
 }
-

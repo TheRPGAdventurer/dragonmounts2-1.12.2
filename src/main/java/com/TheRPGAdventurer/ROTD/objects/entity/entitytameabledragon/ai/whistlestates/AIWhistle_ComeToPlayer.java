@@ -10,7 +10,6 @@ public class AIWhistle_ComeToPlayer extends EntityAIDragonBase {
 
     public AIWhistle_ComeToPlayer(EntityTameableDragon dragon) {
         super(dragon);
-        setMutexBits(0);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class AIWhistle_ComeToPlayer extends EntityAIDragonBase {
         if (dragon.getDistance(owner) > 18) dragon.liftOff();
 
         tryMoveToBlockPos(owner.getPosition(), 1);
-        dragon.setnothing(true);
+//        dragon.setnothing(true);
     }
 
 }

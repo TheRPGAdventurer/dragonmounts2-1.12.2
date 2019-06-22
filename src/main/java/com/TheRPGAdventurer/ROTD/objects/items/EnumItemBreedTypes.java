@@ -11,6 +11,7 @@ public enum EnumItemBreedTypes {
 	FIRE(TextFormatting.RED), 
 	FIRE2(TextFormatting.GOLD), 
 	FOREST(TextFormatting.DARK_GREEN),
+	FOREST2(TextFormatting.GOLD),
 	SKELETON(TextFormatting.WHITE),
 	WITHER(TextFormatting.DARK_GRAY),
 	NETHER(TextFormatting.DARK_RED),

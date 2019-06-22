@@ -1,16 +1,7 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "# #",
-    "# #"
-  ],
-  "key": {
-    "#": {
-      "item": "dragonmounts:forest2_dragonscales"
-    }
-  },
-  "result": {
-    "item": "dragonmounts:forest2_dragonscale_boots"
-  }
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/armor/forest2/forest2_dragonscale_boots"
+	}
 }
 

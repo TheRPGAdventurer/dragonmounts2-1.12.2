@@ -231,7 +231,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
-        dataManager.register(IS_ALBINO, getRNG().nextInt(20) == 0);
+        dataManager.register(IS_ALBINO, getRNG().nextInt(25) == 0);
         dataManager.register(DRAGON_SCALES, (byte) 0);
         dataManager.register(ARMOR, 0);
         dataManager.register(BANNER1, ItemStack.EMPTY);
@@ -742,8 +742,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (canFly()) {
             boolean ridden = isBeingRidden();
             // stronger jump for an easier lift-off
-            motionY += ridden || (isInWater() && isInLava()) ? 0.7 : 6;
-            inAirTicks += ridden || (isInWater() && isInLava()) ? 3.0 : 4;
+            motionY += ridden && (isInWater() || isInLava()) ? 0.7 : 6;
+            inAirTicks += ridden && (isInWater() || isInLava()) ? 3.0 : 4;
             jump();
         }
     }

@@ -33,7 +33,6 @@ public enum EnumDragonLifeStage {
 
     EnumDragonLifeStage(float scale) {
         this.scale = scale;
-
     }
 
     public static int clampTickCount(int ticksSinceCreation) {

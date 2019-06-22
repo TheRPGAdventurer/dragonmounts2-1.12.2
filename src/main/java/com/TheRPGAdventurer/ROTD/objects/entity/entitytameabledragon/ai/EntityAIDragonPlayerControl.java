@@ -28,7 +28,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     public EntityAIDragonPlayerControl(EntityTameableDragon dragon) {
         super(dragon);
-        setMutexBits(0xffffffff);
     }
 
     @Override
@@ -38,9 +37,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     }
 
     @Override
-    public void startExecuting() {
-        dragon.getNavigator().clearPath();
-    }
+    public void startExecuting() { dragon.getNavigator().clearPath(); }
 
     @Override
     public void updateTask() {

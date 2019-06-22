@@ -273,6 +273,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
@@ -1890,8 +1891,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
         Vec3d lookDirection = rider.getLook(1.0F);
         Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the head looking down
-        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                120, 90);
+        this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 120, 90);
     }
 
     public void updateRiding(EntityLivingBase riding) {

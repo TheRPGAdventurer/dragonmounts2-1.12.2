@@ -51,7 +51,7 @@ public class BreathWeapon {
     protected float ENDER_DAMAGE = 0.3F;
     protected float HYDRO_DAMAGE = 0.2F;
     protected float ICE_DAMAGE = 0.2F;
-    protected float NETHER_DAMAGE = 0.4F;
+    protected float NETHER_DAMAGE = 0.3F;
     protected float POISON_DAMAGE = 0.2F;
     protected float WITHER_DAMAGE = 0.2F;
 

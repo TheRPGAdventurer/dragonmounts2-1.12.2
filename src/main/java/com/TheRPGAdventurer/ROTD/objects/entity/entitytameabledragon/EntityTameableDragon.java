@@ -32,6 +32,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.Dr
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
+import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
@@ -189,12 +190,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
         addHelper(new DragonInteractHelper(this));
         if (isServer()) addHelper(new DragonBrain(this));
-        
+
         // init helpers
-        moveHelper=new DragonMoveHelper(this);
-        aiSit=new EntityAIDragonSit(this);
+        moveHelper = new DragonMoveHelper(this);
+        aiSit = new EntityAIDragonSit(this);
         helpers.values().forEach(DragonHelper::applyEntityAttributes);
-        animator=new DragonAnimator(this);
+        animator = new DragonAnimator(this);
 
         InitializeDragonInventory();
 
@@ -277,20 +278,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        //        nbt.setUniqueId("IdAmulet", this.getUniqueID()); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
         nbt.setBoolean("Saddle", isSaddled());
         nbt.setInteger("Armor", this.getArmor());
         nbt.setBoolean("Chested", this.isChested());
         nbt.setBoolean("Sheared", this.isSheared());
         nbt.setBoolean("Breathing", this.isUsingBreathWeapon());
-        nbt.setBoolean("alt_breathing", this.isUsingAltBreathWeapon());
+        nbt.setBoolean("projectile", this.isUsingAltBreathWeapon());
         nbt.setBoolean("down", this.isGoingDown());
         nbt.setBoolean("IsMale", this.isMale());
         nbt.setBoolean("IsAlbino", this.isAlbino());
         nbt.setBoolean("unhovered", this.isUnHovered());
         nbt.setBoolean("followyaw", this.followYaw());
         nbt.setBoolean("firesupport", this.firesupport());
-        //        nbt.setBoolean("unFluttered", this.isUnFluttered());
         nbt.setInteger("AgeTicks", this.getLifeStageHelper().getTicksSinceCreation());
         nbt.setInteger("hunger", this.getHunger());
         nbt.setBoolean("boosting", this.boosting());
@@ -317,7 +316,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        //        this.setUniqueId(nbt.getUniqueId("IdAmulet")); // doesnt save uuid i double checked i/f has this bug makes dragon duplication posible, also why whitle wont work after amulet
         this.setSaddled(nbt.getBoolean("Saddle"));
         this.setChested(nbt.getBoolean("Chested"));
         this.setSheared(nbt.getBoolean("Sheared"));
@@ -325,7 +323,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setfiresupport(nbt.getBoolean("firesupport"));
         this.setGrowthPaused(nbt.getBoolean("growthpause"));
         this.setUsingBreathWeapon(nbt.getBoolean("Breathing"));
-        this.setUsingAltBreathWeapon(nbt.getBoolean("alt_breathing"));
+        this.setUsingProjectile(nbt.getBoolean("projectile"));
         this.getLifeStageHelper().setTicksSinceCreation(nbt.getInteger("AgeTicks"));
         this.setArmor(nbt.getInteger("Armor"));
         this.setMale(nbt.getBoolean("IsMale"));
@@ -334,7 +332,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setUnHovered(nbt.getBoolean("unhovered"));
         this.setYLocked(nbt.getBoolean("ylocked"));
         this.setFollowYaw(nbt.getBoolean("followyaw"));
-        //        this.setUnFluttered(nbt.getBoolean("unFluttered"));
         this.setBoosting(nbt.getBoolean("boosting"));
         //        this.setSleeping(nbt.getBoolean("sleeping")); //unused as of now
         this.setCanBeElder(nbt.getBoolean("Elder"));
@@ -344,8 +341,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (hasHomePosition && nbt.getInteger("HomeAreaX") != 0 && nbt.getInteger("HomeAreaY") != 0 && nbt.getInteger("HomeAreaZ") != 0) {
             homePos = new BlockPos(nbt.getInteger("HomeAreaX"), nbt.getInteger("HomeAreaY"), nbt.getInteger("HomeAreaZ"));
         }
-        dragonStats.readNBT(nbt);
         readDragonInventory(nbt);
+        dragonStats.readNBT(nbt);
         helpers.values().forEach(helper -> helper.readFromNBT(nbt));
 
 
@@ -619,7 +616,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Set the breathing flag of the entity.
      */
-    public void setUsingAltBreathWeapon(boolean altBreathing) {
+    public void setUsingProjectile(boolean altBreathing) {
         this.dataManager.set(DATA_ALT_BREATHING, altBreathing);
         if (!world.isRemote) {
             this.altBreathing = altBreathing;
@@ -804,7 +801,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public void onEntityUpdate() {
-        if (getRNG().nextInt(800)==1 && !isEgg()) roar();
+        if (getRNG().nextInt(800) == 1 && !isEgg()) roar();
         super.onEntityUpdate();
     }
 
@@ -912,8 +909,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                     120, 90);
         }
 
-        if (hasChestVarChanged && dragonInv!=null && !this.isChested()) {
-            for (int i=ContainerDragon.chestStartIndex; i < 30; i++) {
+        if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
+            for (int i = ContainerDragon.chestStartIndex; i < 30; i++) {
                 if (!dragonInv.getStackInSlot(i).isEmpty()) {
                     if (!world.isRemote) {
                         this.entityDropItem(dragonInv.getStackInSlot(i), 1);
@@ -1376,7 +1373,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild()&& DragonMountsConfig.canMilk) {
+        if (itemstack.getItem() == Items.BUCKET && !player.capabilities.isCreativeMode && !this.isChild() && DragonMountsConfig.canMilk) {
             player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
             itemstack.shrink(1);
 
@@ -1582,7 +1579,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case FIRE:
                 return isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
             case FOREST:
-                return ModItems.ForestDragonScales;
+                return isMale() ? ModItems.ForestDragonScales : ModItems.ForestDragonScales2;
             case ICE:
                 return ModItems.IceDragonScales;
             case NETHER:
@@ -1620,7 +1617,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case FIRE:
                 return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
             case FOREST:
-                return DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
+                return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FOREST : DragonMountsLootTables.ENTITIES_DRAGON_FOREST2;
             case ICE:
                 return DragonMountsLootTables.ENTITIES_DRAGON_ICE;
             case NETHER:
@@ -1814,13 +1811,36 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     @Override
-    public void travel(float strafe, float forward, float vertical) {
+    public void travel(float strafe, float vertical, float forward) {
         // disable method while flying, the movement is done entirely by
         // moveEntity() and this one just makes the dragon to fall slowly when
         // hovering
-        if (!isFlying()) {
-            super.travel(strafe, forward, vertical);
+//        if (!isFlying()) {
+//            super.travel(strafe, forward, vertical);
+//        }
+        EntityPlayer rider = getControllingPlayer();
+        if (rider != null) {
+            if (rider.moveForward > 0) {
+                this.rotationYaw = rider.rotationYaw;
+                this.prevRotationYaw = this.rotationYaw;
+                this.setRotation(rotationYaw, rotationPitch);
+                this.renderYawOffset = this.rotationYaw;
+                this.rotationYawHead = this.renderYawOffset;
+                forward = rider.moveForward;
+                strafe = rider.moveStrafing;
+                if (isFlying()) {
+                    motionX *= 1.1;
+                    motionZ *= 1.1;
+                    motionY *= Interpolation.linear(-2,2,rider.rotationPitch);
+                }
+                jumpMovementFactor = 0.05F;
+                this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : 1);
+                super.travel(strafe, vertical = 0, forward); // vertical makes dragon fall
+                return;
+
+            }
         }
+        super.travel(strafe, forward, vertical);
     }
 
     @Nullable

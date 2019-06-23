@@ -1,13 +1,11 @@
 package com.TheRPGAdventurer.ROTD.network;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityDragonFireball;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -59,9 +57,9 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 			}
 
 			if(message.isProjectile) {
-				dragon.setUsingAltBreathWeapon(true);
+				dragon.setUsingProjectile(true);
 			} else {
-				dragon.setUsingAltBreathWeapon(false);
+				dragon.setUsingProjectile(false);
 			}
 		} 
 	}

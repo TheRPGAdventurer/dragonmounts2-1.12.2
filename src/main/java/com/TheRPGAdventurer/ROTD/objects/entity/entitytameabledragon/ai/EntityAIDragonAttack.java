@@ -202,7 +202,7 @@ public class EntityAIDragonAttack extends EntityAIDragonBase {
         boolean shouldUseMelee = this.attackTick <= 0 && targetDistSq <= attackReach;
         shouldUseRange = this.attackTick <= 0 && (isWithinBreathRange(targetDistSq) || dragon.isFlying()) && dragon.getEntitySenses().canSee(target) && !(target instanceof EntityAnimal) && dragon.isFlying();// && lookingAtTarget(target);
 
-        if (shouldUseMelee) { //|| targetDistSq >= attackReach && dragon.getEntitySenses().canSee(target)
+        if (shouldUseMelee) {
             this.attackTick = 20;
             this.dragon.swingArm(EnumHand.MAIN_HAND);
             this.dragon.attackEntityAsMob(target);

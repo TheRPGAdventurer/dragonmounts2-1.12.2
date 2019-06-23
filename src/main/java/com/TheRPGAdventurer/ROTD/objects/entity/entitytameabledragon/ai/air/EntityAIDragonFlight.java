@@ -62,7 +62,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
             // get ground block
             landingPos = findLandingArea(landingPos);
             // make sure the block below is solid
-            return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER;
+            return false && world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER;
 
         }
     }

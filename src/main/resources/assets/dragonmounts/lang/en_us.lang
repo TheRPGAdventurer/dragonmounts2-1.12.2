@@ -182,6 +182,7 @@ container.dragon_shulker=Dragon Core
 
 #Controls
 key.categories.dragon=Dragon Mounts
+key.dragon.projectile=UNUSED
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
 key.dragon.breath=Dragon Breath

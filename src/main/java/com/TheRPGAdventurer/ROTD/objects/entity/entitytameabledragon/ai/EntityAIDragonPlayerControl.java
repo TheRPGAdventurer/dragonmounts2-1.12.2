@@ -65,33 +65,33 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             updateIntendedRideRotation(rider);
         }
 
-        // control direction with movement keys
-        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
-            if (rider.moveForward < 0) {
-                wp = wp.rotateYaw(MathX.PI_F);
-            } else if (rider.moveStrafing > 0) {
-                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
-            } else if (rider.moveStrafing < 0) {
-                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
-            }
-
-            x += wp.x * 10;
-            if (!dragon.isYLocked()) {
-                y += wp.y * 10;
-            }
-            z += wp.z * 10;
-        }
-
-        // lift off from a jump
-        if (entityIsJumping(rider)) {
-            if (!dragon.isFlying()) {
-                dragon.liftOff();
-            } else {
-                y += 8;
-            }
-        } else if (dragon.isGoingDown()) {
-            y -= 8;
-        }
+//        // control direction with movement keys
+//        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
+//            if (rider.moveForward < 0) {
+//                wp = wp.rotateYaw(MathX.PI_F);
+//            } else if (rider.moveStrafing > 0) {
+//                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
+//            } else if (rider.moveStrafing < 0) {
+//                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
+//            }
+//
+//            x += wp.x * 10;
+//            if (!dragon.isYLocked()) {
+//                y += wp.y * 10;
+//            }
+//            z += wp.z * 10;
+//        }
+//
+//        // lift off from a jump
+//        if (entityIsJumping(rider)) {
+//            if (!dragon.isFlying()) {
+//                dragon.liftOff();
+//            } else {
+//                y += 15;
+//            }
+//        } else if (dragon.isGoingDown()) {
+//            y -= 15;
+//        }
 
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
@@ -101,7 +101,6 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         boolean hasRider = dragon.hasControllingPlayer(rider);
         if(dragon.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
             dragon.rotationYaw = rider.rotationYaw;
-            dragon.rotationPitch = rider.rotationPitch;
         }
     }
 }

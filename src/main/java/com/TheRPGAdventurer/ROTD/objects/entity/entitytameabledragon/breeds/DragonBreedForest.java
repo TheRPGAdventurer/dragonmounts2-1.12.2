@@ -48,12 +48,10 @@ public class DragonBreedForest extends DragonBreed {
     public void onLivingUpdate(EntityTameableDragon dragon) {
         boolean isJungle = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.JUNGLE) || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.CONIFEROUS);
         boolean isSavanna = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.SAVANNA) || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.DRY);
-        if (dragon.isEgg()) {
-            if (isJungle) {
-                dragon.setMale(true);
-            } else if (isSavanna) {
-                dragon.setMale(false);
-            }
+        if (isJungle) {
+            dragon.setMale(true);
+        } else if (isSavanna) {
+            dragon.setMale(false);
         }
     }
 }

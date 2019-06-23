@@ -65,7 +65,7 @@ public enum EnumDragonBreed implements IStringSerializable {
 
     public int getNumberOfTailSegments() {
         return 12;
-    } // 12
+    }
 
     public int getNumberOfWingFingers() {
         return 4;

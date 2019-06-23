@@ -34,6 +34,7 @@ import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
+import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
@@ -97,7 +98,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  * @Modifier James Miller <TheRPGAdventurer.>
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable {
+public class EntityTameableDragon extends EntityTameable implements IShearable, PrivateAccessor {
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
@@ -1828,16 +1829,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 this.rotationYawHead = this.renderYawOffset;
                 forward = rider.moveForward;
                 strafe = rider.moveStrafing;
-                if (isFlying()) {
+                if (!isFlying()) {
+                    if(entityIsJumping(rider)) liftOff();
+                } else {
                     motionX *= 1.1;
                     motionZ *= 1.1;
-                    motionY *= Interpolation.linear(-2,2,rider.rotationPitch);
+                    motionY *= Interpolation.linear(-2, 2, rider.rotationPitch);
                 }
                 jumpMovementFactor = 0.05F;
                 this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : 1);
                 super.travel(strafe, vertical = 0, forward); // vertical makes dragon fall
                 return;
-
             }
         }
         super.travel(strafe, forward, vertical);

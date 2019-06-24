@@ -31,6 +31,10 @@ public class EntityAIDragonWatchIdle extends EntityAILookIdle {
         if(dragon.circle()) {
             return false;
         }
+
+        if(dragon.getControllingPlayer()!=null) {
+            return  false;
+        }
         return super.shouldExecute();
     }
 }

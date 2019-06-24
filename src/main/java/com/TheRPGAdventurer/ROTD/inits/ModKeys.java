@@ -27,6 +27,7 @@ public class ModKeys {
     	BOOST=new KeyBinding("key.dragon.boost", Keyboard.KEY_LCONTROL, KEY_CATEGORY);
     	DISMOUNT = new KeyBinding("key.dragon.dismount",Keyboard.KEY_X, KEY_CATEGORY);
     	DOWN = new KeyBinding("key.dragon.down",Keyboard.KEY_LMENU, KEY_CATEGORY);
+
         ClientRegistry.registerKeyBinding(KEY_BREATH);
         ClientRegistry.registerKeyBinding(KEY_HOVERCANCEL);
         ClientRegistry.registerKeyBinding(KEY_PROJECTILE);

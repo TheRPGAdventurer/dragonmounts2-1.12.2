@@ -36,8 +36,7 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
 
             // move towards target if it's far away enough   dragon.width
             if (dist > dragon.width) {
-                double boost = dragon.boosting() ? 4 : 1;
-                double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost;
+                double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * dragon.getFlySpeed();
 
                 // update velocity to approach target
                 dragon.motionX = dir.x * flySpeed;

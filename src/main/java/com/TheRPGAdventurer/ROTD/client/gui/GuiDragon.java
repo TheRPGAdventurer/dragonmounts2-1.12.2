@@ -26,15 +26,14 @@ public class GuiDragon extends GuiContainer {
     private static final ResourceLocation offhand = new ResourceLocation(DragonMounts.MODID, "textures/gui/offhand.png");
     private static final ResourceLocation hunger_empty = new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_empty.png");
     private static final ResourceLocation hunger_full = new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_full.png");
-
+    public static ResourceLocation lockOpen;
+    public static ResourceLocation lockLocked;
+    public static ResourceLocation lockDisabled;
     private EntityTameableDragon dragon;
     private float mousePosX;
     private float mousePosY;
     private LockButton lock;
     private GuiButton sit;
-    public static ResourceLocation lockOpen;
-    public static ResourceLocation lockLocked;
-    public static ResourceLocation lockDisabled;
     private EntityPlayer player;
 
     public GuiDragon(IInventory playerInv, EntityTameableDragon dragon) {
@@ -56,8 +55,8 @@ public class GuiDragon extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         drawString(fontRenderer, dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
         drawString(fontRenderer, dragon.isMale() ? "M" : "FM", 155, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
-        GlStateManager.scale(0.6,0.6,0.6);
-        drawString(fontRenderer, dragon.getHunger() + "/100", 37, 60, 0xe99e0c);
+        GlStateManager.scale(0.6, 0.6, 0.6);
+        drawString(fontRenderer,dragon.getHunger() + "/100", 60, 106, 0Xe99e0c);
     }
 
     private void hunger(int x, int y) {
@@ -104,7 +103,7 @@ public class GuiDragon extends GuiContainer {
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
 
         //draw dragon entity
-        GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (dragon.isHatchling() ? 35 : 7) , x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
+        GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (dragon.isHatchling() ? 35 : 7), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
     }
 
 

@@ -40,19 +40,19 @@ public class DragonBrain extends DragonHelper {
     // mutex 2: looking
     // mutex 4: special state
     private final EntityAITasks tasks;
-    
+
     // mutex 1: waypointing
     // mutex 2: continuous waypointing
-    
+
     // mutex 1: generic targeting
     private final EntityAITasks targetTasks;
-    
+
     public DragonBrain(EntityTameableDragon dragon) {
         super(dragon);
         tasks = dragon.tasks;
         targetTasks = dragon.targetTasks;
     }
-    
+
     public void setAvoidsWater(boolean avoidWater) {
         PathNavigate pathNavigate = dragon.getNavigator();
         if (pathNavigate instanceof PathNavigateGround) {
@@ -60,17 +60,17 @@ public class DragonBrain extends DragonHelper {
             pathNavigateGround.setCanSwim(!avoidWater); // originally setAvoidsWater()
         }
     }
-    
+
    // public void clearTasks() {
    //     clearTasks(tasks);
    //     clearTasks(targetTasks);
    // }
-    
+
   //  public void clearTasks(EntityAITasks tasks) {
   //      List<EntityAITaskEntry> taskEntries = new ArrayList<>(tasks.taskEntries);
   //      taskEntries.forEach(entry -> tasks.removeTask(entry.action));
   //  }
-    
+
     public void updateAITasks() {
         // only hatchlings are small enough for doors
         // (eggs don't move on their own anyway and are ignored)
@@ -79,18 +79,18 @@ public class DragonBrain extends DragonHelper {
             PathNavigateGround pathNavigateGround = (PathNavigateGround) dragon.getNavigator();
             pathNavigateGround.setEnterDoors(dragon.isHatchling());
         }
-        
+
         // clear current navigation target
         dragon.getNavigator().clearPath();
-        
+
         // clear existing tasks
    //     clearTasks();
-        
+
         // eggs don't have any tasks
         if (dragon.isEgg()) {
             return;
         }
-        
+
 //        tasks.addTask(0, new EntityAIDragonCatchOwner(dragon)); // mutex all
         tasks.addTask(1, new EntityAIDragonPlayerControl(dragon)); // mutex all
         tasks.addTask(2, dragon.getAISit()); // mutex 4+1
@@ -109,15 +109,17 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 14, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
             tasks.addTask(10, new EntityAIWanderOld(dragon, 1)); // mutex 1
-            tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
-            tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
+            if(dragon.getControllingPlayer()!=null) {
+                tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
+                tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
+            }
 
             targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityLiving>(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
             targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
 
             if (dragon.isHatchling() && dragon.onGround) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.7F)); // mutex 1
-                if (!dragon.isTamed()) tasks.addTask(6, new EntityAIFollowParent(dragon, 1.4f)); // Only follow the parent if not tamed
+                tasks.addTask(6, new EntityAIFollowParent(dragon, 1.4f));
                 tasks.addTask(6, new EntityAITempt(dragon, 0.75, false, OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet()))); // mutex 2+1
             }
 

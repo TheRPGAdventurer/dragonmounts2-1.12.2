@@ -13,7 +13,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.Vec3d;
@@ -38,7 +37,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     }
 
     @Override
-    public void startExecuting() { dragon.getNavigator().clearPath(); }
+    public void startExecuting() {
+        dragon.getNavigator().clearPath();
+    }
 
     @Override
     public void updateTask() {
@@ -56,51 +57,43 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         }
 
         // if we're breathing at a target, look at it
-        if (dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon()) {
-            Vec3d dragonEyePos  = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+        if ((dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() || (dragon.followYaw()))) {
+            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = rider.getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, MathX.clamp(lookDirection.y, -90, 90), lookDirection.z);
+            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     90, 120);
-            updateIntendedRideRotation(rider);
+            dragon.updateIntendedRideRotation(rider);
         }
 
-//        // control direction with movement keys
-//        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
-//            if (rider.moveForward < 0) {
-//                wp = wp.rotateYaw(MathX.PI_F);
-//            } else if (rider.moveStrafing > 0) {
-//                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
-//            } else if (rider.moveStrafing < 0) {
-//                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
-//            }
-//
-//            x += wp.x * 10;
-//            if (!dragon.isYLocked()) {
-//                y += wp.y * 10;
-//            }
-//            z += wp.z * 10;
-//        }
-//
-//        // lift off from a jump
-//        if (entityIsJumping(rider)) {
-//            if (!dragon.isFlying()) {
-//                dragon.liftOff();
-//            } else {
-//                y += 15;
-//            }
-//        } else if (dragon.isGoingDown()) {
-//            y -= 15;
-//        }
+        // control direction with movement keys
+        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
+            if (rider.moveForward < 0) {
+                wp = wp.rotateYaw(MathX.PI_F);
+            } else if (rider.moveStrafing > 0) {
+                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
+            } else if (rider.moveStrafing < 0) {
+                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
+            }
+
+            x += wp.x * 10;
+            if (!dragon.isYLocked()) {
+                y += wp.y * 10;
+            }
+            z += wp.z * 10;
+        }
+
+//         lift off from a jump
+        if (entityIsJumping(rider)) {
+            if (!dragon.isFlying()) {
+                dragon.liftOff();
+            } else {
+                y += 10;
+            }
+        } else if (dragon.isGoingDown()) {
+            y -= 10;
+        }
 
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
-    }
-
-
-    private void updateIntendedRideRotation(EntityPlayer rider) {
-        boolean hasRider = dragon.hasControllingPlayer(rider);
-        if(dragon.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
-            dragon.rotationYaw = rider.rotationYaw;
-        }
     }
 }

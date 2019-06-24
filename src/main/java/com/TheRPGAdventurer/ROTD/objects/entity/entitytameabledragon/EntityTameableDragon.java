@@ -32,7 +32,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.Dr
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
-import com.TheRPGAdventurer.ROTD.util.math.Interpolation;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import com.google.common.base.Optional;
@@ -232,6 +231,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(GOING_DOWN, false);
         dataManager.register(DATA_SADDLED, false);
         dataManager.register(CHESTED, false);
+        dataManager.register(Y_LOCKED, false);
+        dataManager.register(HOVER_CANCELLED, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
         dataManager.register(IS_ALBINO, getRNG().nextInt(25) == 0);
         dataManager.register(DRAGON_SCALES, (byte) 0);
@@ -248,8 +249,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(WHISTLE_STATE, (byte) 0);
         dataManager.register(WHISTLE, ItemStack.EMPTY);
         //        dataManager.register(SLEEP, false); //unused as of now
-        dataManager.register(HOVER_CANCELLED, false);
-        dataManager.register(Y_LOCKED, false);
         dataManager.register(FOLLOW_YAW, true);
         dataManager.register(DATA_BREATH_WEAPON_TARGET, "");
         dataManager.register(DATA_BREATH_WEAPON_MODE, 0);
@@ -1811,38 +1810,31 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return false;
     }
 
+    public double getFlySpeed() {
+        return this.boosting() ? 4 : 1;
+    }
+
+    public void updateIntendedRideRotation(EntityPlayer rider) {
+        boolean hasRider = this.hasControllingPlayer(rider);
+        if (this.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
+            this.rotationYaw = rider.rotationYaw;
+            this.prevRotationYaw = this.rotationYaw;
+            this.rotationPitch = rider.rotationPitch;
+            this.setRotation(this.rotationYaw, this.rotationPitch);
+            this.renderYawOffset = this.rotationYaw;
+            this.rotationYawHead = this.renderYawOffset;
+        }
+    }
+
     @Override
     public void travel(float strafe, float vertical, float forward) {
         // disable method while flying, the movement is done entirely by
         // moveEntity() and this one just makes the dragon to fall slowly when
         // hovering
-//        if (!isFlying()) {
-//            super.travel(strafe, forward, vertical);
-//        }
-        EntityPlayer rider = getControllingPlayer();
-        if (rider != null) {
-            if (rider.moveForward > 0) {
-                this.rotationYaw = rider.rotationYaw;
-                this.prevRotationYaw = this.rotationYaw;
-                this.setRotation(rotationYaw, rotationPitch);
-                this.renderYawOffset = this.rotationYaw;
-                this.rotationYawHead = this.renderYawOffset;
-                forward = rider.moveForward;
-                strafe = rider.moveStrafing;
-                if (!isFlying()) {
-                    if(entityIsJumping(rider)) liftOff();
-                } else {
-                    motionX *= 1.1;
-                    motionZ *= 1.1;
-                    motionY *= Interpolation.linear(-2, 2, rider.rotationPitch);
-                }
-                jumpMovementFactor = 0.05F;
-                this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : 1);
-                super.travel(strafe, vertical = 0, forward); // vertical makes dragon fall
-                return;
-            }
+        if (!isFlying()) {
+            super.travel(strafe, vertical, forward);
         }
-        super.travel(strafe, forward, vertical);
+
     }
 
     @Nullable

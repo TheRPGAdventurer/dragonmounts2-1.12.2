@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.event;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonRide;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
@@ -14,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DragonViewEvent {
+
     /**
      * Credit to AlexThe666 : iceandfire
      *
@@ -84,8 +86,12 @@ public class DragonViewEvent {
 
     @SubscribeEvent
     public void rideDragonGameOverlay(RenderGameOverlayEvent.Post event) {
-//        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) return;
-//        new GuiDragonRide();
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        if (player.getRidingEntity() instanceof EntityTameableDragon) {
+            EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
+            if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE)
+                new GuiDragonRide(dragon);
+        }
     }
 
     @SubscribeEvent

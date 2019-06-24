@@ -16,6 +16,7 @@ public class GuiDragonRide extends Gui {
         int i = scaled.getScaledWidth();
         int j = scaled.getScaledHeight();
         int k1 = i / 2 - 91;
+        drawCenteredString(mc.fontRenderer, "Hello World", i / 2, (j / 2) - 4, Integer.parseInt("FFAA00", 16));
         renderDragonBoostHotbar(scaled, k1);
     }
 

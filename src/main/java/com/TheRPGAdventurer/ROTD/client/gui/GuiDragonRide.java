@@ -16,22 +16,20 @@ public class GuiDragonRide extends Gui {
         int i = scaled.getScaledWidth();
         int j = scaled.getScaledHeight();
         int k1 = i / 2 - 91;
-        drawCenteredString(mc.fontRenderer, "Hello World", i / 2, (j / 2) - 4, Integer.parseInt("FFAA00", 16));
         renderDragonBoostHotbar(scaled, k1);
     }
 
     public void renderDragonBoostHotbar(ScaledResolution scaledRes, int x) {
-        if (mc.gameSettings.thirdPersonView == 0) {
-            this.mc.getTextureManager().bindTexture(Gui.ICONS);
-            float f = dragon.boostTicks;
-            int i = 182;
-            int j = (int) (f * 183.0F);
-            int k = scaledRes.getScaledHeight() - 32 + 3;
-            this.drawTexturedModalRect(x, k, 0, 84, 182, 5);
+        this.mc.getTextureManager().bindTexture(Gui.ICONS);
+        float f = dragon.boostTicks;
+        int i = 182;
+        int j = (int) (f * 183.0F);
+        int k = scaledRes.getScaledHeight() - 32 + 3;
+        this.drawTexturedModalRect(x, k, 0, 84, 182, 5);
 
-            if (j > 0) {
-                this.drawTexturedModalRect(x, k, 0, 89, j, 5);
-            }
+        if (j > 0) {
+            this.drawTexturedModalRect(x, k, 0, 89, j, 5);
+
         }
     }
 }

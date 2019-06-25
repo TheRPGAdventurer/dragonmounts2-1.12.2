@@ -27,7 +27,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
     @Override
     public void startExecuting() {
         //Commands Requiring Flight - if any is true, start flying
-        if (!dragon.isFlying() && (dragon.circle() || dragon.follow()) || dragon.firesupport() || (dragon.come() && dragon.getNavigator().noPath())) {
+        if (!dragon.isFlying() && (dragon.circle() || dragon.follow()) || dragon.firesupport() || (dragon.come() && (dragon.getNavigator().noPath() || dragon.getDistance(dragon.getOwner()) > 12))) {
             dragon.liftOff();
         }
 
@@ -41,7 +41,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             }
             if (dragon.come() && !dragon.comeToPlayerFlying(dragon.getOwner())) {
                 dragon.comeToPlayerFlying(dragon.getOwner());
-                if(dragon.getDistance(dragon.getOwner()) < 2 && !dragon.isFlying()) {
+                if (dragon.getDistance(dragon.getOwner()) < 2 && !dragon.isFlying()) {
                     dragon.setnothing(true);
                 }
             } else if (dragon.homepos()) {

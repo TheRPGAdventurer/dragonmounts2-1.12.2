@@ -24,8 +24,6 @@ import net.minecraft.util.math.Vec3d;
  */
 public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements PrivateAccessor {
 
-    private Vec3d inates;
-
     public EntityAIDragonPlayerControl(EntityTameableDragon dragon) {
         super(dragon);
     }
@@ -49,6 +47,8 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         double y = dragon.posY;
         double z = dragon.posZ;
 
+        dragon.setSitting(false);
+
         if (dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
             PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 200);
             if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
@@ -57,12 +57,16 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         }
 
         // if we're breathing at a target, look at it
-        if ((dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon() || (dragon.followYaw()))) {
+        if ((dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon())) {
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = rider.getLook(1.0F);
             Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     90, 120);
+            dragon.updateIntendedRideRotation(rider);
+        }
+
+        if(dragon.followYaw()) {
             dragon.updateIntendedRideRotation(rider);
         }
 

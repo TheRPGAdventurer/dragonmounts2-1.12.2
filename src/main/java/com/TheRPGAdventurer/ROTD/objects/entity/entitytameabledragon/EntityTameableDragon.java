@@ -500,6 +500,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public void setWhistleState(byte state) {
+        L.info("state: " + state);
         dataManager.set(WHISTLE_STATE, state);
     }
 
@@ -866,7 +867,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
 
             ItemStack whistle = this.getControllingWhistle();
-            if (whistle != null && whistle.getTagCompound() != null && !whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(this.getUniqueID()) && whistle.hasTagCompound()) {
+            if (getOwner() == null) {
                 this.setnothing(true);
             }
 
@@ -1168,19 +1169,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public boolean circleTarget1(BlockPos midPoint) {
         if (this.getControllingPlayer() != null) return false;
 
-//        Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-//        Vec3d vec2 = new Vec3d(0, 0, 1);
-//
-//        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-//        double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
-//        double x = midPoint.getX() + 1;
-//        double y = midPoint.getY() + 20; // DragonMountsConfig.dragonFlightHeight
-//        double z = midPoint.getZ() + 1;
-//        this.getMoveHelper().setMoveTo(x + 0.5, y + 0.5, z + 0.5, 1);
-//
-//        return true;
-        this.setBoosting(this.getDistance(getOwner()) > 180); // todo fix the rotation
-        return this.getNavigator().tryMoveToXYZ(midPoint.getX() + 10 * Math.cos(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), DragonMountsConfig.maxFLightHeight + midPoint.getY(), midPoint.getZ() + 10 * Math.sin(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), 1);
+        Vec3d vec1 = this.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
+        Vec3d vec2 = new Vec3d(0, 0, 1);
+
+        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+        double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
+        double x = midPoint.getX() + 1;
+        double y = midPoint.getY() + 20; // DragonMountsConfig.dragonFlightHeight
+        double z = midPoint.getZ() + 1;
+
+        return this.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
+//        this.setBoosting(this.getDistance(getOwner()) > 180); // todo fix the rotation
+//        return this.getNavigator().tryMoveToXYZ(midPoint.getX() + 10 * Math.cos(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), DragonMountsConfig.maxFLightHeight + midPoint.getY(), midPoint.getZ() + 10 * Math.sin(1 * this.ticksExisted * 0.5 * 1 / 10 + 4), 1);
 
     }
 
@@ -1811,7 +1811,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public double getFlySpeed() {
-        return this.boosting() ? 4 : 1;
+        return this.boosting() ? 1 : 1;
     }
 
     public void updateIntendedRideRotation(EntityPlayer rider) {

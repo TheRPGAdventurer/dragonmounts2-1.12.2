@@ -14,27 +14,26 @@ public class AIWhistle_ComeToPlayer extends EntityAIDragonBase {
 
     @Override
     public boolean shouldExecute() {
-        if (dragon.come()) {
-            this.owner = dragon.getOwner(); // Repeatedly set this in case it changes
-            if (owner != null)
-                if (dragon.getDistance(owner) > 2) {
-                    return !dragon.nothing();
-                }
-        }
+        this.owner = dragon.getOwner(); // Repeatedly set this in case it changes
+        if (owner != null)
+            dragon.setBoosting(dragon.getDistance(owner) > 2);
+
         dragon.setnothing(true); // Check failed, Don't keep executing
-        return false;
+        return dragon.nothing() && owner != null && dragon.come();
     }
 
     @Override
-    public boolean shouldContinueExecuting() { return this.shouldExecute(); }
+    public boolean shouldContinueExecuting() {
+        return this.shouldExecute();
+    }
 
     @Override
     public void startExecuting() {
         dragon.setSitting(false);
-        if (dragon.getDistance(owner) > 18) dragon.liftOff();
+        if (dragon.getDistance(owner) > 8 || dragon.getNavigator().getPath()==null) dragon.liftOff();
 
         tryMoveToBlockPos(owner.getPosition(), 1);
-//        dragon.setnothing(true);
+        dragon.setnothing(true);
     }
 
 }

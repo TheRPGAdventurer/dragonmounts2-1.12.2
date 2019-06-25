@@ -86,12 +86,12 @@ item.dragon_whistle.name=Dragon Whistle
 item.dragon_amulet.name=Dragon Amulet
 item.dragon_orb.name=Dragon Orb
 
-item.carriage_oak.name=Oak Carriage
-item.carriage_birch.name=Birch Carriage
-item.carriage_spruce.name=Spruce Carriage
-item.carriage_acacia.name=Acacia Carriage
-item.carriage_dark_oak.name=Dark Oak Carriage
-item.carriage_jungle.name=Jungle Carriage
+item.carriage_oak.name=Oak CargoBob
+item.carriage_birch.name=Birch CargoBob
+item.carriage_spruce.name=Spruce CargoBob
+item.carriage_acacia.name=Acacia CargoBob
+item.carriage_dark_oak.name=Dark Oak CargoBob
+item.carriage_jungle.name=Jungle CargoBob
 
 # Armory Items
 item.dragonscales.name=Dragon Scales
@@ -138,6 +138,7 @@ item.diamondshears.info=Used to get scales from tamed dragons without killing it
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (!WIP!)
+item.whistle.nullBlockPos=Cannot Teleport There
 
 
 ##

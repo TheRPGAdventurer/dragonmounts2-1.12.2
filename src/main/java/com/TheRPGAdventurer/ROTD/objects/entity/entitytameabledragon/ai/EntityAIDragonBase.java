@@ -9,16 +9,15 @@
  */
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
-import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
-
-import java.util.Random;
-
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
+
+import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 
 /**
  *
@@ -29,7 +28,6 @@ public abstract class EntityAIDragonBase extends EntityAIBase {
     protected EntityTameableDragon dragon;
     protected World world;
     protected Random random;
-    
     protected EntityPlayer rider;
 
     public EntityAIDragonBase(EntityTameableDragon dragon) {

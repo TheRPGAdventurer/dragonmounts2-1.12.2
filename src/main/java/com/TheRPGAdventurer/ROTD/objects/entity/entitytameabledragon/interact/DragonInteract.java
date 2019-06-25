@@ -9,6 +9,7 @@
  */
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.client.gui.GuiHandler;
 import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
@@ -89,11 +90,17 @@ public class DragonInteract extends DragonInteractBase {
                         eatEvent(player);
                         return true;
                     }
-                    //  hunger
-                    if (dragon.getHunger() < 100) {
+
+                    // heal
+                    if (DragonMountsConfig.hungerDecrement == 0) {
                         eatEvent(player);
-                        dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
+                        dragon.heal(50);
                         return true;
+                    //  hunger
+                    } else if (dragon.getHunger() < 100) {
+                            eatEvent(player);
+                            dragon.setHunger(dragon.getHunger() + (DMUtils.getFoodPoints(player)));
+                            return true;
                     }
 
                     // breed

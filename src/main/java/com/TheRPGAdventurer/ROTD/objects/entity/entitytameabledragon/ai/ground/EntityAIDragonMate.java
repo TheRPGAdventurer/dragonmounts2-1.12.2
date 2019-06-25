@@ -30,7 +30,6 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
     public EntityAIDragonMate(EntityTameableDragon dragon, double speed) {
         super(dragon);
         this.speed = speed;
-        setMutexBits(3);
     }
 
     /**
@@ -105,9 +104,6 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
         EntityTameableDragon dragonBaby = (EntityTameableDragon) dragon.createChild(dragonMate);
 
         if (dragonBaby != null) {
-            dragon.setGrowingAge(6000);
-            dragonMate.setGrowingAge(6000);
-
             dragon.resetInLove();
             dragonMate.resetInLove();
 
@@ -115,7 +111,6 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
             dragonBaby.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
 
             world.spawnEntity(dragonBaby);
-
             // TODO: particles for the clients?
         }
     }

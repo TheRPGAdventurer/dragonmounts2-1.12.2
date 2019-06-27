@@ -755,7 +755,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc = Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player)) || (getOwner() != null && firesupport())) {
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player))
+                || (getOwner() != null && firesupport())) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
             boolean projectile = ModKeys.KEY_PROJECTILE.isPressed();
             boolean isBoosting = ModKeys.BOOST.isKeyDown();
@@ -796,7 +797,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private boolean isBlockSolid(double xcoord, double ycoord, double zcoord) {
         BlockPos pos = new BlockPos(xcoord, ycoord, zcoord);
         IBlockState state = world.getBlockState(pos);
-        return state.getMaterial().isSolid() || (this.getControllingPlayer() == null && (this.isInWater() || this.isInLava()));
+        return state.getMaterial().isSolid() || (this.getControllingPlayer() != null && (this.isInWater() || this.isInLava()));
     }
 
     @Override
@@ -825,6 +826,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 if (owner != null) {
                     setHomePosAndDistance(owner.getPosition(), HOME_RADIUS);
                 }
+            }
+
+            if (firesupport()) {
+                EntityPlayer rider = this.getControllingPlayer();
+                Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
+                Vec3d lookDirection = rider.getLook(1.0F);
+                Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+                this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
+                        90, 120);
+                this.updateIntendedRideRotation(rider);
             }
 
             // delay flying state for 10 ticks (0.5s)
@@ -896,7 +907,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 this.setUnHovered(true);
             }
         }
-        if (this.ticksExisted % (DragonMountsConfig.hungerDecrement) == 1) {
+        if (this.ticksExisted % (DragonMountsConfig.hungerDecrement) == 1 && DragonMountsConfig.hungerDecrement > 0) {
             if (this.getHunger() > 0) {
                 this.setHunger(this.getHunger() - 1);
             }
@@ -1125,8 +1136,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
 
-    public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
-        BlockPos midPoint = entityLivingBase.getPosition();
+    public boolean followPlayerFlying(EntityLivingBase owner) {
+        BlockPos midPoint = owner.getPosition();
         double x = midPoint.getX() + 0.5 - 12;
         double y = midPoint.getY() + 0.5 + 24;
         double z = midPoint.getZ() + 0.5 - 12;

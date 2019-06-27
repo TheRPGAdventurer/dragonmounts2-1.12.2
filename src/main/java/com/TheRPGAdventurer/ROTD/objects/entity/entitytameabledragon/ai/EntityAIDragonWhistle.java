@@ -11,17 +11,17 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public EntityAIDragonWhistle(EntityTameableDragon dragon) {
         super(dragon);
-        setMutexBits(0);
+        setMutexBits(1);
     }
 
     @Override
     public boolean shouldExecute() {
-        return dragon.getOwner() == null || dragon.getControllingPlayer() != null;
+        return dragon.getOwner() != null && dragon.getControllingPlayer() == null;
     }
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
+        return dragon.getControllingPlayer() == null;
     }
 
     @Override

@@ -500,7 +500,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public void setWhistleState(byte state) {
-        L.info("state: " + state);
         dataManager.set(WHISTLE_STATE, state);
     }
 
@@ -758,7 +757,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         Minecraft mc = Minecraft.getMinecraft();
         if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player)) || (getOwner() != null && firesupport())) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
-            boolean projectile = ModKeys.KEY_LOCKEDY.isPressed();
+            boolean projectile = ModKeys.KEY_PROJECTILE.isPressed();
             boolean isBoosting = ModKeys.BOOST.isKeyDown();
             boolean isDown = ModKeys.DOWN.isKeyDown();
             boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
@@ -835,10 +834,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 inAirTicks++;
             }
 
+            boostTicks = MathX.clamp(boostTicks, -20, 182);
             if (boosting()) {
-                boostTicks++;
-            } else {
                 boostTicks--;
+            } else {
+                boostTicks++;
             }
 
             boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);
@@ -1150,7 +1150,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (!isFlying() && dist >= 5) this.liftOff();
 
-        if (isFlying()) return this.getNavigator().tryMoveToXYZ(owner.getPosition().getX(), owner.getPosition().getY(), owner.getPosition().getZ(), 1);
+        if (isFlying())
+            return this.getNavigator().tryMoveToXYZ(owner.getPosition().getX(), owner.getPosition().getY(), owner.getPosition().getZ(), 1);
         else return false;
     }
 
@@ -1811,7 +1812,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     public double getFlySpeed() {
-        return this.boosting() ? 1 : 1;
+        return this.boosting() ? 4 : 1;
     }
 
     public void updateIntendedRideRotation(EntityPlayer rider) {
@@ -1896,7 +1897,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
             double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ = (double) (radius * MathHelper.cos(angle));
-            double extraY = (riding.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
+            double extraY = (riding.isSneaking() ? 1.2D : 1.4D) + (i == 2 ? 0.4D : 0D);
             this.rotationYaw = riding.rotationYaw;
             this.prevRotationYaw = riding.prevRotationYaw;
             this.rotationYawHead = riding.rotationYawHead;
@@ -2417,7 +2418,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         ItemStack banner3 = this.dragonInv.getStackInSlot(33);
         ItemStack banner4 = this.dragonInv.getStackInSlot(34);
 
-        this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
+        this.setSaddled(saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() && (isJuvenile() || isAdult()));
         this.setChested(leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty());
 
         this.setBanner1(banner1);

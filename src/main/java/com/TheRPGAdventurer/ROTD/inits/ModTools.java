@@ -49,11 +49,11 @@ public class ModTools {
 	public static final ItemDragonHoe forestDragonHoe = new ItemDragonHoe(ForestDragonScaleMaterial, "forest_dragon_hoe", EnumItemBreedTypes.FOREST);
 
 	//Forest Start
-	public static final ItemDragonSword forestDragonSword2 = new ItemDragonSword(ForestDragonScaleMaterial2, "forest2_dragon_sword", EnumItemBreedTypes.FOREST);
-	public static final ItemDragonPickAxe forestDragonPickaxe2 = new ItemDragonPickAxe(ForestDragonScaleMaterial2, "forest2_dragon_pickaxe", EnumItemBreedTypes.FOREST);
-	public static final ItemDragonAxe  forestDragonAxe2 = new ItemDragonAxe(ForestDragonScaleMaterial2, "forest2_dragon_axe", damage, speed, EnumItemBreedTypes.FOREST);
-	public static final ItemDragonShovel forestDragonShovel2 = new ItemDragonShovel(ForestDragonScaleMaterial2, "forest2_dragon_shovel", EnumItemBreedTypes.FOREST);
-	public static final ItemDragonHoe forestDragonHoe2 = new ItemDragonHoe(ForestDragonScaleMaterial2, "forest2_dragon_hoe", EnumItemBreedTypes.FOREST);
+	public static final ItemDragonSword forestDragonSword2 = new ItemDragonSword(ForestDragonScaleMaterial2, "forest2_dragon_sword", EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonPickAxe forestDragonPickaxe2 = new ItemDragonPickAxe(ForestDragonScaleMaterial2, "forest2_dragon_pickaxe", EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonAxe  forestDragonAxe2 = new ItemDragonAxe(ForestDragonScaleMaterial2, "forest2_dragon_axe", damage, speed, EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonShovel forestDragonShovel2 = new ItemDragonShovel(ForestDragonScaleMaterial2, "forest2_dragon_shovel", EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonHoe forestDragonHoe2 = new ItemDragonHoe(ForestDragonScaleMaterial2, "forest2_dragon_hoe", EnumItemBreedTypes.FOREST2);
 
 	//Aether Start
 	public static final ItemDragonSword aetherDragonSword = new ItemDragonSword(AetherDragonScaleMaterial, "aether_dragon_sword", EnumItemBreedTypes.AETHER);

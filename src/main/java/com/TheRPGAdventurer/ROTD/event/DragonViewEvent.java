@@ -85,12 +85,13 @@ public class DragonViewEvent {
     }
 
     @SubscribeEvent
-    public void rideDragonGameOverlay(RenderGameOverlayEvent.Post event) {
+    public void rideDragonGameOverlay(RenderGameOverlayEvent.Pre event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
         if (player.getRidingEntity() instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
-            if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE)
-                new GuiDragonRide(dragon);
+            if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) event.setCanceled(true);
+                GuiDragonRide rideGui = new GuiDragonRide(dragon);
+                rideGui.renderDragonBoostHotbar();
         }
     }
 
@@ -99,8 +100,6 @@ public class DragonViewEvent {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             if (player.getRidingEntity() instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
-                //            if (player.world.isRemote) {
                 if (ModKeys.dragon_change_view.isPressed()) {
                     int currentView = DragonMounts.proxy.getDragon3rdPersonView();
                     if (currentView + 1 > 2) {
@@ -110,7 +109,6 @@ public class DragonViewEvent {
                     }
 
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
-
                 }
             }
         }

@@ -26,6 +26,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
     public EntityAIDragonPlayerControl(EntityTameableDragon dragon) {
         super(dragon);
+        setMutexBits(0xffffffff);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.updateIntendedRideRotation(rider);
         }
 
-        if(dragon.followYaw()) {
+        if (dragon.followYaw()) {
             dragon.updateIntendedRideRotation(rider);
         }
 

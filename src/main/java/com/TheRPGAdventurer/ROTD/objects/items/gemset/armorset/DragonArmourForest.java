@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 
 public class DragonArmourForest extends DragonArmourBase {
 
-    public DragonArmourForest(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName) {
-        super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, EnumItemBreedTypes.FOREST);
+    public DragonArmourForest(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, EnumItemBreedTypes type) {
+        super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
     }
 
     @Override

@@ -1,22 +1,23 @@
 /*
-** 2016 March 12
-**
-** The author disclaims copyright to this source code. In place of
-** a legal notice, here is a blessing:
-**    May you do good and not evil.
-**    May you find forgiveness for yourself and forgive others.
-**    May you share freely, never taking more than you give.
+ ** 2016 March 12
+ **
+ ** The author disclaims copyright to this source code. In place of
+ ** a legal notice, here is a blessing:
+ **    May you do good and not evil.
+ **    May you find forgiveness for yourself and forgive others.
+ **    May you share freely, never taking more than you give.
  */
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.*;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonHurtByTarget;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonPlayerControl;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonWhistle;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIWanderOld;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground.*;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.whistlestates.AIWhistle_ComeToPlayer;
 import com.TheRPGAdventurer.ROTD.util.EntityClassPredicate;
-
 import com.google.common.base.Predicate;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.*;
@@ -31,7 +32,6 @@ import javax.annotation.Nullable;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public class DragonBrain extends DragonHelper {
@@ -61,15 +61,15 @@ public class DragonBrain extends DragonHelper {
         }
     }
 
-   // public void clearTasks() {
-   //     clearTasks(tasks);
-   //     clearTasks(targetTasks);
-   // }
+    // public void clearTasks() {
+    //     clearTasks(tasks);
+    //     clearTasks(targetTasks);
+    // }
 
-  //  public void clearTasks(EntityAITasks tasks) {
-  //      List<EntityAITaskEntry> taskEntries = new ArrayList<>(tasks.taskEntries);
-  //      taskEntries.forEach(entry -> tasks.removeTask(entry.action));
-  //  }
+    //  public void clearTasks(EntityAITasks tasks) {
+    //      List<EntityAITaskEntry> taskEntries = new ArrayList<>(tasks.taskEntries);
+    //      taskEntries.forEach(entry -> tasks.removeTask(entry.action));
+    //  }
 
     public void updateAITasks() {
         // only hatchlings are small enough for doors
@@ -84,7 +84,7 @@ public class DragonBrain extends DragonHelper {
         dragon.getNavigator().clearPath();
 
         // clear existing tasks
-   //     clearTasks();
+        //     clearTasks();
 
         // eggs don't have any tasks
         if (dragon.isEgg()) {
@@ -92,14 +92,16 @@ public class DragonBrain extends DragonHelper {
         }
 
 //        tasks.addTask(0, new EntityAIDragonCatchOwner(dragon)); // mutex all
+//        if (dragon.getControllingPlayer() != null) {
         tasks.addTask(1, new EntityAIDragonPlayerControl(dragon)); // mutex all
+//        } else {
         tasks.addTask(2, dragon.getAISit()); // mutex 4+1
         tasks.addTask(3, new EntityAIDragonWhistle(dragon));
-        tasks.addTask(3, new AIWhistle_ComeToPlayer(dragon));
+//        tasks.addTask(3, new AIWhistle_ComeToPlayer(dragon));
         tasks.addTask(3, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex all
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(dragon, 1)); // mutex 1
-     //   tasks.addTask(5, new EntityAIFlyAround(dragon));
-     //   tasks.addTask(6, new EntityAIAirPoint(dragon));
+        //   tasks.addTask(5, new EntityAIFlyAround(dragon));
+        //   tasks.addTask(6, new EntityAIAirPoint(dragon));
 
         if (dragon.isFlying()) {
             tasks.addTask(6, new EntityAIDragonFlight(dragon, 1)); // mutex 1
@@ -109,12 +111,16 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 14, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
             tasks.addTask(10, new EntityAIWanderOld(dragon, 1)); // mutex 1
-            if(dragon.getControllingPlayer()!=null) {
+            if (dragon.getControllingPlayer() != null) {
                 tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
                 tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
             }
 
-            targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityLiving>(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
+            targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityLiving>(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>() {
+                public boolean apply(@Nullable EntityLiving p_apply_1_) {
+                    return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);
+                }
+            }));
             targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
 
             if (dragon.isHatchling() && dragon.onGround) {
@@ -124,12 +130,13 @@ public class DragonBrain extends DragonHelper {
             }
 
         }
-            targetTasks.addTask(2, new EntityAIOwnerHurtByTarget(dragon)); // mutex 1
-            targetTasks.addTask(3, new EntityAIOwnerHurtTarget(dragon)); // mutex 1
-            targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, false)); // mutex 1
+        targetTasks.addTask(2, new EntityAIOwnerHurtByTarget(dragon)); // mutex 1
+        targetTasks.addTask(3, new EntityAIOwnerHurtTarget(dragon)); // mutex 1
+        targetTasks.addTask(4, new EntityAIDragonHurtByTarget(dragon, false)); // mutex 1
 
         if (dragon.isAdult()) {
             tasks.addTask(5, new EntityAIDragonMate(dragon, 0.6)); // mutex 2+1
         }
+//        }
     }
 }

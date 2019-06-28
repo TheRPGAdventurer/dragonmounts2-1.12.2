@@ -1,8 +1,6 @@
 package com.TheRPGAdventurer.ROTD.util;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.inits.ModItems;
-import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 import net.minecraft.client.resources.I18n;
@@ -84,7 +82,7 @@ public class DMUtils {
     public static int getFoodPoints(EntityPlayer player) {
         Item item = player.getHeldItemMainhand().getItem();
         if (item != null && item instanceof ItemFood) {
-            int points = ((ItemFood) item).getHealAmount(new ItemStack(item)) * 2;
+            int points = ((ItemFood) item).getHealAmount(new ItemStack(item)) * 8;
             return points;
         }
         return 0;

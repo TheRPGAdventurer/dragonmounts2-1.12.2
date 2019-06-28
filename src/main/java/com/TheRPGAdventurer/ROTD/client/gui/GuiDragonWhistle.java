@@ -4,6 +4,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonFireSupport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -27,8 +28,6 @@ public class GuiDragonWhistle extends GuiScreen {
     GuiButton sit;
     GuiButton homePos;
     GuiButton firesupport;
-
-    boolean newState;
 
     byte state;
 
@@ -56,7 +55,6 @@ public class GuiDragonWhistle extends GuiScreen {
 
         homePos = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.homePos"));
 
-//        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 35, 98, 20, I18n.format("gui.firesupport"));
         firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, TextFormatting.RED + I18n.format("gui.firesupport"));
 
         sit = new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
@@ -127,16 +125,17 @@ public class GuiDragonWhistle extends GuiScreen {
             byte controlState = getState();
 
             if (controlState != previousState) {
+                DMUtils.getLogger().info("Current State casted by gui is " + controlState);
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
             }
 
-            if(button==firesupport) {
+            if(button==firesupport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonFireSupport(uuid));
-            }
 
-            if (button == homePos) {
+
+            if (button == homePos)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
-            }
+
             //Close GUI when option is selected
             Minecraft.getMinecraft().displayGuiScreen(null);
         }

@@ -17,32 +17,26 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> {
+public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistleSit> {
 
     public UUID dragonId;
-    public byte controlState;
-    EntityTameableDragon dragon;
 
-    public MessageDragonWhistle(UUID dragonId, byte controlState) {
+    public MessageDragonWhistleSit(UUID dragonId) {
         this.dragonId = dragonId;
-        this.controlState = controlState;
     }
 
-    public MessageDragonWhistle() {
+    public MessageDragonWhistleSit() {
     }
-
     @Override
     public void fromBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
         dragonId = packetBuf.readUniqueId();
-        controlState = buf.readByte();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
         packetBuf.writeUniqueId(dragonId);
-        buf.writeByte(controlState);
 
     }
 
@@ -60,20 +54,20 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
+    public void onClientReceived(Minecraft client, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
     }
 
     @Override
-    public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
+    public void onServerReceived(MinecraftServer server, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
         clientWhistleSound(player);
-//        if (!player.world.isRemote) {
+        if (!player.world.isRemote) {
             Entity entity = server.getEntityFromUuid(dragonId);
             if (entity != null) {
                 if (entity instanceof EntityTameableDragon) {
                     EntityTameableDragon dragon = (EntityTameableDragon) entity;
-                    dragon.setWhistleState(message.controlState);
+                    dragon.setSitting(!dragon.isSitting());
                 }
             } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
-//        }
+        }
     }
 }

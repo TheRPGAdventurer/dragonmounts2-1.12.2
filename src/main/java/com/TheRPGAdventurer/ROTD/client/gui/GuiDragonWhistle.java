@@ -4,6 +4,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonFireSupport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistleSit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -20,6 +21,7 @@ public class GuiDragonWhistle extends GuiScreen {
     World world;
     ItemStack whistle;
     UUID uuid;
+
     GuiButton nothing;
     GuiButton circle;
     GuiButton followFlying;
@@ -80,6 +82,8 @@ public class GuiDragonWhistle extends GuiScreen {
        1 follow
        2 circle
        3 come
+       4 homepos
+       5 sit
      */
     private void setStateField(int state, boolean newState) {
         byte prevState = getState();
@@ -106,8 +110,8 @@ public class GuiDragonWhistle extends GuiScreen {
         setStateField(3, come);
     }
 
-    public void homepos(boolean come) {
-        setStateField(4, come);
+    public void homepos(boolean homepos) {
+        setStateField(4, homepos);
     }
 
     public void sit(boolean sit) {
@@ -123,20 +127,21 @@ public class GuiDragonWhistle extends GuiScreen {
             follow(button == followFlying);
             come(button == come);
             circle(button == circle);
-            sit(button == sit);
             byte controlState = getState();
 
-            if (controlState != previousState) {
+            if (controlState != previousState) 
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
-            }
-
-            if(button==firesupport) {
+            
+            if (button == firesupport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonFireSupport(uuid));
-            }
+            
+            if (button == sit)
+                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistleSit(uuid));
 
-            if (button == homePos) {
+
+            if (button == homePos)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
-            }
+            
             //Close GUI when option is selected
             Minecraft.getMinecraft().displayGuiScreen(null);
         }

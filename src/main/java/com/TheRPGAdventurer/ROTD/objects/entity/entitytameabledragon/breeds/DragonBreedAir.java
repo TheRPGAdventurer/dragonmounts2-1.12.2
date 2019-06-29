@@ -81,12 +81,12 @@ public class DragonBreedAir extends DragonBreed {
 //        dragon.getBreathHelper().getEmitter().spawnBreathParticlesforAetherDragon(world, power, tickCounter);
 //    }
 
-    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-        final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_AIR_START, SoundEffectNames.ADULT_BREATHE_AIR_LOOP, SoundEffectNames.ADULT_BREATHE_AIR_STOP};
-
-        return soundEffectNames;
-
-    }
+//    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+//        final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_AIR_START, SoundEffectNames.ADULT_BREATHE_AIR_LOOP, SoundEffectNames.ADULT_BREATHE_AIR_STOP};
+//
+//        return soundEffectNames;
+//
+//    }
 
 }
 	

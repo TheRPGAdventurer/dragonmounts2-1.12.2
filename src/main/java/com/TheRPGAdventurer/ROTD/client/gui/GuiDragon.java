@@ -55,10 +55,8 @@ public class GuiDragon extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 155, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
-        GlStateManager.pushMatrix();
         GlStateManager.scale(0.6, 0.6, 0.6);
         this.fontRenderer.drawString(dragon.getHunger() + "/100", 60, 106, 0Xe99e0c);
-        GlStateManager.popMatrix();
     }
 
     private void hunger(int x, int y) {
@@ -105,15 +103,16 @@ public class GuiDragon extends GuiContainer {
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
 
         //draw dragon entity
-        GuiInventory.drawEntityOnScreen(x + 90, y + 60, 20, x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
+        GuiInventory.drawEntityOnScreen(x + 90, y + 60, (int) (dragon.isHatchling() ? 35 : 7), x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
     }
+
 
     @Override
     public void initGui() {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        lock = new LockButton(0, width / 2 + 66, height / 2 - 53, 18, 14, dragon);
+        lock = new LockButton(0, width / 2 + 66, height / 2 - 53, 18, 14, dragon); // I18n.format("gui.allowothers", new Object[0])
         sit = new GuiButton(1, width / 2 + 47, height / 2 - 53, 18, 14, "SIT");
 
         buttonList.add(lock);

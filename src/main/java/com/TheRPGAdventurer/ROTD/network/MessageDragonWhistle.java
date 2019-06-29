@@ -68,10 +68,11 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
         clientWhistleSound(player);
         if (!player.world.isRemote) {
             Entity entity = server.getEntityFromUuid(dragonId);
-            if (entity != null && entity instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon = (EntityTameableDragon) entity;
-                dragon.setWhistleState(message.controlState);
-
+            EntityTameableDragon dragon = (EntityTameableDragon) entity;
+            if (entity != null) {
+                if (entity instanceof EntityTameableDragon && dragon.isOwner(player)) {
+                    dragon.setWhistleState(message.controlState);
+                }
             } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
         }
     }

@@ -19,13 +19,15 @@ import java.util.stream.Collectors;
 
 public class DMUtils {
 
-	private EntityTameableDragon dragon;
     private static Logger logger;
+    private EntityTameableDragon dragon;
 
     public static Logger getLogger() {
-        if (logger == null) {
-            logger = LogManager.getFormatterLogger(DragonMounts.MODID);
-        }
+        boolean dev = false; // jould tart debugs of loggers, i got lazy to make something complex
+        if (dev)
+            if (logger == null) {
+                logger = LogManager.getFormatterLogger(DragonMounts.MODID);
+            }
         return logger;
     }
 
@@ -155,7 +157,7 @@ public class DMUtils {
         //found amulet in mainHand
         return itemStack.getItem() instanceof ItemDragonAmuletNEW;
     }
-    
+
     /**
      * taken from stackoverflow
      *
@@ -165,7 +167,7 @@ public class DMUtils {
      * @param exclude
      * @return
      */
-    public int getRandomWithExclusion(Random rnd, int start, int end, int... exclude) {
+    public static int getRandomWithExclusionstatic(Random rnd, int start, int end, int... exclude) {
         int random = start + rnd.nextInt(end - start + 1 - exclude.length);
         for (int ex : exclude) {
             if (random < ex) {
@@ -185,7 +187,7 @@ public class DMUtils {
      * @param exclude
      * @return
      */
-    public static int getRandomWithExclusionstatic(Random rnd, int start, int end, int... exclude) {
+    public int getRandomWithExclusion(Random rnd, int start, int end, int... exclude) {
         int random = start + rnd.nextInt(end - start + 1 - exclude.length);
         for (int ex : exclude) {
             if (random < ex) {

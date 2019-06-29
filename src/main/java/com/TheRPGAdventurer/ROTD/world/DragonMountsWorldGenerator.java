@@ -121,37 +121,29 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
             if (isOcean && random.nextInt((DragonMountsConfig.OceanNestRarity))==1) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() + 10, height.getZ()), world, random.nextBoolean() ? "aether" : "moonlight", LootTableList.CHESTS_WOODLAND_MANSION, true, random);
-                //   DMUtils.getLogger().info("Aether Nest here at: " + new BlockPos(height.getX(), height.getY() + 10, height.getZ()));
 
             } else if (isSnowy && random.nextInt((DragonMountsConfig.IceNestRarity))==1 && canSpawnHere(world, height, 7)) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "ice", LootTableList.CHESTS_STRONGHOLD_CROSSING, true, random);
-                DMUtils.getLogger().info("Ice Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if (isJungle && random.nextInt((DragonMountsConfig.JungleNestRarity))==1) {
                 loadStructure(height, world, "forest1", LootTableList.CHESTS_STRONGHOLD_LIBRARY, true, random);
-                DMUtils.getLogger().info("Jungle Nest here at: " + height);
 
             } else if (isDesert && random.nextInt((DragonMountsConfig.SunlightNestRarity))==1 && canSpawnHere(world, height, 22)) {
 
                 loadStructure(new BlockPos(height.getX(), height.getY() - 10, height.getZ()), world, "sunlight", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-                DMUtils.getLogger().info("Sunlight Nest here at: " + new BlockPos(height.getX(), height.getY(), height.getZ()));
 
             } else if (isMesa && random.nextInt((DragonMountsConfig.TerraNestRarity))==1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "terra", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                DMUtils.getLogger().info("Terra Nest here at: " + new BlockPos(height.getX(), height.getY() - 1, height.getZ()));
 
             } else if ((isSwamp) && random.nextInt((DragonMountsConfig.WaterNestRarity))==1 && canSpawnWaterHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 4, height.getZ()), world, "water3", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
-                DMUtils.getLogger().info("Water Plains Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
 
             } else if ((isPlains || isForest) && random.nextInt((DragonMountsConfig.ForestNestRarity))==1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "forest2", LootTableList.CHESTS_DESERT_PYRAMID, true, random);
 
-                DMUtils.getLogger().info("Forest Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
             } else if (isMountainOrBeach && random.nextInt(DragonMountsConfig.FireNestRarity)==1 && canSpawnHere(world, height, 4)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 2, height.getZ()), world, "fire", LootTableList.CHESTS_SIMPLE_DUNGEON, true, random);
-                //  DMUtils.getLogger().info("Fire Nest here at: " + new BlockPos(height.getX(), height.getY() - 2, height.getZ()));
             }
         }
     }
@@ -222,7 +214,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 
                 if (pos!=null && canSpawnNetherHere(world, pos, 6)) {
                     loadStructure(new BlockPos(x, pos.getY(), z), worldserver, "nether", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                    DMUtils.getLogger().info("Nether Nest here at: " + new BlockPos(x, pos.getY(), z));
                 }
             }
         }
@@ -263,10 +254,8 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
                     if (place) {
                         if (random.nextBoolean()) {
                             loadStructure(new BlockPos(x, y - 10, z), worldserver, "zombie", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                            DMUtils.getLogger().info("Zombie Nest here at: " + new BlockPos(x, y, z));
                         } else {
                             loadStructure(new BlockPos(x, y - 10, z), worldserver, "skeleton", LootTableList.CHESTS_NETHER_BRIDGE, true, random);
-                            DMUtils.getLogger().info("Skeleton Nest here at: " + new BlockPos(x, y, z));
 
                         }
                     }
@@ -286,7 +275,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
 
             if (canSpawnHere(world, height, 5)) {
                 loadStructure(new BlockPos(height.getX(), height.getY() - 1, height.getZ()), worldserver, "enchant", LootTableList.CHESTS_END_CITY_TREASURE, true, random);
-                DMUtils.getLogger().info("Enchant Nest here at: " + height);
             }
         }
     }

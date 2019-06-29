@@ -17,19 +17,11 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public boolean shouldExecute() {
-        return dragon.getOwner() != null && dragon.getControllingPlayer() == null;
-    }
-
-    @Override
-    public boolean shouldContinueExecuting() {
-        return dragon.getControllingPlayer() == null; // theres a noPath check here before
+        return dragon.getOwner() != null && dragon.getControllingPlayer() == null && !dragon.nothing();
     }
 
     @Override
     public void updateTask() {
-        DMUtils.getLogger().info("whistle state " + dragon.getWhistleState());
-        DMUtils.getLogger().info("fire support " + dragon.firesupport());
-
         if (dragon.firesupport() && dragon.getOwner() != null && dragon.isUsingBreathWeapon()) {
             dragon.getNavigator().clearPath();
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
@@ -45,14 +37,11 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
         BlockPos midPoint = entityLivingBase.getPosition();
-        double x = midPoint.getX();
-        double y = midPoint.getY();
-        double z = midPoint.getZ();
         boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
         double offset = 16D;
-        x = midPoint.getX() + 0.5 - 12;
-        y = midPoint.getY() + 0.5 + 24;
-        z = midPoint.getZ() + 0.5 - offset;
+        double x = midPoint.getX() + 0.5 - 12;
+        double y = midPoint.getY() + 0.5 + 24;
+        double z = midPoint.getZ() + 0.5 - offset;
         return dragon.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 

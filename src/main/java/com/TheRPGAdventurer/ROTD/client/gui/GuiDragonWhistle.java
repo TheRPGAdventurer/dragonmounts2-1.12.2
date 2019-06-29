@@ -30,6 +30,8 @@ public class GuiDragonWhistle extends GuiScreen {
     GuiButton homePos;
     GuiButton firesupport;
 
+    boolean newState;
+
     byte state;
 
     public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
@@ -56,6 +58,7 @@ public class GuiDragonWhistle extends GuiScreen {
 
         homePos = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.homePos"));
 
+//        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 35, 98, 20, I18n.format("gui.firesupport"));
         firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, TextFormatting.RED + I18n.format("gui.firesupport"));
 
         sit = new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
@@ -126,20 +129,19 @@ public class GuiDragonWhistle extends GuiScreen {
             circle(button == circle);
             byte controlState = getState();
 
-            if (controlState != previousState) {
+            if (controlState != previousState) 
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
-            }
-
+            
             if (button == firesupport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonFireSupport(uuid));
-
+            
             if (button == sit)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistleSit(uuid));
 
 
             if (button == homePos)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
-
+            
             //Close GUI when option is selected
             Minecraft.getMinecraft().displayGuiScreen(null);
         }

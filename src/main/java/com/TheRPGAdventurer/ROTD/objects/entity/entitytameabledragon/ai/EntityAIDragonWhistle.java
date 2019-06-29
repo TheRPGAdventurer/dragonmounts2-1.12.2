@@ -17,7 +17,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public boolean shouldExecute() {
-        return dragon.getOwner() != null && dragon.getControllingPlayer() == null && !dragon.nothing();
+        return dragon.getOwner() != null && dragon.getControllingPlayer() == null;
     }
 
     @Override
@@ -91,9 +91,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         int directionInt = dragon.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
         double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
-        double x = midPoint.getX() + r * Math.cos(directionInt * a * dragon.ticksExisted * 3.5); // ()
+        double x = midPoint.getX() + r * Math.cos(directionInt * a * dragon.ticksExisted * 3.5);
         double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
-        double z = midPoint.getZ() + r * Math.sin(directionInt * a * dragon.ticksExisted * 3.5); //()
+        double z = midPoint.getZ() + r * Math.sin(directionInt * a * dragon.ticksExisted * 3.5);
 
         return dragon.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
     }
@@ -105,29 +105,24 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             dragon.liftOff();
         }
 
-        if (dragon.isFlying()) {
-            if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
-                this.circleTarget1(dragon.getOwner().getPosition());
-                dragon.setSitting(false);
-            } else if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
-                this.followPlayerFlying(dragon.getOwner());
-                dragon.setSitting(false);
-            } else if (dragon.come() && !this.comeToPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
-                this.comeToPlayerFlying(dragon.getOwner());
-                dragon.setSitting(false);
-            } else if (dragon.homepos()) {
-                BlockPos pos = new BlockPos(dragon);
-                dragon.homePos = pos;
-                dragon.hasHomePosition = true;
-                ((EntityPlayer) dragon.getOwner()).sendStatusMessage(new TextComponentTranslation("dragon.command.new_home", dragon.homePos.getX(), dragon.homePos.getY(), dragon.homePos.getZ()), true);
-            } else if (dragon.nothing()) {
-                dragon.setnothing(true);
-            }
-
-        } else if (dragon.sit()) {
-            dragon.getAISit().setSitting(!dragon.isSitting());
-            dragon.getNavigator().clearPath();
-            dragon.setnothing(true);
-        }
+//         if (dragon.isFlying()) {
+//             if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
+//                 this.circleTarget1(dragon.getOwner().getPosition());
+//                 dragon.setSitting(false);
+//             } else if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
+//                 this.followPlayerFlying(dragon.getOwner());
+//                 dragon.setSitting(false);
+//             } else if (dragon.come() && !this.comeToPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
+//                 this.comeToPlayerFlying(dragon.getOwner());
+//                 dragon.setSitting(false);
+//             } else if (dragon.homepos()) {
+//                 BlockPos pos = new BlockPos(dragon);
+//                 dragon.homePos = pos;
+//                 dragon.hasHomePosition = true;
+//                 ((EntityPlayer) dragon.getOwner()).sendStatusMessage(new TextComponentTranslation("dragon.command.new_home", dragon.homePos.getX(), dragon.homePos.getY(), dragon.homePos.getZ()), true);
+//             } else if (dragon.nothing()) {
+//                 dragon.setnothing(true);
+//             }
+//         }
     }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "dragonmounts:light_dragonscales"
+    }
+  },
+  "result": {
+    "item": "dragonmounts:light_dragonscale_boots"
+  }
+}
+

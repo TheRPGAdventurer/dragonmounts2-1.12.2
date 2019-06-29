@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    " # ",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "dragonmounts:light_dragonscales"
+    }
+  },
+  "result": {
+    "item": "dragonmounts:light_dragon_pickaxe"
+  }
+}
+

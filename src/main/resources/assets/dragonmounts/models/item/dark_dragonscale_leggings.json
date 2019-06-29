@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/armor/dark/dark_dragonscale_leggings"
+	}
+}

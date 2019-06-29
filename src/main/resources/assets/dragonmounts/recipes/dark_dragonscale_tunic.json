@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "dragonmounts:dark_dragonscales"
+    }
+  },
+  "result": {
+    "item": "dragonmounts:dark_dragonscale_tunic"
+  }
+}
+

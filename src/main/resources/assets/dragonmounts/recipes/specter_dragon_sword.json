@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "X",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "dragonmounts:specter_dragonscales"
+    }
+  },
+  "result": {
+    "item": "dragonmounts:specter_dragon_sword"
+  }
+}
+

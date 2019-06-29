@@ -27,7 +27,7 @@ public class GuiDragonWhistle extends GuiScreen {
     GuiButton followFlying;
     GuiButton come;
     GuiButton sit;
-    GuiButton homePos;
+    GuiButton teleport;
     GuiButton firesupport;
 
     boolean newState;
@@ -54,11 +54,8 @@ public class GuiDragonWhistle extends GuiScreen {
 
         followFlying = new GuiButton(0, width / 2 - 100, height / 2 + 15, 98, 20, I18n.format("gui.followFlying"));
 
-        come = new GuiButton(0, width / 2 - 50, height / 2 - 10, 98, 20, I18n.format("gui.goToPlayer"));
+        teleport = new GuiButton(0, width / 2 - 50, height / 2 - 10, 98, 20, I18n.format("gui.homePos"));
 
-        homePos = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.homePos"));
-
-//        firesupport=new GuiButton(0, width / 2 - 150, height / 2 - 35, 98, 20, I18n.format("gui.firesupport"));
         firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, TextFormatting.RED + I18n.format("gui.firesupport"));
 
         sit = new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
@@ -67,7 +64,7 @@ public class GuiDragonWhistle extends GuiScreen {
         buttonList.add(circle);
         buttonList.add(followFlying);
         buttonList.add(come);
-        buttonList.add(homePos);
+        buttonList.add(teleport);
         buttonList.add(sit);
         buttonList.add(firesupport);
     }
@@ -106,10 +103,6 @@ public class GuiDragonWhistle extends GuiScreen {
         setStateField(2, circle);
     }
 
-    public void come(boolean come) {
-        setStateField(3, come);
-    }
-
     public void homepos(boolean homepos) {
         setStateField(4, homepos);
     }
@@ -125,7 +118,6 @@ public class GuiDragonWhistle extends GuiScreen {
             byte previousState = getState();
             nothing(button == nothing);
             follow(button == followFlying);
-            come(button == come);
             circle(button == circle);
             byte controlState = getState();
 
@@ -139,7 +131,7 @@ public class GuiDragonWhistle extends GuiScreen {
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistleSit(uuid));
 
 
-            if (button == homePos)
+            if (button == teleport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
             
             //Close GUI when option is selected

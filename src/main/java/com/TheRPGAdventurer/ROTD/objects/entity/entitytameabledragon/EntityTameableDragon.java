@@ -447,10 +447,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return (dataManager.get(WHISTLE_STATE)) == 2;
     }
 
-    public boolean come() {
-        return (dataManager.get(WHISTLE_STATE)) == 3;
-    }
-
     public boolean homepos() {
         return (dataManager.get(WHISTLE_STATE)) == 4;
 

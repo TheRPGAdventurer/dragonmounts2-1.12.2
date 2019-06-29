@@ -20,6 +20,7 @@ import java.util.UUID;
 public class MessageDragonFireSupport extends AbstractMessage<MessageDragonFireSupport> {
 
     public UUID dragonId;
+    EntityTameableDragon dragon;
 
     public MessageDragonFireSupport(UUID dragonId) {
         this.dragonId = dragonId;
@@ -62,9 +63,9 @@ public class MessageDragonFireSupport extends AbstractMessage<MessageDragonFireS
         clientWhistleSound(player);
         if (!player.world.isRemote) {
             Entity entity = server.getEntityFromUuid(dragonId);
+            EntityTameableDragon dragon = (EntityTameableDragon) entity;
             if (entity != null) {
-                if (entity instanceof EntityTameableDragon) {
-                    EntityTameableDragon dragon = (EntityTameableDragon) entity;
+                if (entity instanceof EntityTameableDragon && dragon.isOwner(player)) {
                      dragon.setfiresupport(!dragon.firesupport());
                 }
             } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);

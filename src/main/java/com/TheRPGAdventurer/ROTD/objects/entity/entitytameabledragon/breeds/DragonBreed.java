@@ -397,6 +397,36 @@ public abstract class DragonBreed {
     return new Pair<Float, Float>(minAttackRange, maxAttackRange);
   }
 
+  /**
+   * returns the width and height of the entity when it's an adult
+   * later: may vary for different breeds
+   * @return a pair of [width, height] for the entity - affects the Axis Aligned Bounding Box
+   */
+  public Pair<Float, Float> getAdultEntitySize()
+  {
+    return new Pair<>(4.8F, 4.2F);
+//    public static final float BASE_WIDTH = 4.8f; //2.4f;      make the adult twice the size it used to be
+//    public static final float BASE_HEIGHT = 4.2F; //2.1f;      make the adult twice the size it used to be
+  }
+
+  /**
+   * used when rendering; scale up the model by this factor for a fully-grown adult
+   * @return the relative scale factor (1.0 = no scaling)
+   */
+  public float getAdultModelRenderScaleFactor()
+  {
+    return 1.6F;  // I don't know why this is the magic number 1.6, it just gives the right size
+  }
+
+  /**
+   * used for converting the model dimensions into world dimensions (see DragonHeadPositionHelper)
+   * I don't know why this is the magic # of 0.1F
+   * It's probably linked to getAdultModelRenderScaleFactor
+   * @return
+   */
+  public float getAdultModelScaleFactor() {
+    return 0.1F;
+  }
 
 }
 

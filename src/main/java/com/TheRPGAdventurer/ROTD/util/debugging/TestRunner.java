@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.util.debugging;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonHeadPositionHelper;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.TestForestBreath;
 import net.minecraft.block.BlockLadder;
@@ -61,6 +62,10 @@ public class TestRunner
 
         break;
       }
+      case 60: {
+        testGetRelativeHeadSize(worldIn);
+      }
+
       case 61: {
         testDragonLifeStage();
         break;
@@ -248,6 +253,19 @@ public class TestRunner
     System.out.println("Final stage was:" + lastStage);
     return true;
   }
+
+  public static boolean testGetRelativeHeadSize(World worldIn)
+  {
+    EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+    DragonHeadPositionHelper dhph = new DragonHeadPositionHelper(dragon, 7);
+
+    for (float scale = 0.0f; scale <= 1.0F; scale += 0.01F) {
+      float headsize = dhph.getRelativeHeadSize(scale);
+      System.out.println("scale=" + scale + ", relativeheadsize=" + headsize);
+    }
+    return true;
+  }
+
 
 
 }

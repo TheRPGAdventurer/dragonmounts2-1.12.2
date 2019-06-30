@@ -77,7 +77,7 @@ public class DragonBrain extends DragonHelper {
         // guessed, based on EntityAIRestrictOpenDoor - break the door down, don't open it
         if (dragon.getNavigator() instanceof PathNavigateGround) {
             PathNavigateGround pathNavigateGround = (PathNavigateGround) dragon.getNavigator();
-            pathNavigateGround.setEnterDoors(dragon.isHatchling());
+            pathNavigateGround.setEnterDoors(dragon.isBaby());
         }
         
         // clear current navigation target
@@ -115,7 +115,7 @@ public class DragonBrain extends DragonHelper {
             targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityLiving>(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>(){public boolean apply(@Nullable EntityLiving p_apply_1_){return p_apply_1_ != null && IMob.VISIBLE_MOB_SELECTOR.apply(p_apply_1_);}}));
             targetTasks.addTask(5, new EntityAIDragonHunt(dragon, EntityAnimal.class, false, new EntityClassPredicate(EntitySheep.class, EntityPig.class, EntityChicken.class, EntityRabbit.class, EntityLlama.class))); // mutex 1
 
-            if (dragon.isHatchling() && dragon.onGround) {
+            if (dragon.isBaby() && dragon.onGround) {
                 tasks.addTask(5, new EntityAILeapAtTarget(dragon, 0.7F)); // mutex 1
                 if (!dragon.isTamed()) tasks.addTask(6, new EntityAIFollowParent(dragon, 1.4f)); // Only follow the parent if not tamed
                 tasks.addTask(6, new EntityAITempt(dragon, 0.75, false, OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet()))); // mutex 2+1

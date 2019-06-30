@@ -61,6 +61,42 @@ public enum DragonLifeStage {
     this.finalScale = scaleAtEndOfStage;
   }
 
+  /** true if we're in the egg, false otherwise
+   * @return
+   */
+  public boolean isEgg() {
+    return this == EGG;
+  }
+
+  /**
+   * does this stage act like a minecraft baby?
+   * @return
+   */
+  public boolean isBaby() {
+    return this == HATCHLING || this == INFANT;
+  }
+
+  public boolean isHatchling() {
+    return  this == HATCHLING;
+  }
+
+  /**
+   * is the dragon fully grown?
+   * @return
+   */
+  public boolean isFullyGrown() {
+    return this == ADULT;
+  }
+
+  /**
+   * is this dragon large enough to breath?
+   * @return
+   */
+  public boolean isOldEnoughToBreathe() {
+    return this.order >= PREJUVENILE.order;
+  }
+
+
   /**
    * get the current life stage based on the dragon's age
    * @param ticksSinceCreation number of ticks since the egg was created
@@ -76,7 +112,6 @@ public enum DragonLifeStage {
       }
       stageFound = dragonLifeStage;
     }
-
     return stageFound;
   }
 
@@ -88,6 +123,7 @@ public enum DragonLifeStage {
     int lifeStageTicks = ticksSinceCreation - stageInfo.get(lifeStage).startTicks;
     return lifeStageTicks / (float)lifeStage.durationTicks;
   }
+
   public static float getScaleFromTickCount(int ticksSinceCreation) {
     DragonLifeStage lifeStage = getLifeStageFromTickCount(ticksSinceCreation);
     StageInfo si = stageInfo.get(lifeStage);
@@ -100,8 +136,17 @@ public enum DragonLifeStage {
     return MathX.lerp(lifeStage.startScale, lifeStage.finalScale, fractionOfStage);
   }
 
+  /**
+   * what is the tick count corresponding to the start of this stage?
+   * @return
+   */
+  public int getStartTickCount()
+  {
+    return stageInfo.get(this).startTicks;
+  }
+
   public static int clipTickCountToValid(int ticksSinceCreation) {
-    return MathHelper.clamp(ticksSinceCreation,minimumValidTickValue, maximumValidTickValue);
+    return MathHelper.clamp(ticksSinceCreation, minimumValidTickValue, maximumValidTickValue);
   }
 
   private static HashMap<DragonLifeStage, StageInfo> stageInfo;

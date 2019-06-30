@@ -105,8 +105,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
-    public static final float BASE_WIDTH = 2.4f;
-    public static final float BASE_HEIGHT = 2.1f;
+    public static final float BASE_WIDTH = 4.8f; //2.4f;      make the adult twice the size it used to be
+    public static final float BASE_HEIGHT = 4.2F; //2.1f;      make the adult twice the size it used to be
     public static final float RESISTANCE = 10.0f;
     public static final double BASE_FOLLOW_RANGE = 70;
     public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
@@ -548,7 +548,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public boolean canFly() {
         // eggs can't fly
-        return !isEgg() && !isHatchling() && !isInfant();
+        return !isEgg() && !isBaby();
     }
 
     public boolean isGrowthPaused() {
@@ -972,7 +972,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         doBlockCollisions();
-        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
+        List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.2, -0.01, 0.2), EntitySelectors.getTeamCollisionPredicate(this));
 
         if (!list.isEmpty() && isSaddled() && isAdult()) {
             boolean flag = !this.world.isRemote;
@@ -980,7 +980,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity = list.get(j);
                 if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-                    if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && (isJuvenile() || isAdult())) {
+                    if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && !isBaby()) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity);
@@ -994,7 +994,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         Random rand = new Random();
-        if (this.getBreed().getSneezeParticle() != null && rand.nextInt(750) == 1 && !this.isUsingBreathWeapon() && getScale() > getScale() * 0.14 && !isEgg()) {
+        if (this.getBreed().getSneezeParticle() != null && rand.nextInt(750) == 1 && !this.isUsingBreathWeapon() && !isBaby() && !isEgg()) {
             double throatPosX = (this.getAnimator().getThroatPosition().x);
             double throatPosY = (this.getAnimator().getThroatPosition().z);
             double throatPosZ = (this.getAnimator().getThroatPosition().y + 1.7);
@@ -1196,7 +1196,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void roar() {
         if (!isDead && getBreed().getRoarSoundEvent(this) != null && !isUsingBreathWeapon()) {
             this.roarTicks = 0; // MathX.clamp(getScale(), 0.88f
-            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(this), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 2, 5), getSoundPitch(), true);
+            world.playSound(posX, posY, posZ, getBreed().getRoarSoundEvent(this), SoundCategory.NEUTRAL, MathX.clamp(getScale(), 0.4F, 1.0F), getSoundPitch(), true);
+                  // sound volume should be between 0 - 1, and scale is also 0 - 1
         }
     }
 
@@ -1285,16 +1286,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (isFlying() || isSitting()) return;
 
-        // override sound type if the top block is snowy
-        SoundType soundType;
-        if (world.getBlockState(entityPos.up()).getBlock() == Blocks.SNOW_LAYER)
-            soundType = Blocks.SNOW_LAYER.getSoundType();
-        else soundType = block.getSoundType();
-
-        // play stomping for bigger dragons
         SoundEvent stepSound;
-        if (isHatchling()) stepSound = soundType.getStepSound();
-        else stepSound = getStepSound();
+        // baby has quiet steps, larger have stomping sound
+        if (isBaby()) {
+          SoundType soundType;
+          // override sound type if the top block is snowy
+          if (world.getBlockState(entityPos.up()).getBlock() == Blocks.SNOW_LAYER)
+            soundType = Blocks.SNOW_LAYER.getSoundType();
+          else
+            soundType = block.getSoundType();
+          stepSound = soundType.getStepSound();
+        } else {
+          stepSound = getStepSound();
+        }
         playSound(stepSound, 1f, 1f, false);
     }
 
@@ -1318,7 +1322,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * Returns the volume for a sound to play.
      */
     public float getVolume(SoundEvent sound) {
-        return MathX.clamp(getScale(), 0, 1.2F);
+        return MathX.clamp(getScale(), 0, 1.0F);
     }
 
     /**
@@ -1396,7 +1400,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (getHealth() <= 0) return false;
 
-        if (this.isTamedFor(player) && this.getScale() <= 0.35 && !player.isSneaking() && !DragonInteractBase.hasInteractItemsEquipped(player)) {
+        if (this.isTamedFor(player) && !this.isBaby() && !player.isSneaking() && !DragonInteractBase.hasInteractItemsEquipped(player)) {
             this.setSitting(false);
             this.startRiding(player, true);
             return true;
@@ -2094,25 +2098,27 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return getLifeStageHelper().isEgg();
     }
 
+    public boolean isBaby() {return getLifeStageHelper().isBaby();}
+
     /**
      * Calls both hatchling and infant since infant is just another stage to reduce growth speed
      *
      * @return
      */
-    public boolean isHatchling() {
-        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant();
-    }
-
-    public boolean isInfant() {
-        return getLifeStageHelper().isInfant();
-    }
-
-    public boolean isJuvenile() {
-        return getLifeStageHelper().isJuvenile() || getLifeStageHelper().isPreJuvenile();
-    }
-
+//    public boolean isHatchling() {
+//        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant();
+//    }
+//
+//    public boolean isInfant() {
+//        return getLifeStageHelper().isInfant();
+//    }
+//
+//    public boolean isJuvenile() {
+//        return getLifeStageHelper().isJuvenile() || getLifeStageHelper().isPreJuvenile();
+//    }
+//
     public boolean isAdult() {
-        return getLifeStageHelper().isAdult();
+        return getLifeStageHelper().isFullyGrown();
     }
 
 /*    public boolean isGiga() {
@@ -2126,7 +2132,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public boolean isChild() {
-        return !isAdult();
+        return getLifeStageHelper().isBaby();
     }
 
     /**
@@ -2186,7 +2192,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-        return item != null && item.getItem() == ModTools.diamond_shears && (this.isAdult() || this.isJuvenile()) && !this.isSheared() && ticksShear <= 0;
+        return item != null && item.getItem() == ModTools.diamond_shears && this.isChild() && !this.isSheared() && ticksShear <= 0;
 
     }
 
@@ -2484,7 +2490,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.roar();
         }
 
-        if (isHatchling() && isJumping) {
+        if (isBaby() && isJumping) {
             return false;
         }
 

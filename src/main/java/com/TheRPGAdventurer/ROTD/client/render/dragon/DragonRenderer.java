@@ -209,14 +209,15 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
      */
     @Override
     protected void preRenderCallback(EntityTameableDragon dragon, float partialTicks) {
-        float scale=dragon.getScale() * 0.8f;
+        final float MODEL_SCALE_FACTOR_FOR_FULLY_GROWN = 1.6F; // a fully grown dragon is larger than the model by this amount
+        float scale=dragon.getScale() * MODEL_SCALE_FACTOR_FOR_FULLY_GROWN;
         GlStateManager.scale(scale, scale, scale);
     }
 
     @Override
     protected ResourceLocation getEntityTexture(EntityTameableDragon dragon) {
     	DefaultDragonBreedRenderer texture = getBreedRenderer(dragon);
-    	return dragon.isMale() ? texture.getMaleBodyTexture(dragon.isHatchling(), dragon.isAlbino()) : texture.getFemaleBodyTexture(dragon.isHatchling(), dragon.isAlbino());
+    	return dragon.isMale() ? texture.getMaleBodyTexture(dragon.isBaby(), dragon.isAlbino()) : texture.getFemaleBodyTexture(dragon.isBaby(), dragon.isAlbino());
     	
     }
 

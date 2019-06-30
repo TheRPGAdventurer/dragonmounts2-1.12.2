@@ -36,7 +36,7 @@ public class ItemCarriage extends Item implements IHasModel {
         this.setUnlocalizedName(name + type.getName());
         this.type=type;
         this.setMaxDamage(1);
-        this.setMaxStackSize(16);
+        this.setMaxStackSize(64);
         this.setCreativeTab(DragonMounts.mainTab);
 
         ModItems.ITEMS.add(this);

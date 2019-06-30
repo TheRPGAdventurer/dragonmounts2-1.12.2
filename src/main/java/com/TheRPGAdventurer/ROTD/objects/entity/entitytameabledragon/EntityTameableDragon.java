@@ -1408,28 +1408,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
         if (getHealth() <= 0) return false;
 
-        if (this.isTamedFor(player) && this.getScale() <= 0.35 && !player.isSneaking() && !DragonInteractBase.hasInteractItemsEquipped(player)) {
-            this.setSitting(false);
-            this.startRiding(player, true);
-            return true;
-        }
-
         if (player.isPassenger(this)) {
             return false;
         }
 
         if (this.isServer() && !this.isEgg()) {
             if (isAllowed(player)) {
-
-                /*
-                 * Turning it to block
-                 */
-                if (this.isEgg() && player.isSneaking()) {
-                    this.world.playSound(player, this.getPosition(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.PLAYERS, 1, 1);
-                    this.world.setBlockState(this.getPosition(), BlockDragonBreedEgg.DRAGON_BREED_EGG.getStateFromMeta(this.getBreedType().getMeta()));
-                    this.setDead();
-                }
-
                 /*
                  * Riding
                  */

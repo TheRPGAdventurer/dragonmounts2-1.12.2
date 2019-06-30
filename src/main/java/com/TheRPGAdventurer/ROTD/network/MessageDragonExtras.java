@@ -85,7 +85,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
             if (message.down) dragon.setGoingDown(true);
             else dragon.setGoingDown(false);
 
-            if (message.isBoosting && dragon.boostTicks >= 0) dragon.setBoosting(true);
+            if (message.isBoosting) dragon.setBoosting(true);
             else dragon.setBoosting(false);
         }
     }

@@ -27,6 +27,7 @@ public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistl
 
     public MessageDragonWhistleSit() {
     }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
@@ -60,14 +61,13 @@ public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistl
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
         clientWhistleSound(player);
-        if (!player.world.isRemote) {
-            Entity entity = server.getEntityFromUuid(dragonId);
-            if (entity != null) {
-                if (entity instanceof EntityTameableDragon) {
-                    EntityTameableDragon dragon = (EntityTameableDragon) entity;
-                    dragon.setSitting(!dragon.isSitting());
-                }
-            } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
-        }
+        Entity entity = server.getEntityFromUuid(dragonId);
+        if (player.world.isRemote) return;
+        if (entity instanceof EntityTameableDragon) {
+            EntityTameableDragon dragon = (EntityTameableDragon) entity;
+            dragon.setSitting(!dragon.isSitting());
+            dragon.getNavigator().clearPath();
+        } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
+
     }
 }

@@ -66,14 +66,13 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
         clientWhistleSound(player);
-//        if (!player.world.isRemote) {
-            Entity entity = server.getEntityFromUuid(dragonId);
-            if (entity != null) {
-                if (entity instanceof EntityTameableDragon) {
-                    EntityTameableDragon dragon = (EntityTameableDragon) entity;
-                    dragon.setWhistleState(message.controlState);
-                }
-            } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
-//        }
+        Entity entity = server.getEntityFromUuid(dragonId);
+        if (player.world.isRemote) return;
+        if (entity != null) {
+            if (entity instanceof EntityTameableDragon) {
+                EntityTameableDragon dragon = (EntityTameableDragon) entity;
+                dragon.setWhistleState(message.controlState);
+            }
+        } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
     }
 }

@@ -54,7 +54,7 @@ public class DragonInteract extends DragonInteractBase {
                 /*
                  * Riding
                  */
-                if (dragon.getPassengers().size() < 3 && dragon.isTamed() && dragon.isSaddled() && (dragon.isAdult() || dragon.isJuvenile()) && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
+                if (dragon.getPassengers().size() < 4 && dragon.isTamed() && dragon.isSaddled() && (dragon.isAdult() || dragon.isJuvenile()) && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
                     dragon.setRidingPlayer(player);
                     return true;
                 }

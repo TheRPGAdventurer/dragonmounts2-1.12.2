@@ -1,18 +1,16 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
 
 public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public EntityAIDragonWhistle(EntityTameableDragon dragon) {
         super(dragon);
-        setMutexBits(0);
+        setMutexBits(1);
     }
 
     @Override
@@ -34,59 +32,22 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         }
     }
 
-
     public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
         BlockPos midPoint = entityLivingBase.getPosition();
-        boolean isMoving = entityLivingBase.motionX != 0 && entityLivingBase.motionY != 0 && entityLivingBase.motionZ != 0;
-        double offset = 16D;
         double x = midPoint.getX() + 0.5 - 12;
         double y = midPoint.getY() + 0.5 + 24;
-        double z = midPoint.getZ() + 0.5 - offset;
+        double z = midPoint.getZ() + 0.5 - 12;
         return dragon.getNavigator().tryMoveToXYZ(x, y, z, 2);
     }
 
-    public boolean comeToPlayerFlying(EntityLivingBase owner) {
-        float dist = dragon.getDistance(owner);
-        if(dist <= 5) {
-            dragon.inAirTicks = 0;
-            dragon.setFlying(false);
-            if(!dragon.isFlying()) {
-                dragon.setnothing(true);
-            }
-        }
-
-        if(dragon.getControllingPlayer() != null) {
-            return false;
-        }
-
-        if(!dragon.isFlying() && dist >= 5) {
-            dragon.liftOff();
-        }
-
-        if(dragon.isFlying()) {
-            return dragon.getNavigator().tryMoveToXYZ(owner.getPosition().getX() + 2, owner.getPosition().getY() - 1, owner.getPosition().getZ(), 1);
-        } else {
-            return false;
-        }
-
-    }
-
-    public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
-        int directionInt = direction ? 1 : -1;
-        return dragon.getNavigator().tryMoveToXYZ(
-                target.getX() + radius * Math.cos(directionInt * dragon.ticksExisted * 0.5 * speed / radius + offset),
-                30 + target.getY(), // DragonMountsConfig.dragonFlightHeight
-                target.getZ() + radius * Math.sin(directionInt * dragon.ticksExisted * 0.5 * speed / radius + offset),
-                speed * moveSpeedMultiplier);
-    }
 
     public boolean circleTarget1(BlockPos midPoint) {
-        if(dragon.getControllingPlayer() != null) {
+        if (dragon.getControllingPlayer() != null) {
             return false;
         }
 
         Vec3d vec1 = dragon.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
-        Vec3d vec2 = new Vec3d(0,0,1);
+        Vec3d vec2 = new Vec3d(0, 0, 1);
 
         int directionInt = dragon.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
@@ -102,6 +63,8 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
     public void startExecuting() {
         //Commands Requiring Flight - if any is true, start flying
         if (!dragon.isFlying() && (dragon.circle() || dragon.follow())) {
+            dragon.setFlying(true);;
+            dragon.setSitting(false);
             dragon.liftOff();
         }
 
@@ -109,15 +72,24 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             dragon.setnothing(true);
         }
 
-         if (dragon.isFlying()) {
-             if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
-                 this.circleTarget1(dragon.getOwner().getPosition());
-                 dragon.setSitting(false);
-             }
-             if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
-                 this.followPlayerFlying(dragon.getOwner());
-                 dragon.setSitting(false);
-             }
-         }
+        if (dragon.isFlying()) {
+            if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
+                this.circleTarget1(dragon.getOwner().getPosition());
+
+            }
+            if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
+                this.followPlayerFlying(dragon.getOwner());
+
+            }
+        }
     }
 }
+
+//    public boolean circleTarget2(BlockPos target, float height, float radius, float speed, boolean direction, float offset, float moveSpeedMultiplier) {
+//        int directionInt = direction ? 1 : -1;
+//        return dragon.getNavigator().tryMoveToXYZ(
+//                target.getX() + radius * Math.cos(directionInt * dragon.ticksExisted * 0.5 * speed / radius + offset),
+//                30 + target.getY(), // DragonMountsConfig.dragonFlightHeight
+//                target.getZ() + radius * Math.sin(directionInt * dragon.ticksExisted * 0.5 * speed / radius + offset),
+//                speed * moveSpeedMultiplier);
+//    }

@@ -49,11 +49,6 @@ public class DragonBreedNether extends DragonBreed {
         }
     }
 
-    //	@Override
-    //	public boolean canChangeBreed() {
-    //		return false;
-    //	}
-
     @Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {
         dragon.getBreathHelper().getBreathAffectedAreaNether().continueBreathing(world, origin, endOfLook, power, dragon);
@@ -90,10 +85,4 @@ public class DragonBreedNether extends DragonBreed {
             }
         }
     }
-
-    //	@Override
-    //	public boolean isInfertile() {
-    //		return true;
-    //	}
-
 }

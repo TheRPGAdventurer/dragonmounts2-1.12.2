@@ -55,8 +55,10 @@ public class GuiDragon extends GuiContainer {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         this.fontRenderer.drawString(dragon.hasCustomName() ? dragon.getCustomNameTag() : "Dragon Inventory", 8, 6, dragon.getBreed().getColor());
         this.fontRenderer.drawString(dragon.isMale() ? "M" : "FM", 155, 6, dragon.isMale() ? 0x0079be : 0Xff8b8b);
+        GlStateManager.pushMatrix();
         GlStateManager.scale(0.6, 0.6, 0.6);
         this.fontRenderer.drawString(dragon.getHunger() + "/100", 60, 106, 0Xe99e0c);
+        GlStateManager.popMatrix();
     }
 
     private void hunger(int x, int y) {

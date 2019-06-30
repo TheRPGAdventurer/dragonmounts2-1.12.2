@@ -39,8 +39,8 @@ public class DragonBreedTerra extends DragonBreed {
     }
 
     private void doParticles(EntityTameableDragon dragon) {
-        if (!dragon.isEgg() && !dragon.isHatchling()) {
-            float s=dragon.getScale() * 1.2f;
+        if (!dragon.isEgg() && !dragon.isBaby()) {
+          float s=dragon.getScale() * 1.2f;
             for (double x1=0; x1 < s; ++x1) {
                 double x=dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
                 double y=dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;

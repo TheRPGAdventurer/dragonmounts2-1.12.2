@@ -13,14 +13,16 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.soun
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.BreathWeaponP;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -192,7 +194,7 @@ public abstract class DragonBreed {
     public abstract void onDeath(EntityTameableDragon dragon);
 
     public SoundEvent getLivingSound(EntityTameableDragon dragon) {
-        if (dragon.isHatchling()) {
+        if (dragon.isBaby()) {
             return ModSounds.ENTITY_DRAGON_HATCHLING_GROWL;
         } else {
             if (rand.nextInt(3)==0) {
@@ -204,7 +206,7 @@ public abstract class DragonBreed {
     }
 
     public SoundEvent getRoarSoundEvent(EntityTameableDragon dragon) {
-        return dragon.isHatchling() ? ModSounds.HATCHLING_DRAGON_ROAR : ModSounds.DRAGON_ROAR;
+        return dragon.isBaby() ? ModSounds.HATCHLING_DRAGON_ROAR : ModSounds.DRAGON_ROAR;
     }
 
     public SoundEvent getHurtSound() {
@@ -257,35 +259,37 @@ public abstract class DragonBreed {
         dragon.getBreathHelper().getEmitter().spawnBreathParticles(world, power, tickCounter);
     }
 
-    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
-        final SoundEffectNames hatchling[]={SoundEffectNames.HATCHLING_BREATHE_FIRE_START, SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP, SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
+    public SoundEffectNames[] getBreathWeaponSoundEffects(DragonLifeStage stage) {
+      final SoundEffectNames prejuvenile[]={SoundEffectNames.HATCHLING_BREATHE_FIRE_START, SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP, SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
 
-        final SoundEffectNames juvenile[]={SoundEffectNames.JUVENILE_BREATHE_FIRE_START, SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP, SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
+      final SoundEffectNames juvenile[]={SoundEffectNames.JUVENILE_BREATHE_FIRE_START, SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP, SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
 
-        final SoundEffectNames adult[]={SoundEffectNames.ADULT_BREATHE_FIRE_START, SoundEffectNames.ADULT_BREATHE_FIRE_LOOP, SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
+      final SoundEffectNames adult[]={SoundEffectNames.ADULT_BREATHE_FIRE_START, SoundEffectNames.ADULT_BREATHE_FIRE_LOOP, SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
 
-        switch (stage) {
-            case ADULT:
-                soundEffectNames=adult;
-                break;
-            case EGG:
-                break;
-            case HATCHLING:
-                soundEffectNames=hatchling;
-                break;
-            case INFANT:
-                soundEffectNames=hatchling;
-                break;
-            case JUVENILE:
-                soundEffectNames=juvenile;
-                break;
-            default:
-              DragonMounts.loggerLimit.error_once("Invalid life stage:" + stage);
-                break;
-        }
+      switch (stage) {
+        case EGG:
+        case INFANT:
+        case HATCHLING:
+          break;
 
-        return soundEffectNames;
+        case PREJUVENILE:
+          soundEffectNames=prejuvenile;
+          break;
 
+        case JUVENILE:
+          soundEffectNames=juvenile;
+          break;
+
+        case ADULT:
+          soundEffectNames=adult;
+          break;
+
+        default:
+          DragonMounts.loggerLimit.error_once("Invalid life stage:" + stage);
+          break;
+      }
+
+      return soundEffectNames;
     }
 
     public void onLivingUpdate(EntityTameableDragon dragon) {
@@ -396,6 +400,69 @@ public abstract class DragonBreed {
     return new Pair<Float, Float>(minAttackRange, maxAttackRange);
   }
 
+  /**
+   * returns the width and height of the entity when it's an adult
+   * later: may vary for different breeds
+   * @return a pair of [width, height] for the entity - affects the Axis Aligned Bounding Box
+   */
+  public Pair<Float, Float> getAdultEntitySize()
+  {
+    return new Pair<>(4.8F, 4.2F);
+//    public static final float BASE_WIDTH = 4.8f; //2.4f;      make the adult twice the size it used to be
+//    public static final float BASE_HEIGHT = 4.2F; //2.1f;      make the adult twice the size it used to be
+  }
+
+  /**
+   * used when rendering; scale up the model by this factor for a fully-grown adult
+   * @return the relative scale factor (1.0 = no scaling)
+   */
+  public float getAdultModelRenderScaleFactor()
+  {
+    return 1.6F;  // I don't know why this is the magic number 1.6, it just gives the right size
+  }
+
+  /**
+   * used for converting the model dimensions into world dimensions (see DragonHeadPositionHelper)
+   * I don't know why this is the magic # of 0.1F
+   * It's probably linked to getAdultModelRenderScaleFactor
+   * @return
+   */
+  public float getAdultModelScaleFactor() {
+    return 0.1F;
+  }
+
+  /**
+   * gets the position offset to use for a passenger on a fully-grown adult dragon
+   * @param isSitting is the dragon sitting down?
+   * @param passengerNumber the number (0.. max) of the passenger
+   * @return the [x, y, z] of the mounting position relative to the dragon [posX, posY, posZ]
+   * for smaller-than-adult sizes, multiply by
+   */
+  public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber)
+  {
+    double yoffset = (isSitting ? 3.4 : 4.4);
+
+    // dragon position is the middle of the model and the saddle is on
+    // the shoulders, so move player forwards on Z axis relative to the
+    // dragon's rotation to fix that
+    //
+
+    switch (passengerNumber) {
+      case 0: return new Vec3d(   0, yoffset, 2.2);
+      case 1: return new Vec3d(+0.6, yoffset, 1.5);
+      case 2: return new Vec3d(-0.6, yoffset, 1.5);
+    }
+    DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
+    return new Vec3d(0, yoffset, 2.2);
+  }
+
+  /** how many passengers can ride on this breed?
+   * @return
+   */
+  public int getMaxNumberOfPassengers(DragonLifeStage dragonLifeStage)
+  {
+    return 3;
+  }
 
 }
 

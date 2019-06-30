@@ -417,7 +417,7 @@ public class DragonBreathHelperP extends DragonHelper
       origin = dragon.getAnimator().getThroatPosition();
       infoToUpdate.dragonHeadLocation = origin;
       infoToUpdate.relativeVolume = dragon.getScale();
-      infoToUpdate.lifeStage = dragon.getLifeStageHelper().getLifeStageP();
+      infoToUpdate.lifeStage = dragon.getLifeStageHelper().getLifeStage();
 
       boolean isBreathing = false;
       if (target != null) {

@@ -14,7 +14,7 @@ import java.util.List;
 import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonBreedEgg;
 
 import net.minecraft.block.Block;
@@ -120,7 +120,7 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
     	dragonMate.resetInLove();
             
     	dragonBaby.setLocationAndAngles(dragon.posX, dragon.posY, dragon.posZ, 0, 0);
-    	dragonBaby.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+    	dragonBaby.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
             
     	world.spawnEntity(dragonBaby);
 

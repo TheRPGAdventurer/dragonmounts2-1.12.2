@@ -48,12 +48,11 @@ public class ItemDragonWhistle extends Item implements IHasModel {
      * Open Dragon Whistle gui for dragon with given uuid
      *
      * @param uuid
-     * @param whistle
      * @param world
      */
     @SideOnly(Side.CLIENT)
-    private void openDragonWhistleGui(UUID uuid, ItemStack whistle, World world) {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid, whistle));
+    private void openDragonWhistleGui(UUID uuid, World world) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid));
     }
 
     /**
@@ -106,12 +105,11 @@ public class ItemDragonWhistle extends Item implements IHasModel {
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
         }
 
-        this.openDragonWhistleGui(stack.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon"), new ItemStack(this), world);
+        this.openDragonWhistleGui(stack.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon"), world);
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
     }
 
     /*=== Item Extras ===*/
-
     @Override
     @SideOnly(Side.CLIENT)
     public String getItemStackDisplayName(ItemStack stack) {

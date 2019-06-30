@@ -50,12 +50,8 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
             return false;
 
 
-        if (!dragon.nothing())
-            return false;
-
-
         // follow only if the owner is using an Elytra
-        return owner.isElytraFlying();
+        return owner.isElytraFlying() && dragon.nothing();
     }
 
     @Override
@@ -66,7 +62,7 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
 
 
         // mount owner if close enough, otherwise move to owner
-        if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && owner.isSneaking())
+        if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height || (owner.isSneaking() && dragon.isFlying()))
             owner.startRiding(dragon);
 
 

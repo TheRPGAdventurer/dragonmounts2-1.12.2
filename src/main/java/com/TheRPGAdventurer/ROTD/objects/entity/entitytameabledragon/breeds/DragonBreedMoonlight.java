@@ -62,4 +62,9 @@ public class DragonBreedMoonlight extends DragonBreed {
 		return soundEffectNames;
 
 	}
+
+	@Override
+	public EnumParticleTypes getSneezeParticle() {
+		return null;
+	}
 }

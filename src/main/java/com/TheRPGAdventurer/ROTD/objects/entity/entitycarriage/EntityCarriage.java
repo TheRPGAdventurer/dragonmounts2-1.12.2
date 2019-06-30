@@ -52,7 +52,7 @@ public class EntityCarriage extends Entity {
     public EntityCarriage(World worldIn) {
         super(worldIn);
         this.preventEntitySpawning = true;
-        this.setSize(0.5F, 1.8F);
+        this.setSize(0.8F, 0.8F);
     }
 
     public EntityCarriage(World worldIn, double x, double y, double z) {
@@ -126,7 +126,7 @@ public class EntityCarriage extends Entity {
      * Returns true if this entity should push and be pushed by other entities when colliding.
      */
     public boolean canBePushed() {
-        return !this.isRiding() || !this.isBeingRidden();
+        return !this.isRiding();
     }
 
     /**
@@ -142,7 +142,7 @@ public class EntityCarriage extends Entity {
      */
     @Override
     public boolean canBeCollidedWith() {
-        return !this.isDead;
+        return !this.isDead || !this.isRiding() || !this.isBeingRidden();
     }
 
     public float getMaxSpeedAirVertical() {
@@ -215,12 +215,6 @@ public class EntityCarriage extends Entity {
         }
 
         this.move(MoverType.SELF, this.motionX, moveY, this.motionZ);
-
-        ////  if (!this.onGround) {
-        ///      this.motionX *= getDragAir();
-        //      this.motionY *= getDragAir();
-        //      this.motionZ *= getDragAir();
-        //  }
 
         if (this.getDamage() > 0.0F) {
             this.setDamage(this.getDamage() - 1.0F);
@@ -379,7 +373,7 @@ public class EntityCarriage extends Entity {
     public void applyEntityCollision(Entity entityIn) {
         //   net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartCollisionEvent(this, entityIn));
         if (!this.world.isRemote) {
-            if (!entityIn.noClip && !this.noClip) {
+            if (!entityIn.noClip && !this.noClip && canBePushed()) {
                 if (!this.isPassenger(entityIn)) {
                     double d0 = entityIn.posX - this.posX;
                     double d1 = entityIn.posZ - this.posZ;

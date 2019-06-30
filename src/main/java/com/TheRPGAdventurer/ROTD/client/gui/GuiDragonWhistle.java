@@ -19,7 +19,6 @@ import java.util.UUID;
 public class GuiDragonWhistle extends GuiScreen {
 
     World world;
-    ItemStack whistle;
     UUID uuid;
 
     GuiButton nothing;
@@ -31,9 +30,8 @@ public class GuiDragonWhistle extends GuiScreen {
 
     byte state;
 
-    public GuiDragonWhistle(World world, UUID uuid, ItemStack whistle) {
+    public GuiDragonWhistle(World world, UUID uuid) {
         super();
-        this.whistle = whistle;
         this.world = world;
         this.uuid = uuid;
     }
@@ -60,18 +58,12 @@ public class GuiDragonWhistle extends GuiScreen {
         buttonList.add(followFlying);
     }
 
-
-    //
-    private byte getState() {
-        return state;
-    }
-
     /* 0 nothing
        1 follow
        2 circle
      */
-    private void setStateField(int state, boolean newState) {
-        byte prevState = getState();
+    private void setStateField(byte state, boolean newState) {
+        byte prevState = state;
         if (newState) {
             this.state = (byte) state;
         } else {
@@ -80,25 +72,25 @@ public class GuiDragonWhistle extends GuiScreen {
     }
 
     public void nothing(boolean nothing) {
-        setStateField(0, nothing);
+        setStateField((byte)0, nothing);
     }
 
     public void follow(boolean follow) {
-        setStateField(1, follow);
+        setStateField((byte)1, follow);
     }
 
     public void circle(boolean circle) {
-        setStateField(2, circle);
+        setStateField((byte)2, circle);
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         if (uuid != null) {
-            byte previousState = getState();
+            byte previousState = state;
             nothing(button == nothing);
             follow(button == followFlying);
             circle(button == circle);
-            byte controlState = getState();
+            byte controlState = state;
 
             if (controlState != previousState)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
@@ -108,7 +100,6 @@ public class GuiDragonWhistle extends GuiScreen {
 
             if (button == sit)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistleSit(uuid));
-
 
             if (button == teleport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));

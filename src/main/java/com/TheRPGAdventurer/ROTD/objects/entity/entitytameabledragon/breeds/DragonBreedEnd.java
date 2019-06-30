@@ -76,6 +76,10 @@ public class DragonBreedEnd extends DragonBreed {
 		dragon.getBreathHelper().getEmitter().setBeamEndpoints(origin, endOfLook);
 		dragon.getBreathHelper().getEmitter().spawnBreathParticlesforEnderDragon(world, power, tickCounter);
     }
+
+    public EnumParticleTypes getSneezeParticle() {
+        return EnumParticleTypes.PORTAL;
+    }
     
 }
 	

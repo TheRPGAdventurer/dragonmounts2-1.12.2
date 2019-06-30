@@ -21,7 +21,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
     public UUID dragonId;
     public byte controlState;
-    EntityTameableDragon dragon;
 
     public MessageDragonWhistle(UUID dragonId, byte controlState) {
         this.dragonId = dragonId;
@@ -46,18 +45,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
     }
 
-    /**
-     * Play Sound on the client only; dont let anyone else hear!
-     * <p>
-     * Doesnt seem to work in {@code onClientRecieved()}...
-     *
-     * @param player
-     */
-    @SideOnly(Side.CLIENT)
-    private void clientWhistleSound(EntityPlayer player) {
-        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 4, 1);
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
@@ -65,14 +52,13 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
-        clientWhistleSound(player);
-        Entity entity = server.getEntityFromUuid(dragonId);
+        Entity entity = server.getEntityFromUuid(message.dragonId);
         if (player.world.isRemote) return;
-        if (entity != null) {
-            if (entity instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon = (EntityTameableDragon) entity;
-                dragon.setWhistleState(message.controlState);
-            }
+        if (entity instanceof EntityTameableDragon) {
+            EntityTameableDragon dragon = (EntityTameableDragon) entity;
+            dragon.setWhistleState(message.controlState);
+            player.world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
         } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
     }
 }

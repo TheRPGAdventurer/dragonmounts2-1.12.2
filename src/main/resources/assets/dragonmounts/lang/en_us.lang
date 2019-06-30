@@ -25,6 +25,22 @@ entity.DragonMount.zombie.name=Zombie Dragon
 entity.DragonMount.terra.name=Terra Dragon
 entity.DragonMount.moonlight.name=Moonlight Dragon
 
+entity.DragonMount.albino.ice.name=Albino Ice Dragon
+entity.DragonMount.albino.ender.name=Albino Ender Dragon
+entity.DragonMount.albino.aether.name=Albino Aether Dragon
+entity.DragonMount.albino.forest.name=Albino Forest Dragon
+entity.DragonMount.albino.sylphid.name=Albino Water Dragon
+entity.DragonMount.albino.nether.name=Albino Nether Dragon
+entity.DragonMount.albino.fire.name=Albino Fire Dragon
+entity.DragonMount.albino.skeleton.name=Albino Skeleton Dragon
+entity.DragonMount.albino.wither.name=Albino Wither Dragon
+entity.DragonMount.albino.enchant.name=Albino Enchantment Dragon
+entity.DragonMount.albino.sunlight.name=Albino Sunlight Dragon
+entity.DragonMount.albino.storm.name=Albino Storm Dragon
+entity.DragonMount.albino.zombie.name=Albino Zombie Dragon
+entity.DragonMount.albino.terra.name=Albino Terra Dragon
+entity.DragonMount.albino.moonlight.name=Albino Moonlight Dragon
+
 entity.DragonMounts.dragon.ice.name=Ice Dragon
 entity.DragonMounts.dragon.ender.name=Ender Dragon
 entity.DragonMounts.dragon.aether.name=Aether Dragon
@@ -40,22 +56,6 @@ entity.DragonMounts.dragon.storm.name=Storm Dragon
 entity.DragonMounts.dragon.zombie.name=Zombie Dragon
 entity.DragonMounts.dragon.terra.name=Terra Dragon
 entity.DragonMounts.dragon.moonlight.name=Moonlight Dragon
-
-entity.DragonMounts.dragon.albino.ice.name=Albino Ice Dragon
-entity.DragonMounts.dragon.albino.ender.name=Albino Ender Dragon
-entity.DragonMounts.dragon.albino.aether.name=Albino Aether Dragon
-entity.DragonMounts.dragon.albino.forest.name=Albino Forest Dragon
-entity.DragonMounts.dragon.albino.sylphid.name=Albino Water Dragon
-entity.DragonMounts.dragon.albino.nether.name=Albino Nether Dragon
-entity.DragonMounts.dragon.albino.fire.name=Albino Fire Dragon
-entity.DragonMounts.dragon.albino.skeleton.name=Albino Skeleton Dragon
-entity.DragonMounts.dragon.albino.wither.name=Albino Wither Dragon
-entity.DragonMounts.dragon.albino.enchant.name=Albino Enchantment Dragon
-entity.DragonMounts.dragon.albino.sunlight.name=Albino Sunlight Dragon
-entity.DragonMounts.dragon.albino.storm.name=Albino Storm Dragon
-entity.DragonMounts.dragon.albino.zombie.name=Albino Zombie Dragon
-entity.DragonMounts.dragon.albino.terra.name=Albino Terra Dragon
-entity.DragonMounts.dragon.albino.moonlight.name=Albino Moonlight Dragon
 
 
 #Breeds

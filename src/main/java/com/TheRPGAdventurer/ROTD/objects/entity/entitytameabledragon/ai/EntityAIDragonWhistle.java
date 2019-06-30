@@ -1,6 +1,8 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
+import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -10,7 +12,6 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public EntityAIDragonWhistle(EntityTameableDragon dragon) {
         super(dragon);
-        setMutexBits(1);
     }
 
     @Override
@@ -20,6 +21,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public void updateTask() {
+//        DMUtils.getLogger().info(dragon.getWhistleState());
         if (dragon.firesupport() && dragon.getOwner() != null && dragon.isUsingBreathWeapon()) {
             dragon.getNavigator().clearPath();
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
@@ -30,43 +32,41 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             if (dragon.getOwner() instanceof EntityPlayer)
                 dragon.updateIntendedRideRotation((EntityPlayer) dragon.getOwner());
         }
+        dragon.setnothing(dragon.firesupport() && dragon.getControllingPlayer()!=null);
     }
 
     public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
         BlockPos midPoint = entityLivingBase.getPosition();
-        double x = midPoint.getX() + 0.5 - 12;
-        double y = midPoint.getY() + 0.5 + 24;
-        double z = midPoint.getZ() + 0.5 - 12;
-        return dragon.getNavigator().tryMoveToXYZ(x, y, z, 2);
+        double x = midPoint.getX() + 0.5 - 1;
+        double y = midPoint.getY() + 0.5 + 1;
+        double z = midPoint.getZ() + 0.5 - 1;
+//        double x = midPoint.getX() + 0.5 - 12;
+//        double y = midPoint.getY() + 0.5 + 8;
+//        double z = midPoint.getZ() + 0.5 - 12;
+        return tryMoveToBlockPos(new BlockPos(x, y, z), 2);
     }
 
 
     public boolean circleTarget1(BlockPos midPoint) {
-        if (dragon.getControllingPlayer() != null) {
-            return false;
-        }
-
         Vec3d vec1 = dragon.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
         Vec3d vec2 = new Vec3d(0, 0, 1);
 
         int directionInt = dragon.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 0.9 * 30;  // DragonMountsConfig.dragonFlightHeight
+        double r = 30;  // DragonMountsConfig.dragonFlightHeight
         double x = midPoint.getX() + r * Math.cos(directionInt * a * dragon.ticksExisted * 3.5);
-        double y = midPoint.getY() + 45 + 0.5; // DragonMountsConfig.dragonFlightHeight
+        double y = midPoint.getY() + 30 + 0.5;
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * dragon.ticksExisted * 3.5);
 
-        return dragon.getNavigator().tryMoveToXYZ(x + 0.5, y + 0.5, z + 0.5, 1);
+        return tryMoveToBlockPos(new BlockPos(x + 0.5, y + 0.5, z + 0.5), 1);
     }
 
     @Override
     public void startExecuting() {
         //Commands Requiring Flight - if any is true, start flying
         if (!dragon.isFlying() && (dragon.circle() || dragon.follow())) {
-            dragon.setFlying(true);
-            ;
-            dragon.setSitting(false);
             dragon.liftOff();
+            dragon.setSitting(false);
         }
 
         if (dragon.nothing()) {
@@ -76,8 +76,10 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         if (dragon.isFlying()) {
             if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
                 this.circleTarget1(dragon.getOwner().getPosition());
+                this.dragon.setSitting(false);
             } else if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
                 this.followPlayerFlying(dragon.getOwner());
+                this.dragon.setSitting(false);
             }
         }
     }

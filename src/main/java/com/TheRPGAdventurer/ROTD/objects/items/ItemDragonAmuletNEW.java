@@ -102,7 +102,7 @@ public class ItemDragonAmuletNEW extends Item {
     		stack.setTagCompound(null);
     		player.setHeldItem(hand, stack);
     		world.spawnEntity(entityDragon);
-            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 2, 1);
+            player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 1, 1);
             stack.clearCustomName();
     		return EnumActionResult.SUCCESS;
     	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);

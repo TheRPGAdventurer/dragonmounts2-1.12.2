@@ -2,8 +2,8 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiSit;
+import com.TheRPGAdventurer.ROTD.network.gui.MessageDragonGuiLock;
+import com.TheRPGAdventurer.ROTD.network.gui.MessageDragonGuiSit;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -22,17 +22,18 @@ import java.io.IOException;
 @SideOnly(Side.CLIENT)
 public class GuiDragon extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
+    public static final ResourceLocation lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
+    public static final ResourceLocation lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");
+    public static final ResourceLocation lockDisabled = new ResourceLocation(DragonMounts.MODID, "textures/lock_3.png");
+    private static final ResourceLocation mainGui = new ResourceLocation(DragonMounts.MODID, "textures/gui/dragon.png");
     private static final ResourceLocation offhand = new ResourceLocation(DragonMounts.MODID, "textures/gui/offhand.png");
-    private static final ResourceLocation hunger_empty = new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_empty.png");
     private static final ResourceLocation hunger_full = new ResourceLocation(DragonMounts.MODID, "textures/gui/hunger_full.png");
-    public static ResourceLocation lockOpen;
-    public static ResourceLocation lockLocked;
-    public static ResourceLocation lockDisabled;
+    private static final ResourceLocation dismountTex = new ResourceLocation(DragonMounts.MODID, "textures/items/carriage/carriage_oak.png");
     private EntityTameableDragon dragon;
     private float mousePosX;
     private float mousePosY;
     private LockButton lock;
+//    private GuiButton dismount;
     private GuiButton sit;
     private EntityPlayer player;
 
@@ -43,9 +44,6 @@ public class GuiDragon extends GuiContainer {
         this.allowUserInput = false;
         this.ySize = 214;
         this.xSize = 176;
-        lockLocked = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_2.png");
-        lockOpen = new ResourceLocation(DragonMounts.MODID, "textures/gui/lock_1.png");
-        lockDisabled = new ResourceLocation(DragonMounts.MODID, "textures/lock_3.png");
     }
 
     /**
@@ -69,7 +67,7 @@ public class GuiDragon extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(texture);
+        this.mc.getTextureManager().bindTexture(mainGui);
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;
 
@@ -79,32 +77,11 @@ public class GuiDragon extends GuiContainer {
 
         hunger(x, y);
 
-/*            // Draw Player Entity
-            GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x - 38 - this.mousePosX, y + 90 - this.mousePosY, this.player);
-            this.mc.getTextureManager().bindTexture(texture1);
-            drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
-        } else {
-            GuiInventory.drawEntityOnScreen(x + 90, y + 113, 20, x + 90 - this.mousePosX, y + 90 - this.mousePosY, this.player);
-            this.mc.getTextureManager().bindTexture(texture1);
-            drawModalRectWithCustomSizedTexture(x + 32, y + 69, 0.0F, 0.0F, 99, 51, 99, 51);
-        }
-
-        GuiInventory.drawEntityOnScreen(x + 85, y + 65, (int) (13 / dragon.getScale()), x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
-                this.dragon);
-
-        // players poition
-        GuiInventory.drawEntityOnScreen(x - 38, y + 123, 20, x + 51 - this.mousePosX, y + 75 - 50 - this.mousePosY,
-                this.player);
-
-        // extra different textures for the player and armor
-        this.mc.getTextureManager().bindTexture(texture1);
-        drawModalRectWithCustomSizedTexture(x - 96, y + 78, 0.0F, 0.0F, 99, 51, 99, 51);
-        }
-*/
         this.mc.getTextureManager().bindTexture(offhand);
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
 
-        int size = dragon.isHatchling() ? 26 : dragon.isJuvenile() ? 10 : 6;
+        int size = dragon.isHatchling() ? 60 : dragon.isJuvenile() ? 12 : 6;
+
         //draw dragon entity
         GuiInventory.drawEntityOnScreen(x + 90, y + 60, size, x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
 
@@ -116,7 +93,7 @@ public class GuiDragon extends GuiContainer {
         this.buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
-        lock = new LockButton(0, width / 2 + 66, height / 2 - 53, 18, 14, dragon); // I18n.format("gui.allowothers", new Object[0])
+        lock = new LockButton(0, width / 2 + 66, height / 2 - 53, 18, 14, dragon);
         sit = new GuiButton(1, width / 2 + 47, height / 2 - 53, 18, 14, "SIT");
 
         buttonList.add(lock);

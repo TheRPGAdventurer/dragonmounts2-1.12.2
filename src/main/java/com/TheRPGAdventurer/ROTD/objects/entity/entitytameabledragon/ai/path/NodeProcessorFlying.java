@@ -1,11 +1,11 @@
 /*
-** 2016 March 13
-**
-** The author disclaims copyright to this source code. In place of
-** a legal notice, here is a blessing:
-**    May you do good and not evil.
-**    May you find forgiveness for yourself and forgive others.
-**    May you share freely, never taking more than you give.
+ ** 2016 March 13
+ **
+ ** The author disclaims copyright to this source code. In place of
+ ** a legal notice, here is a blessing:
+ **    May you do good and not evil.
+ **    May you find forgiveness for yourself and forgive others.
+ **    May you share freely, never taking more than you give.
  */
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.path;
 
@@ -20,7 +20,7 @@ import net.minecraft.util.math.MathHelper;
 
 /**
  * Based on SwimNodeProcessor but for air blocks.
- * 
+ *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public class NodeProcessorFlying extends SwimNodeProcessor {
@@ -36,7 +36,7 @@ public class NodeProcessorFlying extends SwimNodeProcessor {
     @Override
     public int findPathOptions(PathPoint[] pathOptions, PathPoint currentPoint, PathPoint targetPoint, float maxDistance) {
         int i = 0;
-        
+
         for (EnumFacing facing : EnumFacing.values()) {
             PathPoint point = getSafePoint(entity,currentPoint.x + facing.getFrontOffsetX(),currentPoint.y + facing.getFrontOffsetY(),currentPoint.z + facing.getFrontOffsetZ());
 
@@ -53,7 +53,7 @@ public class NodeProcessorFlying extends SwimNodeProcessor {
      */
     private PathPoint getSafePoint(Entity entityIn, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
-        
+
         entitySizeX = MathHelper.floor(entityIn.width + 1);
         entitySizeY = MathHelper.floor(entityIn.height + 1);
         entitySizeZ = MathHelper.floor(entityIn.width + 1);

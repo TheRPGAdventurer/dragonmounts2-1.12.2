@@ -41,17 +41,7 @@ public class MessageDragonFireSupport extends AbstractMessage<MessageDragonFireS
 
     }
 
-    /**
-     * Play Sound on the client only; dont let anyone else hear!
-     * <p>
-     * Doesnt seem to work in {@code onClientRecieved()}...
-     *
-     * @param player
-     */
-    @SideOnly(Side.CLIENT)
-    private void clientWhistleSound(EntityPlayer player) {
-        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 4, 1);
-    }
+
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -60,7 +50,6 @@ public class MessageDragonFireSupport extends AbstractMessage<MessageDragonFireS
 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonFireSupport message, EntityPlayer player, MessageContext messageContext) {
-        clientWhistleSound(player);
         if (!player.world.isRemote) {
             Entity entity = server.getEntityFromUuid(dragonId);
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
@@ -68,6 +57,8 @@ public class MessageDragonFireSupport extends AbstractMessage<MessageDragonFireS
                 if (entity instanceof EntityTameableDragon && dragon.isOwner(player)) {
                      dragon.setfiresupport(!dragon.firesupport());
                 }
+
+                player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
             } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
         }
     }

@@ -10,7 +10,10 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.*;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonCatchOwner;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonHurtByTarget;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonPlayerControl;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonWhistle;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air.EntityAIDragonFlight;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.air.EntityAIDragonFollowOwnerElytraFlying;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground.*;
@@ -88,14 +91,12 @@ public class DragonBrain extends DragonHelper {
             return;
         }
 
-        tasks.addTask(0, new EntityAIDragonPlayerControl(dragon)); // mutex all
-        tasks.addTask(1, new EntityAIDragonCatchOwner(dragon)); // mutex all
-        tasks.addTask(1, new EntityAIDragonWhistle(dragon)); // mutex all
+        tasks.addTask(0, new EntityAIDragonCatchOwner(dragon)); // mutex all
+        tasks.addTask(1, new EntityAIDragonPlayerControl(dragon)); // mutex all
         tasks.addTask(2, dragon.getAISit()); // mutex 4+1
+        tasks.addTask(3, new EntityAIDragonWhistle(dragon)); // mutex all
         tasks.addTask(3, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex all
         tasks.addTask(4, new EntityAIMoveTowardsRestriction(dragon, 1)); // mutex 1
-        //   tasks.addTask(5, new EntityAIFlyAround(dragon));
-        //   tasks.addTask(6, new EntityAIAirPoint(dragon));
 
         if (dragon.isFlying()) {
             tasks.addTask(6, new EntityAIDragonFlight(dragon, 1)); // mutex 1
@@ -104,11 +105,10 @@ public class DragonBrain extends DragonHelper {
             tasks.addTask(7, new EntityAIAttackMelee(dragon, 1, true)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwner(dragon, 1, 14, 128)); // mutex 2+1
             tasks.addTask(9, new EntityAIDragonFollowOwnerElytraFlying(dragon)); // mutex 2+1
-            tasks.addTask(10, new EntityAIWanderOld(dragon, 1)); // mutex 1
-            if (dragon.getControllingPlayer() != null) {
-                tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
-                tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
-            }
+            tasks.addTask(10, new EntityAIWander(dragon, 1)); // mutex 1
+            tasks.addTask(11, new EntityAIDragonWatchIdle(dragon)); // mutex 2
+            tasks.addTask(11, new EntityAIDragonWatchLiving(dragon, 16, 0.05f)); // mutex 2
+
 
             targetTasks.addTask(5, new EntityAINearestAttackableTarget<EntityLiving>(dragon, EntityLiving.class, 10, false, true, new Predicate<EntityLiving>() {
                 public boolean apply(@Nullable EntityLiving p_apply_1_) {
@@ -131,6 +131,5 @@ public class DragonBrain extends DragonHelper {
         if (dragon.isAdult()) {
             tasks.addTask(5, new EntityAIDragonMate(dragon, 0.6)); // mutex 2+1
         }
-//        }
     }
 }

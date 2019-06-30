@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.network;
+package com.TheRPGAdventurer.ROTD.network.gui;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;

@@ -101,28 +101,23 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
     @Override
     public void startExecuting() {
         //Commands Requiring Flight - if any is true, start flying
-        if (!dragon.isFlying() && (dragon.circle() || dragon.follow() || dragon.come())) {
+        if (!dragon.isFlying() && (dragon.circle() || dragon.follow())) {
             dragon.liftOff();
         }
 
-//         if (dragon.isFlying()) {
-//             if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
-//                 this.circleTarget1(dragon.getOwner().getPosition());
-//                 dragon.setSitting(false);
-//             } else if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
-//                 this.followPlayerFlying(dragon.getOwner());
-//                 dragon.setSitting(false);
-//             } else if (dragon.come() && !this.comeToPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
-//                 this.comeToPlayerFlying(dragon.getOwner());
-//                 dragon.setSitting(false);
-//             } else if (dragon.homepos()) {
-//                 BlockPos pos = new BlockPos(dragon);
-//                 dragon.homePos = pos;
-//                 dragon.hasHomePosition = true;
-//                 ((EntityPlayer) dragon.getOwner()).sendStatusMessage(new TextComponentTranslation("dragon.command.new_home", dragon.homePos.getX(), dragon.homePos.getY(), dragon.homePos.getZ()), true);
-//             } else if (dragon.nothing()) {
-//                 dragon.setnothing(true);
-//             }
-//         }
+        if (dragon.nothing()) {
+            dragon.setnothing(true);
+        }
+
+         if (dragon.isFlying()) {
+             if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
+                 this.circleTarget1(dragon.getOwner().getPosition());
+                 dragon.setSitting(false);
+             }
+             if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
+                 this.followPlayerFlying(dragon.getOwner());
+                 dragon.setSitting(false);
+             }
+         }
     }
 }

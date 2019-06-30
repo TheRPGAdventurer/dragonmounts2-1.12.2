@@ -25,12 +25,9 @@ public class GuiDragonWhistle extends GuiScreen {
     GuiButton nothing;
     GuiButton circle;
     GuiButton followFlying;
-    GuiButton come;
-    GuiButton sit;
     GuiButton teleport;
+    GuiButton sit;
     GuiButton firesupport;
-
-    boolean newState;
 
     byte state;
 
@@ -49,24 +46,18 @@ public class GuiDragonWhistle extends GuiScreen {
         Keyboard.enableRepeatEvents(true);
 
         nothing = new GuiButton(0, width / 2 - 50, height / 2 - 60, 98, 20, I18n.format("gui.nothing"));
-
-        circle = new GuiButton(0, width / 2, height / 2 + 15, 98, 20, I18n.format("gui.circle"));
-
-        followFlying = new GuiButton(0, width / 2 - 100, height / 2 + 15, 98, 20, I18n.format("gui.followFlying"));
-
-        teleport = new GuiButton(0, width / 2 - 50, height / 2 - 10, 98, 20, I18n.format("gui.homePos"));
-
-        firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, TextFormatting.RED + I18n.format("gui.firesupport"));
-
         sit = new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
+        teleport = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.teleport"));
+        firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, TextFormatting.RED + I18n.format("gui.firesupport"));
+        circle = new GuiButton(0, width / 2 + 50, height / 2-10, 98, 20, I18n.format("gui.circle"));
+        followFlying = new GuiButton(0, width / 2 - 50, height / 2-10, 98, 20, I18n.format("gui.followFlying"));
 
         buttonList.add(nothing);
+        buttonList.add(sit);
+        buttonList.add(teleport);
+        buttonList.add(firesupport);
         buttonList.add(circle);
         buttonList.add(followFlying);
-        buttonList.add(come);
-        buttonList.add(teleport);
-        buttonList.add(sit);
-        buttonList.add(firesupport);
     }
 
 
@@ -78,9 +69,6 @@ public class GuiDragonWhistle extends GuiScreen {
     /* 0 nothing
        1 follow
        2 circle
-       3 come
-       4 homepos
-       5 sit
      */
     private void setStateField(int state, boolean newState) {
         byte prevState = getState();
@@ -103,15 +91,6 @@ public class GuiDragonWhistle extends GuiScreen {
         setStateField(2, circle);
     }
 
-    public void homepos(boolean homepos) {
-        setStateField(4, homepos);
-    }
-
-    public void sit(boolean sit) {
-        setStateField(5, sit);
-    }
-
-
     @Override
     protected void actionPerformed(GuiButton button) {
         if (uuid != null) {
@@ -121,19 +100,19 @@ public class GuiDragonWhistle extends GuiScreen {
             circle(button == circle);
             byte controlState = getState();
 
-            if (controlState != previousState) 
+            if (controlState != previousState)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistle(uuid, controlState));
-            
+
             if (button == firesupport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonFireSupport(uuid));
-            
+
             if (button == sit)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistleSit(uuid));
 
 
             if (button == teleport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));
-            
+
             //Close GUI when option is selected
             Minecraft.getMinecraft().displayGuiScreen(null);
         }

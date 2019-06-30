@@ -79,7 +79,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.LogManager;
@@ -141,6 +140,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private static final DataParameter<ItemStack> BANNER2 = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER3 = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<ItemStack> BANNER4 = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
+    private static final DataParameter<ItemStack> WHISTLE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.ITEM_STACK);
     private static final DataParameter<Boolean> HAS_ADJUCATOR_STONE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAS_ELDER_STONE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Byte> WHISTLE_STATE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
@@ -239,6 +239,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.register(BANNER2, ItemStack.EMPTY);
         dataManager.register(BANNER3, ItemStack.EMPTY);
         dataManager.register(BANNER4, ItemStack.EMPTY);
+        dataManager.register(WHISTLE, ItemStack.EMPTY);
         dataManager.register(HAS_ELDER_STONE, false);
         dataManager.register(HAS_ADJUCATOR_STONE, false);
         dataManager.register(FIRE_SUPPORT, false);
@@ -435,6 +436,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.set(BANNER4, male);
     }
 
+    public ItemStack getControllingWhistle() {
+        return dataManager.get(WHISTLE);
+    }
+
+    public void setControllingWhistle(ItemStack whistle) {
+        dataManager.set(WHISTLE, whistle);
+    }
+
     public boolean nothing() {
         return (dataManager.get(WHISTLE_STATE)) == 0;
     }
@@ -445,15 +454,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
     public boolean circle() {
         return (dataManager.get(WHISTLE_STATE)) == 2;
-    }
-
-    public boolean homepos() {
-        return (dataManager.get(WHISTLE_STATE)) == 4;
-
-    }
-
-    public boolean sit() {
-        return (dataManager.get(WHISTLE_STATE)) == 5;
     }
 
     public boolean firesupport() {
@@ -591,7 +591,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
      */
     public boolean isUsingAltBreathWeapon() {
         if (world.isRemote) {
-            boolean usingBreathWeapon = this.dataManager.get(DATA_ALT_BREATHING);
+            boolean altBreathing = this.dataManager.get(DATA_ALT_BREATHING);
             this.altBreathing = altBreathing;
             return altBreathing;
         }
@@ -724,8 +724,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         L.trace("liftOff");
         if (canFly()) {
             boolean ridden = isBeingRidden();
+
             // stronger jump for an easier lift-off
-          
             motionY += ridden && (isInWater() && isInLava()) ? 0.7 : 10;
             inAirTicks += ridden && (isInWater() && isInLava()) ? 3.0 : 10;
             jump();
@@ -792,6 +792,63 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         super.onEntityUpdate();
     }
 
+
+    @Override
+    public void updatePassenger(Entity passenger) {
+        if (this.isPassenger(passenger)) {
+            double px = posX;
+            double py = posY + getMountedYOffset() + passenger.getYOffset();
+            double pz = posZ;
+
+            Vec3d pos = new Vec3d(0, 0, 0);
+
+            // dragon position is the middle of the model and the saddle is on
+            // the shoulders, so move player forwards on Z axis relative to the
+            // dragon's rotation to fix that
+            if (passenger == getPassengers().get(0)) {
+                pos = new Vec3d(0 * getScale(), 0.2 * getScale(), 1.1 * getScale());
+            } else if (passenger == getPassengers().get(1)) {
+                pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
+            } else if (passenger == getPassengers().get(2)) {
+                pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
+            } else if (passenger == getPassengers().get(3)) {
+                pos = new Vec3d( 0.3 * getScale(), -1.2 * getScale(), 0.1 * getScale());
+            } else if (passenger == getPassengers().get(4)) {
+                pos = new Vec3d(-0.3 * getScale(), -1.2 * getScale(), 0.1 * getScale());
+            }
+
+            if (!(passenger instanceof EntityPlayer)) {
+                passenger.rotationYaw = this.rotationYaw;
+                passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
+                this.applyYawToEntity(passenger);
+            }
+
+            pos = pos.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
+            px += pos.x;
+            py += pos.y;
+            pz += pos.z;
+
+            passenger.setPosition(px, py, pz);
+
+            // fix rider rotation
+            if (passenger == getControllingPlayer()) {
+                EntityPlayer rider = getControllingPlayer();
+                rider.prevRotationPitch = rider.rotationPitch;
+                rider.prevRotationYaw = rider.rotationYaw;
+                rider.renderYawOffset = renderYawOffset;
+            }
+        }
+    }
+
+    /**
+     * Arraylists start at 0, just a reminder
+     * @param passenger
+     * @return
+     */
+    protected boolean canFitPassenger(Entity passenger) {
+        return this.getPassengers().size() < 5;
+    }
+
     @Override
     public void onLivingUpdate() {
         helpers.values().forEach(DragonHelper::onLivingUpdate);
@@ -812,16 +869,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 if (owner != null) {
                     setHomePosAndDistance(owner.getPosition(), HOME_RADIUS);
                 }
-            }
-
-            if (firesupport()) {
-                EntityPlayer rider = this.getControllingPlayer();
-                Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-                Vec3d lookDirection = rider.getLook(1.0F);
-                Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
-                this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
-                        90, 120);
-                this.updateIntendedRideRotation(rider);
             }
 
             // delay flying state for 10 ticks (0.5s)
@@ -898,14 +945,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
         }
 
-        if (getOwner() != null && firesupport()) {
-            Vec3d dragonEyePos = this.getPositionVector().addVector(0, this.getEyeHeight(), 0);
-            Vec3d lookDirection = getOwner().getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the head looking down
-            this.getLookHelper().setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
-                    120, 90);
-        }
-
         if (hasChestVarChanged && dragonInv != null && !this.isChested()) {
             for (int i = ContainerDragon.chestStartIndex; i < 30; i++) {
                 if (!dragonInv.getStackInSlot(i).isEmpty()) {
@@ -969,7 +1008,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity = list.get(j);
                 if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-                    if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && (isJuvenile() || isAdult())) {
+                    if (flag && this.getPassengers().size() < 5 && !entity.isRiding() && (isJuvenile() || isAdult())) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity);
@@ -1906,49 +1945,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
     }
 
-    @Override
-    public void updatePassenger(Entity passenger) {
-        if (this.isPassenger(passenger)) {
-            double px = posX;
-            double py = posY + getMountedYOffset() + passenger.getYOffset();
-            double pz = posZ;
-
-            Vec3d pos = new Vec3d(0, 0, 0);
-
-            // dragon position is the middle of the model and the saddle is on
-            // the shoulders, so move player forwards on Z axis relative to the
-            // dragon's rotation to fix that
-            if (passenger == getPassengers().get(0)) {
-                pos = new Vec3d(0 * getScale(), 0.2 * getScale(), 1.1 * getScale());
-            } else if (passenger == getPassengers().get(1)) {
-                pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
-            } else if (passenger == getPassengers().get(2)) {
-                pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
-            }
-
-            if (!(passenger instanceof EntityPlayer)) {
-                passenger.rotationYaw = this.rotationYaw;
-                passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
-                this.applyYawToEntity(passenger);
-            }
-
-            pos = pos.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
-            px += pos.x;
-            py += pos.y;
-            pz += pos.z;
-
-            passenger.setPosition(px, py, pz);
-
-            // fix rider rotation
-            if (passenger == getControllingPlayer()) {
-                EntityPlayer rider = getControllingPlayer();
-                rider.prevRotationPitch = rider.rotationPitch;
-                rider.prevRotationYaw = rider.rotationYaw;
-                rider.renderYawOffset = renderYawOffset;
-            }
-        }
-    }
-
     /**
      * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
      */
@@ -2263,10 +2259,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         }
 
         return super.shouldAttackEntity(target, owner);
-    }
-
-    protected boolean canFitPassenger(Entity passenger) {
-        return this.getPassengers().size() < 3;
     }
 
     /**

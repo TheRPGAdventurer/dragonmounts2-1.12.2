@@ -67,9 +67,8 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.updateIntendedRideRotation(rider);
         }
 
-        if (dragon.followYaw()) {
-            dragon.updateIntendedRideRotation(rider);
-        }
+        if (dragon.followYaw())  dragon.updateIntendedRideRotation(rider);
+
 
         // control direction with movement keys
         if (rider.moveStrafing != 0 || rider.moveForward != 0) {
@@ -82,9 +81,7 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
 
             x += wp.x * 10;
-            if (!dragon.isYLocked()) {
-                y += wp.y * 10;
-            }
+            if (!dragon.isYLocked()) y += wp.y * 10;
             z += wp.z * 10;
         }
 

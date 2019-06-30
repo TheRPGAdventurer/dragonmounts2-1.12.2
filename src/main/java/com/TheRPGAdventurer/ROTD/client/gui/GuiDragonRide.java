@@ -23,7 +23,6 @@ public class GuiDragonRide extends Gui {
         this.mc.getTextureManager().bindTexture(Gui.ICONS);
         float f = dragon.boostTicks;
         float j = Interpolation.smoothStep(0,182, f);
-        DMUtils.getLogger().info(j);
                 //182 * (int)(-f); // use for texture from the boost
         int k = scaledRes.getScaledHeight() - 32 + 3;
         this.drawTexturedModalRect(k1, k, 0, 84, 182, 5);

@@ -1,8 +1,6 @@
 package com.TheRPGAdventurer.ROTD.util;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.inits.ModItems;
-import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 import net.minecraft.client.resources.I18n;
@@ -22,14 +20,11 @@ import java.util.stream.Collectors;
 public class DMUtils {
 
     private static Logger logger;
-    private EntityTameableDragon dragon;
 
     public static Logger getLogger() {
-        boolean dev = false; // jould tart debugs of loggers, i got lazy to make something complex
-        if (dev)
-            if (logger == null) {
-                logger = LogManager.getFormatterLogger(DragonMounts.MODID);
-            }
+        if (logger == null) {
+            logger = LogManager.getFormatterLogger(DragonMounts.MODID);
+        }
         return logger;
     }
 

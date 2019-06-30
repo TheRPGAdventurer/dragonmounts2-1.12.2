@@ -31,5 +31,4 @@ public class DragonArmourForest extends DragonArmourBase {
             player.getCooldownTracker().setCooldown(this, 1160); //Relatively high because this is op af
         }
     }
-
 }

@@ -15,6 +15,8 @@ import com.TheRPGAdventurer.ROTD.util.math.MathX;
 /**
  * Enum for dragon life stages. Used as aliases for the age value of dragons.
  *
+ * Refactored to DragonLifeStage
+ *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public enum EnumDragonLifeStage {

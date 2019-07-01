@@ -1403,7 +1403,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     if (getHealth() <= 0) return false;
 
-    if (this.isTamedFor(player) && !this.isBaby() && !player.isSneaking() && !DragonInteractBase.hasInteractItemsEquipped(player)) {
+    if (this.isTamedFor(player) && this.isBaby() && !player.isSneaking() && !DragonInteractBase.hasInteractItemsEquipped(player)) {
       this.setSitting(false);
       this.startRiding(player, true);
       return true;
@@ -1895,9 +1895,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     if (this.isRiding()) this.updateRiding((EntityLivingBase) entity);
   }
 
-  public boolean isRidingAboveGround(Entity entity) {
+  public boolean isRidingAboveGround(Entity entityBeingRidden) {
     int groundPos = world.getHeight(getPosition()).getY();
-    double altitude = entity.posY - groundPos;
+    double altitude = entityBeingRidden.posY - groundPos;
     return altitude > 2.0;
   }
 
@@ -1915,28 +1915,37 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     this.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z, 120, 90);
   }
 
-  public void updateRiding(EntityLivingBase riding) {
-    // this recently-added riding code appears to be broken?  causes immediate dismount if the dragon is bigger than juvenile?
+  /**
+   * This code is called when the dragon is riding on the shoulder of the player
+   * @param entityBeingRidden
+   */
+  public void updateRiding(EntityLivingBase entityBeingRidden) {
+    if (entityBeingRidden == null || !(entityBeingRidden instanceof EntityPlayer)) return;
+    EntityPlayer playerBeingRidden = (EntityPlayer)entityBeingRidden;
 
-//    if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
-//      int i = riding.getPassengers().indexOf(this);
-//      float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
-//      float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
-//      double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
-//      double extraZ = (double) (radius * MathHelper.cos(angle));
-//      double extraY = (riding.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
-//      this.rotationYaw = riding.rotationYaw;
-//      this.prevRotationYaw = riding.prevRotationYaw;
-//      this.rotationYawHead = riding.rotationYawHead;
-//      this.prevRotationYawHead = riding.prevRotationYawHead;
-//      this.rotationPitch = riding.rotationPitch;
-//      this.prevRotationPitch = riding.prevRotationPitch;
-//      this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-//      if (ModKeys.DISMOUNT.isKeyDown() || this.isDead || this.getScale() > 0.35) this.dismountRidingEntity();     // todo what's going on here?  Forces immediate dismount?!
-//      this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying && !riding.onGround);
-//    }
+    if (playerBeingRidden.isPassenger(this)) { // this dragon is a passenger of the player being ridden
+      int i = playerBeingRidden.getPassengers().indexOf(this);
+      float radius = (i == 2 ? 0F : 0.4F) + (playerBeingRidden.isElytraFlying() ? 2 : 0);
+      float angle = 0.01745329251F * playerBeingRidden.renderYawOffset + (i == 1 ? -90 : i == 0 ? 90 : 0);
+      double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
+      double extraZ = (double) (radius * MathHelper.cos(angle));
+      double extraY = (playerBeingRidden.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
+      this.rotationYaw = playerBeingRidden.rotationYaw;
+      this.prevRotationYaw = playerBeingRidden.prevRotationYaw;
+      this.rotationYawHead = playerBeingRidden.rotationYawHead;
+      this.prevRotationYawHead = playerBeingRidden.prevRotationYawHead;
+      this.rotationPitch = playerBeingRidden.rotationPitch;
+      this.prevRotationPitch = playerBeingRidden.prevRotationPitch;
+      this.setPosition(playerBeingRidden.posX + extraX, playerBeingRidden.posY + extraY, playerBeingRidden.posZ + extraZ);
+      if (ModKeys.DISMOUNT.isKeyDown() || this.isDead || !this.isBaby()) this.dismountRidingEntity();
+      this.setFlying(isRidingAboveGround(playerBeingRidden) && !playerBeingRidden.capabilities.isFlying && !playerBeingRidden.onGround);
+    }
   }
 
+  /**
+   * This code is called when the passenger is riding on the dragon
+   * @param passenger
+   */
   @Override
   public void updatePassenger(Entity passenger) {
     if (this.isPassenger(passenger)) {
@@ -1957,8 +1966,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
         this.applyYawToEntity(passenger);
       }
-
-      passenger.setPosition(mountedPositionOffset.x, mountedPositionOffset.y, mountedPositionOffset.z);
+      Vec3d passengerPosition = mountedPositionOffset.addVector(this.posX, this.posY, this.posZ);
+      passenger.setPosition(passengerPosition.x, passengerPosition.y, passengerPosition.z);
 
       // fix rider rotation
       if (passenger == getControllingPlayer()) {

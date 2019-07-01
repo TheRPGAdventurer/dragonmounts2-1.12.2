@@ -62,6 +62,7 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
             // apply movement
             dragon.move(MoverType.SELF, dragon.motionX, dragon.motionY, dragon.motionZ);
 
-        } else super.onUpdateMoveHelper();
+        }
+        super.onUpdateMoveHelper();
     }
 }

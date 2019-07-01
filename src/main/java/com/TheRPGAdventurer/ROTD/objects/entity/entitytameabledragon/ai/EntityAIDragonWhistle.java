@@ -12,11 +12,17 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public EntityAIDragonWhistle(EntityTameableDragon dragon) {
         super(dragon);
+        this.setMutexBits(1);
     }
 
     @Override
     public boolean shouldExecute() {
         return dragon.getOwner() != null && dragon.getControllingPlayer() == null;
+    }
+
+    @Override
+    public boolean shouldContinueExecuting() {
+        return !dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
     }
 
     @Override
@@ -37,12 +43,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
         BlockPos midPoint = entityLivingBase.getPosition();
-        double x = midPoint.getX() + 0.5 - 1;
-        double y = midPoint.getY() + 0.5 + 1;
-        double z = midPoint.getZ() + 0.5 - 1;
-//        double x = midPoint.getX() + 0.5 - 12;
-//        double y = midPoint.getY() + 0.5 + 8;
-//        double z = midPoint.getZ() + 0.5 - 12;
+        double x = midPoint.getX() + 0.5 - 12;
+        double y = midPoint.getY() + 0.5 + 8;
+        double z = midPoint.getZ() + 0.5 - 12;
         return tryMoveToBlockPos(new BlockPos(x, y, z), 2);
     }
 
@@ -73,7 +76,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             dragon.setnothing(true);
         }
 
-        if (dragon.isFlying()) {
+        if (dragon.isFlying()) { // TODO check and dismount dragon with whistle state 0 landing AI might be the real broken one
             if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
                 this.circleTarget1(dragon.getOwner().getPosition());
                 this.dragon.setSitting(false);

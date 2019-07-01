@@ -55,14 +55,14 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         landingPos = landingPos.add(ox, 0, oz);
 
         if (dragon.isTamed() && dragon.getOwner() != null
-                && dragon.getDistance(dragon.getOwner()) > 3 && dragon.getAttackingEntity() == null) {
+                && dragon.getDistance(dragon.getOwner()) > 3 && dragon.getAttackingEntity() == null && dragon.nothing()) {
             landingPos = dragon.getOwner().getPosition();
             return landingPos != null;
         } else {
             // get ground block
             landingPos = findLandingArea(landingPos);
             // make sure the block below is solid
-            return false && world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER;
+            return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER;
 
         }
     }

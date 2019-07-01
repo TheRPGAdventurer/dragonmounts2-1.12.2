@@ -979,12 +979,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.2, -0.01, 0.2), EntitySelectors.getTeamCollisionPredicate(this));
 
     if (!list.isEmpty() && isSaddled() && isAdult()) {
-      boolean flag = !this.world.isRemote;
+      boolean onClient = !this.world.isRemote;
 
       for (int j = 0; j < list.size(); ++j) {
         Entity entity = list.get(j);
         if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-          if (flag && this.getPassengers().size() < 3 && !entity.isRiding() && !isBaby()) {
+          if (onClient && canFitPassenger(entity) && !entity.isRiding() && !isBaby()) {
             entity.startRiding(this);
           } else {
             this.applyEntityCollision(entity);
@@ -1959,13 +1959,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
       Vec3d mountedPositionOffset = getBreed().getAdultMountedPositionOffset(isSitting(), passengerNumber);
 
-      // todo remove (debugging only)
-      mountedPositionOffset = new Vec3d(DebugSettings.getDebugParameter("x"),
-                                        DebugSettings.getDebugParameter("y"),
-                                        DebugSettings.getDebugParameter("z"));
-      System.out.println("MountedOffset:" + mountedPositionOffset);
+//      // todo remove (debugging only)
+//      mountedPositionOffset = new Vec3d(DebugSettings.getDebugParameter("x"),
+//                                        DebugSettings.getDebugParameter("y"),
+//                                        DebugSettings.getDebugParameter("z"));
+//      System.out.println("MountedOffset:" + mountedPositionOffset);
 
-      double dragonScaling = getBreed().getAdultModelRenderScaleFactor() * getScale();
+      double dragonScaling = getScale(); //getBreed().getAdultModelRenderScaleFactor() * getScale();
       
       mountedPositionOffset = mountedPositionOffset.scale(dragonScaling);
       mountedPositionOffset = mountedPositionOffset.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops

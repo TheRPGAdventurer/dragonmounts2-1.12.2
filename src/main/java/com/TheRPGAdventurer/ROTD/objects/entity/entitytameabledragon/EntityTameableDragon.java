@@ -631,6 +631,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
   }
 
   /**
+   * Set the breathing flag of the entity.
+   */
+  public void setUsingProjectile(boolean altBreathing) {
+    this.dataManager.set(DATA_ALT_BREATHING, altBreathing);
+    if (!world.isRemote) {
+      this.altBreathing = altBreathing;
+    }
+  }
+
+  /**
    * Returns true if the entity is breathing.
    */
   public boolean isGoingDown() {
@@ -1840,6 +1850,22 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     return false;
   }
 
+  public double getFlySpeed() {
+    return this.boosting() ? 4 : 1;
+  }
+
+  public void updateIntendedRideRotation(EntityPlayer rider) {
+    boolean hasRider = this.hasControllingPlayer(rider);
+    if (this.isUsingBreathWeapon() && hasRider && rider.moveStrafing == 0) {
+      this.rotationYaw = rider.rotationYaw;
+      this.prevRotationYaw = this.rotationYaw;
+      this.rotationPitch = rider.rotationPitch;
+      this.setRotation(this.rotationYaw, this.rotationPitch);
+      this.renderYawOffset = this.rotationYaw;
+      this.rotationYawHead = this.renderYawOffset;
+    }
+  }
+  
   @Override
   public void travel(float strafe, float forward, float vertical) {
     // disable method while flying, the movement is done entirely by
@@ -2306,7 +2332,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     return super.shouldAttackEntity(target, owner);
   }
 
-  protected boolean canFitPassenger(Entity passenger) {
+  public boolean canFitPassenger(Entity passenger) {
     return this.getPassengers().size() < getBreed().getMaxNumberOfPassengers(getLifeStageHelper().getLifeStage());
   }
 

@@ -33,6 +33,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.interact.Dr
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
+import com.TheRPGAdventurer.ROTD.util.debugging.DebugSettings;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
@@ -1957,9 +1958,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
       }
 
       Vec3d mountedPositionOffset = getBreed().getAdultMountedPositionOffset(isSitting(), passengerNumber);
-      mountedPositionOffset = mountedPositionOffset.scale(getScale());
+
+      // todo remove (debugging only)
+      mountedPositionOffset = new Vec3d(DebugSettings.getDebugParameter("x"),
+                                        DebugSettings.getDebugParameter("y"),
+                                        DebugSettings.getDebugParameter("z"));
+      System.out.println("MountedOffset:" + mountedPositionOffset);
+
+      double dragonScaling = getBreed().getAdultModelRenderScaleFactor() * getScale();
+      
+      mountedPositionOffset = mountedPositionOffset.scale(dragonScaling);
       mountedPositionOffset = mountedPositionOffset.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
-      mountedPositionOffset.addVector(0, passenger.getYOffset(), 0);
+      mountedPositionOffset = mountedPositionOffset.addVector(0, passenger.getYOffset(), 0);
 
       if (!(passenger instanceof EntityPlayer)) {
         passenger.rotationYaw = this.rotationYaw;
@@ -2298,7 +2308,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
   }
 
   protected boolean canFitPassenger(Entity passenger) {
-    return this.getPassengers().size() < getBreed().getMaxNumberOfPassengers();
+    return this.getPassengers().size() < getBreed().getMaxNumberOfPassengers(getLifeStageHelper().getLifeStage());
   }
 
   /**

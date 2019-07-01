@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds;
 
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,6 @@ import java.util.Random;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
 
 public class DragonBreedStorm extends DragonBreed {
 
@@ -57,7 +57,7 @@ public class DragonBreedStorm extends DragonBreed {
 //		return true;
 //	}
 
-	public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+	public SoundEffectNames[] getBreathWeaponSoundEffects(DragonLifeStage stage) {
 		final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
 		return soundEffectNames;
 	}
@@ -89,7 +89,7 @@ public class DragonBreedStorm extends DragonBreed {
 	}
 	
     private void doParticles(EntityTameableDragon dragon) {
-        if (!dragon.isEgg() && !dragon.isHatchling()) {
+        if (!dragon.isEgg() && !dragon.isBaby()) {
 	        float s = dragon.getScale() * 1.2f;
 	        for (double x1 = 0; x1 < s; ++x1) {
 		        double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;

@@ -11,8 +11,9 @@ package com.TheRPGAdventurer.ROTD.cmd;
 
 import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonDebug;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 
+import com.TheRPGAdventurer.ROTD.util.debugging.DebugSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -48,8 +49,14 @@ public class CommandDragonDebug extends CommandBaseNested implements IDragonModi
         addCommand(new CommandDragonLambda("toggleOverlay", (server, sender, args) -> {
             GuiDragonDebug.enabled = !GuiDragonDebug.enabled;
         }));
-        
-        addCommand(new CommandDragonLambda("testBreeds", dragon -> {
+
+      addCommand(new CommandDragonLambda("parameter", (server, sender, args) -> {
+        String paramName = args[0];
+        double value = parseDouble(args[1], 0);
+        DebugSettings.setDebugParameter(paramName,value);
+      }));
+
+      addCommand(new CommandDragonLambda("testBreeds", dragon -> {
             new Thread(() -> {
                 try {
                     for (EnumDragonBreed breed : EnumDragonBreed.values()) {
@@ -64,7 +71,7 @@ public class CommandDragonDebug extends CommandBaseNested implements IDragonModi
         addCommand(new CommandDragonLambda("testStages", dragon -> {
             new Thread(() -> {
                 try {
-                    for (EnumDragonLifeStage stage : EnumDragonLifeStage.values()) {
+                    for (DragonLifeStage stage : DragonLifeStage.values()) {
                         dragon.getLifeStageHelper().setLifeStage(stage);
                         Thread.sleep(1000);
                     }

@@ -2,7 +2,7 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sou
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.PositionedSound;
@@ -198,7 +198,7 @@ public class SoundEffectBreathWeapon {
     public Collection<Vec3d> pointsWithinBeam;
     public Vec3d dragonHeadLocation;
     public float relativeVolume; // 0 to 1
-    public EnumDragonLifeStage lifeStage;
+    public DragonLifeStage lifeStage;
   }
 
   // settings for each component sound
@@ -311,7 +311,7 @@ public class SoundEffectBreathWeapon {
    * @param lifeStage how old is the dragon?
    * @return the resourcelocation corresponding to the desired sound
    */
-  protected ResourceLocation weaponSound(SoundPart soundPart, EnumDragonLifeStage lifeStage, EntityTameableDragon dragon) {
+  protected ResourceLocation weaponSound(SoundPart soundPart, DragonLifeStage lifeStage, EntityTameableDragon dragon) {
     return new ResourceLocation(dragon.getBreed().getBreathWeaponSoundEffects(lifeStage)[soundPart.ordinal()].getJsonName());
   }
 

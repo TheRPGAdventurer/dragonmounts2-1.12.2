@@ -13,7 +13,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockFalling;
@@ -109,7 +109,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     	EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
     	dragon.setBreedType(worldIn.getBlockState(pos).getValue(BlockDragonBreedEgg.BREED));
     	worldIn.setBlockToAir(pos); // Set to air AFTER setting breed type
-    	dragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+    	dragon.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
     	dragon.getReproductionHelper().setBreeder(player);
     	dragon.setPosition(pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5);
         if(worldIn.isRemote) dragon.world.playSound(player, dragon.getPosition(), SoundEvents.BLOCK_WOOD_HIT, SoundCategory.PLAYERS, 1, 1);

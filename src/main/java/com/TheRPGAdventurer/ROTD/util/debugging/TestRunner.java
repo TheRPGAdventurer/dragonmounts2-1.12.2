@@ -2,6 +2,8 @@ package com.TheRPGAdventurer.ROTD.util.debugging;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.DragonHeadPositionHelper;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.TestForestBreath;
 import net.minecraft.block.BlockLadder;
 import net.minecraft.command.CommandClone;
@@ -58,6 +60,14 @@ public class TestRunner
 //        worldIn.spawnEntityInWorld(entity);
         System.out.println("Lighting spawned: mouth at [x,y,z] = " + origin + "to destination [x,y,z,] = " + target);
 
+        break;
+      }
+      case 60: {
+        testGetRelativeHeadSize(worldIn);
+      }
+
+      case 61: {
+        testDragonLifeStage();
         break;
       }
       default: {
@@ -207,5 +217,55 @@ public class TestRunner
     }
     return true;
   }
+
+  public static boolean testDragonLifeStage()
+  {
+    final int ARBITRARY_MINUS = -1000000;
+    final int ARBITRARY_LARGE = 1000000;
+
+    int minTick = DragonLifeStage.clipTickCountToValid(ARBITRARY_MINUS);
+    int maxTick = DragonLifeStage.clipTickCountToValid(ARBITRARY_LARGE);
+
+    System.out.println("Minimum tick:" + minTick);
+    System.out.println("Maximum tick:" + maxTick);
+
+    DragonLifeStage lastStage = null;
+    int printAnywayTicks = 0;
+    for (int i = minTick - 3; i <= maxTick + 10000; ++i) {
+      boolean printCalcs = false;
+      DragonLifeStage thisStage = DragonLifeStage.getLifeStageFromTickCount(i);
+      if (thisStage != lastStage) {
+        lastStage = thisStage;
+        System.out.println("Changed to " + thisStage + " at tick=" + i);
+        printAnywayTicks = 1000;
+        printCalcs = true;
+      } else if (--printAnywayTicks <= 0){
+        printAnywayTicks = 1000;
+        printCalcs = true;
+      }
+      if (printCalcs) {
+        System.out.println("At tick=" + i + ": " +
+                           "Scale = " + DragonLifeStage.getScaleFromTickCount(i) + ", " +
+                           "StageProgress = " + DragonLifeStage.getStageProgressFromTickCount(i) );
+      }
+
+    }
+    System.out.println("Final stage was:" + lastStage);
+    return true;
+  }
+
+  public static boolean testGetRelativeHeadSize(World worldIn)
+  {
+    EntityTameableDragon dragon = new EntityTameableDragon(worldIn);
+    DragonHeadPositionHelper dhph = new DragonHeadPositionHelper(dragon, 7);
+
+    for (float scale = 0.0f; scale <= 1.0F; scale += 0.01F) {
+      float headsize = dhph.getRelativeHeadSize(scale);
+      System.out.println("scale=" + scale + ", relativeheadsize=" + headsize);
+    }
+    return true;
+  }
+
+
 
 }

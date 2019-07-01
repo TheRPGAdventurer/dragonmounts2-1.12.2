@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.event;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +37,7 @@ public class VanillaEggHandler {
 		EntityTameableDragon entityDragon = new EntityTameableDragon(world);
 		entityDragon.setPosition(pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5);
 		entityDragon.setBreedType(EnumDragonBreed.END);
-		entityDragon.getLifeStageHelper().setLifeStage(EnumDragonLifeStage.EGG);
+		entityDragon.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
 		entityDragon.getReproductionHelper().setBreeder(evt.getEntityPlayer());
 	    	
 		world.spawnEntity(entityDragon);

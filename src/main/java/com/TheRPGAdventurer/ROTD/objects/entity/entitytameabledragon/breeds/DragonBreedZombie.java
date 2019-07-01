@@ -4,7 +4,7 @@ import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -58,7 +58,7 @@ public class DragonBreedZombie extends DragonBreed {
 
     @Override
     public SoundEvent getLivingSound(EntityTameableDragon dragon) {
-        return dragon.isHatchling() ?  ModSounds.ENTITY_DRAGON_HATCHLING_GROWL : ModSounds.ZOMBIE_DRAGON_GROWL;
+        return dragon.isBaby() ?  ModSounds.ENTITY_DRAGON_HATCHLING_GROWL : ModSounds.ZOMBIE_DRAGON_GROWL;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class DragonBreedZombie extends DragonBreed {
 //		return true;
 //	}
 
-    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+    public SoundEffectNames[] getBreathWeaponSoundEffects(DragonLifeStage stage) {
 
         final SoundEffectNames soundEffectNames[]={SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
         return soundEffectNames;

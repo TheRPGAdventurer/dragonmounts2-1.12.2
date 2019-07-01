@@ -428,5 +428,36 @@ public abstract class DragonBreed {
     return 0.1F;
   }
 
+  /**
+   * gets the position offset to use for a passenger on a fully-grown adult dragon
+   * @param isSitting is the dragon sitting down?
+   * @param passengerNumber the number (0.. max) of the passenger
+   * @return the [x, y, z] of the mounting position relative to the dragon [posX, posY, posZ]
+   */
+  public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber)
+  {
+    double yoffset = (isSitting ? 3.4f : 4.4f);
+
+    // dragon position is the middle of the model and the saddle is on
+    // the shoulders, so move player forwards on Z axis relative to the
+    // dragon's rotation to fix that
+
+    switch (passengerNumber) {
+      case 0: return new Vec3d(   0, yoffset, 2.2);
+      case 1: return new Vec3d(+0.6, yoffset, 0.2);
+      case 2: return new Vec3d(-0.6, yoffset, 0.2);
+    }
+    DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
+    return new Vec3d(0, yoffset, 2.2);
+  }
+
+  /** how many passengers can ride on this breed?
+   * @return
+   */
+  public int getMaxNumberOfPassengers()
+  {
+    return 3;
+  }
+
 }
 

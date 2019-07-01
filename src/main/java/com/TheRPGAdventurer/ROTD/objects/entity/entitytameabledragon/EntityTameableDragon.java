@@ -1464,18 +1464,32 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
   /**
    * Returns the Y offset from the entity's position for any entity riding this
    * one.
+   * May not be necessary since we also override updatePassenger()
    */
   @Override
   public double getMountedYOffset() {
-    return (isSitting() ? 1.7f : 2.0f) * getScale();
+    final int DEFAULT_PASSENGER_NUMBER = 0;
+    return getBreed().getAdultMountedPositionOffset(isSitting(), DEFAULT_PASSENGER_NUMBER).y * getScale();
   }
 
   /**
-   * Returns render size modifier
+   * Returns render size modifier for the shadow
    */
   @Override
   public float getRenderSizeModifier() {
-    return getScale();
+    return getScale() / (isChild() ? 0.5F : 1.0F);
+//  0.5 isChild() correction is required due to the code in Render::renderShadow which shrinks the shadow for a child
+//    if (entityIn instanceof EntityLiving)
+//    {
+//      EntityLiving entityliving = (EntityLiving)entityIn;
+//      f *= entityliving.getRenderSizeModifier();
+//
+//      if (entityliving.isChild())
+//      {
+//        f *= 0.5F;
+//      }
+//    }
+
   }
 
   /**
@@ -1902,44 +1916,41 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
   }
 
   public void updateRiding(EntityLivingBase riding) {
-    if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
-      int i = riding.getPassengers().indexOf(this);
-      float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
-      float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
-      double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
-      double extraZ = (double) (radius * MathHelper.cos(angle));
-      double extraY = (riding.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
-      this.rotationYaw = riding.rotationYaw;
-      this.prevRotationYaw = riding.prevRotationYaw;
-      this.rotationYawHead = riding.rotationYawHead;
-      this.prevRotationYawHead = riding.prevRotationYawHead;
-      this.rotationPitch = riding.rotationPitch;
-      this.prevRotationPitch = riding.prevRotationPitch;
-      this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
-      if (ModKeys.DISMOUNT.isKeyDown() || this.isDead || this.getScale() > 0.35) this.dismountRidingEntity();
-      this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying && !riding.onGround);
-    }
+    // this recently-added riding code appears to be broken?  causes immediate dismount if the dragon is bigger than juvenile?
+
+//    if (riding != null && riding.isPassenger(this) && riding instanceof EntityPlayer) {
+//      int i = riding.getPassengers().indexOf(this);
+//      float radius = (i == 2 ? 0F : 0.4F) + (((EntityPlayer) riding).isElytraFlying() ? 2 : 0);
+//      float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
+//      double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
+//      double extraZ = (double) (radius * MathHelper.cos(angle));
+//      double extraY = (riding.isSneaking() ? 1.3D : 1.4D) + (i == 2 ? 0.4D : 0D);
+//      this.rotationYaw = riding.rotationYaw;
+//      this.prevRotationYaw = riding.prevRotationYaw;
+//      this.rotationYawHead = riding.rotationYawHead;
+//      this.prevRotationYawHead = riding.prevRotationYawHead;
+//      this.rotationPitch = riding.rotationPitch;
+//      this.prevRotationPitch = riding.prevRotationPitch;
+//      this.setPosition(riding.posX + extraX, riding.posY + extraY, riding.posZ + extraZ);
+//      if (ModKeys.DISMOUNT.isKeyDown() || this.isDead || this.getScale() > 0.35) this.dismountRidingEntity();     // todo what's going on here?  Forces immediate dismount?!
+//      this.setFlying(isRidingAboveGround(riding) && !((EntityPlayer) riding).capabilities.isFlying && !riding.onGround);
+//    }
   }
 
   @Override
   public void updatePassenger(Entity passenger) {
     if (this.isPassenger(passenger)) {
-      double px = posX;
-      double py = posY + getMountedYOffset() + passenger.getYOffset();
-      double pz = posZ;
-
-      Vec3d pos = new Vec3d(0, 0, 0);
-
-      // dragon position is the middle of the model and the saddle is on
-      // the shoulders, so move player forwards on Z axis relative to the
-      // dragon's rotation to fix that
-      if (passenger == getPassengers().get(0)) {
-        pos = new Vec3d(0 * getScale(), 0.2 * getScale(), 1.1 * getScale());
-      } else if (passenger == getPassengers().get(1)) {
-        pos = new Vec3d(0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
-      } else if (passenger == getPassengers().get(2)) {
-        pos = new Vec3d(-0.3 * getScale(), 0.2 * getScale(), 0.1 * getScale());
+      List<Entity> passengers = getPassengers();
+      int passengerNumber = passengers.indexOf(passenger);
+      if (passengerNumber < 0) {  // should never happen!
+        DragonMounts.loggerLimit.error_once("Logic error- passenger not found");
+        return;
       }
+
+      Vec3d mountedPositionOffset = getBreed().getAdultMountedPositionOffset(isSitting(), passengerNumber);
+      mountedPositionOffset = mountedPositionOffset.scale(getScale());
+      mountedPositionOffset = mountedPositionOffset.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
+      mountedPositionOffset.addVector(0, passenger.getYOffset(), 0);
 
       if (!(passenger instanceof EntityPlayer)) {
         passenger.rotationYaw = this.rotationYaw;
@@ -1947,12 +1958,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.applyYawToEntity(passenger);
       }
 
-      pos = pos.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
-      px += pos.x;
-      py += pos.y;
-      pz += pos.z;
-
-      passenger.setPosition(px, py, pz);
+      passenger.setPosition(mountedPositionOffset.x, mountedPositionOffset.y, mountedPositionOffset.z);
 
       // fix rider rotation
       if (passenger == getControllingPlayer()) {
@@ -2283,7 +2289,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
   }
 
   protected boolean canFitPassenger(Entity passenger) {
-    return this.getPassengers().size() < 3;
+    return this.getPassengers().size() < getBreed().getMaxNumberOfPassengers();
   }
 
   /**

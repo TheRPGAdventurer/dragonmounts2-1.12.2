@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX",
+    "X#",
+    " #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "dragonmounts:forest2_dragonscales"
+    }
+  },
+  "result": {
+    "item": "dragonmounts:forest2_dragon_axe"
+  }
+}
+

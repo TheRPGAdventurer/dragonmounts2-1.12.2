@@ -1,9 +1,6 @@
 package com.TheRPGAdventurer.ROTD.network;
 
-import java.util.UUID;
-
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -23,10 +20,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.UUID;
+
 public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport> {
 	public UUID dragonId;
-    public byte controlState;
-    EntityTameableDragon dragon;
 
     public MessageDragonTeleport(UUID dragonId) {
         this.dragonId = dragonId;

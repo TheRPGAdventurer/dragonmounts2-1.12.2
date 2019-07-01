@@ -1,0 +1,38 @@
+{
+    "pools": [
+        {   
+		    "name": "light",
+            "rolls": {
+			        "min": 1,
+					"max": 2
+			},
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "dragonmounts:light_dragonscales",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+							         "min": 3,
+									 "max": 7
+						    }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+		    "name": "light_dragon",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "loot_table",
+                    "name": "dragonmounts:entities/dragon",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}

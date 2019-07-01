@@ -21,13 +21,11 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
 
     public UUID dragonId;
     public byte controlState;
-    public boolean firesupport;
     EntityTameableDragon dragon;
 
-    public MessageDragonWhistle(UUID dragonId, byte controlState, boolean firesupport) {
+    public MessageDragonWhistle(UUID dragonId, byte controlState) {
         this.dragonId = dragonId;
         this.controlState = controlState;
-        this.firesupport = firesupport;
     }
 
     public MessageDragonWhistle() {
@@ -38,7 +36,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
         PacketBuffer packetBuf = new PacketBuffer(buf);
         dragonId = packetBuf.readUniqueId();
         controlState = buf.readByte();
-        firesupport = buf.readBoolean();
     }
 
     @Override
@@ -46,7 +43,6 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
         PacketBuffer packetBuf = new PacketBuffer(buf);
         packetBuf.writeUniqueId(dragonId);
         buf.writeByte(controlState);
-        buf.writeBoolean(firesupport);
 
     }
 
@@ -70,15 +66,13 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
         clientWhistleSound(player);
-        if (!player.world.isRemote) {
-            Entity entity = server.getEntityFromUuid(dragonId);
-            EntityTameableDragon dragon = (EntityTameableDragon) entity;
-            if (entity != null) {
-                if (entity instanceof EntityTameableDragon && dragon.isOwner(player)) {
-                    dragon.setWhistleState(message.controlState);
-                    if(message.firesupport) dragon.setfiresupport(!dragon.firesupport());
-                }
-            } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
-        }
+        Entity entity = server.getEntityFromUuid(dragonId);
+        if (player.world.isRemote) return;
+        if (entity != null) {
+            if (entity instanceof EntityTameableDragon) {
+                EntityTameableDragon dragon = (EntityTameableDragon) entity;
+                dragon.setWhistleState(message.controlState);
+            }
+        } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
     }
 }

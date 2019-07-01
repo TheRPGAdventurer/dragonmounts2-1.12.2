@@ -1,16 +1,15 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAISit;
 
 public class EntityAIDragonSit extends EntityAISit {
+    public EntityTameableDragon dragon;
     /**
      * If the Entitydragon is sitting.
      */
     private boolean isSitting;
-    public EntityTameableDragon dragon;
 
     public EntityAIDragonSit(EntityTameableDragon entityIn) {
         super(entityIn);
@@ -21,8 +20,7 @@ public class EntityAIDragonSit extends EntityAISit {
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-        if (!this.dragon.isTamed() || this.dragon.isInWater() || !this.dragon.onGround)
-        {
+        if (!this.dragon.isTamed() || this.dragon.isInWater() || !this.dragon.onGround) {
             return false;
         } else {
             EntityLivingBase entitylivingbase = this.dragon.getOwner();

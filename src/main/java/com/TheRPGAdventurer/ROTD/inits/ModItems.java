@@ -17,6 +17,7 @@ public class ModItems {
 
     //Scales Start
     public static final Item ForestDragonScales = new ItemDragonScales("forest_dragonscales", EnumItemBreedTypes.FOREST);
+    public static final Item ForestDragonScales2 = new ItemDragonScales("forest2_dragonscales", EnumItemBreedTypes.FOREST2);
     public static final Item FireDragonScales = new ItemDragonScales("fire_dragonscales", EnumItemBreedTypes.FIRE);
     public static final Item FireDragonScales2 = new ItemDragonScales("fire2_dragonscales", EnumItemBreedTypes.FIRE);
     public static final Item IceDragonScales = new ItemDragonScales("ice_dragonscales", EnumItemBreedTypes.ICE);
@@ -34,6 +35,9 @@ public class ModItems {
     public static final Item TerraDragonScales2 = new ItemDragonScales("terra2_dragonscales", EnumItemBreedTypes.TERRA2);
     public static final Item ZombieDragonScales = new ItemDragonScales("zombie_dragonscales", EnumItemBreedTypes.ZOMBIE);
     public static final Item MoonlightDragonScales = new ItemDragonScales("moonlight_dragonscales", EnumItemBreedTypes.MOONLIGHT);
+    //public static final Item LightDragonScales = new ItemDragonScales("light_dragonscales", EnumItemBreedTypes.LIGHT);
+    //public static final Item DarkDragonScales = new ItemDragonScales("dark_dragonscales", EnumItemBreedTypes.DARK);
+    //public static final Item SpecterDragonScales = new ItemDragonScales("specter_dragonscales", EnumItemBreedTypes.SPECTER);
     //Scales end
 
     //Spawn eggs start
@@ -52,6 +56,9 @@ public class ModItems {
     public static final Item SpawnZombie = new ItemDragonSpawner(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE, DragonMounts.mainTab);
     public static final Item SpawnTerra = new ItemDragonSpawner(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA, DragonMounts.mainTab);
     public static final Item SpawnMoonlight = new ItemDragonSpawner(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT, DragonMounts.mainTab);
+    //public static final Item Spawnlight = new ItemDragonSpawner(EnumItemBreedTypes.LIGHT, EnumDragonBreed.LIGHT, DragonMounts.mainTab);
+    //public static final Item Spawndark = new ItemDragonSpawner(EnumItemBreedTypes.DARK, EnumDragonBreed.DARK, DragonMounts.mainTab);
+    //public static final Item Spawnspecter = new ItemDragonSpawner(EnumItemBreedTypes.SPECTER, EnumDragonBreed.SPECTER, DragonMounts.mainTab);
     //Spawn eggs end
 
     //Essence Start
@@ -70,6 +77,9 @@ public class ModItems {
     public static final ItemDragonEssence EssenceZombie = new ItemDragonEssence(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE);
     public static final ItemDragonEssence EssenceTerra = new ItemDragonEssence(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA);
     public static final ItemDragonEssence EssenceMoonlight = new ItemDragonEssence(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT);
+    //public static final ItemDragonEssence Essencelight = new ItemDragonEssence(EnumItemBreedTypes.LIGHT, EnumDragonBreed.LIGHT);
+    //public static final ItemDragonEssence Essencedark = new ItemDragonEssence(EnumItemBreedTypes.DARK, EnumDragonBreed.DARK);
+    //public static final ItemDragonEssence Essencespecter = new ItemDragonEssence(EnumItemBreedTypes.SPECTER, EnumDragonBreed.SPECTER);
     //Essence End
 
     //Amulets Start
@@ -89,6 +99,9 @@ public class ModItems {
     public static final ItemDragonAmulet AmuletZombie = new ItemDragonAmulet(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE);
     public static final ItemDragonAmulet AmuletTerra = new ItemDragonAmulet(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA);
     public static final ItemDragonAmulet AmuletMoonlight = new ItemDragonAmulet(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT);
+    //public static final ItemDragonAmulet AmuletLight = new ItemDragonAmulet(EnumItemBreedTypes.LIGHT, EnumDragonBreed.LIGHT);
+    //public static final ItemDragonAmulet AmuletDark = new ItemDragonAmulet(EnumItemBreedTypes.DARK, EnumDragonBreed.DARK);
+    //public static final ItemDragonAmulet AmuletSpecter = new ItemDragonAmulet(EnumItemBreedTypes.SPECTER, EnumDragonBreed.SPECTER);
     
     public static final ItemDragonAmuletNEW Amulet = new ItemDragonAmuletNEW();
     //Amulets End
@@ -127,5 +140,8 @@ public class ModItems {
     public static final Item terra2_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
     public static final Item zombie_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
     public static final Item moonlight_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
+    //public static final Item light_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.LIGHT, ModItems.lightDragonScales);
+    //public static final Item dark_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.DARK, ModItems.DarkDragonScales);
+    //public static final Item specter_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.DARK, ModItems.SpecterDragonScales);
     
 }

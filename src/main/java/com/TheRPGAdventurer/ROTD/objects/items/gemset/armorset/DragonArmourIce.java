@@ -34,17 +34,19 @@ public class DragonArmourIce extends DragonArmourBase {
         super.onArmorTick(world, player, itemStack);
         if (!(head == ModArmour.iceDragonScaleCap && chest == ModArmour.iceDragonScaleTunic && legs == ModArmour.iceDragonScaleLeggings && feet == ModArmour.iceDragonScaleBoots))
             return;
-        if (player.hurtTime == 0 && player.getAttackingEntity() == null) return;
+        if (player.hurtTime == 0) return;
 
-        List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(5));
-        if (entities.isEmpty()) return; // Dont set a cooldown for not hitting anything
-        doEffects(player);
-        for (net.minecraft.entity.Entity entity : entities)
-            if (entity instanceof EntityMob) {
-                ((EntityMob) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 1));
-                ((EntityMob) entity).attackEntityFrom(DamageSource.GENERIC, 1);
-                ((EntityMob) entity).knockBack(entity, 0.4f, 1, 1);
-            }
+        if (player.getAttackingEntity() != null) {
+            List<Entity> entities = player.world.getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().grow(5));
+            if (entities.isEmpty()) return; // Dont set a cooldown for not hitting anything
+            doEffects(player);
+            for (net.minecraft.entity.Entity entity : entities)
+                if (entity instanceof EntityMob) {
+                    ((EntityMob) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 1));
+                    ((EntityMob) entity).attackEntityFrom(DamageSource.GENERIC, 1);
+                    ((EntityMob) entity).knockBack(entity, 0.4f, 1, 1);
+                }
+        }
         if (player.hurtTime < 7) player.getCooldownTracker().setCooldown(this, 1200);
     }
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "dragonmounts:specter_dragonscales"
+    }
+  },
+  "result": {
+    "item": "dragonmounts:specter_dragonscale_tunic"
+  }
+}
+

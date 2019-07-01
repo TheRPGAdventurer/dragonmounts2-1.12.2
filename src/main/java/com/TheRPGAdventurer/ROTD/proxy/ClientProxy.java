@@ -143,7 +143,6 @@ public class ClientProxy extends ServerProxy {
         DragonOrbControl.initialiseInterceptors();
         MinecraftForge.EVENT_BUS.register(DragonOrbControl.getInstance());
         MinecraftForge.EVENT_BUS.register(new TargetHighlighter());
- //       FMLCommonHandler.instance().bus().register(new DragonEntityWatcher());  todo not required? if i remember correctly this is used to make a zoom in, thridpersonview i unused now now uing DragonViewEvent rpg
       }
 
       MinecraftForge.EVENT_BUS.register(new ModKeys());

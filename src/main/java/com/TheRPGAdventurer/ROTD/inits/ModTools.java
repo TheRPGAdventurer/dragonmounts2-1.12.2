@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.inits;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDiamondShears;
-import com.TheRPGAdventurer.ROTD.objects.items.bow.*;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonBow;
 import com.TheRPGAdventurer.ROTD.objects.items.gemset.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -16,14 +16,13 @@ import java.util.List;
 public class ModTools {
 	//Tool Array
 	public static final List<Item> TOOLS = new ArrayList<Item>();
-	//Bow Array - Separate for Bow Anim
-    public static final List<Item> BOWS = new ArrayList<Item>();
 	
 	static float damage = 10.0F; static float speed = -2.8F;
 	static float netherDamage = 12.0F; static float netherSpeed = -2.9F;
 	static float enderDamage = 9.0F; static float enderSpeed = -2.9F;
  
 	public static final ToolMaterial ForestDragonScaleMaterial	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":forestdragonscales",   4, 2700, 8.0F, 5.0F, 11);
+	public static final ToolMaterial ForestDragonScaleMaterial2	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":forestdragonscales2",   4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial FireDragonScaleMaterial	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales",      4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial FireDragonScaleMaterial2	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":icedragonscales2",      4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial AetherDragonScaleMaterial	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":aetherdragonscales",   5, 2700, 8.0F, 5.0F, 11);
@@ -41,13 +40,23 @@ public class ModTools {
 	public static final ToolMaterial TerraDragonScaleMaterial2    = EnumHelper.addToolMaterial(DragonMounts.MODID + ":terra2dragonscales", 4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial MoonlightDragonScaleMaterial = EnumHelper.addToolMaterial(DragonMounts.MODID + ":moonlightdragonscales", 4, 2700, 8.0F, 5.0F, 11);
 	public static final ToolMaterial ZombieDragonScaleMaterial	  = EnumHelper.addToolMaterial(DragonMounts.MODID + ":zombiedragonscales", 4, 2700, 8.0F, 5.0F, 11);
-
+	//public static final ToolMaterial LightDragonScaleMaterial = EnumHelper.addToolMaterial(DragonMounts.MODID + ":lightdragonscales", 4, 2700, 8.0F, 5.0F, 11);
+	//public static final ToolMaterial DarkDragonScaleMaterial = EnumHelper.addToolMaterial(DragonMounts.MODID + ":darkdragonscales", 4, 2700, 8.0F, 5.0F, 11);
+	//public static final ToolMaterial SpecterDragonScaleMaterial = EnumHelper.addToolMaterial(DragonMounts.MODID + ":specterdragonscales", 4, 2700, 8.0F, 5.0F, 11);
+	
 	//Forest Start
 	public static final ItemDragonSword forestDragonSword = new ItemDragonSword(ForestDragonScaleMaterial, "forest_dragon_sword", EnumItemBreedTypes.FOREST);
 	public static final ItemDragonPickAxe forestDragonPickaxe = new ItemDragonPickAxe(ForestDragonScaleMaterial, "forest_dragon_pickaxe", EnumItemBreedTypes.FOREST);
 	public static final ItemDragonAxe  forestDragonAxe = new ItemDragonAxe(ForestDragonScaleMaterial, "forest_dragon_axe", damage, speed, EnumItemBreedTypes.FOREST);
 	public static final ItemDragonShovel forestDragonShovel = new ItemDragonShovel(ForestDragonScaleMaterial, "forest_dragon_shovel", EnumItemBreedTypes.FOREST);
 	public static final ItemDragonHoe forestDragonHoe = new ItemDragonHoe(ForestDragonScaleMaterial, "forest_dragon_hoe", EnumItemBreedTypes.FOREST);
+
+	//Forest Start
+	public static final ItemDragonSword forestDragonSword2 = new ItemDragonSword(ForestDragonScaleMaterial2, "forest2_dragon_sword", EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonPickAxe forestDragonPickaxe2 = new ItemDragonPickAxe(ForestDragonScaleMaterial2, "forest2_dragon_pickaxe", EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonAxe  forestDragonAxe2 = new ItemDragonAxe(ForestDragonScaleMaterial2, "forest2_dragon_axe", damage, speed, EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonShovel forestDragonShovel2 = new ItemDragonShovel(ForestDragonScaleMaterial2, "forest2_dragon_shovel", EnumItemBreedTypes.FOREST2);
+	public static final ItemDragonHoe forestDragonHoe2 = new ItemDragonHoe(ForestDragonScaleMaterial2, "forest2_dragon_hoe", EnumItemBreedTypes.FOREST2);
 
 	//Aether Start
 	public static final ItemDragonSword aetherDragonSword = new ItemDragonSword(AetherDragonScaleMaterial, "aether_dragon_sword", EnumItemBreedTypes.AETHER);
@@ -168,30 +177,54 @@ public class ModTools {
 	public static final ItemDragonShovel moonlightDragonShovel = new ItemDragonShovel(MoonlightDragonScaleMaterial, "moonlight_dragon_shovel", EnumItemBreedTypes.MOONLIGHT);
 	public static final ItemDragonHoe moonlightDragonHoe = new ItemDragonHoe(MoonlightDragonScaleMaterial, "moonlight_dragon_hoe", EnumItemBreedTypes.MOONLIGHT);
 	
+	//Light Start
+	//public static final ItemDragonSword lightDragonSword = new ItemDragonSword(LightDragonScaleMaterial, "light_dragon_sword", EnumItemBreedTypes.LIGHT);
+	//public static final ItemDragonPickAxe lightDragonPickaxe = new ItemDragonPickAxe(lightDragonScaleMaterial, "light_dragon_pickaxe", EnumItemBreedTypes.LIGHT);
+	//public static final ItemDragonAxe lightDragonAxe = new ItemDragonAxe(LightDragonScaleMaterial, "light_dragon_axe", damage, speed, EnumItemBreedTypes.LIGHT);
+	//public static final ItemDragonShovel lightDragonShovel = new ItemDragonShovel(lightDragonScaleMaterial, "light_dragon_shovel", EnumItemBreedTypes.LIGHT);
+	//public static final ItemDragonHoe lightDragonHoe = new ItemDragonHoe(lightDragonScaleMaterial, "light_dragon_hoe", EnumItemBreedTypes.LIGHT);
+	
+	//Dark Start
+	//public static final ItemDragonSword darkDragonSword = new ItemDragonSword(DarkDragonScaleMaterial, "dark_dragon_sword", EnumItemBreedTypes.DARK);
+	//public static final ItemDragonPickAxe darkDragonPickaxe = new ItemDragonPickAxe(DarkDragonScaleMaterial, "dark_dragon_pickaxe", EnumItemBreedTypes.DARK);
+	//public static final ItemDragonAxe darkDragonAxe = new ItemDragonAxe(DarkDragonScaleMaterial, "dark_dragon_axe", damage, speed, EnumItemBreedTypes.DARK);
+	//public static final ItemDragonShovel darkDragonShovel = new ItemDragonShovel(DarkDragonScaleMaterial, "dark_dragon_shovel", EnumItemBreedTypes.DARK);
+	//public static final ItemDragonHoe darkDragonHoe = new ItemDragonHoe(DarkDragonScaleMaterial, "dark_dragon_hoe", EnumItemBreedTypes.DARK);
+	
+	//Specter Start
+	//public static final ItemDragonSword specterDragonSword = new ItemDragonSword(specterDragonScaleMaterial, "specter_dragon_sword", EnumItemBreedTypes.SPECTER);
+	//public static final ItemDragonPickAxe specterDragonPickaxe = new ItemDragonPickAxe(specterDragonScaleMaterial, "specter_dragon_pickaxe", EnumItemBreedTypes.SPECTER);
+	//public static final ItemDragonAxe specterDragonAxe = new ItemDragonAxe(specterDragonScaleMaterial, "specter_dragon_axe", damage, speed, EnumItemBreedTypes.SPECTER);
+	//public static final ItemDragonShovel specterDragonShovel = new ItemDragonShovel(specterDragonScaleMaterial, "specter_dragon_shovel", EnumItemBreedTypes.SPECTER);
+	//public static final ItemDragonHoe specterDragonHoe = new ItemDragonHoe(specterDragonScaleMaterial, "specter_dragon_hoe", EnumItemBreedTypes.SPECTER);
+	
 	//Shears Start
 	public static final ItemDiamondShears diamond_shears = new ItemDiamondShears(ToolMaterial.DIAMOND, "diamond_shears");
 	
 	//Bows Start
-    public static final Item aether_dragon_bow = new ItemDragonAetherBow(EnumItemBreedTypes.AETHER, ModItems.AetherDragonScales);
-    public static final Item forest_dragon_bow = new ItemDragonForestBow(EnumItemBreedTypes.FOREST, ModItems.ForestDragonScales);
-    public static final Item fire_dragon_bow = new ItemDragonFireBow(EnumItemBreedTypes.FIRE, ModItems.FireDragonScales);
-    public static final Item fire2_dragon_bow = new ItemDragonFire2Bow(EnumItemBreedTypes.FIRE2, ModItems.FireDragonScales2);
-    public static final Item ice_dragon_bow = new ItemDragonIceBow(EnumItemBreedTypes.ICE, ModItems.IceDragonScales);
-    public static final Item water_dragon_bow = new ItemDragonWaterBow(EnumItemBreedTypes.WATER, ModItems.WaterDragonScales);
-    public static final Item sunlight_dragon_bow = new ItemDragonSunlightBow(EnumItemBreedTypes.SUNLIGHT, ModItems.SunlightDragonScales);
-    public static final Item sunlight2_dragon_bow = new ItemDragonSunlight2Bow(EnumItemBreedTypes.SUNLIGHT2, ModItems.SunlightDragonScales2);
-    public static final Item enchant_dragon_bow = new ItemDragonEnchantBow(EnumItemBreedTypes.ENCHANT, ModItems.EnchantDragonScales);
-    public static final Item storm_dragon_bow = new ItemDragonStormBow(EnumItemBreedTypes.STORM, ModItems.StormDragonScales);
-    public static final Item storm_dragon_bow2 = new ItemDragonStorm2Bow(EnumItemBreedTypes.STORM2, ModItems.StormDragonScales2);
-    public static final Item nether_dragon_bow = new ItemDragonNetherBow(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales);
-    public static final Item nether2_dragon_bow = new ItemDragonNether2Bow(EnumItemBreedTypes.NETHER2, ModItems.NetherDragonScales2);
-    public static final Item ender_dragon_bow = new ItemDragonEndBow(EnumItemBreedTypes.END, ModItems.EnderDragonScales);
-    public static final Item terra_dragon_bow = new ItemDragonTerraBow(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
-    public static final Item terra2_dragon_bow = new ItemDragonTerra2Bow(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
-    public static final Item moonlight_dragon_bow = new ItemDragonMoonlightBow(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
-//    public static final Item skelton_dragon_bow = new ItemDragonSkelBow(EnumItemBreedTypes.SKELETON, Items.BONE);
-    public static final Item zombie_dragon_bow = new ItemDragonZombieBow(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
-	
+    public static final Item aether_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.AETHER, ModItems.AetherDragonScales);
+    public static final Item forest_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.FOREST, ModItems.ForestDragonScales);
+    public static final Item fire_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.FIRE, ModItems.FireDragonScales);
+    public static final Item fire2_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.FIRE2, ModItems.FireDragonScales2);
+    public static final Item ice_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.ICE, ModItems.IceDragonScales);
+    public static final Item water_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.WATER, ModItems.WaterDragonScales);
+    public static final Item sunlight_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.SUNLIGHT, ModItems.SunlightDragonScales);
+    public static final Item sunlight2_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.SUNLIGHT2, ModItems.SunlightDragonScales2);
+    public static final Item enchant_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.ENCHANT, ModItems.EnchantDragonScales);
+    public static final Item storm_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.STORM, ModItems.StormDragonScales);
+    public static final Item storm_dragon_bow2 = new ItemDragonBow(EnumItemBreedTypes.STORM2, ModItems.StormDragonScales2);
+    public static final Item nether_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.NETHER, ModItems.NetherDragonScales);
+    public static final Item nether2_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.NETHER2, ModItems.NetherDragonScales2);
+    public static final Item ender_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.END, ModItems.EnderDragonScales);
+    public static final Item terra_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.TERRA, ModItems.TerraDragonScales);
+    public static final Item terra2_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.TERRA2, ModItems.TerraDragonScales2);
+    public static final Item moonlight_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.MOONLIGHT, ModItems.MoonlightDragonScales);
+//    public static final Item light_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.LIGHT, ModItems.LightDragonScales);
+//    public static final Item dark_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.DARK, ModItems.DarkDragonScales);
+//    public static final Item specter_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.SPECTER, ModItems.SpecterDragonScales);
+//    public static final Item skeleton_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.SKELETON, Items.BONE);
+    public static final Item zombie_dragon_bow = new ItemDragonBow(EnumItemBreedTypes.ZOMBIE, ModItems.ZombieDragonScales);
+
 	//Material Repairability Start
 	public static void InitializaRepairs() {
 		IceDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.IceDragonScales));
@@ -212,5 +245,8 @@ public class ModTools {
 		TerraDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.TerraDragonScales));
 		TerraDragonScaleMaterial2.setRepairItem(new ItemStack(ModItems.TerraDragonScales2));
 		MoonlightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.MoonlightDragonScales));
+//		LightDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.LightDragonScales));
+//		DarkDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.DarkDragonScales));
+//		SpecterDragonScaleMaterial.setRepairItem(new ItemStack(ModItems.SpecterDragonScales));
 	}
 }

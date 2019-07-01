@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+	"textures": {
+	    "layer0": "dragonmounts:items/tools/axe/light_dragon_axe"
+	}
+}

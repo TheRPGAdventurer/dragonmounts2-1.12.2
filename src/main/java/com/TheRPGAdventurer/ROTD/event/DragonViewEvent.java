@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.event;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
+import com.TheRPGAdventurer.ROTD.client.gui.GuiDragonRide;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
@@ -14,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DragonViewEvent {
+
     /**
      * Credit to AlexThe666 : iceandfire
      *
@@ -69,32 +71,35 @@ public class DragonViewEvent {
 
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
                     if (currentView == 0) {
-                        GlStateManager.translate(0F, -1.3F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(0F, -1.3F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView == 1) {
-                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     } else if (currentView == 2) {
-                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
                     }
                 }
             } else {
-                GlStateManager.translate(0F, -0.5F, -5);
+                GlStateManager.translate(0F, -0.5F, 0F);
             }
         }
     }
 
-    @SubscribeEvent
-    public void rideDragonGameOverlay(RenderGameOverlayEvent.Post event) {
-//        if (event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) return;
-//        new GuiDragonRide();
-    }
+//    @SubscribeEvent
+//    public void rideDragonGameOverlay(RenderGameOverlayEvent.Pre event) {
+//        EntityPlayer player = Minecraft.getMinecraft().player;
+//        if (player.getRidingEntity() instanceof EntityTameableDragon) {
+//            EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
+//            if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) event.setCanceled(true);
+//                GuiDragonRide rideGui = new GuiDragonRide(dragon);
+//                rideGui.renderDragonBoostHotbar();
+//        }
+//    }
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             if (player.getRidingEntity() instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
-                //            if (player.world.isRemote) {
                 if (ModKeys.dragon_change_view.isPressed()) {
                     int currentView = DragonMounts.proxy.getDragon3rdPersonView();
                     if (currentView + 1 > 2) {
@@ -104,7 +109,6 @@ public class DragonViewEvent {
                     }
 
                     DragonMounts.proxy.setDragon3rdPersonView(currentView);
-
                 }
             }
         }

@@ -41,9 +41,26 @@ entity.DragonMounts.dragon.zombie.name=Zombie Dragon
 entity.DragonMounts.dragon.terra.name=Terra Dragon
 entity.DragonMounts.dragon.moonlight.name=Moonlight Dragon
 
+entity.DragonMounts.dragon.albino.ice.name=Albino Ice Dragon
+entity.DragonMounts.dragon.albino.ender.name=Albino Ender Dragon
+entity.DragonMounts.dragon.albino.aether.name=Albino Aether Dragon
+entity.DragonMounts.dragon.albino.forest.name=Albino Forest Dragon
+entity.DragonMounts.dragon.albino.sylphid.name=Albino Water Dragon
+entity.DragonMounts.dragon.albino.nether.name=Albino Nether Dragon
+entity.DragonMounts.dragon.albino.fire.name=Albino Fire Dragon
+entity.DragonMounts.dragon.albino.skeleton.name=Albino Skeleton Dragon
+entity.DragonMounts.dragon.albino.wither.name=Albino Wither Dragon
+entity.DragonMounts.dragon.albino.enchant.name=Albino Enchantment Dragon
+entity.DragonMounts.dragon.albino.sunlight.name=Albino Sunlight Dragon
+entity.DragonMounts.dragon.albino.storm.name=Albino Storm Dragon
+entity.DragonMounts.dragon.albino.zombie.name=Albino Zombie Dragon
+entity.DragonMounts.dragon.albino.terra.name=Albino Terra Dragon
+entity.DragonMounts.dragon.albino.moonlight.name=Albino Moonlight Dragon
+
 
 #Breeds
 dragon.forest=Forest
+dragon.forest2=Forest
 dragon.aether=Aether
 dragon.ice=Ice
 dragon.sylphid=Water
@@ -85,12 +102,12 @@ item.dragon_whistle.name=Dragon Whistle
 item.dragon_amulet.name=Dragon Amulet
 item.dragon_orb.name=Dragon Orb
 
-item.carriage_oak.name=Oak Carriage
-item.carriage_birch.name=Birch Carriage
-item.carriage_spruce.name=Spruce Carriage
-item.carriage_acacia.name=Acacia Carriage
-item.carriage_dark_oak.name=Dark Oak Carriage
-item.carriage_jungle.name=Jungle Carriage
+item.carriage_oak.name=Oak CargoBob
+item.carriage_birch.name=Birch CargoBob
+item.carriage_spruce.name=Spruce CargoBob
+item.carriage_acacia.name=Acacia CargoBob
+item.carriage_dark_oak.name=Dark Oak CargoBob
+item.carriage_jungle.name=Jungle CargoBob
 
 # Armory Items
 item.dragonscales.name=Dragon Scales
@@ -137,10 +154,11 @@ item.diamondshears.info=Used to get scales from tamed dragons without killing it
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
 item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (!WIP!)
+item.whistle.nullBlockPos=Cannot Teleport There
 
 
 ##
-# Messages
+# Messagesh
 ##
 dragon.locked=This Dragon has been locked by the Owner
 dragon.notTamed=This Dragon is not Tamed
@@ -152,7 +170,7 @@ commands.dragon.nodragons=There are no dragons nearby
 commands.dragon.canttame=You cannot tame dragons
 msg.dragon.toggleHover=Dragon Hover Toggle
 msg.dragon.toggleFollowYaw=Dragon Follow Yaw
-msg.dragon.toggleYLock=Height Lock
+msg.dragon.toggleYLock=Old Controls (Space and Left ALT)
 
 # Whistle
 whistle.msg.cleared=Dragon has been unbound
@@ -170,8 +188,7 @@ whistle.command.new_home=New HomePos at
 gui.nothing=Nothing
 gui.circle=Circle Player
 gui.followFlying=Follow Flying
-gui.goToPlayer=Come To Player
-gui.homePos=Teleport
+gui.teleport=Teleport
 gui.locked.dragon=LOCK
 gui.unlocked.dragon=UNLOCK
 gui.sit=Sit
@@ -181,6 +198,7 @@ container.dragon_shulker=Dragon Core
 
 #Controls
 key.categories.dragon=Dragon Mounts
+key.dragon.projectile=UNUSED
 key.dragon.flyUp=Fly Up
 key.dragon.flyDown=Fly Down
 key.dragon.breath=Dragon Breath
@@ -189,5 +207,5 @@ key.dragon.f7=Change Mount Camera
 key.dragon.followYaw=Follow Yaw
 key.dragon.boost=Flight Boost
 key.dragon.dismount=Shoulder Dismount
-key.dragon.lockY=Lock Height
+key.dragon.lockY=Old Controls
 key.dragon.down=Down

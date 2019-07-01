@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+	"textures": {
+	    "layer0": "dragonmounts:items/tools/shovel/dark_dragon_shovel"
+	}
+}

@@ -11,7 +11,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccessor {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 40;
+    private final float YAW_SPEED = 7;
 
     public DragonMoveHelper(EntityTameableDragon dragon) {
         super(dragon);
@@ -36,8 +36,7 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
 
             // move towards target if it's far away enough   dragon.width
             if (dist > dragon.width) {
-                double boost = dragon.boosting() ? 4 : 1;
-                double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost;
+                double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * dragon.getFlySpeed();
 
                 // update velocity to approach target
                 dragon.motionX = dir.x * flySpeed;

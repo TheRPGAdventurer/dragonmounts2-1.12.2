@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+	"textures": {
+	    "layer0": "dragonmounts:items/armor/forest2/forest2_dragonscale_boots"
+	}
+}
+

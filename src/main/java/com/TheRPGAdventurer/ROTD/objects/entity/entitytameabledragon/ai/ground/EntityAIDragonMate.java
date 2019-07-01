@@ -9,23 +9,17 @@
  */
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground;
 
-import java.util.List;
-
-import com.TheRPGAdventurer.ROTD.objects.blocks.BlockDragonBreedEgg;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonBreedEgg;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import java.util.List;
 
 /**
  * Derivative EntityAIMate class to deal with some special values that can't be
  * applied with an extension thanks to the visibility.
- * 
+ *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
 public class EntityAIDragonMate extends EntityAIDragonBase {
@@ -37,7 +31,6 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
     public EntityAIDragonMate(EntityTameableDragon dragon, double speed) {
         super(dragon);
         this.speed = speed;
-        setMutexBits(3);
     }
 
     /**
@@ -77,11 +70,11 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
     public void updateTask() {
         dragon.getLookHelper().setLookPositionWithEntity(dragonMate, 10.0F, (float) dragon.getVerticalFaceSpeed());
         dragon.getNavigator().tryMoveToEntityLiving(dragonMate, speed);
-        
+
         ++spawnBabyDelay;
 
         if (spawnBabyDelay == 60) {
-            spawnEggItem();
+            spawnBaby();
         }
     }
 
@@ -92,38 +85,33 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
     private EntityTameableDragon getNearbyMate() {
         double followRange = getFollowRange();
         List<EntityTameableDragon> nearbyDragons = world.getEntitiesWithinAABB(
-            EntityTameableDragon.class,
-            dragon.getEntityBoundingBox().grow(followRange)
+                EntityTameableDragon.class,
+                dragon.getEntityBoundingBox().expand(followRange, followRange, followRange)
         );
-        
+
         for (EntityTameableDragon nearbyDragon : nearbyDragons) {
             if (dragon.canMateWith(nearbyDragon)) {
                 return nearbyDragon;
             }
         }
-        
+
         return null;
     }
 
     /**
      * Spawns a baby animal of the same type.
      */
-    private void spawnEggItem() {
-    	
-    	EntityTameableDragon dragonBaby = (EntityTameableDragon) dragon.createChild(dragonMate);
-//    	if (dragonBaby == null) return;
-    	
-    	dragon.setGrowingAge(6000);
-    	dragonMate.setGrowingAge(6000);
-            
-    	dragon.resetInLove();
-    	dragonMate.resetInLove();
-            
-    	dragonBaby.setLocationAndAngles(dragon.posX, dragon.posY, dragon.posZ, 0, 0);
-    	dragonBaby.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
-            
-    	world.spawnEntity(dragonBaby);
+    private void spawnBaby() {
+        EntityTameableDragon dragonBaby = (EntityTameableDragon) dragon.createChild(dragonMate);
 
+        if (dragonBaby != null) {
+            dragon.resetInLove();
+            dragonMate.resetInLove();
+            dragonBaby.setLocationAndAngles(dragon.posX, dragon.posY, dragon.posZ, 0, 0);
+            dragonBaby.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
+
+            world.spawnEntity(dragonBaby);
             // TODO: particles for the clients?
+        }
     }
 }

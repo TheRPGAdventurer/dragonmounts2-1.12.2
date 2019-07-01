@@ -918,7 +918,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
       Vec3d lookDirection = getOwner().getLook(1.0F);
       Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z); // todo fix the head looking down
       this.getLookHelper().setLookPosition(lookDirection.x, lookDirection.y, lookDirection.z,
-                                           120, 90);
+              120, 90);
     }
 
     if (hasChestVarChanged && dragonInv!=null && !this.isChested()) {
@@ -1966,7 +1966,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 //      System.out.println("MountedOffset:" + mountedPositionOffset);
 
       double dragonScaling = getScale(); //getBreed().getAdultModelRenderScaleFactor() * getScale();
-      
+
       mountedPositionOffset = mountedPositionOffset.scale(dragonScaling);
       mountedPositionOffset = mountedPositionOffset.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
       mountedPositionOffset = mountedPositionOffset.addVector(0, passenger.getYOffset(), 0);
@@ -2152,7 +2152,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 /*    public boolean isGiga() {
         return getLifeStageHelper().isAdult();
     }
-
     public boolean isAdjudicator() {
         return getLifeStageHelper().isAdult();
     }

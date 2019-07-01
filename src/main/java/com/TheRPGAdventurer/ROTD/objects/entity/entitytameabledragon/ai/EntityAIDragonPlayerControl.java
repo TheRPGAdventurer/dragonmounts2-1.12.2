@@ -24,10 +24,9 @@ import net.minecraft.util.math.Vec3d;
  */
 public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements PrivateAccessor {
 
-    private Vec3d inates;
-
     public EntityAIDragonPlayerControl(EntityTameableDragon dragon) {
         super(dragon);
+        setMutexBits(0xffffffff);
     }
 
     @Override
@@ -37,7 +36,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
     }
 
     @Override
-    public void startExecuting() { dragon.getNavigator().clearPath(); }
+    public void startExecuting() {
+        dragon.getNavigator().clearPath();
+    }
 
     @Override
     public void updateTask() {
@@ -47,12 +48,27 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         double y = dragon.posY;
         double z = dragon.posZ;
 
+        dragon.setSitting(false);
+
         if (dragon.getBreedType() == EnumDragonBreed.SYLPHID) {
             PotionEffect watereffect = new PotionEffect(MobEffects.WATER_BREATHING, 200);
             if (!rider.isPotionActive(watereffect.getPotion()) && rider.isInWater()) { // If the Potion isn't currently active,
                 rider.addPotionEffect(watereffect); // Apply a copy of the PotionEffect to the player
             }
         }
+
+        // if we're breathing at a target, look at it
+        if ((dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon())) {
+            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+            Vec3d lookDirection = rider.getLook(1.0F);
+            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
+                    90, 120);
+            dragon.updateIntendedRideRotation(rider);
+        }
+
+        if (dragon.followYaw())  dragon.updateIntendedRideRotation(rider);
+
 
         // control direction with movement keys
         if (rider.moveStrafing != 0 || rider.moveForward != 0) {
@@ -65,21 +81,19 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             }
 
             x += wp.x * 10;
-            if (!dragon.isYLocked()) {
-                y += wp.y * 10;
-            }
+            if (!dragon.isYLocked()) y += wp.y * 10;
             z += wp.z * 10;
         }
 
-        // lift off from a jump
+//         lift off from a jump
         if (entityIsJumping(rider)) {
             if (!dragon.isFlying()) {
                 dragon.liftOff();
             } else {
-                y += 8;
+                y += 10;
             }
         } else if (dragon.isGoingDown()) {
-            y -= 8;
+            y -= 10;
         }
 
         dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);

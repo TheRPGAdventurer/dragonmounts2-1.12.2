@@ -11,15 +11,15 @@ import net.minecraft.world.World;
 
 public class DragonArmourForest extends DragonArmourBase {
 
-    public DragonArmourForest(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName) {
-        super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, EnumItemBreedTypes.FOREST);
+    public DragonArmourForest(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, EnumItemBreedTypes type) {
+        super(materialIn, renderIndexIn, equipmentSlotIn, unlocalizedName, type);
     }
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
         if (player.getCooldownTracker().getCooldown(this, 0) > 0) return;
         super.onArmorTick(world, player, itemStack);
-        if (!(head == ModArmour.forestDragonScaleCap && chest == ModArmour.forestDragonScaleTunic && legs == ModArmour.forestDragonScaleLeggings && feet == ModArmour.forestDragonScaleBoots))
+        if (!((head == ModArmour.forestDragonScaleCap || head == ModArmour.forestDragonScaleCap2) && (chest == ModArmour.forestDragonScaleTunic || chest == ModArmour.forestDragonScaleTunic2) && (legs == ModArmour.forestDragonScaleLeggings || legs == ModArmour.forestDragonScaleLeggings2) && (feet == ModArmour.forestDragonScaleBoots || feet == ModArmour.forestDragonScaleBoots2)))
             return;
         if (player.fishEntity != null && !isActive(MobEffects.LUCK, player))
             player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 210, 0, false, false));
@@ -31,5 +31,4 @@ public class DragonArmourForest extends DragonArmourBase {
             player.getCooldownTracker().setCooldown(this, 1160); //Relatively high because this is op af
         }
     }
-
 }

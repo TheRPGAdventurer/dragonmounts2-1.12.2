@@ -49,7 +49,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         nav = dragon.getNavigator();
         world = dragon.world;
 
-        setMutexBits(3);
+        setMutexBits(1);
     }
 
     /**

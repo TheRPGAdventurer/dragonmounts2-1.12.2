@@ -75,7 +75,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
+        return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && dragon.nothing();
     }
 
     @Override

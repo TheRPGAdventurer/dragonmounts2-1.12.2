@@ -194,6 +194,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         helpers.values().forEach(DragonHelper::applyEntityAttributes);
         animator = new DragonAnimator(this);
 
+        InitializeDragonInventory();
+
     }
 
     @Override
@@ -433,19 +435,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     public boolean circle() {
         return (dataManager.get(WHISTLE_STATE)) == 2;
-    }
-
-    public boolean come() {
-        return (dataManager.get(WHISTLE_STATE)) == 3;
-    }
-
-    public boolean homepos() {
-        return (dataManager.get(WHISTLE_STATE)) == 4;
-
-    }
-
-    public boolean sit() {
-        return (dataManager.get(WHISTLE_STATE)) == 5;
     }
 
     public boolean firesupport() {

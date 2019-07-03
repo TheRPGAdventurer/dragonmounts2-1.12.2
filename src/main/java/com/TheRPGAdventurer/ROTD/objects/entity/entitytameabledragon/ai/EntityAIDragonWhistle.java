@@ -1,8 +1,6 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
-import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +20,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
+        return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
     }
 
     @Override
@@ -46,7 +44,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         double x = midPoint.getX() + 0.5 - 12;
         double y = midPoint.getY() + 0.5 + 8;
         double z = midPoint.getZ() + 0.5 - 12;
-        return tryMoveToBlockPos(new BlockPos(x, y, z), 2);
+        return tryMoveToBlockPos(new BlockPos(x, y, z), 1);
     }
 
 
@@ -56,7 +54,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
         int directionInt = dragon.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 30;  // DragonMountsConfig.dragonFlightHeight
+        double r = 30;
         double x = midPoint.getX() + r * Math.cos(directionInt * a * dragon.ticksExisted * 3.5);
         double y = midPoint.getY() + 30 + 0.5;
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * dragon.ticksExisted * 3.5);

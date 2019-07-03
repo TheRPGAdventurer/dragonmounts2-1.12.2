@@ -58,12 +58,17 @@ public class GuiDragonWhistle extends GuiScreen {
         buttonList.add(followFlying);
     }
 
+    private byte getState() {
+        return state;
+    }
+
     /* 0 nothing
        1 follow
        2 circle
+       3 come
      */
-    private void setStateField(byte state, boolean newState) {
-        byte prevState = state;
+    private void setStateField(int state, boolean newState) {
+        byte prevState = getState();
         if (newState) {
             this.state = (byte) state;
         } else {
@@ -72,15 +77,15 @@ public class GuiDragonWhistle extends GuiScreen {
     }
 
     public void nothing(boolean nothing) {
-        setStateField((byte)0, nothing);
+        setStateField(0, nothing);
     }
 
     public void follow(boolean follow) {
-        setStateField((byte)1, follow);
+        setStateField(1, follow);
     }
 
     public void circle(boolean circle) {
-        setStateField((byte)2, circle);
+        setStateField(2, circle);
     }
 
     @Override

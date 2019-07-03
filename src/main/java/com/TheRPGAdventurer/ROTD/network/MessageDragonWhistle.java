@@ -56,6 +56,7 @@ public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> 
         if (player.world.isRemote) return;
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
+            dragon.setSitting(false);
             dragon.setWhistleState(message.controlState);
             player.world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 

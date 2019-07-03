@@ -33,7 +33,7 @@ public class ContainerDragon extends Container {
 
 			@SideOnly(Side.CLIENT)
 			public boolean isEnabled() {
-				return !dragon.isHatchling();
+				return !dragon.isBaby();
 			}
 
 		});

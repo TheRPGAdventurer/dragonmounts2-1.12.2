@@ -12,7 +12,7 @@ package com.TheRPGAdventurer.ROTD.cmd;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 
 import net.minecraft.command.ICommandSender;
 
@@ -28,8 +28,8 @@ public class CommandDragon extends CommandBaseNested implements IDragonModifier 
         BiConsumer<EntityTameableDragon, EnumDragonBreed> breedConsumer = (dragon, enumValue) -> dragon.setBreedType(enumValue);
         addCommand(new CommandDragonEnumSetter<EnumDragonBreed>("breed", EnumDragonBreed.class, breedConsumer));
         
-        BiConsumer<EntityTameableDragon, EnumDragonLifeStage> lifeStageConsumer = (dragon, enumValue) -> dragon.getLifeStageHelper().setLifeStage(enumValue);
-        addCommand(new CommandDragonEnumSetter<EnumDragonLifeStage>("stage", EnumDragonLifeStage.class, lifeStageConsumer));
+        BiConsumer<EntityTameableDragon, DragonLifeStage> lifeStageConsumer = (dragon, enumValue) -> dragon.getLifeStageHelper().setLifeStage(enumValue);
+        addCommand(new CommandDragonEnumSetter<DragonLifeStage>("stage", DragonLifeStage.class, lifeStageConsumer));
         
         addCommand(new CommandDragonTame());
         addCommand(new CommandDragonGender());

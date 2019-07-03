@@ -12,7 +12,7 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.BreathNode;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.EnumDragonLifeStage;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -77,7 +77,7 @@ public class DragonBreedWater extends DragonBreed {
 	
 
     private void doParticles(EntityTameableDragon dragon) {
-        if (!dragon.isEgg() && !dragon.isHatchling()) {
+        if (!dragon.isEgg() && !dragon.isBaby()) {
             float s = dragon.getScale() * 1.2f;
             for (double x1 = 0; x1 < s + 2; ++x1) {
                 double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
@@ -101,7 +101,7 @@ public class DragonBreedWater extends DragonBreed {
 //
 //	}
 
-    public SoundEffectNames[] getBreathWeaponSoundEffects(EnumDragonLifeStage stage) {
+    public SoundEffectNames[] getBreathWeaponSoundEffects(DragonLifeStage stage) {
         final SoundEffectNames soundEffectNames[] = {SoundEffectNames.ADULT_BREATHE_ICE_START, SoundEffectNames.ADULT_BREATHE_ICE_LOOP, SoundEffectNames.ADULT_BREATHE_ICE_STOP};
 
         return soundEffectNames;

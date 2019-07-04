@@ -152,7 +152,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public EntityEnderCrystal healingEnderCrystal;
     public DragonInventory dragonInv;
     public int inAirTicks;
-    public int boostTicks;
     public int roarTicks;
     public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
     protected int ticksSinceLastAttack;
@@ -821,12 +820,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 inAirTicks = 0;
             } else {
                 inAirTicks++;
-            }
-
-            if (boosting()) {
-                boostTicks++;
-            } else {
-                boostTicks--;
             }
 
             boolean flying = canFly() && inAirTicks > IN_AIR_THRESH && (!isInWater() || !isInLava() && getControllingPlayer() != null);

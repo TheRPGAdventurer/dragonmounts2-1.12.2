@@ -1,8 +1,10 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
+import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -15,17 +17,23 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public boolean shouldExecute() {
-        return dragon.getOwner() != null && dragon.getControllingPlayer() == null;
+        return dragon.getOwner() != null && dragon.getControllingPlayer() == null && !dragon.nothing();
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
+    public boolean shouldContinueExecuting() { // !dragon.isFlying() &&
+        return dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && !dragon.nothing();
     }
 
     @Override
     public void updateTask() {
 //        DMUtils.getLogger().info(dragon.getWhistleState());
+
+        ItemStack whistle = dragon.getControllingWhistle();
+        if (whistle != null && whistle.getTagCompound() != null && !whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(dragon.getUniqueID()) && whistle.hasTagCompound()
+                || whistle==null) {
+            dragon.setnothing(true);
+        }
         if (dragon.firesupport() && dragon.getOwner() != null && dragon.isUsingBreathWeapon()) {
             dragon.getNavigator().clearPath();
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
@@ -41,9 +49,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     public boolean followPlayerFlying(EntityLivingBase entityLivingBase) {
         BlockPos midPoint = entityLivingBase.getPosition();
-        double x = midPoint.getX() + 0.5 - 12;
-        double y = midPoint.getY() + 0.5 + 8;
-        double z = midPoint.getZ() + 0.5 - 12;
+        double x = midPoint.getX() - 12;
+        double y = midPoint.getY() + 8;
+        double z = midPoint.getZ() - 12;
         return tryMoveToBlockPos(new BlockPos(x, y, z), 1);
     }
 
@@ -54,7 +62,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
         int directionInt = dragon.getRNG().nextInt(450) == 1 ? 1 : -1;
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 30;
+        double r = 30;  // DragonMountsConfig.dragonFlightHeight
         double x = midPoint.getX() + r * Math.cos(directionInt * a * dragon.ticksExisted * 3.5);
         double y = midPoint.getY() + 30 + 0.5;
         double z = midPoint.getZ() + r * Math.sin(directionInt * a * dragon.ticksExisted * 3.5);
@@ -70,15 +78,11 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             dragon.setSitting(false);
         }
 
-        if (dragon.nothing()) {
-            dragon.setnothing(true);
-        }
-
-        if (dragon.isFlying()) { // TODO check and dismount dragon with whistle state 0 landing AI might be the real broken one
-            if (dragon.circle() && dragon.getOwner() != null && !this.circleTarget1(dragon.getOwner().getPosition())) {
+        if (dragon.isFlying() && dragon.getOwner() != null) { // TODO check and dismount dragon with whistle state 0 landing AI might be the real broken one
+            if (dragon.circle() && !this.circleTarget1(dragon.getOwner().getPosition())) {
                 this.circleTarget1(dragon.getOwner().getPosition());
                 this.dragon.setSitting(false);
-            } else if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner()) && dragon.getOwner() != null) {
+            } else if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner())) {
                 this.followPlayerFlying(dragon.getOwner());
                 this.dragon.setSitting(false);
             }

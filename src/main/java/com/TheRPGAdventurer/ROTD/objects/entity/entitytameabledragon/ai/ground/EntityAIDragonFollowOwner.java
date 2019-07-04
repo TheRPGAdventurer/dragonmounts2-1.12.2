@@ -77,7 +77,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (nav.noPath()) return false;
         if (dragon.isSitting()) return false;
         if (dragon.getDistance(owner) < minDist) return false;
-        return true;
+        return dragon.nothing();
     }
 
     /**

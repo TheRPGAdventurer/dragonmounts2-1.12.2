@@ -11,7 +11,6 @@ import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccessor {
 
     private final EntityTameableDragon dragon;
-    private final float YAW_SPEED = 5;
 
     public DragonMoveHelper(EntityTameableDragon dragon) {
         super(dragon);
@@ -23,7 +22,6 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
     public void onUpdateMoveHelper() {
         // original movement behavior if the entity isn't flying
         if (dragon.isFlying()) {
-
             Vec3d dragonPos = dragon.getPositionVector();
             Vec3d movePos = new Vec3d(posX, posY, posZ);
 
@@ -36,7 +34,8 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
 
             // move towards target if it's far away enough   dragon.width
             if (dist > dragon.width) {
-                double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * dragon.getFlySpeed();
+                double boost = dragon.boosting() ? 4 : 1;
+                double flySpeed = dragon.getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost;
 
                 // update velocity to approach target
                 dragon.motionX = dir.x * flySpeed;
@@ -54,6 +53,7 @@ public class DragonMoveHelper extends EntityMoveHelper implements PrivateAccesso
 
             // face entity towards target
             if (dist > 2.5E-7) {
+                float YAW_SPEED = dragon.getControllingPlayer() != null ? 5 : 15;
                 float newYaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(dir.x, dir.z));
                 dragon.rotationYaw = limitAngle(dragon.rotationYaw, newYaw, YAW_SPEED);
                 entity.setAIMoveSpeed((float) (speed * entity.getEntityAttribute(MOVEMENT_SPEED).getAttributeValue()));

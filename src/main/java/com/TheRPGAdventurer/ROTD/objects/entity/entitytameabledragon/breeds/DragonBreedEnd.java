@@ -49,21 +49,9 @@ public class DragonBreedEnd extends DragonBreed {
 	
 	@Override
 	public void onLivingUpdate(EntityTameableDragon dragon) {
-		doParticles(dragon);
+
 	}
-	
-    private void doParticles(EntityTameableDragon dragon) {
-        if (!dragon.isEgg() && !dragon.isBaby()) {
-	        float s = dragon.getScale() * 1.2f;
-	        for (double x1 = 0; x1 < s + 2; ++x1) {
-		        double x = dragon.posX + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
-		        double y = dragon.posY + (rand.nextDouble() - 0.5) * dragon.height * s;
-		        double z = dragon.posZ + (rand.nextDouble() - 0.5) * (dragon.width - 0.65) * s;
-		        
-		        dragon.world.spawnParticle(EnumParticleTypes.PORTAL, x, y, z, 0, 0, 0);
-	        }
-        }
-    }
+
 	
 	@Override
     public void continueAndUpdateBreathing(World world, Vec3d origin, Vec3d endOfLook, BreathNode.Power power, EntityTameableDragon dragon) {

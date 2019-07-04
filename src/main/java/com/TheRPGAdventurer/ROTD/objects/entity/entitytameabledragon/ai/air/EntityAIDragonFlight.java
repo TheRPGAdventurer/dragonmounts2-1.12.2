@@ -31,17 +31,17 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         setMutexBits(1);
     }
 
-    public BlockPos findLandingArea(BlockPos pos) {
+    public BlockPos findLandingArea() {
         for (int Y = 1; Y <= 2; Y++) {
             for (int Z = 1; Z <= 2; Z++) {
                 for (int X = 1; X <= 2; X++) {
-                    if (world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid()|| world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER) {
-                        pos = pos.down();
+                    if (world.getBlockState(new BlockPos(X, Y, Z)).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getMaterial().isLiquid()) {
+                        landingPos = landingPos.down();
                     }
                 }
             }
         }
-        return pos;
+        return landingPos;
     }
 
     private boolean findLandingBlock() {
@@ -54,23 +54,19 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         int oz = followRange - random.nextInt(followRange) * 2;
         landingPos = landingPos.add(ox, 0, oz);
 
-        if (dragon.isTamed() && dragon.getOwner() != null
-                && dragon.getDistance(dragon.getOwner()) > 3 && dragon.getAttackingEntity() == null && dragon.nothing()) {
-            landingPos = dragon.getOwner().getPosition();
-            return landingPos != null;
-        } else {
-            // get ground block
-            landingPos = findLandingArea(landingPos);
-            // make sure the block below is solid
-            return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER;
 
-        }
+        // get ground block
+        landingPos = findLandingArea();
+        // make sure the block below is solid
+        return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER && dragon.nothing();
+
+
     }
 
     @Override
     public boolean shouldExecute() {
         return !dragon.isInWater() && !dragon.isInLava() && dragon.isFlying() && dragon.getControllingPlayer() == null
-                && findLandingBlock() && dragon.getAttackTarget() == null && dragon.nothing();
+                && findLandingBlock() && dragon.getAttackTarget() == null;
     }
 
     @Override

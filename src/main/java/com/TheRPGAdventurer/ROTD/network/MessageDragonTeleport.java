@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.network;
 
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
@@ -81,7 +82,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
             if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
             	BlockPos rayresult = raytraceresult.getBlockPos();
             	dragon.setPosition(rayresult.getX(), rayresult.getY() + 1, rayresult.getZ());
-                world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
+                player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
                 dragon.setnothing(true);
             }
         }

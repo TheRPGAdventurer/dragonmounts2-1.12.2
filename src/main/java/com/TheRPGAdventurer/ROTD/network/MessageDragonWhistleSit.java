@@ -56,7 +56,7 @@ public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistl
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
             dragon.setSitting(!dragon.isSitting());
             dragon.getNavigator().clearPath();
-            dragon.setnothing(true);
+            dragon.setnowhistlecommands(true);
         } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
 
     }

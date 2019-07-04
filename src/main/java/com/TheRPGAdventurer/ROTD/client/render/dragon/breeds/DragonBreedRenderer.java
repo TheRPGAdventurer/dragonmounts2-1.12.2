@@ -24,17 +24,17 @@ import java.util.List;
  */
 public interface DragonBreedRenderer {
 
-    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean albino);
+    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean albino, boolean alttexture);
     
-    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean albino);
+    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean albino, boolean alttexture);
 
     public ResourceLocation getDissolveTexture();
 
     public ResourceLocation getEggTexture();
 
-    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean albino);
+    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean albino, boolean alttexture);
     
-    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean albino);
+    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean albino, boolean alttexture);
     
     public ResourceLocation getGlowAnimTexture();
 

@@ -218,7 +218,7 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
   @Override
   protected ResourceLocation getEntityTexture(EntityTameableDragon dragon) {
     DefaultDragonBreedRenderer texture = getBreedRenderer(dragon);
-    return dragon.isMale() ? texture.getMaleBodyTexture(dragon.isBaby(), dragon.isAlbino()) : texture.getFemaleBodyTexture(dragon.isBaby(), dragon.isAlbino());
+    return dragon.isMale() ? texture.getMaleBodyTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()) : texture.getFemaleBodyTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures());
   }
 
   public static void renderCrystalBeams(double p_188325_0_, double p_188325_2_, double p_188325_4_, float p_188325_6_, double p_188325_7_, double p_188325_9_, double p_188325_11_, int p_188325_13_, double p_188325_14_, double p_188325_16_, double p_188325_18_) {

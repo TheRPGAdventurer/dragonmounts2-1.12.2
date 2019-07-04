@@ -35,29 +35,31 @@ public class DragonBodyHelper extends EntityBodyHelper {
         double deltaY = dragon.posZ - dragon.prevPosZ;
         double dist = deltaX * deltaX + deltaY * deltaY;
 
-        float yawSpeed = 90;
+        float maximumHeadBodyAngleDifference = 90;
 
         // rotate instantly if flying, sitting or moving
         if (dragon.isFlying() || dragon.isSitting() || dist > 0.0001) {
             dragon.renderYawOffset = dragon.rotationYaw;
-            dragon.rotationYawHead = MathX.updateRotation(dragon.renderYawOffset, dragon.rotationYawHead, yawSpeed);
+            dragon.rotationYawHead = MathX.updateRotation(dragon.renderYawOffset, dragon.rotationYawHead, maximumHeadBodyAngleDifference);
             prevRotationYawHead = dragon.rotationYawHead;
             turnTicks = 0;
             return;
         }
 
-        double yawDiff = Math.abs(dragon.rotationYawHead - prevRotationYawHead);
-        if (yawDiff > 15) {
+        double changeInHeadYaw = Math.abs(dragon.rotationYawHead - prevRotationYawHead);
+        if (changeInHeadYaw > 15) {
             turnTicks = 0;
             prevRotationYawHead = dragon.rotationYawHead;
         } else {
             turnTicks++;
 
             if (turnTicks > turnTicksLimit) {
-                yawSpeed = Math.max(1 - (float) (turnTicks - turnTicksLimit) / turnTicksLimit, 0) * 75;
+                maximumHeadBodyAngleDifference = Math.max(1 - (float) (turnTicks - turnTicksLimit) / turnTicksLimit, 0) * 75;
             }
         }
 
-        dragon.renderYawOffset = MathX.updateRotation(dragon.rotationYawHead, dragon.renderYawOffset, yawSpeed);
+        float rotationYawHead = dragon.getRotationYawHead();
+        dragon.renderYawOffset = MathX.constrainAngle(dragon.renderYawOffset, rotationYawHead, maximumHeadBodyAngleDifference);
+        dragon.rotationYaw = dragon.renderYawOffset;
     }
 }

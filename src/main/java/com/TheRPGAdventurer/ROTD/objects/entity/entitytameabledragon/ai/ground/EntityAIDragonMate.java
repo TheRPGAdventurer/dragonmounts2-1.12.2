@@ -111,7 +111,6 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
             dragonBaby.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
 
             world.spawnEntity(dragonBaby);
-            // TODO: particles for the clients?
         }
     }
 }

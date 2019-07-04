@@ -124,6 +124,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Integer> ARMOR = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> HOVER_CANCELLED = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> Y_LOCKED = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> ALT_TEXTURE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> FOLLOW_YAW = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<String> DATA_BREED = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
@@ -152,9 +153,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public DragonInventory dragonInv;
     public int inAirTicks;
     public int boostTicks;
-    public boolean hasHomePosition = false;
     public int roarTicks;
-    public BlockPos homePos;
     public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
     protected int ticksSinceLastAttack;
     float damageReduction = (float) getArmorResistance() + 3.0F;
@@ -226,6 +225,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.register(CHESTED, false);
         dataManager.register(Y_LOCKED, false);
         dataManager.register(HOVER_CANCELLED, false);
+        dataManager.register(ALT_TEXTURE, false);
         dataManager.register(IS_MALE, getRNG().nextBoolean());
         dataManager.register(IS_ALBINO, getRNG().nextInt(25) == 0);
         dataManager.register(DRAGON_SCALES, (byte) 0);
@@ -292,12 +292,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean("growthpause", this.isGrowthPaused());
         nbt.setBoolean("AllowOtherPlayers", this.allowedOtherPlayers());
         //        nbt.setBoolean("sleeping", this.isSleeping()); //unused as of now
-        nbt.setBoolean("HasHomePosition", this.hasHomePosition);
-        if (homePos != null && this.hasHomePosition) {
-            nbt.setInteger("HomeAreaX", homePos.getX());
-            nbt.setInteger("HomeAreaY", homePos.getY());
-            nbt.setInteger("HomeAreaZ", homePos.getZ());
-        }
         writeDragonInventory(nbt);
         dragonStats.writeNBT(nbt);
         helpers.values().forEach(helper -> helper.writeToNBT(nbt));
@@ -330,11 +324,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setCanBeElder(nbt.getBoolean("Elder"));
         this.setCanBeAdjucator(nbt.getBoolean("Adjucator"));
         this.setToAllowedOtherPlayers(nbt.getBoolean("AllowOtherPlayers"));
-        this.hasHomePosition = nbt.getBoolean("HasHomePosition");
-        if (hasHomePosition && nbt.getInteger("HomeAreaX") != 0 && nbt.getInteger("HomeAreaY") != 0 && nbt.getInteger("HomeAreaZ") != 0) {
-            homePos = new BlockPos(nbt.getInteger("HomeAreaX"), nbt.getInteger("HomeAreaY"), nbt.getInteger("HomeAreaZ"));
-        }
-
         readDragonInventory(nbt);
         dragonStats.readNBT(nbt);
         helpers.values().forEach(helper -> helper.readFromNBT(nbt));
@@ -438,7 +427,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.set(BANNER4, male);
     }
 
-    public boolean nothing() {
+    public boolean nowhistlecommands() {
         return (dataManager.get(WHISTLE_STATE)) == 0;
     }
 
@@ -458,7 +447,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         dataManager.set(FIRE_SUPPORT, firesupport);
     }
 
-    public void setnothing(boolean nothing) {
+    public void setnowhistlecommands(boolean nothing) {
         setStateField(0, nothing);
     }
 
@@ -632,6 +621,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!world.isRemote) {
             this.isGoingDown = goingdown;
         }
+    }
+
+    public boolean altTextures() {
+        return this.dataManager.get(ALT_TEXTURE);
+    }
+
+    public void setaltTextures(boolean alt) { dataManager.set(ALT_TEXTURE, alt);
     }
 
     public boolean allowedOtherPlayers() {
@@ -1474,7 +1470,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case FIRE:
                 return isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
             case FOREST:
-                return ModItems.ForestDragonScales;
+                return altTextures() ? ModItems.ForestDragonScales2 :ModItems.ForestDragonScales;
             case ICE:
                 return ModItems.IceDragonScales;
             case NETHER:
@@ -1512,7 +1508,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case FIRE:
                 return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
             case FOREST:
-                return DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
+                return altTextures() ? DragonMountsLootTables.ENTITIES_DRAGON_FOREST2 :DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
             case ICE:
                 return DragonMountsLootTables.ENTITIES_DRAGON_ICE;
             case NETHER:
@@ -1549,7 +1545,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             applyEnchantments(this, entityIn);
         }
 
-        if (!this.nothing()) {
+        if (!this.nowhistlecommands()) {
             return false;
         }
 
@@ -1825,6 +1821,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void updatePassenger(Entity passenger) {
         if (this.isPassenger(passenger)) {
             List<Entity> passengers = getPassengers();
+            // todo hey sir ghost we are gonna add 2 more carriages  at the side of the dragon same pos as the banner,
+            //  im also worried about hit boxes puhing the dragon and other players not being able to ride the ide carriage
+            //  because of dragon hitbox(RPG)
             int passengerNumber = passengers.indexOf(passenger);
             if (passengerNumber < 0) {  // should never happen!
                 DragonMounts.loggerLimit.error_once("Logic error- passenger not found");

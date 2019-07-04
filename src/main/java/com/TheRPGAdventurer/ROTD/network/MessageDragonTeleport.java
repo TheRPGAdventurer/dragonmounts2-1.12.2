@@ -83,7 +83,7 @@ public class MessageDragonTeleport extends AbstractMessage<MessageDragonTeleport
             	BlockPos rayresult = raytraceresult.getBlockPos();
             	dragon.setPosition(rayresult.getX(), rayresult.getY() + 1, rayresult.getZ());
                 player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
-                dragon.setnothing(true);
+                dragon.setnowhistlecommands(true);
             }
         }
     }

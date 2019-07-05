@@ -116,6 +116,7 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
             Map<EnumDragonBreed, AtomicInteger> points = dragonBaby.getBreedHelper().getBreedPoints();
 
             // i cant figure out on how to get the highest number on the breed point map on the baby and set the breed with it
+            // inherit breed sets the both breed point from parents
             dragonBaby.setBreedType(dragonMate.getBreedType());
             world.spawnEntity(dragonBaby);
         }

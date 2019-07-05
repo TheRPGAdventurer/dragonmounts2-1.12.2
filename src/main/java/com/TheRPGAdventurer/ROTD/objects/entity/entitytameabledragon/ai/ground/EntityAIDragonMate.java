@@ -11,9 +11,13 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Derivative EntityAIMate class to deal with some special values that can't be
@@ -108,7 +112,11 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
             dragonMate.resetInLove();
             dragonBaby.setLocationAndAngles(dragon.posX, dragon.posY, dragon.posZ, 0, 0);
             dragonBaby.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
-            dragonBaby.setBreedType(dragonMate.getBreedType()); // need a new one to set the baby's breed to be one of the parents
+
+            Map<EnumDragonBreed, AtomicInteger> points = dragonBaby.getBreedHelper().getBreedPoints();
+
+            // i cant figure out on how to get the highest number on the breed point map on the baby and set the breed with it
+            dragonBaby.setBreedType(dragonMate.getBreedType());
             world.spawnEntity(dragonBaby);
         }
     }

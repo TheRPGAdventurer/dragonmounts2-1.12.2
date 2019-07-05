@@ -46,10 +46,13 @@ public class DragonBreedForest extends DragonBreed {
 
     @Override
     public void onLivingUpdate(EntityTameableDragon dragon) {
-        boolean isJungle = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.JUNGLE) || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.CONIFEROUS);
-        boolean isSavanna = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.SAVANNA) || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.DRY);
+        boolean isForest = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.JUNGLE)
+                || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.CONIFEROUS)
+                || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.FOREST);
+        boolean isSavanna = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.SAVANNA)
+                || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.DRY);
         if (!dragon.isAlbino()) {
-            if (isJungle) {
+            if (isForest) {
                 dragon.setaltTextures(false); // use green texture
             } else if (isSavanna) {
                 dragon.setaltTextures(true); // use brown texture

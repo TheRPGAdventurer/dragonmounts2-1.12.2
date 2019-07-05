@@ -12,7 +12,6 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
-import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonBreedEgg;
 
 import java.util.List;
 
@@ -86,7 +85,7 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
         double followRange = getFollowRange();
         List<EntityTameableDragon> nearbyDragons = world.getEntitiesWithinAABB(
                 EntityTameableDragon.class,
-                dragon.getEntityBoundingBox().expand(followRange, followRange, followRange)
+                dragon.getEntityBoundingBox().grow(followRange, followRange, followRange)
         );
 
         for (EntityTameableDragon nearbyDragon : nearbyDragons) {
@@ -109,7 +108,7 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
             dragonMate.resetInLove();
             dragonBaby.setLocationAndAngles(dragon.posX, dragon.posY, dragon.posZ, 0, 0);
             dragonBaby.getLifeStageHelper().setLifeStage(DragonLifeStage.EGG);
-
+            dragonBaby.setBreedType(dragonMate.getBreedType()); // need a new one to set the baby's breed to be one of the parents
             world.spawnEntity(dragonBaby);
         }
     }

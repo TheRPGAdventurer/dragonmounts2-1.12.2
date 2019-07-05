@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.water;
+package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;

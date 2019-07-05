@@ -45,6 +45,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -940,13 +941,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         doBlockCollisions();
         List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.2, -0.01, 0.2), EntitySelectors.getTeamCollisionPredicate(this));
 
-        if (!list.isEmpty() && isSaddled() && isAdult()) {
-            boolean onClient = !this.world.isRemote;
+        if (!list.isEmpty() && isSaddled()) {
+            boolean onServer = !this.world.isRemote;
 
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity = list.get(j);
                 if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-                    if (onClient && canFitPassenger(entity) && !entity.isRiding() && !isBaby()) {
+                    if (onServer && this.getPassengers().size() < 5 && !entity.isRiding() && !isBaby()) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity);

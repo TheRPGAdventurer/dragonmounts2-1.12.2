@@ -38,9 +38,9 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 //         no point in catching players in creative mode
-//        if (owner.capabilities.isCreativeMode) {
-//            return false;
-//        }
+        if (owner.capabilities.isCreativeMode) {
+            return false;
+        }
 
         // don't catch if already being ridden
         if (dragon.getControllingPlayer() != null) {
@@ -52,7 +52,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
-        if (!dragon.nothing()) {
+        if (!dragon.nowhistlecommands()) {
             return false;
         }
 
@@ -90,7 +90,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && !owner.isSneaking() && dragon.isFlying()) {
                 owner.startRiding(dragon);
             } else {
-                if (dragon.nothing()) dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
+                if (dragon.nowhistlecommands()) dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
             }
         }
     }

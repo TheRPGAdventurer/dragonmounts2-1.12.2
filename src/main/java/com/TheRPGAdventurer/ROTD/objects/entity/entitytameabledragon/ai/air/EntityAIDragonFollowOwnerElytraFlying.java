@@ -51,7 +51,7 @@ public class EntityAIDragonFollowOwnerElytraFlying extends EntityAIDragonBase {
 
 
         // follow only if the owner is using an Elytra
-        return owner.isElytraFlying() && dragon.nothing();
+        return owner.isElytraFlying() && dragon.nowhistlecommands();
     }
 
     @Override

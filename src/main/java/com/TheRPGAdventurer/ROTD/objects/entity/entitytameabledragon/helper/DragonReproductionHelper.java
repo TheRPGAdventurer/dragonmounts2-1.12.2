@@ -135,12 +135,10 @@ public class DragonReproductionHelper extends DragonHelper {
         EntityTameableDragon dragonMate = (EntityTameableDragon) mate;
 
         if ((dragonMate.isMale() && !dragon.isMale()) || (!dragonMate.isMale() && dragon.isMale())) {
-            return false;
+            return true;
         } else if (!dragonMate.isTamed()) {
             return false;
-        } else if (!dragonMate.getReproductionHelper().canReproduce()) {
-            return false;
-        } else {
+        } else  {
             return dragon.isInLove() && dragonMate.isInLove();
         }
     }

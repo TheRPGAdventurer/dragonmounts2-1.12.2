@@ -65,7 +65,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (dragon.getDistance(ownerCurrent) < minDist && dragon.isAdult()) return false;
         owner = ownerCurrent;
 
-        return dragon.nothing();
+        return dragon.nowhistlecommands();
     }
 
     /**
@@ -77,7 +77,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         if (nav.noPath()) return false;
         if (dragon.isSitting()) return false;
         if (dragon.getDistance(owner) < minDist) return false;
-        return dragon.nothing();
+        return dragon.nowhistlecommands();
     }
 
     /**

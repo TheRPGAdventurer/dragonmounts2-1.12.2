@@ -6,10 +6,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import java.util.List;
 
 public class EntityAIDragonFollowParent extends EntityAIDragonBase {
-    /**
-     * The child that is following its parent.
-     */
-    EntityAnimal dragon;
+
     EntityAnimal parentAnimal;
     double moveSpeed;
     private int delayCounter;
@@ -25,7 +22,7 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
      */
     public boolean shouldExecute() {
         if (this.dragon.getGrowingAge() >= 0) {
-            return false;
+            return  false;
         } else {
             List<EntityAnimal> list = this.dragon.world.<EntityAnimal>getEntitiesWithinAABB(this.dragon.getClass(), this.dragon.getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D));
             EntityAnimal entityanimal = null;

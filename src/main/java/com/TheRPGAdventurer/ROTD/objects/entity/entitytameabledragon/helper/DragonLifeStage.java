@@ -27,8 +27,8 @@ public enum DragonLifeStage {
   //order, duration of stage in hours of minecraft time, scaleAtStartOfStage, scaleAtEndOfStage
   EGG         (0, 36, 0.25f, 0.25f),
   HATCHLING   (1, 48, 0.04f, 0.09f),
-  INFANT      (2, 12, 0.09f, 0.33f),
-  PREJUVENILE (3, 18, 0.33f, 0.50f),
+  INFANT      (2, 14, 0.09f, 0.33f),
+  PREJUVENILE (3, 22, 0.33f, 0.50f),
   JUVENILE    (4, 60, 0.50f, 1.00f),
   ADULT       (5,  0, 1.00f, 1.00f);        // scale of the final stage should be 1.00F to avoid breaking other code
 

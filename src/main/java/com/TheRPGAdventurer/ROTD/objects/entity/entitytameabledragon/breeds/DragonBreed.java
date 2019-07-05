@@ -132,7 +132,7 @@ public abstract class DragonBreed {
     }
 
     public Item getBreedingItem() {
-        return Items.RABBIT_STEW;
+        return Items.FISH;
     }
 
     public void onUpdate(EntityTameableDragon dragon) {

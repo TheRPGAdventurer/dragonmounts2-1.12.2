@@ -966,8 +966,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             double throatPosY = (this.getAnimator().getThroatPosition().z);
             double throatPosZ = (this.getAnimator().getThroatPosition().y + 1.7);
             world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
-            world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
-            world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
             world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 0.5F, 1);
         }
 
@@ -1227,7 +1225,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
      * Returns the volume for a sound to play.
      */
     public float getVolume(SoundEvent sound) {
-        return MathX.clamp(getScale(), 0, 1.0F);
+        return MathX.clamp(getScale(), 0, 1F);
     }
 
     /**
@@ -1718,6 +1716,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return this.getPassengers().isEmpty() ? null : getPassengers().get(0);
     }
 
+    /**
+     * Biased method of getControllingPassenger so that only players can control the dragon
+     * @return player on the front
+     */
     @Nullable
     public EntityPlayer getControllingPlayer() {
         Entity entity = this.getPassengers().isEmpty() ? null : getPassengers().get(0);
@@ -1728,6 +1730,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    /**
+     * gets the passengers and check if there is any carriages
+     * @return a riding carriage
+     */
     @Nullable
     public Entity getRidingCarriage() {
         List<Entity> entity = this.getPassengers().isEmpty() ? null : this.getPassengers();
@@ -1738,10 +1744,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    /**
+     * Gets a controlling player along with clientside
+     * @param player
+     * @return
+     */
     public boolean hasControllingPlayer(EntityPlayer player) {
         return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
     }
 
+    /**
+     * sets the riding player alongide with its rotationYaw and rotationPitch
+     * @param player
+     */
     public void setRidingPlayer(EntityPlayer player) {
         L.trace("setRidingPlayer({})", player.getName());
         player.rotationYaw = rotationYaw;

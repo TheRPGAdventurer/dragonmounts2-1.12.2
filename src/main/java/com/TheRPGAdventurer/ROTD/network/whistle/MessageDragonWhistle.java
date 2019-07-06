@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.network;
+package com.TheRPGAdventurer.ROTD.network.whistle;
 
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
@@ -17,47 +17,49 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistleSit> {
+public class MessageDragonWhistle extends AbstractMessage<MessageDragonWhistle> {
 
     public UUID dragonId;
+    public byte controlState;
 
-    public MessageDragonWhistleSit(UUID dragonId) {
+    public MessageDragonWhistle(UUID dragonId, byte controlState) {
         this.dragonId = dragonId;
+        this.controlState = controlState;
     }
 
-    public MessageDragonWhistleSit() {
+    public MessageDragonWhistle() {
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
         dragonId = packetBuf.readUniqueId();
+        controlState = buf.readByte();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
         packetBuf.writeUniqueId(dragonId);
+        buf.writeByte(controlState);
 
     }
-
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
+    public void onClientReceived(Minecraft client, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
     }
 
     @Override
-    public void onServerReceived(MinecraftServer server, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
-        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
+    public void onServerReceived(MinecraftServer server, MessageDragonWhistle message, EntityPlayer player, MessageContext messageContext) {
+        Entity entity = server.getEntityFromUuid(message.dragonId);
         if (player.world.isRemote) return;
-        Entity entity = server.getEntityFromUuid(dragonId);
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
-            dragon.setSitting(!dragon.isSitting());
-            dragon.getNavigator().clearPath();
-            dragon.setnowhistlecommands(true);
-        } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
+            dragon.setSitting(false);
+            dragon.setWhistleState(message.controlState);
+            player.world.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
+        } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
     }
 }

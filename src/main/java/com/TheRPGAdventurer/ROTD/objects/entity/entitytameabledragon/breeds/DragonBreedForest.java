@@ -4,6 +4,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTamea
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
 ;
@@ -46,15 +47,22 @@ public class DragonBreedForest extends DragonBreed {
 
     @Override
     public void onLivingUpdate(EntityTameableDragon dragon) {
-        boolean isForest = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.JUNGLE)
-                || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.CONIFEROUS)
-                || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.FOREST);
-        boolean isSavanna = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.SAVANNA)
-                || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.DRY);
+        Biome biome = dragon.world.getBiome(dragon.getPosition());
+
+        boolean isForest = BiomeDictionary.hasType(biome, BiomeDictionary.Type.JUNGLE)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.CONIFEROUS)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.WET)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.FOREST);
+
+        boolean isSavanna = BiomeDictionary.hasType(biome, BiomeDictionary.Type.SAVANNA)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.DRY)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.MESA)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
+
         if (!dragon.isAlbino()) {
             if (isForest || !isSavanna) {
                 dragon.setaltTextures(false); // use green texture
-            } else if (isSavanna) {
+            } else if (isSavanna || !isForest) {
                 dragon.setaltTextures(true); // use brown texture
             }
         }

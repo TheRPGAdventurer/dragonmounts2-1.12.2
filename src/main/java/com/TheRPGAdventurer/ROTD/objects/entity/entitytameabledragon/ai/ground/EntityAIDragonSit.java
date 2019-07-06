@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.EntityAISit;
 
 public class EntityAIDragonSit extends EntityAISit {
     public EntityTameableDragon dragon;
+
     /**
      * If the Entitydragon is sitting.
      */
@@ -14,6 +15,7 @@ public class EntityAIDragonSit extends EntityAISit {
     public EntityAIDragonSit(EntityTameableDragon entityIn) {
         super(entityIn);
         this.dragon = entityIn;
+        this.setMutexBits(5);
     }
 
     /**

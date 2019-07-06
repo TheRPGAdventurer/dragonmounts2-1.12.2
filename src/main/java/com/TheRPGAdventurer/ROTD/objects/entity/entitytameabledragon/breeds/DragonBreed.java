@@ -229,14 +229,6 @@ public abstract class DragonBreed {
         return SoundEvents.ENTITY_GENERIC_EAT;
     }
 
-    public float getSoundPitch(SoundEvent sound) {
-        return 1;
-    }
-
-    public float getSoundVolume(SoundEvent sound) {
-        return 1.5f;
-    }
-
     public boolean canChangeBreed() {
         return true;
     }
@@ -437,14 +429,13 @@ public abstract class DragonBreed {
      * for smaller-than-adult sizes, multiply by
      */
     public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber) {
-        double yoffset = (isSitting ? 3.4 : 4.4);
-        double yoffset2 = (isSitting ? -1 : 0); // maybe not needed
+        double yoffset = (!isSitting ? 4.4 : 3.4);
+        double yoffset2 = (!isSitting ? 2.6 : 2.4); // maybe not needed
 
         // dragon position is the middle of the model and the saddle is on
         // the shoulders, so move player forwards on Z axis relative to the
         // dragon's rotation to fix that
         switch (passengerNumber) {
-            // first and main rider
             case 0:
                 return new Vec3d(0, yoffset, 2.2);
             case 1:
@@ -452,9 +443,9 @@ public abstract class DragonBreed {
             case 2:
                 return new Vec3d(-0.6, yoffset, 0.1);
             case 3:
-                return new Vec3d(1.6, yoffset2, 0.1);
+                return new Vec3d(1.8, yoffset2, 0.1);
             case 4:
-                return new Vec3d(-1.6, yoffset2, 0.1);
+                return new Vec3d(-1.8, yoffset2, 0.1);
         }
         DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
         return new Vec3d(0, yoffset, 2.2);

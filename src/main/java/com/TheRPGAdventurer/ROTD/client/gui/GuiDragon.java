@@ -80,7 +80,28 @@ public class GuiDragon extends GuiContainer {
         this.mc.getTextureManager().bindTexture(offhand);
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
 
-        int size = dragon.isBaby() ? 60 : dragon.isOldEnoughToBreathe() ? 6 : 6;
+        int size = 0;
+        // maybe not good enough?
+        switch (dragon.getLifeStageHelper().getLifeStage()) {
+            case EGG:
+                size = 160;
+                break;
+            case HATCHLING:
+                size = 164;
+                break;
+            case INFANT:
+                size = 60;
+                break;
+            case PREJUVENILE:
+                size = 20;
+                break;
+            case JUVENILE:
+                size = 16;
+                break;
+            case ADULT:
+                size = 7;
+                break;
+        }
 
         //draw dragon entity
         GuiInventory.drawEntityOnScreen(x + 90, y + 60, size, x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);

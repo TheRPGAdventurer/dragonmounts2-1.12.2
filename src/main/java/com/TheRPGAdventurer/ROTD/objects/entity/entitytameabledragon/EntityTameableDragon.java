@@ -45,7 +45,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -92,7 +91,9 @@ import java.util.*;
 import static net.minecraft.entity.SharedMonsterAttributes.ATTACK_DAMAGE;
 import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 
-
+/**
+ * Here be dragons
+ */
 public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     // base attributes
@@ -102,14 +103,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public static final double BASE_DAMAGE = DragonMountsConfig.BASE_DAMAGE;
     public static final double BASE_ARMOR = DragonMountsConfig.ARMOR;
     public static final double BASE_TOUGHNESS = 30.0D;
-    //    public static final float BASE_WIDTH = 4.8f; //2.4f;      make the adult twice the size it used to be
-//    public static final float BASE_HEIGHT = 4.2F; //2.1f;      make the adult twice the size it used to be
     public static final float RESISTANCE = 10.0f;
     public static final double BASE_FOLLOW_RANGE = 70;
     public static final double BASE_FOLLOW_RANGE_FLYING = BASE_FOLLOW_RANGE * 2;
     public static final int HOME_RADIUS = 64;
     public static final double IN_AIR_THRESH = 10;
     private static final Logger L = LogManager.getLogger();
+
     // data value IDs
     private static final DataParameter<Boolean> DATA_FLYING = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> GROWTH_PAUSED = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
@@ -145,16 +145,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     private static final DataParameter<Boolean> FIRE_SUPPORT = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BOOLEAN);
     private static final DataParameter<String> DATA_BREATH_WEAPON_TARGET = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<Integer> DATA_BREATH_WEAPON_MODE = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
-    public static int ticksShear;
+
     // server/client delegates
     private final Map<Class, DragonHelper> helpers = new HashMap<>();
     // client-only delegates
     private final DragonBodyHelper dragonBodyHelper = new DragonBodyHelper(this);
     public EntityEnderCrystal healingEnderCrystal;
+    public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
     public DragonInventory dragonInv;
     public int inAirTicks;
     public int roarTicks;
-    public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
+    public static int ticksShear;
     protected int ticksSinceLastAttack;
     float damageReduction = (float) getArmorResistance() + 3.0F;
     private boolean hasChestVarChanged = false;
@@ -181,6 +182,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
         if (isServer()) addHelper(new DragonBrain(this));
 
+        //    public static final float BASE_WIDTH = 4.8f; //2.4f;      make the adult twice the size it used to be
+        //    public static final float BASE_HEIGHT = 4.2F; //2.1f;      make the adult twice the size it used to be
+
         // set base size
         Pair<Float, Float> adultSize = getBreed().getAdultEntitySize();
         setSize(adultSize.getFirst(), adultSize.getSecond());           //todo: later - update it when breed changes
@@ -192,18 +196,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         animator = new DragonAnimator(this);
 
         InitializeDragonInventory();
-
-    }
-
-    public static boolean hasInteractItemsEquipped(EntityPlayer player) {
-        return DMUtils.hasEquippedUsable(player)
-                || DMUtils.hasEquipped(player, ModTools.diamond_shears)
-                || DMUtils.hasEquipped(player, ModItems.dragon_wand)
-                || DMUtils.hasEquipped(player, ModItems.dragon_whistle)
-                || DMUtils.hasEquipped(player, ModItems.Amulet)
-                || DMUtils.hasEquipped(player, Items.BONE)
-                || DMUtils.hasEquipped(player, Items.STICK)
-                || DMUtils.hasEquippedFood(player);
     }
 
     @Override
@@ -479,10 +471,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return dataManager.get(IS_MALE);
     }
 
-    public void setMale(boolean male) {
-        dataManager.set(IS_MALE, male);
-    }
-
     // public boolean isSleeping() {
     //  return dataManager.get(SLEEP);
     // }
@@ -490,6 +478,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     // public void setSleeping(boolean sleeping) {
     //   dataManager.set(SLEEP, sleeping);
     // }
+
+    public void setMale(boolean male) {
+        dataManager.set(IS_MALE, male);
+    }
 
     /**
      * set in commands
@@ -627,7 +619,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return this.dataManager.get(ALT_TEXTURE);
     }
 
-    public void setaltTextures(boolean alt) { dataManager.set(ALT_TEXTURE, alt);
+    public void setaltTextures(boolean alt) {
+        dataManager.set(ALT_TEXTURE, alt);
     }
 
     public boolean allowedOtherPlayers() {
@@ -1175,7 +1168,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (!isInWater() && isFlying()) {
             // play wing sounds
             float pitch = (1);
-            float volume = 0.5f + (1 - speed);
+            float volume = 1.5f + (1 - speed);
             playSound(getWingsSound(), volume, pitch, false);
         }
     }
@@ -1462,7 +1455,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case FIRE:
                 return isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
             case FOREST:
-                return altTextures() ? ModItems.ForestDragonScales2 :ModItems.ForestDragonScales;
+                return altTextures() ? ModItems.ForestDragonScales2 : ModItems.ForestDragonScales;
             case ICE:
                 return ModItems.IceDragonScales;
             case NETHER:
@@ -1489,6 +1482,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    /**
+     * gets loottable from dragon
+     */
     public ResourceLocation lootTable() {
         switch (getBreedType()) {
             case AETHER:
@@ -1500,7 +1496,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case FIRE:
                 return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
             case FOREST:
-                return altTextures() ? DragonMountsLootTables.ENTITIES_DRAGON_FOREST2 :DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
+                return altTextures() ? DragonMountsLootTables.ENTITIES_DRAGON_FOREST2 : DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
             case ICE:
                 return DragonMountsLootTables.ENTITIES_DRAGON_ICE;
             case NETHER:
@@ -1575,7 +1571,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             case 1:
                 return 1.5;
             case 2:
-                return 1.3;
+                return 1.4;
             case 3:
                 return 1.7;
             case 4:
@@ -1718,6 +1714,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     /**
      * Biased method of getControllingPassenger so that only players can control the dragon
+     *
      * @return player on the front
      */
     @Nullable
@@ -1732,6 +1729,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     /**
      * gets the passengers and check if there is any carriages
+     *
      * @return a riding carriage
      */
     @Nullable
@@ -1746,6 +1744,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     /**
      * Gets a controlling player along with clientside
+     *
      * @param player
      * @return
      */
@@ -1755,6 +1754,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     /**
      * sets the riding player alongide with its rotationYaw and rotationPitch
+     *
      * @param player
      */
     public void setRidingPlayer(EntityPlayer player) {
@@ -1924,11 +1924,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return true;
     }
 
-    public void setImmuneToFire(boolean isImmuneToFire) {
-        L.trace("setImmuneToFire({})", isImmuneToFire);
-        this.isImmuneToFire = isImmuneToFire;
-    }
-
 /*    public boolean isGiga() {
         return getLifeStageHelper().isAdult();
     }
@@ -1936,6 +1931,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return getLifeStageHelper().isAdult();
     }
 */
+
+    public void setImmuneToFire(boolean isImmuneToFire) {
+        L.trace("setImmuneToFire({})", isImmuneToFire);
+        this.isImmuneToFire = isImmuneToFire;
+    }
 
     public void setAttackDamage(double damage) {
         L.trace("setAttackDamage({})", damage);
@@ -2396,13 +2396,16 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return damage == 8.0f;
         }
 
+        if (getArmorResistance() != 0) {
+            damage -= damageReduction;
+        }
 
         return super.attackEntityFrom(source, damage);
     }
 
     @SideOnly(Side.CLIENT)
     private void eatEvent(EntityPlayer player) {
-        this.playSound(this.getEatSound(), 0.6f, 0.75f);
+        playSound(this.getEatSound(), 0.6f, 0.75f);
         spawnItemCrackParticles(DMUtils.consumeEquipped(player, DragonBreed.getFoodItems()));
     }
 
@@ -2432,6 +2435,17 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         } else return true;
     }
 
+    public static boolean hasInteractItemsEquipped(EntityPlayer player) {
+        return DMUtils.hasEquippedUsable(player)
+                || DMUtils.hasEquipped(player, ModTools.diamond_shears)
+                || DMUtils.hasEquipped(player, ModItems.dragon_wand)
+                || DMUtils.hasEquipped(player, ModItems.dragon_whistle)
+                || DMUtils.hasEquipped(player, ModItems.Amulet)
+                || DMUtils.hasEquipped(player, Items.BONE)
+                || DMUtils.hasEquipped(player, Items.STICK)
+                || DMUtils.hasEquippedFood(player);
+    }
+
     /**
      * Called when a player right clicks a mob. e.g. gets milk from a cow, gets into the saddle on a pig, ride a dragon.
      */
@@ -2457,10 +2471,18 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (this.isServer() && !this.isEgg()) {
             if (isAllowed(player)) {
                 /*
-                 * Riding
+                 * Riding The Dragon
                  */
                 if (this.getPassengers().size() < 5 && this.isTamed() && this.isSaddled() && (this.isAdult() || this.isOldEnoughToBreathe()) && !player.isSneaking() && !hasInteractItemsEquipped(player)) {
                     this.setRidingPlayer(player);
+                    return true;
+                }
+                /*
+                 * Dragon Riding The Player
+                 */
+                // TODO test if working
+                if (player.getPassengers().size() < 3 && this.isTamedFor(player) && this.isBaby()) {
+                    this.startRiding(player, true);
                     return true;
                 }
 

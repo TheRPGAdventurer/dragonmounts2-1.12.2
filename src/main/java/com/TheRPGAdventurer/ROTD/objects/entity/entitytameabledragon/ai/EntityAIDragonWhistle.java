@@ -60,9 +60,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
         double r = 30;
-        double x = midPoint.getX() + r * Math.cos(a * dragon.ticksExisted * 3.5);
+        double x = midPoint.getX() + r * Math.cos(a * dragon.ticksExisted * 4);
         double y = midPoint.getY() + 30;
-        double z = midPoint.getZ() + r * Math.sin(a * dragon.ticksExisted * 3.5);
+        double z = midPoint.getZ() + r * Math.sin(a * dragon.ticksExisted * 4);
         dragon.setBoosting(dragon.getDistance(dragon.getOwner()) > 77);
 
         return tryMoveToBlockPos(new BlockPos(x, y, z), 1);
@@ -74,16 +74,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         if (!dragon.isFlying() && (dragon.circle() || dragon.follow())) {
             dragon.liftOff();
             dragon.setSitting(false);
-        }
-
-        if (dragon.isFlying() && dragon.getOwner() != null) {
-            if (dragon.circle()) {
-                this.circleTarget1(dragon.getOwner().getPosition());
-                this.dragon.setSitting(false);
-            } else if (dragon.follow()) {
-                this.followPlayerFlying(dragon.getOwner().getPosition());
-                this.dragon.setSitting(false);
-            }
+        } else {
+            if (dragon.circle()) this.circleTarget1(dragon.getOwner().getPosition());
+            if (dragon.follow()) this.followPlayerFlying(dragon.getOwner().getPosition());
         }
     }
 }

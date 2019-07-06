@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.world;
+package com.TheRPGAdventurer.ROTD;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
@@ -40,7 +40,6 @@ public class DragonMountsWorldGenerator implements IWorldGenerator {
             this.generateZombieAtNether(world, random, x, z);
         } else if (!isDimensionBlacklisted(world.provider.getDimension())) {
             this.generateNestAtSurface(world, random, x, z);
-            //			this.generateNestUnderground(world, random, x, z);
         } else if (world.provider.getDimensionType()==DimensionType.THE_END && (x > 2000 || z > 2000 || x < -2000 || z < 2000)) {
             this.generateNestAtEnd(world, random, x, z);
         }

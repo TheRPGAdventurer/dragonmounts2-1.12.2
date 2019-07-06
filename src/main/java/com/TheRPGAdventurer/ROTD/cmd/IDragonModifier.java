@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 
 /**
+ * Gets the dragon from the world to be modified with commands
  *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */

@@ -30,7 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * Handles world generation for dragon nests, make a separate package if we are gonna use Mappers to optimize instead of the IWorldGenerator
+ */
 public class DragonMountsWorldGenerator implements IWorldGenerator {
 
     @Override

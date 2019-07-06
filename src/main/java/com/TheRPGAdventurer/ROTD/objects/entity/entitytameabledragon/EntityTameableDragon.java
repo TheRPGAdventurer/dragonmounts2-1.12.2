@@ -253,7 +253,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(RESISTANCE);
         getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(BASE_ARMOR);
         getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(BASE_TOUGHNESS);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
     /**
@@ -1523,6 +1523,43 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float damage) {
+        Entity sourceEntity = source.getTrueSource();
+
+        if (source != DamageSource.IN_WALL) {
+            // don't just sit there!
+            this.aiSit.setSitting(false);
+        }
+
+        if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource()) && damage < 1) {
+            return false;
+        }
+
+        if (!world.isRemote && source.getTrueSource() != null && this.getRNG().nextInt(4) == 0 && !isEgg()) {
+            this.roar();
+        }
+
+        if (isBaby() && isJumping) {
+            return false;
+        }
+
+        if (this.isPassenger(sourceEntity)) {
+            return false;
+        }
+
+        //when killed with damage greater than 17 cause the game to crash
+        if (damage >= 17 && (source != DamageSource.GENERIC || source != DamageSource.OUT_OF_WORLD)) {
+            return damage == 8.0f;
+        }
+
+        if (getArmorResistance() != 0) {
+            damage -= damageReduction;
+        }
+
+        return super.attackEntityFrom(source, damage);
+    }
+
     /**
      * Called when an entity attacks
      */
@@ -2017,19 +2054,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return getLifeStageHelper().isBaby();
     }
 
-    /**
-     * Calls both hatchling and infant since infant is just another stage to reduce growth speed
-     *
-     * @return
-     */
-//    public boolean isHatchling() {
-//        return getLifeStageHelper().isHatchling() || getLifeStageHelper().isInfant();
-//    }
-//
-//    public boolean isInfant() {
-//        return getLifeStageHelper().isInfant();
-//    }
-//
     public boolean isOldEnoughToBreathe() {
         return getLifeStageHelper().isOldEnoughToBreathe();
     }
@@ -2159,9 +2183,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     /**
      * Checks if the dragon's health is not full and not zero.
      */
-    public boolean shouldHeal() {
-        return this.getHealth() > 0.0F && this.getHealth() < this.getMaxHealth();
-    }
+//    public boolean shouldHeal() {
+//        return this.getHealth() > 0.0F && this.getHealth() < this.getMaxHealth();
+//    }
 
     @Override
     public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
@@ -2363,44 +2387,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (this.getCustomNameTag() != null && !this.getCustomNameTag().isEmpty()) {
             nbt.setString("CustomName", this.getCustomNameTag());
         }
-    }
-
-    @Override
-    public boolean attackEntityFrom(DamageSource source, float damage) {
-        Entity sourceEntity = source.getTrueSource();
-
-        if (source != DamageSource.IN_WALL) {
-            // don't just sit there!
-            this.aiSit.setSitting(false);
-        }
-        //        if(!sourceEntity.onGround && sourceEntity != null) this.setFlying(true);
-
-        if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource()) && damage < 1) {
-            return false;
-        }
-
-        if (!world.isRemote && source.getTrueSource() != null && this.getRNG().nextInt(4) == 0 && !isEgg()) {
-            this.roar();
-        }
-
-        if (isBaby() && isJumping) {
-            return false;
-        }
-
-        if (this.isPassenger(sourceEntity)) {
-            return false;
-        }
-
-        //when killed with damage greater than 17 cause the game to crash
-        if (damage >= 17 && (source != DamageSource.GENERIC || source != DamageSource.OUT_OF_WORLD)) {
-            return damage == 8.0f;
-        }
-
-        if (getArmorResistance() != 0) {
-            damage -= damageReduction;
-        }
-
-        return super.attackEntityFrom(source, damage);
     }
 
     @SideOnly(Side.CLIENT)

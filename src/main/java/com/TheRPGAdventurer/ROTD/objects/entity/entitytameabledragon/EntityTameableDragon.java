@@ -791,7 +791,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     protected boolean canFitPassenger(Entity passenger) {
-        return this.getPassengers().size() < 6;
+        return this.getPassengers().size() < 5;
     }
 
     @Override
@@ -947,7 +947,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity = list.get(j);
                 if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-                    if (onServer && this.getPassengers().size() < 5 && !entity.isRiding() && !isBaby()) {
+                    if (onServer && this.getPassengers().size() < 4 && !entity.isRiding() && !isBaby()) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity);
@@ -1830,9 +1830,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void updatePassenger(Entity passenger) {
         if (this.isPassenger(passenger)) {
             List<Entity> passengers = getPassengers();
-            // todo hey sir ghost we are gonna add 2 more carriages  at the side of the dragon same pos as the banner,
-            //  im also worried about hit boxes pushing the dragon and other players not being able to ride the ide carriage
-            //  because of dragon hitbox(RPG)
             int passengerNumber = passengers.indexOf(passenger);
             if (passengerNumber < 0) {  // should never happen!
                 DragonMounts.loggerLimit.error_once("Logic error- passenger not found");
@@ -2436,7 +2433,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
+     * Called when a player right clicks a mob. e.g. gets milk from a cow, gets into the saddle on a pig, ride a dragon.
      */
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {

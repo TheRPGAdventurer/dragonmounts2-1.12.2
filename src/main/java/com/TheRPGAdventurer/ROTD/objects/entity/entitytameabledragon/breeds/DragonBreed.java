@@ -13,16 +13,12 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.soun
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.weapons.BreathWeaponP;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
-
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -40,17 +36,17 @@ import java.util.Set;
  */
 public abstract class DragonBreed {
 
+    public static SoundEffectNames[] soundEffectNames;
+    protected final Random rand = new Random();
     private final String skin;
     private final int color;
-    private final Set<String> immunities=new HashSet<>();
-    private final Set<Block> breedBlocks=new HashSet<>();
-    private final Set<Biome> biomes=new HashSet<>();
-    protected final Random rand=new Random();
-    public static SoundEffectNames[] soundEffectNames;
+    private final Set<String> immunities = new HashSet<>();
+    private final Set<Block> breedBlocks = new HashSet<>();
+    private final Set<Biome> biomes = new HashSet<>();
 
     DragonBreed(String skin, int color) {
-        this.skin=skin;
-        this.color=color;
+        this.skin = skin;
+        this.color = color;
 
         // ignore suffocation damage
         setImmunity(DamageSource.DROWN);
@@ -61,6 +57,10 @@ public abstract class DragonBreed {
         setImmunity(DamageSource.HOT_FLOOR);
         setImmunity(DamageSource.CACTUS); // assume that cactus needles don't do much damage to animals with horned scales
         setImmunity(DamageSource.DRAGON_BREATH); // ignore damage from vanilla ender dragon. I kinda disabled this because it wouldn't make any sense, feel free to re enable
+    }
+
+    public static Item[] getFoodItems() {
+        return new Item[]{Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH, Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON, Items.COOKED_PORKCHOP, Items.RABBIT_STEW};
     }
 
     public String getSkin() {
@@ -119,10 +119,6 @@ public abstract class DragonBreed {
         return false;
     }
 
-    public static Item[] getFoodItems() {
-        return new Item[]{Items.FISH, Items.PORKCHOP, Items.BEEF, Items.CHICKEN, Items.ROTTEN_FLESH, Items.RABBIT, Items.COOKED_FISH, Items.COOKED_BEEF, Items.COOKED_CHICKEN, Items.COOKED_MUTTON, Items.COOKED_RABBIT, Items.COOKED_FISH, Items.MUTTON, Items.COOKED_PORKCHOP, Items.RABBIT_STEW};
-    }
-
     public Item[] getShrinkingFood() {
         return new Item[]{Items.POISONOUS_POTATO};
     }
@@ -151,24 +147,24 @@ public abstract class DragonBreed {
         }
 
         // only apply if footprints are enabled
-        float footprintChance=getFootprintChance();
-        if (footprintChance==1) {
+        float footprintChance = getFootprintChance();
+        if (footprintChance == 1) {
             return;
         }
 
         // footprint loop, from EntitySnowman.onLivingUpdate with slight tweaks
-        World world=dragon.world;
-        for (int i=0; i < 4; i++) {
+        World world = dragon.world;
+        for (int i = 0; i < 4; i++) {
             // place only if randomly selected
             if (world.rand.nextFloat() > footprintChance) {
                 continue;
             }
 
             // get footprint position
-            double bx=dragon.posX + (i % 2 * 2 - 1) * 0.25;
-            double by=dragon.posY + 0.5;
-            double bz=dragon.posZ + (i / 2 % 2 * 2 - 1) * 0.25;
-            BlockPos pos=new BlockPos(bx, by, bz);
+            double bx = dragon.posX + (i % 2 * 2 - 1) * 0.25;
+            double by = dragon.posY + 0.5;
+            double bz = dragon.posZ + (i / 2 % 2 * 2 - 1) * 0.25;
+            BlockPos pos = new BlockPos(bx, by, bz);
 
             // footprints can only be placed on empty space
             if (world.isAirBlock(pos)) {
@@ -197,7 +193,7 @@ public abstract class DragonBreed {
         if (dragon.isBaby()) {
             return ModSounds.ENTITY_DRAGON_HATCHLING_GROWL;
         } else {
-            if (rand.nextInt(3)==0) {
+            if (rand.nextInt(3) == 0) {
                 return ModSounds.ENTITY_DRAGON_GROWL;
             } else {
                 return ModSounds.ENTITY_DRAGON_BREATHE;
@@ -260,36 +256,36 @@ public abstract class DragonBreed {
     }
 
     public SoundEffectNames[] getBreathWeaponSoundEffects(DragonLifeStage stage) {
-      final SoundEffectNames prejuvenile[]={SoundEffectNames.HATCHLING_BREATHE_FIRE_START, SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP, SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
+        final SoundEffectNames prejuvenile[] = {SoundEffectNames.HATCHLING_BREATHE_FIRE_START, SoundEffectNames.HATCHLING_BREATHE_FIRE_LOOP, SoundEffectNames.HATCHLING_BREATHE_FIRE_STOP};
 
-      final SoundEffectNames juvenile[]={SoundEffectNames.JUVENILE_BREATHE_FIRE_START, SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP, SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
+        final SoundEffectNames juvenile[] = {SoundEffectNames.JUVENILE_BREATHE_FIRE_START, SoundEffectNames.JUVENILE_BREATHE_FIRE_LOOP, SoundEffectNames.JUVENILE_BREATHE_FIRE_STOP};
 
-      final SoundEffectNames adult[]={SoundEffectNames.ADULT_BREATHE_FIRE_START, SoundEffectNames.ADULT_BREATHE_FIRE_LOOP, SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
+        final SoundEffectNames adult[] = {SoundEffectNames.ADULT_BREATHE_FIRE_START, SoundEffectNames.ADULT_BREATHE_FIRE_LOOP, SoundEffectNames.ADULT_BREATHE_FIRE_STOP};
 
-      switch (stage) {
-        case EGG:
-        case INFANT:
-        case HATCHLING:
-          break;
+        switch (stage) {
+            case EGG:
+            case INFANT:
+            case HATCHLING:
+                break;
 
-        case PREJUVENILE:
-          soundEffectNames=prejuvenile;
-          break;
+            case PREJUVENILE:
+                soundEffectNames = prejuvenile;
+                break;
 
-        case JUVENILE:
-          soundEffectNames=juvenile;
-          break;
+            case JUVENILE:
+                soundEffectNames = juvenile;
+                break;
 
-        case ADULT:
-          soundEffectNames=adult;
-          break;
+            case ADULT:
+                soundEffectNames = adult;
+                break;
 
-        default:
-          DragonMounts.loggerLimit.error_once("Invalid life stage:" + stage);
-          break;
-      }
+            default:
+                DragonMounts.loggerLimit.error_once("Invalid life stage:" + stage);
+                break;
+        }
 
-      return soundEffectNames;
+        return soundEffectNames;
     }
 
     public void onLivingUpdate(EntityTameableDragon dragon) {
@@ -317,152 +313,163 @@ public abstract class DragonBreed {
         return EnumParticleTypes.SMOKE_LARGE;
     }
 
-  public enum BreathWeaponSpawnType {PROJECTILE, NODES}
-  // PROJECTILE = spawn a single Entity, similar to EntityFIreball for ghast
-  // NODES = continuous stream of small nodes
-
-  public BreathWeaponSpawnType getBreathWeaponSpawnType(EntityTameableDragon dragon) // todo make abstract
+    public BreathWeaponSpawnType getBreathWeaponSpawnType(EntityTameableDragon dragon) // todo make abstract
     {
-      throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
+    }
+    // PROJECTILE = spawn a single Entity, similar to EntityFIreball for ghast
+    // NODES = continuous stream of small nodes
+
+    /**
+     * return a new Breath Weapon FX Emitter based on breed
+     *
+     * @return
+     */
+    public BreathWeaponFXEmitter getBreathWeaponFXEmitter(EntityTameableDragon dragon) {
+        throw new UnsupportedOperationException();
     }
 
-  /** return a new Breath Weapon FX Emitter based on breed
-   * @return
-   */
-  public BreathWeaponFXEmitter getBreathWeaponFXEmitter(EntityTameableDragon dragon)
-  {
-    throw new UnsupportedOperationException();
-  }
-
-  /** return a new BreathWeapon based on breed
-   * @return
-   */
-  public BreathWeaponP getBreathWeapon(EntityTameableDragon dragon)  //todo make abstract
+    /**
+     * return a new BreathWeapon based on breed
+     *
+     * @return
+     */
+    public BreathWeaponP getBreathWeapon(EntityTameableDragon dragon)  //todo make abstract
     {
         throw new UnsupportedOperationException();
     }
 
-  public BreathNodeFactory getBreathNodeFactory(EntityTameableDragon dragon)
-  {
-    throw new UnsupportedOperationException();
-  }
-
-  public BreathProjectileFactory getBreathProjectileFactory(EntityTameableDragon dragon)
-  {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * returns the range of the breath weapon
-   * @param dragonLifeStage
-   * @return  minimum range, maximum range, in blocks
-   */
-  public Pair<Float, Float> getBreathWeaponRange(DragonLifeStage dragonLifeStage)
-  {
-    return getBreathWeaponRangeDefault(dragonLifeStage);
-  }
-
-  /**
-   * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
-   * @return
-   */
-  public SoundEffectBreathWeaponP getSoundEffectBreathWeapon(SoundController i_soundController,
-                                                            SoundEffectBreathWeaponP.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
-    return new SoundEffectBreathWeaponNull(i_soundController, i_weaponSoundUpdateLink);
-  }
-
-  private Pair<Float, Float> getBreathWeaponRangeDefault(DragonLifeStage dragonLifeStage) {
-    float minAttackRange = 1.0F;
-    float maxAttackRange = 1.0F;
-    switch (dragonLifeStage) {
-      case EGG:
-        break;
-      case HATCHLING: {
-        minAttackRange = 2.0F;
-        maxAttackRange = 4.0F;
-        break;
-      }
-      case JUVENILE: {
-        minAttackRange = 3.0F;
-        maxAttackRange = 8.0F;
-        break;
-      }
-      case ADULT: {
-        minAttackRange = 5.0F;
-        maxAttackRange = 25.0F;
-        break;
-      }
-      default: {
-        DragonMounts.loggerLimit.error_once("Unknown lifestage:" + dragonLifeStage);
-        break;
-      }
+    public BreathNodeFactory getBreathNodeFactory(EntityTameableDragon dragon) {
+        throw new UnsupportedOperationException();
     }
-    return new Pair<Float, Float>(minAttackRange, maxAttackRange);
-  }
 
-  /**
-   * returns the width and height of the entity when it's an adult
-   * later: may vary for different breeds
-   * @return a pair of [width, height] for the entity - affects the Axis Aligned Bounding Box
-   */
-  public Pair<Float, Float> getAdultEntitySize()
-  {
-    return new Pair<>(4.8F, 4.2F);
+    public BreathProjectileFactory getBreathProjectileFactory(EntityTameableDragon dragon) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * returns the range of the breath weapon
+     *
+     * @param dragonLifeStage
+     * @return minimum range, maximum range, in blocks
+     */
+    public Pair<Float, Float> getBreathWeaponRange(DragonLifeStage dragonLifeStage) {
+        return getBreathWeaponRangeDefault(dragonLifeStage);
+    }
+
+    /**
+     * creates a SoundEffectBreathWeapon that creates the sound from the dragon's mouth when breathing
+     *
+     * @return
+     */
+    public SoundEffectBreathWeaponP getSoundEffectBreathWeapon(SoundController i_soundController,
+                                                               SoundEffectBreathWeaponP.WeaponSoundUpdateLink i_weaponSoundUpdateLink) {
+        return new SoundEffectBreathWeaponNull(i_soundController, i_weaponSoundUpdateLink);
+    }
+
+    private Pair<Float, Float> getBreathWeaponRangeDefault(DragonLifeStage dragonLifeStage) {
+        float minAttackRange = 1.0F;
+        float maxAttackRange = 1.0F;
+        switch (dragonLifeStage) {
+            case EGG:
+                break;
+            case HATCHLING: {
+                minAttackRange = 2.0F;
+                maxAttackRange = 4.0F;
+                break;
+            }
+            case JUVENILE: {
+                minAttackRange = 3.0F;
+                maxAttackRange = 8.0F;
+                break;
+            }
+            case ADULT: {
+                minAttackRange = 5.0F;
+                maxAttackRange = 25.0F;
+                break;
+            }
+            default: {
+                DragonMounts.loggerLimit.error_once("Unknown lifestage:" + dragonLifeStage);
+                break;
+            }
+        }
+        return new Pair<Float, Float>(minAttackRange, maxAttackRange);
+    }
+
+    /**
+     * returns the width and height of the entity when it's an adult
+     * later: may vary for different breeds
+     *
+     * @return a pair of [width, height] for the entity - affects the Axis Aligned Bounding Box
+     */
+    public Pair<Float, Float> getAdultEntitySize() {
+        return new Pair<>(4.8F, 4.2F);
 //    public static final float BASE_WIDTH = 4.8f; //2.4f;      make the adult twice the size it used to be
 //    public static final float BASE_HEIGHT = 4.2F; //2.1f;      make the adult twice the size it used to be
-  }
-
-  /**
-   * used when rendering; scale up the model by this factor for a fully-grown adult
-   * @return the relative scale factor (1.0 = no scaling)
-   */
-  public float getAdultModelRenderScaleFactor()
-  {
-    return 1.6F;  // I don't know why this is the magic number 1.6, it just gives the right size
-  }
-
-  /**
-   * used for converting the model dimensions into world dimensions (see DragonHeadPositionHelper)
-   * I don't know why this is the magic # of 0.1F
-   * It's probably linked to getAdultModelRenderScaleFactor
-   * @return
-   */
-  public float getAdultModelScaleFactor() {
-    return 0.1F;
-  }
-
-  /**
-   * gets the position offset to use for a passenger on a fully-grown adult dragon
-   * @param isSitting is the dragon sitting down?
-   * @param passengerNumber the number (0.. max) of the passenger
-   * @return the [x, y, z] of the mounting position relative to the dragon [posX, posY, posZ]
-   * for smaller-than-adult sizes, multiply by
-   */
-  public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber)
-  {
-    double yoffset = (isSitting ? 3.4 : 4.4);
-
-    // dragon position is the middle of the model and the saddle is on
-    // the shoulders, so move player forwards on Z axis relative to the
-    // dragon's rotation to fix that
-    //
-
-    switch (passengerNumber) {
-      case 0: return new Vec3d(   0, yoffset, 2.2);
-      case 1: return new Vec3d(+0.6, yoffset, 1.5);
-      case 2: return new Vec3d(-0.6, yoffset, 1.5);
     }
-    DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
-    return new Vec3d(0, yoffset, 2.2);
-  }
 
-  /** how many passengers can ride on this breed?
-   * @return
-   */
-  public int getMaxNumberOfPassengers(DragonLifeStage dragonLifeStage)
-  {
-    return 3;
-  }
+    /**
+     * used when rendering; scale up the model by this factor for a fully-grown adult
+     *
+     * @return the relative scale factor (1.0 = no scaling)
+     */
+    public float getAdultModelRenderScaleFactor() {
+        return 1.6F;  // I don't know why this is the magic number 1.6, it just gives the right size
+    }
+
+    /**
+     * used for converting the model dimensions into world dimensions (see DragonHeadPositionHelper)
+     * I don't know why this is the magic # of 0.1F
+     * It's probably linked to getAdultModelRenderScaleFactor
+     *
+     * @return
+     */
+    public float getAdultModelScaleFactor() {
+        return 0.1F;
+    }
+
+    /**
+     * gets the position offset to use for a passenger on a fully-grown adult dragon
+     *
+     * @param isSitting       is the dragon sitting down?
+     * @param passengerNumber the number (0.. max) of the passenger
+     * @return the [x, y, z] of the mounting position relative to the dragon [posX, posY, posZ]
+     * for smaller-than-adult sizes, multiply by
+     */
+    public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber) {
+        double yoffset = (isSitting ? 3.4 : 4.4);
+        double yoffset2 = (isSitting ? -1 : 0); // maybe not needed
+
+        // dragon position is the middle of the model and the saddle is on
+        // the shoulders, so move player forwards on Z axis relative to the
+        // dragon's rotation to fix that
+        switch (passengerNumber) {
+            // first and main rider
+            case 0:
+                return new Vec3d(0, yoffset, 2.2);
+            case 1:
+                return new Vec3d(0.6, yoffset, 0.1);
+            case 2:
+                return new Vec3d(-0.6, yoffset, 0.1);
+            case 3:
+                return new Vec3d(1.6, yoffset2, 0.1);
+            case 4:
+                return new Vec3d(-1.6, yoffset2, 0.1);
+        }
+        DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
+        return new Vec3d(0, yoffset, 2.2);
+    }
+
+    /**
+     * how many passengers can ride on this breed?
+     *
+     * @return
+     */
+    public int getMaxNumberOfPassengers(DragonLifeStage dragonLifeStage) {
+        return 3;
+    }
+
+    public enum BreathWeaponSpawnType {PROJECTILE, NODES}
 
 }
 

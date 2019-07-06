@@ -35,6 +35,7 @@ import java.util.List;
  * 3. Carriage can only be mounted up to 4 leaving one more room for the player to control the dragon.
  * 4. up to 2 other players can mount the dragon behind but will need carriages for the sides (It would be weird to see a player sitting and floating at the side without a carriage that acts like a saddle),
  *  so far players can't interact with the carriage at the side since the dragons hitbox is soo big blocking the carriage hitbox for playerInteract to be called
+ * 5. dismount the carriage by making the dragon sit
  */
 public class EntityCarriage extends Entity {
 

@@ -153,7 +153,7 @@ item.armoryitems.info=Forged with the Scales of
 item.diamondshears.info=Used to get scales from tamed dragons without killing it. Untamed ones will attack
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
-item.whistle.info=Left Click an owned and tamed dragon to control it, shift + left click it to set a homePos (!WIP!)
+item.whistle.info=Left Click an owned and tamed dragon to control it
 item.whistle.nullBlockPos=Cannot Teleport There
 
 

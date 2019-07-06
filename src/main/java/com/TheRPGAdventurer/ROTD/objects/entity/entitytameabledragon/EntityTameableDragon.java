@@ -1816,7 +1816,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (this.isPassenger(passenger)) {
             List<Entity> passengers = getPassengers();
             // todo hey sir ghost we are gonna add 2 more carriages  at the side of the dragon same pos as the banner,
-            //  im also worried about hit boxes puhing the dragon and other players not being able to ride the ide carriage
+            //  im also worried about hit boxes pushing the dragon and other players not being able to ride the ide carriage
             //  because of dragon hitbox(RPG)
             int passengerNumber = passengers.indexOf(passenger);
             if (passengerNumber < 0) {  // should never happen!

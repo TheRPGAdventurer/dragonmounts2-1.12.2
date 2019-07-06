@@ -52,7 +52,7 @@ public class DragonBreedForest extends DragonBreed {
         boolean isSavanna = BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.SAVANNA)
                 || BiomeDictionary.hasType(dragon.world.getBiome(dragon.getPosition()), BiomeDictionary.Type.DRY);
         if (!dragon.isAlbino()) {
-            if (isForest) {
+            if (isForest || !isSavanna) {
                 dragon.setaltTextures(false); // use green texture
             } else if (isSavanna) {
                 dragon.setaltTextures(true); // use brown texture

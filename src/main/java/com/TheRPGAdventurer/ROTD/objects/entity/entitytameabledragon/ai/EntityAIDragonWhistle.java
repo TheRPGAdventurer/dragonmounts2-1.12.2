@@ -26,8 +26,6 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public void updateTask() {
-//        DMUtils.getLogger().info(dragon.getWhistleState());
-
         ItemStack whistle = dragon.getControllingWhistle();
         if (whistle != null && whistle.getTagCompound() != null && !whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(dragon.getUniqueID()) && whistle.hasTagCompound()
                 || whistle == null) {
@@ -50,7 +48,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         double x = midPoint.getX() + 12;
         double y = midPoint.getY() + 25;
         double z = midPoint.getZ() - 12;
-        dragon.setBoosting(dragon.getOwner().isSprinting() || dragon.getDistance(dragon.getOwner()) > 34);
+        dragon.setBoosting(dragon.getDistance(dragon.getOwner()) > 55);
 
         return tryMoveToBlockPos(new BlockPos(x, y, z), 1);
     }
@@ -61,11 +59,11 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         Vec3d vec2 = new Vec3d(0, 0, 1);
 
         double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
-        double r = 30;  // DragonMountsConfig.dragonFlightHeight
+        double r = 30;
         double x = midPoint.getX() + r * Math.cos(a * dragon.ticksExisted * 3.5);
         double y = midPoint.getY() + 30;
         double z = midPoint.getZ() + r * Math.sin(a * dragon.ticksExisted * 3.5);
-        dragon.setBoosting(dragon.getOwner().isSprinting() || dragon.getDistance(dragon.getOwner()) > 70);
+        dragon.setBoosting(dragon.getDistance(dragon.getOwner()) > 77);
 
         return tryMoveToBlockPos(new BlockPos(x, y, z), 1);
     }
@@ -80,11 +78,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
         if (dragon.isFlying() && dragon.getOwner() != null) {
             if (dragon.circle()) {
-                dragon.getNavigator().clearPath();
                 this.circleTarget1(dragon.getOwner().getPosition());
                 this.dragon.setSitting(false);
             } else if (dragon.follow()) {
-                dragon.getNavigator().clearPath();
                 this.followPlayerFlying(dragon.getOwner().getPosition());
                 this.dragon.setSitting(false);
             }

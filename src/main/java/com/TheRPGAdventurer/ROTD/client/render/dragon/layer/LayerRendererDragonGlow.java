@@ -21,22 +21,23 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
 
     @Override
     public void doRenderLayer(EntityTameableDragon dragon, float moveTime, float moveSpeed, float partialTicks, float ticksExisted, float lookYaw, float lookPitch, float scale) {
-    	renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()) : breedRenderer.getFemaleGlowTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()));
+        renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()) : breedRenderer.getFemaleGlowTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()));
 
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL_ONE, GL_ONE);
         GlStateManager.color(1, 1, 1, 1);
 
-        /*if (!dragon.isAsleep)*/ disableLighting();
+        /*if (!dragon.isAsleep)*/
+        disableLighting();
         model.setMode(DragonModelMode.FULL);
         model.render(dragon, moveTime, moveSpeed, ticksExisted, lookYaw, lookPitch, scale);
         enableLighting(dragon.getBrightnessForRender());
 
         GlStateManager.disableBlend();
 
-        if(dragon.getBreedType() == EnumDragonBreed.ENCHANT) {
-            renderEnchantedGlint(this.renderer, dragon, model, moveTime, moveSpeed, partialTicks, ticksExisted, lookYaw, lookPitch, scale);
-        }
+        GlStateManager.pushMatrix();
+        if (dragon.getBreedType() == EnumDragonBreed.ENCHANT) renderEnchantedGlint(this.renderer, dragon, model, moveTime, moveSpeed, partialTicks, ticksExisted, lookYaw, lookPitch, scale);
+        GlStateManager.popMatrix();
     }
 
     @Override

@@ -27,6 +27,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+/**
+ * used by dragonss to be able to carry more than one passenger and not be able to control the dragon
+ * 1. Carriage is placed on ground from item form like boat or minecarts, and when it meets with a hitbox from non player entity and is mall enough i.e. pigs the entity mounts
+ * 2. getControllingPlayer() will mount the dragon and control the dragon on to the carriage, if the hitbox meets, the carriage will ride the dragon alongside the entity like pig (if there is any)
+ *    the dragon can carry 2 carriages placed behing the players back (planned to add 2 more near the sides)
+ * 3. Carriage can only be mounted up to 4 leaving one more room for the player to control the dragon,
+ * 4. up to 2 other players can mount the dragon behind but will need carriages for the sides
+ *  (would be weird to see a player sitting and floating at the side without a carriage that act like a saddle),
+ *  so far players cant interact with the carriage at the side since the dragons hitbox is soo big blocking the carriage hitbox for playerInteract to be called
+ */
+
 public class EntityCarriage extends Entity {
 
     private static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(EntityCarriage.class, DataSerializers.FLOAT);

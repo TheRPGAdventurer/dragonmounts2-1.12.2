@@ -154,12 +154,6 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
     if (tickZ > 0) {
       rotZ=(float) Math.sin(tickZ - partialTicks) * 8;
     }
-        
-/*		// Aether Egg Levitate
-        float l = (float) (0.1 * Math.cos(dragon.ticksExisted / (Math.PI * 6.89)) + 0.307);
-        boolean lev = false;
-        if (dragon.getBreedType() == EnumDragonBreed.AETHER) lev = true;
-*/
 
     // prepare GL states
     GlStateManager.pushMatrix();

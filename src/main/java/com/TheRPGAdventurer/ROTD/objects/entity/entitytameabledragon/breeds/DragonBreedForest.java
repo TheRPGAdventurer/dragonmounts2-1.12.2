@@ -64,6 +64,8 @@ public class DragonBreedForest extends DragonBreed {
                 dragon.setaltTextures(false); // use green texture
             } else if (isSavanna || !isForest) {
                 dragon.setaltTextures(true); // use brown texture
+            } else {
+                dragon.setaltTextures(false); // use green texture if none of the above}
             }
         }
     }

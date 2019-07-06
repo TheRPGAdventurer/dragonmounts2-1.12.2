@@ -430,7 +430,7 @@ public abstract class DragonBreed {
      */
     public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber) {
         double yoffset = (!isSitting ? 4.4 : 3.4);
-        double yoffset2 = (!isSitting ? 2.6 : 2.4); // maybe not needed
+        double yoffset2 = (!isSitting ? 3.0 : 2.6); // maybe not needed
 
         // dragon position is the middle of the model and the saddle is on
         // the shoulders, so move player forwards on Z axis relative to the
@@ -443,9 +443,9 @@ public abstract class DragonBreed {
             case 2:
                 return new Vec3d(-0.6, yoffset, 0.1);
             case 3:
-                return new Vec3d(1.8, yoffset2, 0.1);
+                return new Vec3d(1.6, yoffset2, 0.1);
             case 4:
-                return new Vec3d(-1.8, yoffset2, 0.1);
+                return new Vec3d(-1.6, yoffset2, 0.1);
         }
         DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
         return new Vec3d(0, yoffset, 2.2);

@@ -124,25 +124,4 @@ public class ItemDragonAmuletNEW extends Item {
             stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
     	}
     }
-
-	/* INDESTRUCTIBLE */
-
-	@Nonnull
-	@Override
-	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-		EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
-		if (location instanceof EntityItem) {
-			// workaround for private access on that field >_>
-			NBTTagCompound tag = new NBTTagCompound();
-			location.writeToNBT(tag);
-			entity.setPickupDelay(tag.getShort("PickupDelay"));
-		}
-		entity.motionX = location.motionX;
-		entity.motionY = location.motionY;
-		entity.motionZ = location.motionZ;
-		return entity;
-	}
-
-	@Override
-	public boolean hasCustomEntity(ItemStack stack) { return true; }
 }

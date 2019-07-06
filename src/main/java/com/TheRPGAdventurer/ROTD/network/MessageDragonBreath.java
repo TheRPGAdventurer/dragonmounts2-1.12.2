@@ -15,12 +15,12 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 
 	private int dragonId;
 	public boolean isBreathing;
-	public boolean isProjectile;
+//	public boolean isProjectile;
 
-	public MessageDragonBreath(int dragonId, boolean isBreathing, boolean isProjectile) {
+	public MessageDragonBreath(int dragonId, boolean isBreathing) {
 		this.dragonId = dragonId;
 		this.isBreathing = isBreathing;
-		this.isProjectile=isProjectile;
+//		this.isProjectile=isProjectile;
 	}
 
 	public MessageDragonBreath() {}
@@ -29,14 +29,14 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 	public void fromBytes(ByteBuf buf) {
 		dragonId = buf.readInt();
 		isBreathing = buf.readBoolean();
-		isProjectile = buf.readBoolean();
+//		isProjectile = buf.readBoolean();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(dragonId);
 		buf.writeBoolean(isBreathing);
-		buf.writeBoolean(isProjectile);
+//		buf.writeBoolean(isProjectile);
 	}
 
 	@Override
@@ -56,11 +56,11 @@ public class MessageDragonBreath extends AbstractMessage<MessageDragonBreath> {
 				dragon.setUsingBreathWeapon(false);
 			}
 
-			if(message.isProjectile) {
-				dragon.setUsingProjectile(true);
-			} else {
-				dragon.setUsingProjectile(false);
-			}
+//			if(message.isProjectile) {
+//				dragon.setUsingProjectile(true);
+//			} else {
+//				dragon.setUsingProjectile(false);
+//			}
 		} 
 	}
 }

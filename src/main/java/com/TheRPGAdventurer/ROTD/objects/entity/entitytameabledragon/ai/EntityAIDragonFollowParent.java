@@ -1,6 +1,7 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.passive.EntityAnimal;
 
 import java.util.List;
@@ -13,7 +14,6 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
 
     public EntityAIDragonFollowParent(EntityTameableDragon dragon, double speed) {
         super(dragon);
-        this.setMutexBits(1);
         this.moveSpeed = speed;
     }
 
@@ -37,6 +37,11 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
                         entityanimal = entityanimal1;
                     }
                 }
+            }
+
+            // play the follow owner method
+            if(dragon.getOwner() != null && dragon.getOwner().isSneaking() && parentAnimal != null) {
+                return false;
             }
 
             if (entityanimal == null) {

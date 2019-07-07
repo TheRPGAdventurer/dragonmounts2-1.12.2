@@ -84,19 +84,19 @@ public class GuiDragon extends GuiContainer {
         // maybe not good enough?
         switch (dragon.getLifeStageHelper().getLifeStage()) {
             case EGG:
-                size = 160;
+                size = 140;
                 break;
             case HATCHLING:
-                size = 164;
+                size = 140;
                 break;
             case INFANT:
-                size = 60;
+                size = 65;
                 break;
             case PREJUVENILE:
                 size = 20;
                 break;
             case JUVENILE:
-                size = 16;
+                size = 14;
                 break;
             case ADULT:
                 size = 7;

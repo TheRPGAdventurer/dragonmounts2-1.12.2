@@ -256,18 +256,20 @@ public abstract class DragonBreed {
 
         switch (stage) {
             case EGG:
-            case INFANT:
-            case HATCHLING:
+                soundEffectNames = prejuvenile;
                 break;
-
+            case INFANT:
+                soundEffectNames = prejuvenile;
+                break;
+            case HATCHLING:
+                soundEffectNames = prejuvenile;
+                break;
             case PREJUVENILE:
                 soundEffectNames = prejuvenile;
                 break;
-
             case JUVENILE:
                 soundEffectNames = juvenile;
                 break;
-
             case ADULT:
                 soundEffectNames = adult;
                 break;

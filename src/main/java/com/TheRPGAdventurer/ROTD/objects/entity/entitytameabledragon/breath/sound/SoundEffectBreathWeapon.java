@@ -315,5 +315,4 @@ public class SoundEffectBreathWeapon {
     return new ResourceLocation(dragon.getBreed().getBreathWeaponSoundEffects(lifeStage)[soundPart.ordinal()].getJsonName());
   }
 
-
 }

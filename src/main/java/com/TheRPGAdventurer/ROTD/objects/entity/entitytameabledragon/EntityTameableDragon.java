@@ -763,9 +763,11 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @SideOnly(Side.CLIENT)
     public void updateKeys() {
         Minecraft mc = Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) || (getOwner() != null && firesupport()) && isOldEnoughToBreathe()) {
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) ||
+                (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player)) ||
+                (getOwner() != null && firesupport()) && isOldEnoughToBreathe()) {
             boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
-            boolean projectile = ModKeys.KEY_LOCKEDY.isPressed();
+            boolean projectile = ModKeys.KEY_PROJECTILE.isPressed();
             boolean isBoosting = ModKeys.BOOST.isKeyDown();
             boolean isDown = ModKeys.DOWN.isKeyDown();
             boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
@@ -966,7 +968,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             for (int j = 0; j < list.size(); ++j) {
                 Entity entity = list.get(j);
                 if (!entity.isPassenger(this) && !entity.isRiding() && entity instanceof EntityCarriage) {
-                    if (onServer && this.getPassengers().size() < 4 && !entity.isRiding() && !isBaby()) {
+                    if (onServer && this.getPassengers().size() < 5 && !entity.isRiding() && !isBaby()) {
                         entity.startRiding(this);
                     } else {
                         this.applyEntityCollision(entity);
@@ -981,11 +983,13 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         Random rand = new Random();
         if (this.getBreed().getSneezeParticle() != null && rand.nextInt(750) == 1 && !this.isUsingBreathWeapon() && !isBaby() && !isEgg()) {
-            double throatPosX = (this.getAnimator().getThroatPosition().x);
-            double throatPosY = (this.getAnimator().getThroatPosition().z);
-            double throatPosZ = (this.getAnimator().getThroatPosition().y + 1.7);
-            world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
-            world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 0.5F, 1);
+            for (int i = 0; i < 3; i++) {
+                double throatPosX = (this.getAnimator().getThroatPosition().x);
+                double throatPosY = (this.getAnimator().getThroatPosition().z + i);
+                double throatPosZ = (this.getAnimator().getThroatPosition().y + 1.7);
+                world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
+                world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 0.5F, 1);
+            }
         }
 
         super.onLivingUpdate();
@@ -1620,7 +1624,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return false;
         }
 
-        if (this.isPassenger(sourceEntity)) {
+        if (sourceEntity != null && sourceEntity.isPassenger(this)) {
             return false;
         }
 
@@ -1918,7 +1922,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * This code is called when the dragon is riding on the shoulder of the player
+     * This code is called when the dragon is riding on the shoulder of the player. Credits: Ice and Fire
      *
      * @param riding
      */
@@ -1930,7 +1934,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             float angle = (0.01745329251F * ((EntityPlayer) riding).renderYawOffset) + (i == 1 ? -90 : i == 0 ? 90 : 0);
             double extraX = (double) (radius * MathHelper.sin((float) (Math.PI + angle)));
             double extraZ = (double) (radius * MathHelper.cos(angle));
-            double extraY = (riding.isSneaking() ? 1.0D : 1.4D) + (i == 2 ? 0.2D : 0D);
+            double extraY = (riding.isSneaking() ? 1.1D : 1.5D) + (i == 2 ? 0.5D : 0D);
             this.rotationYaw = riding.rotationYaw;
             this.prevRotationYaw = riding.prevRotationYaw;
             this.rotationYawHead = riding.rotationYawHead;
@@ -2063,7 +2067,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void setScaleForAge(boolean child) {
         // managed by DragonLifeStageHelper, so this is a no-op
     }
-
 
 
     /**
@@ -2312,8 +2315,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 this.InitializeDragonInventory();
                 this.dragonInv.setInventorySlotContents(j, new ItemStack(nbttagcompound));
 
-                ItemStack saddle  = dragonInv.getStackInSlot(0);
-                ItemStack chest   = dragonInv.getStackInSlot(1);
+                ItemStack saddle = dragonInv.getStackInSlot(0);
+                ItemStack chest = dragonInv.getStackInSlot(1);
                 ItemStack banner1 = dragonInv.getStackInSlot(31);
                 ItemStack banner2 = dragonInv.getStackInSlot(32);
                 ItemStack banner3 = dragonInv.getStackInSlot(33);
@@ -2440,6 +2443,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             setDead();
         }
 
+        if (player.isPassenger(this)) return false;
+
 
         if (getHealth() <= 0) return false;
 
@@ -2450,7 +2455,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         /*
          * Dragon Riding The Player
          */
-        if (this.isTamedFor(player) && this.isBaby() && !hasInteractItemsEquipped(player) && !player.isSneaking() && player.getPassengers().size() < 3) {
+        if (isTamed() && !isSitting() && this.isBaby() && !hasInteractItemsEquipped(player) && !player.isSneaking() && player.getPassengers().size() < 3) {
             this.setAttackTarget(null);
             this.setSitting(false);
             this.startRiding(player, true);

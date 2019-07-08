@@ -196,8 +196,8 @@ public abstract class SoundEffectProjectile
 
   private ProjectileSoundInfo.State currentProjectileState = ProjectileSoundInfo.State.NOT_CREATED;
 
-  private ComponentSound.ComponentSoundSettings soundProjectileSettings = new ComponentSound.ComponentSoundSettings(1.0F);
-  private ComponentSound.ComponentSoundSettings soundMouthSettings = new ComponentSound.ComponentSoundSettings(1.0F);
+  private ComponentSound.ComponentSoundSettings soundProjectileSettings = new ComponentSound.ComponentSoundSettings(0.7F);
+  private ComponentSound.ComponentSoundSettings soundMouthSettings = new ComponentSound.ComponentSoundSettings(0.7F);
 
   private ComponentSound startupSound;
   private ComponentSound loopSound;

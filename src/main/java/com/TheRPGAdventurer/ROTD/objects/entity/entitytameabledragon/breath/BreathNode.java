@@ -27,7 +27,7 @@ public class BreathNode {
     setPower(i_power);
   }
 
-  public enum Power {SMALL, MEDIUM, LARGE} // how powerful is this node?
+  public enum Power {TINY, SMALL, MEDIUM, LARGE, HUGE} // how powerful is this node?
 
   private float ageTicks;
 
@@ -196,6 +196,12 @@ public class BreathNode {
   private void setPower(Power newPower) {
     power = newPower;
     switch (newPower) {
+      case TINY:
+        speedPowerFactor = 1.2F;
+        lifetimePowerFactor = 0.10F;
+        sizePowerFactor = 0.10F;
+        intensityPowerFactor = 0.8F;
+        break;
       case SMALL: {
         speedPowerFactor = 1.5F;
         lifetimePowerFactor = 0.35F;
@@ -218,6 +224,12 @@ public class BreathNode {
         break;
       }
 
+      case HUGE:
+        speedPowerFactor = 5.0F;
+        lifetimePowerFactor = 1F;
+        sizePowerFactor = 3.50F;
+        intensityPowerFactor = 1.6F;
+        break;
       default: {
         DragonMounts.loggerLimit.error_once("Invalid power in setPower:" + newPower);
       }

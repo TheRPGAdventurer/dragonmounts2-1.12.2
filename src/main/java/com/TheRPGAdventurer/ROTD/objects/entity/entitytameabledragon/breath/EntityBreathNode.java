@@ -29,7 +29,7 @@ class EntityBreathNode extends Entity {
         Vec3d direction=new Vec3d(directionX, directionY, directionZ).normalize();
 
         Random rand=new Random();
-        BreathNode breathNode =new BreathNode(power);
+        BreathNode breathNode = new BreathNode(power);
         Vec3d actualMotion= breathNode.getRandomisedStartingMotion(direction, rand);
         // don't randomise the other properties (size, age) on the server.
 

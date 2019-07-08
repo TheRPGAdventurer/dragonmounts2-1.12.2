@@ -19,10 +19,7 @@
   "category": "dragon_hatchling_growl",
     "sounds": [
       "dragonmounts:mob/dragon/hatchlinggrowl1",
-      "dragonmounts:mob/dragon/hatchlinggrowl2",
-      "dragonmounts:mob/dragon/hatchlinggrowl3",
-      "dragonmounts:mob/dragon/hatchlinggrowl4",
-      "dragonmounts:mob/dragon/hatchlinggrowl5"
+      "dragonmounts:mob/dragon/hatchlinggrowl2"
     ]
   },
 

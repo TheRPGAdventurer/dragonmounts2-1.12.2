@@ -372,13 +372,21 @@ public abstract class DragonBreed {
                 maxAttackRange = 4.0F;
                 break;
             }
+            case INFANT:
+                minAttackRange = 2.0F;
+                maxAttackRange = 4.0F;
+                break;
+            case PREJUVENILE:
+                minAttackRange = 3.0F;
+                maxAttackRange = 8.0F;
+                break;
             case JUVENILE: {
                 minAttackRange = 3.0F;
                 maxAttackRange = 8.0F;
                 break;
             }
             case ADULT: {
-                minAttackRange = 5.0F;
+                minAttackRange = 3.0F;
                 maxAttackRange = 25.0F;
                 break;
             }
@@ -432,7 +440,7 @@ public abstract class DragonBreed {
      */
     public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber) {
         double yoffset = (!isSitting ? 4.4 : 3.4);
-        double yoffset2 = (!isSitting ? 3.0 : 2.6); // maybe not needed
+        double yoffset2 = (!isSitting ? 2.8 : 2.4); // maybe not needed
 
         // dragon position is the middle of the model and the saddle is on
         // the shoulders, so move player forwards on Z axis relative to the

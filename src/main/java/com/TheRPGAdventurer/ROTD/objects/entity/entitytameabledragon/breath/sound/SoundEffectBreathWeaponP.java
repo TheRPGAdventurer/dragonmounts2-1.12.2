@@ -172,7 +172,7 @@ private final float HEAD_MIN_VOLUME = 0.02F;
 
   WeaponSoundInfo.State currentWeaponState = WeaponSoundInfo.State.IDLE;
 
-  private ComponentSound.ComponentSoundSettings headSoundSettings = new ComponentSound.ComponentSoundSettings(1.0F);
+  private ComponentSound.ComponentSoundSettings headSoundSettings = new ComponentSound.ComponentSoundSettings(0.7F);
 
   private ComponentSound headStartupSound;
   private ComponentSound headLoopSound;

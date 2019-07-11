@@ -86,13 +86,13 @@ public class GuiDragon extends GuiContainer {
                 size = 140;
                 break;
             case HATCHLING:
-                size = 135;
-                break;
-            case INFANT:
                 size = 55;
                 break;
+            case INFANT:
+                size = 45;
+                break;
             case PREJUVENILE:
-                size = 14;
+                size = 18;
                 break;
             case JUVENILE:
                 size =8;

@@ -56,7 +56,7 @@ public class DragonMountsConfig {
 	public static double BASE_DAMAGE  = 5.0F;
 	public static double BASE_HEALTH = 90.0d;
 	public static int REG_FACTOR  = 75;
-	public static int hungerDecrement  = 3000;
+	public static int hungerDecrement  = 6000;
 
 	// chances
 	public static int FireNestRarity  = 50;

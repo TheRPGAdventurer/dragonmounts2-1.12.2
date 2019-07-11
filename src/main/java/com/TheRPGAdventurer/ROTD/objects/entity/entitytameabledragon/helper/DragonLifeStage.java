@@ -28,8 +28,8 @@ public enum DragonLifeStage {
   EGG         (0, 36, 0.25f, 0.25f),
   HATCHLING   (1, 48, 0.04f, 0.09f),
   INFANT      (2, 14, 0.09f, 0.33f),
-  PREJUVENILE (3, 22, 0.33f, 0.50f),
-  JUVENILE    (4, 60, 0.50f, 1.00f),
+  PREJUVENILE (3, 22, 0.44f, 0.50f),
+  JUVENILE    (4, 60, 0.55f, 1.00f),
   ADULT       (5,  0, 1.00f, 1.00f);        // scale of the final stage should be 1.00F to avoid breaking other code
 
 //  desired durations (30 Jun 2019)
@@ -74,10 +74,6 @@ public enum DragonLifeStage {
    */
   public boolean isBaby() {
     return this == HATCHLING || this == INFANT;
-  }
-
-  public boolean isHatchling() {
-    return  this == HATCHLING;
   }
 
   public boolean isJuvenile() {

@@ -47,7 +47,7 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
                 return false;
             } else if (d0 < 9.0D) {
                 return false;
-            } else if (!adultDragon1.isTamed() && adultDragon.getControllingPlayer() != null) {
+            } else if (!adultDragon1.isTamed() && adultDragon1.getControllingPlayer() != null) {
                 return false;
             } else if (dragon.isSitting()) {
                 return false;

@@ -1807,6 +1807,8 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public void updateIntendedRideRotation(EntityPlayer rider) {
+        if (isUsingBreathWeapon()) this.rotationYawHead = this.renderYawOffset;
+        ;
         boolean hasRider = this.hasControllingPlayer(rider);
         if (hasRider && rider.moveStrafing == 0) {
             this.rotationYaw = rider.rotationYaw;
@@ -1814,7 +1816,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             this.rotationPitch = rider.rotationPitch;
             this.setRotation(this.rotationYaw, this.rotationPitch);
             this.renderYawOffset = this.rotationYaw;
-            this.rotationYawHead = this.renderYawOffset;
         }
     }
 
@@ -2123,7 +2124,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         } else {
             return null;
         }
-
     }
 
     public boolean isSheared() {
@@ -2154,12 +2154,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
         return item != null && item.getItem() == ModTools.diamond_shears && this.isChild() && !this.isSheared() && ticksShear <= 0;
-
     }
 
     @Override
-    public List<ItemStack> onSheared(ItemStack item, net.minecraft.world.IBlockAccess world, BlockPos pos,
-                                     int fortune) {
+    public List<ItemStack> onSheared(ItemStack item, net.minecraft.world.IBlockAccess world, BlockPos pos, int fortune) {
         this.setSheared(true);
         int i = 2 + this.rand.nextInt(3);
 
@@ -2446,6 +2444,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             return true;
         }
 
+        // prevent doing basic interactions when a hatchling rides you, the hitbox could block the player's raytraceresult for rightclick
+        if (player.isPassenger(this)) return false;
+
         if (this.isServer() && !this.isEgg()) {
             if (isAllowed(player)) {
                 /*
@@ -2539,8 +2540,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        // prevent doing basic interactions when a hatchling rides you, the hitbox could block the player's raytraceresult for rightclick
-        return player.isPassenger(this);
+        return false;
     }
 
     /**
@@ -2563,6 +2563,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         @Override
         public void onInventoryChanged(IInventory invBasic) {
+            dragon.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
             refreshInventory();
         }
     }

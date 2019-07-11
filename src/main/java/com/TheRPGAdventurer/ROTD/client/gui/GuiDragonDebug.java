@@ -207,11 +207,8 @@ public class GuiDragonDebug extends Gui {
         String health = dfShort.format(dragon.getHealth());
         String healthMax = dfShort.format(dragon.getMaxHealth());
         String healthRel = dfShort.format(dragon.getHealthRelative() * 100);
-        String airTicks = dfShort.format(dragon.inAirTicks);
-    //    String airTargetX = dfShort.format(dragon.airTarget.getX());
-    //    String airTargetY = dfShort.format(dragon.airTarget.getY());
-    //    String airTargetZ = dfShort.format(dragon.airTarget.getZ());
-        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel, airTicks);
+        String hunger = dfShort.format(dragon.getHunger());
+        text.printf("Health: %s/%s (%s%%)\n", health, healthMax, healthRel, hunger);
         
         // breed
         text.print("Breed: ");

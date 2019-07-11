@@ -64,23 +64,23 @@ public class ItemDragonWhistle extends Item implements IHasModel {
         if (target.world.isRemote) return false;
         if (!(target instanceof EntityTameableDragon)) return false;
         EntityTameableDragon dragon = (EntityTameableDragon) target;
-        if (!dragon.isTamedFor(player)) {
-            player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
-            return true; // Return true so the method ends and the dragon isnt damaged
+        if (dragon.isAllowed(player)) {
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
+
+            EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+            nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+            nbt.setString("Age", DMUtils.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
+            nbt.setString("OwnerName", dragon.getOwner().getName());
+            nbt.setInteger("Color", dragon.getBreed().getColor());
+
+            stack.setTagCompound(nbt);
+            dragon.setControllingWhistle(stack);
+            player.sendStatusMessage(new TextComponentTranslation("whistle.msg.hasDragon"), true);
+            return true;
         }
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
 
-        EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-        nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
-        nbt.setString("Age", DMUtils.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
-        nbt.setString("OwnerName", dragon.getOwner().getName());
-        nbt.setInteger("Color", dragon.getBreed().getColor());
-
-        stack.setTagCompound(nbt);
-        dragon.setControllingWhistle(stack);
-        player.sendStatusMessage(new TextComponentTranslation("whistle.msg.hasDragon"), true);
-        return true;
+        return false;
     }
 
     /**

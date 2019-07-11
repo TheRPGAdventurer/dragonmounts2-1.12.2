@@ -342,6 +342,7 @@ public class DragonLifeStageHelper extends DragonHelper {
    * @return
    */
     public boolean isBaby() {return getLifeStage().isBaby();}
+    public boolean isJuvenile() {return getLifeStage().isJuvenile();}
 
   public boolean isOldEnoughToBreathe() { return getLifeStage().isOldEnoughToBreathe(); }
 

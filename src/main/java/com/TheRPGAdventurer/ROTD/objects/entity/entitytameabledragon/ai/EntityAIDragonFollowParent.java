@@ -20,7 +20,7 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-        if (this.dragon.getGrowingAge() >= 0) {
+        if (!dragon.isBaby()) {
             return false;
         } else {
             List<EntityTameableDragon> list = this.dragon.world.<EntityTameableDragon>getEntitiesWithinAABB(this.dragon.getClass(), this.dragon.getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D));
@@ -47,7 +47,7 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
                 return false;
             } else if (d0 < 9.0D) {
                 return false;
-            } else if (!adultDragon1.isTamed()) {
+            } else if (!adultDragon1.isTamed() && adultDragon.getControllingPlayer() != null) {
                 return false;
             } else if (dragon.isSitting()) {
                 return false;

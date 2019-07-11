@@ -35,8 +35,8 @@ public enum DragonLifeStage {
 //  desired durations (30 Jun 2019)
 //  egg = 30 minutes
 //          hatchling = 45 minutes
-//          infant = 10 minutes (just filler)
-//  prejuvenile = 15 minutes (just filler)
+//          infant = 14 minutes (just filler)
+//  prejuvenile = 22 minutes (just filler)
 //  juvenile = 50 minutes
 //          adult = 1 hour
 
@@ -80,6 +80,10 @@ public enum DragonLifeStage {
     return  this == HATCHLING;
   }
 
+  public boolean isJuvenile() {
+    return  this == JUVENILE || this == PREJUVENILE;
+  }
+
   /**
    * is the dragon fully grown?
    * @return
@@ -93,7 +97,7 @@ public enum DragonLifeStage {
    * @return
    */
   public boolean isOldEnoughToBreathe() {
-    return this.order >= PREJUVENILE.order;
+    return this.order >= INFANT.order; // when reache this stage it can breath
   }
 
 

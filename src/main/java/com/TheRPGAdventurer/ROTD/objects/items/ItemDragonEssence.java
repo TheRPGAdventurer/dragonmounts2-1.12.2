@@ -4,17 +4,13 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -23,7 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -51,7 +46,7 @@ public class ItemDragonEssence extends Item implements IHasModel {
         EntityTameableDragon dragon = new EntityTameableDragon(world);
         dragon.readFromNBT(stack.getTagCompound());
         
-        if (dragon.isTamedFor(player)) {
+        if (dragon.isAllowed(player)) {
         	dragon.setPosition(pos.getX(), pos.getY() + 1, pos.getZ());
         	world.spawnEntity(dragon);
         		//debug
@@ -63,27 +58,6 @@ public class ItemDragonEssence extends Item implements IHasModel {
         
         return super.onItemUse(player, world, pos, hand, facing, x, y, z);
     }
-    
-    /* INDESTRUCTIBLE */
-    
-    @Nonnull
-    @Override
-    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-        EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
-        if (location instanceof EntityItem) {
-            // workaround for private access on that field >_>
-            NBTTagCompound tag = new NBTTagCompound();
-            location.writeToNBT(tag);
-            entity.setPickupDelay(tag.getShort("PickupDelay"));
-        }
-        entity.motionX = location.motionX;
-        entity.motionY = location.motionY;
-        entity.motionZ = location.motionZ;
-        return entity;
-    }
-
-    @Override
-    public boolean hasCustomEntity(ItemStack stack) { return true; }
     
     @Override
     @SideOnly(Side.CLIENT)

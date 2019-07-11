@@ -21,16 +21,15 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && !dragon.nowhistlecommands();
+        return dragon.getControllingPlayer() == null && !dragon.nowhistlecommands();
     }
 
     @Override
     public void updateTask() {
         ItemStack whistle = dragon.getControllingWhistle();
-        if (whistle != null && whistle.getTagCompound() != null && !whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(dragon.getUniqueID()) && whistle.hasTagCompound()
-                || whistle == null) {
-            dragon.setnowhistlecommands(true);
-        }
+        dragon.setnowhistlecommands(whistle != null && whistle.getTagCompound() != null && !whistle.getTagCompound().getUniqueId(DragonMounts.MODID + "dragon").equals(dragon.getUniqueID()) && whistle.hasTagCompound()
+                || whistle == null);
+
         if (dragon.firesupport() && dragon.getOwner() != null && dragon.isUsingBreathWeapon()) {
             dragon.getNavigator().clearPath();
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
@@ -74,9 +73,10 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         if (!dragon.isFlying() && (dragon.circle() || dragon.follow())) {
             dragon.liftOff();
             dragon.setSitting(false);
-        } else {
-            if (dragon.circle()) this.circleTarget1(dragon.getOwner().getPosition());
-            if (dragon.follow()) this.followPlayerFlying(dragon.getOwner().getPosition());
         }
+
+        if (dragon.circle()) this.circleTarget1(dragon.getOwner().getPosition());
+        if (dragon.follow()) this.followPlayerFlying(dragon.getOwner().getPosition());
+
     }
 }

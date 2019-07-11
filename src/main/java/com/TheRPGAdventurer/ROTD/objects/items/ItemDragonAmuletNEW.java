@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.objects.items;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.EntityDragonAmulet;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,13 +30,13 @@ import java.util.List;
 
 /**
  * Dragon Amulet Item for the use of carrying dragons in an item
- * 
+ *
  * @author WolfShotz
  * TODO Remove ItemDragonAmulet deprecated class and replace it with this one. Rename this to 'ItemDragonAmulet'
  */
 public class ItemDragonAmuletNEW extends Item {
 
-	private EnumItemBreedTypes type;
+    private EnumItemBreedTypes type;
 
     public ItemDragonAmuletNEW() {
         String name = "dragon_amulet";
@@ -44,84 +44,105 @@ public class ItemDragonAmuletNEW extends Item {
         this.setUnlocalizedName(name);
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.mainTab);
-        
+
         ModItems.ITEMS.add(this);
     }
 
     private boolean containsDragonEntity(ItemStack stack) {
         return !stack.isEmpty() && stack.hasTagCompound() && stack.getTagCompound().hasKey("breed");
     }
-    
+
     /**
      * Called when the player has right clicked an entity with the itemstack
      * <p> Writes the entity NBT data to the item stack, and then sets dead
      */
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
-    	if (!target.isServerWorld()) return false;
-    	if (containsDragonEntity(stack) || !(target instanceof EntityTameableDragon) || !target.isEntityAlive()) return false;
-    	EntityTameableDragon dragon = (EntityTameableDragon) target;
-    	if (!dragon.isOwner(player)) {
-    		player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
-    		return false;
-    	}
-    	
-    	NBTTagCompound tag = new NBTTagCompound();
-    	tag.setString("breed", dragon.getBreedType().toString().toLowerCase());
-    	this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-    	tag.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : new TextComponentTranslation("dragon." + type.toString().toLowerCase()).getUnformattedText() + " Dragon"));
-    	tag.setString("OwnerName", dragon.getOwner().getName());
+        if (containsDragonEntity(stack) || !target.isEntityAlive() || !target.isServerWorld()) return false;
+        if (target instanceof EntityTameableDragon) {
+            EntityTameableDragon dragon = (EntityTameableDragon) target;
+            if (dragon.isTamedFor(player)) {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setString("breed", dragon.getBreedType().toString().toLowerCase());
+                this.type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+                tag.setString("Name", type.color + dragon.getDisplayName().getFormattedText());
+                tag.setString("OwnerName", dragon.getOwner().getName());
+                target.writeToNBT(tag);
+                stack.setTagCompound(tag);
+                player.setHeldItem(hand, stack);
+                if (dragon.getLeashed()) dragon.clearLeashed(true, true); // Fix Lead Dupe exploit
+                stack.setStackDisplayName(type.color + stack.getDisplayName());
+                player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
 
-    	target.writeToNBT(tag);
-    	stack.setTagCompound(tag);
-
-    	player.setHeldItem(hand, stack);
-    	if (dragon.getLeashed()) dragon.clearLeashed(true, true); // Fix Lead Dupe exploit
-    	target.setDead();
-        player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.BLOCK_END_PORTAL_FRAME_FILL, SoundCategory.NEUTRAL, 1, 1);
-		stack.setStackDisplayName(type.color + stack.getDisplayName());
-		return true;
+                target.setDead();
+                return true;
+            }
+            return true;
+        } else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
+        return false;
     }
-    
+
     /**
      * Called when the player has right clicked the ItemStack on a block
      * <p> Spawns an entity in the world with the given NBT data the ItemStack was storing
      */
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    	if (world.isRemote || !player.isServerWorld()) return EnumActionResult.FAIL;
-    	ItemStack stack = player.getHeldItem(hand);
-    	if (!containsDragonEntity(stack) || !stack.hasTagCompound()) return EnumActionResult.FAIL;
-    	
-    	EntityTameableDragon entityDragon = new EntityTameableDragon(world);
-    	entityDragon.readFromNBT(stack.getTagCompound());
-    	
-    	if (entityDragon.isTamedFor(player)) {
-    		BlockPos blockPos = pos.offset(facing);
-    		entityDragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    		stack.setTagCompound(null);
-    		player.setHeldItem(hand, stack);
-    		world.spawnEntity(entityDragon);
+        if (world.isRemote || !player.isServerWorld()) return EnumActionResult.FAIL;
+        ItemStack stack = player.getHeldItem(hand);
+        if (!containsDragonEntity(stack) || !stack.hasTagCompound()) return EnumActionResult.FAIL;
+
+        EntityTameableDragon dragon = new EntityTameableDragon(world);
+        dragon.readFromNBT(stack.getTagCompound());
+
+        if (dragon.isTamedFor(player)) {
+            BlockPos blockPos = pos.offset(facing);
+            dragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            stack.setTagCompound(null);
+            player.setHeldItem(hand, stack);
+            world.spawnEntity(dragon);
             player.world.playSound((EntityPlayer) null, player.getPosition(), SoundEvents.ENTITY_ILLAGER_MIRROR_MOVE, SoundCategory.NEUTRAL, 1, 1);
             stack.clearCustomName();
-    		return EnumActionResult.SUCCESS;
-    	} else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
-    	return EnumActionResult.FAIL;
+            return EnumActionResult.SUCCESS;
+        } else player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
+        return EnumActionResult.FAIL;
     }
-    
-    /* Item Extras */
 
+    /* Item Extras */
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {
-		TextFormatting t = null;
-    	if (containsDragonEntity(stack)) {
-    		tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
-    		tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
-    		tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));
-    	} else {
-    		tooltip.add(t.GREEN + new TextComponentTranslation("item.dragonamulet.info").getUnformattedText());
+        TextFormatting t = null;
+        if (containsDragonEntity(stack)) {
+            tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
+            tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
+            tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));
+            String gender = stack.getTagCompound().getBoolean("IsMale") ? t.BLUE + "M" : t.RED + "FM";
+            tooltip.add("Gender: " + gender);
+        } else {
+            tooltip.add(t.GREEN + new TextComponentTranslation("item.dragonamulet.info").getUnformattedText());
             stack.setStackDisplayName(TextFormatting.RESET + stack.getDisplayName());
-    	}
+        }
+    }
+
+    @Nonnull
+    @Override
+    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+        EntityItem entity = new EntityDragonAmulet(world, location.posX, location.posY, location.posZ, itemstack);
+        if (location instanceof EntityItem) {
+            // workaround for private access on that field >_>
+            NBTTagCompound tag = new NBTTagCompound();
+            location.writeToNBT(tag);
+            entity.setPickupDelay(tag.getShort("PickupDelay"));
+        }
+        entity.motionX = location.motionX;
+        entity.motionY = location.motionY;
+        entity.motionZ = location.motionZ;
+        return entity;
+    }
+
+    @Override
+    public boolean hasCustomEntity(ItemStack stack) {
+        return true;
     }
 }

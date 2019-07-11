@@ -26,7 +26,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.effects.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.EntityDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.gemset.armorset.DragonArmourEnchant;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugClientOnly;
@@ -58,10 +58,10 @@ import java.util.Arrays;
  */
 public class ClientProxy extends ServerProxy {
 
-    private int thirdPersonViewDragon=0;
+    private int thirdPersonViewDragon = 0;
     private int lockY = 0;
-    private boolean followYaw=false;
-    private boolean hover=false;
+    private boolean followYaw = false;
+    private boolean hover = false;
 
     @Override
     public void PreInitialization(FMLPreInitializationEvent event) {
@@ -85,7 +85,7 @@ public class ClientProxy extends ServerProxy {
         //Override mcmod.info - This looks cooler :)
         TextFormatting t = null, r = TextFormatting.RESET;
         ModMetadata metadata = event.getModMetadata();
-        metadata.name = t.DARK_AQUA +""+ t.BOLD + "Dragon Mounts";
+        metadata.name = t.DARK_AQUA + "" + t.BOLD + "Dragon Mounts";
         metadata.credits = "\n" +
                 t.GREEN + "BarracudaATA4" + r + "-" + t.AQUA + "The Original Owner\n\n" +
                 t.GREEN + "Merpou/Kingdomall/Masked_Ares" + r + "-" + t.AQUA + "First Dev for DM2. Has Made 500+ Textures and has put forth so much effort.\n\n" +
@@ -96,7 +96,7 @@ public class ClientProxy extends ServerProxy {
                 t.GREEN + "AlexThe666" + r + "-" + t.AQUA + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" +
                 t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n" +
                 t.GREEN + "TGG/TheGreyGhost" + r + "-" + t.AQUA + "old dm1 dev and prototype breath\n";
-        metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD +""+ t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
+        metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD + "" + t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
         metadata.description =
                 "\nTips:\n" +
                         "1. Don't forget to right click the egg to start the hatching process\n" +
@@ -108,25 +108,26 @@ public class ClientProxy extends ServerProxy {
 
     @Override
     public void Initialization(FMLInitializationEvent evt) {
-    	super.Initialization(evt);
-    	if (DragonMountsConfig.isDebug()) {
-    		MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
-    	}
-    	StartupDebugClientOnly.initClientOnly();
+        super.Initialization(evt);
+        if (DragonMountsConfig.isDebug()) {
+            MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
+        }
+        StartupDebugClientOnly.initClientOnly();
 
         // Dragon Whistle String Color
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
-            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1) return stack.getTagCompound().getInteger("Color");
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("Color") && tintIndex == 1)
+                return stack.getTagCompound().getInteger("Color");
             return 0xFFFFFF;
         }, ModItems.dragon_whistle);
-        
-    	System.out.println("Registered Amulets");
+
+        System.out.println("Registered Amulets");
         ModelLoader.setCustomMeshDefinition(ModItems.Amulet, new ModelAmuletMesh());
         ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation("dragonmounts:dragon_amulet"));
         EnumDragonBreed.META_MAPPING.forEach((breed, meta) -> {
-        	ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation("dragonmounts:" + breed.getName() + "_dragon_amulet"));
+            ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation("dragonmounts:" + breed.getName() + "_dragon_amulet"));
         });
-        
+
     }
 
     @Override
@@ -136,20 +137,20 @@ public class ClientProxy extends ServerProxy {
         if (DragonMountsConfig.isDebug()) {
             MinecraftForge.EVENT_BUS.register(new GuiDragonDebug());
         }
-      StartupDebugClientOnly.postInitClientOnly();
+        StartupDebugClientOnly.postInitClientOnly();
 
-      if (DragonMountsConfig.isPrototypeBreathweapons()) {
-        DragonOrbControl.createSingleton(getNetwork());
-        DragonOrbControl.initialiseInterceptors();
-        MinecraftForge.EVENT_BUS.register(DragonOrbControl.getInstance());
-        MinecraftForge.EVENT_BUS.register(new TargetHighlighter());
-      }
+        if (DragonMountsConfig.isPrototypeBreathweapons()) {
+            DragonOrbControl.createSingleton(getNetwork());
+            DragonOrbControl.initialiseInterceptors();
+            MinecraftForge.EVENT_BUS.register(DragonOrbControl.getInstance());
+            MinecraftForge.EVENT_BUS.register(new TargetHighlighter());
+        }
 
-      MinecraftForge.EVENT_BUS.register(new ModKeys());
+        MinecraftForge.EVENT_BUS.register(new ModKeys());
         MinecraftForge.EVENT_BUS.register(new DragonViewEvent());
         MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus());
         MinecraftForge.EVENT_BUS.register(new RenderDM2Cape());
-        MinecraftForge.EVENT_BUS.register(ImmuneEntityItem.EventHandler.instance);
+        MinecraftForge.EVENT_BUS.register(EntityDragonAmulet.EventHandler.instance);
     }
 
     @SideOnly(Side.CLIENT)
@@ -157,53 +158,53 @@ public class ClientProxy extends ServerProxy {
     public void render() {
         ModKeys.init();
     }
-    
+
     public int getDragon3rdPersonView() {
         return thirdPersonViewDragon;
     }
 
     public void setDragon3rdPersonView(int view) {
-        thirdPersonViewDragon=view;
-    }
-
-    public void setDragonFollowYaw(boolean followYaw) {
-        this.followYaw=followYaw;
+        thirdPersonViewDragon = view;
     }
 
     public boolean getDragonFollowYaw() {
-    	return followYaw;
+        return followYaw;
     }
 
+    public void setDragonFollowYaw(boolean followYaw) {
+        this.followYaw = followYaw;
+    }
 
     public void setDragonLockY(int lockY) {
         this.lockY = lockY;
     }
 
     @Override
-    public boolean getDragonHover() { return hover; }
+    public boolean getDragonHover() {
+        return hover;
+    }
 
     @Override
     public void setDragonHover(boolean hover) {
-        this.hover=hover;
+        this.hover = hover;
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {
-    	ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
     }
-    
+
     @Override
     /**Handles Amulet Model Variations*/
     public void registerAmuletRenderer() {
         ModelLoader.setCustomMeshDefinition(ModItems.Amulet, new ModelAmuletMesh());
         ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation("dragonmounts:dragon_amulet"));
         EnumDragonBreed.META_MAPPING.forEach((breed, meta) -> {
-        	ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation("dragonmounts:" + breed.getName() + "_dragon_amulet"));
+            ModelBakery.registerItemVariants(ModItems.Amulet, new ModelResourceLocation("dragonmounts:" + breed.getName() + "_dragon_amulet"));
         });
     }
 
-  @Override
-  public File getDataDirectory()
-  {
-    return Minecraft.getMinecraft().mcDataDir;
-  }
+    @Override
+    public File getDataDirectory() {
+        return Minecraft.getMinecraft().mcDataDir;
+    }
 }

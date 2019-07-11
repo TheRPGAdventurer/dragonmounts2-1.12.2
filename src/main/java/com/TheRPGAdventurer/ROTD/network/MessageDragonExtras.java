@@ -20,14 +20,16 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
     public boolean locky;
     public boolean isBoosting;
     public boolean down;
+    public boolean dismount;
     private int dragonId;
 
-    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky, boolean isBoosting, boolean down) {
+    public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky, boolean isBoosting, boolean down, boolean dismount) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
         this.isFollowYaw = isFollowYaw;
         this.locky = locky;
         this.isBoosting = isBoosting;
+        this.dismount = dismount;
         this.down = down;
     }
 
@@ -42,6 +44,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         locky = buf.readBoolean();
         isBoosting = buf.readBoolean();
         down = buf.readBoolean();
+        dismount = buf.readBoolean();
 
     }
 
@@ -53,6 +56,7 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
         buf.writeBoolean(locky);
         buf.writeBoolean(isBoosting);
         buf.writeBoolean(down);
+        buf.writeBoolean(dismount);
 
     }
 
@@ -84,6 +88,9 @@ public class MessageDragonExtras extends AbstractMessage<MessageDragonExtras> {
 
             if (message.down) dragon.setGoingDown(true);
             else dragon.setGoingDown(false);
+
+            if (message.dismount) dragon.setDismount(true);
+            else dragon.setDismount(false);
 
             if (message.isBoosting) dragon.setBoosting(true);
             else dragon.setBoosting(false);

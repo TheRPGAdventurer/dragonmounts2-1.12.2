@@ -81,22 +81,21 @@ public class GuiDragon extends GuiContainer {
         drawModalRectWithCustomSizedTexture(x - 18, y + 184, 0.0F, 0.0F, 22, 28, 22, 28);
 
         int size = 0;
-        // maybe not good enough?
         switch (dragon.getLifeStageHelper().getLifeStage()) {
             case EGG:
                 size = 140;
                 break;
             case HATCHLING:
-                size = 140;
+                size = 135;
                 break;
             case INFANT:
-                size = 65;
+                size = 55;
                 break;
             case PREJUVENILE:
-                size = 20;
+                size = 14;
                 break;
             case JUVENILE:
-                size = 14;
+                size =8;
                 break;
             case ADULT:
                 size = 7;

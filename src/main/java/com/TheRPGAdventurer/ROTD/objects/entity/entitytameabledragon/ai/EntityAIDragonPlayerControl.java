@@ -67,7 +67,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
             dragon.updateIntendedRideRotation(rider);
         }
 
-        if (dragon.followYaw())  dragon.updateIntendedRideRotation(rider);
+        if (dragon.followYaw() && dragon.moveStrafing == 0) {
+            dragon.updateIntendedRideRotation(rider);
+        }
 
 
         // control direction with movement keys

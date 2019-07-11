@@ -192,12 +192,12 @@ class ComponentSound extends PositionedSound implements ITickableSound
   public static float volumeAdjustmentForDistance(float distanceToEpicentre)
   {
     final float MINIMUM_VOLUME = 0.10F;
-    final float MAXIMUM_VOLUME = 1.00F;
-    final float INSIDE_VOLUME = 1.00F;
+    final float MAXIMUM_VOLUME = 0.8F;
+    final float INSIDE_VOLUME = 0.8F;
     if (distanceToEpicentre < 0.01F) {
       return INSIDE_VOLUME;
     } else {
-      final float MINIMUM_VOLUME_DISTANCE = 40.0F;
+      final float MINIMUM_VOLUME_DISTANCE = 20.00F;
       float fractionToMinimum = distanceToEpicentre / MINIMUM_VOLUME_DISTANCE;
       return MathX.clamp(MAXIMUM_VOLUME - fractionToMinimum * (MAXIMUM_VOLUME - MINIMUM_VOLUME),
                          MINIMUM_VOLUME, MAXIMUM_VOLUME);

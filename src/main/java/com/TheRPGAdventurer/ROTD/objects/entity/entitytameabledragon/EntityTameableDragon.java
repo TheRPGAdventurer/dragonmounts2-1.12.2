@@ -2563,7 +2563,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         @Override
         public void onInventoryChanged(IInventory invBasic) {
-            dragon.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
             refreshInventory();
         }
     }

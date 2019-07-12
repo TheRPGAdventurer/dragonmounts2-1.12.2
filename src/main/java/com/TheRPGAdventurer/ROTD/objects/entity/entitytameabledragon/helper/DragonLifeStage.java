@@ -29,7 +29,7 @@ public enum DragonLifeStage {
   HATCHLING   (1, 48, 0.04f, 0.09f),
   INFANT      (2, 16, 0.10f, 0.33f),
   PREJUVENILE (3, 22, 0.34f, 0.60f),
-  JUVENILE    (4, 60, 0.61f, 1.00f),
+  JUVENILE    (4, 60, 0.61f, 0.99f),
   ADULT       (5,  0, 1.00f, 1.00f);        // scale of the final stage should be 1.00F to avoid breaking other code
 
 //  desired durations (30 Jun 2019)

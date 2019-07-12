@@ -63,7 +63,7 @@ public class DragonMountsConfig {
 	public static int TerraNestRarity  = 180;
 	public static int ForestNestRarity  = 180;
 	public static int SunlightNestRarity  = 60;
-	public static int OceanNestRarity  = 4000;
+	public static int OceanNestRarity  = 5000;
 	public static int EnchantNestRarity  = 300;
 	public static int JungleNestRarity  = 700;
 	public static int WaterNestRarity  = 150;

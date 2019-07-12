@@ -30,7 +30,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.Enum
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
-import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonArmor;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -971,14 +970,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         Random rand = new Random();
-        if (this.getBreed().getSneezeParticle() != null && rand.nextInt(750) == 1 && !this.isUsingBreathWeapon() && !isBaby() && !isEgg()) {
-            for (int i = 0; i < 3; i++) {
+        if (this.getBreed().getSneezeParticle() != null && rand.nextInt(700) == 1 && !this.isUsingBreathWeapon() && !isBaby() && !isEgg()) {
+            for (int i = -1; i < 2; i++) {
                 if (world.isRemote) {
-                    double throatPosX = (this.getAnimator().getThroatPosition().x);
+                    double throatPosX = (this.getAnimator().getThroatPosition().x - 1);
                     double throatPosY = (this.getAnimator().getThroatPosition().y + i);
-                    double throatPosZ = (this.getAnimator().getThroatPosition().z);
+                    double throatPosZ = (this.getAnimator().getThroatPosition().z - 1);
                     world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
-                    world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 0.5F, 1);
+                    world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 0.8F, 1);
                 }
             }
         }
@@ -1599,10 +1598,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         if (source != DamageSource.IN_WALL) {
             // don't just sit there!
-            this.aiSit.setSitting(false);
+            this.getAISit().setSitting(false);
         }
 
         if (this.isBeingRidden() && source.getTrueSource() != null && source.getTrueSource().isPassenger(source.getTrueSource()) && damage < 1) {
+            return false;
+        }
+
+        if (getRidingCarriage() != null && getRidingCarriage().isPassenger(sourceEntity)) {
             return false;
         }
 
@@ -2237,7 +2240,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack item = player.getHeldItem(hand);
-
         /*
          * Turning it to block
          */
@@ -2254,7 +2256,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (isAllowed(player) && !isSitting() && this.isBaby() && !hasInteractItemsEquipped(player) && !player.isSneaking() && player.getPassengers().size() < 3) {
             this.setAttackTarget(null);
             this.getNavigator().clearPath();
-            this.setSitting(false);
+            this.getAISit().setSitting(false);
             this.startRiding(player, true);
             return true;
         }
@@ -2275,7 +2277,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 /*
                  * GUI
                  */
-                if (player.isSneaking() && this.isTamedFor(player) && !hasInteractItemsEquipped(player)) {
+                if (player.isSneaking() && !hasInteractItemsEquipped(player)) {
                     // Dragon Inventory
                     this.openGUI(player, GuiHandler.GUI_DRAGON);
                 }
@@ -2322,7 +2324,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        // breed
+        // mate
         if ((DMUtils.hasEquipped(player, getBreed().getBreedingItem()) || DMUtils.hasEquippedOreDicFish(player)) && this.isAdult() && !this.isInLove()) {
             setInLove(player);
             eatEvent(player, item.getItem());

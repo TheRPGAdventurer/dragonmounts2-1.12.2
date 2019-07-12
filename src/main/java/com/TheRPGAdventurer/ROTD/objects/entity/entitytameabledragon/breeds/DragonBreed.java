@@ -440,7 +440,7 @@ public abstract class DragonBreed {
      */
     public Vec3d getAdultMountedPositionOffset(boolean isSitting, int passengerNumber) {
         double yoffset = (!isSitting ? 4.4 : 3.4);
-        double yoffset2 = (!isSitting ? 2.8 : 2.4); // maybe not needed
+        double yoffset2 = (!isSitting ? 2.5 : 2.1); // maybe not needed
 
         // dragon position is the middle of the model and the saddle is on
         // the shoulders, so move player forwards on Z axis relative to the

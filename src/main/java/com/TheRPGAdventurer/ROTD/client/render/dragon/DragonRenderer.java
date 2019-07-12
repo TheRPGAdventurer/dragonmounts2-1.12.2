@@ -99,17 +99,6 @@ public class DragonRenderer extends RenderLiving<EntityTameableDragon> {
     });
   }
 
-  public void renderBanner(ResourceLocation resourceLocation, ModelBanner bannerModel) {
-    if (resourceLocation!=null) {
-      this.bindTexture(resourceLocation);
-      bannerModel.bannerSlate.showModel=false;
-      GlStateManager.pushMatrix();
-      GlStateManager.scale(0.6666667F, -0.6666667F, -0.6666667F);
-      bannerModel.renderBanner();
-      GlStateManager.popMatrix();
-    }
-  }
-
   /**
    * Renders the model in RenderLiving
    */

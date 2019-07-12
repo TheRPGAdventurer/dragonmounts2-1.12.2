@@ -19,12 +19,11 @@ public class DragonArmourTerra extends DragonArmourBase {
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
         super.onArmorTick(world, player, itemStack);
-        if (!((head == ModArmour.terraDragonScaleCap || head == ModArmour.terra2DragonScaleCap) && (chest == ModArmour.terraDragonScaleTunic || chest == ModArmour.terra2DragonScaleTunic)
-                && (legs == ModArmour.terraDragonScaleLeggings || legs == ModArmour.terra2DragonScaleLeggings) && (feet == ModArmour.terraDragonScaleBoots || feet == ModArmour.terra2DragonScaleBoots)))
-            return;
+        if (((head == ModArmour.terraDragonScaleCap || head == ModArmour.terra2DragonScaleCap) && (chest == ModArmour.terraDragonScaleTunic || chest == ModArmour.terra2DragonScaleTunic)
+                && (legs == ModArmour.terraDragonScaleLeggings || legs == ModArmour.terra2DragonScaleLeggings) && (feet == ModArmour.terraDragonScaleBoots || feet == ModArmour.terra2DragonScaleBoots))) {
 
-        if ((player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) && !isActive(MobEffects.HASTE, player))
-            player.addPotionEffect(new PotionEffect(MobEffects.HASTE));
+            if ((player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) && !isActive(MobEffects.HASTE, player))
+                player.addPotionEffect(new PotionEffect(MobEffects.HASTE));
+        }
     }
-
 }

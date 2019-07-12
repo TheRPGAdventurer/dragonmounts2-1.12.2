@@ -25,8 +25,8 @@ public class DragonArmourFire extends DragonArmourBase {
 			return;
 		if (!player.isBurning() && isActive(MobEffects.FIRE_RESISTANCE, player)) return;
 		
-		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 400, 0, false, false));
-		player.getCooldownTracker().setCooldown(this, 1160);
+		player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0, false, false));
+		player.getCooldownTracker().setCooldown(this, 900);
 	}
 	
 }

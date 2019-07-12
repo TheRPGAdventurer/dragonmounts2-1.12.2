@@ -22,7 +22,7 @@ public class DragonArmourTerra extends DragonArmourBase {
         if (((head == ModArmour.terraDragonScaleCap || head == ModArmour.terra2DragonScaleCap) && (chest == ModArmour.terraDragonScaleTunic || chest == ModArmour.terra2DragonScaleTunic)
                 && (legs == ModArmour.terraDragonScaleLeggings || legs == ModArmour.terra2DragonScaleLeggings) && (feet == ModArmour.terraDragonScaleBoots || feet == ModArmour.terra2DragonScaleBoots))) {
 
-            if ((player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) && !isActive(MobEffects.HASTE, player))
+            if (!isActive(MobEffects.HASTE, player))
                 player.addPotionEffect(new PotionEffect(MobEffects.HASTE));
         }
     }

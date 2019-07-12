@@ -1,7 +1,6 @@
 package com.TheRPGAdventurer.ROTD.util;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmuletNEW;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,11 +37,11 @@ public class DMUtils {
      * the player is not in creative mode.
      *
      * @param player player to check
-     * @param items  one or more types of items that should be consumed. Only the
-     *               first match will be consumed.
+     * @param items one or more types of items that should be consumed. Only the
+     *              first match will be consumed.
      * @return the consumed item type or null if no matching item was equipped.
      */
-    public static Item consumeEquipped(EntityPlayer player, Item... items) {
+    public static Item hasEquipped(EntityPlayer player, Item... items) {
         ItemStack itemStack = player.getHeldItemMainhand();
 
         if (itemStack == null) {
@@ -53,16 +52,6 @@ public class DMUtils {
 
         for (Item item : items) {
             if (item == equippedItem) {
-                // don't reduce stack in creative mode
-                if (!player.capabilities.isCreativeMode) {
-                    itemStack.shrink(1);
-                }
-
-                // required because the stack isn't reduced in onItemRightClick()
-                if (itemStack.getMaxStackSize() <= 0) {
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-                }
-
                 return item;
             }
         }
@@ -70,12 +59,8 @@ public class DMUtils {
         return null;
     }
 
-    public static boolean consumeEquipped(EntityPlayer player, Item item) {
-        return consumeEquipped(player, new Item[]{item}) != null;
-    }
-
-    public static boolean consumeEquippedArray(EntityPlayer player, Item[] foodItems) {
-        return consumeEquipped(player, foodItems) != null;
+    public static boolean hasEquipped(EntityPlayer player, Item item) {
+        return hasEquipped(player, new Item[]{item}) != null;
     }
 
     public static int getFoodPoints(EntityPlayer player) {
@@ -84,7 +69,7 @@ public class DMUtils {
             int points = ((ItemFood) item).getHealAmount(new ItemStack(item)) * 6;
             return points;
         }
-        return 0;
+        return 8;
     }
 
     /**
@@ -92,7 +77,7 @@ public class DMUtils {
      * @WolfShotz Checks if held item is any kind of Fish (Registered under listAllfishraw in OreDict)
      * This allows other mods' fishes to be used with dragon taming
      */
-    public static boolean consumeFish(EntityPlayer player) {
+    public static boolean hasEquippedOreDicFish(EntityPlayer player) {
         Set<Item> consumeFish = OreDictionary.getOres("listAllfishraw").stream().map(ItemStack::getItem).collect(Collectors.toSet());
         ItemStack itemstack = player.getHeldItemMainhand();
         if (itemstack.getItem() != null) {
@@ -138,14 +123,20 @@ public class DMUtils {
      * Checks if a player has a specific item equipped.
      *
      * @param player player to check
-     * @param item   required item type
+     * @param items   required item type
      * @return true if the player has the given item equipped
      */
-    public static boolean hasEquipped(EntityPlayer player, Item item) {
+    public static boolean hasEquippedArray(EntityPlayer player, Item... items) {
         ItemStack itemStack = player.getHeldItemMainhand();
         if (itemStack == null) return false;
         //found item in mainHand, check if its specified item
-        return itemStack.getItem() == item;
+        Item equippedItem = itemStack.getItem();
+        for (Item item : items) {
+            if (item == equippedItem) {
+                return itemStack.getItem() == item;
+            }
+        }
+        return false;
     }
 
     public static boolean hasEquippedAmulet(EntityPlayer player) {

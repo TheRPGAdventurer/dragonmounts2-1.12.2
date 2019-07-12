@@ -56,16 +56,13 @@ public class MessageDragonInventory extends AbstractMessage<MessageDragonInvento
             EntityTameableDragon dragon = (EntityTameableDragon) entity;
             if (message.slot_index == 0) {
                 dragon.setSaddled(message.armor_type == 1);
-                player.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_HORSE_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F, false);
             }
             if (message.slot_index == 1) {
                 dragon.setChested(message.armor_type == 1);
-                player.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1.0F, false);
             }
 
             if (message.slot_index == 2) {
                 dragon.setArmor(message.armor_type);
-                player.world.playSound(dragon.posX, dragon.posY, dragon.posZ, SoundEvents.ENTITY_HORSE_ARMOR, SoundCategory.NEUTRAL, 0.5F, 1.0F, false);
             }
 
             if (message.slot_index == 31) {

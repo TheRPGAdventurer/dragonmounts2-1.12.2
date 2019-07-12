@@ -36,7 +36,6 @@ public class DragonMountsConfig {
 	private static boolean debug = false;
 	public static boolean shouldChangeBreedViaHabitatOrBlock = true;
 	public static boolean canDragonDespawn = true;
-	public static boolean canMilk = true;
 
 	public static boolean canIceBreathBePermanent = false;
 	public static boolean canFireBreathAffectBlocks = true;
@@ -190,11 +189,6 @@ public class DragonMountsConfig {
 		prop = config.get(CATEGORY_MAIN, "can dragons despawn", canDragonDespawn);
 		prop.setComment("Enables or Disables dragons ability to despawn, works only for adult non tamed dragons");
 		canDragonDespawn = prop.getBoolean();
-		propOrder.add(prop.getName());
-
-		prop = config.get(CATEGORY_MAIN, "Milk Dregons", canMilk);
-		prop.setComment("Joke Feature: makes dragons milkable like cows");
-		canMilk = prop.getBoolean();
 		propOrder.add(prop.getName());
 
 		prop = config.get(CATEGORY_MAIN, "can ice breath be permanent", canIceBreathBePermanent);

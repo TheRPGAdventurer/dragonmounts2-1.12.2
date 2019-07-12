@@ -33,7 +33,7 @@ public class ContainerDragon extends Container {
 
 			@SideOnly(Side.CLIENT)
 			public boolean isEnabled() {
-				return !dragon.isBaby();
+				return dragon.isOldEnoughToBreathe();
 			}
 
 		});
@@ -52,7 +52,7 @@ public class ContainerDragon extends Container {
 
 			@SideOnly(Side.CLIENT)
 			public boolean isEnabled() {
-				return true;
+				return dragon.isOldEnoughToBreathe();
 			}
 		});
 
@@ -60,7 +60,7 @@ public class ContainerDragon extends Container {
 		this.addSlotToContainer(new Slot(dragonInv, 2, 8, 53) {
 
 			public boolean isItemValid(ItemStack stack) {
-				return dragon.getIntFromArmor(stack) != 0;
+				return dragon.getIntFromArmor(stack) != 0 && dragon.isOldEnoughToBreathe();
 			}
 
 		});
@@ -74,7 +74,7 @@ public class ContainerDragon extends Container {
 				
 				@SideOnly(Side.CLIENT)
 				public boolean isEnabled() {
-					return true;
+					return dragon.isOldEnoughToBreathe();
 				}
 			});
 		}

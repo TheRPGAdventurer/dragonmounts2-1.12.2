@@ -14,6 +14,7 @@ public class EntityAIDragonFollowParent extends EntityAIDragonBase {
     public EntityAIDragonFollowParent(EntityTameableDragon dragon, double speed) {
         super(dragon);
         this.moveSpeed = speed;
+        setMutexBits(1);
     }
 
     /**

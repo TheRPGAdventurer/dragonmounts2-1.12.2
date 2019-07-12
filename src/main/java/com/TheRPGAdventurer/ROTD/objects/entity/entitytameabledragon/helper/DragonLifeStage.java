@@ -93,7 +93,7 @@ public enum DragonLifeStage {
    * @return
    */
   public boolean isOldEnoughToBreathe() {
-    return this.order >= INFANT.order; // when reache this stage it can breath
+    return this.order >= INFANT.order; // when reached this stage it can breath
   }
 
 

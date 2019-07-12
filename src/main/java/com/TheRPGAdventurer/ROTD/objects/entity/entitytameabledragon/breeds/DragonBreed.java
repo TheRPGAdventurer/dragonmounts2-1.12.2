@@ -119,12 +119,12 @@ public abstract class DragonBreed {
         return false;
     }
 
-    public Item[] getShrinkingFood() {
-        return new Item[]{Items.POISONOUS_POTATO};
+    public Item getShrinkingFood() {
+        return Items.POISONOUS_POTATO;
     }
 
-    public Item[] getGrowingFood() {
-        return new Item[]{Items.CARROT};
+    public Item getGrowingFood() {
+        return Items.CARROT;
     }
 
     public Item getBreedingItem() {

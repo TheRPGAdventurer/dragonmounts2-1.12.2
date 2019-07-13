@@ -973,9 +973,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         if (this.getBreed().getSneezeParticle() != null && rand.nextInt(700) == 1 && !this.isUsingBreathWeapon() && !isBaby() && !isEgg()) {
             for (int i = -1; i < 2; i++) {
                 if (world.isRemote) {
-                    double throatPosX = (this.getAnimator().getThroatPosition().x - 1);
+                    double throatPosX = (this.getAnimator().getThroatPosition().x);
                     double throatPosY = (this.getAnimator().getThroatPosition().y + i);
-                    double throatPosZ = (this.getAnimator().getThroatPosition().z - 1);
+                    double throatPosZ = (this.getAnimator().getThroatPosition().z);
                     world.spawnParticle(this.getBreed().getSneezeParticle(), throatPosX, throatPosY, throatPosZ, 0, 0.3, 0);
                     world.playSound(null, new BlockPos(throatPosX, throatPosY, throatPosZ), ModSounds.DRAGON_SNEEZE, SoundCategory.NEUTRAL, 0.8F, 1);
                 }

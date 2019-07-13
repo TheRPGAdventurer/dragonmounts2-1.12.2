@@ -69,7 +69,7 @@ public enum DragonLifeStage {
   }
 
   /**
-   * does this stage act like a minecraft baby?
+   * does this stage act like a minecraft baby
    * @return
    */
   public boolean isBaby() {

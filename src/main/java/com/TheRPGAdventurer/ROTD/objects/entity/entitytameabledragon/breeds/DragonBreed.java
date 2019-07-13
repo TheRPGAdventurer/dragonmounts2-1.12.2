@@ -461,15 +461,6 @@ public abstract class DragonBreed {
         return new Vec3d(0, yoffset, 2.2);
     }
 
-    /**
-     * how many passengers can ride on this breed?
-     *
-     * @return
-     */
-    public int getMaxNumberOfPassengers(DragonLifeStage dragonLifeStage) {
-        return 3;
-    }
-
     public enum BreathWeaponSpawnType {PROJECTILE, NODES}
 
 }

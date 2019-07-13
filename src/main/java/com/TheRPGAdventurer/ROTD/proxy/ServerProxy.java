@@ -9,8 +9,6 @@
  */
 package com.TheRPGAdventurer.ROTD.proxy;
 
-import java.io.File;
-
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
@@ -19,24 +17,21 @@ import com.TheRPGAdventurer.ROTD.network.MessageDragonTarget;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTargetHandlerServer;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.EntityDragonAmulet;
 import com.TheRPGAdventurer.ROTD.util.debugging.StartupDebugCommon;
-
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.server.FMLServerHandler;
+
+import java.io.File;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -96,7 +91,7 @@ public class ServerProxy {
         EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "carriage"), EntityCarriage.class, "DragonCarriage",
                 2, DragonMounts.instance, 32, ENTITY_UPDATE_FREQ,
                 ENTITY_SEND_VELO_UPDATES);
-        EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "indestructible"), ImmuneEntityItem.class, "Indestructible Item",
+        EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "indestructible"), EntityDragonAmulet.class, "Indestructible Item",
                 3, DragonMounts.instance, 32, 5, true);
 
         //        GameRegistry.registerTileEntity(TileEntityDragonShulker.class, new ResourceLocation(DragonMounts.MODID, "dragon_shulker"));

@@ -72,11 +72,12 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         //Commands Requiring Flight - if any is true, start flying
         if (!dragon.isFlying() && (dragon.circle() || dragon.follow())) {
             dragon.liftOff();
-            dragon.setSitting(false);
         }
 
-        if (dragon.circle()) this.circleTarget1(dragon.getOwner().getPosition());
-        if (dragon.follow()) this.followPlayerFlying(dragon.getOwner().getPosition());
+        if (dragon.circle() && !this.circleTarget1(dragon.getOwner().getPosition()))
+            this.circleTarget1(dragon.getOwner().getPosition());
+        if (dragon.follow() && !this.followPlayerFlying(dragon.getOwner().getPosition()))
+            this.followPlayerFlying(dragon.getOwner().getPosition());
 
     }
 }

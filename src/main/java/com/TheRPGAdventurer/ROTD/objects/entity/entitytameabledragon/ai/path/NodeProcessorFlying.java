@@ -12,6 +12,7 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.path;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.pathfinding.SwimNodeProcessor;
 import net.minecraft.util.EnumFacing;

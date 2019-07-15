@@ -4,7 +4,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonFireSupport;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonSit;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
-import com.TheRPGAdventurer.ROTD.network.whistle.MessageDragonWhistle;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

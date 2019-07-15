@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.network.whistle;
+package com.TheRPGAdventurer.ROTD.network;
 
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;

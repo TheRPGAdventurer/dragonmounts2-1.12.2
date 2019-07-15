@@ -3,7 +3,7 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonSit;
-import com.TheRPGAdventurer.ROTD.network.gui.MessageDragonGuiLock;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

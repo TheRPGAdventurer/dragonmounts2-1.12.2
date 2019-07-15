@@ -36,6 +36,7 @@ public abstract class DragonHelper {
     public void readFromNBT(NBTTagCompound nbt) {}
     public void applyEntityAttributes() {}
     public void onLivingUpdate() {}
+    public void onUpdate() {}
     public void onDeathUpdate() {}
     public void onDeath() {}
 }

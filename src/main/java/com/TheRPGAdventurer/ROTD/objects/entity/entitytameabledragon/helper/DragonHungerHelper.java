@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.EnumDifficulty;
 
-public class EntityTameableDragonStats {
+public class DragonHungerHelper extends DragonHelper {
     /**
      * The player's food saturation.
      */
@@ -18,6 +18,10 @@ public class EntityTameableDragonStats {
      * The player's food timer value.
      */
     private int foodTimer;
+
+    public DragonHungerHelper(EntityTameableDragon dragon) {
+        super(dragon);
+    }
 
     /**
      * Checks if the player's health is not full and not zero.

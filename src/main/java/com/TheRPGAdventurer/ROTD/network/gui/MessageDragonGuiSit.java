@@ -39,7 +39,8 @@ public class MessageDragonGuiSit extends AbstractMessage<MessageDragonGuiSit> {
         Entity entity=player.world.getEntityByID(message.dragonId);
         if (entity instanceof EntityTameableDragon) {
             EntityTameableDragon dragon=(EntityTameableDragon) entity;
-            dragon.getAISit().setSitting(!dragon.isSitting());
+            // use this instead of getAISit.setSitting() to sync server and client
+            dragon.setSitting(!dragon.isSitting());
             dragon.getNavigator().clearPath();
         }
     }

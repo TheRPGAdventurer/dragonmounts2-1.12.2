@@ -211,10 +211,12 @@ public class DragonBreedHelper extends DragonHelper {
         }
 
         currentType.getBreed().onUpdate(dragon);
-        getBreedHealth();
     }
 
-
+    @Override
+    public void applyEntityAttributes() {
+        getBreedHealth();
+    }
 
     @Override
     public void onDeath() {
@@ -253,5 +255,4 @@ public class DragonBreedHelper extends DragonHelper {
                 break;
         }
     }
-
 }

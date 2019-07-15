@@ -32,7 +32,6 @@ import java.util.List;
  * Dragon Amulet Item for the use of carrying dragons in an item
  *
  * @author WolfShotz
- * TODO Remove ItemDragonAmulet deprecated class and replace it with this one. Rename this to 'ItemDragonAmulet'
  */
 public class ItemDragonAmuletNEW extends Item {
 

@@ -365,11 +365,6 @@ public class DragonAnimator {
         return dragonHeadPositionHelper.getThroatPosition();
     }
 
-//    public Vec3d getRiderPosition()  //todo update various position helpers such as rider location, etc
-//    {
-//        return new Vec3d(00)
-//    }
-
     protected void animHeadAndNeck() {
         dragonHeadPositionHelper.calculateHeadAndNeck(animBase, flutter, sit, walk, speed, ground, lookYaw, lookPitch, breath);
         final float BITE_ANGLE = 0.72F;

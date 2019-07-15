@@ -83,7 +83,6 @@ public class ItemDiamondShears extends ItemShears implements IHasModel {
                     }
                 }
 
-//                target.attackEntityFrom(DamageSource.causeMobDamage(player), 8);
                 itemstack.damageItem(20, target);
             }
 

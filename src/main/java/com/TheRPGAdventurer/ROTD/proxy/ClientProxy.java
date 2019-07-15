@@ -50,7 +50,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.util.Arrays;
 
-//import scala.actors.threadpool.Arrays;
 
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
@@ -95,6 +94,7 @@ public class ClientProxy extends ServerProxy {
                 t.GREEN + "FlaemWing" + r + "-" + t.AQUA + "for new nest block textures and dragonarmor item textures, new tool textures\n\n" +
                 t.GREEN + "AlexThe666" + r + "-" + t.AQUA + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" +
                 t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n" +
+                t.GREEN + "NightScale" + r + "-" + t.AQUA + "for new ideas and once funding a server for DM2\n" +
                 t.GREEN + "TGG/TheGreyGhost" + r + "-" + t.AQUA + "old dm1 dev and prototype breath\n";
         metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD + "" + t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
         metadata.description =
@@ -103,7 +103,8 @@ public class ClientProxy extends ServerProxy {
                         "2. Also water dragon needs to be struck by lightning to become t.AQUA storm dragon\n" +
                         "3. You can't hatch eggs in the End Dimension\n" +
                         "4. You can press " + t.ITALIC + "ctrl" + r + " to enable boost flight\n" +
-                        "5. Dragons need to be of opposite genders to breed";
+                        "5. Dragons need to be of opposite genders to breed\n" +
+                        "6. Shift + right click a right clicked dragon egg to make it a block again";
     }
 
     @Override

@@ -162,7 +162,7 @@ item.whistle.nullBlockPos=Cannot Teleport There
 # Messages
 ##
 dragon.locked=This Dragon has been locked by the Owner
-dragon.notTamed=Use fish to tame the dragon
+dragon.notTamed=Use meat or fish to tame the dragon
 dragon.notOwned=You do not own this dragon
 entity.dragon.tooYoung=Dragon is too young for that, let it grow
 egg.cantHatchEnd.DragonMounts=Dragon Eggs cannot be hatched in The End

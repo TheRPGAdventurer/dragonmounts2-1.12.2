@@ -10,14 +10,11 @@
 package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
-import net.minecraft.util.text.TextComponentTranslation;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -42,7 +39,7 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldExecute() {
-        if (!dragon.isInLove()) {
+        if (!dragon.isInLove() || !dragonMate.isInLove()) {
             return false;
         } else {
             dragonMate = getNearbyMate();
@@ -76,6 +73,9 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
         dragon.getNavigator().tryMoveToEntityLiving(dragonMate, speed);
 
         ++spawnBabyDelay;
+        if (dragon.getControllingPlayer() != null) {
+            dragon.resetInLove();
+        }
 
         if (spawnBabyDelay == 60) {
             spawnBaby();

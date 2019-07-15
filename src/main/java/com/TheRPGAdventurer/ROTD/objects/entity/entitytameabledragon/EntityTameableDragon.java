@@ -29,7 +29,6 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.Drag
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
-import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -151,7 +150,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     // client-only delegates
     private final DragonBodyHelper dragonBodyHelper = new DragonBodyHelper(this);
     public EntityEnderCrystal healingEnderCrystal;
-    public EntityTameableDragonStats dragonStats = new EntityTameableDragonStats();
     public DragonInventory dragonInv;
     public int inAirTicks;
     public int roarTicks;
@@ -178,6 +176,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         addHelper(new DragonLifeStageHelper(this, DATA_TICKS_SINCE_CREATION));
         addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
+        addHelper(new DragonHungerHelper(this));
         if (isServer()) addHelper(new DragonBrain(this));
 
         // set base size
@@ -191,17 +190,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         animator = new DragonAnimator(this);
 
         InitializeDragonInventory();
-    }
-
-    public static boolean hasInteractItemsEquipped(EntityPlayer player) {
-        return DMUtils.hasEquippedUsable(player)
-                || DMUtils.hasEquipped(player, ModTools.diamond_shears)
-                || DMUtils.hasEquipped(player, ModItems.dragon_wand)
-                || DMUtils.hasEquipped(player, ModItems.dragon_whistle)
-                || DMUtils.hasEquipped(player, ModItems.Amulet)
-                || DMUtils.hasEquipped(player, Items.BONE)
-                || DMUtils.hasEquipped(player, Items.STICK)
-                || DMUtils.hasEquippedFood(player);
     }
 
     @Override
@@ -259,7 +247,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(RESISTANCE);
         getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(BASE_ARMOR);
         getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(BASE_TOUGHNESS);
-        getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
     }
 
     /**
@@ -289,7 +276,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         nbt.setBoolean("AllowOtherPlayers", this.allowedOtherPlayers());
         //        nbt.setBoolean("sleeping", this.isSleeping()); //unused as of now
         writeDragonInventory(nbt);
-        dragonStats.writeNBT(nbt); // replace with a helper
         helpers.values().forEach(helper -> helper.writeToNBT(nbt));
     }
 
@@ -320,7 +306,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         this.setCanBeAdjucator(nbt.getBoolean("Adjucator"));
         this.setToAllowedOtherPlayers(nbt.getBoolean("AllowOtherPlayers"));
         readDragonInventory(nbt);
-        dragonStats.readNBT(nbt);
         helpers.values().forEach(helper -> helper.readFromNBT(nbt));
     }
 
@@ -753,34 +738,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return canFly() ? 1 : super.getJumpUpwardsMotion();
     }
 
-    @SideOnly(Side.CLIENT)
-    public void updateKeys() {
-        Minecraft mc = Minecraft.getMinecraft();
-        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) ||
-                (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player)) ||
-                (getOwner() != null && firesupport()) && isOldEnoughToBreathe()) {
-            boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
-            boolean isBoosting = ModKeys.BOOST.isKeyDown();
-            boolean isDown = ModKeys.DOWN.isKeyDown();
-            boolean projectile = ModKeys.KEY_PROJECTILE.isPressed();
-            boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
-            boolean followyaw = ModKeys.FOLLOW_YAW.isPressed();
-            boolean locky = ModKeys.KEY_LOCKEDY.isPressed();
-
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
-            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
-        }
-    }
-
-    @Override
-    public void onUpdate() {
-        super.onUpdate();
-        if (world.isRemote) {
-            this.updateKeys();
-            dragonStats.onUpdate(this);
-        }
-    }
-
     /**
      * Checks if the blocks below the dragons hitbox is present and solid
      */
@@ -806,6 +763,35 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public void onEntityUpdate() {
         if (getRNG().nextInt(1400) == 1 && !isEgg()) roar();
         super.onEntityUpdate();
+    }
+
+
+    @SideOnly(Side.CLIENT)
+    public void updateKeys() {
+        Minecraft mc = Minecraft.getMinecraft();
+        if ((hasControllingPlayer(mc.player) && getControllingPlayer() != null) ||
+                (this.getRidingEntity() instanceof EntityPlayer && this.getRidingEntity() != null && this.getRidingEntity().equals(mc.player)) ||
+                (getOwner() != null && firesupport()) && isOldEnoughToBreathe()) {
+            boolean isBreathing = ModKeys.KEY_BREATH.isKeyDown();
+            boolean isBoosting = ModKeys.BOOST.isKeyDown();
+            boolean isDown = ModKeys.DOWN.isKeyDown();
+            boolean projectile = ModKeys.KEY_PROJECTILE.isPressed();
+            boolean unhover = ModKeys.KEY_HOVERCANCEL.isPressed();
+            boolean followyaw = ModKeys.FOLLOW_YAW.isPressed();
+            boolean locky = ModKeys.KEY_LOCKEDY.isPressed();
+
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonBreath(getEntityId(), isBreathing));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonExtras(getEntityId(), unhover, followyaw, locky, isBoosting, isDown));
+        }
+    }
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (world.isRemote) {
+            this.updateKeys();
+            helpers.values().forEach(DragonHelper::onUpdate);
+        }
     }
 
     @Override
@@ -1382,47 +1368,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     public boolean isOnLadder() {
         // this better doesn't happen...
         return false;
-    }
-
-    /**
-     * @deprecated TODO Method used for temporary amulet datafix. REMOVE THIS BEFORE NEXT PATCH!
-     */
-    public ItemDragonAmulet dragonAmulet() {
-        switch (getBreedType()) {
-            case AETHER:
-                return ModItems.AmuletAether;
-            case ENCHANT:
-                return ModItems.AmuletEnchant;
-            case END:
-                return ModItems.AmuletEnd;
-            case FIRE:
-                return ModItems.AmuletFire;
-            case FOREST:
-                return ModItems.AmuletForest;
-            case ICE:
-                return ModItems.AmuletIce;
-            case NETHER:
-                return ModItems.AmuletNether;
-            case SKELETON:
-                return ModItems.AmuletSkeleton;
-            case STORM:
-                return ModItems.AmuletStorm;
-            case SUNLIGHT:
-                return ModItems.AmuletSunlight;
-            case SYLPHID:
-                return ModItems.AmuletWater;
-            case TERRA:
-                return ModItems.AmuletTerra;
-            case WITHER:
-                return ModItems.AmuletWither;
-            case ZOMBIE:
-                return ModItems.AmuletZombie;
-            case MOONLIGHT:
-                return ModItems.AmuletMoonlight;
-            default:
-                return ModItems.AmuletEnd;
-
-        }
     }
 
     public ItemDragonEssence dragonEssence() {
@@ -2107,9 +2052,20 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         return true;
     }
 
+    public int getHunger() {
+        return dataManager.get(HUNGER);
+    }
+
+    public void setHunger(int hunger) {
+        this.dataManager.set(HUNGER, Math.min(100, hunger));
+    }
+
+
+
     @Override
     protected ResourceLocation getLootTable() {
-        if (!isTamed()) {
+        // dont drop loot if tamed to make them use shears instead
+        if (!isTamed() && !isEgg() || !isBaby()) {
             return lootTable();
         } else {
             return null;
@@ -2133,17 +2089,9 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
-    public int getHunger() {
-        return dataManager.get(HUNGER);
-    }
-
-    public void setHunger(int hunger) {
-        this.dataManager.set(HUNGER, Math.min(100, hunger));
-    }
-
     @Override
     public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-        return item != null && item.getItem() == ModTools.diamond_shears && this.isChild() && !this.isSheared() && ticksShear <= 0;
+        return item != null && item.getItem() == ModTools.diamond_shears && (isJuvenile() || isAdult()) && !this.isSheared() && ticksShear <= 0;
     }
 
     @Override
@@ -2155,19 +2103,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         for (int j = 0; j < i; ++j)
             ret.add(new ItemStack(shearItem()));
 
+        ticksShear = 40000;
 
-        ticksShear = 3600;
         playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
         playSound(ModSounds.ENTITY_DRAGON_GROWL, 1.0F, 1.0F);
-
-        if (this.getBreedType() == EnumDragonBreed.FOREST) {
-            net.minecraft.entity.item.EntityItem ent = this.entityDropItem(new ItemStack(
-                    Item.getItemFromBlock(Blocks.SAPLING.getBlockState().getBaseState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK).getBlock())), 1.0F);
-            ent.motionY += rand.nextFloat() * 0.05F;
-            ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-            ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-            return ret;
-        }
 
         return ret;
     }
@@ -2216,22 +2155,33 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     /**
-     * is the dragon allowed to be controlled by other players? Handles dragon is not owned status messages
+     * is the dragon allowed to be controlled by other players? Uses dragon is not owned status messages
      *
      * @param player
      * @return
      */
     public boolean isAllowed(EntityPlayer player) {
-        // dont show meage when holding food, player can feed dragon whether they are allowed or not
+        // can Interact when holding food, player can feed dragon whether they are allowed or not
         boolean hasFood = player.getHeldItemMainhand().getItem() instanceof ItemFood;
 
-        if (!this.isTamed() && !hasFood) {
+        if (!this.isTamed() && !hasFood && !isEgg()) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.notTamed"), true);
             return this.isTamedFor(player);
-        } else if (!this.allowedOtherPlayers() && !this.isTamedFor(player) && this.isTamed() && !(this.getHealthRelative() < 1 && hasFood)) {
+        } else if (!this.allowedOtherPlayers() && !this.isTamedFor(player) && this.isTamed() && !(this.getHunger() < 100 && hasFood)) {
             player.sendStatusMessage(new TextComponentTranslation("dragon.locked"), true);
             return this.isTamedFor(player);
         } else return true;
+    }
+
+    public static boolean hasInteractItemsEquipped(EntityPlayer player) {
+        return DMUtils.hasEquippedUsable(player)
+                || DMUtils.hasEquipped(player, ModTools.diamond_shears)
+                || DMUtils.hasEquipped(player, ModItems.dragon_wand)
+                || DMUtils.hasEquipped(player, ModItems.dragon_whistle)
+                || DMUtils.hasEquipped(player, ModItems.Amulet)
+                || DMUtils.hasEquipped(player, Items.BONE)
+                || DMUtils.hasEquipped(player, Items.STICK)
+                || DMUtils.hasEquippedFood(player);
     }
 
     /**
@@ -2324,7 +2274,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             }
         }
 
-        // mate
+        // Mate
         if ((DMUtils.hasEquipped(player, getBreed().getBreedingItem()) || DMUtils.hasEquippedOreDicFish(player)) && this.isAdult() && !this.isInLove()) {
             setInLove(player);
             eatEvent(player, item.getItem());

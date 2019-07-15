@@ -1,4 +1,4 @@
-package com.TheRPGAdventurer.ROTD.network.whistle;
+package com.TheRPGAdventurer.ROTD.network;
 
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
@@ -17,15 +17,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.UUID;
 
-public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistleSit> {
+public class MessageDragonSit extends AbstractMessage<MessageDragonSit> {
 
     public UUID dragonId;
 
-    public MessageDragonWhistleSit(UUID dragonId) {
+    public MessageDragonSit(UUID dragonId) {
         this.dragonId = dragonId;
     }
 
-    public MessageDragonWhistleSit() {
+    public MessageDragonSit() {
     }
 
     @Override
@@ -44,11 +44,11 @@ public class MessageDragonWhistleSit extends AbstractMessage<MessageDragonWhistl
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
+    public void onClientReceived(Minecraft client, MessageDragonSit message, EntityPlayer player, MessageContext messageContext) {
     }
 
     @Override
-    public void onServerReceived(MinecraftServer server, MessageDragonWhistleSit message, EntityPlayer player, MessageContext messageContext) {
+    public void onServerReceived(MinecraftServer server, MessageDragonSit message, EntityPlayer player, MessageContext messageContext) {
         player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
         if (player.world.isRemote) return;
         Entity entity = server.getEntityFromUuid(dragonId);

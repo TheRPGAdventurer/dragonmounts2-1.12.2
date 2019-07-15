@@ -19,9 +19,7 @@ import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.network.*;
 import com.TheRPGAdventurer.ROTD.network.gui.MessageDragonGuiLock;
-import com.TheRPGAdventurer.ROTD.network.gui.MessageDragonGuiSit;
 import com.TheRPGAdventurer.ROTD.network.whistle.MessageDragonWhistle;
-import com.TheRPGAdventurer.ROTD.network.whistle.MessageDragonWhistleSit;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.LoggerLimit;
@@ -51,7 +49,7 @@ import org.apache.logging.log4j.Logger;
 public class DragonMounts {
 
 
-    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonFireSupport.class, MessageDragonWhistle.class, MessageDragonWhistleSit.class, MessageDragonGuiSit.class, MessageDragonGuiLock.class, MessageDragonTeleport.class, MessageDragonExtras.class})
+    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonFireSupport.class, MessageDragonWhistle.class, MessageDragonSit.class, MessageDragonGuiLock.class, MessageDragonTeleport.class, MessageDragonExtras.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME="Dragon Mounts";

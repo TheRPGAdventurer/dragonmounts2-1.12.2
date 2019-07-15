@@ -2,9 +2,9 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonFireSupport;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonSit;
 import com.TheRPGAdventurer.ROTD.network.MessageDragonTeleport;
 import com.TheRPGAdventurer.ROTD.network.whistle.MessageDragonWhistle;
-import com.TheRPGAdventurer.ROTD.network.whistle.MessageDragonWhistleSit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -103,7 +103,7 @@ public class GuiDragonWhistle extends GuiScreen {
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonFireSupport(uuid));
 
             if (button == sit)
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonWhistleSit(uuid));
+                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonSit(uuid));
 
             if (button == teleport)
                 DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonTeleport(uuid));

@@ -26,7 +26,7 @@ public enum EnumItemBreedTypes {
 	TERRA(TextFormatting.GOLD),
 	TERRA2(TextFormatting.GOLD),
 	GHOST(TextFormatting.YELLOW),
-	ZOMBIE(TextFormatting.WHITE);
+	ZOMBIE(TextFormatting.DARK_GREEN);
 	//LIGHT(TextFormatting.GRAY);
 	//DARK(TextFormatting.GRAY);
 	//Specter(TextFormatting.WHITE);

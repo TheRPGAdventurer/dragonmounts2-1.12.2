@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.Brea
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breath.sound.SoundEffectNames;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.DragonLifeStage;
 
+import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -75,7 +76,7 @@ public class DragonBreedIce extends DragonBreed {
 
                 BlockPos blockPos=new BlockPos(bx, by, bz);
                 // from EntitySnowman.onLivingUpdate, with slight tweaks
-                if (world.getBlockState(blockPos).getMaterial()==Material.AIR && world.rand.nextFloat() < FOOTPRINT_CHANCE && world.getBiomeForCoordsBody(blockPos).getTemperature(blockPos) <= 1.0F && FOOTPRINT.canPlaceBlockAt(world, blockPos)) {
+                if (world.getBlockState(blockPos).getMaterial()==Material.AIR && world.rand.nextFloat() < FOOTPRINT_CHANCE && world.getBiomeForCoordsBody(blockPos).getTemperature(blockPos) < 0.3F && FOOTPRINT.canPlaceBlockAt(world, blockPos)) {
                     world.setBlockState(blockPos, FOOTPRINT.getDefaultState());
                 }
             }

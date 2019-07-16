@@ -33,11 +33,11 @@ import java.util.List;
  *
  * @author WolfShotz
  */
-public class ItemDragonAmuletNEW extends Item {
+public class ItemDragonAmulet extends Item {
 
     private EnumItemBreedTypes type;
 
-    public ItemDragonAmuletNEW() {
+    public ItemDragonAmulet() {
         String name = "dragon_amulet";
         this.setRegistryName(DragonMounts.MODID, name);
         this.setUnlocalizedName(name);
@@ -114,7 +114,7 @@ public class ItemDragonAmuletNEW extends Item {
         TextFormatting t = null;
         if (containsDragonEntity(stack)) {
             tooltip.add("Name: " + stack.getTagCompound().getString("Name"));
-            tooltip.add("Health: " + t.GREEN + stack.getTagCompound().getDouble("Health"));
+            tooltip.add("Health: " + t.GREEN + Math.round(stack.getTagCompound().getDouble("Health")));
             tooltip.add("Owner: " + t.GOLD + stack.getTagCompound().getString("OwnerName"));
             String gender = stack.getTagCompound().getBoolean("IsMale") ? t.BLUE + "M" : t.RED + "FM";
             tooltip.add("Gender: " + gender);

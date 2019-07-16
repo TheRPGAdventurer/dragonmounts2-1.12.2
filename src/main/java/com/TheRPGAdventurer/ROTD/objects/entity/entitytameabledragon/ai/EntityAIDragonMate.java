@@ -39,11 +39,11 @@ public class EntityAIDragonMate extends EntityAIDragonBase {
      */
     @Override
     public boolean shouldExecute() {
-        if (!dragon.isInLove() || !dragonMate.isInLove()) {
+        if (!dragon.isInLove()) {
             return false;
         } else {
             dragonMate = getNearbyMate();
-            return dragonMate != null && (dragon.isMale() && !dragonMate.isMale() || !dragon.isMale() && dragonMate.isMale());
+            return dragonMate != null && (dragon.isMale() && !dragonMate.isMale() || !dragon.isMale() && dragonMate.isMale()) && !dragonMate.isInLove();
         }
     }
 

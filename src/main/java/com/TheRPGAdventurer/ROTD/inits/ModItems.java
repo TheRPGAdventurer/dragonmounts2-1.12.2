@@ -82,8 +82,7 @@ public class ModItems {
     //public static final ItemDragonEssence Essencespecter = new ItemDragonEssence(EnumItemBreedTypes.SPECTER, EnumDragonBreed.SPECTER);
     //Essence End
 
-    public static final ItemDragonAmuletNEW Amulet = new ItemDragonAmuletNEW();
-    //Amulets End
+    public static final ItemDragonAmulet Amulet = new ItemDragonAmulet();
     
     //Other Start
     public static final Item dragon_wand = new ItemDragonWand("dragon_wand");

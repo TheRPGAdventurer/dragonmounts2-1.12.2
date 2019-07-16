@@ -49,7 +49,7 @@ public class MessageDragonSit extends AbstractMessage<MessageDragonSit> {
 
     @Override
     public void onServerReceived(MinecraftServer server, MessageDragonSit message, EntityPlayer player, MessageContext messageContext) {
-        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
+//        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
         if (player.world.isRemote) return;
         Entity entity = server.getEntityFromUuid(dragonId);
         if (entity instanceof EntityTameableDragon) {

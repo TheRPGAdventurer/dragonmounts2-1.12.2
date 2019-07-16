@@ -52,7 +52,7 @@ public class DragonMountsConfig {
 
 
 	public static double ARMOR  = 8F;
-	public static double BASE_DAMAGE  = 5.0F;
+	public static double BASE_DAMAGE  = 12.0F;
 	public static double BASE_HEALTH = 90.0d;
 	public static int REG_FACTOR  = 75;
 	public static int hungerDecrement  = 6000;

@@ -155,12 +155,12 @@ public class DragonHeadPositionHelper {
     // the head offset plus the headLocation.rotationPoint is the origin of the head, i.e. the point about which the
     //   head rotates, relative to the origin of the body (getPositionEyes)
     final float HEAD_X_OFFSET = 0;
-    final float HEAD_Y_OFFSET = 2; // 2  //-4
-    final float HEAD_Z_OFFSET = -23; //-23
+    final float HEAD_Y_OFFSET = 0;
+    final float HEAD_Z_OFFSET = -15;
 
     final float THROAT_X_OFFSET = 0;
-    final float THROAT_Y_OFFSET = 4; //  0
-    final float THROAT_Z_OFFSET = -17; //  -20
+    final float THROAT_Y_OFFSET = 2;
+    final float THROAT_Z_OFFSET = -8;
 
     Vec3d headOffset =  new Vec3d((head.rotationPointX + HEAD_X_OFFSET) * BODY_X_SCALE,
                                   (head.rotationPointY + HEAD_Y_OFFSET) * BODY_Y_SCALE,

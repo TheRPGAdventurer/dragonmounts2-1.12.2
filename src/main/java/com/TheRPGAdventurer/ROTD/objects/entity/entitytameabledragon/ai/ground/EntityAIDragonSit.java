@@ -12,9 +12,9 @@ public class EntityAIDragonSit extends EntityAISit {
      */
     private boolean isSitting;
 
-    public EntityAIDragonSit(EntityTameableDragon entityIn) {
-        super(entityIn);
-        this.dragon = entityIn;
+    public EntityAIDragonSit(EntityTameableDragon dragon) {
+        super(dragon);
+        this.dragon = dragon;
         this.setMutexBits(5);
     }
 

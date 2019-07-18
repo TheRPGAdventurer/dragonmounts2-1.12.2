@@ -42,7 +42,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             banner1.setItemValues(itemstack1, false);
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation1=this.getBannerResourceLocation(banner1);
-//            GlStateManager.translate(0.7F, 0.4F, -0.6F);
             //lower x++ higher x--
             GlStateManager.translate(0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getSpeed())); // all of it is get speed or one was pitch?
             // higher y-- lower y++
@@ -56,7 +55,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             bannerModel.bannerStand.showModel=false;
             bannerModel.renderBanner();
 
-
         }
 
         GlStateManager.popMatrix();
@@ -67,7 +65,6 @@ public class LayerRendererDragonBanner extends LayerRendererDragon {
             banner2.setItemValues(itemstack2, false);
             model.body.postRender(0.0625F);
             ResourceLocation resourcelocation2=this.getBannerResourceLocation(banner2);
-//            GlStateManager.translate(-0.7F, 0.4, -0.6F);
             //lower x++ higher x--
             GlStateManager.translate(-0.7F, 0.0, Interpolation.smoothStep(-2.6F, -0.6F, dragon.getAnimator().getSpeed()));
             // higher y-- lower y++

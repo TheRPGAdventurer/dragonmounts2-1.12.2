@@ -11,6 +11,7 @@ entity.DragonMount.name=Dragon
 
 entity.DragonMount.ice.name=Ice Dragon
 entity.DragonMount.end.name=Ender Dragon
+entity.DragonMount.ender.name=Ender Dragon
 entity.DragonMount.aether.name=Aether Dragon
 entity.DragonMount.forest.name=Forest Dragon
 entity.DragonMount.sylphid.name=Water Dragon

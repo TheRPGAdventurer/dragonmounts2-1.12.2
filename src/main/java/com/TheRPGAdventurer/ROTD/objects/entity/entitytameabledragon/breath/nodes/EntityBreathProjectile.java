@@ -142,13 +142,13 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
       final boolean STOP_ON_LIQUID_FALSE = false;
       final boolean IGNORE_BLOCK_WITHOUT_BOUNDING_BOX_TRUE = true;
       final boolean RETURN_LAST_UNCOLLIDABLE_BLOCK_FALSE = false;
-      RayTraceResult movingobjectposition = this.world.rayTraceBlocks(startPos, endPos,
+      RayTraceResult rayTraceResult = this.world.rayTraceBlocks(startPos, endPos,
                                                     STOP_ON_LIQUID_FALSE, IGNORE_BLOCK_WITHOUT_BOUNDING_BOX_TRUE,
                                                     RETURN_LAST_UNCOLLIDABLE_BLOCK_FALSE);
 
-      if (movingobjectposition != null) {
-        endPos = new Vec3d(movingobjectposition.hitVec.x, movingobjectposition.hitVec.y,
-                         movingobjectposition.hitVec.z);
+      if (rayTraceResult != null) {
+        endPos = new Vec3d(rayTraceResult.hitVec.x, rayTraceResult.hitVec.y,
+                         rayTraceResult.hitVec.z);
       }
 
       Entity firstEntityStruck = null;
@@ -163,10 +163,10 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
              (!collidingEntity.isEntityEqual(this.shootingEntity) || this.ticksInAir >= 25)) {
           final double f = 0.3F;
           AxisAlignedBB axisalignedbb = collidingEntity.getEntityBoundingBox().grow(f);
-          RayTraceResult movingobjectposition1 = axisalignedbb.calculateIntercept(startPos, endPos);
+          RayTraceResult rayTraceResult1 = axisalignedbb.calculateIntercept(startPos, endPos);
 
-          if (movingobjectposition1 != null) {
-            double d1 = startPos.distanceTo(movingobjectposition1.hitVec);
+          if (rayTraceResult1 != null) {
+            double d1 = startPos.distanceTo(rayTraceResult1.hitVec);
 
             if (d1 < smallestCollisionDistance) {
               firstEntityStruck = collidingEntity;
@@ -177,11 +177,11 @@ public abstract class EntityBreathProjectile extends Entity implements IEntityAd
       }
 
       if (firstEntityStruck != null) {
-        movingobjectposition = new RayTraceResult(firstEntityStruck);
+        rayTraceResult = new RayTraceResult(firstEntityStruck);
       }
 
-      if (movingobjectposition != null) {
-        this.onImpact(movingobjectposition);
+      if (rayTraceResult != null) {
+        this.onImpact(rayTraceResult);
       }
 
       this.posX += this.motionX;

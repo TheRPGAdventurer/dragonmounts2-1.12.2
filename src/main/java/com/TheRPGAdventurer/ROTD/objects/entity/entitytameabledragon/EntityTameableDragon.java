@@ -975,7 +975,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 }
             }
         }
-
         super.onLivingUpdate();
     }
 
@@ -2141,15 +2140,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     private void eatEvent(Item item) {
-        if (item != null) {
-            playSound(this.getEatSound(), 1f, 0.75f);
-            double motionX = this.getRNG().nextGaussian() * 0.07D;
-            double motionY = this.getRNG().nextGaussian() * 0.07D;
-            double motionZ = this.getRNG().nextGaussian() * 0.07D;
-            Vec3d pos = this.getAnimator().getThroatPosition();
+        playSound(this.getEatSound(), 1f, 0.75f);
+        double motionX = this.getRNG().nextGaussian() * 0.07D;
+        double motionY = this.getRNG().nextGaussian() * 0.07D;
+        double motionZ = this.getRNG().nextGaussian() * 0.07D;
+        Vec3d pos = this.getAnimator().getThroatPosition();
 
-            if (world.isRemote)
-                world.spawnParticle(EnumParticleTypes.ITEM_CRACK, pos.x, pos.y, pos.z, motionX, motionY, motionZ, Item.getIdFromItem(item));
+        if (world.isRemote) {
+            this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, pos.x, pos.y, pos.z, motionX, motionY, motionZ, Item.getIdFromItem(item));
         }
     }
 
@@ -2231,18 +2229,19 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             /*
              * Consume
              */
-            if (DMUtils.hasEquippedArray(player, DragonBreed.getFoodItems()) ||
-//                    DMUtils.hasEquipped(player, Items.FISH) ||
-//                    DMUtils.hasEquipped(player, Items.PORKCHOP) ||
-//                    DMUtils.hasEquipped(player, Items.COOKED_PORKCHOP) ||
-//                    DMUtils.hasEquipped(player, Items.BEEF) ||
-//                    DMUtils.hasEquipped(player, Items.COOKED_BEEF) ||
-//                    DMUtils.hasEquipped(player, Items.RABBIT) ||
-//                    DMUtils.hasEquipped(player, Items.COOKED_RABBIT) ||
-//                    DMUtils.hasEquipped(player, Items.MUTTON) ||
-//                    DMUtils.hasEquipped(player, Items.COOKED_MUTTON) ||
-//                    DMUtils.hasEquipped(player, Items.COOKED_FISH) ||
-                    DMUtils.hasEquippedOreDicFish(player)) {
+            if (
+//                    DMUtils.hasEquippedArray(player, DragonBreed.getFoodItems()) ||
+                    DMUtils.hasEquipped(player, Items.FISH) ||
+                            DMUtils.hasEquipped(player, Items.PORKCHOP) ||
+                            DMUtils.hasEquipped(player, Items.COOKED_PORKCHOP) ||
+                            DMUtils.hasEquipped(player, Items.BEEF) ||
+                            DMUtils.hasEquipped(player, Items.COOKED_BEEF) ||
+                            DMUtils.hasEquipped(player, Items.RABBIT) ||
+                            DMUtils.hasEquipped(player, Items.COOKED_RABBIT) ||
+                            DMUtils.hasEquipped(player, Items.MUTTON) ||
+                            DMUtils.hasEquipped(player, Items.COOKED_MUTTON) ||
+                            DMUtils.hasEquipped(player, Items.COOKED_FISH) ||
+                            DMUtils.hasEquippedOreDicFish(player)) {
 
                 // Taming
                 if (!this.isTamed()) {
@@ -2437,7 +2436,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
 
         // figure out to break the boolean loop and make it play armor equip sounds
-        if (armor != 0 && isOldEnoughToBreathe()) {
+        if (armor != 0 && isOldEnoughToBreathe() && armorStack.getItem() == ModArmour.dragonarmor_diamond) {
             this.setArmor(armor);
         }
 

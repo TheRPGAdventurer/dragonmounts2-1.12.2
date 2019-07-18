@@ -453,9 +453,9 @@ public abstract class DragonBreed {
             case 2:
                 return new Vec3d(-0.6, yoffset, 0.1);
             case 3:
-                return new Vec3d(1.6, yoffset2, 0.1);
+                return new Vec3d(1.6, yoffset2, 0.2);
             case 4:
-                return new Vec3d(-1.6, yoffset2, 0.1);
+                return new Vec3d(-1.6, yoffset2, 0.2);
         }
         DragonMounts.loggerLimit.error_once("Illegal passengerNumber:" + passengerNumber);
         return new Vec3d(0, yoffset, 2.2);

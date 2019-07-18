@@ -103,7 +103,7 @@ public class GuiDragon extends GuiContainer {
         }
 
         //draw dragon entity
-        GuiInventory.drawEntityOnScreen(x + 90, y + 60, size, x + 90 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
+        GuiInventory.drawEntityOnScreen(x + 90, y + 60, size, x + 125 - this.mousePosX, y + 28 - this.mousePosY, this.dragon);
     }
 
 

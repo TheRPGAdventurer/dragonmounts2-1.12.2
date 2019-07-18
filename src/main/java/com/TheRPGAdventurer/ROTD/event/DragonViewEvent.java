@@ -18,14 +18,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class DragonViewEvent {
     Minecraft mc = Minecraft.getMinecraft();
 
-    private double blockHit(EntityTameableDragon dragon, double thirdPersonDistancePrev) {
+    private double blockHit(EntityTameableDragon dragon, double thirdPersonDistancePrev, float yaw, float pitch) {
+//        double partialTicks = dragon.;
         double d3 = thirdPersonDistancePrev;
         float eyeHeight = dragon.getEyeHeight();
         double x = dragon.prevPosX + (dragon.posX - dragon.prevPosX);
         double y = dragon.prevPosY + (dragon.posY - dragon.prevPosY) + (double) eyeHeight;
         double z = dragon.prevPosZ + (dragon.posZ - dragon.prevPosZ);
-        float yaw = dragon.rotationYaw;
-        float pitch = dragon.rotationPitch;
 //        if (this.mc.gameSettings.thirdPersonView == 2) {
 //            yaw += 180.0F;
 //        }
@@ -56,7 +55,7 @@ public class DragonViewEvent {
             }
         }
 
-        return -d3;
+        return d3;
     }
 
     /**
@@ -71,7 +70,7 @@ public class DragonViewEvent {
 
         if (player.getRidingEntity() instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
-            double blockHit = blockHit(dragon, DragonMountsConfig.ThirdPersonZoom);
+            double blockHit = blockHit(dragon, DragonMountsConfig.ThirdPersonZoom, event.getYaw(), event.getPitch());
 //            double blockHit = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                 GlStateManager.translate(0F, -0.6F * dragon.getScale(), 0);
@@ -100,7 +99,7 @@ public class DragonViewEvent {
             EntityCarriage carriage = (EntityCarriage) player.getRidingEntity();
             if (carriage.getRidingEntity() instanceof EntityTameableDragon) {
                 EntityTameableDragon dragon = (EntityTameableDragon) carriage.getRidingEntity();
-                double blockHit = blockHit(dragon, DragonMountsConfig.ThirdPersonZoom * dragon.getScale());
+                double blockHit = blockHit(dragon, DragonMountsConfig.ThirdPersonZoom * dragon.getScale(), event.getYaw(), event.getPitch());
 //                double blockHit = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                     GlStateManager.translate(0F, -0.9F, 0);

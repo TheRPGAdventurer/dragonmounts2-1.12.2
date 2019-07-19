@@ -18,22 +18,25 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class DragonViewEvent {
     Minecraft mc = Minecraft.getMinecraft();
 
+    /**
+     * Copied from EntitytRenderer.orientCamera
+     */
     private double blockHit(EntityTameableDragon dragon, double thirdPersonDistancePrev, float yaw, float pitch) {
 //        double partialTicks = dragon.;
         double d3 = thirdPersonDistancePrev;
         float eyeHeight = dragon.getEyeHeight();
+        if (this.mc.gameSettings.thirdPersonView == 2) {
+            pitch += 180.0F;
+        }
         double x = dragon.prevPosX + (dragon.posX - dragon.prevPosX);
         double y = dragon.prevPosY + (dragon.posY - dragon.prevPosY) + (double) eyeHeight;
         double z = dragon.prevPosZ + (dragon.posZ - dragon.prevPosZ);
-//        if (this.mc.gameSettings.thirdPersonView == 2) {
-//            yaw += 180.0F;
-//        }
         double x1 = (double) (-MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * d3;
         double y1 = (double) (-MathHelper.sin(pitch * 0.017453292F)) * d3;
         double z1 = (double) (MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * d3;
 
 
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < d3 * 2; ++i) {
             float f3 = (float) ((i & 1) * 2 - 1);
             float f4 = (float) ((i >> 1 & 1) * 2 - 1);
             float f5 = (float) ((i >> 2 & 1) * 2 - 1);
@@ -43,7 +46,7 @@ public class DragonViewEvent {
 
             // dragon's position/coordinates
             Vec3d start = new Vec3d(x + (double) f3, y + (double) f4, z + (double) f5);
-            // behind the dragon
+            // camera distance behind the dragon in third person
             Vec3d end = new Vec3d(x - x1 + (double) f3 + (double) f5, y - y1 + (double) f4, z - z1 + (double) f5);
             RayTraceResult raytraceresult = this.mc.world.rayTraceBlocks(start, end);
 
@@ -54,6 +57,13 @@ public class DragonViewEvent {
                 }
             }
         }
+//        float f1 = dragon.rotationYaw;
+//        float f2 = dragon.rotationPitch;
+//        GlStateManager.rotate(pitch - f2, 1.0F, 0.0F, 0.0F);
+//        GlStateManager.rotate(pitch - f1, 0.0F, 1.0F, 0.0F);
+//        GlStateManager.translate(0.0F, 0.0F, (float)(-d3));
+//        GlStateManager.rotate(f1 - pitch, 0.0F, 1.0F, 0.0F);
+//        GlStateManager.rotate(f2 - pitch, 1.0F, 0.0F, 0.0F);
 
         return d3;
     }

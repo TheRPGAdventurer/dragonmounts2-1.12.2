@@ -5,6 +5,7 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,20 +24,18 @@ public class DragonViewEvent {
      */
     private double blockHit(EntityTameableDragon dragon, double thirdPersonDistancePrev, float yaw, float pitch) {
 //        double partialTicks = dragon.;
-        double d3 = thirdPersonDistancePrev;
+        if (this.mc.gameSettings.thirdPersonView == 2) pitch += 180.0F;
+        double thirdPersonDist = thirdPersonDistancePrev;
         float eyeHeight = dragon.getEyeHeight();
-        if (this.mc.gameSettings.thirdPersonView == 2) {
-            pitch += 180.0F;
-        }
         double x = dragon.prevPosX + (dragon.posX - dragon.prevPosX);
         double y = dragon.prevPosY + (dragon.posY - dragon.prevPosY) + (double) eyeHeight;
         double z = dragon.prevPosZ + (dragon.posZ - dragon.prevPosZ);
-        double x1 = (double) (-MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * d3;
-        double y1 = (double) (-MathHelper.sin(pitch * 0.017453292F)) * d3;
-        double z1 = (double) (MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * d3;
+        double x1 = (double)(MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
+        double z1 = (double)(-MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
+        double y1 = (double)(-MathHelper.sin(pitch * 0.017453292F)) * thirdPersonDist;
 
 
-        for (int i = 0; i < d3 * 2; ++i) {
+        for (int i = 0; i < 8; ++i) {
             float f3 = (float) ((i & 1) * 2 - 1);
             float f4 = (float) ((i >> 1 & 1) * 2 - 1);
             float f5 = (float) ((i >> 2 & 1) * 2 - 1);
@@ -46,26 +45,19 @@ public class DragonViewEvent {
 
             // dragon's position/coordinates
             Vec3d start = new Vec3d(x + (double) f3, y + (double) f4, z + (double) f5);
-            // camera distance behind the dragon in third person
+            // third person zoom dist
             Vec3d end = new Vec3d(x - x1 + (double) f3 + (double) f5, y - y1 + (double) f4, z - z1 + (double) f5);
             RayTraceResult raytraceresult = this.mc.world.rayTraceBlocks(start, end);
 
             if (raytraceresult != null) {
                 double rayHitVecDist = raytraceresult.hitVec.distanceTo(new Vec3d(x, y, z));
-                if (rayHitVecDist < d3) {
-                    d3 = rayHitVecDist;
+                if (rayHitVecDist < thirdPersonDist) {
+                    thirdPersonDist = rayHitVecDist;
                 }
             }
         }
-//        float f1 = dragon.rotationYaw;
-//        float f2 = dragon.rotationPitch;
-//        GlStateManager.rotate(pitch - f2, 1.0F, 0.0F, 0.0F);
-//        GlStateManager.rotate(pitch - f1, 0.0F, 1.0F, 0.0F);
-//        GlStateManager.translate(0.0F, 0.0F, (float)(-d3));
-//        GlStateManager.rotate(f1 - pitch, 0.0F, 1.0F, 0.0F);
-//        GlStateManager.rotate(f2 - pitch, 1.0F, 0.0F, 0.0F);
 
-        return d3;
+        return thirdPersonDist;
     }
 
     /**

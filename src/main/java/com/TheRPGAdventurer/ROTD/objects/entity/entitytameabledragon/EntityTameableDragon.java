@@ -2107,7 +2107,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         for (int j = 0; j < i; ++j)
             ret.add(new ItemStack(shearItem()));
 
-        ticksShear = 40000;
+        ticksShear = 3000;
 
         playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
         playSound(ModSounds.ENTITY_DRAGON_GROWL, 1.0F, 1.0F);

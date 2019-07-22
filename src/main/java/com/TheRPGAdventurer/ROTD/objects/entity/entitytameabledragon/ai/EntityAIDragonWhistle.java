@@ -40,7 +40,8 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
             if (dragon.getOwner() instanceof EntityPlayer)
                 dragon.updateIntendedRideRotation((EntityPlayer) dragon.getOwner());
         }
-        dragon.setnowhistlecommands(dragon.firesupport() && dragon.getControllingPlayer() != null);
+        dragon.setnowhistlecommands(dragon.getControllingPlayer() != null);
+        if(dragon.getControllingPlayer()!=null) dragon.setfiresupport(false);
     }
 
     public boolean followPlayerFlying(BlockPos midPoint) {

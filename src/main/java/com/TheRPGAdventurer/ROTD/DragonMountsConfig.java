@@ -77,7 +77,7 @@ public class DragonMountsConfig {
 	public static int zombieNestRarerityInX = 28;
 	public static int zombieNestRarerityInZ = 28;
 
-	public static double ThirdPersonZoom = 26;
+	public static double ThirdPersonZoom = 20;
 
 	public static int dragonFollowOwnerFlyingHeight = 50;
 	public static int dragonanderFromHomeDist = 50;

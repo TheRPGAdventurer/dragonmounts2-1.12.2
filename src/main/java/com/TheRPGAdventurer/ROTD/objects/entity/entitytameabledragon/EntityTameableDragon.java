@@ -29,6 +29,7 @@ import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.Drag
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper.util.Pair;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonAmulet;
 import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
@@ -1411,6 +1412,47 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
                 return ModItems.EssenceMoonlight;
             default:
                 return ModItems.EssenceEnd;
+
+        }
+    }
+
+    /**
+     * @deprecated TODO Method used for temporary amulet datafix. REMOVE THIS BEFORE NEXT PATCH!
+     */
+    public ItemDragonAmulet dragonAmulet() {
+        switch (getBreedType()) {
+            case AETHER:
+                return ModItems.AmuletAether;
+            case ENCHANT:
+                return ModItems.AmuletEnchant;
+            case END:
+                return ModItems.AmuletEnd;
+            case FIRE:
+                return ModItems.AmuletFire;
+            case FOREST:
+                return ModItems.AmuletForest;
+            case ICE:
+                return ModItems.AmuletIce;
+            case NETHER:
+                return ModItems.AmuletNether;
+            case SKELETON:
+                return ModItems.AmuletSkeleton;
+            case STORM:
+                return ModItems.AmuletStorm;
+            case SUNLIGHT:
+                return ModItems.AmuletSunlight;
+            case SYLPHID:
+                return ModItems.AmuletWater;
+            case TERRA:
+                return ModItems.AmuletTerra;
+            case WITHER:
+                return ModItems.AmuletWither;
+            case ZOMBIE:
+                return ModItems.AmuletZombie;
+            case MOONLIGHT:
+                return ModItems.AmuletMoonlight;
+            default:
+                return ModItems.AmuletEnd;
 
         }
     }

@@ -6,7 +6,8 @@ import com.TheRPGAdventurer.ROTD.items.ItemTestRunner;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.items.*;
-
+import com.TheRPGAdventurer.ROTD.objects.items.EnumItemBreedTypes;
+import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonScales;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
@@ -82,8 +83,26 @@ public class ModItems {
     //public static final ItemDragonEssence Essencespecter = new ItemDragonEssence(EnumItemBreedTypes.SPECTER, EnumDragonBreed.SPECTER);
     //Essence End
 
-    public static final ItemDragonAmulet Amulet = new ItemDragonAmulet();
-    
+    //Amulets Start
+    //TODO Remove These Registries in the future
+    public static final ItemDragonAmulet AmuletForest = new ItemDragonAmulet(EnumItemBreedTypes.FOREST, EnumDragonBreed.FOREST);
+    public static final ItemDragonAmulet AmuletAether = new ItemDragonAmulet(EnumItemBreedTypes.AETHER, EnumDragonBreed.AETHER);
+    public static final ItemDragonAmulet AmuletFire = new ItemDragonAmulet(EnumItemBreedTypes.FIRE, EnumDragonBreed.FIRE);
+    public static final ItemDragonAmulet AmuletIce = new ItemDragonAmulet(EnumItemBreedTypes.ICE, EnumDragonBreed.ICE);
+    public static final ItemDragonAmulet AmuletWater = new ItemDragonAmulet(EnumItemBreedTypes.WATER, EnumDragonBreed.SYLPHID);
+    public static final ItemDragonAmulet AmuletSkeleton = new ItemDragonAmulet(EnumItemBreedTypes.SKELETON, EnumDragonBreed.SKELETON);
+    public static final ItemDragonAmulet AmuletWither = new ItemDragonAmulet(EnumItemBreedTypes.WITHER, EnumDragonBreed.WITHER);
+    public static final ItemDragonAmulet AmuletEnd = new ItemDragonAmulet(EnumItemBreedTypes.END, EnumDragonBreed.END);
+    public static final ItemDragonAmulet AmuletNether = new ItemDragonAmulet(EnumItemBreedTypes.NETHER, EnumDragonBreed.NETHER);
+    public static final ItemDragonAmulet AmuletEnchant = new ItemDragonAmulet(EnumItemBreedTypes.ENCHANT, EnumDragonBreed.ENCHANT);
+    public static final ItemDragonAmulet AmuletSunlight = new ItemDragonAmulet(EnumItemBreedTypes.SUNLIGHT, EnumDragonBreed.SUNLIGHT);
+    public static final ItemDragonAmulet AmuletStorm = new ItemDragonAmulet(EnumItemBreedTypes.STORM, EnumDragonBreed.STORM);
+    public static final ItemDragonAmulet AmuletZombie = new ItemDragonAmulet(EnumItemBreedTypes.ZOMBIE, EnumDragonBreed.ZOMBIE);
+    public static final ItemDragonAmulet AmuletTerra = new ItemDragonAmulet(EnumItemBreedTypes.TERRA, EnumDragonBreed.TERRA);
+    public static final ItemDragonAmulet AmuletMoonlight = new ItemDragonAmulet(EnumItemBreedTypes.MOONLIGHT, EnumDragonBreed.MOONLIGHT);
+
+    public static final ItemDragonAmuletNEW Amulet = new ItemDragonAmuletNEW();
+
     //Other Start
     public static final Item dragon_wand = new ItemDragonWand("dragon_wand");
     public static final Item dragon_whistle = new ItemDragonWhistle();
@@ -101,7 +120,7 @@ public class ModItems {
     public static final Item carriage_acacia = new ItemCarriage("carriage_", EntityCarriage.Type.ACACIA);
     //Carriages end
 
-    //Shields start 
+    //Shields start
     public static final Item aether_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.AETHER, ModItems.AetherDragonScales);
     public static final Item forest_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FOREST, ModItems.ForestDragonScales);
     public static final Item fire_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.FIRE, ModItems.FireDragonScales);
@@ -121,5 +140,5 @@ public class ModItems {
     //public static final Item light_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.LIGHT, ModItems.lightDragonScales);
     //public static final Item dark_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.DARK, ModItems.DarkDragonScales);
     //public static final Item specter_dragon_shield = new ItemDragonShield(EnumItemBreedTypes.DARK, ModItems.SpecterDragonScales);
-    
+
 }

@@ -21,7 +21,7 @@ public class DragonViewEvent {
     Minecraft mc = Minecraft.getMinecraft();
 
     /**
-     * Copied from EntitytRenderer.orientCamera
+     * Copied from EntitytRenderer.orientCamera, uses raytraceresult to reduce thirdPersonView and unable xRay
      */
     private double blockHit(EntityTameableDragon dragon, double thirdPersonDist, float yaw, float pitch, EntityPlayer player, double partialTicks) { // partial ticks are unused
         if (this.mc.gameSettings.thirdPersonView == 2) pitch += 180.0F;

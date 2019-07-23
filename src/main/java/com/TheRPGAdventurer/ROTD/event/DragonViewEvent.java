@@ -33,7 +33,7 @@ public class DragonViewEvent {
         double z1 = (double)(-MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
         double y1 = (double)(-MathHelper.sin(pitch * 0.017453292F)) * thirdPersonDist;
 
-        for (int i = 0; i < 8; ++i) { // default camera distance for vanilla mobs is 4 so the 8 is supposed to be a X 2 version?
+        for (int i = 0; i < thirdPersonDist*2; ++i) { // default camera distance for vanilla mobs is 4 so the 8 is supposed to be a X 2 version?
             // dont understand how these work and whats their point in debug they set a -1 value
             float f3 = (float) ((i & 1) * 2 - 1);
             float f4 = (float) ((i >> 1 & 1) * 2 - 1);

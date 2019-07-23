@@ -96,7 +96,7 @@ public class ClientProxy extends ServerProxy {
                 t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n" +
                 t.GREEN + "NightScale" + r + "-" + t.AQUA + "for new ideas and once funding a server for DM2\n" +
                 t.GREEN + "TGG/TheGreyGhost" + r + "-" + t.AQUA + "old dm1 dev and prototype breath\n";
-        metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD + "" + t.BOLD + "TheRpgAdventurer, BarracudaATA, Kingdomall, Shannieanne, WolfShotz", ','));
+        metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD + "" + t.BOLD + "TheRpgAdventurer, BarracudaATA, WolfShotz", ','));
         metadata.description =
                 "\nTips:\n" +
                         "1. Don't forget to right click the egg to start the hatching process\n" +

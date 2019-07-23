@@ -23,7 +23,7 @@ public class DragonViewEvent {
     /**
      * Copied from EntitytRenderer.orientCamera, uses raytraceresult to reduce thirdPersonView and unable xRay
      */
-    private double blockHit(EntityTameableDragon dragon, double thirdPersonDist, float yaw, float pitch, EntityPlayer player, double partialTicks) { // partial ticks are unused
+    private double thirdPersonDistance(EntityTameableDragon dragon, double thirdPersonDist, float yaw, float pitch, EntityPlayer player, double partialTicks) { // partial ticks are unused
         if (this.mc.gameSettings.thirdPersonView == 2) pitch += 180.0F;
         float eyeHeight = dragon.getEyeHeight();
         double x = dragon.prevPosX + (dragon.posX - dragon.prevPosX);
@@ -73,59 +73,59 @@ public class DragonViewEvent {
         if (player.getRidingEntity() instanceof EntityTameableDragon) {
             EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
             // third person zoom is 20
-            double blockHit = blockHit(dragon, DragonMountsConfig.ThirdPersonZoom, event.getYaw(), event.getPitch(), player, event.getRenderPartialTicks());
-//            double blockHit = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
+            double thirdPersonDistance = thirdPersonDistance(dragon, DragonMountsConfig.ThirdPersonZoom, event.getYaw(), event.getPitch(), player, event.getRenderPartialTicks());
+//            double thirdPersonDistance = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                 GlStateManager.translate(0F, -0.6F * dragon.getScale(), 0);
             }
 
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
                 if (currentView == 0) {
-                    GlStateManager.translate(0F, -1.3F * dragon.getScale(), -blockHit);
+                    GlStateManager.translate(0F, -1.3F * dragon.getScale(), -thirdPersonDistance);
                 } else if (currentView == 1) {
-                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -blockHit);
+                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
                 } else if (currentView == 2) {
-                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -blockHit);
+                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
                 }
             }
 
             if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
                 if (currentView == 0) {
-                    GlStateManager.translate(0F, -1.3F * dragon.getScale(), blockHit);
+                    GlStateManager.translate(0F, -1.3F * dragon.getScale(), thirdPersonDistance);
                 } else if (currentView == 1) {
-                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), blockHit);
+                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
                 } else if (currentView == 2) {
-                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), blockHit);
+                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
                 }
             }
         } else if (player.getRidingEntity() instanceof EntityCarriage) {
             EntityCarriage carriage = (EntityCarriage) player.getRidingEntity();
             if (carriage.getRidingEntity() instanceof EntityTameableDragon) {
                 EntityTameableDragon dragon = (EntityTameableDragon) carriage.getRidingEntity();
-                double blockHit = blockHit(dragon, DragonMountsConfig.ThirdPersonZoom * dragon.getScale(), event.getYaw(), event.getPitch(),
+                double thirdPersonDistance = thirdPersonDistance(dragon, DragonMountsConfig.ThirdPersonZoom * dragon.getScale(), event.getYaw(), event.getPitch(),
                         player, event.getRenderPartialTicks());
-//                double blockHit = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
+//                double thirdPersonDistance = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                     GlStateManager.translate(0F, -0.9F, 0);
                 }
 
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
                     if (currentView == 0) {
-                        GlStateManager.translate(0F, -1.3F * dragon.getScale(), -blockHit);
+                        GlStateManager.translate(0F, -1.3F * dragon.getScale(), -thirdPersonDistance);
                     } else if (currentView == 1) {
-                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -blockHit);
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
                     } else if (currentView == 2) {
-                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -blockHit);
+                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
                     }
                 }
 
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
                     if (currentView == 0) {
-                        GlStateManager.translate(0F, -1.3F * dragon.getScale(), blockHit);
+                        GlStateManager.translate(0F, -1.3F * dragon.getScale(), thirdPersonDistance);
                     } else if (currentView == 1) {
-                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), blockHit);
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
                     } else if (currentView == 2) {
-                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), blockHit);
+                        GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
                     }
                 }
             } else {

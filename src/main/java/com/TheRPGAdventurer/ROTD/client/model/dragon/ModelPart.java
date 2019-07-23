@@ -11,7 +11,8 @@ package com.TheRPGAdventurer.ROTD.client.model.dragon;
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
-import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
@@ -21,30 +22,30 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Extended model renderer with some helpful extra methods.
- * 
+ *
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class ModelPart extends AdvancedModelRenderer {
-    
+public class ModelPart extends ModelRenderer {
+
     public static boolean renderAxes;
-    
+
     public float renderScaleX = 1;
     public float renderScaleY = 1;
     public float renderScaleZ = 1;
-    
+
     public float preRotateAngleX;
     public float preRotateAngleY;
     public float preRotateAngleZ;
-    
-    private AdvancedModelBase base;
+
+    private ModelBase base;
     private boolean compiled;
     private int displayList;
-    
-    public ModelPart(AdvancedModelBase base, String name) {
+
+    public ModelPart(ModelBase base, String name) {
         super(base, name);
         this.base = base;
     }
-    
+
     public ModelPart(AdvancedModelBase base) {
         this(base, null);
     }
@@ -59,30 +60,30 @@ public class ModelPart extends AdvancedModelRenderer {
         part.mirror = mirror;
         part.addBox(name, xOfs, yOfs, zOfs, width, length, height);
         addChild(part);
-        
+
         return part;
     }
-    
+
     public ModelPart setAngles(float x, float y, float z) {
         rotateAngleX = x;
         rotateAngleY = y;
         rotateAngleZ = z;
-        
+
         return this;
     }
-    
+
     public ModelPart setRenderScale(float scaleX, float scaleY, float scaleZ) {
         this.renderScaleX = scaleX;
         this.renderScaleY = scaleY;
         this.renderScaleZ = scaleZ;
-        
+
         return this;
     }
-    
+
     public ModelPart setRenderScale(float scale) {
         return setRenderScale(scale, scale, scale);
     }
-    
+
     private void compileDisplayList(float scale) {
         BufferBuilder vb = Tessellator.getInstance().getBuffer();
         displayList = GLAllocation.generateDisplayLists(1);
@@ -91,39 +92,39 @@ public class ModelPart extends AdvancedModelRenderer {
         glEndList();
         compiled = true;
     }
-    
+
     @Override
     public void render(float scale) {
         renderWithRotation(scale);
     }
-    
+
     @Override
     public void renderWithRotation(float scale) {
         // skip if hidden
         if (isHidden || !showModel) {
             return;
         }
-        
+
         // compile if required
         if (!compiled) {
             compileDisplayList(scale);
         }
-        
+
         GlStateManager.pushMatrix();
-        
+
         postRender(scale);
-        
+
         // call display list
         GlStateManager.callList(displayList);
-        
+
         // render child models
         if (childModels != null) {
             childModels.forEach(obj -> obj.render(scale));
         }
-        
+
         GlStateManager.popMatrix();
     }
-    
+
     @Override
     public void postRender(float scale) {
         // skip if hidden
@@ -133,7 +134,7 @@ public class ModelPart extends AdvancedModelRenderer {
 
         // translate
         GlStateManager.translate(rotationPointX * scale, rotationPointY * scale, rotationPointZ * scale);
-        
+
         // rotate
         if (preRotateAngleZ != 0) {
             GlStateManager.rotate(MathX.toDegrees(preRotateAngleZ), 0, 0, 1);
@@ -144,7 +145,7 @@ public class ModelPart extends AdvancedModelRenderer {
         if (preRotateAngleX != 0) {
             GlStateManager.rotate(MathX.toDegrees(preRotateAngleX), 1, 0, 0);
         }
-        
+
         if (rotateAngleZ != 0) {
             GlStateManager.rotate(MathX.toDegrees(rotateAngleZ), 0, 0, 1);
         }

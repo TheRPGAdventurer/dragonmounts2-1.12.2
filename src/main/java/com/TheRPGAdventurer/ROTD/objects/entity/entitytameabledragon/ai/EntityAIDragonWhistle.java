@@ -31,7 +31,6 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
                 || whistle == null);
 
         if (dragon.firesupport() && dragon.getOwner() != null && dragon.isUsingBreathWeapon()) {
-            dragon.getNavigator().clearPath();
             Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = dragon.getOwner().getLook(1.0F);
             Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);

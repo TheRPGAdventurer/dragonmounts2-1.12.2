@@ -41,8 +41,6 @@ public class MessageDragonFireSupport extends AbstractMessage<MessageDragonFireS
 
     }
 
-
-
     @Override
     @SideOnly(Side.CLIENT)
     public void onClientReceived(Minecraft client, MessageDragonFireSupport message, EntityPlayer player, MessageContext messageContext) {

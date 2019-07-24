@@ -97,7 +97,7 @@ dragon.adult=Adult
 item.diamond_shears.name=Diamond Shears
 item.dragonEgg.name=%s Egg
 item.dragon_gender.name=Dragon Gender Gem
-item.gui.dragon_gender=Left Click an owned dragon with the gem will switch its gender
+item.gui.dragon_gender=Right Click an owned dragon with the gem will switch its gender
 item.summon_egg.name=Spawn Dragon
 item.dragon_essence.name=Dragon Essence
 item.dragon_whistle.name=Dragon Whistle
@@ -155,7 +155,7 @@ item.armoryitems.info=Forged with the Scales of
 item.diamondshears.info=Used to get scales from tamed dragons without killing it. Untamed ones will attack
 item.dragonamulet.info=Right Click to store a dragon and carry it, right click on ground to summon
 item.carriage.info=Used to make dragons carry multiple passengers like a boat
-item.whistle.info=Left Click an owned and tamed dragon to control it
+item.whistle.info=Right Click an owned and tamed dragon to control it
 item.whistle.nullBlockPos=Cannot Teleport There
 
 

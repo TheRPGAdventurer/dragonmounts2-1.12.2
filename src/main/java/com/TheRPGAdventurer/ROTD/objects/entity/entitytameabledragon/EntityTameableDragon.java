@@ -2474,6 +2474,50 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         }
     }
 
+    public void refreshInventory() {
+        ItemStack saddle = dragonInv.getStackInSlot(0);
+        ItemStack leftChestforInv = dragonInv.getStackInSlot(1);
+        ItemStack banner1 = dragonInv.getStackInSlot(31);
+        ItemStack banner2 = dragonInv.getStackInSlot(32);
+        ItemStack banner3 = dragonInv.getStackInSlot(33);
+        ItemStack banner4 = dragonInv.getStackInSlot(34);
+        ItemStack armorStack = dragonInv.getStackInSlot(2);
+        int armor = getIntFromArmor(dragonInv.getStackInSlot(2));
+        int armor1 = getIntFromArmor(dragonInv.getStackInSlot(2));
+
+        if (saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() && !isSaddled() && isOldEnoughToBreathe()) {
+            this.setSaddled(true);
+            world.playSound(posX, posY, posZ, SoundEvents.ENTITY_HORSE_SADDLE, SoundCategory.PLAYERS, 1F, 1.0F, false);
+        }
+        if (leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) &&
+                !leftChestforInv.isEmpty() && !isChested() && isOldEnoughToBreathe()) {
+            this.setChested(true);
+            world.playSound(posX, posY, posZ, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.PLAYERS, 1F, 1F, false);
+        }
+
+        // figure out to break the boolean loop and make it play armor equip sounds
+        if (ticksExisted > 20 && armor != armor1 && armor1 != 0 && armorStack.getItem() == ModArmour.dragonarmor_diamond && isOldEnoughToBreathe()) {
+            this.setArmor(armor);
+            world.playSound(posX, posY, posZ, SoundEvents.ENTITY_HORSE_ARMOR, SoundCategory.PLAYERS, 0.5F, 1F, false);
+        }
+
+        this.setBanner1(banner1);
+        this.setBanner2(banner2);
+        this.setBanner3(banner3);
+        this.setBanner4(banner4);
+
+        if (isServer()) {
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 1, leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty() ? 1 : 0));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 2, this.getIntFromArmor(this.dragonInv.getStackInSlot(2))));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31, banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty() ? 1 : 0));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32, banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty() ? 1 : 0));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31, banner3 != null && banner3.getItem() == Items.BANNER && !banner3.isEmpty() ? 1 : 0));
+            DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32, banner4 != null && banner4.getItem() == Items.BANNER && !banner4.isEmpty() ? 1 : 0));
+        }
+
+    }
+
     /**
      * Credits: AlexThe 666 Ice and Fire
      */
@@ -2497,46 +2541,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
         @Override
         public void onInventoryChanged(IInventory invBasic) {
-            ItemStack saddle = dragon.dragonInv.getStackInSlot(0);
-            ItemStack leftChestforInv = dragon.dragonInv.getStackInSlot(1);
-            ItemStack banner1 = dragon.dragonInv.getStackInSlot(31);
-            ItemStack banner2 = dragon.dragonInv.getStackInSlot(32);
-            ItemStack banner3 = dragon.dragonInv.getStackInSlot(33);
-            ItemStack banner4 = dragon.dragonInv.getStackInSlot(34);
-            ItemStack armorStack = dragon.dragonInv.getStackInSlot(2);
-            int armor = getIntFromArmor(dragon.dragonInv.getStackInSlot(2));
-            int armor1 = getIntFromArmor(dragon.dragonInv.getStackInSlot(2));
-
-            if (saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() && !isSaddled() && isOldEnoughToBreathe()) {
-                dragon.setSaddled(true);
-                world.playSound(posX, posY, posZ, SoundEvents.ENTITY_HORSE_SADDLE, SoundCategory.PLAYERS, 1F, 1.0F, false);
-            }
-            if (leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) &&
-                    !leftChestforInv.isEmpty() && !isChested() && isOldEnoughToBreathe()) {
-                dragon.setChested(true);
-                world.playSound(posX, posY, posZ, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.PLAYERS, 1F, 1F, false);
-            }
-
-            // figure out to break the boolean loop and make it play armor equip sounds
-            if (ticksExisted > 20 && armor != armor1 && armor1 != 0 && armorStack.getItem() == ModArmour.dragonarmor_diamond && isOldEnoughToBreathe()) {
-                dragon.setArmor(armor);
-                world.playSound(posX, posY, posZ, SoundEvents.ENTITY_HORSE_ARMOR, SoundCategory.PLAYERS, 0.5F, 1F, false);
-            }
-
-            dragon.setBanner1(banner1);
-            dragon.setBanner2(banner2);
-            dragon.setBanner3(banner3);
-            dragon.setBanner4(banner4);
-
-            if (isServer()) {
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 1, leftChestforInv != null && leftChestforInv.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !leftChestforInv.isEmpty() ? 1 : 0));
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 2, dragon.getIntFromArmor(dragon.dragonInv.getStackInSlot(2))));
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 31, banner1 != null && banner1.getItem() == Items.BANNER && !banner1.isEmpty() ? 1 : 0));
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 32, banner2 != null && banner2.getItem() == Items.BANNER && !banner2.isEmpty() ? 1 : 0));
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 31, banner3 != null && banner3.getItem() == Items.BANNER && !banner3.isEmpty() ? 1 : 0));
-                DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(dragon.getEntityId(), 32, banner4 != null && banner4.getItem() == Items.BANNER && !banner4.isEmpty() ? 1 : 0));
-            }
+            refreshInventory();
         }
     }
 }

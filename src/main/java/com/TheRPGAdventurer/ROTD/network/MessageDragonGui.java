@@ -2,6 +2,7 @@ package com.TheRPGAdventurer.ROTD.network;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -16,9 +17,12 @@ public class MessageDragonGui implements IMessage {
     public boolean lock;
     public boolean sit;
 
-    public MessageDragonGui(UUID dragonId, boolean lock, boolean sit) {
+    public MessageDragonGui() {
+    }
+
+    public MessageDragonGui(UUID dragonId, boolean sit) {
         this.dragonId = dragonId;
-        this.lock = lock;
+//        this.lock = lock;
         this.sit = sit;
 //		this.isProjectile=isProjectile;
     }
@@ -27,7 +31,7 @@ public class MessageDragonGui implements IMessage {
     public void fromBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
         dragonId = packetBuf.readUniqueId();
-        lock = buf.readBoolean();
+//        lock = buf.readBoolean();
         sit = buf.readBoolean();
     }
 
@@ -35,7 +39,7 @@ public class MessageDragonGui implements IMessage {
     public void toBytes(ByteBuf buf) {
         PacketBuffer packetBuf = new PacketBuffer(buf);
         packetBuf.writeUniqueId(dragonId);
-        buf.writeBoolean(lock);
+//        buf.writeBoolean(lock);
         buf.writeBoolean(sit);
     }
 
@@ -46,10 +50,11 @@ public class MessageDragonGui implements IMessage {
             Entity entity = ctx.getServerHandler().player.world.getMinecraftServer().getEntityFromUuid(message.dragonId);
             if (entity instanceof EntityTameableDragon) {
                 EntityTameableDragon dragon = (EntityTameableDragon) entity;
-                if (message.lock) {
-                    dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
-                } else {
-                    if (message.sit) dragon.getAISit().setSitting(!dragon.isSitting());
+//                if (message.lock) {
+//                    dragon.setToAllowedOtherPlayers(!dragon.allowedOtherPlayers());
+//                } else
+                if (message.sit) {
+                    dragon.getAISit().setSitting(!dragon.isSitting());
                 }
             }
 

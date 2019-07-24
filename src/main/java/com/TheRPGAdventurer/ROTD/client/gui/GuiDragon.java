@@ -2,8 +2,7 @@ package com.TheRPGAdventurer.ROTD.client.gui;
 
 import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inventory.ContainerDragon;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonSit;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
+import com.TheRPGAdventurer.ROTD.network.MessageDragonGui;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -124,8 +123,7 @@ public class GuiDragon extends GuiContainer {
     protected void actionPerformed(GuiButton button) throws IOException {
         boolean sit = button == this.sit;
         boolean lock = button == this.lock;
-        if (lock || sit) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGuiLock(dragon.getEntityId(), lock, sit));
-        if (sit) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonSit(dragon.getUniqueID()));
+        if (sit) DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonGui(dragon.getUniqueID(), sit));
     }
 
     public void updateScreen() {

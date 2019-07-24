@@ -9,6 +9,7 @@ import com.TheRPGAdventurer.ROTD.util.IHasModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,13 +56,14 @@ public class ItemDragonWhistle extends Item implements IHasModel {
         Minecraft.getMinecraft().displayGuiScreen(new GuiDragonWhistle(world, uuid));
     }
 
+
     /**
-     * Called when the player left clicks an entity
+     * Called when the player right clicks the dragon
      * <p> Registers dragon id as well as cosmetic keys to the whistle
      */
     @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
-        if (target.world.isRemote) return false;
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
+    if (target.world.isRemote) return false;
         if (!(target instanceof EntityTameableDragon)) return false;
         EntityTameableDragon dragon = (EntityTameableDragon) target;
         if (dragon.isAllowed(player)) {
@@ -80,7 +82,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
             return true;
         }
 
-        return false;
+       return super.itemInteractionForEntity(stack, player, target, hand);
     }
 
     /**

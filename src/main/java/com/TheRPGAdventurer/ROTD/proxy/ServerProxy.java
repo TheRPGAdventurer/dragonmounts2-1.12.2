@@ -41,7 +41,7 @@ public class ServerProxy {
     public final byte DCM_DISCRIMINATOR_ID = 35;  // arbitrary non-zero ID (non-zero makes troubleshooting easier)
     public final byte DOT_DISCRIMINATOR_ID = 73;  // arbitrary non-zero ID (non-zero makes troubleshooting easier)
     private final int ENTITY_TRACKING_RANGE = 80;
-    private final int ENTITY_UPDATE_FREQ = 3; // 3
+    private final int ENTITY_UPDATE_FREQ = 3;
     private final int ENTITY_ID = 1;
     private final boolean ENTITY_SEND_VELO_UPDATES = true;
     private SimpleNetworkWrapper network;
@@ -59,7 +59,6 @@ public class ServerProxy {
     public void Initialization(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
 //    	MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus()); Not Currently Functional... >.>
-//      network.registerMessage(DragonControlMessageHandler.class, MessageDragonControl.class, DCM_DISCRIMINATOR_ID, Side.SERVER);
         network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
         network.registerMessage(MessageDragonTargetHandlerServer.class, MessageDragonTarget.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
         network.registerMessage(MessageDragonBreath.MessageDragonBreathHandler.class, MessageDragonBreath.class, 0, Side.SERVER);
@@ -99,9 +98,6 @@ public class ServerProxy {
                 ENTITY_SEND_VELO_UPDATES);
         EntityRegistry.registerModEntity(new ResourceLocation(DragonMounts.MODID, "indestructible"), EntityDragonAmulet.class, "Indestructible Item",
                 3, DragonMounts.instance, 32, 5, true);
-
-        //        GameRegistry.registerTileEntity(TileEntityDragonShulker.class, new ResourceLocation(DragonMounts.MODID, "dragon_shulker"));
-
     }
 
     public void render() {

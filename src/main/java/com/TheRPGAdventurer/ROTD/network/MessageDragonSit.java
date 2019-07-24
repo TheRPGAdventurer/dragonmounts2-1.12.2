@@ -17,12 +17,14 @@ public class MessageDragonSit implements IMessage {
 
     public UUID dragonId;
 
+    public MessageDragonSit() {
+
+    }
+
     public MessageDragonSit(UUID dragonId) {
         this.dragonId = dragonId;
     }
 
-    public MessageDragonSit() {
-    }
 
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -36,7 +38,6 @@ public class MessageDragonSit implements IMessage {
         packetBuf.writeUniqueId(dragonId);
 
     }
-
 
     public static class MessageDragonSitHandler implements IMessageHandler<MessageDragonSit, IMessage> {
         @Override

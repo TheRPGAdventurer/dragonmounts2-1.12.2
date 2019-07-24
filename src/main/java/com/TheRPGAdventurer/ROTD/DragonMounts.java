@@ -44,7 +44,7 @@ import org.apache.logging.log4j.Logger;
  */
 @Mod(modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
-    
+
     public static SimpleNetworkWrapper NETWORK_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(DragonMounts.MODID);
 
     public static final String NAME="Dragon Mounts";

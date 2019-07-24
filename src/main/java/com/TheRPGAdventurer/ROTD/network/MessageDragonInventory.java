@@ -14,13 +14,13 @@ public class MessageDragonInventory implements IMessage {
     public int slot_index;
     public int armor_type;
 
+    public MessageDragonInventory() {
+    }
+
     public MessageDragonInventory(int dragonId, int slot_index, int armor_type) {
         this.dragonId = dragonId;
         this.slot_index = slot_index;
         this.armor_type = armor_type;
-    }
-
-    public MessageDragonInventory() {
     }
 
     @Override

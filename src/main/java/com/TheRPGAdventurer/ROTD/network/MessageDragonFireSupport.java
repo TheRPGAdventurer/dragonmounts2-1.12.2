@@ -19,12 +19,13 @@ public class MessageDragonFireSupport implements IMessage {
 
     public UUID dragonId;
 
+    public MessageDragonFireSupport() {
+    }
+
     public MessageDragonFireSupport(UUID dragonId) {
         this.dragonId = dragonId;
     }
 
-    public MessageDragonFireSupport() {
-    }
 
     @Override
     public void fromBytes(ByteBuf buf) {

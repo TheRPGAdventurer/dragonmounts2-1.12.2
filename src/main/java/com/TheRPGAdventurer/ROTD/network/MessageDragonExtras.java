@@ -19,6 +19,9 @@ public class MessageDragonExtras implements IMessage {
     public boolean down;
     private int dragonId;
 
+    public MessageDragonExtras() {
+    }
+
     public MessageDragonExtras(int dragonId, boolean isHoverCancel, boolean isFollowYaw, boolean locky, boolean isBoosting, boolean down) {
         this.dragonId = dragonId;
         this.isHoverCancel = isHoverCancel;
@@ -28,8 +31,6 @@ public class MessageDragonExtras implements IMessage {
         this.down = down;
     }
 
-    public MessageDragonExtras() {
-    }
 
     @Override
     public void fromBytes(ByteBuf buf) {

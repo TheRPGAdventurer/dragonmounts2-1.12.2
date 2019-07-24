@@ -44,7 +44,7 @@ public class ServerProxy {
     private final int ENTITY_UPDATE_FREQ = 3;
     private final int ENTITY_ID = 1;
     private final boolean ENTITY_SEND_VELO_UPDATES = true;
-    private SimpleNetworkWrapper network;
+    private static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");;
 
     public SimpleNetworkWrapper getNetwork() {
         return this.network;
@@ -59,16 +59,17 @@ public class ServerProxy {
     public void Initialization(FMLInitializationEvent evt) {
         MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
 //    	MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus()); Not Currently Functional... >.>
-        network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
         network.registerMessage(MessageDragonTargetHandlerServer.class, MessageDragonTarget.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
-        network.registerMessage(MessageDragonBreath.MessageDragonBreathHandler.class, MessageDragonBreath.class, 0, Side.SERVER);
-        network.registerMessage(MessageDragonExtras.MessageDragonExtrasHandler.class, MessageDragonExtras.class, 1, Side.SERVER);
-        network.registerMessage(MessageDragonFireSupport.MessageDragonFireSupportHandler.class, MessageDragonFireSupport.class, 2, Side.SERVER);
-        network.registerMessage(MessageDragonGui.MessageDragonGuiHandler.class, MessageDragonGui.class, 3, Side.SERVER);
-        network.registerMessage(MessageDragonInventory.MessageDragonInventoryHandler.class, MessageDragonInventory.class, 4, Side.SERVER);
-        network.registerMessage(MessageDragonSit.MessageDragonSitHandler.class, MessageDragonSit.class, 5, Side.SERVER);
-        network.registerMessage(MessageDragonTeleport.MessageDragonTeleportHandler.class, MessageDragonTeleport.class, 6, Side.SERVER);
-        network.registerMessage(MessageDragonWhistle.MessageDragonWhistleHandler.class, MessageDragonWhistle.class, 7, Side.SERVER);
+
+        // i wont touch the network the old dev made seems redundant i know (rpg)
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonBreath.MessageDragonBreathHandler.class, MessageDragonBreath.class, 0, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonExtras.MessageDragonExtrasHandler.class, MessageDragonExtras.class, 1, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonFireSupport.MessageDragonFireSupportHandler.class, MessageDragonFireSupport.class, 2, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonGui.MessageDragonGuiHandler.class, MessageDragonGui.class, 3, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonInventory.MessageDragonInventoryHandler.class, MessageDragonInventory.class, 4, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonSit.MessageDragonSitHandler.class, MessageDragonSit.class, 5, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonTeleport.MessageDragonTeleportHandler.class, MessageDragonTeleport.class, 6, Side.SERVER);
+        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonWhistle.MessageDragonWhistleHandler.class, MessageDragonWhistle.class, 7, Side.SERVER);
 
         StartupDebugCommon.initCommon();
     }

@@ -2,18 +2,13 @@ package com.TheRPGAdventurer.ROTD.network;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
-import net.ilexiconn.llibrary.server.network.AbstractMessage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MessageDragonInventory extends AbstractMessage<MessageDragonInventory> {
+public class MessageDragonInventory implements IMessage {
 
     public int dragonId;
     public int slot_index;
@@ -43,43 +38,42 @@ public class MessageDragonInventory extends AbstractMessage<MessageDragonInvento
         buf.writeInt(armor_type);
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
+    public static class MessageDragonInventoryHandler implements IMessageHandler<MessageDragonInventory, IMessage> {
 
-    }
+        @Override
+        public IMessage onMessage(MessageDragonInventory message, MessageContext ctx) {
+            EntityPlayerMP player = ctx.getServerHandler().player;
+            Entity entity = player.world.getEntityByID(message.dragonId);
+            if (entity instanceof EntityTameableDragon) {
+                EntityTameableDragon dragon = (EntityTameableDragon) entity;
+                if (message.slot_index == 0) {
+                    dragon.setSaddled(message.armor_type == 1);
+                }
+                if (message.slot_index == 1) {
+                    dragon.setChested(message.armor_type == 1);
+                }
 
-    @Override
-    public void onServerReceived(MinecraftServer server, MessageDragonInventory message, EntityPlayer player, MessageContext messageContext) {
-        Entity entity = player.world.getEntityByID(message.dragonId);
-        if (entity instanceof EntityTameableDragon) {
-            EntityTameableDragon dragon = (EntityTameableDragon) entity;
-            if (message.slot_index == 0) {
-                dragon.setSaddled(message.armor_type == 1);
-            }
-            if (message.slot_index == 1) {
-                dragon.setChested(message.armor_type == 1);
-            }
+                if (message.slot_index == 2) {
+                    dragon.setArmor(message.armor_type);
+                }
 
-            if (message.slot_index == 2) {
-                dragon.setArmor(message.armor_type);
-            }
+                if (message.slot_index == 31) {
+                    dragon.setBanner1(dragon.dragonInv.getStackInSlot(31));
+                }
 
-            if (message.slot_index == 31) {
-                dragon.setBanner1(dragon.dragonInv.getStackInSlot(31));
-            }
+                if (message.slot_index == 32) {
+                    dragon.setBanner1(dragon.dragonInv.getStackInSlot(32));
+                }
 
-            if (message.slot_index == 32) {
-                dragon.setBanner1(dragon.dragonInv.getStackInSlot(32));
-            }
+                if (message.slot_index == 33) {
+                    dragon.setBanner1(dragon.dragonInv.getStackInSlot(33));
+                }
 
-            if (message.slot_index == 33) {
-                dragon.setBanner1(dragon.dragonInv.getStackInSlot(33));
+                if (message.slot_index == 34) {
+                    dragon.setBanner1(dragon.dragonInv.getStackInSlot(34));
+                }
             }
-
-            if (message.slot_index == 34) {
-                dragon.setBanner1(dragon.dragonInv.getStackInSlot(34));
-            }
+            return null;
         }
     }
 }

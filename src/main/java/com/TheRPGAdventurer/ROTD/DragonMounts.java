@@ -17,14 +17,10 @@ import com.TheRPGAdventurer.ROTD.inits.ModArmour;
 import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
-import com.TheRPGAdventurer.ROTD.network.*;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonGuiLock;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonWhistle;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
 import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.LoggerLimit;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
-import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
@@ -45,11 +41,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * Main control class for Forge.
  */
-@Mod(dependencies="required-after:llibrary@[" + DragonMounts.LLIBRARY_VERSION + ",)", modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
+@Mod(modid=DragonMounts.MODID, name=DragonMounts.NAME, version=DragonMounts.VERSION, useMetadata=true, guiFactory=DragonMounts.GUI_FACTORY)
 public class DragonMounts {
 
-
-    @NetworkWrapper({MessageDragonInventory.class, MessageDragonBreath.class, MessageDragonFireSupport.class, MessageDragonWhistle.class, MessageDragonSit.class, MessageDragonGuiLock.class, MessageDragonTeleport.class, MessageDragonExtras.class})
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
 
     public static final String NAME="Dragon Mounts";

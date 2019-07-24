@@ -13,8 +13,7 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.cmd.CommandDragon;
 import com.TheRPGAdventurer.ROTD.event.VanillaEggHandler;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonTarget;
-import com.TheRPGAdventurer.ROTD.network.MessageDragonTargetHandlerServer;
+import com.TheRPGAdventurer.ROTD.network.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.items.entity.EntityDragonAmulet;
@@ -39,14 +38,13 @@ import java.io.File;
  */
 public class ServerProxy {
 
-    private SimpleNetworkWrapper network;
     public final byte DCM_DISCRIMINATOR_ID = 35;  // arbitrary non-zero ID (non-zero makes troubleshooting easier)
     public final byte DOT_DISCRIMINATOR_ID = 73;  // arbitrary non-zero ID (non-zero makes troubleshooting easier)
-
     private final int ENTITY_TRACKING_RANGE = 80;
     private final int ENTITY_UPDATE_FREQ = 3; // 3
     private final int ENTITY_ID = 1;
     private final boolean ENTITY_SEND_VELO_UPDATES = true;
+    private SimpleNetworkWrapper network;
 
     public SimpleNetworkWrapper getNetwork() {
         return this.network;
@@ -58,21 +56,29 @@ public class ServerProxy {
     }
 
     @SuppressWarnings("deprecation")
-	public void Initialization(FMLInitializationEvent evt) {
-    	MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
+    public void Initialization(FMLInitializationEvent evt) {
+        MinecraftForge.EVENT_BUS.register(new VanillaEggHandler());
 //    	MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus()); Not Currently Functional... >.>
-        network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
 //      network.registerMessage(DragonControlMessageHandler.class, MessageDragonControl.class, DCM_DISCRIMINATOR_ID, Side.SERVER);
+        network = NetworkRegistry.INSTANCE.newSimpleChannel("DragonControls");
         network.registerMessage(MessageDragonTargetHandlerServer.class, MessageDragonTarget.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
+        network.registerMessage(MessageDragonBreath.MessageDragonBreathHandler.class, MessageDragonBreath.class, 0, Side.SERVER);
+        network.registerMessage(MessageDragonExtras.MessageDragonExtrasHandler.class, MessageDragonExtras.class, 1, Side.SERVER);
+        network.registerMessage(MessageDragonFireSupport.MessageDragonFireSupportHandler.class, MessageDragonFireSupport.class, 2, Side.SERVER);
+        network.registerMessage(MessageDragonGui.MessageDragonGuiHandler.class, MessageDragonGui.class, 3, Side.SERVER);
+        network.registerMessage(MessageDragonInventory.MessageDragonInventoryHandler.class, MessageDragonInventory.class, 4, Side.SERVER);
+        network.registerMessage(MessageDragonSit.MessageDragonSitHandler.class, MessageDragonSit.class, 5, Side.SERVER);
+        network.registerMessage(MessageDragonTeleport.MessageDragonTeleportHandler.class, MessageDragonTeleport.class, 6, Side.SERVER);
+        network.registerMessage(MessageDragonWhistle.MessageDragonWhistleHandler.class, MessageDragonWhistle.class, 7, Side.SERVER);
 
         StartupDebugCommon.initCommon();
     }
 
     public void PostInitialization(FMLPostInitializationEvent event) {
         registerEntities();
-      if (DragonMountsConfig.isDebug()) {
-        StartupDebugCommon.postInitCommon();
-      }
+        if (DragonMountsConfig.isDebug()) {
+            StartupDebugCommon.postInitCommon();
+        }
     }
 
     public void ServerStarting(FMLServerStartingEvent evt) {
@@ -105,37 +111,44 @@ public class ServerProxy {
         return 0;
     }
 
-    public void setDragon3rdPersonView(int view) {}
+    public void setDragon3rdPersonView(int view) {
+    }
 
     public boolean getDragonFollowYaw() {
         return false;
     }
 
-    public void setDragonFollowYaw(boolean yaw) {}
+    public void setDragonFollowYaw(boolean yaw) {
+    }
 
     public boolean getDragonHover() {
         return false;
     }
-    
+
+    public void setDragonHover(boolean hover) {
+    }
+
     public int getDragonLockY() {
         return 0;
     }
 
-    public void setDragonLockY(int yaw) {}
+    public void setDragonLockY(int yaw) {
+    }
 
-    public void setDragonHover(boolean hover) {}
+    public void registerModel(Item item, int metadata) {
+    }
 
-    public void registerModel(Item item, int metadata) {}
+    public void registerItemRenderer(Item item, int meta, String id) {
+    }
 
-    public void registerItemRenderer(Item item, int meta, String id) {}
-    
-    public void registerAmuletRenderer() {}
+    public void registerAmuletRenderer() {
+    }
 
     // get the directory on disk used for storing the game files
     // is different for dedicated server vs client
     public File getDataDirectory() {
-    return FMLServerHandler.instance().getSavesDirectory();
-  }
+        return FMLServerHandler.instance().getSavesDirectory();
+    }
 
 
 }

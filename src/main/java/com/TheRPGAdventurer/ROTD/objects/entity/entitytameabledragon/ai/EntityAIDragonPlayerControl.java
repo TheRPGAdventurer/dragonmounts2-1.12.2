@@ -70,32 +70,32 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
         }
 
 
-        // control direction with movement keys
-        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
-            if (rider.moveForward < 0) {
-                wp = wp.rotateYaw(MathX.PI_F);
-            } else if (rider.moveStrafing > 0) {
-                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
-            } else if (rider.moveStrafing < 0) {
-                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
-            }
-
-            x += wp.x * 10;
-            if (!dragon.isYLocked()) y += wp.y * 10;
-            z += wp.z * 10;
-        }
-
-//         lift off from a jump
-        if (entityIsJumping(rider)) {
-            if (!dragon.isFlying()) {
-                dragon.liftOff();
-            } else {
-                y += 10;
-            }
-        } else if (dragon.isGoingDown()) {
-            y -= 10;
-        }
-
-        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
+//        // control direction with movement keys
+//        if (rider.moveStrafing != 0 || rider.moveForward != 0) {
+//            if (rider.moveForward < 0) {
+//                wp = wp.rotateYaw(MathX.PI_F);
+//            } else if (rider.moveStrafing > 0) {
+//                wp = wp.rotateYaw(MathX.PI_F * 0.5f);
+//            } else if (rider.moveStrafing < 0) {
+//                wp = wp.rotateYaw(MathX.PI_F * -0.5f);
+//            }
+//
+//            x += wp.x * 10;
+//            if (!dragon.isYLocked()) y += wp.y * 10;
+//            z += wp.z * 10;
+//        }
+//
+////         lift off from a jump
+//        if (entityIsJumping(rider)) {
+//            if (!dragon.isFlying()) {
+//                dragon.liftOff();
+//            } else {
+//                y += 10;
+//            }
+//        } else if (dragon.isGoingDown()) {
+//            y -= 10;
+//        }
+//
+//        dragon.getMoveHelper().setMoveTo(x, y, z, 1.2);
     }
 }

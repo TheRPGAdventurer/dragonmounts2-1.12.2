@@ -34,6 +34,7 @@ import com.TheRPGAdventurer.ROTD.objects.items.ItemDragonEssence;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
+import com.TheRPGAdventurer.ROTD.util.reflection.PrivateAccessor;
 import com.google.common.base.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -92,7 +93,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.FOLLOW_RANGE;
 /**
  * Here be dragons
  */
-public class EntityTameableDragon extends EntityTameable implements IShearable {
+public class EntityTameableDragon extends EntityTameable implements IShearable, PrivateAccessor {
 
     // base attributes
     public static final double BASE_GROUND_SPEED = 0.4;
@@ -506,6 +507,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     }
 
     public void setArmor(int armorType) {
+        world.playSound(posX, posY, posZ, SoundEvents.ENTITY_HORSE_ARMOR, SoundCategory.PLAYERS, 0.5F, 1F, false);
         this.dataManager.set(ARMOR, armorType);
     }
 
@@ -1805,12 +1807,32 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
 
     @Override
     public void travel(float strafe, float forward, float vertical) {
+//        if (!isFlying()) {
+//            super.travel(strafe, forward, vertical);
+//        }
         // disable method while flying, the movement is done entirely by
         // moveEntity() and this one just makes the dragon to fall slowly when
         // hovering
-        if (!isFlying()) {
-            super.travel(strafe, forward, vertical);
+
+        EntityPlayer rider = getControllingPlayer();
+        if (rider != null) {
+            if (isFlying()) {
+                if (rider.moveForward > 0) {
+                    rotationYaw = rider.rotationYaw;
+                    prevRotationYaw = rider.prevRotationYaw;
+                    motionX *= 1.2;
+                    motionZ *= 1.2;
+                    forward = rider.moveForward;
+                    strafe = rider.moveStrafing;
+                    super.travel(strafe, forward, vertical = 0);
+                }
+            } else {
+                if (entityIsJumping(rider)) liftOff();
+                super.travel(strafe, forward, vertical);
+            }
         }
+
+        super.travel(strafe, forward, vertical);
     }
 
     @Nullable
@@ -2209,7 +2231,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         Vec3d pos = this.getAnimator().getThroatPosition();
 
         if (world.isRemote) {
-            this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, pos.x, pos.y, pos.z, motionX, motionY, motionZ, new int[]{Item.getIdFromItem(item)});
+            world.spawnParticle(EnumParticleTypes.ITEM_CRACK, pos.x, pos.y, pos.z, motionX, motionY, motionZ, Item.getIdFromItem(item));
         }
     }
 
@@ -2219,6 +2241,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
+
         /*
          * Turning it to block
          */
@@ -2267,8 +2290,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
             if (this.isTamed() && (DMUtils.hasEquipped(player, Items.STICK) || DMUtils.hasEquipped(player, Items.BONE)) && this.onGround) {
                 this.getAISit().setSitting(!this.isSitting());
                 this.getNavigator().clearPath();
-
-
             }
         }
 
@@ -2508,7 +2529,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable {
         // figure out to break the boolean loop and make it play armor equip sounds
         if (ticksExisted > 20 && armor != armor1 && armor1 != 0 && armorStack.getItem() == ModArmour.dragonarmor_diamond && isOldEnoughToBreathe()) {
             this.setArmor(armor);
-            world.playSound(posX, posY, posZ, SoundEvents.ENTITY_HORSE_ARMOR, SoundCategory.PLAYERS, 0.5F, 1F, false);
         }
 
         this.setBanner1(banner1);

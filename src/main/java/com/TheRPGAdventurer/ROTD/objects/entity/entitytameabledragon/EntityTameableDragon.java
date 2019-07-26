@@ -2331,7 +2331,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
                 }
 
                 //  hunger
-                if (this.getHunger() >= 0) {
+                if (this.getHunger() < 100) {
                     consumeItemFromStack(player, stack);
                     eatEvent(stack.getItem());
                     setHunger(this.getHunger() + (DMUtils.getFoodPoints(player)));

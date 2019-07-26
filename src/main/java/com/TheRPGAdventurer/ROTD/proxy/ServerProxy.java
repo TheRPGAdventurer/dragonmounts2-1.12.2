@@ -61,7 +61,7 @@ public class ServerProxy {
 //    	MinecraftForge.EVENT_BUS.register(new DragonArmourEnchant.ArmourXPBonus()); Not Currently Functional... >.>
         network.registerMessage(MessageDragonTargetHandlerServer.class, MessageDragonTarget.class, DOT_DISCRIMINATOR_ID, Side.SERVER);
 
-        // i wont touch the network the old dev made seems redundant i know (rpg)
+        // I wont touch the network the old devs made, seems redundant yeah I know - rpg
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonBreath.MessageDragonBreathHandler.class, MessageDragonBreath.class, 0, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonExtras.MessageDragonExtrasHandler.class, MessageDragonExtras.class, 1, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonFireSupport.MessageDragonFireSupportHandler.class, MessageDragonFireSupport.class, 2, Side.SERVER);

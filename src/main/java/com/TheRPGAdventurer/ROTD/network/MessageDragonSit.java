@@ -2,7 +2,9 @@ package com.TheRPGAdventurer.ROTD.network;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
@@ -42,7 +44,7 @@ public class MessageDragonSit implements IMessage {
     public static class MessageDragonSitHandler implements IMessageHandler<MessageDragonSit, IMessage> {
         @Override
         public IMessage onMessage(MessageDragonSit message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
+            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
             MinecraftServer server = player.getServer();
             //        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
             if (!player.world.isRemote) {

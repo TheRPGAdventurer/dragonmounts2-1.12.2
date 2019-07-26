@@ -3,7 +3,9 @@ package com.TheRPGAdventurer.ROTD.network;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.util.DMUtils;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -58,7 +60,7 @@ public class MessageDragonExtras implements IMessage {
 
         @Override
         public IMessage onMessage(MessageDragonExtras message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
+            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
             Entity entity = player.world.getEntityByID(message.dragonId);
             if (entity instanceof EntityTameableDragon) {
                 EntityTameableDragon dragon = (EntityTameableDragon) entity;

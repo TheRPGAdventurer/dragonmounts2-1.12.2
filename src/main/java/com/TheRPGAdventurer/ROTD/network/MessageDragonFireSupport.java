@@ -3,7 +3,9 @@ package com.TheRPGAdventurer.ROTD.network;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
@@ -44,9 +46,8 @@ public class MessageDragonFireSupport implements IMessage {
 
         @Override
         public IMessage onMessage(MessageDragonFireSupport message, MessageContext ctx) {
-
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            MinecraftServer server = player.mcServer;
+            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
+            MinecraftServer server = player.getServer();
             if (!player.world.isRemote) {
                 Entity entity = server.getEntityFromUuid(message.dragonId);
                 EntityTameableDragon dragon = (EntityTameableDragon) entity;

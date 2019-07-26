@@ -5,11 +5,9 @@ import com.TheRPGAdventurer.ROTD.DragonMountsConfig;
 import com.TheRPGAdventurer.ROTD.inits.ModKeys;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitycarriage.EntityCarriage;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.Timer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -23,17 +21,17 @@ public class DragonViewEvent {
     /**
      * Copied from EntitytRenderer.orientCamera, uses raytraceresult to reduce thirdPersonView and unable xRay
      */
-    private double thirdPersonDistance(EntityTameableDragon dragon, double thirdPersonDist, float yaw, float pitch, EntityPlayer player, double partialTicks) { // partial ticks are unused
+    private double thirdPersonDistance(EntityTameableDragon dragon, double thirdPersonDist, float yaw, float pitch, EntityPlayer rider, double partialTicks) { // partial ticks are unused
         if (this.mc.gameSettings.thirdPersonView == 2) pitch += 180.0F;
         float eyeHeight = dragon.getEyeHeight();
-        double x = dragon.prevPosX + (dragon.posX - dragon.prevPosX);
+        double x = rider.prevPosX + (rider.posX - rider.prevPosX);
         double y = dragon.prevPosY + (dragon.posY - dragon.prevPosY) + (double) eyeHeight;
-        double z = dragon.prevPosZ + (dragon.posZ - dragon.prevPosZ);
-        double x1 = (double)(MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
-        double z1 = (double)(-MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
-        double y1 = (double)(-MathHelper.sin(pitch * 0.017453292F)) * thirdPersonDist;
+        double z = rider.prevPosZ + (rider.posZ - rider.prevPosZ);
+        double x1 = (double) (MathHelper.sin(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
+        double z1 = (double) (-MathHelper.cos(yaw * 0.017453292F) * MathHelper.cos(pitch * 0.017453292F)) * thirdPersonDist;
+        double y1 = (double) (-MathHelper.sin(pitch * 0.017453292F)) * thirdPersonDist;
 
-        for (int i = 0; i < thirdPersonDist*2; ++i) { // default camera distance for vanilla mobs is 4 so the 8 is supposed to be a X 2 version?
+        for (int i = 0; i < thirdPersonDist * 2; ++i) { // default camera distance for vanilla mobs is 4 so the 8 is supposed to be a X 2 version?
             // dont understand how these work and whats their point in debug they set a -1 value
             float f3 = (float) ((i & 1) * 2 - 1);
             float f4 = (float) ((i >> 1 & 1) * 2 - 1);
@@ -43,16 +41,16 @@ public class DragonViewEvent {
             f5 *= 0.1F;
 
             // dragon's position/coordinates
-            Vec3d start = new Vec3d(x + (double)f3, y + (double)f4, z + (double)f5);
+            Vec3d start = new Vec3d(x + (double) f3, y + (double) f4, z + (double) f5);
             // third person zoom dist
-            Vec3d end = new Vec3d(x - x1 + (double)f3 + (double)f5, y - y1 + (double)f4, z - z1 + (double)f5);
+            Vec3d end = new Vec3d(x - x1 + (double) f3 + (double) f5, y - y1 + (double) f4, z - z1 + (double) f5);
             RayTraceResult raytraceresult = this.mc.world.rayTraceBlocks(start, end);
 
             if (raytraceresult != null) {
                 double rayHitVecDist = raytraceresult.hitVec.distanceTo(start);
 
                 if (rayHitVecDist < thirdPersonDist) {
-                    int offset = 3;
+                    int offset = 4;
                     thirdPersonDist = rayHitVecDist - offset;
                 }
             }
@@ -67,55 +65,26 @@ public class DragonViewEvent {
      */
     @SubscribeEvent
     public void extendZoom(EntityViewRenderEvent.CameraSetup event) {
-        EntityPlayer player = Minecraft.getMinecraft().player;
-        int currentView = DragonMounts.proxy.getDragon3rdPersonView();
+        if (event.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntity();
+            int currentView = DragonMounts.proxy.getDragon3rdPersonView();
 
-        if (player.getRidingEntity() instanceof EntityTameableDragon) {
-            EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
-            // third person zoom is 20
-            double thirdPersonDistance = thirdPersonDistance(dragon, DragonMountsConfig.ThirdPersonZoom, event.getYaw(), event.getPitch(), player, event.getRenderPartialTicks());
+            if (player.getRidingEntity() instanceof EntityTameableDragon) {
+                EntityTameableDragon dragon = (EntityTameableDragon) player.getRidingEntity();
+                // third person zoom is 20
+                double thirdPersonDistance = thirdPersonDistance(dragon, DragonMountsConfig.ThirdPersonZoom, event.getYaw(), event.getPitch(), player, event.getRenderPartialTicks());
 //            double thirdPersonDistance = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
-                GlStateManager.translate(0F, -0.6F * dragon.getScale(), 0);
-            }
-
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
-                if (currentView == 0) {
-                    GlStateManager.translate(0F, -1.3F * dragon.getScale(), -thirdPersonDistance);
-                } else if (currentView == 1) {
-                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
-                } else if (currentView == 2) {
-                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
-                }
-            }
-
-            if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
-                if (currentView == 0) {
-                    GlStateManager.translate(0F, -1.3F * dragon.getScale(), thirdPersonDistance);
-                } else if (currentView == 1) {
-                    GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
-                } else if (currentView == 2) {
-                    GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
-                }
-            }
-        } else if (player.getRidingEntity() instanceof EntityCarriage) {
-            EntityCarriage carriage = (EntityCarriage) player.getRidingEntity();
-            if (carriage.getRidingEntity() instanceof EntityTameableDragon) {
-                EntityTameableDragon dragon = (EntityTameableDragon) carriage.getRidingEntity();
-                double thirdPersonDistance = thirdPersonDistance(dragon, DragonMountsConfig.ThirdPersonZoom * dragon.getScale(), event.getYaw(), event.getPitch(),
-                        player, event.getRenderPartialTicks());
-//                double thirdPersonDistance = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
-                    GlStateManager.translate(0F, -0.9F, 0);
+                    GlStateManager.translate(0F, -0.6F * dragon.getScale(), 0);
                 }
 
                 if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
                     if (currentView == 0) {
                         GlStateManager.translate(0F, -1.3F * dragon.getScale(), -thirdPersonDistance);
                     } else if (currentView == 1) {
-                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
-                    } else if (currentView == 2) {
                         GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
+                    } else if (currentView == 2) {
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
                     }
                 }
 
@@ -123,13 +92,44 @@ public class DragonViewEvent {
                     if (currentView == 0) {
                         GlStateManager.translate(0F, -1.3F * dragon.getScale(), thirdPersonDistance);
                     } else if (currentView == 1) {
-                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
-                    } else if (currentView == 2) {
                         GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
+                    } else if (currentView == 2) {
+                        GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
                     }
                 }
-            } else {
-                GlStateManager.translate(0F, -0.5F, 0F);
+            } else if (player.getRidingEntity() instanceof EntityCarriage) {
+                EntityCarriage carriage = (EntityCarriage) player.getRidingEntity();
+                if (carriage.getRidingEntity() instanceof EntityTameableDragon) {
+                    EntityTameableDragon dragon = (EntityTameableDragon) carriage.getRidingEntity();
+                    double thirdPersonDistance = thirdPersonDistance(dragon, DragonMountsConfig.ThirdPersonZoom * dragon.getScale(), event.getYaw(), event.getPitch(),
+                            player, event.getRenderPartialTicks());
+//                double thirdPersonDistance = DragonMountsConfig.ThirdPersonZoom * dragon.getScale();
+                    if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+                        GlStateManager.translate(0F, -0.9F, 0);
+                    }
+
+                    if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
+                        if (currentView == 0) {
+                            GlStateManager.translate(0F, -1.3F * dragon.getScale(), -thirdPersonDistance);
+                        } else if (currentView == 1) {
+                            GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
+                        } else if (currentView == 2) {
+                            GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), -thirdPersonDistance);
+                        }
+                    }
+
+                    if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
+                        if (currentView == 0) {
+                            GlStateManager.translate(0F, -1.3F * dragon.getScale(), thirdPersonDistance);
+                        } else if (currentView == 1) {
+                            GlStateManager.translate(4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
+                        } else if (currentView == 2) {
+                            GlStateManager.translate(-4.7F, -0.08F * dragon.getScale(), thirdPersonDistance);
+                        }
+                    }
+                } else {
+                    GlStateManager.translate(0F, -0.5F, 0F);
+                }
             }
         }
     }

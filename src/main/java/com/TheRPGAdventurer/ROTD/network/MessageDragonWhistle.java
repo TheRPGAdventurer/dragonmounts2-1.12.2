@@ -3,6 +3,7 @@ package com.TheRPGAdventurer.ROTD.network;
 import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -47,7 +48,7 @@ public class MessageDragonWhistle implements IMessage {
     public static class MessageDragonWhistleHandler implements IMessageHandler<MessageDragonWhistle, IMessage> {
         @Override
         public IMessage onMessage(MessageDragonWhistle message, MessageContext ctx) {
-            EntityPlayerMP player = ctx.getServerHandler().player;
+            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
             MinecraftServer server = player.getServer();
             Entity entity = server.getEntityFromUuid(message.dragonId);
             if (player.world.isRemote) return null;

@@ -57,7 +57,6 @@ public class MessageDragonWhistle implements IMessage {
                 dragon.setSitting(false);
                 dragon.setWhistleState(message.controlState);
                 player.world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1.0F, 1.0F);
-
             } else {
                 player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
             }

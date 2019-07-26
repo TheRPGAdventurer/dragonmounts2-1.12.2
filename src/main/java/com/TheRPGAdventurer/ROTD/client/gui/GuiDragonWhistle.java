@@ -44,7 +44,7 @@ public class GuiDragonWhistle extends GuiScreen {
 
         nothing = new GuiButton(0, width / 2 - 50, height / 2 - 60, 98, 20, I18n.format("gui.nothing"));
         sit = new GuiButton(0, width / 2 - 100, height / 2 - 35, 98, 20, I18n.format("gui.sit"));
-        teleport = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.teleport"));
+        teleport = new GuiButton(0, width / 2, height / 2 - 35, 98, 20, I18n.format("gui.cometoPlayer"));
         firesupport = new GuiButton(0, width / 2 - 150, height / 2 - 10, 98, 20, TextFormatting.RED + I18n.format("gui.firesupport"));
         circle = new GuiButton(0, width / 2 + 50, height / 2-10, 98, 20, I18n.format("gui.circle"));
         followFlying = new GuiButton(0, width / 2 - 50, height / 2-10, 98, 20, I18n.format("gui.followFlying"));

@@ -46,6 +46,7 @@ import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -1785,13 +1786,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         return isFlying() ? BASE_FOLLOW_RANGE_FLYING : BASE_FOLLOW_RANGE;
     }
 
-    @Override
-    public boolean canBeSteered() {
-        //         must always return false or the vanilla movement code interferes
-        //         with DragonMoveHelper
-        return false;
-    }
-
     public void updateIntendedRideRotation(EntityPlayer rider) {
         if (isUsingBreathWeapon()) this.rotationYawHead = this.renderYawOffset;
         ;
@@ -1806,33 +1800,47 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     }
 
     @Override
+    public boolean canBeSteered() {
+    //   must always return false or the vanilla movement code interferes
+    //   with DragonMoveHelper
+        return false;
+    }
+//
+//    public boolean canBeSteered() {
+//        return true;
+//    }
+
+    @Override
     public void travel(float strafe, float forward, float vertical) {
-//        if (!isFlying()) {
-//            super.travel(strafe, forward, vertical);
-//        }
         // disable method while flying, the movement is done entirely by
         // moveEntity() and this one just makes the dragon to fall slowly when
+        // moveEntity() and this one just makes the dragon to fall slowly when
         // hovering
-
-        EntityPlayer rider = getControllingPlayer();
-        if (rider != null) {
-            if (isFlying()) {
-                if (rider.moveForward > 0) {
-                    rotationYaw = rider.rotationYaw;
-                    prevRotationYaw = rider.prevRotationYaw;
-                    motionX *= 1.2;
-                    motionZ *= 1.2;
-                    forward = rider.moveForward;
-                    strafe = rider.moveStrafing;
-                    super.travel(strafe, forward, vertical = 0);
-                }
-            } else {
-                if (entityIsJumping(rider)) liftOff();
-                super.travel(strafe, forward, vertical);
-            }
+        if (!isFlying()) {
+            super.travel(strafe, forward, vertical);
         }
 
-        super.travel(strafe, forward, vertical);
+//        EntityPlayer rider = getControllingPlayer();
+//        if (rider != null) {
+//            if (isFlying()) {
+//                if (rider.moveForward > 0) {
+//                    rotationYaw = rider.rotationYaw;
+//                    prevRotationYaw = rider.prevRotationYaw;
+//                    motionX *= 1.2;
+//                    motionY *= isGoingDown() ? -1.2 : 1.2;
+//                    motionZ *= 1.2;
+//                    forward = rider.moveForward;
+//                    strafe = rider.moveStrafing;
+//                    super.travel(strafe, vertical = 0, forward);
+//                    return;
+//                }
+//            } else {
+//                if (entityIsJumping(rider)) liftOff();
+//                super.travel(strafe, vertical, forward);
+//            }
+//        }
+//
+//        super.travel(strafe, forward, vertical);
     }
 
     @Nullable

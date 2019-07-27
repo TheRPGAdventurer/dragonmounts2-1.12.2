@@ -36,7 +36,7 @@ public class DragonBreedSkeleton extends DragonBreed {
         BlockPos blockPos = new BlockPos(bx, by, bz);
 
         // too bright!
-        return dragon.world.getLightBrightness(blockPos) > 4;
+        return dragon.world.getLightBrightness(blockPos) < 4;
     }
 
     @Override

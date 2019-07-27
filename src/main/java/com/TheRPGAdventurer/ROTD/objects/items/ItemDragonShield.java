@@ -27,7 +27,7 @@ public class ItemDragonShield extends ItemShield implements IHasModel {
     public ItemDragonShield(EnumItemBreedTypes type, Item repair) {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_shield_" + type.toString().toLowerCase()));
         this.repair = repair;
-        this.setUnlocalizedName("dragon_shield");
+        this.setTranslationKey("dragon_shield");
         this.setMaxDamage(2500);
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.armoryTab);

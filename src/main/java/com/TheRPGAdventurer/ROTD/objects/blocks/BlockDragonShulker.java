@@ -7,6 +7,7 @@ import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.tileentities.TileEntityDragonShulker;
 
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -42,7 +43,7 @@ public class BlockDragonShulker extends BlockContainer {
 
     public BlockDragonShulker(String name) {
         super(Material.ROCK);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setRegistryName(name);
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         ModBlocks.BLOCKS.add(this);
@@ -110,7 +111,7 @@ public class BlockDragonShulker extends BlockContainer {
      * Convert the given metadata into a BlockState for this Block
      */
     public IBlockState getStateFromMeta(int meta) {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
         return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 

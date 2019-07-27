@@ -27,7 +27,7 @@ public class ItemDragonGender extends Item implements IHasModel
     {
         this.setCreativeTab(DragonMounts.mainTab);
         this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.setMaxStackSize(1);
         
         ModItems.ITEMS.add(this);

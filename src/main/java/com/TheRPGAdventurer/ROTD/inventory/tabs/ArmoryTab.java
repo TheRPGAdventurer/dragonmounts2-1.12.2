@@ -18,7 +18,7 @@ public class ArmoryTab extends CreativeTabs
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public ItemStack getTabIconItem()
+	public ItemStack createIcon()
 	{
 		return new ItemStack(ItemDragonSword.getByNameOrId(DragonMounts.MODID + ":ender_dragon_sword"));
 	}

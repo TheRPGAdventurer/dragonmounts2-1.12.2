@@ -130,7 +130,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
 
     private AxisAlignedBB getTopBoundingBox(EnumFacing p_190588_1_) {
         EnumFacing enumfacing = p_190588_1_.getOpposite();
-        return this.getBoundingBox(p_190588_1_).contract((double) enumfacing.getFrontOffsetX(), (double) enumfacing.getFrontOffsetY(), (double) enumfacing.getFrontOffsetZ());
+        return this.getBoundingBox(p_190588_1_).contract((double) enumfacing.getXOffset(), (double) enumfacing.getYOffset(), (double) enumfacing.getZOffset());
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState p_190584_1_) {
@@ -138,7 +138,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
     }
 
     public AxisAlignedBB getBoundingBox(EnumFacing p_190587_1_) {
-        return Block.FULL_BLOCK_AABB.expand((double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetX()), (double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetY()), (double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getFrontOffsetZ()));
+        return Block.FULL_BLOCK_AABB.expand((double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getXOffset()), (double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getYOffset()), (double) (0.5F * this.getProgress(1.0F) * (float) p_190587_1_.getZOffset()));
     }
 
     private void moveCollidedEntities() {
@@ -191,7 +191,7 @@ public class TileEntityDragonShulker extends TileEntityLockableLoot implements I
                                 d2 = d2 + 0.01D;
                         }
 
-                        entity.move(MoverType.SHULKER_BOX, d0 * (double) enumfacing.getFrontOffsetX(), d1 * (double) enumfacing.getFrontOffsetY(), d2 * (double) enumfacing.getFrontOffsetZ());
+                        entity.move(MoverType.SHULKER_BOX, d0 * (double) enumfacing.getXOffset(), d1 * (double) enumfacing.getYOffset(), d2 * (double) enumfacing.getZOffset());
                     }
                 }
             }

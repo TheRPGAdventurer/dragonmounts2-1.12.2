@@ -29,7 +29,7 @@ public class ItemDragonEssence extends Item implements IHasModel {
 
     public ItemDragonEssence(EnumItemBreedTypes type, EnumDragonBreed breed) {
         this.breed = breed;
-        this.setUnlocalizedName("dragon_essence");
+        this.setTranslationKey("dragon_essence");
         this.setRegistryName(type.toString().toLowerCase() + "_dragon_essence");
         this.maxStackSize = 1;
         this.type = type;

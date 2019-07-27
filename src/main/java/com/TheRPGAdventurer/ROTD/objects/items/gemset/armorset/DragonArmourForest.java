@@ -19,7 +19,7 @@ public class DragonArmourForest extends DragonArmourBase {
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
         if (player.getCooldownTracker().getCooldown(this, 0) > 0) return;
         super.onArmorTick(world, player, itemStack);
-        if (!((head == ModArmour.forestDragonScaleCap || head == ModArmour.forestDragonScaleCap2) && (chest == ModArmour.forestDragonScaleTunic || chest == ModArmour.forestDragonScaleTunic2) && (legs == ModArmour.forestDragonScaleLeggings || legs == ModArmour.forestDragonScaleLeggings2) && (feet == ModArmour.forestDragonScaleBoots || feet == ModArmour.forestDragonScaleBoots2)))
+        if (!((head == ModArmour.forestDragonScaleCap) && (chest == ModArmour.forestDragonScaleTunic) && (legs == ModArmour.forestDragonScaleLeggings) && (feet == ModArmour.forestDragonScaleBoots)))
             return;
         if (player.fishEntity != null && !isActive(MobEffects.LUCK, player))
             player.addPotionEffect(new PotionEffect(MobEffects.LUCK, 210, 0, false, false));

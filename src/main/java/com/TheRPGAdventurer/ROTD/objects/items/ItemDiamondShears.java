@@ -31,7 +31,7 @@ public class ItemDiamondShears extends ItemShears implements IHasModel {
     private EntityTameableDragon dragon;
 
     public ItemDiamondShears(ToolMaterial material, String unlocalizedName) {
-        this.setUnlocalizedName(unlocalizedName);
+        this.setTranslationKey(unlocalizedName);
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
         this.setMaxDamage(345);
         this.setMaxStackSize(1);

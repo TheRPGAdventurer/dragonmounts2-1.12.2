@@ -57,9 +57,9 @@ public class EntityAIDragonPlayerControl extends EntityAIDragonBase implements P
 
         // if we're breathing at a target, look at it
         if ((dragon.isUsingBreathWeapon() && dragon.getBreed().canUseBreathWeapon())) {
-            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+            Vec3d dragonEyePos = dragon.getPositionVector().add(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = rider.getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            Vec3d endOfLook = dragonEyePos.add(lookDirection.x, lookDirection.y, lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     90, 120);
             dragon.updateIntendedRideRotation(rider);

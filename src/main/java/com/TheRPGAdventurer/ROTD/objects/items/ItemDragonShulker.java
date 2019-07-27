@@ -16,7 +16,7 @@ public class ItemDragonShulker extends ItemBlock implements IHasModel {
     public ItemDragonShulker(Block p_i47260_1_) {
         super(p_i47260_1_);
         this.setMaxStackSize(1);
-        this.setUnlocalizedName("item_dragon_shulker");
+        this.setTranslationKey("item_dragon_shulker");
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "item_dragon_shulker"));
 
         ModItems.ITEMS.add(this);

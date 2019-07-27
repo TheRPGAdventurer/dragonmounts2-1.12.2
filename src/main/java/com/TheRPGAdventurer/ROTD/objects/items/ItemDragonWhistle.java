@@ -37,7 +37,7 @@ public class ItemDragonWhistle extends Item implements IHasModel {
 
 
     public ItemDragonWhistle() {
-        this.setUnlocalizedName("dragon_whistle");
+        this.setTranslationKey("dragon_whistle");
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_whistle"));
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.mainTab);
@@ -116,9 +116,9 @@ public class ItemDragonWhistle extends Item implements IHasModel {
     @SideOnly(Side.CLIENT)
     public String getItemStackDisplayName(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasUniqueId(DragonMounts.MODID.toLowerCase() + "dragon")) {
-            return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText() + " (" + stack.getTagCompound().getString("Name") + TextFormatting.RESET + ")";
+            return new TextComponentTranslation(super.getTranslationKey(stack) + ".name").getUnformattedComponentText() + " (" + stack.getTagCompound().getString("Name") + TextFormatting.RESET + ")";
         } else
-            return new TextComponentTranslation(super.getUnlocalizedName(stack) + ".name").getUnformattedComponentText();
+            return new TextComponentTranslation(super.getTranslationKey(stack) + ".name").getUnformattedComponentText();
     }
 
     @Override

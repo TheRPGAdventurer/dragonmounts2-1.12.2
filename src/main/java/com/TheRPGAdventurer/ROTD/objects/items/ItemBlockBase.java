@@ -12,7 +12,7 @@ public class ItemBlockBase extends ItemBlock implements IHasModel
 	public ItemBlockBase(String name, Block block) {
 		super(block);
 		this.setRegistryName(DragonMounts.MODID, name);
-		this.setUnlocalizedName(this.getRegistryName().toString());
+		this.setTranslationKey(this.getRegistryName().toString());
 		this.setCreativeTab(DragonMounts.mainTab);
 	}
 

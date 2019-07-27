@@ -1471,7 +1471,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             case FIRE:
                 return isMale() ? ModItems.FireDragonScales : ModItems.FireDragonScales2;
             case FOREST:
-                return altTextures() ? ModItems.ForestDragonScales2 : ModItems.ForestDragonScales;
+                return ModItems.ForestDragonScales;
             case ICE:
                 return ModItems.IceDragonScales;
             case NETHER:
@@ -1512,7 +1512,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             case FIRE:
                 return isMale() ? DragonMountsLootTables.ENTITIES_DRAGON_FIRE : DragonMountsLootTables.ENTITIES_DRAGON_FIRE2;
             case FOREST:
-                return altTextures() ? DragonMountsLootTables.ENTITIES_DRAGON_FOREST2 : DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
+                return DragonMountsLootTables.ENTITIES_DRAGON_FOREST;
             case ICE:
                 return DragonMountsLootTables.ENTITIES_DRAGON_ICE;
             case NETHER:
@@ -1994,14 +1994,14 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
 
             mountedPositionOffset = mountedPositionOffset.scale(dragonScaling);
             mountedPositionOffset = mountedPositionOffset.rotateYaw((float) Math.toRadians(-renderYawOffset)); // oops
-            mountedPositionOffset = mountedPositionOffset.addVector(0, passenger.getYOffset(), 0);
+            mountedPositionOffset = mountedPositionOffset.add(0, passenger.getYOffset(), 0);
 
             if (!(passenger instanceof EntityPlayer)) {
                 passenger.rotationYaw = this.rotationYaw;
                 passenger.setRotationYawHead(passenger.getRotationYawHead() + this.rotationYaw);
                 this.applyYawToEntity(passenger);
             }
-            Vec3d passengerPosition = mountedPositionOffset.addVector(this.posX, this.posY, this.posZ);
+            Vec3d passengerPosition = mountedPositionOffset.add(this.posX, this.posY, this.posZ);
             passenger.setPosition(passengerPosition.x, passengerPosition.y, passengerPosition.z);
 
             // fix rider rotation
@@ -2553,7 +2553,6 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 31, banner3 != null && banner3.getItem() == Items.BANNER && !banner3.isEmpty() ? 1 : 0));
             DragonMounts.NETWORK_WRAPPER.sendToServer(new MessageDragonInventory(this.getEntityId(), 32, banner4 != null && banner4.getItem() == Items.BANNER && !banner4.isEmpty() ? 1 : 0));
         }
-
     }
 
     /**

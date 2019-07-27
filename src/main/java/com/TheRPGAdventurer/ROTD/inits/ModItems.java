@@ -18,7 +18,6 @@ public class ModItems {
 
     //Scales Start
     public static final Item ForestDragonScales = new ItemDragonScales("forest_dragonscales", EnumItemBreedTypes.FOREST);
-    public static final Item ForestDragonScales2 = new ItemDragonScales("forest2_dragonscales", EnumItemBreedTypes.FOREST2);
     public static final Item FireDragonScales = new ItemDragonScales("fire_dragonscales", EnumItemBreedTypes.FIRE);
     public static final Item FireDragonScales2 = new ItemDragonScales("fire2_dragonscales", EnumItemBreedTypes.FIRE);
     public static final Item IceDragonScales = new ItemDragonScales("ice_dragonscales", EnumItemBreedTypes.ICE);

@@ -206,6 +206,6 @@ public class ClientProxy extends ServerProxy {
 
     @Override
     public File getDataDirectory() {
-        return Minecraft.getMinecraft().mcDataDir;
+        return Minecraft.getMinecraft().gameDir;
     }
 }

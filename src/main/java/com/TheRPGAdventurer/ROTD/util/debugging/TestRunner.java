@@ -166,7 +166,7 @@ public class TestRunner
 
     CommandTeleport commandTeleport = new CommandTeleport();
     try {
-      commandTeleport.execute(entityPlayerMP.mcServer, playerIn, tpArgumentsArray);
+      commandTeleport.execute(entityPlayerMP.server, playerIn, tpArgumentsArray);
     } catch (Exception e) {
       return false;
     }
@@ -211,7 +211,7 @@ public class TestRunner
 
     CommandClone commandClone = new CommandClone();
     try {
-      commandClone.execute(entityPlayerMP.mcServer, entityPlayer, args);
+      commandClone.execute(entityPlayerMP.server, entityPlayer, args);
     } catch (Exception e) {
       return false;
     }

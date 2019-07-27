@@ -31,9 +31,9 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
                 || whistle == null);
 
         if (dragon.firesupport() && dragon.getOwner() != null && dragon.isUsingBreathWeapon()) {
-            Vec3d dragonEyePos = dragon.getPositionVector().addVector(0, dragon.getEyeHeight(), 0);
+            Vec3d dragonEyePos = dragon.getPositionVector().add(0, dragon.getEyeHeight(), 0);
             Vec3d lookDirection = dragon.getOwner().getLook(1.0F);
-            Vec3d endOfLook = dragonEyePos.addVector(lookDirection.x, lookDirection.y, lookDirection.z);
+            Vec3d endOfLook = dragonEyePos.add(lookDirection.x, lookDirection.y, lookDirection.z);
             dragon.getLookHelper().setLookPosition(endOfLook.x, endOfLook.y, endOfLook.z,
                     90, 120);
             if (dragon.getOwner() instanceof EntityPlayer)
@@ -57,7 +57,7 @@ public class EntityAIDragonWhistle extends EntityAIDragonBase {
         Vec3d vec1 = dragon.getPositionVector().subtract(midPoint.getX(), midPoint.getY(), midPoint.getZ());
         Vec3d vec2 = new Vec3d(0, 0, 1);
 
-        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.lengthVector() * vec2.lengthVector()));
+        double a = Math.acos((vec1.dotProduct(vec2)) / (vec1.length() * vec2.length()));
         double r = 30;
         double x = midPoint.getX() + r * Math.cos(a * dragon.ticksExisted * 4);
         double y = midPoint.getY() + 30;

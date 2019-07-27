@@ -4,8 +4,9 @@ import com.TheRPGAdventurer.ROTD.DragonMounts;
 import com.TheRPGAdventurer.ROTD.inits.ModItems;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
-import com.TheRPGAdventurer.ROTD.objects.items.entity.ImmuneEntityItem;
+import com.TheRPGAdventurer.ROTD.objects.items.entity.EntityDragonAmulet;
 import com.TheRPGAdventurer.ROTD.util.IHasModel;
+import com.sun.istack.internal.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Dragon Amulet Item for the use of carrying dragons in an item <p>
@@ -37,7 +37,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
     @Deprecated
     public ItemDragonAmulet(@Nullable EnumItemBreedTypes type, @Nullable EnumDragonBreed breed) {
          this.type = type;
-         this.setUnlocalizedName("dragon_amulet");
+         this.setTranslationKey("dragon_amulet");
          this.setRegistryName(DragonMounts.MODID, type.toString().toLowerCase() + "_dragon_amulet");
          this.setMaxStackSize(1);
         
@@ -72,7 +72,7 @@ public class ItemDragonAmulet extends Item implements IHasModel {
 	@Nonnull
 	@Override
 	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-		EntityItem entity = new ImmuneEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
+		EntityItem entity = new EntityDragonAmulet(world, location.posX, location.posY, location.posZ, itemstack);
 		if (location instanceof EntityItem) {
 			// workaround for private access on that field >_>
 			NBTTagCompound tag = new NBTTagCompound();

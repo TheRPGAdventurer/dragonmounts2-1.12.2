@@ -33,7 +33,7 @@ public class ItemCarriage extends Item implements IHasModel {
 
     public ItemCarriage(String name, EntityCarriage.Type type) {
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name + type.getName()));
-        this.setUnlocalizedName(name + type.getName());
+        this.setTranslationKey(name + type.getName());
         this.type=type;
         this.setMaxDamage(1);
         this.setMaxStackSize(64);
@@ -66,7 +66,7 @@ public class ItemCarriage extends Item implements IHasModel {
         float f5=-MathHelper.cos(-f1 * f9);
         float f6=MathHelper.sin(-f1 * f9);
         float f7= f4 * f5,  f8= f3 * f5;
-        Vec3d vec3d1=vec3d.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+        Vec3d vec3d1=vec3d.add((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
         RayTraceResult raytraceresult=worldIn.rayTraceBlocks(vec3d, vec3d1, true);
 
         if (raytraceresult==null) 

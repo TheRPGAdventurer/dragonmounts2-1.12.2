@@ -28,7 +28,7 @@ public class ItemDragonOrb extends Item implements IHasModel {
   public ItemDragonOrb()
   {
     final int MAXIMUM_NUMBER_OF_ORBS = 1;
-    this.setUnlocalizedName("dragon_orb");
+    this.setTranslationKey("dragon_orb");
     this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_orb"));
     this.setMaxStackSize(MAXIMUM_NUMBER_OF_ORBS);
 

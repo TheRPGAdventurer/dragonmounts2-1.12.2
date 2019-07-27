@@ -32,7 +32,7 @@ public class ItemTestRunner extends Item implements IHasModel
   public ItemTestRunner()
   {
     final int MAX_TEST_NUMBER = 64;
-    this.setUnlocalizedName("test_runner");
+    this.setTranslationKey("test_runner");
     this.setRegistryName(new ResourceLocation(DragonMounts.MODID, "test_runner"));
 
     this.setMaxStackSize(MAX_TEST_NUMBER);

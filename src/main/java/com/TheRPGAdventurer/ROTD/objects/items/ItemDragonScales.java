@@ -19,7 +19,7 @@ public class ItemDragonScales extends Item implements IHasModel {
     public EnumItemBreedTypes type;
 
     public ItemDragonScales(String name, EnumItemBreedTypes type) {
-        this.setUnlocalizedName("dragonscales");
+        this.setTranslationKey("dragonscales");
         this.setRegistryName(name);
         this.setCreativeTab(DragonMounts.mainTab);
         this.setMaxStackSize(64);

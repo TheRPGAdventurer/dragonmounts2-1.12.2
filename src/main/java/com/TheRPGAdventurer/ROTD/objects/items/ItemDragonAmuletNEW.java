@@ -40,7 +40,7 @@ public class ItemDragonAmuletNEW extends Item {
     public ItemDragonAmuletNEW() {
         String name = "dragon_amulet";
         this.setRegistryName(DragonMounts.MODID, name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.setMaxStackSize(1);
         this.setCreativeTab(DragonMounts.mainTab);
 

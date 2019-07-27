@@ -10,7 +10,7 @@ public class ItemDragonWand extends Item implements IHasModel
 {
 	
 	public ItemDragonWand(String name) {
-		this.setUnlocalizedName(name);
+		this.setTranslationKey(name);
 		this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
 		this.setMaxStackSize(1);
 	//	this.setCreativeTab(DragonMounts.TAB);

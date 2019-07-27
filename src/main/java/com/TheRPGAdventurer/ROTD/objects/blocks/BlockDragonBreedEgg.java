@@ -49,7 +49,7 @@ public class BlockDragonBreedEgg extends BlockDragonEgg {
     public static int meta; 
     
     public BlockDragonBreedEgg() {
-        setUnlocalizedName("dragonEgg");
+        setTranslationKey("dragonEgg");
         setHardness(0);
         setResistance(30);
         setSoundType(SoundType.WOOD);

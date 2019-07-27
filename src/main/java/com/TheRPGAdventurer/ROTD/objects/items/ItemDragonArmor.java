@@ -12,7 +12,7 @@ public class ItemDragonArmor extends Item implements IHasModel {
 
     public ItemDragonArmor(String name) {
         this.name = name;
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.maxStackSize = 1;
         this.setRegistryName(DragonMounts.MODID, name);
         this.setCreativeTab(DragonMounts.armoryTab);

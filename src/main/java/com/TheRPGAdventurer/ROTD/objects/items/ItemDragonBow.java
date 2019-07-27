@@ -35,7 +35,7 @@ public class ItemDragonBow extends ItemBow implements IHasModel {
         this.repair = repair;
 
         setMaxDamage(725);
-        setUnlocalizedName("dragon_bow");
+        setTranslationKey("dragon_bow");
         setCreativeTab(DragonMounts.armoryTab);
         setRegistryName(new ResourceLocation(DragonMounts.MODID, "dragon_bow_" + type.toString().toLowerCase()));
 

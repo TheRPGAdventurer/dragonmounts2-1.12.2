@@ -140,7 +140,7 @@ public class DragonHeadPositionHelper {
     float renderYawOffset = dragon.renderYawOffset;
 
     Vec3d bodyOrigin = dragon.getPositionVector();
-    bodyOrigin = bodyOrigin.addVector(0, dragon.getEyeHeight(), 0);
+    bodyOrigin = bodyOrigin.add(0, dragon.getEyeHeight(), 0);
     float scale = dragon.getScale();
     final float ADULT_SCALE_FACTOR = dragon.getBreed().getAdultModelScaleFactor();
     final float BODY_X_SCALE = -ADULT_SCALE_FACTOR * scale;

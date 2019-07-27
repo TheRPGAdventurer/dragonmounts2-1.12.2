@@ -10,7 +10,6 @@
 package com.TheRPGAdventurer.ROTD.client.model.dragon;
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
-import net.ilexiconn.llibrary.client.model.tools.AdvancedModelBase;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -46,11 +45,11 @@ public class ModelPart extends ModelRenderer {
         this.base = base;
     }
 
-    public ModelPart(AdvancedModelBase base) {
+    public ModelPart(ModelBase base) {
         this(base, null);
     }
 
-    public ModelPart(AdvancedModelBase modelbase, int i, int j) {
+    public ModelPart(ModelBase modelbase, int i, int j) {
         super(modelbase, i, j);
         base = modelbase;
     }

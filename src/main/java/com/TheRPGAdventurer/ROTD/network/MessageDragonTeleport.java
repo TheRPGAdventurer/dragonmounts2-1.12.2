@@ -71,7 +71,7 @@ public class MessageDragonTeleport implements IMessage {
                 float f7 = f4 * f5;
                 float f8 = f3 * f5;
                 double d3 = 5.0D;
-                Vec3d vec31 = vec3d.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
+                Vec3d vec31 = vec3d.add((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
                 RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec31, true);
                 if (raytraceresult == null) {
                     player.sendStatusMessage(new TextComponentTranslation("item.whistle.nullBlockPos"), true);

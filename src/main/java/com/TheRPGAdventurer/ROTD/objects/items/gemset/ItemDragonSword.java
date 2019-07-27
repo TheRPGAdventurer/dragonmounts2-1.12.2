@@ -25,7 +25,7 @@ public class ItemDragonSword extends ItemSword {
 
     public ItemDragonSword(ToolMaterial material, String name, EnumItemBreedTypes type) {
         super(material);
-        this.setUnlocalizedName("dragon_sword");
+        this.setTranslationKey("dragon_sword");
         this.setRegistryName(new ResourceLocation(DragonMounts.MODID, name));
         this.setCreativeTab(DragonMounts.armoryTab);
         this.type = type;

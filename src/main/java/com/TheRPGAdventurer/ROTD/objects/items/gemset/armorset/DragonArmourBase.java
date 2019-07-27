@@ -31,7 +31,7 @@ public class DragonArmourBase extends ItemArmor implements IHasModel  {
 	public DragonArmourBase(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String unlocalizedName, EnumItemBreedTypes type) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		setCreativeTab(DragonMounts.armoryTab);
-		setUnlocalizedName("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
+		setTranslationKey("dragonscale_" + equipmentSlotIn.toString().toLowerCase());
 		setRegistryName(new ResourceLocation(DragonMounts.MODID, unlocalizedName));
 		this.type = type;
 		

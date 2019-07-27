@@ -20,7 +20,7 @@ public class BlockDragonNest extends Block implements IHasModel {
 
 	public BlockDragonNest(String name) {
 		super(Material.WOOD);
-		this.setUnlocalizedName(name);
+		this.setTranslationKey(name);
 		this.setRegistryName(name);
 		this.setResistance(1);
 		this.setHardness(1);

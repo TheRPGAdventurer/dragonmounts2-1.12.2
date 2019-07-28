@@ -263,7 +263,7 @@ public class GuiDragonDebug extends Gui {
             breederName = breeder.getName();
         }
         text.println("Breeder: " + breederName);
-        text.println("ReproTicks: " + reproduction.getReproTicks());
+        text.println("ReproTicks: " + reproduction.getReproCount());
         text.println("Saddled: " + dragon.isSaddled());
 
     }

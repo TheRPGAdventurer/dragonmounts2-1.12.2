@@ -95,6 +95,14 @@ public class ClientProxy extends ServerProxy {
                 t.GREEN + "AlexThe666" + r + "-" + t.AQUA + "for open source code, Ice and Fire owner, Older Matured and more experience than me\n\n" +
                 t.GREEN + "Majty/Guinea Owl" + r + "-" + t.AQUA + "for amulet textures\n" +
                 t.GREEN + "NightScale" + r + "-" + t.AQUA + "for new ideas and once funding a server for DM2\n" +
+                t.GREEN + "Unakitononeko" + r + "-" + t.AQUA + "for the new and improved forest textures\n" +
+                t.GREEN + "Crafty" + r + "-" + t.AQUA + "for the new and improved ice textures\n" +
+                t.GREEN + "Charles Xavier" + r + "-" + t.AQUA + "Moderator\n" +
+                t.GREEN + "qnebra" + r + "-" + t.AQUA + "Moderator\n" +
+                t.GREEN + "Jester" + r + "-" + t.AQUA + "Ex Marine over 23 years old when this version is released, gave me life advices on how to improve myself\n" +
+                t.GREEN + "WheezieFreeBreezie and Eden" + r + "-" + t.AQUA + "for being friends with me while playing on a modded server along with our faction Atlas\n" +
+                t.GREEN + "WalterTheMighty" + r + "-" + t.AQUA + "for giving me a modded erver experience\n" +
+                t.GREEN + "GandalfTheDank" + r + "-" + t.AQUA + "for making me realize on what happens to me if I'm being a terrible person\n" +
                 t.GREEN + "TGG/TheGreyGhost" + r + "-" + t.AQUA + "old dm1 dev and prototype breath\n";
         metadata.authorList = Arrays.asList(StringUtils.split(t.GOLD + "" + t.BOLD + "TheRpgAdventurer, BarracudaATA, WolfShotz", ','));
         metadata.description =

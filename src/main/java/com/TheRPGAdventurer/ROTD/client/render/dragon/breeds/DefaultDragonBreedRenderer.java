@@ -106,45 +106,37 @@ public class DefaultDragonBreedRenderer {
         chestTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/chest.png");
     }
 
-    @Override
     public List<LayerRenderer<EntityTameableDragon>> getLayers() {
         return Collections.unmodifiableList(layers);
     }
 
-    @Override
     public DragonRenderer getRenderer() {
         return renderer;
     }
 
-    @Override
     public DragonModel getModel() {
         return model;
     }
 
 
-    @Override
     public ResourceLocation getMaleForestBodyTexture(boolean hatchling, String type) {
         return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/bodym" + type + ".png");
     }
 
-    @Override
     public ResourceLocation getFemaleForestBodyTexture(boolean hatchling, String type) {
         return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/bodyfm" + type + ".png");
     }
 
-    @Override
     public ResourceLocation getMaleForestGlowTexture(boolean hatchling, String type) {
         return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/glowfm" + type + ".png");
 
     }
 
-    @Override
     public ResourceLocation getFemaleForestGlowTexture(boolean hatchling, String type) {
         return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/glowfm" + type + ".png");
 
     }
 
-    @Override
     public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hmaleBodyTexturealt : maleBodyTexturealt;
@@ -153,7 +145,6 @@ public class DefaultDragonBreedRenderer {
         }
     }
 
-    @Override
     public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hfemaleBodyTexturealt : femaleBodyTexturealt;
@@ -162,7 +153,6 @@ public class DefaultDragonBreedRenderer {
         }
     }
 
-    @Override
     public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hmaleGlowTexturealt : maleGlowTexturealt;
@@ -171,7 +161,6 @@ public class DefaultDragonBreedRenderer {
         }
     }
 
-    @Override
     public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hfemaleGlowTexturealt : femaleGlowTexturealt;
@@ -180,32 +169,26 @@ public class DefaultDragonBreedRenderer {
         }
     }
 
-    @Override
     public ResourceLocation getGlowAnimTexture() {
         return glowAnimTexture;
     }
 
-    @Override
     public ResourceLocation getSaddleTexture() {
         return saddleTexture;
     }
 
-    @Override
     public ResourceLocation getEggTexture() {
         return eggTexture;
     }
 
-    @Override
     public ResourceLocation getDissolveTexture() {
         return dissolveTexture;
     }
 
-    @Override
     public ResourceLocation getChestTexture() {
         return chestTexture;
     }
 
-    @Override
     public ResourceLocation getArmorTexture() {
         return null;
     }

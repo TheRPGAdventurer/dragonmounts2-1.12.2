@@ -94,7 +94,7 @@ public class ItemDragonAmuletNEW extends Item {
         EntityTameableDragon dragon = new EntityTameableDragon(world);
         dragon.readFromNBT(stack.getTagCompound());
 
-        if (dragon.isTamedFor(player)) {
+        if (dragon.isAllowed(player)) {
             BlockPos blockPos = pos.offset(facing);
             dragon.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
             stack.setTagCompound(null);

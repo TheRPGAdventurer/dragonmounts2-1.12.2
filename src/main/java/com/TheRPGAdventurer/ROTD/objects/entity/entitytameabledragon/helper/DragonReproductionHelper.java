@@ -27,25 +27,25 @@ import java.util.UUID;
 public class DragonReproductionHelper extends DragonHelper {
 
     public static final String NBT_BREEDER = "HatchedByUUID";
-    public static final String NBT_REPRO_TIME = "ReproTime";
+    public static final String NBT_REPRO_COUNT = "ReproductionCount";
     // old NBT keys
+    public static final String NBT_REPRODUCED = "HasReproduced";
     public static final String NBT_BREEDER_OLD = "HatchedBy";
-    // how long is this using ticks as timer dragon before going to breed
-    public static final int MAX_BREED_TIME = 10000;
+    public static final byte REPRO_LIMIT = 2;
     private static final Logger L = LogManager.getLogger();
-    private final DataParameter<Optional<UUID>> DATA_BREEDER;
-    private final DataParameter<Integer> DATA_REPRO_TIME;
+    private final DataParameter<Optional<UUID>> dataParamBreeder;
+    private final DataParameter<Integer> dataParamReproduced;
 
     public DragonReproductionHelper(EntityTameableDragon dragon,
-                                    DataParameter<Optional<UUID>> DATA_BREEDER,
-                                    DataParameter<Integer> DATA_REPRO_TIME) {
+                                    DataParameter<Optional<UUID>> dataParamBreeder,
+                                    DataParameter<Integer> dataIndexReproCount) {
         super(dragon);
 
-        this.DATA_BREEDER = DATA_BREEDER;
-        this.DATA_REPRO_TIME = DATA_REPRO_TIME;
+        this.dataParamBreeder = dataParamBreeder;
+        this.dataParamReproduced = dataIndexReproCount;
 
-        dataWatcher.register(DATA_BREEDER, Optional.absent());
-        dataWatcher.register(DATA_REPRO_TIME, 0);
+        dataWatcher.register(dataParamBreeder, Optional.absent());
+        dataWatcher.register(dataIndexReproCount, 0);
     }
 
     @Override
@@ -54,12 +54,20 @@ public class DragonReproductionHelper extends DragonHelper {
         if (breederID.isPresent()) {
             nbt.setUniqueId(NBT_BREEDER, breederID.get());
         }
-        nbt.setInteger(NBT_REPRO_TIME, getReproTicks());
+        nbt.setInteger(NBT_REPRO_COUNT, getReproCount());
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
-        this.setReproTicks(nbt.getInteger(NBT_REPRO_TIME));
+        int reproCount = 0;
+        if (nbt.hasKey(NBT_REPRO_COUNT)) {
+            reproCount = nbt.getInteger(NBT_REPRO_COUNT);
+        } else if (nbt.hasKey(NBT_REPRODUCED)) {
+            // convert old boolean value
+            if (nbt.getBoolean(NBT_REPRODUCED)) {
+                reproCount++;
+            }
+        }
 
         if (nbt.hasKey(NBT_BREEDER)) {
             setBreederID(nbt.getUniqueId(NBT_BREEDER));
@@ -71,41 +79,34 @@ public class DragonReproductionHelper extends DragonHelper {
             EntityPlayer breeder = dragon.world.getPlayerEntityByName(breederName);
             setBreeder(breeder);
         }
+
+        setReproCount(reproCount);
     }
 
-    public int getReproTicks() {
-        return dataWatcher.get(DATA_REPRO_TIME);
+    public int getReproCount() {
+        return dataWatcher.get(dataParamReproduced);
     }
 
-    public void setReproTicks(int reproTicks) {
-        L.trace("setReproTicks({})", reproTicks);
-        dataWatcher.set(DATA_REPRO_TIME, Math.min(MAX_BREED_TIME, reproTicks));
+    public void setReproCount(int reproCount) {
+        L.trace("setReproCount({})", reproCount);
+        dataWatcher.set(dataParamReproduced, reproCount);
     }
 
-    public void addBreedTimer() {
-        setReproTicks(getReproTicks() + MAX_BREED_TIME);
+    public void addReproduced() {
+        setReproCount(getReproCount() + 1);
     }
 
     public boolean canReproduce() {
-        return dragon.isTamed() && getReproTicks() == 0;
-    }
-
-    @Override
-    public void onLivingUpdate() {
-        if (getReproTicks() > 0) {
-            setReproTicks(getReproTicks() - 1);
-        } else if (getReproTicks() < 0) {
-            setReproTicks(0);
-        }
+        return dragon.isTamed() && getReproCount() < REPRO_LIMIT;
     }
 
     public Optional<UUID> getBreederID() {
-        return dataWatcher.get(DATA_BREEDER);
+        return dataWatcher.get(dataParamBreeder);
     }
 
     public void setBreederID(UUID breederID) {
         L.trace("setBreederUUID({})", breederID);
-        dataWatcher.set(DATA_BREEDER, Optional.fromNullable(breederID));
+        dataWatcher.set(dataParamBreeder, Optional.fromNullable(breederID));
     }
 
     public EntityPlayer getBreeder() {
@@ -137,7 +138,7 @@ public class DragonReproductionHelper extends DragonHelper {
             return true;
         } else if (!dragonMate.isTamed()) {
             return false;
-        } else {
+        } else  {
             return dragon.isInLove() && dragonMate.isInLove();
         }
     }
@@ -196,8 +197,8 @@ public class DragonReproductionHelper extends DragonHelper {
         baby.getBreedHelper().inheritBreed(parent1, parent2);
 
         // increase reproduction counter
-        parent1.getReproductionHelper().addBreedTimer();
-        parent2.getReproductionHelper().addBreedTimer();
+        parent1.getReproductionHelper().addReproduced();
+        parent2.getReproductionHelper().addReproduced();
 
         return baby;
     }

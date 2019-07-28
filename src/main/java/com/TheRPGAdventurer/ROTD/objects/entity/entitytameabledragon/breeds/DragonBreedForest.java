@@ -49,26 +49,21 @@ public class DragonBreedForest extends DragonBreed {
     public void onLivingUpdate(EntityTameableDragon dragon) {
         Biome biome = dragon.world.getBiome(dragon.getPosition());
 
-        boolean isForest = BiomeDictionary.hasType(biome, BiomeDictionary.Type.JUNGLE)
-                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.CONIFEROUS)
-                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.WET)
-                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.FOREST);
-
         boolean isSavanna = BiomeDictionary.hasType(biome, BiomeDictionary.Type.SAVANNA)
                 || BiomeDictionary.hasType(biome, BiomeDictionary.Type.DRY)
                 || BiomeDictionary.hasType(biome, BiomeDictionary.Type.MESA)
                 || BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
 
-        boolean isTaiga = BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD) && biome != Biomes.SKY;
+        boolean isTaiga = BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD)
+                || BiomeDictionary.hasType(biome, BiomeDictionary.Type.MOUNTAIN);
 
 
-        if (isForest) {
-            dragon.setForestType(EntityTameableDragon.EnumForestType.FOREST);
-        } else if (isSavanna) {
-            dragon.setForestType(EntityTameableDragon.EnumForestType.DRY);
+        if (isSavanna) {
+            dragon.setForestType(EntityTameableDragon.EnumForestType.DRY.getName());
         } else if (isTaiga) {
-            dragon.setForestType(EntityTameableDragon.EnumForestType.TAIGA);
-
+            dragon.setForestType(EntityTameableDragon.EnumForestType.TAIGA.getName());
+        } else {
+            dragon.setForestType(EntityTameableDragon.EnumForestType.FOREST.getName());
         }
     }
 }

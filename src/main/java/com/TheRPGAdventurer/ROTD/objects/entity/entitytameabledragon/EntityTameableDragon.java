@@ -129,7 +129,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private static final DataParameter<Optional<UUID>> DATA_BREEDER = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.OPTIONAL_UNIQUE_ID);
     private static final DataParameter<String> DATA_BREED = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
     private static final DataParameter<String> FOREST_TEXTURES = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.STRING);
-    private static final DataParameter<Integer> DATA_REPRO_TIME = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> DATA_REPRO_COUNT = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> DATA_TICKS_SINCE_CREATION = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> DRAGON_SCALES = EntityDataManager.createKey(EntityTameableDragon.class, DataSerializers.BYTE);
@@ -173,7 +173,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         // create entity delegates
         addHelper(new DragonBreedHelper(this, DATA_BREED));
         addHelper(new DragonLifeStageHelper(this, DATA_TICKS_SINCE_CREATION));
-        addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_TIME));
+        addHelper(new DragonReproductionHelper(this, DATA_BREEDER, DATA_REPRO_COUNT));
         addHelper(new DragonBreathHelper(this, DATA_BREATH_WEAPON_TARGET, DATA_BREATH_WEAPON_MODE));
         addHelper(new DragonHungerHelper(this));
         if (isServer()) addHelper(new DragonBrain(this));
@@ -572,13 +572,12 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
         dataManager.set(ALT_TEXTURE, alt);
     }
 
-    public EnumForestType getForestType() {
-        String forest = dataManager.get(FOREST_TEXTURES);
-        return  EnumUtils.getEnum(EnumForestType.class, forest.toUpperCase());
+    public String getForestType() {
+        return dataManager.get(FOREST_TEXTURES);
     }
 
-    public void setForestType(EnumForestType type) {
-        dataManager.set(FOREST_TEXTURES, type.getName());
+    public void setForestType(String forest) {
+        dataManager.set(FOREST_TEXTURES, forest);
     }
 
 
@@ -707,7 +706,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     private boolean isBlockSolid(double xcoord, double ycoord, double zcoord) {
         BlockPos pos = new BlockPos(xcoord, ycoord, zcoord);
         IBlockState state = world.getBlockState(pos);
-        return state.getMaterial().isSolid() || (this.getControllingPlayer() == null && (this.isInWater() || this.isInLava()));
+        return state.getMaterial().isSolid() || (this.getControllingPlayer() != null && state.getMaterial().isLiquid());
     }
 
     @Override
@@ -1754,35 +1753,10 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
     public void travel(float strafe, float forward, float vertical) {
         // disable method while flying, the movement is done entirely by
         // moveEntity() and this one just makes the dragon to fall slowly when
-        // moveEntity() and this one just makes the dragon to fall slowly when
-        // hovering
         if (!isFlying()) {
             super.travel(strafe, forward, vertical);
         }
 
-//        EntityPlayer rider = getControllingPlayer();
-//        if (rider != null) {
-//            float boost = boosting() ? 4 : 1;
-//            float flySpeed = (float) (getEntityAttribute(EntityTameableDragon.MOVEMENT_SPEED_AIR).getAttributeValue() * boost);
-//            if (isFlying()) {
-//                if (rider.moveForward > 0) {
-//                    rotationYaw = rider.rotationYaw;
-//                    prevRotationYaw = rider.prevRotationYaw;
-//                    motionX *= 1.2;
-//                    motionZ *= 1.2;
-//                    forward = rider.moveForward;
-//                    strafe = rider.moveStrafing;
-//                    super.travel(strafe, vertical = 0, forward);
-//                    this.setAIMoveSpeed(flySpeed);
-//                    return;
-//                }
-//            } else {
-//                if (entityIsJumping(rider)) liftOff();
-//                super.travel(strafe, vertical, forward);
-//            }
-//        }
-//
-//        super.travel(strafe, forward, vertical);
     }
 
     @Nullable
@@ -2300,7 +2274,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
 
             // Stop Growth
-            if (DMUtils.hasEquipped(player, getBreed().getShrinkingFood()) && !isGrowthPaused() && isTamedFor(player)) {
+            if (DMUtils.hasEquipped(player, getBreed().getShrinkingFood()) && !isGrowthPaused() && isAllowed(player)) {
                 setGrowthPaused(true);
                 eatEvent(stack.getItem());
                 playSound(SoundEvents.ENTITY_PLAYER_BURP, 1f, 0.8F);
@@ -2310,7 +2284,7 @@ public class EntityTameableDragon extends EntityTameable implements IShearable, 
             }
 
             // Continue growth
-            if (DMUtils.hasEquipped(player, getBreed().getGrowingFood()) && isGrowthPaused() && isTamedFor(player)) {
+            if (DMUtils.hasEquipped(player, getBreed().getGrowingFood()) && isGrowthPaused() && isAllowed(player)) {
                 setGrowthPaused(false);
                 eatEvent(stack.getItem());
                 playSound(SoundEvents.ENTITY_PLAYER_BURP, 1, 0.8F);

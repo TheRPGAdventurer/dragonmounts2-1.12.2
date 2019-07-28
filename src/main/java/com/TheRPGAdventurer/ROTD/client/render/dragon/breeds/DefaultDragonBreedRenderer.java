@@ -14,7 +14,6 @@ import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
-import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +25,7 @@ import java.util.List;
 /**
  * @author Nico Bergemann <barracuda415 at yahoo.de>
  */
-public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
+public class DefaultDragonBreedRenderer {
 
     protected final List<LayerRenderer<EntityTameableDragon>> layers = new ArrayList<>();
 
@@ -124,24 +123,24 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
 
 
     @Override
-    public ResourceLocation getMaleForestBodyTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
-        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "bodym" + type.getName().toLowerCase() + ".png");
+    public ResourceLocation getMaleForestBodyTexture(boolean hatchling, String type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/bodym" + type + ".png");
     }
 
     @Override
-    public ResourceLocation getFemaleForestBodyTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
-        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "bodyfm" + type.getName().toLowerCase() + ".png");
+    public ResourceLocation getFemaleForestBodyTexture(boolean hatchling, String type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/bodyfm" + type + ".png");
     }
 
     @Override
-    public ResourceLocation getMaleForestGlowTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
-        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "glowfm" + type.getName().toLowerCase() + ".png");
+    public ResourceLocation getMaleForestGlowTexture(boolean hatchling, String type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/glowfm" + type + ".png");
 
     }
 
     @Override
-    public ResourceLocation getFemaleForestGlowTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
-        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "glowfm" + type.getName().toLowerCase() + ".png");
+    public ResourceLocation getFemaleForestGlowTexture(boolean hatchling, String type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + type + "/glowfm" + type + ".png");
 
     }
 

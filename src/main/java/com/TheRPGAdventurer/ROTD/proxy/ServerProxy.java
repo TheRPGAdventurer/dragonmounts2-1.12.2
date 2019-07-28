@@ -64,12 +64,10 @@ public class ServerProxy {
         // I wont touch the network the old devs made, seems redundant yeah I know - rpg
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonBreath.MessageDragonBreathHandler.class, MessageDragonBreath.class, 0, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonExtras.MessageDragonExtrasHandler.class, MessageDragonExtras.class, 1, Side.SERVER);
-        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonFireSupport.MessageDragonFireSupportHandler.class, MessageDragonFireSupport.class, 2, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonGui.MessageDragonGuiHandler.class, MessageDragonGui.class, 3, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonInventory.MessageDragonInventoryHandler.class, MessageDragonInventory.class, 4, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonSit.MessageDragonSitHandler.class, MessageDragonSit.class, 5, Side.SERVER);
         DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonTeleport.MessageDragonTeleportHandler.class, MessageDragonTeleport.class, 6, Side.SERVER);
-        DragonMounts.NETWORK_WRAPPER.registerMessage(MessageDragonWhistle.MessageDragonWhistleHandler.class, MessageDragonWhistle.class, 7, Side.SERVER);
 
         StartupDebugCommon.initCommon();
     }

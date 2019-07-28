@@ -58,12 +58,12 @@ public class DragonMountsConfig {
 	public static int hungerDecrement  = 6000;
 
 	// chances
-	public static int FireNestRarity  = 50;
+	public static int FireNestRarity  = 150;
 //	public static int ZombieNestRarity1  = 180;
-	public static int TerraNestRarity  = 180;
-	public static int ForestNestRarity  = 180;
+	public static int TerraNestRarity  = 220;
+	public static int ForestNestRarity  = 220;
 	public static int SunlightNestRarity  = 60;
-	public static int OceanNestRarity  = 5000;
+	public static int OceanNestRarity  = 8000;
 	public static int EnchantNestRarity  = 300;
 	public static int JungleNestRarity  = 800;
 	public static int WaterNestRarity  = 180;

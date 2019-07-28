@@ -58,7 +58,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
         // get ground block
         landingPos = findLandingArea();
         // make sure the block below is solid
-        return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getBlock() == Blocks.WATER && dragon.nowhistlecommands();
+        return world.getBlockState(landingPos.down()).getMaterial().isSolid() || world.getBlockState(landingPos.down()).getMaterial().isLiquid();
 
 
     }
@@ -71,7 +71,7 @@ public class EntityAIDragonFlight extends EntityAIDragonBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath() && dragon.nowhistlecommands();
+        return dragon.isFlying() && dragon.getControllingPlayer() == null && !dragon.getNavigator().noPath();
     }
 
     @Override

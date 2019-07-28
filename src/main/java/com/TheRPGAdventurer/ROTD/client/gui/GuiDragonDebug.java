@@ -187,7 +187,7 @@ public class GuiDragonDebug extends Gui {
         text.println("ID: " + dragon.getEntityId());
         text.println("UUID: " + StringUtils.abbreviate(dragon.getUniqueID().toString(), 22));
         text.println("Name: " + dragon.getName());
-        
+
         // position
         String px = dfShort.format(dragon.posX);
         String py = dfShort.format(dragon.posY);
@@ -263,10 +263,9 @@ public class GuiDragonDebug extends Gui {
             breederName = breeder.getName();
         }
         text.println("Breeder: " + breederName);
-        text.println("Reproduced: " + reproduction.getReproCount());
+        text.println("ReproTicks: " + reproduction.getReproTicks());
         text.println("Saddled: " + dragon.isSaddled());
 
-        text.printf("Command:" + dragon.getWhistleState());
     }
     
     private void renderAttributes() {

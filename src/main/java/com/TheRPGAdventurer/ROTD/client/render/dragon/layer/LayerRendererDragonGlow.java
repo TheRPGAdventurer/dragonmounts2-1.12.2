@@ -21,8 +21,11 @@ public class LayerRendererDragonGlow extends LayerRendererDragon {
 
     @Override
     public void doRenderLayer(EntityTameableDragon dragon, float moveTime, float moveSpeed, float partialTicks, float ticksExisted, float lookYaw, float lookPitch, float scale) {
-        renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()) : breedRenderer.getFemaleGlowTexture(dragon.isBaby(), dragon.isAlbino(), dragon.altTextures()));
-
+        if(dragon.getBreedType()==EnumDragonBreed.FOREST) {
+            renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleForestGlowTexture(dragon.isBaby(), dragon.getForestType()) : breedRenderer.getFemaleForestGlowTexture(dragon.isBaby(), dragon.getForestType()));
+        } else {
+            renderer.bindTexture(dragon.isMale() ? breedRenderer.getMaleGlowTexture(dragon.isBaby(), dragon.altTextures()) : breedRenderer.getFemaleGlowTexture(dragon.isBaby(), dragon.altTextures()));
+        }
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL_ONE, GL_ONE);
         GlStateManager.color(1, 1, 1, 1);

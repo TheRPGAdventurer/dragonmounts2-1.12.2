@@ -13,6 +13,7 @@ import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
@@ -24,17 +25,27 @@ import java.util.List;
  */
 public interface DragonBreedRenderer {
 
-    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean albino, boolean alttexture);
+    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean alttexture);
     
-    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean albino, boolean alttexture);
+    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean alttexture);
+
+    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean alttexture);
+
+    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean alttexture);
+
+    public ResourceLocation getMaleForestBodyTexture(boolean hatchling, EntityTameableDragon.EnumForestType type);
+
+    public ResourceLocation getFemaleForestBodyTexture(boolean hatchling, EntityTameableDragon.EnumForestType type);
+
+    public ResourceLocation getMaleForestGlowTexture(boolean hatchling, EntityTameableDragon.EnumForestType type);
+
+    public ResourceLocation getFemaleForestGlowTexture(boolean hatchling, EntityTameableDragon.EnumForestType type);
 
     public ResourceLocation getDissolveTexture();
 
     public ResourceLocation getEggTexture();
 
-    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean albino, boolean alttexture);
-    
-    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean albino, boolean alttexture);
+
     
     public ResourceLocation getGlowAnimTexture();
 

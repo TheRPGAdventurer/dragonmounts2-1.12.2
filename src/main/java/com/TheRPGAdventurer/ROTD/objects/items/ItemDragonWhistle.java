@@ -62,27 +62,28 @@ public class ItemDragonWhistle extends Item implements IHasModel {
      * <p> Registers dragon id as well as cosmetic keys to the whistle
      */
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
-    if (target.world.isRemote) return false;
-        if (!(target instanceof EntityTameableDragon)) return false;
-        EntityTameableDragon dragon = (EntityTameableDragon) target;
-        if (dragon.isAllowed(player)) {
-            NBTTagCompound nbt = new NBTTagCompound();
-            nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
+    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
+        if (target.world.isRemote) return false;
+        if (target instanceof EntityTameableDragon) {
+            EntityTameableDragon dragon = (EntityTameableDragon) target;
+            if (dragon.isAllowed(player)) {
+                NBTTagCompound nbt = new NBTTagCompound();
+                nbt.setUniqueId(DragonMounts.MODID.toLowerCase() + "dragon", dragon.getUniqueID());
 
-            EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
-            nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
-            nbt.setString("Age", DMUtils.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
-            nbt.setString("OwnerName", dragon.getOwner().getName());
-            nbt.setInteger("Color", dragon.getBreed().getColor());
+                EnumItemBreedTypes type = EnumItemBreedTypes.valueOf(dragon.getBreedType().toString());
+                nbt.setString("Name", type.color + (dragon.hasCustomName() ? dragon.getCustomNameTag() : DMUtils.translateToLocal("dragon." + type.toString().toLowerCase()) + " Dragon"));
+                nbt.setString("Age", DMUtils.translateToLocal("dragon." + dragon.getLifeStageHelper().getLifeStage().toString().toLowerCase()));
+                nbt.setString("OwnerName", dragon.getOwner().getName());
+                nbt.setInteger("Color", dragon.getBreed().getColor());
 
-            stack.setTagCompound(nbt);
-            dragon.setControllingWhistle(stack);
-            player.sendStatusMessage(new TextComponentTranslation("whistle.msg.hasDragon"), true);
-            return true;
+                stack.setTagCompound(nbt);
+                dragon.setControllingWhistle(stack);
+                player.sendStatusMessage(new TextComponentTranslation("whistle.msg.hasDragon"), true);
+                return true;
+            }
         }
 
-       return super.itemInteractionForEntity(stack, player, target, hand);
+        return false;
     }
 
     /**

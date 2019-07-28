@@ -51,13 +51,14 @@ public class DragonBreedHelper extends DragonHelper {
     private static final String NBT_BREED = "Breed";
     private static final String NBT_BREED_POINTS = "breedPoints";
 
-    private final DataParameter<String> dataParam;
+    private final DataParameter<String> DATA_BREED;
     private final Map<EnumDragonBreed, AtomicInteger> breedPoints = new EnumMap<>(EnumDragonBreed.class);
 
-    public DragonBreedHelper(EntityTameableDragon dragon, DataParameter<String> dataParam) {
+    public DragonBreedHelper(EntityTameableDragon dragon,
+                             DataParameter<String> DATA_BREED) {
         super(dragon);
 
-        this.dataParam = dataParam;
+        this.DATA_BREED = DATA_BREED;
 
         if (dragon.isServer()) {
             // initialize map to avoid future checkings
@@ -69,7 +70,7 @@ public class DragonBreedHelper extends DragonHelper {
             breedPoints.get(EnumDragonBreed.FIRE).set(POINTS_INITIAL);
         }
 
-        dataWatcher.register(dataParam, EnumDragonBreed.END.getName());
+        dataWatcher.register(DATA_BREED, EnumDragonBreed.END.getName());
     }
 
     @Override
@@ -107,7 +108,7 @@ public class DragonBreedHelper extends DragonHelper {
     }
 
     public EnumDragonBreed getBreedType() {
-        String breedName = dataWatcher.get(dataParam);
+        String breedName = dataWatcher.get(DATA_BREED);
         return EnumUtils.getEnum(EnumDragonBreed.class, breedName.toUpperCase());
     }
 
@@ -138,7 +139,7 @@ public class DragonBreedHelper extends DragonHelper {
         dragon.setImmuneToFire(newBreed.isImmuneToDamage(DamageSource.IN_FIRE) || newBreed.isImmuneToDamage(DamageSource.ON_FIRE) || newBreed.isImmuneToDamage(DamageSource.LAVA));
 
         // update breed name
-        dataWatcher.set(dataParam, newType.getName());
+        dataWatcher.set(DATA_BREED, newType.getName());
 
         // reset breed points
         if (dragon.isEgg()) {
@@ -146,7 +147,6 @@ public class DragonBreedHelper extends DragonHelper {
             breedPoints.get(newType).set(POINTS_INITIAL);
         }
     }
-
 
 
     @Override

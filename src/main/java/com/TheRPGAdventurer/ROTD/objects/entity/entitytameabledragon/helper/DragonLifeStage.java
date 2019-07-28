@@ -11,7 +11,6 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.helper;
 
 import com.TheRPGAdventurer.ROTD.util.math.MathX;
 import net.minecraft.util.math.MathHelper;
-import scala.Int;
 
 import java.util.HashMap;
 import java.util.SortedMap;
@@ -27,8 +26,8 @@ public enum DragonLifeStage {
   //order, duration of stage in hours of minecraft time, scaleAtStartOfStage, scaleAtEndOfStage
   EGG         (0, 36, 0.25f, 0.25f),
   HATCHLING   (1, 48, 0.04f, 0.09f),
-  INFANT      (2, 16, 0.10f, 0.18f),
-  PREJUVENILE (3, 22, 0.19f, 0.60f),
+  INFANT      (2, 24, 0.10f, 0.18f),
+  PREJUVENILE (3, 32, 0.19f, 0.60f),
   JUVENILE    (4, 60, 0.61f, 0.99f),
   ADULT       (5,  0, 1.00f, 1.00f);        // scale of the final stage should be 1.00F to avoid breaking other code
 

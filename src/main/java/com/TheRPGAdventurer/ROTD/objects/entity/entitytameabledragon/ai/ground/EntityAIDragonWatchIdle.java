@@ -28,10 +28,6 @@ public class EntityAIDragonWatchIdle extends EntityAILookIdle {
 
     @Override
     public boolean shouldExecute() {
-        if(dragon.circle()) {
-            return false;
-        }
-
         if(dragon.getControllingPlayer()!=null) {
             return  false;
         }

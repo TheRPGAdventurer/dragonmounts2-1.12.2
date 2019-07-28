@@ -40,10 +40,11 @@ public class ItemDragonGender extends Item implements IHasModel
             EntityTameableDragon dragon = (EntityTameableDragon) target;
             if (dragon.isTamedFor(player)) { // needs the actual owner even if dragon is unlocked
                 dragon.setOppositeGender();
-                player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
                 dragon.world.playSound(null, player.getPosition(), ModSounds.DRAGON_SWITCH, SoundCategory.PLAYERS, 1, 1);
                 if (!player.isCreative()) stack.shrink(1);
                 return true;
+            } else {
+                player.sendStatusMessage(new TextComponentTranslation("dragon.notOwned"), true);
             }
         }
         return false;

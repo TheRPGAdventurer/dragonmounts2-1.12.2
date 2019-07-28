@@ -44,7 +44,7 @@ public class MessageDragonSit implements IMessage {
     public static class MessageDragonSitHandler implements IMessageHandler<MessageDragonSit, IMessage> {
         @Override
         public IMessage onMessage(MessageDragonSit message, MessageContext ctx) {
-            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
+            EntityPlayer player = ctx.getServerHandler().player;
             MinecraftServer server = player.getServer();
             //        player.world.playSound(null, player.getPosition(), ModSounds.DRAGON_WHISTLE, SoundCategory.PLAYERS, 1, 1);
             if (!player.world.isRemote) {
@@ -53,7 +53,6 @@ public class MessageDragonSit implements IMessage {
                     EntityTameableDragon dragon = (EntityTameableDragon) entity;
                     dragon.getAISit().setSitting(!dragon.isSitting());
                     dragon.getNavigator().clearPath();
-                    dragon.setnowhistlecommands(true);
                 } else player.sendStatusMessage(new TextComponentTranslation("whistle.msg.fail"), true);
             }
             return null;

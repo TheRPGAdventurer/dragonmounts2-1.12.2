@@ -50,7 +50,7 @@ public class DragonViewEvent {
                 double rayHitVecDist = raytraceresult.hitVec.distanceTo(start);
 
                 if (rayHitVecDist < thirdPersonDist) {
-                    int offset = 4;
+                    int offset = 3;
                     thirdPersonDist = rayHitVecDist - offset;
                 }
             }

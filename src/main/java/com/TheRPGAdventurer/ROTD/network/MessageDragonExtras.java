@@ -60,7 +60,7 @@ public class MessageDragonExtras implements IMessage {
 
         @Override
         public IMessage onMessage(MessageDragonExtras message, MessageContext ctx) {
-            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
+            EntityPlayer player = ctx.getServerHandler().player;
             Entity entity = player.world.getEntityByID(message.dragonId);
             if (entity instanceof EntityTameableDragon) {
                 EntityTameableDragon dragon = (EntityTameableDragon) entity;

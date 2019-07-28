@@ -11,7 +11,6 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.ground;
 
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.ai.EntityAIDragonBase;
-
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -58,14 +57,15 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
     @Override
     public boolean shouldExecute() {
         Entity ownerCurrent = dragon.getOwner();
+
         if (ownerCurrent == null) return false;
-        if (ownerCurrent instanceof EntityPlayer)
+        if (ownerCurrent instanceof EntityPlayer) {
             if (((EntityPlayer) ownerCurrent).isSpectator()) return false;
+        }
         if (dragon.isSitting()) return false;
-        if (dragon.getDistance(ownerCurrent) < minDist && dragon.isAdult()) return false;
         owner = ownerCurrent;
 
-        return dragon.nowhistlecommands();
+        return dragon.getDistance(ownerCurrent) > minDist && dragon.isOldEnoughToBreathe();
     }
 
     /**
@@ -76,8 +76,7 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
 
         if (nav.noPath()) return false;
         if (dragon.isSitting()) return false;
-        if (dragon.getDistance(owner) < minDist) return false;
-        return dragon.nowhistlecommands();
+        return dragon.getDistance(owner) < minDist;
     }
 
     /**
@@ -129,13 +128,13 @@ public class EntityAIDragonFollowOwner extends EntityAIDragonBase {
         // update every 10 ticks only from here
         if (--updateTicks > 0) return;
         updateTicks = 10;
-        
+
         // move only but don't teleport if leashed
         if (dragon.getLeashed()) return;
 
         // finish task if it can move to the owner
         if (nav.tryMoveToEntityLiving(owner, speed)) return;
-        
+
         if (!this.dragon.isSitting()) {
             if (--this.timeToRecalcPath <= 0) {
                 this.timeToRecalcPath = 10;

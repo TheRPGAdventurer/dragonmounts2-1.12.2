@@ -18,7 +18,6 @@ import com.TheRPGAdventurer.ROTD.inits.ModTools;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.ArmoryTab;
 import com.TheRPGAdventurer.ROTD.inventory.tabs.CreativeTab;
 import com.TheRPGAdventurer.ROTD.proxy.ServerProxy;
-import com.TheRPGAdventurer.ROTD.util.MiscPlayerProperties;
 import com.TheRPGAdventurer.ROTD.util.debugging.testclasses.LoggerLimit;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.DamageSource;

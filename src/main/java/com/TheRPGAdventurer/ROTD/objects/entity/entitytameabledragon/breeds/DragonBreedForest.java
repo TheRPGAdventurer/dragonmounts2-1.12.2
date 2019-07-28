@@ -59,14 +59,16 @@ public class DragonBreedForest extends DragonBreed {
                 || BiomeDictionary.hasType(biome, BiomeDictionary.Type.MESA)
                 || BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
 
-        if (!dragon.isAlbino()) {
-            if (isForest || !isSavanna) {
-                dragon.setaltTextures(false); // use green texture
-            } else if (isSavanna || !isForest) {
-                dragon.setaltTextures(true); // use brown texture
-            } else {
-                dragon.setaltTextures(false); // use green texture if none of the above}
-            }
+        boolean isTaiga = BiomeDictionary.hasType(biome, BiomeDictionary.Type.COLD) && biome != Biomes.SKY;
+
+
+        if (isForest) {
+            dragon.setForestType(EntityTameableDragon.EnumForestType.FOREST);
+        } else if (isSavanna) {
+            dragon.setForestType(EntityTameableDragon.EnumForestType.DRY);
+        } else if (isTaiga) {
+            dragon.setForestType(EntityTameableDragon.EnumForestType.TAIGA);
+
         }
     }
 }

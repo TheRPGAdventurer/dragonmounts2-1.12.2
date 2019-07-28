@@ -52,9 +52,6 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             return false;
         }
 
-        if (!dragon.nowhistlecommands()) {
-            return false;
-        }
 
         if (!dragon.isSaddled()) {
             return false;
@@ -90,7 +87,7 @@ public class EntityAIDragonCatchOwner extends EntityAIDragonBase {
             if (dragon.getDistance(owner) <= dragon.width || dragon.getDistance(owner) <= dragon.height && !owner.isSneaking() && dragon.isFlying()) {
                 owner.startRiding(dragon);
             } else {
-                if (dragon.nowhistlecommands()) dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
+                dragon.getNavigator().tryMoveToEntityLiving(owner, 1);
             }
         }
     }

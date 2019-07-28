@@ -14,6 +14,7 @@ import com.TheRPGAdventurer.ROTD.client.model.dragon.DragonModel;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.DragonRenderer;
 import com.TheRPGAdventurer.ROTD.client.render.dragon.layer.*;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
+import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.DragonBreed;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds.EnumDragonBreed;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -36,10 +37,6 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     private final ResourceLocation maleGlowTexture;
     private final ResourceLocation hmaleBodyTexture;
     private final ResourceLocation hmaleGlowTexture;
-    private final ResourceLocation aMaleBodyTexture;
-    private final ResourceLocation aMaleGlowTexture;
-    private final ResourceLocation a_hMaleBodyTexture;
-    private final ResourceLocation a_hMaleGlowTexture;
 
     private final ResourceLocation maleBodyTexturealt;
     private final ResourceLocation maleGlowTexturealt;
@@ -50,10 +47,6 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
     private final ResourceLocation femaleGlowTexture;
     private final ResourceLocation hfemaleBodyTexture;
     private final ResourceLocation hfemaleGlowTexture;
-    private final ResourceLocation aFemaleBodyTexture;
-    private final ResourceLocation aFemaleGlowTexture;
-    private final ResourceLocation a_hFemaleBodyTexture;
-    private final ResourceLocation a_hFemaleGlowTexture;
 
     private final ResourceLocation femaleBodyTexturealt;
     private final ResourceLocation femaleGlowTexturealt;
@@ -82,34 +75,31 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
 
         // textures
         String skin = breed.getBreed().getSkin();
+        // male
         maleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodym.png");
         maleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowm.png");
         hmaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hbodym.png");
         hmaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hglowm.png");
-        aMaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/abodym.png");
-        aMaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/aglowm.png");
-        a_hMaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hbodym.png");
-        a_hMaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hglowm.png");
 
+        // female
+        femaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodyfm.png");
+        femaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowfm.png");
+        hfemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hbodyfm.png");
+        hfemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hglowfm.png");
+
+        // male alt
         maleBodyTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/bodymalt.png");
         maleGlowTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/glowmalt.png");
         hmaleBodyTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/hbodymalt.png");
         hmaleGlowTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/hglowmalt.png");
 
-        femaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/bodyfm.png");
-        femaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glowfm.png");
-        hfemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hbodyfm.png");
-        hfemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/hglowfm.png");
-        aFemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/abodyfm.png");
-        aFemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/aglowfm.png");
-        a_hFemaleBodyTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hbodyfm.png");
-        a_hFemaleGlowTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/a_hglowfm.png");
-
+        // female alt
         femaleBodyTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/bodyfmalt.png");
         femaleGlowTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/glowfmalt.png");
         hfemaleBodyTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/hbodyfmalt.png");
         hfemaleGlowTexturealt = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/alt/hglowfmalt.png");
 
+        // mic
         glowAnimTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/glow_anim.png");
         saddleTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/saddle.png");
         eggTexture = new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + skin + "/egg.png");
@@ -132,39 +122,62 @@ public class DefaultDragonBreedRenderer implements DragonBreedRenderer {
         return model;
     }
 
+
     @Override
-    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean albino, boolean alt) {
+    public ResourceLocation getMaleForestBodyTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "bodym" + type.getName().toLowerCase() + ".png");
+    }
+
+    @Override
+    public ResourceLocation getFemaleForestBodyTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "bodyfm" + type.getName().toLowerCase() + ".png");
+    }
+
+    @Override
+    public ResourceLocation getMaleForestGlowTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "glowfm" + type.getName().toLowerCase() + ".png");
+
+    }
+
+    @Override
+    public ResourceLocation getFemaleForestGlowTexture(boolean hatchling, EntityTameableDragon.EnumForestType type) {
+        return new ResourceLocation(DragonMounts.MODID, DragonRenderer.TEX_BASE + "forest/" + "glowfm" + type.getName().toLowerCase() + ".png");
+
+    }
+
+    @Override
+    public ResourceLocation getMaleBodyTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hmaleBodyTexturealt : maleBodyTexturealt;
         } else {
-            return hatchling ? (albino ? a_hMaleBodyTexture : hmaleBodyTexture) : albino ? aMaleBodyTexture : maleBodyTexture;
+            return hatchling ? hmaleBodyTexture : maleBodyTexture;
         }
     }
 
     @Override
-    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean albino, boolean alt) {
+    public ResourceLocation getFemaleBodyTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hfemaleBodyTexturealt : femaleBodyTexturealt;
         } else {
-            return hatchling ? (albino ? a_hFemaleBodyTexture : hfemaleBodyTexture) : albino ? aFemaleBodyTexture : femaleBodyTexture;
+            return hatchling ? hfemaleBodyTexture : femaleBodyTexture;
         }
     }
 
     @Override
-    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean albino, boolean alt) {
+    public ResourceLocation getMaleGlowTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hmaleGlowTexturealt : maleGlowTexturealt;
         } else {
-            return hatchling ? (albino ? a_hMaleGlowTexture : hmaleGlowTexture) : albino ? aMaleGlowTexture : maleGlowTexture;
+            return hatchling ? hmaleGlowTexture : maleGlowTexture;
         }
     }
 
     @Override
-    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean albino, boolean alt) {
+    public ResourceLocation getFemaleGlowTexture(boolean hatchling, boolean alt) {
         if (alt) {
             return hatchling ? hfemaleGlowTexturealt : femaleGlowTexturealt;
         } else {
-            return hatchling ? (albino ? a_hFemaleGlowTexture : hfemaleGlowTexture) : albino ? aFemaleGlowTexture : femaleGlowTexture;
+            return hatchling ? hfemaleGlowTexture : femaleGlowTexture;
         }
     }
 

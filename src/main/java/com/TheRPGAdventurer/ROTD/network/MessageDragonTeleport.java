@@ -1,5 +1,6 @@
 package com.TheRPGAdventurer.ROTD.network;
 
+import com.TheRPGAdventurer.ROTD.inits.ModSounds;
 import com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.EntityTameableDragon;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -48,12 +49,12 @@ public class MessageDragonTeleport implements IMessage {
 
         @Override
         public IMessage onMessage(MessageDragonTeleport message, MessageContext ctx) {
-            EntityPlayer player = (ctx.side.isClient() ? Minecraft.getMinecraft().player : ctx.getServerHandler().player);
+            EntityPlayer player = ctx.getServerHandler().player;
             MinecraftServer server = player.getServer();
             World world = player.world;
             if (world.isRemote) return null;
             Entity entity = server.getEntityFromUuid(message.dragonId);
-            if (entity != null && entity instanceof EntityTameableDragon) {
+            if (entity != null && entity instanceof EntityTameableDragon && world.isBlockLoaded(player.getPosition())) {
                 EntityTameableDragon dragon = (EntityTameableDragon) entity;
 
                 //Get Blockpos by raytracing from player for dragon teleport
@@ -80,8 +81,8 @@ public class MessageDragonTeleport implements IMessage {
                 if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
                     BlockPos rayresult = raytraceresult.getBlockPos();
                     dragon.setPosition(rayresult.getX(), rayresult.getY() + 1, rayresult.getZ());
-                    world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.NEUTRAL, 1, 1);
-                    dragon.setnowhistlecommands(true);
+                    world.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSounds.DRAGON_WHISTLE, SoundCategory.NEUTRAL, 1, 1);
+
                 }
             }
             return null;

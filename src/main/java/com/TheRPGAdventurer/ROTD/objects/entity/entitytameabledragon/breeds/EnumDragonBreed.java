@@ -3,7 +3,6 @@ package com.TheRPGAdventurer.ROTD.objects.entity.entitytameabledragon.breeds;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.item.EnumAction;
 import net.minecraft.util.IStringSerializable;
 
 import java.util.Arrays;
@@ -31,7 +30,6 @@ public enum EnumDragonBreed implements IStringSerializable {
 //	LIGHT(15, DragonBreedLight::new);
 //	DARK(16, DragonBreedDark::new);
 //	SPECTER(17, DragonBreedSpecter::new);
-
 
     // create static bimap between enums and meta data for faster and easier
     // lookups
